@@ -1,0 +1,16 @@
+%p#notice= notice
+%p
+  %b User:
+  = @job.user_id
+%p
+  %b Name:
+  = @job.name
+%p
+  %b Status:
+  = @job.status
+%p
+  %b Payload:
+  = @job.payload
+= link_to 'Edit', edit_job_path(@job)
+|
+\#{link_to 'Back', jobs_path}
