@@ -1,5 +1,5 @@
 # MySQL.  Versions 4.1 and 5.0 are recommended.
-# 
+#
 # Install the MYSQL driver
 #   gem install mysql2
 #
@@ -35,8 +35,8 @@ production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: Contact_production
+  database: contact
   pool: 5
-  username: root
-  password:
+  username: contact
+  password: "2LCuNQ2nAq"
   host: localhost

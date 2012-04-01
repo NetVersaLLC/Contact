@@ -12,3 +12,7 @@ end
 gem 'jquery-rails'
 gem 'devise'
 gem 'haml'
+gem 'rvm-capistrano'
+group :production do
+  gem 'thin'
+end
