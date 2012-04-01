@@ -16,4 +16,5 @@ gem 'capistrano'
 gem 'rvm-capistrano'
 group :production do
   gem 'thin'
+  gem 'eventmachine'
 end

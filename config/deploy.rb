@@ -1,8 +1,8 @@
 require "bundler/capistrano"
 
-set :ssh_options, {
-  :keys => "C:\\msysgit\\.ssh\\id_rsa"
-}
+#set :ssh_options, {
+#  :keys => "C:\\msysgit\\.ssh\\id_rsa"
+#}
 set :application, "Contact"
 set :repository,  "git@github.com:jjeffus/Contact.git"
 set :scm, :git
