@@ -14,17 +14,17 @@ server "cite.netversa.com", :app, :web, :db, :primary => true
 namespace :deploy do
   desc "Start the Thin processes"
   task :start do
-    sudo "bundle exec thin start -C /etc/thin/contact.yml"
+    sudo "service thin start"
   end
 
   desc "Stop the Thin processes"
   task :stop do
-    sudo "bundle exec thin stop -C /etc/thin/contact.yml"
+    sudo "service thin stop"
   end
 
   desc "Restart the Thin processes"
   task :restart do
-    sudo "bundle exec thin restart -C /etc/thin/contact.yml"
+    sudo "service thin restart"
   end
 end
 
