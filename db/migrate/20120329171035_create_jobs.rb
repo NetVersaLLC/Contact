@@ -4,6 +4,7 @@ class CreateJobs < ActiveRecord::Migration
       t.integer :user_id
       t.string :name
       t.integer :status
+      t.boolean :wait
       t.text :payload
 
       t.timestamps

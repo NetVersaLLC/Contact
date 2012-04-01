@@ -14,6 +14,4 @@ gem 'devise'
 gem 'haml'
 gem 'capistrano'
 gem 'rvm-capistrano'
-group :production do
-  gem 'thin'
-end
+gem 'zip'
