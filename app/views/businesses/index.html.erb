@@ -1,0 +1,47 @@
+<h1>Listing businesses</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Name</th>
+    <th>Contact</th>
+    <th>Phone</th>
+    <th>Alternate phone</th>
+    <th>Fax</th>
+    <th>Address</th>
+    <th>Address2</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Zip</th>
+    <th>Website</th>
+    <th>Email</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @businesses.each do |business| %>
+  <tr>
+    <td><%= business.user_id %></td>
+    <td><%= business.name %></td>
+    <td><%= business.contact %></td>
+    <td><%= business.phone %></td>
+    <td><%= business.alternate_phone %></td>
+    <td><%= business.fax %></td>
+    <td><%= business.address %></td>
+    <td><%= business.address2 %></td>
+    <td><%= business.city %></td>
+    <td><%= business.state %></td>
+    <td><%= business.zip %></td>
+    <td><%= business.website %></td>
+    <td><%= business.email %></td>
+    <td><%= link_to 'Show', business %></td>
+    <td><%= link_to 'Edit', edit_business_path(business) %></td>
+    <td><%= link_to 'Destroy', business, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Business', new_business_path %>

@@ -3,8 +3,13 @@ class JobsController < ApplicationController
 
   def index
     @job = Job.where(:user_id => current_user.id, :status => 'new')
-    if @job.count == 0 or @job.wait == true
+    if @job.count == 0
       @job = {:status => 'wait'}
+    else
+      @job = @job.first
+      if @job.wait == true
+        @job = {:status => 'wait'}
+      end
     end
 
     respond_to do |format|

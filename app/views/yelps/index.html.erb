@@ -1,0 +1,27 @@
+<h1>Listing yelps</h1>
+
+<table>
+  <tr>
+    <th>Business</th>
+    <th>Cat</th>
+    <th>Subcat</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @yelps.each do |yelp| %>
+  <tr>
+    <td><%= yelp.business_id %></td>
+    <td><%= yelp.cat %></td>
+    <td><%= yelp.subcat %></td>
+    <td><%= link_to 'Show', yelp %></td>
+    <td><%= link_to 'Edit', edit_yelp_path(yelp) %></td>
+    <td><%= link_to 'Destroy', yelp, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Yelp', new_yelp_path %>

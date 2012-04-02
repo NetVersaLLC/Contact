@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Business:</b>
+  <%= @yelp.business_id %>
+</p>
+
+<p>
+  <b>Cat:</b>
+  <%= @yelp.cat %>
+</p>
+
+<p>
+  <b>Subcat:</b>
+  <%= @yelp.subcat %>
+</p>
+
+
+<%= link_to 'Edit', edit_yelp_path(@yelp) %> |
+<%= link_to 'Back', yelps_path %>

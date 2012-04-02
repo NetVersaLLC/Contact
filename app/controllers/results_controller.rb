@@ -1,15 +1,15 @@
 class ResultsController < ApplicationController
-
-  def create
-    @result = Result.new(params[:result])
-
+  before_filter :authenticate_user!
+  def update
+    @job = Job.where(:id => params[:id])
+    if @job.count == 0
+      @job = Job.new
+    end
     respond_to do |format|
-      if @result.save
-        format.html { redirect_to @result, notice: 'Result was successfully created.' }
-        format.json { render json: @result, status: :created, location: @result }
+      if @job.save_results(params, current_user)
+        format.json { render json: {:status => 'ok'} }
       else
-        format.html { render action: "new" }
-        format.json { render json: @result.errors, status: :unprocessable_entity }
+        format.json { render json: {:status => 'error'} }
       end
     end
   end
