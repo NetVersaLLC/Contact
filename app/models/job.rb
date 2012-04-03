@@ -6,4 +6,7 @@ class Job < ActiveRecord::Base
 
     return true
   end
+
+  belongs_to :user
+  acts_as_list :scope => :user
 end

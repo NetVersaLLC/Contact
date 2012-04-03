@@ -9,4 +9,24 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :authentication_token
 
   before_save :ensure_authentication_token
+  after_create :create_business, :copy_rookies
+
+  def create_business
+    Business.create do |b|
+      b.user_id = self.id
+      b.email   = self.email
+    end
+  end
+  def copy_rookies
+    Rookie.order(:position).each do |rookie|
+      Job.create(
+        :user_id => self.id,
+        :payload => rookie.payload,
+        :name    => rookie.name,
+        :status  => 'new'
+      )
+    end
+  end
+
+  has_many :jobs, :order => "position"
 end

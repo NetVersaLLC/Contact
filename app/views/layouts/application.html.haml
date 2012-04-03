@@ -20,11 +20,13 @@
     = csrf_meta_tags
   %body
     .container
-      %ul{:class => "nav-bar"}
-        %li{}
-          = link_to "Log out", destroy_user_session_path, :method => :delete, :class => "main"
-        %li{}
-          = link_to "My Account", "#", :class => "main"
+      - if user_signed_in?
+        %ul{:class => "nav-bar"}
+          %li{}
+            = link_to "Log out", destroy_user_session_path, :method => :delete, :class => "main"
+          %li{}
+            = link_to "My Account", "#", :class => "main"
       = yield
-      %small
-        Copyright &copy; 2012 Netversa
+    %br
+    %small
+      Copyright &copy; 2012 Netversa

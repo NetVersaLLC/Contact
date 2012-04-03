@@ -10,5 +10,7 @@
  *
  *= require_self
  *= require foundation
- *= require_tree .
+ *= require home
+ *= require results
+ *= require tasks
 */

@@ -14,6 +14,8 @@ class CreateBusinesses < ActiveRecord::Migration
       t.string :zip
       t.string :website
       t.string :email
+      t.integer :yelp_category_id
+      t.boolean :approved
 
       t.timestamps
     end

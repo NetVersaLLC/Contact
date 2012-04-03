@@ -23,12 +23,12 @@ namespace :yelp do
       c.each do |sub|
         subtitle = sub['t']
         d = sub['c']
-        sub = cat.children.create(:name => title)
+        sub = cat.children.create(:name => subtitle)
         puts "\t#{subtitle}: #{d.length}"
         d.each do |subsub|
           subsubtitle = subsub['t']
           e = subsub['c']
-          bot = sub.children.create(:name => title)
+          bot = sub.children.create(:name => subsubtitle)
           e = [] unless e
           puts "YES" and exit if e.length > 0
           puts "\t\t#{subsubtitle}: #{e.length}"

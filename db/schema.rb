@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120402213242) do
+ActiveRecord::Schema.define(:version => 20120403055554) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -60,8 +60,14 @@ ActiveRecord::Schema.define(:version => 20120402213242) do
     t.string   "zip"
     t.string   "website"
     t.string   "email"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.integer  "yelp_category_id"
+    t.boolean  "approved"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.string   "mail_host"
+    t.integer  "mail_port"
+    t.string   "mail_username"
+    t.string   "mail_password"
   end
 
   add_index "businesses", ["email"], :name => "index_businesses_on_email"
@@ -82,7 +88,9 @@ ActiveRecord::Schema.define(:version => 20120402213242) do
     t.integer  "user_id"
     t.string   "name"
     t.integer  "status"
+    t.boolean  "wait"
     t.text     "payload"
+    t.integer  "position"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
@@ -101,6 +109,14 @@ ActiveRecord::Schema.define(:version => 20120402213242) do
 
   add_index "results", ["job_id"], :name => "index_results_on_job_id"
   add_index "results", ["status"], :name => "index_results_on_status"
+
+  create_table "rookies", :force => true do |t|
+    t.integer  "position"
+    t.string   "name"
+    t.text     "payload"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "tasks", :force => true do |t|
     t.integer  "user_id"

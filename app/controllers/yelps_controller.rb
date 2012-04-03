@@ -1,83 +1,53 @@
 class YelpsController < ApplicationController
-  # GET /yelps
-  # GET /yelps.json
-  def index
-    @yelps = Yelp.all
+  before_filter :authenticate_user!
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @yelps }
+  def check_email
+    business = Business.find_by_user_id(current_user.id)
+    sleep 10
+    Mail.defaults do
+      retriever_method :imap, { :address => business.mail_host,
+                                :port => business.mail_port,
+                                :user_name => business.mail_username,
+                                :password => business.mail_password,
+                                :enable_ssl => true }
     end
-  end
+    Mail.all.each do |mail|
+      if mail.subject =~ /Verify Your Email Address/
+        if mail.body =~ /(https:\/\/biz.yelp.com\/signup\/confirm\/\S+)/
+          link = $1
+          Job.create do |j|
+            j.user_id = current_user.id
+            j.status = 0
+            j.payload = <<RUBY
+class Yelp
+    include HTTParty
+    format :json
+    base_uri "http://cite.netversa.com"
+    # debug_output
 
-  # GET /yelps/1
-  # GET /yelps/1.json
-  def show
-    @yelp = Yelp.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @yelp }
+    def self.notify_of_verify(key)
+        get("/yelps/verified.json?auth_token=\#{key}")
     end
-  end
+end
 
-  # GET /yelps/new
-  # GET /yelps/new.json
-  def new
-    @yelp = Yelp.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @yelp }
-    end
-  end
-
-  # GET /yelps/1/edit
-  def edit
-    @yelp = Yelp.find(params[:id])
-  end
-
-  # POST /yelps
-  # POST /yelps.json
-  def create
-    @yelp = Yelp.new(params[:yelp])
-
-    respond_to do |format|
-      if @yelp.save
-        format.html { redirect_to @yelp, notice: 'Yelp was successfully created.' }
-        format.json { render json: @yelp, status: :created, location: @yelp }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @yelp.errors, status: :unprocessable_entity }
+browser = Watir::Browser.start("#{link}")
+Watir::Wait::until do
+  browser.text.include? "Your Business Has Been Added To Yelp"
+end
+if browser.text.include? "Your Business Is Almost On Yelp"
+  Yelp.notify_of_verify(key)
+else
+  puts "Wasnt added"
+end
+RUBY
+            j.wait = false
+          end
+        end
       end
     end
-  end
-
-  # PUT /yelps/1
-  # PUT /yelps/1.json
-  def update
-    @yelp = Yelp.find(params[:id])
 
     respond_to do |format|
-      if @yelp.update_attributes(params[:yelp])
-        format.html { redirect_to @yelp, notice: 'Yelp was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @yelp.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /yelps/1
-  # DELETE /yelps/1.json
-  def destroy
-    @yelp = Yelp.find(params[:id])
-    @yelp.destroy
-
-    respond_to do |format|
-      format.html { redirect_to yelps_url }
-      format.json { head :no_content }
+      format.json { render json: {:status => :wait} }
     end
   end
 end

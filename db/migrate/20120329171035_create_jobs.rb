@@ -6,6 +6,7 @@ class CreateJobs < ActiveRecord::Migration
       t.integer :status
       t.boolean :wait
       t.text :payload
+      t.integer :position
 
       t.timestamps
     end
