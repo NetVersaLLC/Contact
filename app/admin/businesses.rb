@@ -11,7 +11,9 @@ ActiveAdmin.register Business do
   form do |f|
     f.inputs "Business Details" do
       f.input :name, :label => 'Business Name'
-      f.input :contact, :label => 'Company Contact'
+      f.input :first_name
+      f.input :middle_initial
+      f.input :last_name
       f.input :phone
       f.input :alternate_phone
       f.input :fax

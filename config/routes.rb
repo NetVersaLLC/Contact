@@ -1,5 +1,7 @@
 Contact::Application.routes.draw do
 
+  resources :map_quests
+
   ActiveAdmin.routes(self)
 
   devise_for :admin_users, ActiveAdmin::Devise.config

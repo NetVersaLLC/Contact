@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120403055554) do
+ActiveRecord::Schema.define(:version => 20120409054421) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -62,12 +62,21 @@ ActiveRecord::Schema.define(:version => 20120403055554) do
     t.string   "email"
     t.integer  "yelp_category_id"
     t.boolean  "approved"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
     t.string   "mail_host"
     t.integer  "mail_port"
     t.string   "mail_username"
     t.string   "mail_password"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "middle_initial"
+    t.text     "short_description"
+    t.text     "long_description"
+    t.string   "hours"
+    t.string   "payment_methods"
+    t.string   "descriptive_keyword"
+    t.string   "keywords"
   end
 
   add_index "businesses", ["email"], :name => "index_businesses_on_email"
@@ -97,6 +106,15 @@ ActiveRecord::Schema.define(:version => 20120403055554) do
 
   add_index "jobs", ["status"], :name => "index_jobs_on_status"
   add_index "jobs", ["user_id"], :name => "index_jobs_on_user_id"
+
+  create_table "map_quests", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "status"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "map_quests", ["business_id"], :name => "index_map_quests_on_business_id"
 
   create_table "results", :force => true do |t|
     t.integer  "job_id"

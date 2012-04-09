@@ -3,6 +3,7 @@ class BusinessesController < ApplicationController
 
   def index
     @business = Business.find_by_user_id(current_user.id)
+
   end
 
   # GET /businesses/1/edit
