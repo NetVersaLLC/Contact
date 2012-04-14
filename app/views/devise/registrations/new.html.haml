@@ -1,17 +1,14 @@
-%h2 Sign up
-= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'nice'} ) do |f|
   = devise_error_messages!
-  %div
+  %fieldset
+    %h5 Sign up
     = f.label :email
-    %br/
-    = f.email_field :email
-  %div
+    = f.email_field :email, :class => 'input-text'
     = f.label :password
-    %br/
-    = f.password_field :password
-  %div
+    = f.password_field :password, :class => 'input-text'
     = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation
-  %div= f.submit "Sign up"
+    = f.password_field :password_confirmation, :class => 'input-text'
+    = f.submit "Sign up", :class => "nice small radius blue button"
+    %br
+
 = render "links"

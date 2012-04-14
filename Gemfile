@@ -12,6 +12,7 @@ end
 gem 'jquery-rails'
 gem 'devise'
 gem 'haml'
+gem 'haml-rails'
 gem 'capistrano'
 gem 'rvm-capistrano'
 gem 'zip'

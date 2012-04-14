@@ -12,21 +12,29 @@
     / <meta http-equiv="X-UA-Compatible" content="IE=7" />
     / Set the viewport width to device width for mobile
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
-    %title= content_for?(:title) ? yield(:title) : "Untitled"
+    %title= content_for?(:title) ? yield(:title) : "NetVersa Citation"
     / Included CSS Files
     = stylesheet_link_tag    "application"
     / Included JS Files
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    .container
-      - if user_signed_in?
-        %ul{:class => "nav-bar"}
-          %li{}
-            = link_to "Log out", destroy_user_session_path, :method => :delete, :class => "main"
-          %li{}
-            = link_to "My Account", "#", :class => "main"
-      = yield
     %br
-    %small
-      Copyright &copy; 2012 Netversa
+    .container
+      .row
+        .two.columns
+          = image_tag '/assets/logo.png'
+      .row
+        .twelve.columns
+          - if user_signed_in?
+            %ul{:class => "nav-bar"}
+              %li{}
+                = link_to "Log out", destroy_user_session_path, :method => :delete, :class => "main"
+              %li{}
+                = link_to "My Account", "#", :class => "main"
+          = yield
+          %br
+      .row
+        .five.columns.centered 
+          %small
+            Copyright &copy; 2012 Netversa
