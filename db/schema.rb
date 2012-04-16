@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120409143717) do
+ActiveRecord::Schema.define(:version => 20120416045626) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -112,6 +112,8 @@ ActiveRecord::Schema.define(:version => 20120409143717) do
     t.string   "status"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.text     "secrets"
+    t.integer  "user_id"
   end
 
   add_index "map_quests", ["business_id"], :name => "index_map_quests_on_business_id"

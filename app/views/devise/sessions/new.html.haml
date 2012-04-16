@@ -1,7 +1,7 @@
 .row
   .four.columns
     = form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'nice'} ) do |f|
-      .panel
+      .panel{:style => 'padding-bottom: 20px'}
         %h5 Sign in
         = f.label :email
         = f.email_field :email, :class => 'input-text'
@@ -12,5 +12,7 @@
             = f.check_box :remember_me
             Remember Me
         = f.submit "Sign in", :class => "nice small radius blue button"
-
+  .eight.columns
+    .panel.hide-on-phones{:style => 'padding-bottom: 20px'}
+      = render :partial => "pages/about"
 = render "links"
