@@ -1,9 +1,11 @@
-= form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post, :class => 'nice' }) do |f|
-  = devise_error_messages!
-  %fieldset
-    %h5 Resend unlock instructions
-    = f.label :email
-    = f.email_field :email, :class => 'input-text'
-    = f.submit "Resend unlock instructions", :class => "nice small radius blue button"
+.row
+  .four.columns
+    = form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post, :class => 'nice' }) do |f|
+      .panel{:style => 'padding-bottom: 20px'}
+        = devise_error_messages!
+        %h5 Resend unlock instructions
+        = f.label :email
+        = f.email_field :email, :class => 'input-text'
+        = f.submit "Resend unlock instructions", :class => "nice small radius blue button"
 
 = render "links"
