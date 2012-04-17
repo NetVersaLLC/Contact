@@ -15,7 +15,7 @@ class YelpCategory < ActiveRecord::Base
     self.to_list.join(" > ")
   end
   def self.build_list(arr,node)
-    if node.children.count > 0
+    if node.children and node.children.count > 0
       node.children.each do |child|
         self.build_list(arr, child)
       end

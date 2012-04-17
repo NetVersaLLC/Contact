@@ -14,5 +14,6 @@ Contact::Application.routes.draw do
   devise_for :users
 
   get '/downloads', :controller => :downloads, :action => :download
+  get '/welcome',   :controller => :pages,     :action => :index
   root :to => 'pages#index'
 end

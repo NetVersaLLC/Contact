@@ -11,7 +11,9 @@ class Business < ActiveRecord::Base
 
   after_update :update_contact
   def update_contact
-    contact = make_contact
-    save
+    if self.contact == nil
+      contact = make_contact
+      save
+    end
   end
 end

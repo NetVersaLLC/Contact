@@ -1,3 +1,17 @@
 %h3 Dashboard
 
+.panel
+  %form{:class => 'nice'}
+    = text_field_tag :q, '', :placeholder => 'Send business update.', :class => 'large text-input'
+    %a{:class => "green radius nice button", :href => "#" } Update
 
+.row
+  .twelve.columns
+    .panel
+      = image_tag '/assets/facebook.svg'
+      %h2 Last updated #{Time.now.utc.to_s.split(" ")[0]}
+.row
+  .twelve.columns
+    .panel
+      = image_tag '/assets/mapquest.svg'
+      %h2 Last updated #{Time.now.utc.to_s.split(" ")[0]}

@@ -22,7 +22,7 @@
     %br
     .container
       .row
-        .two.columns
+        .four.columns
           = image_tag '/assets/logo.png'
       .row
         .twelve.columns
@@ -34,7 +34,7 @@
               %li{}
                 = link_to "Log out", destroy_user_session_path, :method => :delete, :class => "main"
               %li{}
-                = link_to "My Account", "#", :class => "main"
+                = link_to "My Account", "/users/edit", :class => "main"
           = yield
           %br
       .row
