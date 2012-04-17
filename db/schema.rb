@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120416045626) do
+ActiveRecord::Schema.define(:version => 20120417024825) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -77,6 +77,8 @@ ActiveRecord::Schema.define(:version => 20120416045626) do
     t.string   "payment_methods"
     t.string   "descriptive_keyword"
     t.string   "keywords"
+    t.string   "yelp_email"
+    t.string   "yelp_password"
   end
 
   add_index "businesses", ["email"], :name => "index_businesses_on_email"

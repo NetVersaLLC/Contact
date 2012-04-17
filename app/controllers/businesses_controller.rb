@@ -18,10 +18,12 @@ class BusinessesController < ApplicationController
 
     respond_to do |format|
       if @business.update_attributes(params[:business])
-        format.html { redirect_to '/home', notice: 'Business was successfully updated.' }
+        logger.info "TCEIRDEEEEEER"
+        format.html { redirect_to '/welcome', notice: 'Business was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        logger.info "REEEEEDRIECT"
+        format.html { redirect_to edit_business_path(@Business) }
         format.json { render json: @business.errors, status: :unprocessable_entity }
       end
     end
