@@ -4,6 +4,7 @@ class DeviseCreateAdminUsers < ActiveRecord::Migration
       ## Database authenticatable
       t.string :email,              :null => false, :default => ""
       t.string :encrypted_password, :null => false, :default => ""
+      t.string :role,               :default => 'editor'
 
       ## Recoverable
       t.string   :reset_password_token
@@ -41,7 +42,7 @@ class DeviseCreateAdminUsers < ActiveRecord::Migration
     end
 
     # Create a default user
-    AdminUser.create!(:email => 'admin@example.com', :password => 'password', :password_confirmation => 'password')
+    AdminUser.create!(:email => 'admin@netversa.com', :password => '1zqa2xws', :password_confirmation => '1zqa2xws')
 
     add_index :admin_users, :email,                :unique => true
     add_index :admin_users, :reset_password_token, :unique => true

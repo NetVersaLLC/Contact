@@ -1,4 +1,6 @@
 ActiveAdmin.register Business do
+  form :partial => 'form'
+
   index do
     column :name
     column :website do |v|
@@ -8,36 +10,13 @@ ActiveAdmin.register Business do
     default_actions
   end
 
-  form do |f|
-    f.inputs "Business Details" do
-      f.input :name, :label => 'Business Name'
-      f.input :first_name
-      f.input :middle_initial
-      f.input :last_name
-      f.input :phone
-      f.input :alternate_phone
-      f.input :fax
-      f.input :address
-      f.input :address2
-      f.input :city
-      f.input :state
-      f.input :zip
-      f.input :website
-      f.input :email
-    end
-    f.inputs "Mail" do
-      f.input :mail_host
-      f.input :mail_port
-      f.input :mail_username
-      f.input :mail_password
-    end
-    f.inputs "Yelp" do
-      f.input :yelp_category_id, :as => :select, :collection => YelpCategory.list
-    end
-    f.inputs "Approve" do
-      f.input :approved
-    end
-    f.buttons
+  controller do
+    def show
+      @business = Business.find(params[:id])
+      show! do |format|
+        format.html { redirect_to edit_admin_business_path(@business), :notice => 'Updated business' }
+      end
+    end 
   end
 
 end

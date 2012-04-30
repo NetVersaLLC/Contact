@@ -9,7 +9,7 @@ set :scm, :git
 set :user, 'deploy'
 set :deploy_to, '/home/deploy/public_html'
 set :keep_releases, 5
-server "cite.netversa.com", :app, :web, :db, :primary => true
+server "franklin.netversa.com", :app, :web, :db, :primary => true
 
 namespace :deploy do
   desc "Start the Thin processes"

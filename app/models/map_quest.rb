@@ -1,3 +1,4 @@
-class MapQuest < ActiveRecord::Base
-  serialize :secrets, CerebusClient.new
+class MapQuest < ClientData
+  attr_accessible       :email
+  virtual_attr_accessor :password
 end
