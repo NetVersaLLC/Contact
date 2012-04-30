@@ -7,5 +7,6 @@ class CreateYelpCategories < ActiveRecord::Migration
       t.timestamps
     end
     add_index :yelp_categories, :parent_id
+    Rake::Task['yelp:load_categories'].invoke
   end
 end

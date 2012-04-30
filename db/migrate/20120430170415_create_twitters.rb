@@ -1,14 +1,13 @@
-class CreateMapQuests < ActiveRecord::Migration
+class CreateTwitters < ActiveRecord::Migration
   def change
-    create_table :map_quests do |t|
+    create_table :twitters do |t|
       t.integer  :business_id
-      t.string   :email
+      t.string   :username
       t.text     :secrets
       t.string   :status
       t.datetime :force_update
 
       t.timestamps
     end
-    add_index :map_quests, :business_id
   end
 end

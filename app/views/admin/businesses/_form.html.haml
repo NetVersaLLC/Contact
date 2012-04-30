@@ -1,0 +1,55 @@
+= semantic_nested_form_for [:admin, @business] do |f|
+  = f.inputs "Business Details" do
+    = f.input :name, :label => 'Business Name'
+    = f.input :first_name
+    = f.input :middle_name
+    = f.input :last_name
+    = f.input :phone
+    = f.input :alternate_phone
+    = f.input :fax
+    = f.input :address
+    = f.input :address2
+    = f.input :city
+    = f.input :state
+    = f.input :zip
+    = f.input :website
+    = f.input :email
+  = f.inputs "Mail" do
+    = f.input :mail_host
+    = f.input :mail_port
+    = f.input :mail_username
+    = f.input :mail_password
+  = f.fields_for :yelps do |y|
+    = y.inputs "Yelp Account" do
+      = y.input :yelp_category_id, :as => :select, :collection => YelpCategory.list
+      = y.input :email
+      = y.input :password, :as => :string
+      = y.input :force_update, :as => :hidden
+      = y.link_to_remove "Remove Yelp Account"
+  - unless @business.yelps.count > 0
+    = f.link_to_add "Add Yelp Account", :yelps
+  = f.fields_for :map_quests do |y|
+    = y.inputs "MapQuest Account" do
+      = y.input :email
+      = y.input :password, :as => :string
+      = y.input :force_update, :as => :hidden
+      = y.link_to_remove "Remove MapQuest Account"
+  - unless @business.map_quests.count > 0
+    = f.link_to_add "Add MapQuest Account", :map_quests
+  = f.fields_for :twitters do |y|
+    = y.inputs "Twitter Account" do
+      = y.input :username
+      = y.input :password, :as => :string
+      = y.input :force_update, :as => :hidden
+      = y.link_to_remove "Remove Twitter Account"
+  - unless @business.twitters.count > 0
+    = f.link_to_add "Add Twitter Account", :twitters
+  = f.fields_for :facebooks do |y|
+    = y.inputs "Facebook Account" do
+      = y.input :email
+      = y.input :password, :as => :string
+      = y.input :force_update, :as => :hidden
+      = y.link_to_remove "Remove Facebook Account"
+  - unless @business.facebooks.count > 0
+    = f.link_to_add "Add Facebooks Account", :facebooks
+  = f.actions
