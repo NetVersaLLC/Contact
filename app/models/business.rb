@@ -12,4 +12,16 @@ class Business < ActiveRecord::Base
     [first_name, middle_name, last_name].join(" ").gsub(/\s+/, ' ')
   end
 
+  validates :email,
+            :presence => true,
+            :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
+  validates :phone,
+            :presence => false,
+            :format => { :with => /^\d{10}$/ }
+  validates :alternate_phone,
+            :presence => false,
+            :format => { :with => /^\d{10}$/ }
+  validates :fax,
+            :presence => false,
+            :format => { :with => /^\d{10}$/ }
 end
