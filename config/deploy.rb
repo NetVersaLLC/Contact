@@ -20,17 +20,17 @@ set :use_sudo   , false
 namespace :deploy do
   desc "Start the Thin processes"
   task :start do
-    sudo "service thin start"
+    sudo "service contact start"
   end
 
   desc "Stop the Thin processes"
   task :stop do
-    sudo "service thin stop"
+    sudo "service contact stop"
   end
 
   desc "Restart the Thin processes"
   task :restart do
-    sudo "service thin restart"
+    sudo "service contact restart"
   end
 end
 
