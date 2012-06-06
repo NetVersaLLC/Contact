@@ -1,11 +1,10 @@
-.row
-  .four.columns
-    = form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post, :class => 'nice' }) do |f|
-      .panel{:style => 'padding-bottom: 20px'}
-        = devise_error_messages!
-        %h5 Resend unlock instructions
-        = f.label :email
-        = f.email_field :email, :class => 'input-text'
-        = f.submit "Resend unlock instructions", :class => "nice small radius blue button"
+%h2 Resend unlock instructions
 
-= render "links"
+= semantic_form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f|
+  = f.semantic_errors
+  = f.inputs do
+    = f.input :email, hint:"Enter your email address"
+  = f.buttons do
+    = f.commit_button :button_html => {:class => "primary", :value => "Resend unlock instructions"}
+
+= render :partial => "devise/shared/links"

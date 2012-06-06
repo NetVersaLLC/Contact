@@ -1,10 +1,10 @@
-= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post, :class => 'nice' }) do |f|
-  = devise_error_messages!
-  %fieldset
-    %h5 Forgot your password?
-    = f.label :email
-    = f.email_field :email, :class => 'input-text'
-    = f.submit "Send me reset password instructions", :class => "nice small radius blue button"
-    %br
+%h2 Forgot your password?
 
-= render "links"
+= semantic_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+  = f.semantic_errors
+  = f.inputs do
+    = f.input :email, hint:"Enter your email address"
+  = f.buttons do
+    = f.commit_button :button_html => {:class => "primary", :value => "Send me reset password instructions"}
+
+= render :partial => "devise/shared/links"

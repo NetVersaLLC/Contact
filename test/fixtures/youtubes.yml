@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  business_id: 1
+  email: MyString
+  secrets: MyText
+  status: MyString
+  force_update: 2012-05-31 16:20:58
+
+two:
+  business_id: 1
+  email: MyString
+  secrets: MyText
+  status: MyString
+  force_update: 2012-05-31 16:20:58

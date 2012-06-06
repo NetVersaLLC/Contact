@@ -1,17 +1,54 @@
 class CreateJobs < ActiveRecord::Migration
   def change
     create_table :jobs do |t|
-      t.integer :user_id
-      t.string :name
-      t.integer :status
-      t.boolean :wait
-      t.text :payload
-      t.integer :position
+      t.integer  :user_id
+      t.string   :name
+      t.string   :model
+      t.integer  :status
+      t.string   :status_message
+      t.text     :payload
+      t.text     :returned
+      t.boolean  :wait
+      t.datetime :waited_at
+      t.integer  :position
 
       t.timestamps
     end
     add_index :jobs, :user_id
     add_index :jobs, :status
-    add_column :users, :authentication_token, :string
+
+    create_table :completed_jobs do |t|
+      t.integer  :user_id
+      t.string   :name
+      t.string   :model
+      t.integer  :status
+      t.string   :status_message
+      t.text     :payload
+      t.text     :returned
+      t.boolean  :wait
+      t.datetime :waited_at
+      t.integer  :position
+
+      t.timestamps
+    end
+    add_index :completed_jobs, :user_id
+    add_index :completed_jobs, :status
+
+    create_table :failed_jobs do |t|
+      t.integer  :user_id
+      t.string   :name
+      t.string   :model
+      t.integer  :status
+      t.string   :status_message
+      t.text     :payload
+      t.text     :returned
+      t.boolean  :wait
+      t.datetime :waited_at
+      t.integer  :position
+
+      t.timestamps
+    end
+    add_index :failed_jobs, :user_id
+    add_index :failed_jobs, :status
   end
 end
