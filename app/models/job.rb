@@ -1,6 +1,8 @@
 class Job < ActiveRecord::Base
   belongs_to :user
 
+  attr_accessible :payload, :model, :status, :wait
+
   validates :status,
     :presence => true,
     :format => { :with => /^\d+$/ }
