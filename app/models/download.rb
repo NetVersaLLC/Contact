@@ -30,8 +30,13 @@ class Download < ActiveRecord::Base
       f.write self.key
     end
     STDERR.puts "Adding #{full_dir}/key.txt to #{file}..."
-    STDERR.puts "cd #{tmp}; zip -0 \"#{file}\" \"#{dir}/key.txt\""
-    system "cd #{tmp}; zip -0 \"#{file}\" \"#{dir}/key.txt\""
+    File.open(tmp.join("add.bat"), 'w') do |f|
+      f.write "cd #{tmp}\r\nzip -0 \"#{file}\" \"#{dir}/key.txt\""
+    end
+    STDERR.puts "Writing: cd #{tmp}\r\nzip -0 \"#{file}\" \"#{dir}/key.txt\""
+    STDERR.puts "To: #{tmp.join('add.bat')}"
+    STDERR.puts "Running script.."
+    system tmp.join('add.bat').to_s
     self.name = file
     file
   end

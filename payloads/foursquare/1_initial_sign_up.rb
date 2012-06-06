@@ -2,7 +2,7 @@ browser = Watir::Browser.start("https://foursquare.com/search?q=saigon&near=colu
 browser.text_field(:id, "q").set business['name']
 browser.text_field(:id, "near").set business['city']+', '+business['state']
 browser.a(:class, "p.translate > input.greenButton.translate").click
-browser.a(:text, "Saigon Bistro").click
+browser.a(:text, business['name']).click
 browser.a(:text, "Claim here").click
 browser.a(:text, "Sign up for foursquare").click
 browser.a(:text, "Sign up with Email").click

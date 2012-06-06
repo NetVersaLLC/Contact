@@ -246,9 +246,10 @@ ActiveRecord::Schema.define(:version => 20120606141914) do
     t.string   "email"
     t.text     "secrets"
     t.string   "status"
+    t.boolean  "facebook_signin"
     t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   add_index "foursquares", ["business_id"], :name => "index_foursquares_on_business_id"
