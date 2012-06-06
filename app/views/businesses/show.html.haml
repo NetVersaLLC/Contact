@@ -1,7 +1,12 @@
 %p#notice= notice
 
-%h3 Reviewing your information.
-%p Please look over the data below, edit if necessary to correct issues.
+%h3 Data updated
+
+:javascript
+  function gotoHome() {
+    window.location.href = window.location.protocol + '//' + window.location.host + '/'
+  }
+  setTimeout(gotoHome, 1000);
 
 = link_to 'Home', '/', :class => 'btn btn-info'
 = link_to 'Edit', edit_business_path(@business), :class => 'btn btn-primary'
@@ -135,7 +140,7 @@
   %table.table.table-bordered
     %thead
       %tr
-        %th{:colspan => 2} Company Description 
+        %th{:colspan => 2} Company Description
     %tbody
       %tr
         %td Business Description
@@ -152,7 +157,7 @@
       %tr
         %td Specialties
         %td
-          = link_to @business.specialies, '#', :title => 'Specialties'  
+          = link_to @business.specialies, '#', :title => 'Specialties'
       %tr
         %td Professional Associations
         %td
@@ -181,7 +186,7 @@
   %table.table.table-bordered
     %thead
       %tr
-        %th{:colspan => 2} Web Presence 
+        %th{:colspan => 2} Web Presence
     %tbody
       %tr
         %td Company Website

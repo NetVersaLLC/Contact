@@ -1,5 +1,10 @@
-%h3 Dashboard
 
+%a.btn.btn-warning.btn-large{:href => '/downloads'} Download Client Software
+
+%br/
+%br/
+
+%h3 Dashboard
 .panel
   %form{:class => 'nice'}
     = text_field_tag :q, '', :placeholder => 'Send business update.', :class => 'large text-input'
@@ -15,3 +20,8 @@
     .panel
       = image_tag '/assets/mapquest.svg'
       %h2 Last updated #{Time.now.utc.to_s.split(" ")[0]}
+
+%br/
+%br/
+
+%a.btn.btn-info{:href => edit_business_path(current_user.business)} Edit Business Details
