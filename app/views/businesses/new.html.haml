@@ -1,0 +1,10 @@
+%br
+.alert.alert-block
+  %a.close{'data-dismiss' => 'alert', :href => '#'} x
+  %h4{ :class => "alert-heading" } Business Information
+  %p Please fill out all of the fields below as completely as possible.
+  %p The more complete your entries, the better we'll be able to do our work and get your business ranked highly for local searches.
+
+= render 'form'
+%br
+= link_to 'Back', businesses_path, :class => 'btn btn-info'

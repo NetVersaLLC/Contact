@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120430170415) do
+ActiveRecord::Schema.define(:version => 20120606141914) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -47,40 +47,160 @@ ActiveRecord::Schema.define(:version => 20120430170415) do
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
 
-  create_table "businesses", :force => true do |t|
-    t.string   "name"
-    t.integer  "user_id"
+  create_table "angies_lists", :force => true do |t|
+    t.integer  "business_id"
     t.string   "email"
-    t.string   "first_name"
-    t.string   "middle_name"
-    t.string   "last_name"
-    t.string   "contact"
-    t.string   "toll_free_phone"
-    t.string   "phone"
+    t.text     "secrets"
+    t.string   "status"
+    t.datetime "force_update"
+    t.string   "listing_url"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "angies_lists", ["business_id"], :name => "index_angies_lists_on_business_id"
+
+  create_table "bings", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "local_url"
+    t.string   "email"
+    t.text     "secrets"
+    t.string   "status"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "bings", ["business_id"], :name => "index_bings_on_business_id"
+
+  create_table "brands", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "name"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "brands", ["business_id"], :name => "index_brands_on_business_id"
+
+  create_table "businesses", :force => true do |t|
+    t.string   "business_name"
+    t.string   "corporate_name"
+    t.string   "duns_number"
+    t.string   "sic_code"
+    t.string   "contact_gender"
+    t.string   "contact_prefix"
+    t.string   "contact_first_name"
+    t.string   "contact_middle_name"
+    t.string   "contact_last_name"
+    t.string   "company_email"
+    t.string   "local_phone"
     t.string   "alternate_phone"
-    t.string   "fax"
+    t.string   "toll_free_phone"
+    t.string   "mobile_phone"
+    t.boolean  "mobile_appears"
+    t.string   "fax_number"
     t.string   "address"
     t.string   "address2"
     t.string   "city"
     t.string   "state"
     t.string   "zip"
-    t.string   "website"
-    t.text     "short_description"
-    t.text     "long_description"
-    t.string   "hours"
-    t.string   "descriptive_keyword"
-    t.string   "keywords"
-    t.boolean  "approved"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.text     "languages"
+    t.boolean  "open_24_hours"
+    t.boolean  "open_by_appointment"
+    t.boolean  "monday_enabled"
+    t.boolean  "tuesday_enabled"
+    t.boolean  "wednesday_enabled"
+    t.boolean  "thursday_enabled"
+    t.boolean  "friday_enabled"
+    t.boolean  "saturday_enabled"
+    t.boolean  "sunday_enabled"
+    t.string   "monday_open"
+    t.string   "monday_close"
+    t.string   "tuesday_open"
+    t.string   "tuesday_close"
+    t.string   "wednesday_open"
+    t.string   "wednesday_close"
+    t.string   "thursday_open"
+    t.string   "thursday_close"
+    t.string   "friday_open"
+    t.string   "friday_close"
+    t.string   "saturday_open"
+    t.string   "saturday_close"
+    t.string   "sunday_open"
+    t.string   "sunday_close"
+    t.boolean  "accepts_cash"
+    t.boolean  "accepts_checks"
+    t.boolean  "accepts_mastercard"
+    t.boolean  "accepts_visa"
+    t.boolean  "accepts_discover"
+    t.boolean  "accepts_diners"
+    t.boolean  "accepts_amex"
+    t.boolean  "accepts_paypal"
+    t.boolean  "accepts_bitcoin"
+    t.text     "business_description"
+    t.string   "services_offered"
+    t.string   "specialies"
+    t.string   "professional_associations"
+    t.string   "geographic_areas"
+    t.string   "year_founded"
+    t.string   "company_website"
+    t.string   "incentive_offers"
+    t.string   "links_to_photos"
+    t.string   "links_to_videos"
+    t.string   "fan_page_url"
+    t.text     "other_social_links"
+    t.text     "positive_review_links"
+    t.string   "keyword1"
+    t.string   "keyword2"
+    t.string   "keyword3"
+    t.string   "keyword4"
+    t.string   "keyword5"
+    t.text     "competitors"
+    t.string   "most_like"
+    t.string   "industry_leaders"
     t.string   "mail_host"
     t.integer  "mail_port"
     t.string   "mail_username"
-    t.string   "mail_password"
+    t.text     "mail_password"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
   end
 
-  add_index "businesses", ["email"], :name => "index_businesses_on_email"
-  add_index "businesses", ["user_id"], :name => "index_businesses_on_user_id"
+  create_table "citysearches", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.string   "listing_url"
+    t.boolean  "facebook_signin"
+    t.text     "secrets"
+    t.string   "status"
+    t.datetime "force_update"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "citysearches", ["business_id"], :name => "index_citysearches_on_business_id"
+
+  create_table "completed_jobs", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "model"
+    t.integer  "status"
+    t.string   "status_message"
+    t.text     "payload"
+    t.text     "returned"
+    t.boolean  "wait"
+    t.datetime "waited_at"
+    t.integer  "position"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "completed_jobs", ["status"], :name => "index_completed_jobs_on_status"
+  add_index "completed_jobs", ["user_id"], :name => "index_completed_jobs_on_user_id"
 
   create_table "downloads", :force => true do |t|
     t.integer  "user_id"
@@ -103,19 +223,133 @@ ActiveRecord::Schema.define(:version => 20120430170415) do
     t.datetime "updated_at",   :null => false
   end
 
+  create_table "failed_jobs", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.string   "model"
+    t.integer  "status"
+    t.string   "status_message"
+    t.text     "payload"
+    t.text     "returned"
+    t.boolean  "wait"
+    t.datetime "waited_at"
+    t.integer  "position"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "failed_jobs", ["status"], :name => "index_failed_jobs_on_status"
+  add_index "failed_jobs", ["user_id"], :name => "index_failed_jobs_on_user_id"
+
+  create_table "foursquares", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.string   "status"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "foursquares", ["business_id"], :name => "index_foursquares_on_business_id"
+
+  create_table "googles", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.string   "youtube_channel"
+    t.string   "places_url"
+    t.text     "secrets"
+    t.string   "status"
+    t.datetime "force_update"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "googles", ["business_id"], :name => "index_googles_on_business_id"
+
+  create_table "hotfrogs", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.string   "status"
+    t.datetime "force_update"
+    t.string   "listing_url"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "hotfrogs", ["business_id"], :name => "index_hotfrogs_on_business_id"
+
+  create_table "insider_pages", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.string   "listing_url"
+    t.boolean  "facebook_signin"
+    t.string   "status"
+    t.datetime "force_update"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
+
   create_table "jobs", :force => true do |t|
     t.integer  "user_id"
     t.string   "name"
+    t.string   "model"
     t.integer  "status"
-    t.boolean  "wait"
+    t.string   "status_message"
     t.text     "payload"
+    t.text     "returned"
+    t.boolean  "wait"
+    t.datetime "waited_at"
     t.integer  "position"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   add_index "jobs", ["status"], :name => "index_jobs_on_status"
   add_index "jobs", ["user_id"], :name => "index_jobs_on_user_id"
+
+  create_table "judys_books", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.string   "status"
+    t.boolean  "facebook_signin"
+    t.datetime "force_update"
+    t.string   "listing_url"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "judys_books", ["business_id"], :name => "index_judys_books_on_business_id"
+
+  create_table "kudzus", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "username"
+    t.text     "secrets"
+    t.string   "listing_url"
+    t.string   "status"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "kudzus", ["business_id"], :name => "index_kudzus_on_business_id"
+
+  create_table "linkedins", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.string   "status"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "linkedins", ["business_id"], :name => "index_linkedins_on_business_id"
 
   create_table "map_quests", :force => true do |t|
     t.integer  "business_id"
@@ -128,6 +362,15 @@ ActiveRecord::Schema.define(:version => 20120430170415) do
   end
 
   add_index "map_quests", ["business_id"], :name => "index_map_quests_on_business_id"
+
+  create_table "products", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "name"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "products", ["business_id"], :name => "index_products_on_business_id"
 
   create_table "results", :force => true do |t|
     t.integer  "job_id"
@@ -172,6 +415,7 @@ ActiveRecord::Schema.define(:version => 20120430170415) do
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
     t.string   "encrypted_password",     :default => "", :null => false
+    t.integer  "business_id"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -180,11 +424,12 @@ ActiveRecord::Schema.define(:version => 20120430170415) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "authentication_token"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
-    t.string   "authentication_token"
   end
 
+  add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 

@@ -1,0 +1,262 @@
+%p#notice= notice
+
+%h3 Reviewing your information.
+%p Please look over the data below, edit if necessary to correct issues.
+
+= link_to 'Home', '/', :class => 'btn btn-info'
+= link_to 'Edit', edit_business_path(@business), :class => 'btn btn-primary'
+%br
+%br
+
+.well
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th{:colspan => 2} Business Details
+    %tbody
+      %tr
+        %td Business Name
+        %td
+          = link_to @business.business_name, '#', :title => "The name of the business."
+      %tr
+        %td Corporate Name
+        %td
+          = link_to @business.corporate_name, '#', :title => "DBA/Corporate Name"
+      %tr
+        %td DUNS Number
+        %td
+          = link_to @business.duns_number, '#', :title => "DUNS number (if any)"
+      %tr
+        %td SIC/NAICS code
+        %td
+          = link_to @business.sic_code, '#', :title => "SIC or NAICS code (if any)"
+      %tr
+        %td Contact First Name
+        %td
+          = link_to @business.contact_first_name, '#', :title => "Primary Contact Name"
+      %tr
+        %td Contact Middle Name
+        %td
+          = link_to @business.contact_middle_name, '#', :title => "Primary Contact Name"
+      %tr
+        %td Contact Last Name
+        %td
+          = link_to @business.contact_last_name, '#', :title => "Primary Contact Name"
+      %tr
+        %td Company Email
+        %td
+          = link_to @business.company_email, "mailto:#{@business.company_email}", :title => "Main Company Email"
+      %tr
+        %td Local Phone
+        %td
+          = link_to @business.local_phone, '#', :title => "Local Phone"
+      %tr
+        %td Alternate Phone
+        %td
+          = link_to @business.alternate_phone, '#', :title => "Alternate Phone"
+      %tr
+        %td Toll Free Phone
+        %td
+          = link_to @business.toll_free_phone, '#', :title => "Toll-Free Phone"
+      %tr
+        %td Mobile Phone
+        %td
+          = link_to @business.mobile_phone, '#', :title => "Mobile Phone"
+      %tr
+        %td Mobile phone on listing?
+        %td
+          = link_to @business.mobile_appears, '#', :title => "Should Mobile Number Appear on Listings?"
+      %tr
+        %td Fax Number
+        %td
+          = link_to @business.fax_number, '#', :title => "Fax Number"
+      %tr
+        %td Address
+        %td
+          = link_to @business.address, '#', :title => "Business Address"
+      %tr
+        %td Address 2
+        %td
+          = link_to @business.address2, '#', :title => "Business Address Line 2"
+      %tr
+        %td City
+        %td
+          = link_to @business.city, '#', :title => "Business City"
+      %tr
+        %td State
+        %td
+          = link_to @business.state, '#', :title => "Business State"
+      %tr
+        %td Zip
+        %td
+          = link_to @business.zip, '#', :title => "Business Zip"
+.well
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th Payment Methods
+    %tbody
+      - @business.payment_methods.each do |p|
+        - if @business.send "accepts_#{p}".to_sym
+          %tr
+            %td #{p.capitalize}
+- unless @business.open_24_hours or @business.open_by_appointment
+  .well
+    %table.table.table-bordered
+      %thead
+        %tr
+          %th{:colspan => 3} Business Hours
+        %tr
+          %th Day
+          %th Open
+          %th Close
+      %tbody
+        - ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].each do |day|
+          %tr
+            %td #{day.capitalize}
+            - if @business.send("#{day}_enabled")
+              %td #{@business.send("#{day}_open".to_sym)}
+              %td #{@business.send("#{day}_close".to_sym)}
+            - else
+              %td{:colspan => 2}
+                %span{:class => 'label label-warning'} Closed
+- else
+  .well
+    %table.table.table-bordered
+      %thead
+        %tr
+          %th Business Hours
+      %tbody
+        - if @business.open_24_hours
+          %td Open 24 Hours
+        - else
+          %td Open By Appointment
+.well
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th{:colspan => 2} Company Description 
+    %tbody
+      %tr
+        %td Business Description
+        %td
+          = link_to @business.business_description, '#', :title => 'Business Description'
+      %tr
+        %td Languages
+        %td
+          = link_to @business.languages, '#', :title => 'Languages Spoken'
+      %tr
+        %td Services Offered
+        %td
+          = link_to @business.services_offered, '#', :title => 'Services Offered'
+      %tr
+        %td Specialties
+        %td
+          = link_to @business.specialies, '#', :title => 'Specialties'  
+      %tr
+        %td Professional Associations
+        %td
+          = link_to @business.professional_associations, '#', :title => 'Professional Associations and Memberships'
+      %tr
+        %td Geographic Areas
+        %td
+          = link_to @business.geographic_areas, '#', :title => 'Geographic Area(s) Serviced'
+      %tr
+        %td Year Founded
+        %td
+          = link_to @business.year_founded, '#', :title => 'Year Founded'
+      %tr
+        %td Products Carried
+        %td
+          %ol
+            - @business.products.each do |product|
+              %li #{product.name}
+      %tr
+        %td Brands Carried
+        %td
+          %ol
+            - @business.brands.each do |brand|
+              %li #{brand.name}
+.well
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th{:colspan => 2} Web Presence 
+    %tbody
+      %tr
+        %td Company Website
+        %td
+          = link_to @business.company_website, @business.company_website, :title => 'Company Website'
+      %tr
+        %td Incentive Offers
+        %td
+          = link_to @business.incentive_offers, '#', :title => 'Link to Coupon/Incentive Offer'
+      %tr
+        %td Links to Photos
+        %td
+          = link_to @business.links_to_photos, '#', :title => 'Links to Photos'
+      %tr
+        %td Links to Videos
+        %td
+          = link_to @business.links_to_videos, '#', :title => 'Links to Videos'
+.well
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th{:colspan => 2} Social Networking &amp; Review Sites
+    %tbody
+      %tr
+        %td Fan Page URL
+        %td
+          = link_to @business.fan_page_url, @business.fan_page_url, :title => 'Facebook Fan Page URL'
+      %tr
+        %td Other Social Links
+        %td
+          = link_to @business.other_social_links, '#', :title => 'Other Social Network Links'
+      %tr
+        %td Positive Review Links
+        %td
+          = link_to @business.positive_review_links, '#', :title => 'Links to Positive Reviews'
+.well
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th{:colspan => 2} SEO Focus
+    %tbody
+      %tr
+        %td Keyword 1
+        %td
+          = link_to @business.keyword1, '#', :title => 'Keyword 1'
+      %tr
+        %td Keyword 2
+        %td
+          = link_to @business.keyword2, '#', :title => 'Keyword 1'
+.well
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th{:colspan => 2} Competitors
+    %tbody
+      %tr
+        %td Competitors
+        %td
+          = link_to @business.competitors, '#', :title => 'Who are your direct competitors?'
+      %tr
+        %td Most Like
+        %td
+          = link_to @business.most_like, '#', :title => 'What company is most like yours?  (size, revenue, services offered, locale)'
+      %tr
+        %td Industry Leaders
+        %td
+          = link_to @business.industry_leaders, '#', :title => 'Who are the industry leaders?'
+.well
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th Logo
+    %tbody
+      %tr
+        %td
+          = link_to image_tag(@business.logo.url(:thumb)), @business.logo.url
+%br
+= link_to 'Edit Business', edit_business_path(@business), :class => 'btn btn-primary'

@@ -1,12 +1,11 @@
 Contact::Application.routes.draw do
 
-  resources :map_quests
-
   ActiveAdmin.routes(self)
 
   devise_for :admin_users, ActiveAdmin::Devise.config
 
   resources :businesses
+  resources :map_quests
   resources :results
   resources :tasks
   resources :jobs
@@ -16,4 +15,7 @@ Contact::Application.routes.draw do
   get '/downloads', :controller => :downloads, :action => :download
   get '/welcome',   :controller => :pages,     :action => :index
   root :to => 'pages#index'
+  namespace :user do
+    root :to => "businesses#new"
+  end
 end
