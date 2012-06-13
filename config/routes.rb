@@ -14,6 +14,8 @@ Contact::Application.routes.draw do
 
   get '/downloads', :controller => :downloads, :action => :download
   get '/welcome',   :controller => :pages,     :action => :index
+  resources :zip, :only => [:index]
+  resources :city, :only => [:index]
   root :to => 'pages#index'
   namespace :user do
     root :to => "businesses#new"
