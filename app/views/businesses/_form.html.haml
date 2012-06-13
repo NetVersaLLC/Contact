@@ -19,27 +19,27 @@
   = f.semantic_errors
   = f.inputs "Business Details" do
     .well
-      = f.input :business_name, :placeholder => "The name of the business."
-      = f.input :corporate_name, :placeholder => "DBA/Corporate Name"
-      = f.input :duns_number, :placeholder => "DUNS number (if any)"
-      = f.input :sic_code, :placeholder => "SIC or NAICS code (if any)"
-      = f.input :contact_prefix, :as => :select, :collection => Business.prefix_list
-      = f.input :contact_gender, :as => :select, :collection => Business.gender_list
-      = f.input :contact_first_name, :placeholder => "Contact First Name", :input_html => { 'data-content' => 'The first name of the person that LLH should speak to regarding your account.', 'title' => 'Main Contact Person', :rel => 'popover' }
-      = f.input :contact_middle_name, :placeholder => "Contact Middle Name", :input_html => { 'data-content' => 'The middle name of the person that LLH should speak to regarding your account.', 'title' => 'Main Contact Person', :rel => 'popover' }
-      = f.input :contact_last_name, :placeholder => "Contact Last Name", :input_html => { 'data-content' => 'The last name of the person that LLH should speak to regarding your account.', 'title' => 'Main Contact Person', :rel => 'popover' }
-      = f.input :company_email, :placeholder => "Main Company Email", :input_html => { 'data-content' => 'This is the email that will be displayed online in all of the directory listings. Leads will also be delivered to this address.', 'title' => 'Main Company Email', :rel => 'popover' }
-      = f.input :local_phone, :placeholder => "Primary Local Phone", :hint => "Format: 555-555-1212", :input_html => { 'data-content' => 'This number will be used in all online directory listings, including your website.', 'title' => 'Primary Local Phone Number', :rel => 'popover' }
-      = f.input :alternate_phone, :placeholder => "Alternate Phone", :hint => "Format: 555-555-1212"
-      = f.input :toll_free_phone, :placeholder => "Toll-Free Phone", :hint => "Format: 8XX-555-1212", :input_html => { 'data-content' => 'It is not recommended to use a toll free number in your listings, however if you have one, please provide it.', 'title' => 'Toll Free Number', :rel => 'popover' }
-      = f.input :mobile_phone, :placeholder => "Mobile Phone", :hint => "Format: 555-555-1212", :input_html => { 'data-content' => 'If you check the box below, we will display your your mobile number in online directories.  If not, only LLH will use it to contact you.', 'title' => 'Mobile Number', :rel => 'popover' }
-      = f.input :mobile_appears, :label => "Should Mobile Number Appear on Listings?"
-      = f.input :fax_number, :placeholder => "Fax Number", :hint => "Format: 555-555-1212"
-      = f.input :address, :placeholder => "Business Address", :input_html => { 'data-content' => 'This address will be used in all online directory listings, including your website.', 'title' => 'Primary Business Address', :rel => 'popover' }
-      = f.input :address2, :placeholder => "Address Line 2"
-      = f.input :city, :placeholder => "Business City"
-      = f.input :state, :as => :select, :collection => Carmen::states('US')
-      = f.input :zip, :placeholder => "Business Zip"
+      = f.input :business_name,      :placeholder => "The name of the business."
+      = f.input :corporate_name,     :placeholder => "DBA/Corporate Name"
+      = f.input :duns_number,        :placeholder => "DUNS number (if any)"
+      = f.input :sic_code,           :placeholder => "SIC or NAICS code (if any)"
+      = f.input :contact_prefix,     :as => :select, :collection => Business.prefix_list
+      = f.input :contact_gender,     :as => :select, :collection => Business.gender_list
+      = f.input :contact_first_name, :placeholder => "Contact First Name",  :input_html => { 'data-content' => 'The first name of the person that LLH should speak to regarding your account.', 'title' => 'Main Contact Person',   :rel => 'popover' }
+      = f.input :contact_middle_name,:placeholder => "Contact Middle Name", :input_html => { 'data-content' => 'The middle name of the person that LLH should speak to regarding your account.', 'title' => 'Main Contact Person', :rel => 'popover' }
+      = f.input :contact_last_name,  :placeholder => "Contact Last Name",   :input_html => { 'data-content' => 'The last name of the person that LLH should speak to regarding your account.', 'title' => 'Main Contact Person',     :rel => 'popover' }
+      = f.input :company_email,      :placeholder => "Main Company Email",  :input_html => { 'data-content' => 'This is the email that will be displayed online in all of the directory listings. Leads will also be delivered to this address.', 'title' => 'Main Company Email', :rel => 'popover' }
+      = f.input :local_phone,        :placeholder => "Primary Local Phone", :hint => "Format: 555-555-1212", :input_html => { 'data-content' => 'This number will be used in all online directory listings, including your website.', 'title' => 'Primary Local Phone Number',    :rel => 'popover' }
+      = f.input :alternate_phone,    :placeholder => "Alternate Phone",     :hint => "Format: 555-555-1212"
+      = f.input :toll_free_phone,    :placeholder => "Toll-Free Phone",     :hint => "Format: 8XX-555-1212", :input_html => { 'data-content' => 'It is not recommended to use a toll free number in your listings, however if you have one, please provide it.', 'title' => 'Toll Free Number', :rel => 'popover' }
+      = f.input :mobile_phone,       :placeholder => "Mobile Phone",        :hint => "Format: 555-555-1212", :input_html => { 'data-content' => 'If you check the box below, we will display your your mobile number in online directories.  If not, only LLH will use it to contact you.', 'title' => 'Mobile Number', :rel => 'popover' }
+      = f.input :mobile_appears,     :label       => "Should Mobile Number Appear on Listings?"
+      = f.input :fax_number,         :placeholder => "Fax Number",          :hint => "Format: 555-555-1212"
+      = f.input :address,            :placeholder => "Business Address",    :input_html => { 'data-content' => 'This address will be used in all online directory listings, including your website.', 'title' => 'Primary Business Address', :rel => 'popover' }
+      = f.input :address2,           :placeholder => "Address Line 2"
+      = f.input :city,               :placeholder => "Business City"
+      = f.input :state,              :as => :select, :collection => Carmen::states('US')
+      = f.input :zip,                :placeholder => "Business Zip"
       #map
   = f.inputs "Payment Methods" do
     .well
@@ -157,6 +157,7 @@
   #socialButtons
     - @business.nonexistent_accounts.each do |site|
       %a{ 'data-association' => site[1], :class => "add_nested_fields btn", :href => "javascript:void(0);", :onclick => "window.removeButton(this);", :style => 'margin-left: 160px'} Add #{site[0]}
+      %br/
   = f.inputs "Logo" do
     .well
       = f.input :logo

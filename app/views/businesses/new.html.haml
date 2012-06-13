@@ -5,6 +5,30 @@
   %p Please fill out all of the fields below as completely as possible.
   %p The more complete your entries, the better we'll be able to do our work and get your business ranked highly for local searches.
 
+%form{:class => 'well form form-horizontal', :id => 'zipform'}
+  .control-group
+    %label.control-label{ :for => :zip } Search by Zip
+    .controls
+      .input-append
+        = text_field_tag :zip
+        %button{:id => "zipsearch", :class => 'btn'} Search
+  .control-group
+    %label.control-label{ :for => :state } State
+    .controls
+      = select_tag :state, options_for_select(Carmen::states('US'), 'CA')
+  .control-group
+    %label.control-label{ :for => :city } City
+    .controls
+      = text_field_tag :city
+  .control-group
+    %label.control-label{ :for => :company_name } Company Name
+    .controls
+      .input-append
+        = text_field_tag :company_name
+        = button_tag "Search", :id => "search", :class => 'btn btn-primary'
+
+#business_results
+
 = render 'form'
 %br
 = link_to 'Back', businesses_path, :class => 'btn btn-info'
