@@ -1,0 +1,27 @@
+%h1 Listing booboos
+
+%table
+  %tr
+    %th User
+    %th Business
+    %th Message
+    %th Ip
+    %th User agent
+    %th
+    %th
+    %th
+
+  - @booboos.each do |booboo|
+    %tr
+      %td= booboo.user_id
+      %td= booboo.business_id
+      %td= booboo.message
+      %td= booboo.ip
+      %td= booboo.user_agent
+      %td= link_to 'Show', booboo
+      %td= link_to 'Edit', edit_booboo_path(booboo)
+      %td= link_to 'Destroy', booboo, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Booboo', new_booboo_path
