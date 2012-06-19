@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120612230023) do
+ActiveRecord::Schema.define(:version => 20120619112643) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -54,8 +54,29 @@ ActiveRecord::Schema.define(:version => 20120612230023) do
 
   add_index "bings", ["business_id"], :name => "index_bings_on_business_id"
 
-  create_table "businesses", :force => true do |t|
+  create_table "booboos", :force => true do |t|
     t.integer  "user_id"
+    t.integer  "business_id"
+    t.text     "message"
+    t.string   "ip"
+    t.string   "user_agent"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "booboos", ["business_id"], :name => "index_booboos_on_business_id"
+  add_index "booboos", ["user_id"], :name => "index_booboos_on_user_id"
+
+  create_table "brands", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "name"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "brands", ["business_id"], :name => "index_brands_on_business_id"
+
+  create_table "businesses", :force => true do |t|
     t.string   "business_name"
     t.string   "corporate_name"
     t.string   "duns_number"
@@ -142,8 +163,6 @@ ActiveRecord::Schema.define(:version => 20120612230023) do
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
   end
-
-  add_index "businesses", ["user_id"], :name => "index_businesses_on_user_id"
 
   create_table "citysearches", :force => true do |t|
     t.integer  "business_id"
@@ -283,6 +302,7 @@ ActiveRecord::Schema.define(:version => 20120612230023) do
     t.integer  "position"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.text     "data"
   end
 
   add_index "jobs", ["status"], :name => "index_jobs_on_status"
@@ -327,19 +347,6 @@ ActiveRecord::Schema.define(:version => 20120612230023) do
 
   add_index "linkedins", ["business_id"], :name => "index_linkedins_on_business_id"
 
-  create_table "locations", :force => true do |t|
-    t.string   "zip",                                        :null => false
-    t.string   "city"
-    t.string   "county"
-    t.string   "state"
-    t.string   "country"
-    t.decimal  "latitude",   :precision => 15, :scale => 10
-    t.decimal  "longitude",  :precision => 15, :scale => 10
-    t.string   "metaphone"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "map_quests", :force => true do |t|
     t.integer  "business_id"
     t.string   "email"
@@ -351,6 +358,26 @@ ActiveRecord::Schema.define(:version => 20120612230023) do
   end
 
   add_index "map_quests", ["business_id"], :name => "index_map_quests_on_business_id"
+
+  create_table "pings", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "business_id"
+    t.string   "message"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "pings", ["business_id"], :name => "index_pings_on_business_id"
+  add_index "pings", ["user_id"], :name => "index_pings_on_user_id"
+
+  create_table "products", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "name"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "products", ["business_id"], :name => "index_products_on_business_id"
 
   create_table "results", :force => true do |t|
     t.integer  "job_id"
@@ -382,6 +409,15 @@ ActiveRecord::Schema.define(:version => 20120612230023) do
   add_index "tasks", ["name"], :name => "index_tasks_on_name"
   add_index "tasks", ["user_id"], :name => "index_tasks_on_user_id"
 
+  create_table "tweets", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "message"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "tweets", ["business_id"], :name => "index_tweets_on_business_id"
+
   create_table "twitters", :force => true do |t|
     t.integer  "business_id"
     t.string   "username"
@@ -395,6 +431,7 @@ ActiveRecord::Schema.define(:version => 20120612230023) do
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",        :null => false
     t.string   "encrypted_password",     :default => "",        :null => false
+    t.integer  "business_id"
     t.integer  "access_level",           :default => 116390000, :null => false
     t.integer  "parent_id"
     t.string   "reset_password_token"
