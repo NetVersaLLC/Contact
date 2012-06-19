@@ -7,7 +7,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  has_many :jobs, :order => "position"
   has_many :businesses
 
   TYPES = {
@@ -25,18 +24,6 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :authentication_token
 
   before_save  :ensure_authentication_token
-  after_create :copy_rookies
-
-  def copy_rookies
-    Rookie.order(:position).each do |rookie|
-      Job.create(
-        :user_id => self.id,
-        :payload => rookie.payload,
-        :name    => rookie.name,
-        :status  => 'new'
-      )
-    end
-  end
 
   def self.admin
     TYPES[:admin]

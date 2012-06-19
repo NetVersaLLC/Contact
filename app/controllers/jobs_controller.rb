@@ -3,7 +3,11 @@ class JobsController < ApplicationController
 
   def index
     @business = Business.find(params[:business_id])
-    @job = Job.pending(current_user.id, @business)
+    if @business.user_id != current_user.id
+      format.json { render json: {:error => 'No permissions'}, status: :unprocessable_entity }
+      return
+    end
+    @job = Job.pending(@business)
     if @job == nil
       @job = {:wait => true}
     end

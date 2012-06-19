@@ -1,5 +1,7 @@
 Contact::Application.routes.draw do
 
+  resources :pings
+
   resources :tweets
 
   ActiveAdmin.routes(self)

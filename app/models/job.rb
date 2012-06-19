@@ -1,5 +1,5 @@
 class Job < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :business
 
   attr_accessible :payload, :model, :status, :wait
 
@@ -12,7 +12,7 @@ class Job < ActiveRecord::Base
     :presence => true
   validates :model,
     :presence => true
-  validates :user_id,
+  validates :business_id,
     :presence => true
 
   TO_CODE = {
@@ -25,8 +25,8 @@ class Job < ActiveRecord::Base
   }
   TO_SYM = TO_CODE.invert
 
-  def self.pending(user_id, business)
-    @job = Job.where('business_id = ? AND user_id = ? AND status IN (0,1)', business.id, user_id).first
+  def self.pending(business)
+    @job = Job.where('business_id = ? AND status IN (0,1)', business.id).first
     if @job != nil
       if @job.wait == true
         if @job.waited_at > Time.now - 1.hour
@@ -77,11 +77,11 @@ class Job < ActiveRecord::Base
     self.is_now(FailedJob)
   end
 
-  def self.inject(user_id,payload,model)
+  def self.inject(business_id,payload,model)
     Job.create do |j|
       j.status         = TO_CODE[:new]
       j.status_message = 'Created'
-      j.user_id        = user_id
+      j.business_id    = business_id
       j.payload        = payload
       j.model          = model
     end
