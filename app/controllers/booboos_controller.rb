@@ -1,4 +1,5 @@
 class BooboosController < InheritedResources::Base
+  skip_before_filter :verify_authenticity_token
   def create
     @booboo             = Booboo.new(params[:booboo])
     @booboo.user_id     = current_user.id if current_user
