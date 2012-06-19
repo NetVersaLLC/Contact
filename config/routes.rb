@@ -1,5 +1,7 @@
 Contact::Application.routes.draw do
 
+  resources :booboos
+
   resources :pings
 
   resources :tweets
