@@ -9,8 +9,9 @@ class JobsController < ApplicationController
       return
     end
     @job = Job.pending(@business)
+    logger.info "Job is: #{@job.inspect}"
     if @job == nil
-      @job = {:wait => true}
+      @job = {:status => 'wait'}
     end
     respond_to do |format|
       format.json { render json: @job }
