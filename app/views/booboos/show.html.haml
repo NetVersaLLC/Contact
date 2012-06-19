@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @booboo.user_id
+%p
+  %b Business:
+  = @booboo.business_id
+%p
+  %b Message:
+  = @booboo.message
+%p
+  %b Ip:
+  = @booboo.ip
+%p
+  %b User agent:
+  = @booboo.user_agent
+
+= link_to 'Edit', edit_booboo_path(@booboo)
+\|
+= link_to 'Back', booboos_path

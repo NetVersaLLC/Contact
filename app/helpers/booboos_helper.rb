@@ -1,0 +1,2 @@
+module BooboosHelper
+end
