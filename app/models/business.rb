@@ -7,6 +7,7 @@ class Business < ActiveRecord::Base
     [first_name, middle_name, last_name].join(" ").gsub(/\s+/, ' ')
   end
 
+  has_many :jobs, :order => "position"
   belongs_to :user
   has_attached_file :logo, :styles => { :thumb => "100x100>" }
 

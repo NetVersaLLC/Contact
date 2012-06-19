@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b User:
+  = @ping.user_id
+%p
+  %b Business:
+  = @ping.business_id
+%p
+  %b Message:
+  = @ping.message
+
+= link_to 'Edit', edit_ping_path(@ping)
+\|
+= link_to 'Back', pings_path
