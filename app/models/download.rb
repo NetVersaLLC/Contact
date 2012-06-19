@@ -1,7 +1,7 @@
 require 'zip/zip'
 
 class Download < ActiveRecord::Base
-  def make_setup
+  def make_setup(business_id)
     c='abcdefghijklmnopqrstuvwxyz'
     setup = ''
     1.upto(10) do |i|
@@ -29,14 +29,24 @@ class Download < ActiveRecord::Base
     File.open(key, 'w') do |f|
       f.write self.key
     end
-    STDERR.puts "Adding #{full_dir}/key.txt to #{file}..."
-    File.open(tmp.join("add.bat"), 'w') do |f|
-      f.write "cd #{tmp}\r\nzip -0 \"#{file}\" \"#{dir}/key.txt\""
+    bid      = full_dir.join('bid.txt')
+    File.open(bid, 'w') do |f|
+      f.write business_id.to_s
     end
-    STDERR.puts "Writing: cd #{tmp}\r\nzip -0 \"#{file}\" \"#{dir}/key.txt\""
-    STDERR.puts "To: #{tmp.join('add.bat')}"
+    STDERR.puts "Adding #{full_dir}/key.txt to #{file}..."
+    File.open(tmp.join("add.sh"), 'w') do |f|
+      f.write "#!/bin/bash\ncd #{tmp}\nzip -0 \"#{file}\" \"#{dir}/key.txt\"\nzip -0 \"#{file}\" \"#{dir}/bid.txt\""
+    end
+    STDERR.puts "Writing:\n#!/bin/bash\ncd #{tmp}\nzip -0 \"#{file}\" \"#{dir}/key.txt\"\nzip -0 \"#{file}\" \"#{dir}/bid.txt\""
+    STDERR.puts "To: #{tmp.join('add.sh')}"
     STDERR.puts "Running script.."
-    system tmp.join('add.bat').to_s
+
+    # SIDE EFFECT: this (WAS) cross platform because the file extension
+    # is ignored on Linux and the file is executed using the default
+    # shell (bash). It happens that the commands are the same. Changed
+    # to work on Linux exclusively now.
+    system "chmod 750 #{tmp.join('add.sh').to_s}"
+    system tmp.join('add.sh').to_s
     self.name = file
     file
   end

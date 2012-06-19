@@ -1,6 +1,7 @@
 class CreateBusinesses < ActiveRecord::Migration
   def change
     create_table :businesses do |t|
+      t.integer :user_id
       t.string :business_name
       t.string :corporate_name
       t.string :duns_number
@@ -91,5 +92,6 @@ class CreateBusinesses < ActiveRecord::Migration
       t.has_attached_file :logo
       t.timestamps
     end
+    add_index :businesses, :user_id
   end
 end

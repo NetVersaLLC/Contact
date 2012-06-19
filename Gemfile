@@ -31,3 +31,4 @@ gem 'formtastic-bootstrap', git: 'git://github.com/cgunther/formtastic-bootstrap
 gem 'paperclip'
 gem 'client_side_validations'
 gem 'carmen'
+gem 'httparty'

@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   end
 
   has_many :jobs, :order => "position"
-  belongs_to :business
+  has_many :businesses
 
   TYPES = {
     :admin    => 46118,

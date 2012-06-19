@@ -1,5 +1,7 @@
 Contact::Application.routes.draw do
 
+  resources :tweets
+
   ActiveAdmin.routes(self)
 
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -12,10 +14,11 @@ Contact::Application.routes.draw do
   get "yelps/check_email"
   devise_for :users
 
-  get '/downloads', :controller => :downloads, :action => :download
+  get '/downloads/:business_id', :controller => :downloads, :action => :download
   get '/welcome',   :controller => :pages,     :action => :index
   resources :zip, :only => [:index]
   resources :city, :only => [:index]
+  resources :places
   root :to => 'pages#index'
   namespace :user do
     root :to => "businesses#new"
