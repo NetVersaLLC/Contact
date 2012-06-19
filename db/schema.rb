@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120606141914) do
+ActiveRecord::Schema.define(:version => 20120612230023) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -54,16 +54,8 @@ ActiveRecord::Schema.define(:version => 20120606141914) do
 
   add_index "bings", ["business_id"], :name => "index_bings_on_business_id"
 
-  create_table "brands", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "name"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "brands", ["business_id"], :name => "index_brands_on_business_id"
-
   create_table "businesses", :force => true do |t|
+    t.integer  "user_id"
     t.string   "business_name"
     t.string   "corporate_name"
     t.string   "duns_number"
@@ -150,6 +142,8 @@ ActiveRecord::Schema.define(:version => 20120606141914) do
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
   end
+
+  add_index "businesses", ["user_id"], :name => "index_businesses_on_user_id"
 
   create_table "citysearches", :force => true do |t|
     t.integer  "business_id"
@@ -333,6 +327,19 @@ ActiveRecord::Schema.define(:version => 20120606141914) do
 
   add_index "linkedins", ["business_id"], :name => "index_linkedins_on_business_id"
 
+  create_table "locations", :force => true do |t|
+    t.string   "zip",                                        :null => false
+    t.string   "city"
+    t.string   "county"
+    t.string   "state"
+    t.string   "country"
+    t.decimal  "latitude",   :precision => 15, :scale => 10
+    t.decimal  "longitude",  :precision => 15, :scale => 10
+    t.string   "metaphone"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "map_quests", :force => true do |t|
     t.integer  "business_id"
     t.string   "email"
@@ -344,15 +351,6 @@ ActiveRecord::Schema.define(:version => 20120606141914) do
   end
 
   add_index "map_quests", ["business_id"], :name => "index_map_quests_on_business_id"
-
-  create_table "products", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "name"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "products", ["business_id"], :name => "index_products_on_business_id"
 
   create_table "results", :force => true do |t|
     t.integer  "job_id"
@@ -397,7 +395,6 @@ ActiveRecord::Schema.define(:version => 20120606141914) do
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",        :null => false
     t.string   "encrypted_password",     :default => "",        :null => false
-    t.integer  "business_id"
     t.integer  "access_level",           :default => 116390000, :null => false
     t.integer  "parent_id"
     t.string   "reset_password_token"

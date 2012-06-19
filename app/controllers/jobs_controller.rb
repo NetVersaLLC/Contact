@@ -2,7 +2,8 @@ class JobsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @job = Job.pending(current_user.id)
+    @business = Business.find(params[:business_id])
+    @job = Job.pending(current_user.id, @business)
     if @job == nil
       @job = {:wait => true}
     end
@@ -12,7 +13,13 @@ class JobsController < ApplicationController
   end
 
   def create
+    @business = Business.find(params[:business_id])
+    if @business.user_id != current_user.id
+      format.json { render json: {:error => 'No permissions'}, status: :unprocessable_entity }
+      return
+    end
     @job = Job.new(params[:job])
+    @job.business_id = @business.id
     @job.user_id = current_user.id
 
     respond_to do |format|

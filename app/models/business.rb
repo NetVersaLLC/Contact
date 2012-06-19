@@ -7,7 +7,7 @@ class Business < ActiveRecord::Base
     [first_name, middle_name, last_name].join(" ").gsub(/\s+/, ' ')
   end
 
-  has_one :user
+  belongs_to :user
   has_attached_file :logo, :styles => { :thumb => "100x100>" }
 
   attr_accessible :business_name, :corporate_name, :duns_number, :sic_code, :contact_gender, :contact_prefix, :contact_first_name, :contact_middle_name, :contact_last_name, :company_email, :local_phone, :alternate_phone, :toll_free_phone, :mobile_phone, :mobile_appears, :fax_number, :address, :address2, :city, :state, :zip
@@ -24,13 +24,6 @@ class Business < ActiveRecord::Base
   attr_accessible :fan_page_url
   attr_accessible :logo
 
-  attr_accessible :products_attributes
-  has_many :products, :dependent => :destroy
-  accepts_nested_attributes_for :products, :allow_destroy => true
-  attr_accessible :brands_attributes
-  has_many :brands, :dependent => :destroy
-  accepts_nested_attributes_for :brands, :allow_destroy => true
-  
   attr_accessible :twitters_attributes
   has_many :twitters, :dependent => :destroy
   accepts_nested_attributes_for :twitters, :allow_destroy => true

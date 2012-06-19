@@ -25,8 +25,8 @@ class Job < ActiveRecord::Base
   }
   TO_SYM = TO_CODE.invert
 
-  def self.pending(user_id)
-    @job = Job.where('user_id = ? AND status IN (0,1)', user_id).first
+  def self.pending(user_id, business)
+    @job = Job.where('business_id = ? AND user_id = ? AND status IN (0,1)', business.id, user_id).first
     if @job != nil
       if @job.wait == true
         if @job.waited_at > Time.now - 1.hour

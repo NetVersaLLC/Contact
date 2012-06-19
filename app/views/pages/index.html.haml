@@ -1,27 +1,15 @@
-
-%a.btn.btn-warning.btn-large{:href => '/downloads'} Download Client Software
-
-%br/
-%br/
-
-%h3 Dashboard
-.panel
-  %form{:class => 'nice'}
-    = text_field_tag :q, '', :placeholder => 'Send business update.', :class => 'large text-input'
-    %a{:class => "green radius nice button", :href => "#" } Update
-
-.row
-  .twelve.columns
-    .panel
-      = image_tag '/assets/facebook.svg'
-      %h2 Last updated #{Time.now.utc.to_s.split(" ")[0]}
-.row
-  .twelve.columns
-    .panel
-      = image_tag '/assets/mapquest.svg'
-      %h2 Last updated #{Time.now.utc.to_s.split(" ")[0]}
-
-%br/
-%br/
-
-%a.btn.btn-info{:href => edit_business_path(current_user.business)} Edit Business Details
+%table.table.table-bordered
+  %thead
+    %tr
+      %th Business Name
+      %th Package
+      %th Download
+  - current_user.businesses.each do |business|
+    %tbody
+      %tr
+        %td
+          %a.btn.btn-info{:href => edit_business_path(business.id)} #{business.business_name}
+        %td
+          Default
+        %td
+          %a.btn.btn-warning.btn-large{:href => "/downloads/#{business.id}"} Download Client

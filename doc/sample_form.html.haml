@@ -1,6 +1,18 @@
 :javascript
   window.socialAccounts = #{Business.site_accounts.to_json}
 
+#products_fields_blueprint{:style => 'display: none'}
+  .fields
+    %input{:type => "text", :size => "30", :name => "business[products_attributes][new_products][name]",  :id => "business_products_attributes_new_products_name"}/
+    %input{:type => "hidden", :value => "false", :name => "business[products_attributes][new_products][_destroy]", :id => "business_products_attributes_new_products__destroy"}/
+    %a{:class => "remove_nested_fields", :href => "javascript:void(0)"} Remove this Product
+  %br
+#brands_fields_blueprint{:style => 'display: none'}
+  .fields
+    %input{:type => "text", :size => "30", :name => "business[brands_attributes][new_brands][name]",  :id => "business_brands_attributes_new_brands_name"}/
+    %input{:type => "hidden", :value => "false", :name => "business[brands_attributes][new_brands][_destroy]", :id => "business_brands_attributes_new_brands__destroy"}/
+    %a{:class => "remove_nested_fields", :href => "javascript:void(0)"} Remove this Brand
+  %br
 #socialmedia
 
 = semantic_form_for @business, :validate => true, :html => {:multipart => true, :class => 'form-horizontal' }  do |f|
@@ -83,6 +95,32 @@
       = f.input :year_founded, :placeholder => 'Year Founded'
       = f.input :other_social_links, :placeholder => 'Other Social Network Links'
       = f.input :positive_review_links, :placeholder => 'Links to Positive Reviews'
+  = f.inputs "Products" do 
+    .well
+      - i = 0
+      - @business.products.each do |product|
+        .fields
+          %input{:type => "text", :size => "30", :name => "business[products_attributes][#{i}][name]", :value => product.name, :id => "business_products_attributes_#{i}_name"}/
+          %input{:type => "hidden", :value => "false", :name => "business[products_attributes][#{i}][_destroy]", :id => "business_products_attributes_#{i}__destroy"}/
+          %a{:class => "remove_nested_fields", :href => "javascript:void(0)"} Remove this Product
+          %br/
+          %input{ :type => "hidden", :value => product.id, :name => "business[products_attributes][#{i}][id]", :id => "business_products_attributes_#{i}_id" }
+          - i += 1
+      %a{ 'data-association' => "products", :class => "add_nested_fields btn", :href => "javascript:void(0)", :style => 'margin-left: 160px'} Add a Product
+      %br
+  = f.inputs "Brands" do 
+    .well
+      - i = 0
+      - @business.brands.each do |brand|
+        .fields
+          %input{:type => "text", :size => "30", :name => "business[brands_attributes][#{i}][name]", :value => brand.name, :id => "business_brands_attributes_#{i}_name"}/
+          %input{:type => "hidden", :value => "false", :name => "business[brands_attributes][#{i}][_destroy]", :id => "business_brands_attributes_#{i}__destroy"}/
+          %a{:class => "remove_nested_fields", :href => "javascript:void(0)"} Remove this Brand
+          %br/
+          %input{ :type => "hidden", :value => brand.id, :name => "business[brands_attributes][#{i}][id]", :id => "business_brands_attributes_#{i}_id" }
+          - i += 1
+      %a{ 'data-association' => "brands", :class => "add_nested_fields btn", :href => "javascript:void(0)", :style => 'margin-left: 160px'} Add a Brand
+      %br
   = f.inputs "Web Presence" do 
     .well
       = f.input :company_website, :placeholder => 'Company Website'
