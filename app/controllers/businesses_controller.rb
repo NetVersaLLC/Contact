@@ -5,11 +5,6 @@ class BusinessesController < ApplicationController
   # GET /businesses/1.json
   def show
     @business = Business.find(params[:id])
-    if @business == nil
-      redirect_to '/'
-    elsif @business.user_id != current_user.id
-      redirect_to '/'
-    end
   end
 
   # GET /businesses/new
