@@ -1,6 +1,15 @@
 class BusinessesController < ApplicationController
   before_filter :authenticate_user!
 
+  def index
+    @businesses = Business.where(:user_id => current_user.id)
+    if @businesses.count == 0
+      redirect_to new_business_path()
+    elsif @businesses.count == 1
+      redirect_to business_path(@businesses.first)
+    end
+  end
+
   # GET /businesses/1
   # GET /businesses/1.json
   def show

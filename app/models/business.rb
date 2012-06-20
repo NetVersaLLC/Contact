@@ -36,7 +36,7 @@ class Business < ActiveRecord::Base
   attr_accessible :yelps_attributes
   has_many :yelps, :dependent => :destroy
   accepts_nested_attributes_for :yelps, :allow_destroy => true
-  
+
   attr_accessible :foursquares_attributes
   has_many :foursquares, :dependent => :destroy
   accepts_nested_attributes_for :foursquares, :allow_destroy => true
@@ -77,12 +77,10 @@ class Business < ActiveRecord::Base
     :presence => true
   validates :business_description,
     :presence => true
-  validates :languages,
-    :presence => true
   validates :geographic_areas,
     :presence => true
   validates :year_founded,
-    :presence => true,
+    :allow_blank => true,
     :format => { :with => /^\d\d\d\d$/ }
   validates :company_website,
     :presence => true,

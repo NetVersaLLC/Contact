@@ -67,16 +67,8 @@ ActiveRecord::Schema.define(:version => 20120619112643) do
   add_index "booboos", ["business_id"], :name => "index_booboos_on_business_id"
   add_index "booboos", ["user_id"], :name => "index_booboos_on_user_id"
 
-  create_table "brands", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "name"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "brands", ["business_id"], :name => "index_brands_on_business_id"
-
   create_table "businesses", :force => true do |t|
+    t.integer  "user_id"
     t.string   "business_name"
     t.string   "corporate_name"
     t.string   "duns_number"
@@ -164,6 +156,8 @@ ActiveRecord::Schema.define(:version => 20120619112643) do
     t.datetime "updated_at",                :null => false
   end
 
+  add_index "businesses", ["user_id"], :name => "index_businesses_on_user_id"
+
   create_table "citysearches", :force => true do |t|
     t.integer  "business_id"
     t.string   "email"
@@ -179,7 +173,7 @@ ActiveRecord::Schema.define(:version => 20120619112643) do
   add_index "citysearches", ["business_id"], :name => "index_citysearches_on_business_id"
 
   create_table "completed_jobs", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "business_id"
     t.string   "name"
     t.string   "model"
     t.integer  "status"
@@ -193,8 +187,8 @@ ActiveRecord::Schema.define(:version => 20120619112643) do
     t.datetime "updated_at",     :null => false
   end
 
+  add_index "completed_jobs", ["business_id"], :name => "index_completed_jobs_on_business_id"
   add_index "completed_jobs", ["status"], :name => "index_completed_jobs_on_status"
-  add_index "completed_jobs", ["user_id"], :name => "index_completed_jobs_on_user_id"
 
   create_table "downloads", :force => true do |t|
     t.integer  "user_id"
@@ -218,7 +212,7 @@ ActiveRecord::Schema.define(:version => 20120619112643) do
   end
 
   create_table "failed_jobs", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "business_id"
     t.string   "name"
     t.string   "model"
     t.integer  "status"
@@ -232,8 +226,8 @@ ActiveRecord::Schema.define(:version => 20120619112643) do
     t.datetime "updated_at",     :null => false
   end
 
+  add_index "failed_jobs", ["business_id"], :name => "index_failed_jobs_on_business_id"
   add_index "failed_jobs", ["status"], :name => "index_failed_jobs_on_status"
-  add_index "failed_jobs", ["user_id"], :name => "index_failed_jobs_on_user_id"
 
   create_table "foursquares", :force => true do |t|
     t.integer  "business_id"
@@ -290,7 +284,7 @@ ActiveRecord::Schema.define(:version => 20120619112643) do
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
 
   create_table "jobs", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "business_id"
     t.string   "name"
     t.string   "model"
     t.integer  "status"
@@ -305,8 +299,8 @@ ActiveRecord::Schema.define(:version => 20120619112643) do
     t.text     "data"
   end
 
+  add_index "jobs", ["business_id"], :name => "index_jobs_on_business_id"
   add_index "jobs", ["status"], :name => "index_jobs_on_status"
-  add_index "jobs", ["user_id"], :name => "index_jobs_on_user_id"
 
   create_table "judys_books", :force => true do |t|
     t.integer  "business_id"
@@ -370,15 +364,6 @@ ActiveRecord::Schema.define(:version => 20120619112643) do
   add_index "pings", ["business_id"], :name => "index_pings_on_business_id"
   add_index "pings", ["user_id"], :name => "index_pings_on_user_id"
 
-  create_table "products", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "name"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "products", ["business_id"], :name => "index_products_on_business_id"
-
   create_table "results", :force => true do |t|
     t.integer  "job_id"
     t.string   "status"
@@ -431,7 +416,6 @@ ActiveRecord::Schema.define(:version => 20120619112643) do
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",        :null => false
     t.string   "encrypted_password",     :default => "",        :null => false
-    t.integer  "business_id"
     t.integer  "access_level",           :default => 116390000, :null => false
     t.integer  "parent_id"
     t.string   "reset_password_token"
