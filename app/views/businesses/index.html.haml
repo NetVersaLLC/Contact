@@ -1,0 +1,21 @@
+%table.table.table-bordered
+  %thead
+    %tr
+      %th Business Name
+      %th Package
+      %th Download
+  - @businesses.each do |business|
+    %tbody
+      %tr
+        %td
+          %a.btn.btn-info{:href => business_path(business.id)} #{business.business_name}
+        %td
+          Default
+        %td
+          %a.btn.btn-warning.btn-large{:href => "/downloads/#{business.id}"} Download Client
+
+
+%br/
+%br/
+
+%a.btn.btn-info{:href => new_business_path()} Add Another Business

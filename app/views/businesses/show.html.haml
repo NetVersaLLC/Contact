@@ -1,21 +1,39 @@
 %p#notice= notice
 
-%h3 Dashboard
-.panel
-  %form{:class => 'nice'}
-    = text_field_tag :q, '', :placeholder => 'Send business update.', :class => 'large text-input'
-    %a{:class => "green radius nice button", :href => "#" } Update
+%h1
+  Business Status
+  %sup
+    = link_to 'Edit', edit_business_path(@business), :style => 'font-size: 12pt'
+
+%br/
+
+%table.table.table-bordered
+  %thead
+    %tr
+      %th Site
+      %th Status
+  %tbody
+    - Business.site_accounts.each do |account|
+      %tr
+        %td
+          = account[0]
+        %td Last Updated #{Time.now}
+%br/
 
 .row
-  .twelve.columns
-    .panel
-      = image_tag '/assets/facebook.svg'
-      %h2 Last updated #{Time.now.utc.to_s.split(" ")[0]}
-.row
-  .twelve.columns
-    .panel
-      = image_tag '/assets/mapquest.svg'
-      %h2 Last updated #{Time.now.utc.to_s.split(" ")[0]}
+  .span4
+    %h3 Social Update
+    %p Keep your customers up to date with every aspect of your business! Use the form below to update all your social media sites.
+    %form.form-search.well
+      = text_field_tag :q, '', :placeholder => 'Send social media update.', :class => 'search-query input-medium'
+      %a{:class => "btn btn-success", :href => "#" } Update
+  .span4
+    %h3 Download Client Software
+    %p Use the button below to download the client software for this business. For best results this software should be installed on a system at the business location.
+    .well
+      %a.btn.btn-warning.btn-large{:href => "/downloads/#{@business.id}"} Download Client
 
 %br/
 %br/
+%br/
+%a.btn.btn-info.btn-large{:href => new_business_path()} Add Another Business
