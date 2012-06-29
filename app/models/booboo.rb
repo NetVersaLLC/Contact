@@ -1,3 +1,3 @@
 class Booboo < ActiveRecord::Base
-  attr_accessible :message
+  belongs_to :business
 end

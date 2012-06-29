@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120629221339) do
+ActiveRecord::Schema.define(:version => 20120629225043) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -303,7 +303,7 @@ ActiveRecord::Schema.define(:version => 20120629221339) do
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
 
   create_table "jobs", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "business_id"
     t.string   "name"
     t.string   "model"
     t.integer  "status"
@@ -318,8 +318,8 @@ ActiveRecord::Schema.define(:version => 20120629221339) do
     t.text     "data"
   end
 
+  add_index "jobs", ["business_id"], :name => "index_jobs_on_user_id"
   add_index "jobs", ["status"], :name => "index_jobs_on_status"
-  add_index "jobs", ["user_id"], :name => "index_jobs_on_user_id"
 
   create_table "judys_books", :force => true do |t|
     t.integer  "business_id"
