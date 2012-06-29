@@ -5,6 +5,8 @@ class BooboosController < InheritedResources::Base
     @booboo.user_id     = current_user.id if current_user
     @booboo.business_id = params[:business_id]
     @booboo.message     = params[:message]
+    @booboo.osversion   = params[:osversion]
+    @booboo.browser     = params[:browser]
     @booboo.user_agent  = request.env['HTTP_USER_AGENT']
     @booboo.ip          = request.remote_ip
     respond_to do |format|
