@@ -1,15 +1,11 @@
 Contact::Application.routes.draw do
 
-  resources :booboos
-
-  resources :pings
-
-  resources :tweets
-
+  devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  devise_for :admin_users, ActiveAdmin::Devise.config
-
+  resources :booboos
+  resources :pings
+  resources :tweets
   resources :businesses
   resources :map_quests
   resources :results

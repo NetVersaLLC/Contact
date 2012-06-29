@@ -2,11 +2,10 @@ ActiveAdmin.register Business do
   form :partial => 'form'
 
   index do
-    column :name
-    column :website do |v|
-      link_to v.website, v.website
+    column :business_name
+    column :company_website do |v|
+      link_to v.company_website, v.company_website
     end
-    column :approved
     default_actions
   end
 
