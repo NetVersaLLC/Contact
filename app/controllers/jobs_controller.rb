@@ -8,6 +8,8 @@ class JobsController < ApplicationController
       format.json { render json: {:error => 'No permissions'}, status: :unprocessable_entity }
       return
     end
+    @business.checkin()
+
     @job = Job.pending(@business)
     logger.info "Job is: #{@job.inspect}"
     if @job == nil

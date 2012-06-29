@@ -177,4 +177,8 @@ class Business < ActiveRecord::Base
     end
     list
   end
+  def checkin
+    self.client_checkin = Time.now
+    save
+  end
 end
