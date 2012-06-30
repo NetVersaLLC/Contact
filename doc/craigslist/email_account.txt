@@ -1,0 +1,68 @@
+
+Delivered-To: 6ftdan@gmail.com
+Received: by 10.194.26.72 with SMTP id j8csp118983wjg;
+        Tue, 19 Jun 2012 06:21:39 -0700 (PDT)
+Received: by 10.50.154.201 with SMTP id vq9mr1113563igb.2.1340112098534;
+        Tue, 19 Jun 2012 06:21:38 -0700 (PDT)
+Return-Path: <bounce-accounts@craigslist.org>
+Received: from mxo1f.craigslist.org (mxo1f.craigslist.org. [208.82.238.96])
+        by mx.google.com with ESMTP id r4si14765876igb.44.2012.06.19.06.21.37;
+        Tue, 19 Jun 2012 06:21:38 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounce-accounts@craigslist.org designates 208.82.238.96 as permitted sender) client-ip=208.82.238.96;
+Authentication-Results: mx.google.com; spf=pass (google.com: domain of bounce-accounts@craigslist.org designates 208.82.238.96 as permitted sender) smtp.mail=bounce-accounts@craigslist.org
+Content-Transfer-Encoding: binary
+Content-Type: multipart/alternative; boundary="_----------=_1340112097105435"
+MIME-Version: 1.0
+X-Mailer: MIME::Lite 3.01 (F2.76; A2.04; B3.07_01; Q3.07)
+From: "craigslist - automated message, do not reply" <robot@craigslist.org>
+To: 6ftdan@gmail.com
+Subject: craigslist.org: New Craigslist Account 6ftdan@gmail.com
+Date: Tue, 19 Jun 2012 06:21:37 -0700 (PDT)
+X-Cl-Originating-Ip: 107.4.231.204
+Message-Id: <20120619132137.A561F5EE3C@web35f.int.craigslist.org>
+
+This is a multi-part message in MIME format.
+
+--_----------=_1340112097105435
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+
+Thank you for signing up for a craigslist account.
+
+To log in to your account, please go to:
+
+https://accounts.craigslist.org/pass?ui=3D148273871&amp;ip=3DCkp2LWOA
+
+You will be prompted to choose a password as soon as you log in.
+
+If you experience any problems or have any questions, please reply to
+this message or email help@craigslist.org.
+
+Thank you for using craigslist!
+
+--_----------=_1340112097105435
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset=iso-8859-1
+
+<p>Thank you for signing up for a craigslist account.</p>
+
+<p>To log in to your account, please go to:</p>
+
+<p><a href=3D"https://accounts.craigslist.org/pass?ui=3D148273871&amp;ip=3D=
+Ckp2LWOA">https://accounts.craigslist.org/pass?ui=3D148273871&amp;ip=3DCkp2=
+LWOA</a></p>
+
+<p>You will be prompted to choose a password as soon as you log in.</p>
+
+<p>If you experience any problems or have any questions, please reply to th=
+is message or email help@craigslist.org.</p>
+
+<p>Thank you for using craigslist!</p>
+
+
+--_----------=_1340112097105435--
+
+
+

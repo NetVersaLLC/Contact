@@ -1,0 +1,56 @@
+From craigslist - automated message, do not reply Sat Jun 30 12:15:47 2012
+X-Apparently-To: the_matrix_emp@yahoo.com via 98.138.85.140; Sat, 30 Jun 2012 12:15:48 -0700
+Return-Path: <bounce-accounts@craigslist.org>
+Received-SPF: pass (domain of craigslist.org designates 208.82.238.105 as permitted sender)
+ c3QgYWNjb3VudC4gVG8gbG9nIGluIHRvIHlvdXIgYWNjb3VudCwgcGxlYXNl
+ IGdvIHRvOiBodHRwczovL2FjY291bnRzLmNyYWlnc2xpc3Qub3JnL3Bhc3M_
+ dWk9MTQ5NDg3NzU2JmFtcDtpcD1zeWU5MTFNSSBZb3Ugd2lsbCBiZSBwcm9t
+ cHRlZCB0byBjaG9vc2UgYSBwYXNzd29yZCBhcyBzb29uIGFzIHlvdSBsb2cg
+ aW4uIElmIHlvdSBleHBlcmllbmNlIGFueSBwcm9ibGVtcyBvcgEwAQEBAQN0
+ ZXh0L3BsYWluAwMwAgN0ZXh0L2h0bWwDAzE-
+X-YMailISG: 98YUcrkWLDuNjCx4yFm11j0E.2_sAMe1WxrbSm7bxAg1w7qw
+ S_OVXhb8wBxm_8Z1oArUiZZNVtr4euUshqSmGMDh3BcuCKJV16g8lx3yJ54x
+ 6N0kNqHtymPxp8NBtUaFfV421z1u1MtCTfgsTCF1rU4YcYqiR.aYWAe0h4FW
+ jQb2WdmMC8W01Kq0xVttFV0ePHOAUZEc7CyQ.AFnaVirdveYsk9s16cR8Dp0
+ ua7K4CYkGNh6Wc9UU0Uzchqd3g65fWVgHhsNdntlUeWY3pc8XG5b42tM_xFi
+ tcnOcaHGcr2wKYCKKp8B3nHflTDbgwXbR2W.7DjCt1qbILZnIiTSjXDcR_Hf
+ kIZorqOKMJELjX5amT3nv_l7gEryDvlx8YwxL43f2rbkujGUVSibtSDe2blD
+ 5OZeGXnh6btX_dKK5q5T6v0vkm8MeYjvQbdE0_HS4Jhyq9JkW6XETnJqZeSy
+ Gc.hbElg5aBEsErN8qpy42zbrZdrOyOjcefTWw12ESqLyiMNqhuEzjK5cjhE
+ 4mS_fJnq8O1gxVibln6p44fyOsmKbJMBL26QfWI9vn9PSCjeebbR6TywQ_vS
+ 0tFv5ZsE.QV7mw2oIpiob4_7altm7Vv7sgJfQN6JVJK9sMNRM5VF6NHQa5e.
+ ktX4EyVgM1Jw56.643UccXgKk7LLyUOmAjZgQ_FeggKyQ75JGhfMOKPH9RVb
+ 8iBQ6ux_hHvEO0uPyzbgMHheZtc583ZvR66HxdFG9fUW2HRHWeVaCwYPEN3g
+ NJrodNqun7OuAlxXFVOR9Z09HzGOtsULsbc94xYXAwrrEeR3GKBGvJ1kjxte
+ 6U0Ln.H4fxJh9cGRUXKWuscdADco9oxo7KNG3W.qyRBIHThUX59jjwf.et5c
+ qswfbg4GCr1jWBd6orBf5uQkL5GoyTmQgUMXVwXyw7VH98vuUm78urFOvwC3
+ U.MX9HFT3w13mzZPpRl3mhmPLodLjwNCbMBuyghU1VwV2eADoYHszLNjigNG
+ mXBIGgwZzKHCU_efUVyUJ46ARmcI2NhlTRcaWu4WZq4iJlhymH0-
+X-Originating-IP: [208.82.238.105]
+Authentication-Results: mta1206.mail.mud.yahoo.com  from=craigslist.org; domainkeys=neutral (no sig);  from=craigslist.org; dkim=neutral (no sig)
+Received: from 127.0.0.1  (EHLO mxo10f.craigslist.org) (208.82.238.105)
+  by mta1206.mail.mud.yahoo.com with SMTP; Sat, 30 Jun 2012 12:15:47 -0700
+Content-Transfer-Encoding: binary
+Content-Type: multipart/alternative; boundary="_----------=_13410837471717826"
+MIME-Version: 1.0
+X-Mailer: MIME::Lite 3.01 (F2.76; A2.04; B3.07_01; Q3.07)
+From: "craigslist - automated message, do not reply" <robot@craigslist.org>
+To: the_matrix_emp@yahoo.com
+Subject: craigslist.org: New Craigslist Account the_matrix_emp@yahoo.com
+Date: Sat, 30 Jun 2012 12:15:47 -0700 (PDT)
+X-Cl-Originating-Ip: 32.169.14.154
+Message-Id: <20120630191547.8A50F41413@web68f.int.craigslist.org>
+Content-Length: 1275
+
+<p>Thank you for signing up for a <span class="yshortcuts" id="lw_1341083781_0">craigslist</span> account.</p>
+
+<p>To log in to your account, please go to:</p>
+
+<p><a rel="nofollow" target="_blank" href="https://accounts.craigslist.org/pass?ui=149487756&amp;ip=sye911MI">https://accounts.craigslist.org/pass?ui=149487756&amp;ip=sye911MI</a></p>
+
+<p>You will be prompted to choose a password as soon as you log in.</p>
+
+<p>If you experience any problems or have any questions, please reply to this message or email help@craigslist.org.</p>
+
+<p id="yui_3_2_0_1_13410837869602403">Thank you for using craigslist!</p>
+
