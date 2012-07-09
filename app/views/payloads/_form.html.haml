@@ -1,0 +1,16 @@
+= form_for @payload do |f|
+  -if @payload.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@payload.errors.count, "error")} prohibited this payload from being saved:"
+      %ul
+        - @payload.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :model
+    = f.text_field :model
+  .field
+    = f.label :name
+    = f.text_field :name
+  .actions
+    = f.submit 'Save'

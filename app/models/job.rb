@@ -2,6 +2,7 @@ class Job < ActiveRecord::Base
   belongs_to :business
 
   attr_accessible :payload, :model, :status, :wait
+  attr_accessible :business_id, :name, :status_message, :returned, :waited_at, :position, :data
 
   validates :status,
     :presence => true,

@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Model:
+  = @payload.model
+%p
+  %b Name:
+  = @payload.name
+
+= link_to 'Edit', edit_payload_path(@payload)
+\|
+= link_to 'Back', payloads_path

@@ -1,6 +1,58 @@
 // Active Admin CSS Styles
+/*
+ *= require aa-jquery-ui
+ */
+
 @import "active_admin/mixins";
 @import "active_admin/base";
 
 // To customize the Active Admin interfaces, add your
 // styles here:
+
+#client_tabs_top li .ui-icon {
+  float: left;
+  margin-left: 6px;
+  margin-top:  6px;
+}
+.displayList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 60%;
+}
+.displayList li {
+  margin: 0 3px 3px 3px;
+  padding: 0.4em;
+  padding-left: 1.5em;
+  font-size: 1.4em;
+  height: 18px;
+}
+.displayList li span {
+  float: left;
+  display: block;
+}
+
+$success: #9F9;
+$warning: #FF9;
+$failure: #F99;
+$info   : #99F;
+.success {
+  box-shadow: 0px 0px 3px $success;
+  border-radius: 5px;
+  background-color: $success;
+}
+.warning {
+  box-shadow: 0px 0px 3px $warning;
+  border-radius: 5px;
+  background-color: $warning;
+}
+.failure {
+  box-shadow: 0px 0px 3px $failure;
+  border-radius: 5px;
+  background-color: $failure;
+}
+.info {
+  box-shadow: 0px 0px 3px $info;
+  border-radius: 5px;
+  background-color: $info;
+}
