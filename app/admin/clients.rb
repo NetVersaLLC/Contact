@@ -1,14 +1,16 @@
 ActiveAdmin.register_page "Client Manager" do
 
   sidebar :payloads do
-    ul({:id => 'payload_list'}) do
-      Payload.all.each do |payload|
-        li link_to(payload.name, "/payloads?id=#{payload.id.to_s}")
-      end
+    div({:id => 'payload_list'}) do
+      ""
     end
   end
 
   content do
+    div(:id => 'assign_payload', :style => 'display: none') do
+      h2 "Assign payload?"
+      para "Are you sure you want to assign payload to client?"
+    end
     div(:id => 'delete_job', :style => 'display: none') do
       h2 "Delete job?"
       para "Are you sure you want to delete this job?"

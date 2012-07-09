@@ -71,4 +71,11 @@ ActiveAdmin.register Job do
       render json: false
     end
   end
+  member_action :create_job, :method => :post do
+    payload = Payload.find(params[:id])
+    job = Job.inject(params[:business_id], payload.payload, payload.model)
+    job.name = payload.name
+    job.save
+    render json: true
+  end
 end

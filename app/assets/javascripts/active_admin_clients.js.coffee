@@ -62,8 +62,27 @@ showErrors = (panel)->
 showClient = (panel)->
   window.current_tab = "ciients"
   console.log "Client", panel
+window.loadPayloads = (em)->
+  $.getJSON '/admin/payloads/'+$(em).val()+'/list.js', (data)->
+    console.log data
+    html = '<ul id="payload_list_ul">'
+    $.each data, (i,e)->
+      html += '<li data-payload-id="'+e['id']+'">'+e['name']+'</li>'
+    html += '</ul>'
+    $('#payload_list_container').html(html)
+    $('#payload_list_ul > li').click (e)->
+      window.assign_payload = $(e.target).attr('data-payload-id')
+      $('#assign_payload').dialog( "open" )
 
 $(document).ready ->
+  # Setup Payload Categories
+  $.getJSON '/admin/payload_categories/list.js', (data)->
+    html = '<select id="payload_categories" onchange="window.loadPayloads(this);">'
+    $.each data, (i,e)->
+      html += '<option value="'+e['id']+'">'+e['name']+'</option>'
+    html += '</select><div id="payload_list_container"></div>'
+    $('#payload_list').html(html)
+  # Setup Tabs
   actions = [
     showPending,
     showFailed,
@@ -138,3 +157,19 @@ $(document).ready ->
         $( this ).dialog( "close" )
       Cancel: ()->
         $( this ).dialog( "close" )
+  
+  $('#assign_payload').dialog
+    autoOpen: false,
+    show: "blind",
+    hide: "explode"
+    buttons:
+      Ok: ()->
+        $.ajax
+          url: '/admin/jobs/'+window.assign_payload+'/create_job.js?business_id='+window.business_id,
+          type: 'POST',
+          success: ( response ) ->
+            $('#assign_payload').dialog( "close" )
+            window.reloadView()
+      Cancel: ()->
+        $( this ).dialog( "close" )
+

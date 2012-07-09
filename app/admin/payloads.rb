@@ -1,6 +1,6 @@
 ActiveAdmin.register Payload do
-  collection_action :list_categories, :method => :get do
-
-    render json: @jobs
+  member_action :list, :method => :get do
+    @payloads = Payload.where(:payload_category_id => params[:id])
+    render json: @payloads
   end
 end
