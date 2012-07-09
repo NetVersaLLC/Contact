@@ -1,6 +1,8 @@
 Contact::Application.routes.draw do
 
   resources :payloads
+  resources :failed_jobs
+  resources :completed_jobs
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120705164910) do
+ActiveRecord::Schema.define(:version => 20120709152056) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -318,7 +318,7 @@ ActiveRecord::Schema.define(:version => 20120705164910) do
     t.text     "data"
   end
 
-  add_index "jobs", ["business_id"], :name => "index_jobs_on_business_id"
+  add_index "jobs", ["business_id"], :name => "index_jobs_on_user_id"
   add_index "jobs", ["status"], :name => "index_jobs_on_status"
 
   create_table "judys_books", :force => true do |t|
@@ -384,6 +384,12 @@ ActiveRecord::Schema.define(:version => 20120705164910) do
   end
 
   add_index "map_quests", ["business_id"], :name => "index_map_quests_on_business_id"
+
+  create_table "payload_categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "payloads", :force => true do |t|
     t.string   "model"

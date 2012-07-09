@@ -1,0 +1,3 @@
+
+class CompletedJobController < ApplicationController
+end
