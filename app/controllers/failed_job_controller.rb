@@ -1,0 +1,3 @@
+
+class FailedJobController < ApplicationController
+end

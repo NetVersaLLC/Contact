@@ -35,10 +35,9 @@ registerHooks = ()->
   $('.view_meta').click (e)->
     window.job_id = $(e.target).parent().attr('data-job-id')
     console.log window.job_id
-    $.getJSON('/admin/jobs/'+window.job_id+'/view_meta.js', (data)->
-      $('#view_meta').html(data['html'])
+    $.get '/admin/jobs/'+window.job_id+'/view_meta.js', { table: window.current_tab }, (data)->
+      $('#view_meta').html(data)
       $('#view_meta').dialog( "open" )
-
 
 showPending = (panel)->
   window.current_tab = "jobs"
@@ -120,6 +119,22 @@ $(document).ready ->
     width: 500
     buttons:
       Ok: ()->
+        obj = {}
+        obj['table']          = window.current_tab
+        obj['name']           = $('#job_name').val()
+        obj['model']          = $('#job_model').val()
+        obj['status']         = $('#job_status').val()
+        obj['status_message'] = $('#job_status_message').val()
+        obj['position']       = $('#job_position').val()
+        if $('#job_wait').is(':checked')
+          obj['wait']         = true
+        else
+          obj['wait']         = false
+        $.ajax
+          url: '/admin/jobs/'+window.job_id+'/update_job.js?'+$.param(obj),
+          type: 'PUT',
+          success: ( response ) ->
+            window.reloadView()
         $( this ).dialog( "close" )
       Cancel: ()->
         $( this ).dialog( "close" )

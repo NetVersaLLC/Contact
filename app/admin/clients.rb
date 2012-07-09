@@ -1,4 +1,4 @@
-ActiveAdmin.register_page "clients" do
+ActiveAdmin.register_page "Client Manager" do
 
   sidebar :payloads do
     ul({:id => 'payload_list'}) do
