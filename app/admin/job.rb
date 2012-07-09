@@ -1,11 +1,42 @@
 ActiveAdmin.register Job do
   index do
-    column :user_id
+    column :business_id
     column :name
     column :model
     column :status
     column :created_at
     column :waited_at
     default_actions
+  end
+
+  collection_action :pending_jobs, :method => :get do
+    @jobs = Job.where('business_id = ? AND status IN (0,1)', params[:business_id])
+    render json: @jobs
+  end
+  collection_action :failed_jobs, :method => :get do
+    @jobs = FailedJob.where('business_id = ?', params[:business_id])
+    render json: @jobs
+  end
+  collection_action :completed_jobs, :method => :get do
+    @jobs = CompletedJob.where('business_id = ?', params[:business_id])
+    render json: @jobs
+  end
+  member_action :view_payload, :method => :get do
+    if params[:table] == 'jobs'
+      job = Job.find(params[:id])
+    elsif params[:table] == 'failed_jobs'
+      job = FailedJob.find(params[:id])
+    elsif params[:table] == 'completed_jobs'
+      job = CompletedJob.find(params[:id])
+    end
+    render :inline => CodeRay.scan(job.payload, :ruby).page
+  end
+  member_action :delete_job, :method => :delete do
+    job = Job.find(params[:id])
+    if job.delete
+      render json: true
+    else
+      render json: false
+    end
   end
 end

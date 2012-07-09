@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120629225043) do
+ActiveRecord::Schema.define(:version => 20120705164910) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -192,7 +192,7 @@ ActiveRecord::Schema.define(:version => 20120629225043) do
   add_index "citysearches", ["business_id"], :name => "index_citysearches_on_business_id"
 
   create_table "completed_jobs", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "business_id"
     t.string   "name"
     t.string   "model"
     t.integer  "status"
@@ -206,8 +206,8 @@ ActiveRecord::Schema.define(:version => 20120629225043) do
     t.datetime "updated_at",     :null => false
   end
 
+  add_index "completed_jobs", ["business_id"], :name => "index_completed_jobs_on_business_id"
   add_index "completed_jobs", ["status"], :name => "index_completed_jobs_on_status"
-  add_index "completed_jobs", ["user_id"], :name => "index_completed_jobs_on_user_id"
 
   create_table "downloads", :force => true do |t|
     t.integer  "user_id"
@@ -231,7 +231,7 @@ ActiveRecord::Schema.define(:version => 20120629225043) do
   end
 
   create_table "failed_jobs", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "business_id"
     t.string   "name"
     t.string   "model"
     t.integer  "status"
@@ -245,8 +245,8 @@ ActiveRecord::Schema.define(:version => 20120629225043) do
     t.datetime "updated_at",     :null => false
   end
 
+  add_index "failed_jobs", ["business_id"], :name => "index_failed_jobs_on_business_id"
   add_index "failed_jobs", ["status"], :name => "index_failed_jobs_on_status"
-  add_index "failed_jobs", ["user_id"], :name => "index_failed_jobs_on_user_id"
 
   create_table "foursquares", :force => true do |t|
     t.integer  "business_id"
@@ -318,7 +318,7 @@ ActiveRecord::Schema.define(:version => 20120629225043) do
     t.text     "data"
   end
 
-  add_index "jobs", ["business_id"], :name => "index_jobs_on_user_id"
+  add_index "jobs", ["business_id"], :name => "index_jobs_on_business_id"
   add_index "jobs", ["status"], :name => "index_jobs_on_status"
 
   create_table "judys_books", :force => true do |t|
@@ -384,6 +384,18 @@ ActiveRecord::Schema.define(:version => 20120629225043) do
   end
 
   add_index "map_quests", ["business_id"], :name => "index_map_quests_on_business_id"
+
+  create_table "payloads", :force => true do |t|
+    t.string   "model"
+    t.string   "name"
+    t.text     "payload"
+    t.integer  "location"
+    t.string   "status"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "payloads", ["status"], :name => "index_payloads_on_status"
 
   create_table "pings", :force => true do |t|
     t.integer  "user_id"

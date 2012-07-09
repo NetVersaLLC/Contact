@@ -1,0 +1,21 @@
+%h1 Listing payloads
+
+%table
+  %tr
+    %th Model
+    %th Name
+    %th
+    %th
+    %th
+
+  - @payloads.each do |payload|
+    %tr
+      %td= payload.model
+      %td= payload.name
+      %td= link_to 'Show', payload
+      %td= link_to 'Edit', edit_payload_path(payload)
+      %td= link_to 'Destroy', payload, :confirm => 'Are you sure?', :method => :delete
+
+%br
+
+= link_to 'New Payload', new_payload_path

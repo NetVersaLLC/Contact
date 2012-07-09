@@ -1,5 +1,7 @@
 Contact::Application.routes.draw do
 
+  resources :payloads
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
