@@ -21,6 +21,9 @@ ActiveAdmin.register_page "Client Manager" do
     div(:id => 'view_meta', :style => 'display: none') do
       ""
     end
+    div(:id => 'view_booboo', :style => 'display: none') do
+      ""
+    end
     script do
       "window.business_id = #{params[:business_id]};"
     end
