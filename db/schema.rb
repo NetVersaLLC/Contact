@@ -318,7 +318,7 @@ ActiveRecord::Schema.define(:version => 20120709152056) do
     t.text     "data"
   end
 
-  add_index "jobs", ["business_id"], :name => "index_jobs_on_user_id"
+  add_index "jobs", ["business_id"], :name => "index_jobs_on_business_id"
   add_index "jobs", ["status"], :name => "index_jobs_on_status"
 
   create_table "judys_books", :force => true do |t|

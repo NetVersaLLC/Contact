@@ -21,4 +21,12 @@ ActiveAdmin.register Business do
     end 
   end
 
+  member_action :client_info, :method => :get do
+    @business = Business.find(params[:id])
+    @data = {}
+    @data['Last Checkin'] = @business.client_checkin
+    @data['Updated']      = @business.updated_at
+    @data['Created At']   = @business.created_at
+    render json: @data
+  end
 end
