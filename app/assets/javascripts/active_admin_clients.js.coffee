@@ -22,6 +22,17 @@ window.buildTable = (data) ->
     html += '</li>'
   html
 
+window.buildErrorTable = (data)->
+  console.log data
+  html = '<ul class="displayList">'
+  $.each data, (i,e)->
+    color = 'ui-icon-alert failure'
+    html += '<li class="ui-state-default ui-corner-all view_booboo" data-booboo-id="'+e['id']+'">'
+    html += e['message']+' '
+    html += '<span class="ui-icon '+color+'"></span>'
+    html += '</li>'
+  html
+
 registerHooks = ()->
   $('.delete_job').click (e)->
     window.job_id = $(e.target).parent().attr('data-job-id')
@@ -38,6 +49,20 @@ registerHooks = ()->
     $.get '/admin/jobs/'+window.job_id+'/view_meta.js', { table: window.current_tab }, (data)->
       $('#view_meta').html(data)
       $('#view_meta').dialog( "open" )
+  $('.view_booboo').click (e)->
+    window.booboo_id = e.target.getAttribute('data-booboo-id')
+    console.log window.booboo_id
+    $.get '/admin/booboos/'+window.booboo_id+'/view.js', null, (data)->
+      $('#view_booboo').html(data['message'])
+      $('#view_booboo').dialog( "open" )
+  $('.displayList').sortable
+    stop: (event, ui) ->
+      em = []
+      $('.displayList > li').each (i,e)->
+        em.push [i, $(e).attr('data-job-id')]
+      console.log em
+      $.post '/admin/jobs/'+window.business_id+'/reorder.js', { table: window.current_tab, order: JSON.stringify(em) }, (data)->
+        console.log data
 
 showPending = (panel)->
   window.current_tab = "jobs"
@@ -56,18 +81,27 @@ showCompleted = (panel)->
     registerHooks()
 showErrors = (panel)->
   window.current_tab = "booboos"
-  $.getJSON "/admin/jobs/pending_jobs.js?business_id=#{window.business_id}", (data)->
-    $(panel).html( window.buildTable(data) )
+  $.getJSON "/admin/booboos/list.js?business_id=#{window.business_id}", (data)->
+    $(panel).html( window.buildErrorTable(data) )
     registerHooks()
 showClient = (panel)->
   window.current_tab = "ciients"
   console.log "Client", panel
-window.loadPayloads = (em)->
-  $.getJSON '/admin/payloads/'+$(em).val()+'/list.js', (data)->
-    console.log data
+  $.getJSON "/admin/businesses/#{window.business_id}/client_info.js", (data) ->
+    html = '<table><tbody>'
+    $.each data, (i,e)->
+      html += '<tr>'
+      html += '<td>'+i+'</td>'
+      html += '<td>'+e+'</td>'
+      html += '</tr>'
+    html += '</tbody></table>'
+    $(panel).html( html )
+
+window.loadPayloads = ()->
+  $.getJSON '/admin/payloads/'+$('#payload_categories_select').val()+'/list.js', (data)->
     html = '<ul id="payload_list_ul">'
     $.each data, (i,e)->
-      html += '<li data-payload-id="'+e['id']+'">'+e['name']+'</li>'
+      html += '<li class="ui-state-default" data-payload-id="'+e['id']+'">'+e['name']+'</li>'
     html += '</ul>'
     $('#payload_list_container').html(html)
     $('#payload_list_ul > li').click (e)->
@@ -77,11 +111,12 @@ window.loadPayloads = (em)->
 $(document).ready ->
   # Setup Payload Categories
   $.getJSON '/admin/payload_categories/list.js', (data)->
-    html = '<select id="payload_categories" onchange="window.loadPayloads(this);">'
+    html = '<select id="payload_categories_select" onchange="window.loadPayloads();">'
     $.each data, (i,e)->
       html += '<option value="'+e['id']+'">'+e['name']+'</option>'
-    html += '</select><div id="payload_list_container"></div>'
+    html += '</select><div id="payload_list_container"></div><br />'
     $('#payload_list').html(html)
+    window.loadPayloads()
   # Setup Tabs
   actions = [
     showPending,
@@ -173,3 +208,13 @@ $(document).ready ->
       Cancel: ()->
         $( this ).dialog( "close" )
 
+  $('#view_booboo').dialog
+    autoOpen: false,
+    show: "blind",
+    hide: "explode"
+    width: 750
+    buttons:
+      Ok: ()->
+        $( this ).dialog( "close" )
+      Cancel: ()->
+        $( this ).dialog( "close" )
