@@ -1,4 +1,5 @@
 ActiveAdmin.register_page "Client Manager" do
+  menu :label => ''
 
   sidebar :payloads do
     div({:id => 'payload_list'}) do
@@ -19,6 +20,9 @@ ActiveAdmin.register_page "Client Manager" do
       ""
     end
     div(:id => 'view_meta', :style => 'display: none') do
+      ""
+    end
+    div(:id => 'view_booboo', :style => 'display: none') do
       ""
     end
     script do

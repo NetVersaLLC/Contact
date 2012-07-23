@@ -10,15 +10,15 @@ ActiveAdmin.register Job do
   end
 
   collection_action :pending_jobs, :method => :get do
-    @jobs = Job.where('business_id = ? AND status IN (0,1)', params[:business_id])
+    @jobs = Job.where('business_id = ? AND status IN (0,1)', params[:business_id]).order(:position)
     render json: @jobs
   end
   collection_action :failed_jobs, :method => :get do
-    @jobs = FailedJob.where('business_id = ?', params[:business_id])
+    @jobs = FailedJob.where('business_id = ?', params[:business_id]).order(:position)
     render json: @jobs
   end
   collection_action :completed_jobs, :method => :get do
-    @jobs = CompletedJob.where('business_id = ?', params[:business_id])
+    @jobs = CompletedJob.where('business_id = ?', params[:business_id]).order(:position)
     render json: @jobs
   end
   member_action :view_payload, :method => :get do
@@ -76,6 +76,25 @@ ActiveAdmin.register Job do
     job = Job.inject(params[:business_id], payload.payload, payload.model)
     job.name = payload.name
     job.save
+    render json: true
+  end
+  member_action :reorder, :method => :post do
+    business = Business.find(params[:id])
+    if params[:table] == 'jobs'
+      klass = Job
+    elsif params[:table] == 'failed_jobs'
+      klass = FailedJob
+    elsif params[:table] == 'completed_jobs'
+      klass = CompletedJob
+    end
+    em = JSON( params[:order] )
+    em.each do |pos|
+      job          = klass.where(:id => pos[1]).first
+      unless job.nil?
+        job.position = pos[0]
+        job.save!
+      end
+    end
     render json: true
   end
 end

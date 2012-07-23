@@ -4,8 +4,7 @@ class CreatePayloads < ActiveRecord::Migration
       t.string  :model
       t.string  :name
       t.text    :payload
-      t.integer :location
-      t.string  :status
+      t.integer :position
 
       t.timestamps
     end
