@@ -396,15 +396,13 @@ ActiveRecord::Schema.define(:version => 20120709152056) do
     t.string   "model"
     t.string   "name"
     t.text     "payload"
-    t.integer  "location"
-    t.string   "status"
+    t.integer  "position"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.integer  "payload_category_id"
   end
 
   add_index "payloads", ["payload_category_id"], :name => "index_payloads_on_payload_category_id"
-  add_index "payloads", ["status"], :name => "index_payloads_on_status"
 
   create_table "pings", :force => true do |t|
     t.integer  "user_id"
