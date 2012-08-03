@@ -128,8 +128,42 @@ class Business < ActiveRecord::Base
     end
     list
   end
-
   def self.site_accounts
+    [
+      ['Twitter', 'twitters',
+        [
+          ['text', 'username'],
+          ['text', 'password']
+        ]
+      ],
+      ['Facebook', 'facebooks',
+        [
+          ['text', 'email'],
+          ['text', 'password']
+        ]
+      ],
+      ['Yelp', 'yelps',
+        [
+          ['text', 'email'],
+          ['text', 'password']
+        ]
+      ],
+      ['foursquare', 'foursquares',
+        [
+          ['text', 'email'],
+          ['text', 'password']
+        ]
+      ],
+      ['Mapquest', 'map_quests',
+        [
+          ['text', 'email'],
+          ['text', 'password']
+        ]
+      ]
+    ]
+  end
+
+  def self.bullshit_accounts
     [
       ['Twitter', 'twitters',
         [
