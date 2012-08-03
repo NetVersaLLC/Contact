@@ -13,11 +13,14 @@
       %th Site
       %th Status
   %tbody
+    - i = 0
     - Business.site_accounts.each do |account|
+      - i = i + 1
       %tr
         %td
-          = account[0]
-        %td Last Updated #{Time.now}
+          = account[0].gsub(/([A-Z])/, ' \\1')
+        %td{:id => "checkbox#{i}"}
+          = image_tag "/assets/notchecked.png"
 %br/
 
 .row

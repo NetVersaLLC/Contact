@@ -2,6 +2,23 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
+window.currentCheckbox = 1
+
+window.displayCheckbox = ()->
+  num = window.currentCheckbox
+  $('#checkbox'+num).html('<img src="/assets/check.png" />')
+  console.log("1")
+  if $('#checkbox'+(num+1))
+    console.log("2")
+    window.currentCheckbox = num+1
+    setTimeout(window.displayCheckbox, 1000+Math.random(1500))
+
+$(document).ready ->
+  window.currentCheckbox = 1
+  console.log("Running!")
+  window.displayCheckbox()
+
+
 # HACK HACK HACK
 # Removal of button is called before the callbacks that add the
 # form element. So... delay the remove of the button by one second.
