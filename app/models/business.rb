@@ -160,6 +160,54 @@ class Business < ActiveRecord::Base
           ['text', 'email'],
           ['text', 'password']
         ]
+      ],
+      ['CitySearch', 'city_search',
+        [
+          ['text', 'email'],
+          ['text', 'password']
+        ]
+      ],
+      ['Ezlocal', 'ezlocal',
+        [
+          ['text', 'email'],
+          ['text', 'password']
+        ]
+      ],
+      ['MerchantCircle', 'merchant_circle',
+        [
+          ['text', 'email'],
+          ['text', 'password']
+        ]
+      ],
+      ['CityGrid', 'city_grid',
+        [
+          ['text', 'email'],
+          ['text', 'password']
+        ]
+      ],
+      ['GooglePlusLocal', 'google_plus_local',
+        [
+          ['text', 'email'],
+          ['text', 'password']
+        ]
+      ],
+      ['Kudzu', 'kudzu',
+        [
+          ['text', 'email'],
+          ['text', 'password']
+        ]
+      ],
+      ['Yahoo Local', 'yahoo_local',
+        [
+          ['text', 'email'],
+          ['text', 'password']
+        ]
+      ],
+      ['Yellowbot', 'yellowbot',
+        [
+          ['text', 'email'],
+          ['text', 'password']
+        ]
       ]
     ]
   end
