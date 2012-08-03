@@ -1,5 +1,8 @@
 %p#notice= notice
 
+
+.btn.btn-info.btn-large#startJobs Start Jobs
+
 %h1
   Business Status
   %sup
@@ -19,8 +22,10 @@
       %tr
         %td
           = account[0].gsub(/([A-Z])/, ' \\1')
+          %span{:id => "social#{i}"}
+            &nbsp;
         %td{:id => "checkbox#{i}"}
-          = image_tag "/assets/notchecked.png"
+          = image_tag "/assets/notchecked.png", :class => :checkicon
 %br/
 
 .row
