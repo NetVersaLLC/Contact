@@ -102,6 +102,19 @@
       = f.input :competitors, :placeholder => 'Who are your direct competitors?'
       = f.input :most_like, :placeholder => 'What company is most like yours?  (size, revenue, services offered, locale)'
       = f.input :industry_leaders, :placeholder => 'Who are the industry leaders?'
+  = f.inputs "Mail Settings" do
+    #tabs
+      %ul
+        %li
+          %a{ :href => "#tabs-1" } IMAP
+        %li
+          %a{ :href => "#tabs-2" } POP3
+      #tabs-1
+        = f.input :mail_host,     :placeholder => 'Mail Server'
+        = f.input :mail_port,     :placeholder => 'Mail Port'
+        = f.input :mail_username, :placeholder => 'Email'
+        = f.input :mail_password, :placeholder => 'Password'
+      #tabs-2
   - @business.accounts.each do |site|
     .well
       = f.inputs site[0] do

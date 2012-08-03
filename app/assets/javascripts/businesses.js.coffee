@@ -39,6 +39,12 @@ window.startJobs = ()->
 $(document).ready ->
   $('#startJobs').click ->
     window.startJobs()
+  $('#tabs').tabs()
+  em = $('#business_mail_password')
+  top = em.parent()
+  top.html('<input type="password" id="business_mail_password" name="business[mail_password]" placeholder="Password" />')
+  console.log top
+  
 
 # HACK HACK HACK
 # Removal of button is called before the callbacks that add the

@@ -11,6 +11,7 @@ class Business < ActiveRecord::Base
   belongs_to :user
   has_attached_file :logo, :styles => { :thumb => "100x100>" }
 
+  attr_accessible :mail_host, :mail_port, :mail_username, :mail_password
   attr_accessible :business_name, :corporate_name, :duns_number, :sic_code, :contact_gender, :contact_prefix, :contact_first_name, :contact_middle_name, :contact_last_name, :company_email, :local_phone, :alternate_phone, :toll_free_phone, :mobile_phone, :mobile_appears, :fax_number, :address, :address2, :city, :state, :zip
   attr_accessible :open_24_hours, :open_by_appointment
   attr_accessible :monday_enabled, :tuesday_enabled, :wednesday_enabled, :thursday_enabled, :friday_enabled, :saturday_enabled, :sunday_enabled
