@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120803214908) do
+ActiveRecord::Schema.define(:version => 20120807145634) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -262,6 +262,18 @@ ActiveRecord::Schema.define(:version => 20120803214908) do
 
   add_index "foursquares", ["business_id"], :name => "index_foursquares_on_business_id"
 
+  create_table "google_categories", :force => true do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.integer  "yelp_category_id"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
+  add_index "google_categories", ["slug"], :name => "index_google_categories_on_slug"
+  add_index "google_categories", ["yelp_category_id"], :name => "index_google_categories_on_yelp_category_id"
+
   create_table "googles", :force => true do |t|
     t.integer  "business_id"
     t.string   "email"
@@ -319,7 +331,7 @@ ActiveRecord::Schema.define(:version => 20120803214908) do
     t.text     "data"
   end
 
-  add_index "jobs", ["business_id"], :name => "index_jobs_on_user_id"
+  add_index "jobs", ["business_id"], :name => "index_jobs_on_business_id"
   add_index "jobs", ["status"], :name => "index_jobs_on_status"
 
   create_table "judys_books", :force => true do |t|
@@ -397,15 +409,13 @@ ActiveRecord::Schema.define(:version => 20120803214908) do
     t.string   "model"
     t.string   "name"
     t.text     "payload"
-    t.integer  "location"
-    t.string   "status"
+    t.integer  "position"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.integer  "payload_category_id"
   end
 
   add_index "payloads", ["payload_category_id"], :name => "index_payloads_on_payload_category_id"
-  add_index "payloads", ["status"], :name => "index_payloads_on_status"
 
   create_table "pings", :force => true do |t|
     t.integer  "user_id"

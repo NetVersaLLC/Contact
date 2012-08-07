@@ -1,6 +1,6 @@
 class YelpCategory < ActiveRecord::Base
   acts_as_tree :order => :name
-  belongs_to :business
+  belongs_to :google_category
   def to_list
     res = []
     anc = self.ancestors
@@ -27,5 +27,20 @@ class YelpCategory < ActiveRecord::Base
     arr = []
     self.build_list(arr, YelpCategory.root)
     arr
+  end
+
+  def self.list_children(node)
+    html = '<li><a href="#">' + node.name + '</a>'
+    if node.children.length > 0
+      html += '<ul>'
+      node.children.each do |child|
+        html += self.list_children(child)
+      end
+      html += '</ul>'
+    end
+    html += '</li>'
+  end
+  def self.build_menu
+    self.list_children(YelpCategory.root)
   end
 end
