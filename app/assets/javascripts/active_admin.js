@@ -8,7 +8,7 @@
 $(document).ready(function() {
   $('.categoryPicker').each(function(i,e) { 
     $('#'+$(e).attr('id')).menu({
-      content: $('#'+$(e).attr('id')).next().html(),
+      content: $('#yelpCategories').html(),
       backLink: false
     });
   });
