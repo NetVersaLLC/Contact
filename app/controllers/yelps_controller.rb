@@ -2,20 +2,20 @@ class YelpsController < ApplicationController
   before_filter :authenticate_user!
 
   def check_email
-    business = Business.find_by_user_id(current_user.id)
-    CheckMail.new(business) do |mail|
-      if mail.subject =~ /Verify Your Email Address/
-        if mail.body =~ /(https:\/\/biz.yelp.com\/signup\/confirm\/\S+)/
-          link = $1
-          Job.create do |j|
-            j.user_id = current_user.id
-            j.status = 0
-            j.payload = <<RUBY
-RUBY
-            j.wait = false
-          end
-        end
+    business = Business.find(params[:business_id])
+    @link = Yelp.check_email(business)
+    unless @link.nil?
+      Job.create do |j|
+        j.user_id = current_user.id
+        j.status  = 0
+        j.payload = "link='#{@link}'\n"+File.open(Rails.root.join("payloads/yelp/2_click_link.rb")).read
+        j.wait    = false
       end
+    else
+      @job = Job.where('business_id = ? AND status IN (0,1)', business.id).order(:position).first
+      @job.status = 0
+      @job.wait = nil
+      @job.save
     end
     @status = { :status => :wait }
     respond_to do |format|

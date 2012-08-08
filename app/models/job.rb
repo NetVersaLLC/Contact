@@ -36,7 +36,7 @@ class Job < ActiveRecord::Base
   end
 
   def self.pending(business)
-    @job = Job.where('business_id = ? AND status IN (0,1)', business.id).first
+    @job = Job.where('business_id = ? AND status IN (0,1)', business.id).order(:position).first
     if @job != nil
       if @job.wait == true
         if @job.waited_at > Time.now - 1.hour
