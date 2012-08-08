@@ -26,9 +26,10 @@ class Job < ActiveRecord::Base
   }
   TO_SYM = TO_CODE.invert
 
-  def data(business)
+  def get_job_data(business, params)
     unless self['model'].nil?
-      eval "#{self['model']}.data(business)"
+      logger.info "Executing: #{self['model']}"
+      eval self['model']
     else
       {}
     end

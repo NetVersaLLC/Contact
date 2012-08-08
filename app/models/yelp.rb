@@ -8,19 +8,23 @@ class Yelp < ClientData
   validates :password,
             :presence => true
 
-  def data(business)
-    cat = YelpCategory.find(GoogleCategory.where(:name, business.category1).first.yelp_category_id)
+  def self.get_signup_data(business)
+    google = GoogleCategory.where(:name => business.category1).first
+    if google.nil?
+      throw "No Google Category Set"
+    end
+    cat = YelpCategory.find(google.yelp_category_id)
     data = {
-      'name'          => "#{business.first_name} #{business.last_name}",
+      'name'          => "#{business.contact_first_name} #{business.contact_last_name}",
       'city'          => business.city,
       'address'       => business.address,
       'address2'      => business.address2,
       'state'         => business.state,
       'zip'           => business.zip,
       'phone'         => business.local_phone,
-      'website'       => business.website,
+      'website'       => business.company_website,
       'yelp_category' => cat.to_list,
-      'email'         => business.email
+      'email'         => business.company_email
     }
   end
 end
