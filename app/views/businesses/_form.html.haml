@@ -133,6 +133,11 @@
     - @business.nonexistent_accounts.each do |site|
       %a{ 'data-association' => site[1], :class => "add_nested_fields btn", :href => "javascript:void(0);", :onclick => "window.removeButton(this);", :style => 'margin-left: 160px'} Add #{site[0]}
       %br/
+  = f.inputs "Categories" do
+    .well
+      = f.input :category1
+      = f.input :category2
+      = f.input :category3
   = f.inputs "Logo" do
     .well
       = f.input :logo

@@ -30,7 +30,7 @@ class YelpCategory < ActiveRecord::Base
   end
 
   def self.list_children(node)
-    html = '<li><a href="#">' + node.name + '</a>'
+    html = '<li><a href="#" class="mymenu" data-cat-id="'+node.id.to_s+'">' + node.name + '</a>'
     if node.children.length > 0
       html += '<ul>'
       node.children.each do |child|
@@ -42,5 +42,13 @@ class YelpCategory < ActiveRecord::Base
   end
   def self.build_menu
     self.list_children(YelpCategory.root)
+  end
+
+  def self.get_id_name
+    self.to_s.gsub(/([A-Z])/, '_\1').downcase.gsub(/^_/, '')+'_id'
+  end
+
+  def self.make_category(id)
+    self.find(id).make_category
   end
 end

@@ -3,13 +3,6 @@
 //= require jquery_ujs
 //= require aa-jquery-ui
 //= require active_admin_clients
-//= require fg
+//= require jquery-xqs-flyoutMenu
+//= require jquery-xqs-menubar
 
-$(document).ready(function() {
-  $('.categoryPicker').each(function(i,e) { 
-    $('#'+$(e).attr('id')).menu({
-      content: $('#yelpCategories').html(),
-      backLink: false
-    });
-  });
-});

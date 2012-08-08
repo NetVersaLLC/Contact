@@ -43,4 +43,8 @@ class ClientData < ActiveRecord::Base
     force_update_will_change!
     @roce_update = Time.now
   end
+
+  def data(business_id)
+    {}
+  end
 end

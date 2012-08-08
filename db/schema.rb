@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120807145634) do
+ActiveRecord::Schema.define(:version => 20120808004157) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -174,8 +174,14 @@ ActiveRecord::Schema.define(:version => 20120807145634) do
     t.datetime "updated_at",                :null => false
     t.datetime "client_checkin"
     t.string   "mail_type"
+    t.string   "category1"
+    t.string   "category2"
+    t.string   "category3"
   end
 
+  add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
+  add_index "businesses", ["category2"], :name => "index_businesses_on_category2"
+  add_index "businesses", ["category3"], :name => "index_businesses_on_category3"
   add_index "businesses", ["user_id"], :name => "index_businesses_on_user_id"
 
   create_table "citysearches", :force => true do |t|
@@ -331,7 +337,7 @@ ActiveRecord::Schema.define(:version => 20120807145634) do
     t.text     "data"
   end
 
-  add_index "jobs", ["business_id"], :name => "index_jobs_on_business_id"
+  add_index "jobs", ["business_id"], :name => "index_jobs_on_user_id"
   add_index "jobs", ["status"], :name => "index_jobs_on_status"
 
   create_table "judys_books", :force => true do |t|
@@ -409,13 +415,15 @@ ActiveRecord::Schema.define(:version => 20120807145634) do
     t.string   "model"
     t.string   "name"
     t.text     "payload"
-    t.integer  "position"
+    t.integer  "location"
+    t.string   "status"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.integer  "payload_category_id"
   end
 
   add_index "payloads", ["payload_category_id"], :name => "index_payloads_on_payload_category_id"
+  add_index "payloads", ["status"], :name => "index_payloads_on_status"
 
   create_table "pings", :force => true do |t|
     t.integer  "user_id"

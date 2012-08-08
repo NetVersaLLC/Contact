@@ -1,3 +1,43 @@
-OK
+%h1 Categorizing: #{@type}
 
-#{@blah}
+%link{:rel => "stylesheet", :type => "text/css", :href => "/assets/fg.css"}
+
+#items
+  %ul{ :id => "menu", :class => 'category-menu' }
+    #{raw @list}
+
+- @google.each do |cat|
+  %table
+    %tbody
+      %tr
+        %td{:width => '30%'} #{cat.name}
+        - if cat.send(@key) == nil
+          %td{:style => 'background-color: #FCC', :id => "cat#{cat.id}"} None
+        - else
+          %td{:style => 'background-color: #CFC'}
+            = eval "#{@type}.make_category(cat.#{@key})"
+        %td
+          %a{:href => "javascript:pickCategory(#{cat.id})"} Pick Category
+
+#menu
+
+:javascript
+  window.google_category_id = null;
+  window.category_type = '#{@type}';
+  function pickCategory(category_id) {
+    window.google_category_id = category_id;
+    $('#items').show();
+  }
+  $(document).ready(function(){
+    $('.mymenu').click(function(ev){
+      category_id = $(ev.target).attr('data-cat-id');
+      $.ajax({
+        type: "POST",
+        url: "/admin/google_categories/"+window.google_category_id+"/update_cat",
+        data: { 'category_id': category_id, 'type': window.category_type, '_method': 'PUT' }
+      });
+      $('#items').hide();
+      $('#cat'+window.google_category_id).attr('style', 'color: #CFC');
+    });
+    $('#items').hide();
+  });
