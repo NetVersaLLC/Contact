@@ -9,6 +9,7 @@ class Yelp < ClientData
             :presence => true
 
   def data(business)
+    cat = YelpCategory.find(GoogleCategory.where(:name, business.category1).first.yelp_category_id)
     data = {
       'name'          => "#{business.first_name} #{business.last_name}",
       'city'          => business.city,
@@ -16,9 +17,9 @@ class Yelp < ClientData
       'address2'      => business.address2,
       'state'         => business.state,
       'zip'           => business.zip,
-      'phone'         => business.phone,
+      'phone'         => business.local_phone,
       'website'       => business.website,
-      'yelp_category' => [business.yelp.category1,business.yelp.category2],
+      'yelp_category' => cat.to_list,
       'email'         => business.email
     }
   end
