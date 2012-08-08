@@ -18,3 +18,5 @@
 .DS_Store
 
 /categories/google/cats/*.js
+
+/payloads/
