@@ -26,6 +26,14 @@ class Job < ActiveRecord::Base
   }
   TO_SYM = TO_CODE.invert
 
+  def data(business)
+    unless self['model'].nil?
+      eval "#{self['model']}.data(business)"
+    else
+      {}
+    end
+  end
+
   def self.pending(business)
     @job = Job.where('business_id = ? AND status IN (0,1)', business.id).first
     if @job != nil

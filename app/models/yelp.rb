@@ -7,4 +7,19 @@ class Yelp < ClientData
             :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
   validates :password,
             :presence => true
+
+  def data(business)
+    data = {
+      'name'          => "#{business.first_name} #{business.last_name}",
+      'city'          => business.city,
+      'address'       => business.address,
+      'address2'      => business.address2,
+      'state'         => business.state,
+      'zip'           => business.zip,
+      'phone'         => business.phone,
+      'website'       => business.website,
+      'yelp_category' => [business.yelp.category1,business.yelp.category2],
+      'email'         => business.email
+    }
+  end
 end

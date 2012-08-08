@@ -108,7 +108,7 @@ window.loadPayloads = ()->
       window.assign_payload = $(e.target).attr('data-payload-id')
       $('#assign_payload').dialog( "open" )
 
-$(document).ready ->
+window.startPayloads = () ->
   # Setup Payload Categories
   $.getJSON '/admin/payload_categories/list.js', (data)->
     html = '<select id="payload_categories_select" onchange="window.loadPayloads();">'

@@ -1,7 +1,6 @@
 // Active Admin CSS Styles
 /*
  *= require aa-jquery-ui
- *= require fg
  */
 
 @import "active_admin/mixins";
@@ -65,3 +64,8 @@ $info   : #99F;
 #payload_list_ul {
   margin-top: 20px;
 }
+
+.ui-icon-carat-1-e {
+  float: left;
+}
+

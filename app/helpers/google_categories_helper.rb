@@ -1,0 +1,2 @@
+module GoogleCategoriesHelper
+end

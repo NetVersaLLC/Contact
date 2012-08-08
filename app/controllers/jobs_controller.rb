@@ -14,6 +14,8 @@ class JobsController < ApplicationController
     logger.info "Job is: #{@job.inspect}"
     if @job == nil
       @job = {:status => 'wait'}
+    else
+      @job['data'] = @job.data(@business)
     end
     respond_to do |format|
       format.json { render json: @job }
