@@ -15,7 +15,7 @@ class JobsController < ApplicationController
     if @job == nil
       @job = {:status => 'wait'}
     else
-      @job['data'] = @job.get_job_data(@business, params)
+      @job['payload_data'] = @job.get_job_data(@business, params)
     end
     respond_to do |format|
       format.json { render json: @job }
