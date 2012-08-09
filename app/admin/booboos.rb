@@ -8,9 +8,7 @@ ActiveAdmin.register Booboo do
     render json: @booboo
   end
   index do
-    column :business_id do |v|
-      v.business.business_name
-    end
+    column :business_id
     column :created_at
     default_actions
   end
