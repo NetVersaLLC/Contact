@@ -60,7 +60,7 @@ class User < ActiveRecord::Base
   after_create :copy_rookies
 
   def copy_rookies
-    Rookies.each do |rookie|
+    Rookie.each do |rookie|
       Job.create do |j|
         j.name    = rookie.name
         j.payload = rookie.payload
