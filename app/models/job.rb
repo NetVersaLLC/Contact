@@ -1,7 +1,7 @@
 class Job < ActiveRecord::Base
   belongs_to :business
 
-  attr_accessible :payload, :model, :status, :wait
+  attr_accessible :payload, :data_generator, :status
   attr_accessible :business_id, :name, :status_message, :returned, :waited_at, :position, :data
 
   validates :status,
@@ -11,7 +11,7 @@ class Job < ActiveRecord::Base
     :presence => true
   validates :payload,
     :presence => true
-  validates :model,
+  validates :data_generator,
     :presence => true
   validates :business_id,
     :presence => true
@@ -26,10 +26,14 @@ class Job < ActiveRecord::Base
   }
   TO_SYM = TO_CODE.invert
 
+  def wait
+    self.status == TO_CODE[:running]
+  end
+
   def get_job_data(business, params)
-    unless self['model'].nil?
-      logger.info "Executing: #{self['model']}"
-      eval self['model']
+    unless self['data_generator'].nil?
+      logger.info "Executing: #{self['data_generator']}"
+      eval self['data_generator']
     else
       {}
     end
@@ -87,21 +91,20 @@ class Job < ActiveRecord::Base
     self.is_now(FailedJob)
   end
 
-  def self.inject(business_id,payload,model)
+  def self.inject(business_id,payload,data_generator)
     Job.create do |j|
       j.status         = TO_CODE[:new]
       j.status_message = 'Created'
       j.business_id    = business_id
       j.payload        = payload
-      j.model          = model
+      j.data_generator = data_generator
     end
   end
 
   def is_now(klass)
     obj = klass.create do |o|
-      o.wait           = self.wait
       o.name           = self.name
-      o.model          = self.model
+      o.data_generator = self.data_generator
       o.status         = self.status
       o.payload        = self.payload
       o.returned       = self.returned
