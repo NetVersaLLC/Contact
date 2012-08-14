@@ -2,7 +2,7 @@
 
 %table
   %tr
-    %th Model
+    %th Data Generator
     %th Name
     %th
     %th
@@ -10,7 +10,7 @@
 
   - @payloads.each do |payload|
     %tr
-      %td= payload.model
+      %td= payload.data_generator
       %td= payload.name
       %td= link_to 'Show', payload
       %td= link_to 'Edit', edit_payload_path(payload)
