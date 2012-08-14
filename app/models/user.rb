@@ -60,11 +60,11 @@ class User < ActiveRecord::Base
   after_create :copy_rookies
 
   def copy_rookies
-    Rookie.each do |rookie|
+    Rookie.all.each do |rookie|
       Job.create do |j|
-        j.name    = rookie.name
-        j.payload = rookie.payload
-        j.data_generator   = rookie.data_generator
+        j.name           = rookie.name
+        j.payload        = rookie.payload
+        j.data_generator = rookie.data_generator
       end
     end
   end
