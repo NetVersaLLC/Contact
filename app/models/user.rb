@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
       Job.create do |j|
         j.name    = rookie.name
         j.payload = rookie.payload
-        j.model   = rookie.model
+        j.data_generator   = rookie.data_generator
       end
     end
   end
