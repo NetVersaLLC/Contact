@@ -21,6 +21,8 @@ Contact::Application.routes.draw do
 
   get '/downloads/:business_id', :controller => :downloads, :action => :download
   get '/welcome',   :controller => :pages,     :action => :index
+
+  get '/emails/check/:site', :controller => :emails, :action => :check
   resources :zip, :only => [:index]
   resources :city, :only => [:index]
   resources :places

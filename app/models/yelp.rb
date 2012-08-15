@@ -28,6 +28,22 @@ class Yelp < ClientData
     }
   end
 
+  def self.my_mail(mail)
+    if mail.subject =~ /Verify Your Email Address/
+      true
+    else
+      false
+    end
+  end
+
+  def self.get_link(mail)
+    if mail.body =~ /(https:\/\/biz.yelp.com\/signup\/confirm\/\S+)/
+      $1
+    else
+      nil
+    end
+  end
+
   def self.check_email(business)
     @link = nil
     CheckMail.get_link(business) do |mail|
