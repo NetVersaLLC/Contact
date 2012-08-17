@@ -1,18 +1,13 @@
 class Business < ActiveRecord::Base
 
-  attr_accessible :yelp_category_id
-  add_nested :yelps, :map_quests, :twitters, :facebooks
-
-  def make_contact
-    [first_name, middle_name, last_name].join(" ").gsub(/\s+/, ' ')
-  end
-
-  has_many :jobs, :order => "position"
-  belongs_to :user
   has_attached_file :logo, :styles => { :thumb => "100x100>" }
+  has_many   :jobs, :order => "position"
+  belongs_to :user
 
-  attr_accessible :mail_host, :mail_port, :mail_username, :mail_password
-  attr_accessible :business_name, :corporate_name, :duns_number, :sic_code, :contact_gender, :contact_prefix, :contact_first_name, :contact_middle_name, :contact_last_name, :company_email, :local_phone, :alternate_phone, :toll_free_phone, :mobile_phone, :mobile_appears, :fax_number, :address, :address2, :city, :state, :zip
+  attr_accessible :business_name, :corporate_name, :duns_number, :sic_code
+  attr_accessible :contact_gender, :contact_prefix, :contact_first_name, :contact_middle_name, :contact_last_name
+  attr_accessible :local_phone, :alternate_phone, :toll_free_phone, :mobile_phone, :mobile_appears, :fax_number
+  attr_accessible :address, :address2, :city, :state, :zip
   attr_accessible :open_24_hours, :open_by_appointment
   attr_accessible :monday_enabled, :tuesday_enabled, :wednesday_enabled, :thursday_enabled, :friday_enabled, :saturday_enabled, :sunday_enabled
   attr_accessible :monday_open, :monday_close, :tuesday_open, :tuesday_close, :wednesday_open, :wednesday_close, :thursday_open, :thursday_close, :friday_open, :friday_close, :saturday_open, :saturday_close, :sunday_open, :sunday_close
@@ -27,25 +22,35 @@ class Business < ActiveRecord::Base
   attr_accessible :fan_page_url
   attr_accessible :logo
 
+  add_nested :accounts
+  attr_accessible :accounts_attributes
+  has_many :accounts, :dependent => :destroy
+  accepts_nested_attributes_for :accounts, :allow_destroy => false
+
+  add_nested :twitters
   attr_accessible :twitters_attributes
   has_many :twitters, :dependent => :destroy
   accepts_nested_attributes_for :twitters, :allow_destroy => true
 
+  add_nested :facebooks
   attr_accessible :facebooks_attributes
   has_many :facebooks, :dependent => :destroy
   accepts_nested_attributes_for :facebooks, :allow_destroy => true
 
+  add_nested :yelps
   attr_accessible :yelps_attributes
   has_many :yelps, :dependent => :destroy
   accepts_nested_attributes_for :yelps, :allow_destroy => true
+
+  add_nested :map_quests
+  attr_accessible :map_quests_attributes
+  has_many :map_quests, :dependent => :destroy
+  accepts_nested_attributes_for :map_quests, :allow_destroy => true
 
   attr_accessible :foursquares_attributes
   has_many :foursquares, :dependent => :destroy
   accepts_nested_attributes_for :foursquares, :allow_destroy => true
 
-  attr_accessible :map_quests_attributes
-  has_many :map_quests, :dependent => :destroy
-  accepts_nested_attributes_for :map_quests, :allow_destroy => true
 
   def self.email_regex
     /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
@@ -116,6 +121,10 @@ class Business < ActiveRecord::Base
   def self.prefix_list
     ['Mr.', 'Mrs.', 'Miss.', 'Ms.', 'Dr.', 'Prof.']
   end
+  def make_contact
+    [first_name, middle_name, last_name].join(" ").gsub(/\s+/, ' ')
+  end
+
 
   def self.geographic_areas_list
     list = ['Worldwide', 'Unknown']
@@ -254,7 +263,7 @@ class Business < ActiveRecord::Base
     end
     list
   end
-  def accounts
+  def sites
     list = []
     Business.site_accounts.each do |site|
       list.push site if self.send(site[1]).count > 0

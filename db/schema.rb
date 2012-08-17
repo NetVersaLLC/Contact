@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120809201825) do
+ActiveRecord::Schema.define(:version => 20120817055401) do
+
+  create_table "accounts", :force => true do |t|
+    t.string   "email"
+    t.string   "username"
+    t.integer  "port"
+    t.string   "address"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "accounts", ["email"], :name => "index_accounts_on_email"
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -108,7 +121,6 @@ ActiveRecord::Schema.define(:version => 20120809201825) do
     t.string   "city"
     t.string   "state"
     t.string   "zip"
-    t.text     "languages"
     t.boolean  "open_24_hours"
     t.boolean  "open_by_appointment"
     t.boolean  "monday_enabled"
@@ -142,18 +154,11 @@ ActiveRecord::Schema.define(:version => 20120809201825) do
     t.boolean  "accepts_paypal"
     t.boolean  "accepts_bitcoin"
     t.text     "business_description"
-    t.string   "services_offered"
-    t.string   "specialies"
     t.string   "professional_associations"
     t.string   "geographic_areas"
     t.string   "year_founded"
     t.string   "company_website"
-    t.string   "incentive_offers"
-    t.string   "links_to_photos"
-    t.string   "links_to_videos"
     t.string   "fan_page_url"
-    t.text     "other_social_links"
-    t.text     "positive_review_links"
     t.string   "keyword1"
     t.string   "keyword2"
     t.string   "keyword3"
@@ -162,10 +167,6 @@ ActiveRecord::Schema.define(:version => 20120809201825) do
     t.text     "competitors"
     t.string   "most_like"
     t.string   "industry_leaders"
-    t.string   "mail_host"
-    t.integer  "mail_port"
-    t.string   "mail_username"
-    t.text     "mail_password"
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
@@ -173,7 +174,6 @@ ActiveRecord::Schema.define(:version => 20120809201825) do
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
     t.datetime "client_checkin"
-    t.string   "mail_type"
     t.string   "category1"
     t.string   "category2"
     t.string   "category3"

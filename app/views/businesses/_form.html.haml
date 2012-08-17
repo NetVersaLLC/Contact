@@ -16,7 +16,6 @@
       = f.input :contact_first_name, :placeholder => "Contact First Name",  :input_html => { 'data-content' => 'The first name of the person that LLH should speak to regarding your account.', 'title' => 'Main Contact Person',   :rel => 'popover' }
       = f.input :contact_middle_name,:placeholder => "Contact Middle Name", :input_html => { 'data-content' => 'The middle name of the person that LLH should speak to regarding your account.', 'title' => 'Main Contact Person', :rel => 'popover' }
       = f.input :contact_last_name,  :placeholder => "Contact Last Name",   :input_html => { 'data-content' => 'The last name of the person that LLH should speak to regarding your account.', 'title' => 'Main Contact Person',     :rel => 'popover' }
-      = f.input :company_email,      :placeholder => "Main Company Email",  :input_html => { 'data-content' => 'This is the email that will be displayed online in all of the directory listings. Leads will also be delivered to this address.', 'title' => 'Main Company Email', :rel => 'popover' }
       = f.input :local_phone,        :placeholder => "Primary Local Phone", :hint => "Format: 555-555-1212", :input_html => { 'data-content' => 'This number will be used in all online directory listings, including your website.', 'title' => 'Primary Local Phone Number',    :rel => 'popover' }
       = f.input :alternate_phone,    :placeholder => "Alternate Phone",     :hint => "Format: 555-555-1212"
       = f.input :toll_free_phone,    :placeholder => "Toll-Free Phone",     :hint => "Format: 8XX-555-1212", :input_html => { 'data-content' => 'It is not recommended to use a toll free number in your listings, however if you have one, please provide it.', 'title' => 'Toll Free Number', :rel => 'popover' }
@@ -74,22 +73,14 @@
                 Open By Appointment
   = f.inputs "Company Description" do 
     .well
-      = f.input :business_description, :placeholder => 'Business Description'
-      = f.input :languages, :placeholder => 'Languages Spoken'
-      = f.input :services_offered, :placeholder => 'Services Offered'
-      = f.input :specialies, :placeholder => 'Specialties'  
+      = f.input :business_description,      :placeholder => 'Business Description'
       = f.input :professional_associations, :placeholder => 'Professional Associations and Memberships'
-      = f.input :geographic_areas, :as => :select, :collection => Business.geographic_areas_list, :label => 'Geographic Area Serviced'
-      = f.input :year_founded, :placeholder => 'Year Founded'
-      = f.input :other_social_links, :placeholder => 'Other Social Network Links'
-      = f.input :positive_review_links, :placeholder => 'Links to Positive Reviews'
+      = f.input :geographic_areas,          :as => :select, :collection => Business.geographic_areas_list, :label => 'Geographic Area Serviced'
+      = f.input :year_founded,              :placeholder => 'Year Founded'
   = f.inputs "Web Presence" do 
     .well
       = f.input :company_website, :placeholder => 'Company Website'
-      = f.input :incentive_offers, :placeholder => 'Link to Coupon/Incentive Offer'
-      = f.input :links_to_photos, :placeholder => 'Links to Photos'
-      = f.input :links_to_videos, :placeholder => 'Links to Videos'
-      = f.input :fan_page_url, :placeholder => 'Facebook Fan Page URL'
+      = f.input :fan_page_url,    :placeholder => 'Facebook Fan Page URL'
   = f.inputs "SEO Focus" do
     .well
       = f.input :keyword1, :placeholder => 'Keyword that describes the business.'
@@ -99,22 +90,33 @@
       = f.input :keyword5, :placeholder => 'Keyword that describes the business.'
   = f.inputs "Competitors" do
     .well
-      = f.input :competitors, :placeholder => 'Who are your direct competitors?'
-      = f.input :most_like, :placeholder => 'What company is most like yours?  (size, revenue, services offered, locale)'
+      = f.input :competitors,      :placeholder => 'Who are your direct competitors?'
+      = f.input :most_like,        :placeholder => 'What company is most like yours?  (size, revenue, services offered, locale)'
       = f.input :industry_leaders, :placeholder => 'Who are the industry leaders?'
   = f.inputs "Mail Settings" do
-    #tabs
-      %ul
-        %li
-          %a{ :href => "#tabs-1" } IMAP
-        %li
-          %a{ :href => "#tabs-2" } POP3
-      #tabs-1
-        = f.input :mail_host,     :placeholder => 'Mail Server'
-        = f.input :mail_port,     :placeholder => 'Mail Port'
-        = f.input :mail_username, :placeholder => 'Email'
-        = f.input :mail_password, :placeholder => 'Password'
-      #tabs-2
+    - accounts = @business.accounts.first
+    - if accounts.nil?
+      - accounts = {'email' => '', 'password' => '', 'address' => '', 'port' => '', 'connection_type' => 'IMAP', 'username' => ''}
+      - offset   = 'new'
+    - else
+      - offset   = '0'
+    - [['email', 'Primary Company Email'], ['password', 'Password']].each do |field|
+      .control-group
+        %label.control-label{:for => "business[accounts_attributes][#{offset}][#{field[0]}]"} #{field[1]}
+        .controls
+          %input{:type => 'text', :size => "30", :name => "business[accounts_attributes][#{offset}][#{field[0]}]", :value => accounts[field[0]], :id => "business_accounts_attributes_#{offset}_#{field[0]}"}/
+    .control-group
+      %label.control-label{:for => "business[accounts_attributes][#{offset}][connection_type]"} Connection Type
+      .controls
+        = select_tag "business[accounts_attributes][#{offset}][connection_type]".to_sym, options_for_select(%w/IMAP POP3/, accounts['connection_type'])
+    - [['username', 'Mail Username'], ['address', 'Mail Server'], ['port', 'Port']].each do |field|
+      .control-group
+        %label.control-label{:for => "business[accounts_attributes][#{offset}][#{field[0]}]"} #{field[1]}
+        .controls
+          %input{:type => 'text', :size => "30", :name => "business[accounts_attributes][#{offset}][#{field[0]}]", :value => accounts[field[0]], :id => "business_accounts_attributes_#{offset}_#{field[0]}"}/
+    #mail_message
+  = f.inputs "Existing Account Logins" do
+    = ''
   - @business.accounts.each do |site|
     .well
       = f.inputs site[0] do
@@ -125,13 +127,14 @@
                 %label.control-label{:for => "business[#{site[1]}_attributes][0][#{field[1]}]"} #{field[1]}
                 .controls
                   %input{:type => field[0], :size => "30", :name => "business[#{site[1]}_attributes][0][#{field[1]}]", :value => obj.send(field[1]), :id => "business_#{site[1]}_attributes_0_#{field[1]}"}/
-              %input{:type => "hidden", :value => "false", :name => "business[#{site[1]}_attributes][0][_destroy]", :id => "business_#{site[1]}_attributes_0__destroy"}/
-            %a{:class => "remove_nested_fields", :href => "javascript:void(0)"} Remove #{site[0]}
-            %br/
-            %input{ :type => "hidden", :value => obj.id, :name => "business[#{site[1]}_attributes][0][id]", :id => "business_#{site[1]}_attributes_0_id" }
+                  %input{:type => "hidden", :value => "false", :name => "business[#{site[1]}_attributes][0][_destroy]", :id => "business_#{site[1]}_attributes_0__destroy"}/
+                  %a{:class => "remove_nested_fields", :href => "javascript:void(0)"} Remove #{site[0]}
+                  %br/
+                  %input{:type => "hidden", :value => obj.id, :name => "business[#{site[1]}_attributes][0][id]", :id => "business_#{site[1]}_attributes_0_id" }
   #socialButtons
     - @business.nonexistent_accounts.each do |site|
-      %a{ 'data-association' => site[1], :class => "add_nested_fields btn", :href => "javascript:void(0);", :onclick => "window.removeButton(this);", :style => 'margin-left: 160px'} Add #{site[0]}
+      %a{ 'data-association' => site[1], :class => "add_nested_fields social_sites", :href => "javascript:void(0);", :onclick => "window.removeButton(this);", :style => 'margin-left: 160px'}
+        = image_tag "/assets/#{site[1]}.png", :alt => "Add #{site[0]}", :title => "Add #{site[0]} Credentials"
       %br/
   = f.inputs "Categories" do
     .well
@@ -140,7 +143,12 @@
       = f.input :category3
   = f.inputs "Logo" do
     .well
-      = f.input :logo
-      = link_to image_tag(@business.logo.url(:thumb)), @business.logo.url, :class => 'thumbnail', :title => 'Current Logo'
+      #logo_uploader
+        %h3 Select an image from your computer.
+        = f.input :logo
+      - unless @business.logo.url =~ /missing/
+        #logo_shown
+          %h3 Current image.
+          = link_to image_tag(@business.logo.url(:thumb)), @business.logo.url, :class => 'thumbnail', :title => 'Current Logo'
   = f.actions do 
     = submit_tag "Save Changes", :class => 'btn btn-large btn-primary'
