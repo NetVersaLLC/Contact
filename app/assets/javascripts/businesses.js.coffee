@@ -146,6 +146,7 @@ $(document).ready ->
   $('#business_open_by_appointment').click window.toggleTimes
 
   $('#business_address').after('<button class="btn btn-info" onclick="window.openMap();" id="mapit">Map</button>')
+  $('#business_accounts_attributes_new_email').after('<button class="btn btn-info" onclick="window.detectEmailSettings();">Detect Email Settings</button>')
   $('#mapit').click (event)->
     event.preventDefault()
   $('input[rel=popover]').popover()

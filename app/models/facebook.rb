@@ -8,7 +8,7 @@ class Facebook < ClientData
             :presence => true
   def Facebook.data
     hash = Business.find_by_user_id(self.user_id).to_hash
-    hash[:email] = self.email
+    hash[:email]    = self.email
     hash[:password] = self.password
   end
 end

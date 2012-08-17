@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  email: MyString
+  username: MyString
+  port: 1
+  address: MyString
+  secrets: MyText
+  force_update: 2012-08-16 22:48:21
+
+two:
+  email: MyString
+  username: MyString
+  port: 1
+  address: MyString
+  secrets: MyText
+  force_update: 2012-08-16 22:48:21
