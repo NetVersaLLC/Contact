@@ -1,4 +1,5 @@
 class CheckMail
+
   def self.get_link(business, &block)
     Mail.defaults do
       retriever_method :imap, { :address => business.mail_host,
@@ -11,4 +12,5 @@ class CheckMail
       block(mail)
     end
   end
+
 end
