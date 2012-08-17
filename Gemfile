@@ -10,6 +10,7 @@ group :assets do
   gem 'bootstrap-sass'
 end
 
+gem 'nokogiri'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'devise'
@@ -23,7 +24,6 @@ gem "meta_search",    '>= 1.1.0.pre'
 gem 'acts_as_list'
 gem 'acts_as_tree'
 gem 'rabl'
-gem 'mail'
 gem 'cerebus'
 gem 'formtastic', " ~> 2.1.1"
 gem 'nested_form',          git: 'git://github.com/ryanb/nested_form.git'
@@ -34,3 +34,4 @@ gem 'carmen'
 gem 'httparty'
 gem 'coderay'
 gem 'paypal-recurring'
+gem 'detect_email_settings'
