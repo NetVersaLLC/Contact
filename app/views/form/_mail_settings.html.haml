@@ -1,0 +1,22 @@
+= @f.inputs "Mail Settings" do
+  - accounts = @business.accounts.first
+  - if accounts.nil?
+    - accounts = {'email' => '', 'password' => '', 'address' => '', 'port' => '', 'connection_type' => 'IMAP', 'username' => ''}
+    - offset   = 'new'
+  - else
+    - offset   = '0'
+  - [['email', 'Primary Company Email'], ['password', 'Password']].each do |field|
+    .control-group
+      %label.control-label{:for => "business[accounts_attributes][#{offset}][#{field[0]}]"} #{field[1]}
+      .controls
+        %input{:type => 'text', :size => "30", :name => "business[accounts_attributes][#{offset}][#{field[0]}]", :value => accounts[field[0]], :id => "business_accounts_attributes_#{offset}_#{field[0]}"}/
+  .control-group
+    %label.control-label{:for => "business[accounts_attributes][#{offset}][connection_type]"} Connection Type
+    .controls
+      = select_tag "business[accounts_attributes][#{offset}][connection_type]".to_sym, options_for_select(%w/IMAP POP3/, accounts['connection_type'])
+  - [['username', 'Mail Username'], ['address', 'Mail Server'], ['port', 'Port']].each do |field|
+    .control-group
+      %label.control-label{:for => "business[accounts_attributes][#{offset}][#{field[0]}]"} #{field[1]}
+      .controls
+        %input{:type => 'text', :size => "30", :name => "business[accounts_attributes][#{offset}][#{field[0]}]", :value => accounts[field[0]], :id => "business_accounts_attributes_#{offset}_#{field[0]}"}/
+  #mail_message
