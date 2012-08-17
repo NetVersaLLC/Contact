@@ -1,8 +1,6 @@
 :javascript
   window.socialAccounts = #{Business.site_accounts.to_json}
 
-#socialmedia
-
 = semantic_form_for @business, :validate => true, :html => {:multipart => true, :class => 'form-horizontal' }  do |f|
   = f.semantic_errors
   - @f = f
@@ -15,5 +13,7 @@
   = render :partial => 'form/existing_account_logins'
   = render :partial => 'form/categories'
   = render :partial => 'form/logo'
-  = f.actions do 
-    = submit_tag "Save Changes", :class => 'btn btn-large btn-primary'
+  = render :partial => 'form/submit'
+
+%br/
+%br/
