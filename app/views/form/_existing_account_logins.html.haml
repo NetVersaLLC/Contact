@@ -1,21 +1,22 @@
-= @f.inputs "Existing Account Logins" do
-  = ''
-- @business.accounts.each do |site|
-  .well
-    = @f.inputs site[0] do
-      .fields
-        - @business.send(site[1]).each do |obj|
-          - site[2].each do |field|
-            .control-group
-              %label.control-label{:for => "business[#{site[1]}_attributes][0][#{field[1]}]"} #{field[1]}
-              .controls
-                %input{:type => field[0], :size => "30", :name => "business[#{site[1]}_attributes][0][#{field[1]}]", :value => obj.send(field[1]), :id => "business_#{site[1]}_attributes_0_#{field[1]}"}/
-                %input{:type => "hidden", :value => "false", :name => "business[#{site[1]}_attributes][0][_destroy]", :id => "business_#{site[1]}_attributes_0__destroy"}/
-                %a{:class => "remove_nested_fields", :href => "javascript:void(0)"} Remove #{site[0]}
-                %br/
-                %input{:type => "hidden", :value => obj.id, :name => "business[#{site[1]}_attributes][0][id]", :id => "business_#{site[1]}_attributes_0_id" }
-#socialButtons
-  - @business.nonexistent_accounts.each do |site|
-    %a{ 'data-association' => site[1], :class => "add_nested_fields social_sites", :href => "javascript:void(0);", :onclick => "window.removeButton(this);", :style => 'margin-left: 160px'}
-      = image_tag "/assets/#{site[1]}.png", :alt => "Add #{site[0]}", :title => "Add #{site[0]} Credentials"
-    %br/
+#section7
+  = @f.inputs "Existing Account Logins" do
+    = ''
+  - @business.accounts.each do |site|
+    .well
+      = @f.inputs site[0] do
+        .fields
+          - @business.send(site[1]).each do |obj|
+            - site[2].each do |field|
+              .control-group
+                %label.control-label{:for => "business[#{site[1]}_attributes][0][#{field[1]}]"} #{field[1]}
+                .controls
+                  %input{:type => field[0], :size => "30", :name => "business[#{site[1]}_attributes][0][#{field[1]}]", :value => obj.send(field[1]), :id => "business_#{site[1]}_attributes_0_#{field[1]}"}/
+                  %input{:type => "hidden", :value => "false", :name => "business[#{site[1]}_attributes][0][_destroy]", :id => "business_#{site[1]}_attributes_0__destroy"}/
+                  %a{:class => "remove_nested_fields", :href => "javascript:void(0)"} Remove #{site[0]}
+                  %br/
+                  %input{:type => "hidden", :value => obj.id, :name => "business[#{site[1]}_attributes][0][id]", :id => "business_#{site[1]}_attributes_0_id" }
+  #socialButtons
+    - @business.nonexistent_accounts.each do |site|
+      %a{ 'data-association' => site[1], :class => "add_nested_fields social_sites", :href => "javascript:void(0);", :onclick => "window.removeButton(this);", :style => 'margin-left: 160px'}
+        = image_tag "/assets/#{site[1]}.png", :alt => "Add #{site[0]}", :title => "Add #{site[0]} Credentials"
+      %br/
