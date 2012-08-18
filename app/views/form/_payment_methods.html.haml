@@ -1,13 +1,6 @@
-= @f.inputs "Payment Methods", :id => 'section2' do
-  .well
-    %table.table.table-condensed#timetable
-      %thead
-        %tr
-          %td Method
-      %tbody
-        - @business.payment_methods.each do |type|
-          %tr.acceptrow
-            %td
-              %label.checkbox
-                = @f.check_box "accepts_#{type}".to_sym
-                = type.capitalize
+= @f.inputs "Payment Methods", :class => 'inputs tab-pane', :id => 'section2' do
+  %ul.payment_methods
+    - @business.payment_methods.each do |type|
+      %li.payment_method
+        = @f.check_box "accepts_#{type}".to_sym
+        = type.capitalize
