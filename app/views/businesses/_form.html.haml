@@ -4,16 +4,18 @@
 = semantic_form_for @business, :validate => true, :html => {:multipart => true, :class => 'form-horizontal' }  do |f|
   = f.semantic_errors
   - @f = f
-  = render :partial => 'form/business_details'
-  = render :partial => 'form/payment_methods'
-  = render :partial => 'form/business_hours'
-  = render :partial => 'form/company_description'
-  = render :partial => 'form/keywords'
-  = render :partial => 'form/mail_settings'
-  = render :partial => 'form/existing_account_logins'
-  = render :partial => 'form/categories'
-  = render :partial => 'form/logo'
-  = render :partial => 'form/submit'
-
+  .tabbable.tabs-left
+    = render :partial => 'form/menu'
+    .tab-content
+      = render :partial => 'form/business_details'
+      = render :partial => 'form/payment_methods'
+      = render :partial => 'form/business_hours'
+      = render :partial => 'form/company_description'
+      = render :partial => 'form/keywords'
+      = render :partial => 'form/mail_settings'
+      = render :partial => 'form/existing_account_logins'
+      = render :partial => 'form/categories'
+      = render :partial => 'form/logo'
+      = render :partial => 'form/submit'
 %br/
 %br/

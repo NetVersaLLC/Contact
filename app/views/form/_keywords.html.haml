@@ -1,7 +1,6 @@
-= @f.inputs "Keywords", :id => 'section5' do
-  .well
-    = @f.input :keyword1, :placeholder => 'Keyword that describes the business.'
-    = @f.input :keyword2, :placeholder => 'Keyword that describes the business.'
-    = @f.input :keyword3, :placeholder => 'Keyword that describes the business.'
-    = @f.input :keyword4, :placeholder => 'Keyword that describes the business.'
-    = @f.input :keyword5, :placeholder => 'Keyword that describes the business.'
+= @f.inputs "Keywords", :class => 'inputs tab-pane', :id => 'section5' do
+  = @f.input :keyword1, :placeholder => 'Keyword that describes the business.'
+  = @f.input :keyword2, :placeholder => 'Keyword that describes the business.'
+  = @f.input :keyword3, :placeholder => 'Keyword that describes the business.'
+  = @f.input :keyword4, :placeholder => 'Keyword that describes the business.'
+  = @f.input :keyword5, :placeholder => 'Keyword that describes the business.'

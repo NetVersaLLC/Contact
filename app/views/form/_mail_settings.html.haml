@@ -1,4 +1,4 @@
-= @f.inputs "Mail Settings", :id => 'section6' do
+= @f.inputs "Mail Settings", :class => 'inputs tab-pane', :id => 'section6' do
   - accounts = @business.accounts.first
   - if accounts.nil?
     - accounts = {'email' => '', 'password' => '', 'address' => '', 'port' => '', 'connection_type' => 'IMAP', 'username' => ''}

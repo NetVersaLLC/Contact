@@ -1,9 +1,8 @@
-= @f.inputs "Logo", :id => 'section9' do
-  .well
-    #logo_uploader
-      %h3 Select an image from your computer.
-      = @f.input :logo
-    - unless @business.logo.url =~ /missing/
-      #logo_shown
-        %h3 Current image.
-        = link_to image_tag(@business.logo.url(:thumb)), @business.logo.url, :class => 'thumbnail', :title => 'Current Logo'
+= @f.inputs "Logo", :class => 'inputs tab-pane', :id => 'section9' do
+  #logo_uploader
+    %h3 Select an image from your computer.
+    = @f.input :logo
+  - unless @business.logo.url =~ /missing/
+    #logo_shown
+      %h3 Current image.
+      = link_to image_tag(@business.logo.url(:thumb)), @business.logo.url, :class => 'thumbnail', :title => 'Current Logo'

@@ -1,54 +1,29 @@
-.tabbable.tabs-left
-  %ul.nav.nav-tabs
-    %li
-      %a{'data-toggle' => 'tab', :href => '#section0'} 1. Auto-Populate
-    %li
-      %a{'data-toggle' => 'tab', :href => '#section1'} 2. Business Details
-    %li
-      %a{'data-toggle' => 'tab', :href => '#section2'} 3. Payment Methods
-    %li
-      %a{'data-toggle' => 'tab', :href => '#section3'} 4. Business Hours
-    %li
-      %a{'data-toggle' => 'tab', :href => '#section4'} 5. Company Description
-    %li
-      %a{'data-toggle' => 'tab', :href => '#section5'} 6. Keywords
-    %li
-      %a{'data-toggle' => 'tab', :href => '#section6'} 7. Mail Settings
-    %li
-      %a{'data-toggle' => 'tab', :href => '#section7'} 8. Existing Accounts
-    %li
-      %a{'data-toggle' => 'tab', :href => '#section8'} 9. Categories
-    %li
-      %a{'data-toggle' => 'tab', :href => '#section9'} 10. Logo
-    %li
-      %a{'data-toggle' => 'tab', :href => '#section10'} 11. Submit
-  .tab-content
-    .tab-pane#section0
-      %br
-      .alert.alert-block
-        %a.close{'data-dismiss' => 'alert', :href => '#'} x
-        %h3{ :class => "alert-heading" } Auto-Populate
-        %p Use the form below to auto-populate your information or click "Next Section" to skip this step.
-      %form{:class => 'well form form-horizontal', :id => 'zipform'}
-        .control-group
-          %label.control-label{ :for => :zip } Search by Zip
-          .controls
-            .input-append
-              = text_field_tag :zip
-              %button{:id => "zipsearch", :class => 'btn'} Search
-        .control-group
-          %label.control-label{ :for => :state } State
-          .controls
-            = select_tag :state, options_for_select(Carmen::states('US'), 'CA')
-        .control-group
-          %label.control-label{ :for => :city } City
-          .controls
-            = text_field_tag :city
-        .control-group
-          %label.control-label{ :for => :company_name } Company Name
-          .controls
-            .input-append
-              = text_field_tag :company_name
-              = button_tag "Search", :id => "search", :class => 'btn btn-primary'
-      #business_results
-    = render 'form'
+%br
+.alert.alert-block
+  %a.close{'data-dismiss' => 'alert', :href => '#'} x
+  %h3{ :class => "alert-heading" } Auto-Populate
+  %p Use the form below to auto-populate your information or click "Next Section" to skip this step.
+%form{:class => 'well form form-horizontal', :id => 'zipform'}
+  .control-group
+    %label.control-label{ :for => :zip } Search by Zip
+    .controls
+      .input-append
+        = text_field_tag :zip
+        %button{:id => "zipsearch", :class => 'btn'} Search
+  .control-group
+    %label.control-label{ :for => :state } State
+    .controls
+      = select_tag :state, options_for_select(Carmen::states('US'), 'CA')
+  .control-group
+    %label.control-label{ :for => :city } City
+    .controls
+      = text_field_tag :city
+  .control-group
+    %label.control-label{ :for => :company_name } Company Name
+    .controls
+      .input-append
+        = text_field_tag :company_name
+        = button_tag "Search", :id => "search", :class => 'btn btn-primary'
+#business_results
+
+= render :partial => 'form'
