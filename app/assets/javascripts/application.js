@@ -5,7 +5,7 @@
 //= require jquery-ui
 //= require jquery_nested_form
 //= require rv
-//= require bootstrap
+//= require bootstrap.min
 //= require businesses
 
 

@@ -5,7 +5,7 @@
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
-  %body
+  %body{'data-spy' => 'scroll', 'data-target' => 'form-sidebar'}
     :css
       @import url('http://getbarometer.s3.amazonaws.com/assets/barometer/css/barometer.css');
     %script{:src => "http://getbarometer.s3.amazonaws.com/assets/barometer/javascripts/barometer.js", :type => "text/javascript"}
@@ -43,3 +43,5 @@
           = yield
     %br
     %br
+    :javascript
+      $('.form-navbar').scrollspy()
