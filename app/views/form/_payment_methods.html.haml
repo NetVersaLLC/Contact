@@ -1,6 +1,7 @@
-= @f.inputs "Payment Methods", :class => 'inputs tab-pane', :id => 'section2' do
-  %ul.payment_methods
-    - @business.payment_methods.each do |type|
-      %li.payment_method
-        = @f.check_box "accepts_#{type}".to_sym
-        = type.capitalize
+%section{:id => 'section-payment-methods'}
+  = @f.inputs "Payment Methods", :class => 'inputs tab-pane', :id => 'section2' do
+    %ul.payment_methods
+      - @business.payment_methods.each do |type|
+        %li.payment_method
+          = @f.check_box "accepts_#{type}".to_sym
+          = type.capitalize

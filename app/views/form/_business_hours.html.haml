@@ -1,29 +1,30 @@
-= @f.inputs "Business Hours", :class => 'inputs tab-pane', :id => 'section3' do
-  %table.table.table-condensed#timetable
-    %thead
-      %tr
-        %td Day
-        %td Open
-        %td Close
-    %tbody
-      - ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].each do |day|
+%section{:id => 'section-business-hours'}
+  = @f.inputs "Business Hours", :class => 'inputs tab-pane', :id => 'section3' do
+    %table.table.table-condensed#timetable
+      %thead
+        %tr
+          %td Day
+          %td Open
+          %td Close
+      %tbody
+        - ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].each do |day|
+          %tr.timerow
+            %td
+              %label.checkbox
+                = @f.check_box "#{day}_enabled".to_sym
+                = day.capitalize
+            %td
+              = select_tag "business[#{day}_open]".to_sym, options_for_select(Business.list_times, @business.send("#{day}_open")), :class => 'timeitem'
+            %td
+              = select_tag "business[#{day}_close]".to_sym, options_for_select(Business.list_times, @business.send("#{day}_close")), :class => 'timeitem'
+              -# if @business.send("#{day}_enabled")
         %tr.timerow
-          %td
+          %td{:colspan => 3}
             %label.checkbox
-              = @f.check_box "#{day}_enabled".to_sym
-              = day.capitalize
-          %td
-            = select_tag "business[#{day}_open]".to_sym, options_for_select(Business.list_times, @business.send("#{day}_open")), :class => 'timeitem'
-          %td
-            = select_tag "business[#{day}_close]".to_sym, options_for_select(Business.list_times, @business.send("#{day}_close")), :class => 'timeitem'
-            -# if @business.send("#{day}_enabled")
-      %tr.timerow
-        %td{:colspan => 3}
-          %label.checkbox
-            = @f.check_box :open_24_hours
-            Open 24 Hours
-      %tr.timerow
-        %td{:colspan => 3}
-          %label.checkbox
-            = @f.check_box :open_by_appointment
-            Open By Appointment
+              = @f.check_box :open_24_hours
+              Open 24 Hours
+        %tr.timerow
+          %td{:colspan => 3}
+            %label.checkbox
+              = @f.check_box :open_by_appointment
+              Open By Appointment
