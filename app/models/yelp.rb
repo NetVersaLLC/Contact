@@ -24,7 +24,7 @@ class Yelp < ClientData
       'phone'         => business.local_phone,
       'website'       => business.company_website,
       'yelp_category' => cat.to_list,
-      'email'         => business.company_email
+      'email'         => business.accounts.first.email
     }
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120817055401) do
+ActiveRecord::Schema.define(:version => 20120823235444) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email"
@@ -20,8 +20,10 @@ ActiveRecord::Schema.define(:version => 20120817055401) do
     t.string   "address"
     t.text     "secrets"
     t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "business_id"
+    t.string   "connection_type"
   end
 
   add_index "accounts", ["email"], :name => "index_accounts_on_email"
@@ -109,7 +111,6 @@ ActiveRecord::Schema.define(:version => 20120817055401) do
     t.string   "contact_first_name"
     t.string   "contact_middle_name"
     t.string   "contact_last_name"
-    t.string   "company_email"
     t.string   "local_phone"
     t.string   "alternate_phone"
     t.string   "toll_free_phone"

@@ -1,5 +1,5 @@
 class Account < ClientData
-  attr_accessible :address, :email, :force_update, :port, :username
+  attr_accessible :address, :email, :force_update, :port, :username, :connection_type
   virtual_attr_accessor :password
   validates :address,
             :presence => true
@@ -9,6 +9,9 @@ class Account < ClientData
   validates :port,
             :presence => true,
             :format => { :with => /^\s*\d+\s*$/ }
+  validates :connection_type,
+            :presence => true,
+            :format => { :with => /^(?:imap|pop3)$/i }
   validates :username,
             :presence => true
   validates :password,

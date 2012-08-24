@@ -19,11 +19,12 @@ Contact::Application.routes.draw do
   get "yelps/check_email"
   devise_for :users
 
-  get '/downloads/:business_id', :controller => :downloads, :action => :download
-  get '/welcome',   :controller => :pages,     :action => :index
+  get  '/downloads/:business_id', :controller => :downloads,       :action => :download
+  get  '/welcome',                :controller => :pages,           :action => :index
+  get  '/emails/check/:site',     :controller => :emails,          :action => :check
+  post '/detect',                 :controller => :detect_settings, :action => :detect
 
-  get '/emails/check/:site', :controller => :emails, :action => :check
-  resources :zip, :only => [:index]
+  resources :zip,  :only => [:index]
   resources :city, :only => [:index]
   resources :places
   root :to => 'pages#index'
