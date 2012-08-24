@@ -15,7 +15,6 @@ class Business < ActiveRecord::Base
   attr_accessible :business_description, :services_offered, :specialies, :professional_associations, :languages, :geographic_areas, :year_founded
   attr_accessible :company_website, :incentive_offers, :links_to_photos, :links_to_videos
   attr_accessible :category1, :category2, :category3
-
   attr_accessible :other_social_links, :positive_review_links
   attr_accessible :keyword1, :keyword2, :keyword3, :keyword4, :keyword5
   attr_accessible :competitors, :most_like, :industry_leaders
@@ -62,9 +61,6 @@ class Business < ActiveRecord::Base
 
   validates :business_name,
     :presence => true
-  validates :company_email,
-    :presence => true,
-    :format => { :with => email_regex }
   validates :local_phone,
     :presence => true,
     :format => { :with => phone_regex }
@@ -73,7 +69,7 @@ class Business < ActiveRecord::Base
     :format => { :with => phone_regex }
   validates :toll_free_phone,
     :allow_blank => true,
-    :format => { :with => /^8\d\d-\d\d\d-\d\d\d\d$/ }
+    :format => { :with => /^(?:888|877|866|855|844|833|822|800)-\d\d\d-\d\d\d\d$/ }
   validates :mobile_phone,
     :allow_blank => true,
     :format => { :with => phone_regex }
@@ -89,9 +85,6 @@ class Business < ActiveRecord::Base
   validates :year_founded,
     :allow_blank => true,
     :format => { :with => /^\d\d\d\d$/ }
-  validates :company_website,
-    :presence => true,
-    :format => { :with => /^https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?$/ }
   validates :fan_page_url,
     :allow_blank => true,
     :format => { :with => /^https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?$/ }
@@ -172,6 +165,13 @@ class Business < ActiveRecord::Base
         ]
       ]
     ]
+  end
+  def self.site_accounts_by_key
+    hash = {}
+    self.site_accounts.each do |site|
+      hash[ site[1] ] = site
+    end
+    hash
   end
 
   def self.bullshit_accounts
@@ -262,6 +262,13 @@ class Business < ActiveRecord::Base
       list.push site if self.send(site[1]).count == 0
     end
     list
+  end
+  def nonexistent_accounts_array
+    @accounts = []
+    self.nonexistent_accounts.each do |site|
+      @accounts.push site[0 .. 1]
+    end
+    @accounts
   end
   def sites
     list = []

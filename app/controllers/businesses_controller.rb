@@ -14,12 +14,14 @@ class BusinessesController < ApplicationController
   # GET /businesses/1.json
   def show
     @business = Business.find(params[:id])
+    @accounts = @business.nonexistent_accounts_array
   end
 
   # GET /businesses/new
   # GET /businesses/new.json
   def new
     @business = Business.new
+    @accounts = @business.nonexistent_accounts_array
 
     respond_to do |format|
       format.html # new.html.erb
@@ -30,6 +32,7 @@ class BusinessesController < ApplicationController
   # GET /businesses/1/edit
   def edit
     @business = Business.find(params[:id])
+    @accounts = @business.nonexistent_accounts_array
     if @business == nil
       redirect_to new_business_path()
     elsif @business.user_id != current_user.id
@@ -45,10 +48,9 @@ class BusinessesController < ApplicationController
     respond_to do |format|
       if @business.save
         format.html { redirect_to @business, notice: 'Created your business profile.' }
-        format.json { render json: @business, status: :created, location: @business }
       else
+        logger.info @business.errors.inspect
         format.html { render action: "new" }
-        format.json { render json: @business.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -60,7 +62,7 @@ class BusinessesController < ApplicationController
 
     respond_to do |format|
       if @business.update_attributes(params[:business])
-        format.html { redirect_to @business, notice: 'Business was successfully updated.' }
+        format.html { redirect_to '/businesses', notice: 'Business was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

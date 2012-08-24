@@ -1,7 +1,7 @@
 %section{:id => 'section-existing-account-logins'}
   = @f.inputs "Existing Account Logins" do
     = ''
-  - @business.accounts.each do |site|
+  - @business.sites.each do |site|
     .well
       = @f.inputs site[0] do
         .fields
@@ -15,8 +15,10 @@
                   %a{:class => "remove_nested_fields", :href => "javascript:void(0)"} Remove #{site[0]}
                   %br/
                   %input{:type => "hidden", :value => obj.id, :name => "business[#{site[1]}_attributes][0][id]", :id => "business_#{site[1]}_attributes_0_id" }
+  %h3 Add New
   #socialButtons
-    - @business.nonexistent_accounts.each do |site|
-      %a{ 'data-association' => site[1], :class => "add_nested_fields social_sites", :href => "javascript:void(0);", :onclick => "window.removeButton(this);", :style => 'margin-left: 160px'}
-        = image_tag "/assets/#{site[1]}.png", :alt => "Add #{site[0]}", :title => "Add #{site[0]} Credentials"
-      %br/
+    = select_tag :add_accounts, options_for_select(@accounts)
+    = button_tag 'Add Account', :class => 'btn btn-info btn-large', :id => 'add_account_button'
+    %br/
+    %br/
+    #socialmedia
