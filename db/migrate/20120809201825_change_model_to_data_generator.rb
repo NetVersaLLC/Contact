@@ -1,7 +1,6 @@
 class ChangeModelToDataGenerator < ActiveRecord::Migration
   def change
     rename_column :payloads, :model, :data_generator
-    remove_column :payloads, :status
     remove_column :jobs, :wait
     rename_column :jobs, :model, :data_generator
     remove_column :jobs, :data
