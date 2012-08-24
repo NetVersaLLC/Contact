@@ -49,17 +49,67 @@ server {
 ~/.ssh/authorized_keys
 14. Install mysql: sudo apt-get install mysql-client mysql-server
 libmysqlclient-dev
-15. Install therubyracer gem: gem install therubyracer --no-ri --no-rdoc
-16. Install node: git clone https://github.com/joyent/node.gita
-17. cd node
-18. git tags # Get most recent
-19. git checkout vX.X.X
-20. apt-get install python
-21. ./configure --openssl-libpath=/usr/lib/ssl && make
-22. sudo make install
-23. clone repo: git clone git@github.com:jjeffus/Contact.git
-24. run bundle install in repo. Fix dependencies.
-25. Add dev machine user's id_rsa.pub to deploy user's
+15. CREATE DATABASE contact;
+16. GRANT ALL PRIVILEGES ON contact.* TO 'contact'@'localhost'
+IDENTIFIED BY '2LCuNQ2nAq';
+17. Install therubyracer gem: gem install therubyracer --no-ri --no-rdoc
+18. Install node: git clone https://github.com/joyent/node.gita
+19. cd node
+20. git tags # Get most recent
+21. git checkout vX.X.X
+22. apt-get install python
+23. ./configure --openssl-libpath=/usr/lib/ssl && make
+24. sudo make install
+25. clone repo: git clone git@github.com:jjeffus/Contact.git
+26. run bundle install in repo. Fix dependencies.
+27. Add dev machine user's id_rsa.pub to deploy user's
 ~/.ssh/authorized_keys
-26. Run cap deploy on dev machine.
+28. mkdir -p contact/shared/log; mkdir -p contact/shared/pids
+29. cd /home/deploy/contact/current && rvmsudo thin config -C
+/etc/thin/contact.yml --environment production--socket
+/var/run/sock/thin.sock
+30. Add init script:
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          thin
+# Required-Start:    $local_fs $remote_fs
+# Required-Stop:     $local_fs $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      S 0 1 6
+# Short-Description: thin initscript
+# Description:       thin
+### END INIT INFO
 
+# Original author: Forrest Robertson
+
+# Do NOT "set -e"
+
+# DAEMON=/home/deploy/.rvm/gems/ruby-1.9.2-p290/bin/thin
+DAEMON=thin
+SCRIPT_NAME=/etc/init.d/thin
+CONFIG_PATH=/etc/thin
+DEPLOF=/home/deploy/contact/current
+USER=deploy
+
+# Exit if the package is not installed
+
+export RAILS_ENV=production
+case "$1" in
+  start)
+su - $USER -c "cd $DEPLOF && bundle exec $DAEMONMON start --all
+$CONFIG_PATH"
+;;
+  stop)
+su - $USER -c "$DAEMON stop     --all $CONFIG_PATH"
+;;
+  restart)
+su - $USER -c "$DAEMON stop --all $stopCONFIG_PATH"
+su - $USER -c "cd $DEPLOF && bundle exec $DAEMON start --startall
+$CONFIG_PATH"
+;;
+  *)
+echo "Usage: $SCRIPT_NAME {start|stop|restart}" >&2
+exit 3
+;;
+esac
+29. Run cap deploy on dev machine.

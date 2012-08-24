@@ -8,6 +8,6 @@ class CreatePayloads < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :payloads, :status
+    add_index :payloads, :name
   end
 end
