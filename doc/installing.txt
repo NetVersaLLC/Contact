@@ -113,3 +113,4 @@ exit 3
 ;;
 esac
 29. Run cap deploy on dev machine.
+30. Import db/zips.sql
