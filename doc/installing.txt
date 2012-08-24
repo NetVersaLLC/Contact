@@ -1,0 +1,65 @@
+1. Create "deploy" user
+1a. Add "deploy" user to /etc/sudoers
+1b. deployALL=NOPASSWD: ALL
+2. As deploy user, install RVM: rvm.io
+3. First run the curl command.
+4. Then do "rvm requirements" and run the recommended "apt-get".
+5. After installing rvm install 1.9.3.
+6. Next install NGinx by following the guide here:
+   http://wiki.nginx.org/Install
+7. run apt-get update then apt-get install nginx.
+8. Paste the following into /etc/nginx/conf.d/default.conf:
+upstream  contact {
+  server   unix:/var/run/thin/contact.0.sock;
+  server   unix:/var/run/thin/contact.1.sock;
+  server   unix:/var/run/thin/contact.2.sock;
+  server   unix:/var/run/thin/contact.3.sock;
+  server   unix:/var/run/thin/contact.4.sock;
+}
+
+server {
+	listen       80;
+	server_name  signup.netversa.com;
+
+	root /home/deploy/contact/current/public;
+
+	location / {
+		proxy_redirect     off;
+		proxy_set_header   Host             $host;
+		proxy_set_header   Host             $http_host;
+		proxy_set_header   X-Real-IP        $remote_addr;
+		proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+		if (-f $request_filename/index.html) {
+			rewrite (.*) $1/index.html break;
+		}
+		if (-f $request_filename.html) {
+			rewrite (.*) $1.html break;
+		}
+		if (!-f $request_filename) {
+			proxy_pass http://contact;
+			break;
+		}
+	}
+}
+9. Now switch to deploy and gem install thin --no-ri --no-rdoc.
+10. Now install thin: rvmsudo thin install
+11. Generate ssh keys: ssh-keygen -t rsa -b 4096
+12. Add ssh key to Github as deploy key
+13. Add dev machine user's id_rsa.pub to deploy user's
+~/.ssh/authorized_keys
+14. Install mysql: sudo apt-get install mysql-client mysql-server
+libmysqlclient-dev
+15. Install therubyracer gem: gem install therubyracer --no-ri --no-rdoc
+16. Install node: git clone https://github.com/joyent/node.gita
+17. cd node
+18. git tags # Get most recent
+19. git checkout vX.X.X
+20. apt-get install python
+21. ./configure --openssl-libpath=/usr/lib/ssl && make
+22. sudo make install
+23. clone repo: git clone git@github.com:jjeffus/Contact.git
+24. run bundle install in repo. Fix dependencies.
+25. Add dev machine user's id_rsa.pub to deploy user's
+~/.ssh/authorized_keys
+26. Run cap deploy on dev machine.
+
