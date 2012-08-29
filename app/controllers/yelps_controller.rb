@@ -20,4 +20,5 @@ class YelpsController < ApplicationController
       format.json { render json: @status }
     end
   end
+
 end

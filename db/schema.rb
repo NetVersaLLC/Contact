@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120823235444) do
+ActiveRecord::Schema.define(:version => 20120829201742) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email"
@@ -292,6 +292,21 @@ ActiveRecord::Schema.define(:version => 20120823235444) do
   end
 
   add_index "googles", ["business_id"], :name => "index_googles_on_business_id"
+
+  create_table "hits", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "category_id"
+    t.string   "site"
+    t.string   "assignment"
+    t.string   "remote_ip"
+    t.string   "user_agent"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "hits", ["category_id"], :name => "index_hits_on_category_id"
+  add_index "hits", ["site"], :name => "index_hits_on_site"
+  add_index "hits", ["tag_id"], :name => "index_hits_on_tag_id"
 
   create_table "hotfrogs", :force => true do |t|
     t.integer  "business_id"
