@@ -19,6 +19,7 @@ Contact::Application.routes.draw do
   get "yelps/check_email"
   devise_for :users
 
+  post '/captcha/recaptcha',      :controller => :captcha,         :action => :recaptcha
   get  '/downloads/:business_id', :controller => :downloads,       :action => :download
   get  '/welcome',                :controller => :pages,           :action => :index
   get  '/emails/check/:site',     :controller => :emails,          :action => :check
