@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require 'rest_client'
+res = RestClient.post('http://localhost:3000/captcha/recaptcha', 
+                      :image => File.new(ARGV[0]))
+
+STDERR.puts res.inspect
