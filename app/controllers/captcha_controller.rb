@@ -5,9 +5,10 @@ class CaptchaController < ApplicationController
 
   def recaptcha
     file = Tempfile.new('temp')
-    file.write(params['image'].read)
+    file.binmode
+    file.write(params['image'].read())
     file.close
-    client = DeathByCaptcha.socket_client('netversa', 'kmiA$zQ9o2')
+    client = DeathByCaptcha.http_client('netversa', 'GSbjMIe9Ja')
     res = client.decode file.path
     render json: {'answer' => res['text']}
   end
