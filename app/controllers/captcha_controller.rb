@@ -10,6 +10,10 @@ class CaptchaController < ApplicationController
     file.close
     client = DeathByCaptcha.http_client('netversa', 'GSbjMIe9Ja')
     res = client.decode file.path
-    render json: {'answer' => res['text']}
+    if res and res.length > 0 and res['text']
+      render json: {'answer' => res['text']}
+    else
+      render json: {'error' => 'not found'}
+    end
   end
 end
