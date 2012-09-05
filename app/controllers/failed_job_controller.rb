@@ -1,3 +1,0 @@
-
-class FailedJobController < ApplicationController
-end
