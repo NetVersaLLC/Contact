@@ -2,8 +2,6 @@ Contact::Application.routes.draw do
 
   resources :google_categories
   resources :payloads
-  resources :failed_jobs
-  resources :completed_jobs
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

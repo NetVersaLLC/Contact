@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'rest-client'
+
+url = 'http://ec2-107-21-144-88.compute-1.amazonaws.com'
+#begin
+#  res = RestClient.post url, :pict => File.new(ARGV[0], 'rb')
+#rescue => e
+#   e.response
+#end
+
+RestClient.post(url,  :pict => File.new(ARGV[0], 'rb')) do |response, request, result, &block|
+  case response.code
+  when 200
+    p "It worked !"
+    p response
+  else
+    response.return!(request, result, &block)
+  end
+end
