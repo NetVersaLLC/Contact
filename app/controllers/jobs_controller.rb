@@ -28,7 +28,12 @@ class JobsController < ApplicationController
       format.json { render json: {:error => 'No permissions'}, status: :unprocessable_entity }
       return
     end
-    @job = Job.new(params[:job])
+    payload = Payload.where(:name => params[:name])
+    if payload.nil?
+      format.json { render json: {:error => 'Not Found'}, status: :not_found}
+      return
+    end
+    @job = Job.new
     @job.business_id = @business.id
     @job.user_id = current_user.id
 
