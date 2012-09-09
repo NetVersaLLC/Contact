@@ -1,0 +1,12 @@
+Q.) Is there a universal browser variable such as $browser ?
+
+Q.) What's the default template for the data hash or business hash ?
+
+Q.) Will the business hash be a global variable, or handed in as a paramenter to each script function ?
+
+Q.) When the client pulls the current script in queue does it pull each requires within the executable script ?
+
+Q.) In Windows "bundle install" requires 0 commands on command line and then proceeds to say no gemfile found.
+Do you have a link for the right steps in using bundle install for our case example of removing thin?
+
+
