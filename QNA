@@ -12,3 +12,7 @@ Do you have a link for the right steps in using bundle install for our case exam
 Q.) For captcha testing do I need to have a sample system running with an authenticated account, or can I use one of
 /Citation/lib/captcha.rb or /Contact/bin/post_captcha or /Contact/bin/captchasniper_post directly ?
 
+Q.) For passwords, will the business data hash have a pointer to retrieve this for an encrypted source ?
+
+Q.) Will each website have a unique password, or will the business acount do the taboo and share the same password variable over many sites?
+
