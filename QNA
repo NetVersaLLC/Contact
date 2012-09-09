@@ -7,6 +7,8 @@ Q.) Will the business hash be a global variable, or handed in as a paramenter to
 Q.) When the client pulls the current script in queue, does it pull each of the requires within the executable script ?
 
 Q.) In Windows "bundle install" requires 0 commands on command line and then proceeds to say no gemfile found.
-Do you have a link for the right steps in using bundle install for our case example of removing thin?
+Do you have a link for the right steps in using bundle install for our case example of removing thin ?
 
+Q.) For captcha testing do I need to have a sample system running with an authenticated account, or can I use one of
+/Citation/lib/captcha.rb or /Contact/bin/post_captcha or /Contact/bin/captchasniper_post directly ?
 
