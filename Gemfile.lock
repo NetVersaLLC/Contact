@@ -57,6 +57,7 @@ GEM
     acts_as_list (0.1.8)
     acts_as_tree (1.1.0)
       activerecord (>= 3.0.0)
+    addressable (2.3.2)
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-x86-mingw32)
@@ -71,6 +72,8 @@ GEM
       net-ssh-gateway (>= 1.1.0)
     carmen (0.2.13)
     cerebus (0.0.3)
+    childprocess (0.3.5)
+      ffi (~> 1.0, >= 1.0.6)
     client_side_validations (3.1.4)
     cocaine (0.2.1)
     coderay (1.0.7)
@@ -81,6 +84,11 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.3.3)
+    cucumber (1.2.1)
+      builder (>= 2.1.2)
+      diff-lcs (>= 1.1.3)
+      gherkin (~> 2.11.0)
+      json (>= 1.4.6)
     daemons (1.1.9)
     deathbycaptcha (4.1.2)
       json (>= 1.4.6)
@@ -92,13 +100,19 @@ GEM
       orm_adapter (~> 0.1)
       railties (~> 3.1)
       warden (~> 1.2.1)
+    diff-lcs (1.1.3)
     erubis (2.7.0)
     eventmachine (0.12.10)
     execjs (1.4.0)
       multi_json (~> 1.0)
     fastercsv (1.5.5)
+    ffi (1.1.5)
     formtastic (2.1.1)
       actionpack (~> 3.0)
+    gherkin (2.11.2)
+      json (>= 1.4.6)
+    gherkin (2.11.2-x86-mingw32)
+      json (>= 1.4.6)
     haml (3.1.7)
     haml-rails (0.3.4)
       actionpack (~> 3.0)
@@ -128,6 +142,8 @@ GEM
       activesupport (>= 3.0.0)
       railties (>= 3.0.0)
     libv8 (3.3.10.4)
+    libwebsocket (0.1.5)
+      addressable
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -152,6 +168,9 @@ GEM
     nokogiri (1.5.5)
     nokogiri (1.5.5-x86-mingw32)
     orm_adapter (0.4.0)
+    page-object (0.7.4)
+      selenium-webdriver (>= 2.25.0)
+      watir-webdriver (>= 0.6.1)
     paperclip (3.1.4)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
@@ -194,6 +213,9 @@ GEM
       railties (~> 3.1)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rspec-expectations (2.11.3)
+      diff-lcs (~> 1.1.3)
+    rubyzip (0.9.9)
     rvm-capistrano (1.2.5)
       capistrano (>= 2.0.0)
     sass (3.2.1)
@@ -201,6 +223,11 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    selenium-webdriver (2.25.0)
+      childprocess (>= 0.2.5)
+      libwebsocket (~> 0.1.3)
+      multi_json (~> 1.0)
+      rubyzip
     sprockets (2.1.3)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -222,6 +249,8 @@ GEM
       multi_json (~> 1.3)
     warden (1.2.1)
       rack (>= 1.0)
+    watir-webdriver (0.6.1)
+      selenium-webdriver (>= 2.18.0)
     zip (2.0.2)
 
 PLATFORMS
@@ -238,6 +267,7 @@ DEPENDENCIES
   client_side_validations
   coderay
   coffee-rails (~> 3.2.1)
+  cucumber
   deathbycaptcha
   detect_email_settings
   devise
@@ -252,13 +282,16 @@ DEPENDENCIES
   mysql2
   nested_form!
   nokogiri
+  page-object
   paperclip
   paypal-recurring
   rabl
   rails (= 3.2.5)
+  rspec-expectations
   rvm-capistrano
   sass-rails (~> 3.2.5)
   therubyracer
   thin
   uglifier (>= 1.0.3)
+  watir-webdriver
   zip

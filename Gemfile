@@ -40,3 +40,10 @@ gem 'paypal-recurring'
 gem 'detect_email_settings'
 gem 'deathbycaptcha'
 gem 'thin'
+
+group :test do
+  gem 'cucumber'
+  gem 'page-object'
+  gem 'rspec-expectations'
+  gem 'watir-webdriver'
+end
