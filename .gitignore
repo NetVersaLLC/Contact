@@ -16,6 +16,7 @@
 *.swp
 .sass-cache
 .DS_Store
+.idea/
 
 /categories/google/cats/*.js
 
