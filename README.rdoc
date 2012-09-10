@@ -77,3 +77,15 @@ You should be able to re-run the command:
 ```
 
 This time it should execute the job. You can create a payload that has the content "puts 'it is working'" and assign it as a job to test it. Now you can start running, debugging and testing jobs.
+
+== Testing
+
+Tested with Ruby 1.9.3p194.
+
+Install required RubyGems:
+
+    gem update --system
+    gem install bundler --no-ri --no-rdoc
+    bundle install --without default assets production
+
+Run the tests with `bundle exec cucumber`.
