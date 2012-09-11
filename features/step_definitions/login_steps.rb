@@ -1,6 +1,12 @@
 Given /^I am at login page$/ do
   visit LoginPage
 end
+Given /^I am logged in as (.+)$/ do |user|
+  steps %Q{
+    Given I am at login page
+    When I login as #{user}
+        }
+end
 
 When /^I login as (.+)$/ do |username|
   on(LoginPage).login_with(username, PASSWORD)
