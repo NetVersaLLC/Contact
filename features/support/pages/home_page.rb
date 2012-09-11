@@ -15,6 +15,15 @@ class HomePage
   div(:feedback, class: "alert")
   button(:save_changes, name: "commit")
 
+  def enter_data(data, element_name)
+    element = "#{element_name}_element".downcase.gsub(" ", "_")
+
+    if send(element).class == PageObject::Elements::SelectList
+      send(element).select data
+    else
+      send(element).set data
+    end
+  end
   def error(element_name)
     element = "#{element_name}_element".downcase.gsub(" ", "_")
     send(element).parent.span.text
