@@ -14,7 +14,7 @@ This codebase is the client software called Citation specifically citationCheck.
 
 This makes a request to the server for /jobs.json which returns a job and a data hash. It then runs eval(job['payload']) which runs the job. If the payload returns true then the job is assumed to be a success and this result is automatically reported back to the server. If the payload returns false then the job is automatically reported as a failure to the server. Otherwise it is assumed that the payload has reported status to the server.
 
-Exceptions can be thrown at any point in the code and they will be automatically caught and reported back to the server. However, execptions are for unrecoverable errors only. They are not to be used for normal process control. If the job is uanble to complete it is best to call ContactJob.failure(job, "Message"). This will notify the server of the failure.
+Exceptions can be thrown at any point in the code and they will be automatically caught and reported back to the server. However, exceptions are for unrecoverable errors only. They are not to be used for normal process control. If the job is unable to complete it is best to call ContactJob.failure(job, "Message"). This will notify the server of the failure.
 
 == Getting Started
 
@@ -60,7 +60,7 @@ mysql -u username -p contact_development < db/zips.sql;
 
 You start up the local rails app and go to http://localhost:3000/. Now click sign in then click sign up then fill out fake business info. Next get the authentication id for the user from the table.
 
-To do this you can run 'rails console' then call User.first.authentication_token to get the autentication token. Next you need the business id, you can get this with 'Business.first.id'. It will be "1" if you have just installed a new system.
+To do this you can run 'rails console' then call User.first.authentication_token to get the authentication token. Next you need the business id, you can get this with 'Business.first.id'. It will be "1" if you have just installed a new system.
 
 Take these two values now you can cd to Citation and run:
 
