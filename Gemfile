@@ -39,6 +39,7 @@ gem 'coderay'
 gem 'paypal-recurring'
 gem 'detect_email_settings'
 gem 'deathbycaptcha'
+gem 'eventmachine', '1.0.0.beta.4.1', :platforms => [:mswin, :mingw] # http://stackoverflow.com/questions/3649252/cannot-install-thin-on-windows
 gem 'thin'
 
 group :test do
