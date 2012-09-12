@@ -1,7 +1,7 @@
 ActiveAdmin.register Payload do
   index do
     column :name
-    column :model
+    column :data_generator
     default_actions
   end
   member_action :list, :method => :get do
