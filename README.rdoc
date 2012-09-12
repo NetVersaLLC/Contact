@@ -37,40 +37,31 @@ http://rubyinstaller.org/downloads/
 It's a good idea to install pik:
 https://github.com/vertiginous/pik
 
-```
-gem install pik
-ruby\bin\pik_install c:\windows\system32
-```
+    gem install pik
+    ruby\bin\pik_install c:\windows\system32
 
 Install MySQL
 mysql-5.5.27-win32.msi from http://www.sourceforge.net/projects/mysql.mirror/files/
 
 Switch ruby version to 1.9.x
-```
-pik 193
-```
+    pik 193
+
 
 Install devkit.  Make sure to install in both ruby root directories.
 http://rubyinstaller.org/downloads/
 
 The following removes openssl requirement for gem installation that MS Windows simply won't do.
-```
-gem update --system
-```
+    gem update --system
+
 
 For the client:
-```
-cd githubdirectory\contact
-bundle install --without production
-gem install mysql2 --no-ri --no-rdoc
-```
+    cd githubdirectory\contact
+    bundle install --without production
+    gem install mysql2 --no-ri --no-rdoc
 
-download http://dev.mysql.com/get/Downloads/Connector-C/mysql-connector-c-noinstall-6.0.2-win32.zip/from/pick
-extract libmysql.dll (<zipfile>\lib\libmysql.dll)
-```
-copy libmysql.dll \ruby\bin
-```
-
+Download http://dev.mysql.com/get/Downloads/Connector-C/mysql-connector-c-noinstall-6.0.2-win32.zip/from/pick .
+Extract libmysql.dll (<zipfile>\lib\libmysql.dll)
+    copy libmysql.dll \ruby\bin
 
 For the server:
 
