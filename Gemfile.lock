@@ -102,7 +102,7 @@ GEM
       warden (~> 1.2.1)
     diff-lcs (1.1.3)
     erubis (2.7.0)
-    eventmachine (0.12.10)
+    eventmachine (1.0.0.beta.4.1-x86-mingw32)
     execjs (1.4.0)
       multi_json (~> 1.0)
     fastercsv (1.5.5)
@@ -271,6 +271,7 @@ DEPENDENCIES
   deathbycaptcha
   detect_email_settings
   devise
+  eventmachine (= 1.0.0.beta.4.1)
   formtastic (~> 2.1.1)
   formtastic-bootstrap!
   haml
