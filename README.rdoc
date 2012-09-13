@@ -67,6 +67,16 @@ For the server:
 
 Remove thin from Gemfile, then bundle install.
 
+== Windows TroubleShooting
+
+*IE doesn't load, I get a 'attach_function': Function '_get_errno' not found in [msvcrt.dll] FFI::NotFoundError)
+Solution from http://www.mail-archive.com/watir-general@googlegroups.com/msg17107.html
+
+    gem uninstall watir-classic -v 3.1.0
+    gem install watir-classic -v 3.0.0
+    gem uninstall win32-process -v 0.7.0
+    gem install win32-process -v 0.6.6
+
 = Setting Up
 
 First you need to create the database with 'rake db:create' then migrate the schema with 'rake db:migrate'. Next you need to import the zips.sql file in db/zips.sql. You can import this with:
