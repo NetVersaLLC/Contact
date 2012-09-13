@@ -2,7 +2,7 @@ ActiveAdmin.register Job do
   index do
     column :business_id
     column :name
-    column :model
+    column :data_generator
     column :status
     column :created_at
     column :waited_at
@@ -49,7 +49,7 @@ ActiveAdmin.register Job do
     elsif params[:table] == 'completed_jobs'
       @job = CompletedJob.find(params[:id])
     end
-    [:name, :model, :status, :status_message, :position].each do |em|
+    [:name, :data_generator, :status, :status_message, :position].each do |em|
       @job[em] = params[em]
     end
     if params[:wait] == 'true'
@@ -73,7 +73,7 @@ ActiveAdmin.register Job do
   end
   member_action :create_job, :method => :post do
     payload = Payload.find(params[:id])
-    job = Job.inject(params[:business_id], payload.payload, payload.model)
+    job = Job.inject(params[:business_id], payload.payload, payload.data_generator)
     job.name = payload.name
     job.save
     render json: true

@@ -11,6 +11,7 @@ end
 
 group :production do
   gem 'therubyracer'
+  gem 'thin'
 end
 
 gem 'nokogiri'
@@ -29,8 +30,8 @@ gem 'acts_as_tree'
 gem 'rabl'
 gem 'cerebus'
 gem 'formtastic', " ~> 2.1.1"
-gem 'nested_form',          :git => 'git://github.com/ryanb/nested_form.git'
-gem 'formtastic-bootstrap', :git => 'git://github.com/cgunther/formtastic-bootstrap.git', :branch => 'bootstrap2-rails3-2-formtastic-2-1'
+gem 'nested_form',          git: 'git://github.com/ryanb/nested_form.git'
+gem 'formtastic-bootstrap', git: 'git://github.com/cgunther/formtastic-bootstrap.git', branch: 'bootstrap2-rails3-2-formtastic-2-1'
 gem 'paperclip'
 gem 'client_side_validations'
 gem 'carmen'
@@ -39,8 +40,6 @@ gem 'coderay'
 gem 'paypal-recurring'
 gem 'detect_email_settings'
 gem 'deathbycaptcha'
-gem 'eventmachine', '1.0.0.beta.4.1', :platforms => [:mswin, :mingw] # http://stackoverflow.com/questions/3649252/cannot-install-thin-on-windows
-gem 'thin'
 
 group :test do
   gem 'cucumber'
