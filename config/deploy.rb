@@ -6,7 +6,7 @@ load "deploy/assets"
 #}
 
 set :application, "Contact"
-set :repository,  "git@github.com:jjeffus/Contact.git"
+set :repository,  "repo-contact:jjeffus/Contact.git"
 set :scm, :git
 set :user, 'deploy'
 set :deploy_to, '/home/deploy/contact'

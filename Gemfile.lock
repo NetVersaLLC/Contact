@@ -271,7 +271,6 @@ DEPENDENCIES
   deathbycaptcha
   detect_email_settings
   devise
-  eventmachine (= 1.0.0.beta.4.1)
   formtastic (~> 2.1.1)
   formtastic-bootstrap!
   haml
