@@ -91,13 +91,14 @@ class Job < ActiveRecord::Base
     self.is_now(FailedJob)
   end
 
-  def self.inject(business_id,payload,data_generator)
+  def self.inject(business_id,payload,data_generator,ready = nil)
     Job.create do |j|
       j.status         = TO_CODE[:new]
       j.status_message = 'Created'
       j.business_id    = business_id
       j.payload        = payload
       j.data_generator = data_generator
+      j.ready          = ready
     end
   end
 

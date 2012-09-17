@@ -9,6 +9,14 @@ ActiveAdmin.register Job do
     default_actions
   end
 
+  member_action :payload_list, :method => :get do
+    @payloads = Payload.list(params[:id])
+    render json: @payloads
+  end
+  collection_action :payloads_categories_list, :method => :get do
+    @cats = Payload.sites
+    render json: @cats
+  end
   collection_action :pending_jobs, :method => :get do
     @jobs = Job.where('business_id = ? AND status IN (0,1)', params[:business_id]).order(:position)
     render json: @jobs
@@ -72,9 +80,9 @@ ActiveAdmin.register Job do
     end
   end
   member_action :create_job, :method => :post do
-    payload = Payload.find(params[:id])
-    job = Job.inject(params[:business_id], payload.payload, payload.data_generator)
-    job.name = payload.name
+    payload = Payload.new( params[:category], params[:id] )
+    job = Job.inject(params[:business_id], payload.payload, payload.data_generator, payload.ready)
+    job.name = "#{params[:category]}/#{params[:id]}"
     job.save
     render json: true
   end

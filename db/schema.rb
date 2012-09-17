@@ -11,9 +11,10 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120829201742) do
+ActiveRecord::Schema.define(:version => 20120917154406) do
 
   create_table "accounts", :force => true do |t|
+    t.integer  "business_id"
     t.string   "email"
     t.string   "username"
     t.integer  "port"
@@ -22,10 +23,10 @@ ActiveRecord::Schema.define(:version => 20120829201742) do
     t.datetime "force_update"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
-    t.integer  "business_id"
     t.string   "connection_type"
   end
 
+  add_index "accounts", ["business_id"], :name => "index_accounts_on_business_id"
   add_index "accounts", ["email"], :name => "index_accounts_on_email"
 
   create_table "active_admin_comments", :force => true do |t|
@@ -338,7 +339,7 @@ ActiveRecord::Schema.define(:version => 20120829201742) do
   create_table "jobs", :force => true do |t|
     t.integer  "business_id"
     t.string   "name"
-    t.string   "data_generator"
+    t.string   "model"
     t.integer  "status"
     t.string   "status_message"
     t.text     "payload"
@@ -347,9 +348,10 @@ ActiveRecord::Schema.define(:version => 20120829201742) do
     t.integer  "position"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.text     "ready"
   end
 
-  add_index "jobs", ["business_id"], :name => "index_jobs_on_user_id"
+  add_index "jobs", ["business_id"], :name => "index_jobs_on_business_id"
   add_index "jobs", ["status"], :name => "index_jobs_on_status"
 
   create_table "judys_books", :force => true do |t|
@@ -424,7 +426,7 @@ ActiveRecord::Schema.define(:version => 20120829201742) do
   end
 
   create_table "payloads", :force => true do |t|
-    t.string   "data_generator"
+    t.text     "data_generator"
     t.string   "name"
     t.text     "payload"
     t.integer  "position"
@@ -517,6 +519,14 @@ ActiveRecord::Schema.define(:version => 20120829201742) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["parent_id"], :name => "index_users_on_parent_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "yellow_bots", :force => true do |t|
+    t.string   "username"
+    t.string   "email"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "yelp_categories", :force => true do |t|
     t.integer  "parent_id"
