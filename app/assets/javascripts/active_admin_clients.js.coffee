@@ -98,7 +98,7 @@ showClient = (panel)->
     $(panel).html( html )
 
 window.loadPayloads = ()->
-  $.getJSON '/admin/payloads/'+$('#payload_categories_select').val()+'/list.js', (data)->
+  $.getJSON '/admin/jobs/'+$('#payload_categories_select').val()+'/payloads_list.js', (data)->
     html = '<ul id="payload_list_ul">'
     $.each data, (i,e)->
       html += '<li class="ui-state-default" data-payload-id="'+e['id']+'">'+e['name']+'</li>'
@@ -110,7 +110,7 @@ window.loadPayloads = ()->
 
 window.startPayloads = () ->
   # Setup Payload Categories
-  $.getJSON '/admin/payload_categories/list.js', (data)->
+  $.getJSON '/admin/jobs/payloads_categories_list.js', (data)->
     html = '<select id="payload_categories_select" onchange="window.loadPayloads();">'
     $.each data, (i,e)->
       html += '<option value="'+e['id']+'">'+e['name']+'</option>'
