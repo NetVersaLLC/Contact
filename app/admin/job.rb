@@ -17,6 +17,7 @@ ActiveAdmin.register Job do
     @cats = Payload.sites
     render json: @cats
   end
+
   collection_action :pending_jobs, :method => :get do
     @jobs = Job.where('business_id = ? AND status IN (0,1)', params[:business_id]).order(:position)
     render json: @jobs
