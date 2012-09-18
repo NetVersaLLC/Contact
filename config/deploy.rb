@@ -6,7 +6,7 @@ load "deploy/assets"
 #}
 
 set :application, "Contact"
-set :repository,  "repo-contact:jjeffus/Contact.git"
+set :repository,  "git@github.com:jjeffus/Contact.git"
 set :scm, :git
 set :user, 'deploy'
 set :deploy_to, '/home/deploy/contact'
@@ -16,7 +16,6 @@ set :default_shell, "bash -l"
 set :rvm_ruby_string, '1.9.3'
 set :rvm_type, :user
 set :use_sudo   , false
-set :git_enable_submodules,1
 
 namespace :deploy do
   desc "Start the Thin processes"
