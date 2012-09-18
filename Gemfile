@@ -11,6 +11,7 @@ end
 
 group :production do
   gem 'therubyracer'
+  gem 'eventmachine'
   gem 'thin'
 end
 
