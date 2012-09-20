@@ -122,4 +122,4 @@ Install required RubyGems:
     gem install bundler --no-ri --no-rdoc
     bundle install
 
-Run the tests with `bundle exec cucumber`. Reports (html for humans, xml for CI) are in reports folder.
+Run the tests with +bundle exec cucumber+. Reports (html for humans, xml for CI) are in reports folder.
