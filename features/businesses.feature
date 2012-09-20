@@ -14,7 +14,7 @@ Feature: Add business
   Scenario: Save after entering required data
     When I enter Business name 1 in Business name
       And I enter 555-555-1212 in Local phone
-      And I enter Address 1 in Address
+      And I enter 1 Address in Address
       And I enter Business description 1 in Business description
       And I enter Worldwide in Geographic Areas
       And I save changes
