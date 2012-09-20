@@ -1,0 +1,1328 @@
+96925674	Automotive	96925693	Antique Cars	N	classic cars, classics, antique car
+96925674	Automotive	96925694	Car Accessories	N	car accessory, auto accessory, auto accessories
+96925674	Automotive	96925695	Auto Wreckers	N	car wrecker service, car wrecker, auto wreck, automobile wreckers, automotive wreckers, vehicle wreckers, auto wreckers, car wrecking, car wreckers, wreckers, wrecker
+96925674	Automotive	96925696	Automotive Buyer's Services	N	
+96925674	Automotive	96925697	Driving Schools	N	defensive driving school, defensive driving schools, driver's ed, drivers ed, driver's education, drivers education
+96925674	Automotive	96925699	Towing	N	auto towing, heavy duty towing, car towing, tow truck, tow trucks, towing services, towing companies, towing company, tow, towing service
+96925674	Automotive	96925700	Tires	N	wheels, tire repair, tire dealer, tire stores, tire store, tire dealers, car tires, car tire, auto tire, auto tires, tire shop, tire shops
+96925674	Automotive	96925701	Automotive Supplies	N	car supply, car supplies, automobile supplies, automotive supply, auto supply
+96925674	Automotive	96925702	Car Security	N	auto alarms, car alarms
+96925674	Automotive	96925709	Auto Detailing	N	auto detailing supplies, car detailing, auto detail, automobile detailing, vehicle detailing
+96925674	Automotive	96925710	Motor Scooters	N	motors scooters, motorscooters,  mopeds gopeds, go-pends, mo-peds, electric scooters
+96925674	Automotive	96925713	Auto Conversions	N	automobile conversions, vehicle conversions, van conversions
+96925674	Automotive	96925717	ATVs	N	atv, all terrrain vehicles, atvs, atv dealers, atv dealer
+96925674	Automotive	96925718	Car Transport	N	car transportation, motorcycle transport, car mover, automobile transport, vehicle transport, car transporter, auto transportation, auto shipping, car shipping
+96925674	Automotive	96925720	Auto Appraisers	N	car appraiser, automobile appraisers, vehicle appraisers, car appraisal, auto appraisal, car appraisals, auto appraisals, auto appraisers, auto appraiser, car appraisers, car appraisals, auto appraisals
+96925674	Automotive	96925721	Traffic Schools	N	traffic school, traffic schools
+96925674	Automotive	96925722	Gas Stations	N	fuel station, service station
+96925674	Automotive	96925724	Car Washes	N	car wash, car washing, carwash, carwashes, car washes
+96925674	Automotive	96926302	Car Dealers	N	car dealership, car dealer ships, dealerships, autogroups, car lots, auto dealerships, auto sales, car dealerships, auto dealership, car dealerships, auto dealers, auto dealer, auto dealers, cars for sale, auto store, auto stores
+96925674	Automotive	96926306	Used Car Dealers	N	Used dealerships, Used dealership, used car dealership, used car lot, used car dealerships, used car lots, used car sales, used cars, used car, used car dealer, used cars dealer, used autos, used auto sales, used auto dealer, used auto dealers, used auto dealerships,  used auto dealership, pre owned cars, pre owned car, pre owned vehicles, pre owned vehicle
+96925674	Automotive	96926309	Acura Dealers	N	Acura dealerships, Acura dealership, 
+96925674	Automotive	96926310	Alfa Romeo Dealers	N	Alfa Romeo dealerships, Alfa Romeo dealership, 
+96925674	Automotive	96926311	Bentley Dealers	N	Bentley dealerships, Bentley dealership, bently dealers,  bently
+96925674	Automotive	96926312	BMW Dealers	N	BMW dealerships, BMW dealership, 
+96925674	Automotive	96926313	Buick Dealers	N	Buick dealerships, Buick dealership, 
+96925674	Automotive	96926314	Cadillac Dealers	N	Cadillac dealerships, Cadillac dealership, caddilac dealers, cadilac dealers, cadilac, caddilac
+96925674	Automotive	96926315	Mazda Dealers	N	Mazda dealerships, Mazda dealership, 
+96925674	Automotive	96926316	Maserati Dealers	N	Maserati dealerships, Maserati dealership, 
+96925674	Automotive	96926317	Lexus Dealers	N	Lexus dealerships, Lexus dealership, 
+96925674	Automotive	96926318	Lamborghini Dealers	N	Lamborghini dealerships, Lamborghini dealership, lamborgini dealers
+96925674	Automotive	96926319	Lada Dealers	N	Lada dealerships, Lada dealership, 
+96925674	Automotive	96926320	Kia Dealers	N	Kia dealerships, Kia dealership, 
+96925674	Automotive	96926321	Jeep Dealers	N	Jeep dealerships, Jeep dealership, 
+96925674	Automotive	96926322	Jaguar Dealers	N	Jaguar dealerships, Jaguar dealership, 
+96925674	Automotive	96926323	Infiniti Dealers	N	Infiniti dealerships, Infiniti dealership, 
+96925674	Automotive	96926324	Saab Dealers	N	Saab dealerships, Saab dealership, 
+96925674	Automotive	96926325	Rolls Royce Dealers	N	Rolls Royce dealerships, Rolls Royce dealership, 
+96925674	Automotive	96926326	Porsche Dealers	N	Porsche dealerships, Porsche dealership, porche, porche dealers
+96925674	Automotive	96926328	Peugeot Dealers	N	Peugeot dealerships, Peugeot dealership, 
+96925674	Automotive	96926329	Oldsmobile Dealers	N	Oldsmobile dealerships, Oldsmobile dealership, olds dealers
+96925674	Automotive	96926330	Mitsubishi Dealers	N	Mitsubishi dealerships, Mitsubishi dealership, mitsubishi motors
+96925674	Automotive	96926331	Mercedes-Benz Dealers	N	Mercedes dealerships, Mercedes dealership, mercedes benz dealership, mercedes, daimler
+96925674	Automotive	96926333	Lincoln-Mercury Dealers	N	Lincoln dealerships, Lincoln dealership, mercury dealers, lincoln dealers
+96925674	Automotive	96926334	Chevrolet Dealers	N	Chevrolet dealerships, Chevrolet dealership, chevy dealers, chevy, chevy dealership, chevy dealerships, chevy dealer
+96925674	Automotive	96926335	Yugo Dealers	N	Yugo dealerships, Yugo dealership, 
+96925674	Automotive	96926336	Volvo Dealers	N	Volvo dealerships, Volvo dealership, 
+96925674	Automotive	96926337	Volkswagen Dealers	N	Volkswagen dealerships, Volkswagen dealership, vw, volks wagon, volks wagen,  volkswagon
+96925674	Automotive	96926338	Vauxhall Dealers	N	Vauxhall dealerships, Vauxhall dealership, 
+96925674	Automotive	96926339	Toyota Dealers	N	Toyota dealerships, Toyota dealership, 
+96925674	Automotive	96926340	Suzuki Dealers	N	Suzuki dealerships, Suzuki dealership, 
+96925674	Automotive	96926341	Subaru Dealers	N	Subaru dealerships, Subaru dealership, 
+96925674	Automotive	96926342	Saturn Dealers	N	Saturn dealerships, Saturn dealership, 
+96925674	Automotive	96926343	Scion Dealers	N	Scion dealerships, Scion dealership, 
+96925674	Automotive	96926344	GMC Dealers	N	GMC dealerships, GMC dealership, 
+96925674	Automotive	96926345	Isuzu Dealers	N	Isuzu dealerships, Isuzu dealership, 
+96925674	Automotive	96926346	Hyundai Dealers	N	Hyundai dealerships, Hyundai dealership, hundai
+96925674	Automotive	96926347	Hummer Dealers	N	Hummer dealerships, Hummer dealership, humvee, hummer, h3, h1, h2
+96925674	Automotive	96926348	Honda Dealers	N	Honda dealerships, Honda dealership, 
+96925674	Automotive	96926349	Gazelle Dealers	N	Gazelle dealerships, Gazelle dealership, 
+96925674	Automotive	96926350	GM Dealers	N	General Motors dealerships, General Motors dealership, 
+96925674	Automotive	96926351	Ford Dealers	N	Ford dealerships, Ford dealership, 
+96925674	Automotive	96926352	Fiat Dealers	N	Fiat dealerships, Fiat dealership, 
+96925674	Automotive	96926353	Holden Dealers	N	Holden dealerships, Holden dealership, 
+96925674	Automotive	96926354	New Car Dealers	N	, car dealership, car dealer ships, dealerships, autogroups, car lots, auto dealerships, auto sales, car dealerships, auto dealership, car dealerships, auto dealers, auto dealer, car sales, auto sales, cars for sale
+96925674	Automotive	96926356	Land Rover Dealers	N	Land Rover dealerships, Land Rover dealership, range rover dealers, range rover,  landrover, rangerover
+96925674	Automotive	96926357	Ferrari Dealers	N	Ferrari dealerships, Ferrari dealership, ferari, ferarri dealers,  ferarri
+96925674	Automotive	96926358	Dodge Dealers	N	Dodge dealerships, Dodge dealership, 
+96925674	Automotive	96926359	Daihatsu Dealers	N	Daihatsu dealerships, Daihatsu dealership, 
+96925674	Automotive	96926360	Daewoo Dealers	N	Daewoo dealerships, Daewoo dealership, 
+96925674	Automotive	96926361	Citroen Dealers	N	Citroen dealerships, Citroen dealership, 
+96925674	Automotive	96926362	Chrysler-Plymouth Dealers	N	Chrysler dealerships, Chrysler dealership, daimler
+96925674	Automotive	96926363	Aston Martin Dealers	N	Aston Martin dealerships, Aston Martin dealership, 
+96925674	Automotive	96926364	Audi Dealers	N	Audi dealerships, Audi dealership, 
+96925674	Automotive	96926423	Motorcycle Dealers	N	dirt bike dealers, dirt bike, motocross dealers, motocross, motorcycles
+96925674	Automotive	96926424	Motorcycle Parts	N	dirt bike parts, motocross parts
+96925674	Automotive	96926425	Motorcycle Rental	N	
+96925674	Automotive	96926427	Motorcycle Repair	N	dirt bike repair, motocross repair, motorcycles repair, motorcycle mechanics, motorcycle mechanic, motorcycle shops, motorcycle shop
+96925674	Automotive	96926442	Car Parts	N	undercar parts, auto parts, auto parts store, auto parts stores
+96925674	Automotive	96926480	Race Car Tracks	N	dirtbike tracks, dirt bike tracks, race car tracks, race car,  speedway, raceway,  speedways, raceways
+96925674	Automotive	96926491	RV Dealers	N	rv dealers, camper dealers,  campers, mobile home, mobile home dealers, motorhome dealers, motorhome dealerships, rv, rvs, rv dealerships, rv dealership, rv sales, mobile homes, mobile home sales
+96925674	Automotive	96926492	RV Repair &amp; Service	N	camper repair,  campers, mobile home repair, mobilehome repair, motorhome repair, motor home repair, rv mechanic, rv mechanics, rv repair service, rv repair services, rv repair
+96925674	Automotive	96926494	RV Renters	N	rv renters, camper renters, mobile home, motorhome renters, mobile home renters, camper rentals, mobile home rentals, motorhome rentals, rv rentals, rv rental
+96925674	Automotive	96926516	Car Rentals	N	rent a car, car rentals, auto rentals, auto rental, rent cars, rent automobiles, auto rental, car rental, rent car
+96925674	Automotive	96926518	Trailer Rentals	N	pop up trailer rentals, flatbed trailer rental, trailers rentals
+96925674	Automotive	96926527	Auto Repairs	N	car repairs, repair shops, auto mechanic, auto mechanics, mechanic, mechanics, auto repair, car repair, car mechanics, car mechanic, automotive repair and service, auto shop, auto shops, auto service, auto repair services shops, auto repair shops, auto repair shop, auto care, car shop, car shops
+96925674	Automotive	96926528	Car Brake Service	N	brake repair, brakes, car brake service, car brakes
+96925674	Automotive	96926529	Auto Body Shops	N	car body shop, collision repair, body shop, body shops, auto body shop, auto body, car body, auto bodies, car bodies, auto body repair, auto body repairs, auto paint, car paint, auto painting, car painting, collision shop, collision shops, autobody
+96925674	Automotive	96926530	Car Exhaust Services	N	mufflers, car exhaust services, muffler, muffler shop, muffler shops
+96925674	Automotive	96926531	Oil Change	N	lube, oil and lube, automotive oil change, oil changers, oil changes, car oil change, car oil changes, auto oil changes, auto oil change
+96925674	Automotive	96926533	Automotive Upholstery	N	automobile upholstery
+96925674	Automotive	96926535	Engine Repair	N	
+96925674	Automotive	96926536	Car Transmissions	N	car transmissions, transmission shop, transmission shops
+96925674	Automotive	96926538	Car Radiators	N	car radiator, radiator repair, radiator flush
+96925674	Automotive	96926539	Car Referral Service	N	
+96925674	Automotive	96926540	Automobile Club	N	automotive club, car club, auto club, car clubs, auto clubs
+96925674	Automotive	96926541	Car Batteries	N	auto batteries, car battery, auto battery
+96925674	Automotive	96926543	Auto Road Service	N	roadside assistance
+96925674	Automotive	96926545	Automobile Restoration	N	auto restoration, car restoration, automobile restoration, vehicle restoration, automotive restoration, used car restoration
+96925674	Automotive	96926546	Auto Glass	N	auto glas, auto glass covering, car glass,  windshield, auto glass repair, windshield repair, windshields, windshield repairs, windshield replacement, auto glass replacement, car window repair
+96925674	Automotive	96926624	Truck Dealers	N	truck dealers, trucks dealers, truck dealerships
+96925674	Automotive	96926625	Truck Repair	N	truck repairing and service, heavy duty truck repair, semi truck repair, heavy truck repair
+96925674	Automotive	96926626	Truck Transport	N	truck transport, trucks transport
+96925674	Automotive	96926627	Truck Stops	N	truck stops plazas, truck stops and plazas, trucks stops, travel plazas
+96925674	Automotive	96926628	Truck Rentals	N	pickup truck rental, truck renta, pick up truck rentals, moving truck rental, pick-up truck rentals, flat bed truck rental, dump truck rental, trucks rentals, truck rentals
+96925674	Automotive	96926629	Truck Parts	N	heavy duty truck parts, heavy truck parts, semi truck parts, pickup truck parts, truck accessories, trucks parts,  
+96925674	Automotive	96932224	Vehicle Painting &amp; Lettering	N	vehicle graphic
+96925674	Automotive	96936232	Camping Trailers	N	camper campers rvs, mobile home,  motorhome
+96925674	Automotive	96936233	Trailer Hitches	N	trailer hitchs, trailers hitches
+96925674	Automotive	96936234	Boat Trailers	N	boats trailers
+96925674	Automotive	96936235	Trailer Service	N	trailer repair, trailers service
+96925674	Automotive	96936236	Livestock Trailers	N	stock trailer
+96925674	Automotive	96936795	Van Accessories	N	vans accessories
+96925674	Automotive	96936796	Custom Handicap Vans	N	
+96925674	Automotive	96936797	Conversion Vans	N	conversions vans, conversion vans
+96925674	Automotive	96936798	Van Dealers	N	conversion van dealers, vans dealers
+96925676	Education	96925782	Preschools	N	preschools in, private preschools, childcare and preschools, daycare, pre school, daycares, preschools, daycares and preschools, preschools daycare, pre schools, preschools and daycares, public preschools, pre k, pre-schools, pre-school, nursery school, nursery schools, pre k schools, pre k school
+96925676	Education	96925785	School Supplies	N	schools supplies, education supplies
+96925676	Education	96925786	Private Schools	N	parochial school, parochial schools
+96925676	Education	96925789	Schools for the Handicapped	N	
+96925676	Education	96925790	Schools for the Blind	N	
+96925676	Education	96925791	Schools for the Deaf	N	
+96925676	Education	96925792	Academic Specialty Schools	N	charter school, charter schools
+96925676	Education	96925793	Tutoring	N	tutoring center, tutoring services, tutoring centers, tutoring club, the tutoring center, the tutoring club, tutoring programs,  tutors, tutor, learning center
+96925676	Education	96925794	Language Schools	N	foreign language school, foreign language schools, translation schools, translator schools, language school
+96925676	Education	96925799	Sports Training	N	
+96925676	Education	96925801	Learning Disabilities Schools	N	
+96925676	Education	96925802	Colleges &amp; Universities	N	colleges and universities, college
+96925676	Education	96925804	Community Colleges	N	jcs, junior college, jc
+96925676	Education	96928445	Elementary Schools	N	kindergarten schools,  kindergarten, elementry schools, elementry school
+96925676	Education	96928447	Middle Schools	N	junior high, junior high schools, junior high school
+96925676	Education	96928448	High Schools	N	
+96925676	Education	96928449	School Districts	N	
+96925676	Education	96928473	Literacy Education	N	
+96925676	Education	96928475	Flight Schools	N	ground school
+96925676	Education	96928476	Bartending Schools	N	bartend, bartender school, bartender schools
+96925676	Education	96928477	Real Estate Training	Y	real estate school, real estate schools, real estate classes, real estate class
+96925676	Education	96928478	Broadcast Schools	N	broadcasting school, broadcasting schools
+96925676	Education	96928479	Floral Design School	N	flower design, flower arranging, floral design schools
+96925676	Education	96928480	Massage Schools	N	school of massage therapy, massage therapy schools, school of massage
+96925676	Education	96928481	Continuing Education	Y	continuing education classes, continuing ed
+96925676	Education	96928482	Technical Schools	Y	vocational schools, vocational technical schools, vocational school, vocational technical school, trade school, trade schools, technical college, technical colleges
+96925676	Education	96928483	Business Schools	N	business school
+96925676	Education	96928485	Law Schools	N	law school
+96925677	Entertainment and Arts	96925808	Talent Agencies	N	movie casting, movies casting, stunt performer, casting agencies, talent agency, casting agency, modeling agencies, modeling agency, modelling agencies, modelling agency, modeling, modelling, model agency, model agencies
+96925677	Entertainment and Arts	96925810	Writers	N	copywriters, technical writers, writers and artists, writers guild,  authors, poets
+96925677	Entertainment and Arts	96925811	Artists	N	innovative artists, artists-commercial, graphic artists,  painters
+96925677	Entertainment and Arts	96925812	Entertainment Production	N	
+96925677	Entertainment and Arts	96925814	Party Rentals	N	party rentas, party supplies
+96925677	Entertainment and Arts	96925816	Entertainment Venues	N	auditorium, entertainment arenas
+96925677	Entertainment and Arts	96925818	Tickets	N	
+96925677	Entertainment and Arts	96925828	Movie Theaters	N	movie theat, theatre, cinema, movie thea, movie theates, movie theateres, movie theatre,  theatres, movies theaters,  movies, movie theate, cinemas, movie theatres, movie theaters in, movie theathers, movie theather
+96925677	Entertainment and Arts	96925829	Aquariums &amp; Zoos	N	
+96925677	Entertainment and Arts	96925830	Art Museums &amp; Galleries	N	gallery art dealer
+96925677	Entertainment and Arts	96925832	Planetaria	N	planetarium
+96925677	Entertainment and Arts	96926054	Lesbian, Gay, &amp; Bisexual Bars	N	gay nightclubs, gay night clubs
+96925677	Entertainment and Arts	96926057	Bars &amp; Pubs	N	all bars, pubs, bars pubs, lounges, lounge
+96925677	Entertainment and Arts	96926059	Private Clubs	N	
+96925677	Entertainment and Arts	96926060	Country Clubs	N	golf and country clubs, golf course, golf courses
+96925677	Entertainment and Arts	96926061	Night Clubs	N	night clubs in,  nightclub, nightclubs, nightlife, night life, dance clubs, dance club
+96925677	Entertainment and Arts	96926063	All Bars, Pubs, &amp; Clubs	N	
+96925677	Entertainment and Arts	96926064	Billiards	N	pool hall, pool tables,  pool, pool halls, billards
+96925677	Entertainment and Arts	96927113	Dance Studios	N	dancing studios, dance lesson, dance school, dance lessons, dance instruction, dancing lessons, adult dance lessons, learn to dance, couples dance lessons, partner dancing, 
+96925677	Entertainment and Arts	96927114	Dance Supplies	N	dancing supplies, dance store, dance stores, dance shop, dance shops, dance apparel, dance clothes, dance wear
+96925677	Entertainment and Arts	96927131	Dancers	N	female dancers, male dancers
+96925677	Entertainment and Arts	96927132	Clowns	N	
+96925677	Entertainment and Arts	96927133	Magicians	N	magic acts
+96925677	Entertainment and Arts	96927135	Jugglers	N	juggling
+96925677	Entertainment and Arts	96927153	Event Planners	N	event planning, party planners, party planning, party planner
+96925677	Entertainment and Arts	96927155	Musicians &amp; Bands	N	
+96925677	Entertainment and Arts	96927156	Disc Jockeys	N	dj's, disc jockey's,  djs, deejays
+96925677	Entertainment and Arts	96927157	Music Stores	N	music shops, music shop, record store, record stores, record shop, record shops
+96925677	Entertainment and Arts	96927158	Music Instruction	N	instrument instruction, music instruction instrumental, music instructions, instrument lesson, music instruction-instrumental, music lessons, songs instruction, song instruction, musical instrument classes, music classes, musical instrument lessons, music school, music schools
+96925677	Entertainment and Arts	96927159	Musical Instruments	N	musical instrument dealer, musical instrument rentals, musical instrument sales, musical instrument, musical instruments-dealers, musical instrument dealers, musical instrument stores, musical instrument rental, musical instrument repair, musical instrument store, instrument rental
+96925677	Entertainment and Arts	96927160	Recording Studios	N	audio recording studios, recording studios in,  mixer, mixer studios
+96925677	Entertainment and Arts	96927238	Comedy Clubs	N	comedy shows, comedy show
+96925677	Entertainment and Arts	96927240	All Theaters	N	theatres, community theater, community theatre,  theatre
+96925677	Entertainment and Arts	96927242	Theater Production	N	theaters production, theatre production
+96925677	Entertainment and Arts	96927261	Video Rental &amp; Retail	N	dvd rental, vhs rental, video rental retail, video stores, video store, video rental retail, movie rental, movie rentals
+96925677	Entertainment and Arts	96927262	Video Transfer &amp; Duplication	N	
+96925677	Entertainment and Arts	96927263	Wedding &amp; Event Videography	N	videographer, videographers, Wedding and Event Videography
+96925678	Computers and Electronics	96925764	Computer Multimedia	N	laptop multimedia, pc multimedia
+96925678	Computers and Electronics	96925765	Computer Graphics	N	
+96925678	Computers and Electronics	96925766	Computer Rental	N	laptop rental, pc rental
+96925678	Computers and Electronics	96925771	Desktop Publishing	N	
+96925678	Computers and Electronics	96925772	Communications &amp; Networking	N	computer system integration
+96925678	Computers and Electronics	96925774	Computer Training	N	laptop training, pc training
+96925678	Computers and Electronics	96925775	Computer Software	Y	laptop software, pc software
+96925678	Computers and Electronics	96925776	Computer Stores	N	reconditioned computer stores, laptop stores,  laptop pc, pc stores, computer sales
+96925678	Computers and Electronics	96925778	Computer Repair	N	computer repair techs, cpu computer repair, laptop repair, pc repair
+96925678	Computers and Electronics	96925779	Computer Furniture	N	laptop furniture, pc furniture
+96925678	Computers and Electronics	96926899	Computer Consulting	N	laptop consulting, pc consulting, computer consultant, computer consultants
+96925678	Computers and Electronics	96926907	Internet Consulting	N	internet consulting,  internet consultant, internet consultants
+96925678	Computers and Electronics	96926908	Internet Access Providers	N	internet service provider,  iap, dial up, internet access, high speed internet,  isp, web hosting,  t1 isdn
+96925678	Computers and Electronics	96926910	Internet Services	N	
+96925678	Computers and Electronics	96926911	Broadband &amp; DSL	N	high-speed access, highspeed access
+96925678	Computers and Electronics	96926913	Web Services	N	web site hosting, website hosting, web hosting,  hosting, website design, web site design, web designers, web design, web development
+96925678	Computers and Electronics	96926933	Computer User Groups	N	
+96925678	Computers and Electronics	96926934	Professional Technology Organizations	N	
+96925678	Computers and Electronics	96926935	Technology Public Interest Groups	N	
+96925678	Computers and Electronics	96937315	Computer Keyboards	N	computer keyboards,  laptop keyboards,  pc keyboards
+96925678	Computers and Electronics	96937316	Printing	N	computer printers,  laptop printers, pc printers,  pc printer
+96925678	Computers and Electronics	96937317	Computer Servers	N	computer servers,  pc servers
+96925679	Government and Community	96925746	Libraries	Y	public library, public libraries,  library
+96925679	Government and Community	96925752	Community Centers	Y	
+96925679	Government and Community	96925755	Crime Prevention	N	
+96925679	Government and Community	96925756	Philanthropy	N	charity, charitable, charities
+96925679	Government and Community	96925759	Other Organizations	N	
+96925679	Government and Community	96925760	Senior Services	Y	neighborly senior services, nursing home, assisted living, senior services, nursing homes, senior housing, assisted living facilities, assisted living facility
+96925679	Government and Community	96925762	Post Offices	N	post officed, unites states post office,  mail, u s post office, uspost office, post officw, u.s post office, main post office, post offics, post offic e, untied states post office, united sates post office, united states post offic, u.s. post office, post offic, united statespost office, post officwe, post officd, u.s.post office, post office, united stated post office, united states post office, post officew, united states post offices, us. post office, us post offic,  post, u. s. post office, post officce, us postal service, united states postal service, us post office, postal service,  usps, us postal, us post office, postal office, postal offices
+96925679	Government and Community	96926951	Animal Rescue	N	animal rescure, animal rescues, companion animal rescue effort, animal rescue, animals rescue, animal shelters
+96925679	Government and Community	96926952	Humane Societies	N	animal and humane societies, humane society, humane societies, animal shelters, animal shelter, pet adoption, pet adoptions, animal adoption, animal adoptions, animal services, animal control, humane society, animal shelter, animal shelters, dog pound, dog pounds
+96925679	Government and Community	96926955	Adoption &amp; Foster Care	Y	international adoption, adoption agencies, adoption agency, foster care agencies, fosterparents, foster parents, foster children
+96925679	Government and Community	96926957	Children's Organizations	N	
+96925679	Government and Community	96926958	Orphanages	N	
+96925679	Government and Community	96926960	Safety Identification Systems	N	
+96925679	Government and Community	96926961	Child Care Services	N	daycare, day care, child care centers, day care centers, day cares, daycare centers, daycares, childcare, child care, childcare services, child day care, day care center, daycare center, child daycare, child day care, home daycare, home day care, child day care centers
+96925679	Government and Community	96926992	Disabilities Services	N	disability services
+96925679	Government and Community	96926993	Learning Disabilities	N	
+96925679	Government and Community	96926994	Services for the Blind	N	community services for the blind
+96925679	Government and Community	96926995	Speech Disabilities	Y	speech pathology, speech pathologist, speech disabilities, speeches disabilities, speech-language pathology, speech language pathology, speech-language pathologist, speech language pathologist'
+96925679	Government and Community	96926996	Developmental Disabilities	N	division of developmental disabilities, developmental disabilities resource center
+96925679	Government and Community	96926997	Services for the Deaf	N	
+96925679	Government and Community	96926998	Domestic Violence Help Agencies	N	domestic abuse agencies, domestic abuse, family violence, family abuse
+96925679	Government and Community	96926999	Domestic Violence Hotlines	N	domestic abuse hotlines, domestic abuse, family violence hotlines, family abuse hotlines
+96925679	Government and Community	96927004	Ambulance Services	N	
+96925679	Government and Community	96927005	Emergency Search &amp; Rescue	N	
+96925679	Government and Community	96927007	Emergency Services	N	ems
+96925679	Government and Community	96927034	Meals on Wheels	N	meal delivery
+96925679	Government and Community	96927035	Soup Kitchens	N	
+96925679	Government and Community	96927036	Food Banks	N	
+96925679	Government and Community	96927038	Fire Protection	N	fire station, fire dept, fire protection services, fire department, fire departments, fire stations
+96925679	Government and Community	96927039	Military	N	military base, military entrance processing, military forts, military recruiting office, military recruiting station, military ordinariate, military entrance, military recruiting, military bases, 
+96925679	Government and Community	96927041	Embassies &amp; Consulates	N	embassy
+96925679	Government and Community	96927042	Housing Authorities	N	housing auth
+96925679	Government and Community	96927043	Immigration Services	N	u.s.a. immigration services, us immigration services
+96925679	Government and Community	96927044	Finance &amp; Taxation	N	revenue, irs, i.r.s., internal revenue service,  taxes, tax office, tax offices
+96925679	Government and Community	96927045	Vehicle Registration	N	automobile registration, motor vehicle, vehicle registration office, vehicle registration services, auto registrar, motor vehicle registration, motor vehicles, auto registration
+96925679	Government and Community	96927047	Government	Y	government-contract consultants, city government departments, government agencies,  government-office, government officials, governments offices,  usgovernment, government relations, county government,  governmentoffices, council of governments, government relations firms, government offices, city government, county government
+96925679	Government and Community	96927048	Veteran Organizations	N	veterans administration
+96925679	Government and Community	96927049	Social Security Administration	N	social security administrations, social security admini, social security adm, social security, social security admi, social security administrative office, social security admin, social security office, social security offices
+96925679	Government and Community	96927050	Social Services	Y	social service agency, dept. of social services, social service agencies, deparment of social services, dept of social services, office of social services, social service, social service organizations, department of social services
+96925679	Government and Community	96927052	Homelessness Resources	N	homeless shelters, homeless shelter
+96925679	Government and Community	96927061	Recycling Centers	N	recycle, aluminum recycling centers, recycle centers, recycle center,  recycle, recycle paper
+96925679	Government and Community	96927062	Recycling Agencies	N	recycle agencies
+96925679	Government and Community	96927063	Feng Shui	N	
+96925679	Government and Community	96927064	Religious Schools	N	
+96925679	Government and Community	96927065	Convents &amp; Monasteries	N	
+96925679	Government and Community	96927066	Mosques	N	
+96925679	Government and Community	96927067	Temples &amp; Synagogues	N	
+96925679	Government and Community	96927068	Religious Organizations	Y	religious organizations
+96925679	Government and Community	96927069	Churches	N	christian churches, christian, churchs, church, christian church, chuches, chuch, all churches
+96925679	Government and Community	96929306	Law Enforcement	N	highway patrol, state police, sheriff deputy, law enforcement agency, police station, law enforcement center, police dept, department of public safety, law enforcement, police department, police
+96925679	Government and Community	96929307	Legal Services	N	
+96925679	Government and Community	96929308	City Hall	N	
+96925679	Government and Community	96929309	Courts of Law	N	courthouse, court house, municipal court, courts of law
+96925679	Government and Community	96929310	Correctional Institutions	N	correctional inst, jail, prison, corrections institutions,  corrections, department of corrections, dept of corrections, corections dept, corrections department, jails, prisons, detention center, detention centers
+96925679	Government and Community	96934497	Marriage &amp; Family Counselors	Y	couples therapy, marriage counseling, family counseling, family therapy
+96925679	Government and Community	96934498	Social &amp; Welfare Services	Y	social welfare services
+96925679	Government and Community	96934991	Funerals	Y	funeral home, funeral homes, mortuary, mortuaries
+96925679	Government and Community	96934994	Funeral Pre-arrangement	Y	
+96925679	Government and Community	96934995	Cremation Services	Y	
+96925679	Government and Community	96934996	Funeral Information	Y	
+96925679	Government and Community	96934997	Funeral Announcements	N	
+96925679	Government and Community	96934998	Coffin &amp; Casket Sales	Y	
+96925679	Government and Community	96936256	Transportation for the Disabled	N	
+96925679	Government and Community	96936258	Disabled Services	N	
+96925679	Government and Community	96936262	Supplies for the Disabled	N	
+96925680	Food and Dining	96925834	Grocery Stores	N	supermarket, super market,   groceries, supermarkets
+96925680	Food and Dining	96925835	Natural &amp; Organic Foods	N	health food stores, health food store, health food, organic grocery store, organic grocery stores, healthy
+96925680	Food and Dining	96925842	Poultry Retailers	N	
+96925680	Food and Dining	96925843	Culinary Schools	N	cooking school, cooking classes
+96925680	Food and Dining	96925844	Specialty Food Stores	N	
+96925680	Food and Dining	96925848	Banquet Rooms	N	banquet hall, banquet facility, banquet facilities, banquet halls, halls, hall, reception hall, reception halls, hall rentals, hall rental, party halls, rental hall, rental halls, party hall, party rooms, party room, party places, party venue, party venues, party hall, party halls
+96925680	Food and Dining	96925850	Produce Retailers	N	fruit stands, produce stands
+96925680	Food and Dining	96925851	Meats	N	butcher, smoked meats, meat, beef, poultry, meats, meat market, meat markets
+96925680	Food and Dining	96925852	Catering Services	N	caterers, catering company,  catering,  caterer, catering services
+96925680	Food and Dining	96925853	Candy &amp; Sweets	N	
+96925680	Food and Dining	96926146	Delicatessens	N	deli, sandwich, sandwiches, sandwich shop, sandwich shops, delis, sandwich
+96925680	Food and Dining	96926147	Bakeries	N	wholesale bakeries,  pastries, cookies, cakes, muffins, pies, cake, cake bakeries, cake bakery
+96925680	Food and Dining	96926148	Food Delivery Services	N	
+96925680	Food and Dining	96926149	Ice Cream &amp; Yogurt	N	softees
+96925680	Food and Dining	96926150	Afghani Restaurants	N	Afghan cuisine, Afghan resturants, Afghan resturant, Afghan restaraunts, Afghan restaraunt, Afghan restuarants, Afghan restuarant, Afghan food, afghan restaurant, afghan restaurants
+96925680	Food and Dining	96926151	Steak Houses	N	Steak cuisine, Steak resturants, Steak resturant, Steak restaraunts, Steak restaraunt, Steak restuarants, Steak restuarant, Steak food, steakhouse, steakhouses, steak house
+96925680	Food and Dining	96926152	Southwestern Restaurants	N	Southwestern cuisine, Southwestern resturants, Southwestern resturant, Southwestern restaraunts, Southwestern restaraunt, Southwestern restuarants, Southwestern restuarant, Southwestern food, 
+96925680	Food and Dining	96926153	Southern Restaurants	N	Southern cuisine, Southern resturants, Southern resturant, Southern restaraunts, Southern restaraunt, Southern restuarants, Southern restuarant, Southern food, 
+96925680	Food and Dining	96926154	Soul Food Restaurants	N	Soul Food cuisine, Soul Food resturants, Soul Food resturant, Soul Food restaraunts, Soul Food restaraunt, Soul Food restuarants, Soul Food restuarant, Soul Food food, southern restaurants
+96925680	Food and Dining	96926155	Californian Restaurants	N	Californian cuisine, Californian resturants, Californian resturant, Californian restaraunts, Californian restaraunt, Californian restuarants, Californian restuarant, Californian food, 
+96925680	Food and Dining	96926156	Cajun Restaurants	N	Cajun cuisine, Cajun resturants, Cajun resturant, Cajun restaraunts, Cajun restaraunt, Cajun restuarants, Cajun restuarant, Cajun food, creole restaurants
+96925680	Food and Dining	96926157	Burgers	N	hamburgers, hamburger, cheeseburgers, burger places, burger place
+96925680	Food and Dining	96926158	Barbecue Restaurants	N	barbecue restaurant, barbecue restarants, barbecue retaraunt, barbecue restaraunts, barbecue restaruants, barbecue restraunts, barbecue resuarant, barbecue restuarants, barbecue resuraunts, barbecue restaurants, barbecue restuarant, barbecue resturaunts, barbecue resturants, barbecue resturant, barbecue restaraunts, barbecue restaraunt, barbecue restuarants, barbecue restaurents, barbecue restaraunt, barbecue restauraunts, barbecue restaurents, barbecue resteraunts, barbecue restrants, barbecue restrants, barbecue restraunt, barbecue restraurants, barbecue resturant, barbecue resturants, barbecue resteraunt, barbecue restaruant, barbecue restrauants, barbecue food, barbecue cuisine, barbeque restaurant, barbeque restarants, barbeque retaraunt, barbeque restaraunts, barbeque restaruants, barbeque restraunts, barbeque resuarant, barbeque restuarants, barbeque resuraunts, barbeque restaurants, barbeque restuarant, barbeque resturaunts, barbeque resturants, barbeque resturant, barbeque res
+96925680	Food and Dining	96926160	Indonesian Restaurants	N	Indonesian cuisine, Indonesian resturants, Indonesian resturant, Indonesian restaraunts, Indonesian restaraunt, Indonesian restuarants, Indonesian restuarant, Indonesian food, 
+96925680	Food and Dining	96926162	Filipino Restaurants	N	Filipino cuisine, Filipino resturants, Filipino resturant, Filipino restaraunts, Filipino restaraunt, Filipino restuarants, Filipino restuarant, Filipino food, 
+96925680	Food and Dining	96926163	Dim Sum Restaurants	N	Dim Sum cuisine, Dim Sum resturants, Dim Sum resturant, Dim Sum restaraunts, Dim Sum restaraunt, Dim Sum restuarants, Dim Sum restuarant, Dim Sum food, 
+96925680	Food and Dining	96926164	Chinese Restaurants	N	Chinese cuisine, Chinese resturants, Chinese resturant, Chinese restaraunts, Chinese restaraunt, Chinese restuarants, Chinese restuarant, Chinese food, chinese takeout, chinese take out
+96925680	Food and Dining	96926165	Cambodian Restaurants	N	Cambodian cuisine, Cambodian resturants, Cambodian resturant, Cambodian restaraunts, Cambodian restaraunt, Cambodian restuarants, Cambodian restuarant, Cambodian food, 
+96925680	Food and Dining	96926166	Burmese Restaurants	N	Burmese cuisine, Burmese resturants, Burmese resturant, Burmese restaraunts, Burmese restaraunt, Burmese restuarants, Burmese restuarant, Burmese food, 
+96925680	Food and Dining	96926167	Armenian Restaurants	N	Armenian cuisine, Armenian resturants, Armenian resturant, Armenian restaraunts, Armenian restaraunt, Armenian restuarants, Armenian restuarant, Armenian food, 
+96925680	Food and Dining	96926168	Tex-Mex Restaurants	N	Tex Mex cuisine, Tex Mex resturants, Tex Mex resturant, Tex Mex restaraunts, Tex Mex restaraunt, Tex Mex restuarants, Tex Mex restuarant, Tex Mex food, texmex, tex mex
+96925680	Food and Dining	96926169	Coffee Houses	N	coffee shops, coffee shop
+96925680	Food and Dining	96926170	Caribbean Restaurants	N	Caribbean cuisine, Caribbean resturants, Caribbean resturant, Caribbean restaraunts, Caribbean restaraunt, Caribbean restuarants, Caribbean restuarant, Caribbean food, carribean, carribean restaurants
+96925680	Food and Dining	96926171	Brewpubs	N	beerpubs, beer pubs
+96925680	Food and Dining	96926172	Breakfast Restaurants	N	Breakfast cuisine, Breakfast resturants, Breakfast resturant, Breakfast restaraunts, Breakfast restaraunt, Breakfast restuarants, Breakfast restuarant, Breakfast food, breakfast places, breakfast place
+96925680	Food and Dining	96926173	Bagel &amp; Donut Shops	N	doughnuts, bagles, doughnut, donut shop, donut shops
+96925680	Food and Dining	96926175	Vietnamese Restaurants	N	Vietnamese cuisine, Vietnamese resturants, Vietnamese resturant, Vietnamese restaraunts, Vietnamese restaraunt, Vietnamese restuarants, Vietnamese restuarant, Vietnamese food, pho
+96925680	Food and Dining	96926176	Turkish Restaurants	N	Turkish cuisine, Turkish resturants, Turkish resturant, Turkish restaraunts, Turkish restaraunt, Turkish restuarants, Turkish restuarant, Turkish food, 
+96925680	Food and Dining	96926177	Tibetan Restaurants	N	Tibetan cuisine, Tibetan resturants, Tibetan resturant, Tibetan restaraunts, Tibetan restaraunt, Tibetan restuarants, Tibetan restuarant, Tibetan food, 
+96925680	Food and Dining	96926178	Singaporean Restaurants	N	Singaporean cuisine, Singaporean resturants, Singaporean resturant, Singaporean restaraunts, Singaporean restaraunt, Singaporean restuarants, Singaporean restuarant, Singaporean food, 
+96925680	Food and Dining	96926179	Seafood Restaurants	N	Seafood cuisine, Seafood resturants, Seafood resturant, Seafood restaraunts, Seafood restaraunt, Seafood restuarants, Seafood restuarant, Seafood food, fish, sea food
+96925680	Food and Dining	96926180	Noodle Shops	N	Noodle cuisine, Noodle resturants, Noodle resturant, Noodle restaraunts, Noodle restaraunt, Noodle restuarants, Noodle restuarant, Noodle food, 
+96925680	Food and Dining	96926181	Latin American	N	Latin American cuisine, Latin American resturants, Latin American resturant, Latin American restaraunts, Latin American restaraunt, Latin American restuarants, Latin American restuarant, Latin American food, 
+96925680	Food and Dining	96926182	Kosher Restaurants	N	Kosher cuisine, Kosher resturants, Kosher resturant, Kosher restaraunts, Kosher restaraunt, Kosher restuarants, Kosher restuarant, Kosher food, jewish restaurants
+96925680	Food and Dining	96926183	Fusion Restaurants	N	Fusion cuisine, Fusion resturants, Fusion resturant, Fusion restaraunts, Fusion restaraunt, Fusion restuarants, Fusion restuarant, Fusion food, 
+96925680	Food and Dining	96926184	Tapas Restaurants	N	Tapas cuisine, Tapas resturants, Tapas resturant, Tapas restaraunts, Tapas restaraunt, Tapas restuarants, Tapas restuarant, Tapas food, 
+96925680	Food and Dining	96926185	Swiss Restaurants	N	Swiss cuisine, Swiss resturants, Swiss resturant, Swiss restaraunts, Swiss restaraunt, Swiss restuarants, Swiss restuarant, Swiss food, 
+96925680	Food and Dining	96926186	Spanish Restaurants	N	Spanish cuisine, Spanish resturants, Spanish resturant, Spanish restaraunts, Spanish restaraunt, Spanish restuarants, Spanish restuarant, Spanish food, 
+96925680	Food and Dining	96926187	Scandinavian Restaurants	N	Scandinavian cuisine, Scandinavian resturants, Scandinavian resturant, Scandinavian restaraunts, Scandinavian restaraunt, Scandinavian restuarants, Scandinavian restuarant, Scandinavian food, 
+96925680	Food and Dining	96926188	Portuguese Restaurants	N	Portuguese cuisine, Portuguese resturants, Portuguese resturant, Portuguese restaraunts, Portuguese restaraunt, Portuguese restuarants, Portuguese restuarant, Portuguese food, 
+96925680	Food and Dining	96926189	Polish Restaurants	N	Polish cuisine, Polish resturants, Polish resturant, Polish restaraunts, Polish restaraunt, Polish restuarants, Polish restuarant, Polish food, 
+96925680	Food and Dining	96926190	Italian Restaurants	N	Italian cuisine, Italian resturants, Italian resturant, Italian restaraunts, Italian restaraunt, Italian restuarants, Italian restuarant, Italian food, 
+96925680	Food and Dining	96926192	Hungarian Restaurants	N	Hungarian cuisine, Hungarian resturants, Hungarian resturant, Hungarian restaraunts, Hungarian restaraunt, Hungarian restuarants, Hungarian restuarant, Hungarian food, 
+96925680	Food and Dining	96926193	Greek Restaurants	N	Greek cuisine, Greek resturants, Greek resturant, Greek restaraunts, Greek restaraunt, Greek restuarants, Greek restuarant, Greek food, 
+96925680	Food and Dining	96926194	German Restaurants	N	German cuisine, German resturants, German resturant, German restaraunts, German restaraunt, German restuarants, German restuarant, German food, Bavarian restaurants
+96925680	Food and Dining	96926195	French Restaurants	N	French cuisine, French resturants, French resturant, French restaraunts, French restaraunt, French restuarants, French restuarant, French food, 
+96925680	Food and Dining	96926196	Fondue Restaurants	N	Fondue cuisine, Fondue resturants, Fondue resturant, Fondue restaraunts, Fondue restaraunt, Fondue restuarants, Fondue restuarant, Fondue food, 
+96925680	Food and Dining	96926197	English Restaurants	N	English cuisine, English resturants, English resturant, English restaraunts, English restaraunt, English restuarants, English restuarant, English food, 
+96925680	Food and Dining	96926198	Danish Restaurants	N	Danish cuisine, Danish resturants, Danish resturant, Danish restaraunts, Danish restaraunt, Danish restuarants, Danish restuarant, Danish food, 
+96925680	Food and Dining	96926199	Czech Restaurants	N	Czech cuisine, Czech resturants, Czech resturant, Czech restaraunts, Czech restaraunt, Czech restuarants, Czech restuarant, Czech food, 
+96925680	Food and Dining	96926200	Belgian Restaurants	N	Belgian cuisine, Belgian resturants, Belgian resturant, Belgian restaraunts, Belgian restaraunt, Belgian restuarants, Belgian restuarant, Belgian food, 
+96925680	Food and Dining	96926203	Thai Restaurants	N	Thai cuisine, Thai resturants, Thai resturant, Thai restaraunts, Thai restaraunt, Thai restuarants, Thai restuarant, Thai food, 
+96925680	Food and Dining	96926204	Taiwanese Restaurants	N	Taiwanese cuisine, Taiwanese resturants, Taiwanese resturant, Taiwanese restaraunts, Taiwanese restaraunt, Taiwanese restuarants, Taiwanese restuarant, Taiwanese food, 
+96925680	Food and Dining	96926205	Sushi Restaurants	N	Sushi cuisine, Sushi resturants, Sushi resturant, Sushi restaraunts, Sushi restaraunt, Sushi restuarants, Sushi restuarant, Sushi food, sushi place, japanese sushi, sushi bar, sushi bars
+96925680	Food and Dining	96926207	Pakistani Restaurants	N	Pakistani cuisine, Pakistani resturants, Pakistani resturant, Pakistani restaraunts, Pakistani restaraunt, Pakistani restuarants, Pakistani restuarant, Pakistani food, 
+96925680	Food and Dining	96926208	Malaysian Restaurants	N	Malaysian cuisine, Malaysian resturants, Malaysian resturant, Malaysian restaraunts, Malaysian restaraunt, Malaysian restuarants, Malaysian restuarant, Malaysian food, 
+96925680	Food and Dining	96926209	Korean Restaurants	N	Korean cuisine, Korean resturants, Korean resturant, Korean restaraunts, Korean restaraunt, Korean restuarants, Korean restuarant, Korean food, korean bbq, korean barbecue, korean barbeque
+96925680	Food and Dining	96926210	Japanese Restaurants	N	Japanese cuisine, Japanese resturants, Japanese resturant, Japanese restaraunts, Japanese restaraunt, Japanese restuarants, Japanese restuarant, Japanese food, 
+96925680	Food and Dining	96926211	Jamaican Restaurants	N	Jamaican cuisine, Jamaican resturants, Jamaican resturant, Jamaican restaraunts, Jamaican restaraunt, Jamaican restuarants, Jamaican restuarant, Jamaican food, 
+96925680	Food and Dining	96926212	Buffets	N	Buffet cuisine, Buffet resturants, Buffet resturant, Buffet restaraunts, Buffet restaraunt, Buffet restuarants, Buffet restuarant, Buffet food, buffet
+96925680	Food and Dining	96926214	Ukrainian Restaurants	N	Ukrainian cuisine, Ukrainian resturants, Ukrainian resturant, Ukrainian restaraunts, Ukrainian restaraunt, Ukrainian restuarants, Ukrainian restuarant, Ukrainian food, 
+96925680	Food and Dining	96926215	Romanian Restaurants	N	Romanian cuisine, Romanian resturants, Romanian resturant, Romanian restaraunts, Romanian restaraunt, Romanian restuarants, Romanian restuarant, Romanian food, 
+96925680	Food and Dining	96926216	International Restaurants	N	International cuisine, International resturants, International resturant, International restaraunts, International restaraunt, International restuarants, International restuarant, International food, 
+96925680	Food and Dining	96926217	Family Style Restaurants	N	Family cuisine, Family resturants, Family resturant, Family restaraunts, Family restaraunt, Family restuarants, Family restuarant, Family food, family friendly restaurants
+96925680	Food and Dining	96926218	Mongolian Restaurants	N	Mongolian cuisine, Mongolian resturants, Mongolian resturant, Mongolian restaraunts, Mongolian restaraunt, Mongolian restuarants, Mongolian restuarant, Mongolian food, mongolian bbq, mongolian barbecue, mongolian barbeque
+96925680	Food and Dining	96926219	Cafes	N	cafe
+96925680	Food and Dining	96926220	Crepe Restaurants	N	Crepe cuisine, Crepe resturants, Crepe resturant, Crepe restaraunts, Crepe restaraunt, Crepe restuarants, Crepe restuarant, Crepe food, 
+96925680	Food and Dining	96926221	Basque Restaurants	N	Basque cuisine, Basque resturants, Basque resturant, Basque restaraunts, Basque restaraunt, Basque restuarants, Basque restuarant, Basque food, 
+96925680	Food and Dining	96926222	Amish Restaurants	N	Amish cuisine, Amish resturants, Amish resturant, Amish restaraunts, Amish restaraunt, Amish restuarants, Amish restuarant, Amish food, 
+96925680	Food and Dining	96926223	Bistro Restaurants	N	Bistro cuisine, Bistro resturants, Bistro resturant, Bistro restaraunts, Bistro restaraunt, Bistro restuarants, Bistro restuarant, Bistro food, 
+96925680	Food and Dining	96926224	South African Restaurants	N	South African cuisine, South African resturants, South African resturant, South African restaraunts, South African restaraunt, South African restuarants, South African restuarant, South African food, 
+96925680	Food and Dining	96926225	Salad Restaurants	N	salad cuisine, salad resturants, salad resturant, salad restaraunts, salad restaraunt, salad restuarants, salad restuarant, salad food, 
+96925680	Food and Dining	96926226	Polynesian Restaurants	N	Polynesian cuisine, Polynesian resturants, Polynesian resturant, Polynesian restaraunts, Polynesian restaraunt, Polynesian restuarants, Polynesian restuarant, Polynesian food, 
+96925680	Food and Dining	96926227	Mediterranean Restaurants	N	Mediterranean cuisine, Mediterranean resturants, Mediterranean resturant, Mediterranean restaraunts, Mediterranean restaraunt, Mediterranean restuarants, Mediterranean restuarant, Mediterranean food, 
+96925680	Food and Dining	96926228	Healthy Restaurants	N	Healthy cuisine, Healthy resturants, Healthy resturant, Healthy restaraunts, Healthy restaraunt, Healthy restuarants, Healthy restuarant, Healthy food, 
+96925680	Food and Dining	96926229	Southeast Asian Restaurants	N	Asian cuisine, Asian resturants, Asian resturant, Asian restaraunts, Asian restaraunt, Asian restuarants, Asian restuarant, Asian food, 
+96925680	Food and Dining	96926230	Cuban Restaurants	N	Cuban cuisine, Cuban resturants, Cuban resturant, Cuban restaraunts, Cuban restaraunt, Cuban restuarants, Cuban restuarant, Cuban food, 
+96925680	Food and Dining	96926231	Smoothies	N	juice bar
+96925680	Food and Dining	96926232	Hawaiian Restaurants	N	Hawaiian cuisine, Hawaiian resturants, Hawaiian resturant, Hawaiian restaraunts, Hawaiian restaraunt, Hawaiian restuarants, Hawaiian restuarant, Hawaiian food, luau
+96925680	Food and Dining	96926233	Continental Restaurants	N	Continental cuisine, Continental resturants, Continental resturant, Continental restaraunts, Continental restaraunt, Continental restuarants, Continental restuarant, Continental food, 
+96925680	Food and Dining	96926234	Carry Out &amp; Take Out	N	carry out take out
+96925680	Food and Dining	96926235	Dinner Theaters	N	mystery dinner theater, dinner theatres, mystery dinner theatres
+96925680	Food and Dining	96926236	Restaurants	N	restaurant, restarants, retaraunt, restaraunts, restaruants, restraunts, resuarant, restuarants, resuraunts, restaurants, restuarant, resturaunts, resturants, resturant, restaraunts, restaraunt, restuarants, restaurents, restaraunt, restauraunts, restaurents, resteraunts, restrants, restrants, restraunt, restraurants, resturant, resturants, resteraunt, restaruant, restrauants, resaurants, retaurants, dining, dinning, reasturants
+96925680	Food and Dining	96926237	American Restaurants	N	American cuisine, American resturants, American resturant, American restaraunts, American restaraunt, American restuarants, American restuarant, American food, 
+96925680	Food and Dining	96926238	Sandwiches	N	Sandwiches cuisine, Sandwiches resturants, Sandwiches resturant, Sandwiches restaraunts, Sandwiches restaraunt, Sandwiches restuarants, Sandwiches restuarant, Sandwiches food, deli sandwiches, submarine sandwiches, sub sandwiches, sandwich places,  subs, sub shops, sub shop
+96925680	Food and Dining	96926239	Vegetarian Restaurants	N	Vegetarian cuisine, Vegetarian resturants, Vegetarian resturant, Vegetarian restaraunts, Vegetarian restaraunt, Vegetarian restuarants, Vegetarian restuarant, Vegetarian food, 
+96925680	Food and Dining	96926240	Middle Eastern Restaurants	N	Middle Eastern cuisine, Middle Eastern resturants, Middle Eastern resturant, Middle Eastern restaraunts, Middle Eastern restaraunt, Middle Eastern restuarants, Middle Eastern restuarant, Middle Eastern food, 
+96925680	Food and Dining	96926241	Internet Cafes	N	
+96925680	Food and Dining	96926242	Fast Food	N	Fast Food cuisine, Fast Food resturants, Fast Food resturant, Fast Food restaraunts, Fast Food restaraunt, Fast Food restuarants, Fast Food restuarant, Fast Food food, 
+96925680	Food and Dining	96926243	Pizza	N	pizza place,  pizzerias, pizza places, pizzeria, pizza places, pizza shop, pizza shops
+96925680	Food and Dining	96926245	Retail Seafood	N	fish, fish market, fish markets, fish store, fish stores, seafood market, seafood markets
+96925680	Food and Dining	96926864	Wine Stores	N	
+96925680	Food and Dining	96926865	Breweries	N	micro breweries,  microbreweries
+96925680	Food and Dining	96926870	Wineries	N	winery, wineries and vineyards, wine tasting, vineyards
+96925680	Food and Dining	96929078	Ethiopian Restaurants	N	Ethiopian cuisine, Ethiopian resturants, Ethiopian resturant, Ethiopian restaraunts, Ethiopian restaraunt, Ethiopian restuarants, Ethiopian restuarant, Ethiopian food, 
+96925680	Food and Dining	96929079	Moroccan Restaurants	N	Moroccan cuisine, Moroccan resturants, Moroccan resturant, Moroccan restaraunts, Moroccan restaraunt, Moroccan restuarants, Moroccan restuarant, Moroccan food, 
+96925680	Food and Dining	96929080	Nigerian Restaurants	N	Nigerian cuisine, Nigerian resturants, Nigerian resturant, Nigerian restaraunts, Nigerian restaraunt, Nigerian restuarants, Nigerian restuarant, Nigerian food, 
+96925680	Food and Dining	96929081	African Restaurants	N	African cuisine, African resturants, African resturant, African restaraunts, African restaraunt, African restuarants, African restuarant, African food, 
+96925680	Food and Dining	96929150	Brazilian Restaurants	N	Brazilian cuisine, Brazilian resturants, Brazilian resturant, Brazilian restaraunts, Brazilian restaraunt, Brazilian restuarants, Brazilian restuarant, Brazilian food, 
+96925680	Food and Dining	96929152	Ecuadorian Restaurants	N	Ecuadorian cuisine, Ecuadorian resturants, Ecuadorian resturant, Ecuadorian restaraunts, Ecuadorian restaraunt, Ecuadorian restuarants, Ecuadorian restuarant, Ecuadorian food, 
+96925680	Food and Dining	96929153	Guatemalan Restaurants	N	Guatemalan cuisine, Guatemalan resturants, Guatemalan resturant, Guatemalan restaraunts, Guatemalan restaraunt, Guatemalan restuarants, Guatemalan restuarant, Guatemalan food, 
+96925680	Food and Dining	96929154	Peruvian Restaurants	N	Peruvian cuisine, Peruvian resturants, Peruvian resturant, Peruvian restaraunts, Peruvian restaraunt, Peruvian restuarants, Peruvian restuarant, Peruvian food, 
+96925680	Food and Dining	96929155	Mexican Restaurants	N	Mexican cuisine, Mexican resturants, Mexican resturant, Mexican restaraunts, Mexican restaraunt, Mexican restuarants, Mexican restuarant, Mexican food, 
+96925680	Food and Dining	96929156	Nicaraguan Restaurants	N	Nicaraguan cuisine, Nicaraguan resturants, Nicaraguan resturant, Nicaraguan restaraunts, Nicaraguan restaraunt, Nicaraguan restuarants, Nicaraguan restuarant, Nicaraguan food, 
+96925680	Food and Dining	96929157	Colombian Restaurants	N	Colombian cuisine, Colombian resturants, Colombian resturant, Colombian restaraunts, Colombian restaraunt, Colombian restuarants, Colombian restuarant, Colombian food, 
+96925680	Food and Dining	96929158	Chilean Restaurants	N	Chilean cuisine, Chilean resturants, Chilean resturant, Chilean restaraunts, Chilean restaraunt, Chilean restuarants, Chilean restuarant, Chilean food, 
+96925680	Food and Dining	96929160	Salvadorian Restaurants	N	Salvadorian cuisine, Salvadorian resturants, Salvadorian resturant, Salvadorian restaraunts, Salvadorian restaraunt, Salvadorian restuarants, Salvadorian restuarant, Salvadorian food, 
+96925680	Food and Dining	96929161	Argentinean Restaurants	N	Argentinean cuisine, Argentinean resturants, Argentinean resturant, Argentinean restaraunts, Argentinean restaraunt, Argentinean restuarants, Argentinean restuarant, Argentinean food, 
+96925680	Food and Dining	96929172	Egyptian Restaurants	N	Egyptian cuisine, Egyptian resturants, Egyptian resturant, Egyptian restaraunts, Egyptian restaraunt, Egyptian restuarants, Egyptian restuarant, Egyptian food, 
+96925680	Food and Dining	96929173	Syrian Restaurants	N	Syrian cuisine, Syrian resturants, Syrian resturant, Syrian restaraunts, Syrian restaraunt, Syrian restuarants, Syrian restuarant, Syrian food, 
+96925680	Food and Dining	96929176	Israeli Restaurants	N	jewish cuisine, jewish resturants, jewish resturant, jewish restaraunts, jewish restaraunt, jewish restuarants, jewish restuarant, jewish food, jewish restaurants
+96925680	Food and Dining	96929177	Lebanese Restaurants	N	Lebanese cuisine, Lebanese resturants, Lebanese resturant, Lebanese restaraunts, Lebanese restaraunt, Lebanese restuarants, Lebanese restuarant, Lebanese food, 
+96925680	Food and Dining	96929810	Alcoholic Beverages	N	wine, liquor, liquor store, liquor stores, wine and liquor stores, wine retailers, wine seller, beer retailers,  beer, wine shops, wine shop, wine store, wine stores
+96925680	Food and Dining	96929814	Drinking Water	N	water filter, purification, filtration, bottled, bottled drinking water, bottled water, water delivery, bottled water delivery
+96925681	Home and Garden	96925899	Home &amp; Garden Lighting	N	lamps, lights, lighting store, lighting stores, lighting shop, lighting shops
+96925681	Home and Garden	96925902	Pest Control	N	pest contrl, pest contro, preventative pest control, preventive pest control, exterminator, exterminators, extermination, exterminating
+96925681	Home and Garden	96925903	Welding Services	N	
+96925681	Home and Garden	96925904	Snow Removal	N	snow plow, snow removal equipment-wholesale, snow plowing, snow removal equipment
+96925681	Home and Garden	96925907	Locksmiths	N	lock smith,  locks, locks and locksmiths, auto locksmiths,  intercom
+96925681	Home and Garden	96925908	Window Treatments	N	shutters, custom window treatments, shutter draperies, venetian blinds,  blinds, curtains, drapes, drapery, draperies,  window, windows treatments,  blinds, mini blinds, vertical blinds, sheer shades, cellular shades, window tinting, glass tint, window tint, glass tinting, car window tint
+96925681	Home and Garden	96925911	Pools, Spas, &amp; Saunas	N	pool service,  hottub, swimming pools, hot tub, hot tubs, swimming pool service, swimming pool, pool cleaners, pool cleaner, pool supplies, pool supply, swimming pool supplies, swimming pool supply, pools spas saunas
+96925681	Home and Garden	96925912	Housewares	N	
+96925681	Home and Garden	96925913	Home &amp; Garden Retailers	N	home garden retailer
+96925681	Home and Garden	96925917	Tree Service	N	tree removal, tree service,  tree, trees, trees service, tree trimming
+96925681	Home and Garden	96925920	Carpets &amp; Rugs	N	carpet dealer,  carpeting, rug dealer, carpet dealer,  carpeting, rug dealer, carpet store, carpet stores, carpet shop, carpet shops, area rug, area rugs
+96925681	Home and Garden	96927535	Appliance Repair	N	appliance repairman, major appliance repair, small appliance repair, appliances repair, 
+96925681	Home and Garden	96927536	Appliances	N	kitchenappliances, major appliances, small appliances, appliance store, appliance stores, appliance shop, appliance shops
+96925681	Home and Garden	96927575	Beds &amp; Mattresses	N	bed frames, mattress stores, mattress store, mattress, beds and mattresses, matress, beds mattresses
+96925681	Home and Garden	96927577	Bed Linens	N	beds linens,  sheets
+96925681	Home and Garden	96927578	Bathroom Supplies	N	
+96925681	Home and Garden	96927598	Carpet Cleaning	N	carpet clean, carpet cleanin, area rug cleaning, carpet cleanter, carpet cleaners, carpet cleaner
+96925681	Home and Garden	96927599	Gutter &amp; Downspout Cleaning	N	
+96925681	Home and Garden	96927600	Chimney Sweeps	N	chimney sweepers, chimney sweeper
+96925681	Home and Garden	96927601	House Cleaning	N	house cleaners, housekeeping, house keeping, house keepers, housekeepers, home cleaning, home cleaners, home cleaning services
+96925681	Home and Garden	96927602	Efficiency &amp; Organization	N	
+96925681	Home and Garden	96927603	Power Washing	N	deck power washing, pressure washing, pressure wash
+96925681	Home and Garden	96927604	Floor Cleaning	N	
+96925681	Home and Garden	96927605	Window Cleaning	N	windows cleaning
+96925681	Home and Garden	96927606	Maid &amp; Butler Services	N	cleaning service
+96925681	Home and Garden	96927607	Laundry Services	N	dry clean, dry cleaner, dry cleanin, dry cleaning, dry cleaners, cleaners
+96925681	Home and Garden	96927634	Painting Services	N	house painters, house painting, house painter, paint contractors, paint contractor, painting contractors, painting contractor
+96925681	Home and Garden	96927635	General Contractors	Y	design build general contractor,   remodeling, remodelling, renovation, renovating, remodel, construction companies, construction company
+96925681	Home and Garden	96927636	Patio &amp; Deck	N	decking
+96925681	Home and Garden	96927637	Water Heater Services	N	
+96925681	Home and Garden	96927638	Driveway &amp; Sidewalk	N	
+96925681	Home and Garden	96927639	Fire &amp; Water Damage Restoration	N	
+96925681	Home and Garden	96927640	Storm Shelters	N	
+96925681	Home and Garden	96927641	Mold Remediation	N	mildew, mold service, mildew service, mildew remediation
+96925681	Home and Garden	96927642	Home Shelving	N	shelves
+96925681	Home and Garden	96927643	Garage Construction	N	overhead garage doors, garage doors, garage contractors, garage contractor
+96925681	Home and Garden	96927645	Bathroom Remodeling	N	bathroom remodel, bath contractors, bath contractors, bathroom contractors, bathroom contractor
+96925681	Home and Garden	96927646	Doors &amp; Windows	N	window replacement, replacement window, replacement windows, doors and windows
+96925681	Home and Garden	96927647	Bathtubs &amp; Sinks	N	
+96925681	Home and Garden	96927648	Closets &amp; Wardrobes	N	closet organization
+96925681	Home and Garden	96927649	Carpenters	N	
+96925681	Home and Garden	96927650	Kitchen Renovation	N	kitchen remodel, kitchen remodeling, kitchen contractors, kitchen contractor
+96925681	Home and Garden	96927651	Handy Person Services	N	handyman, handymen, handy man
+96925681	Home and Garden	96927652	Fireplace &amp; Chimney	N	fire wood, gas fireplace, fireplace contractors, fireplace contractor, fireplace, chimney, fireplaces, chimneys, Fireplace repair, Chimney Repair
+96925681	Home and Garden	96927653	Well Drilling Services	N	
+96925681	Home and Garden	96927654	Hardware &amp; Tools	N	tool rental, hardware store, hardware stores, hardware tools
+96925681	Home and Garden	96927655	Tiling &amp; Flooring	N	hardwood, hardwood floor, hardwood flooring, hardwood floors, tile floor, floors, tile, linoleum, wood floor, wood flooring, floor contractors, flooring contractors, floor contractor, flooring contractor, laminate flooring, wood floors, ceramic tile, ceramic tiles, ceramic tiling, tile stores, tile store
+96925681	Home and Garden	96927656	Roofing Contractors	N	roofing, roofer, roofers, roof, roofing contractor, roof repair, roof contractor, roof contractors, roofing contractors, roofing contractor, roofing companies, roofing company
+96925681	Home and Garden	96927657	Paint &amp; Wallpaper	N	paint store, paint stores, paint shop, paint shops
+96925681	Home and Garden	96927658	Lumber	N	wood, lumber yard, lumber yards
+96925681	Home and Garden	96927659	Interior Design	Y	designer, interior design firms, interior design asid, interior decorator, interior desing, interior designers, interior desingers, interior designer, interior decorators, interior decorator
+96925681	Home and Garden	96927660	Electricians	N	electric repair, electrical contractor, residential electricians, electrical contractors
+96925681	Home and Garden	96927661	Architecture	Y	architect, architecture firms, architects, architectural firms, architectural firm, architecture firm
+96925681	Home and Garden	96927745	Home Furnishings	N	home furnishing stores,  sofa, sofas, couch, couches, furniture stores, home furnishings
+96925681	Home and Garden	96927746	Furniture Reupholstery	N	furniture reupholster, furniture reupholstering, chairs reupholstery
+96925681	Home and Garden	96927747	Antique Furniture	N	
+96925681	Home and Garden	96927749	Used Furniture	N	gently used furniture, sell used furniture, buy used furniture, for sale furniture
+96925681	Home and Garden	96927750	Furniture Rental	N	rent to own furniture
+96925681	Home and Garden	96927751	Outdoor Furniture	N	outdoor furniture cushions, patio furniture
+96925681	Home and Garden	96927831	Garden Ponds	N	
+96925681	Home and Garden	96927832	Other Lawn &amp; Garden Services	N	sprinkler irrigation
+96925681	Home and Garden	96927833	Nurseries &amp; Greenhouses	N	live plants, plant nursery,  plants trees shrubs, plant nurseries, tree nurseries, tree nursery
+96925681	Home and Garden	96927834	Barbecue &amp; Grill	N	bbq, barbeque, bar-b-q, bar-b-que, bbqs, barbeques, bar-b-ques
+96925681	Home and Garden	96927835	Fences &amp; Gates	N	fencing, fence, fence companies, fences, fence company
+96925681	Home and Garden	96927838	Gardening	N	gardening service, gardening supplies, gardening services, gardening stores, gardening supply, gardening centers, garden center, garden centers,lawn care, lawn maintenance
+96925681	Home and Garden	96927839	Lawn &amp; Garden Equipment	N	lawn mowers,  mowers, lawn tractors,  lawnmowers, riding lawn mowers, riding lawn mowers equipment, lawn mower
+96925681	Home and Garden	96927841	Landscaping	Y	landscape contractor, landscaping supplies, landscaping contractor, landscaping materials, landscape gardening, landscaper, landscapers, landscape company, landscape companies, landscaping contractors, landscape contractors, landscape supply, landscape supplies, landscaping supply, lawn and garden services,lawn care, lawns, cam services, lawn maintenance
+96925681	Home and Garden	96927842	Playground Equipment	N	playground, swing sets,  playsets, swingsets
+96925681	Home and Garden	96927843	Firewood Sales	N	
+96925681	Home and Garden	96927844	Lawn &amp; Garden Retailers	N	home garden retailers
+96925681	Home and Garden	96927942	Electric Utilities	N	electric utilities, electric company, electric companies, electric utility
+96925681	Home and Garden	96927943	Gas Companies	N	natural gas companies
+96925681	Home and Garden	96927945	Utility Agencies	N	
+96925681	Home and Garden	96927947	Propane	N	gas-propane, propane tank refill, propane refill, propane filling, propane cylinders, propane filling stations, propane gas, propane refills, propane tanks, propane gas refills, propane gas tanks, refill propane tanks, propane refil, refill propane, propane tank refills
+96925681	Home and Garden	96927948	Satellite Systems	N	satellite tv, satellite television
+96925681	Home and Garden	96927949	Combined Utilities	N	utility companies, utility company
+96925681	Home and Garden	96927951	Cable TV	N	cable tv service providers, cable tv providers, cable television, cable tv provider, cable company, cable companies, cable service, cable services, digital cable, digital cable tv
+96925681	Home and Garden	96927965	Telephone Service	N	
+96925681	Home and Garden	96935310	Plumbing	N	plumbers, plumbing system, plumber, plumers, plumer, plumbing companies
+96925681	Home and Garden	96935311	Air Conditioning	N	air conditioner, a/c, air condit, air condi, air condition, air cond, air conditionin, ac supplies, ac supply, a/c repair, auto air conditioning repair, air conditioner repair, air conditioning repairman,  HVAC, air conditioning repair, air conditioning repairs, air conditioner repairs, heating and cooling, heating and air conditioning, heating and air
+96925681	Home and Garden	96935312	Heating	N	furnace heater, gas furnace, HVAC, heating and cooling, heating and air conditioning, heating and air
+96925681	Home and Garden	96935313	Septic &amp; Drain Services	N	drain cleaning, sewage back up, sewer back up, sewer backup, sewage sewer, sewage backup, sewer, sewage, sewers, sewage &amp; drain, sewage, drainage, drain
+96925681	Home and Garden	96935988	Statuary	N	concrete statuary, garden statuary
+96925681	Home and Garden	96935989	Clocks	N	cuckoo clocks,  grandfatherclocks, grandfather clocks, antique clocks,  
+96925681	Home and Garden	96935990	Ornamental Glass, Metal, &amp; Stone	N	stained glass
+96925681	Home and Garden	96936073	Cabinets &amp; Counter Tops	N	countertops, granite countertop, granite counter, kitchen cabinet refacing, kitchen refacing, kitchen cabinets and counters, cabinet contractors, cabinet contractor, counter contractors, counter contractor, cabinetry contractors, cabinetry, cabinetry contractor, kitchen cabinets counters, kitchen cabinets, kitchen cabinet
+96925681	Home and Garden	96936557	Vaporizers &amp; Humidifiers	N	
+96925681	Home and Garden	96936558	Air Purifiers	N	air filters, air filterss,  humidifiers, air cleaners,  HEPA, hepa filters
+96925681	Home and Garden	96936559	Dehumidifiers	N	
+96925681	Home and Garden	96936680	Recycling Services	N	recycle, recycle services
+96925681	Home and Garden	96936681	Garbage Services	N	trash, refuse, rubbish, trash hauling, garbage services,  garbage, hauling, trash service, trash services, trash removal, dumpsters
+96925681	Home and Garden	96936682	Salvage &amp; Junk Yards	N	junkyards, salvage and junk yards, junk yard, salvage yards, salvage yard, junkyard
+96925681	Home and Garden	96936683	Garbage Disposal Units	N	dumpster, dumpsters
+96925681	Home and Garden	96936684	Landfills	N	dump, the dump, city dump
+96925681	Home and Garden	96937001	Home Security	N	security system, home security alarms, home security monitoring, security systems, security system service, guard patrol, security company, security companies
+96925681	Home and Garden	96937002	Home Safes &amp; Vaults	N	
+96925681	Home and Garden	96937003	Burglar Alarms	N	burglar alarm repairs, burglar alarm systems, burglar alarm companies, burglar alarms and monitoring, burglar alarm monitoring, burglar alarm service, security system,  burglary, burglary alarm
+96925681	Home and Garden	96937004	Home Automation	N	
+96925681	Home and Garden	96937005	Smoke Detectors	N	fire alarms
+96925681	Home and Garden	96937006	Fire Extinguishers	N	fire extinguisher recharging, fire exting, fire extinguisher recharge, fire extinguisher services, fire extinguishers service, fire extinguisher refill, fire extinguisher inspection, fire extinguisher service, portable fire extinguishers, fire extinguisher company, fire ext,  sprinkler sprinklers, sprinkler systems
+96925682	Legal and Financial Services	96925926	Accounting &amp; Bookkeeping	Y	bookkeeping services, bookkeeper, bookkeepers, book keeper, book keepers, accountant cpa, cpa, accountant, accountants, cpas, cpa firms, cpa firm, accounting, bookkeeping
+96925682	Legal and Financial Services	96925927	Credit &amp; Debt Services	Y	debt relief, debt consolidator, debt free, credit card consolidation, debt management, debt consultants, credit counselor, bill consolidation, credit consolidation, debt counseling, debt reduction, debt consolidation, cash advance, credit counseling, credit counselors, credit repair, credit repair services
+96925682	Legal and Financial Services	96925928	Court Reporting Services	Y	court report, court reporter
+96925682	Legal and Financial Services	96925930	Escrow Legal Services	N	title guaranty, escrow services
+96925682	Legal and Financial Services	96925931	Fingerprinting	N	fingerprint
+96925682	Legal and Financial Services	96925932	Credit Reporting Agencies	N	credit report, credit report agency, credit reporting agency
+96925682	Legal and Financial Services	96925933	Currency Exchanges	N	foreign currency exchange, money exchange, foriegn currency exchange, currency converters, currency conversions, exchange ratess, exchange rates
+96925682	Legal and Financial Services	96925934	Cash &amp; Check Advances	N	check cashing, check cash
+96925682	Legal and Financial Services	96925935	Fund Transfer Services	N	money wiring, funds transfer, money transferring, money wire, money orders, money order, wire service, money transfer, transfer funds, wiring money, money transfering, wire services
+96925682	Legal and Financial Services	96925938	Bail Bonds	Y	bail bond, bail bondsmen, bail bondsman
+96925682	Legal and Financial Services	96925939	Taxes	Y	income taxes, receiver of taxes, taxes returns, tax service, tax refund status, tax brackets, tax deductions, tax preparation, tax return status, property taxes, tax services
+96925682	Legal and Financial Services	96925941	Notaries	Y	public notary, notaries public services, notaries public,  notary, notary public
+96925682	Legal and Financial Services	96925942	Bankruptcy Services	Y	bankruptcy services,  bankrupt, chapter 11
+96925682	Legal and Financial Services	96925946	Credit Unions	N	
+96925682	Legal and Financial Services	96925947	Banks	N	banking
+96925682	Legal and Financial Services	96925948	Arbitration &amp; Mediation	Y	
+96925682	Legal and Financial Services	96928011	Investment Banks	N	
+96925682	Legal and Financial Services	96928012	Investment Services	Y	
+96925682	Legal and Financial Services	96928013	Financial Planning	Y	financial planners, financial planner, financial advisor,  financial advisors
+96925682	Legal and Financial Services	96928014	Investment Brokerages	Y	investment broker,  stocks bonds, stocks and bonds,  securities, mutual funds, investment brokers, stock broker, stock brokers
+96925682	Legal and Financial Services	96928023	Car Insurance	Y	car insurance quotes, auto insurance, vehicles insurance
+96925682	Legal and Financial Services	96928024	Insurance	Y	insurance brokers, insurance broker, insurance agent, insurance agency, insurance agencies, insurange brokerage, insurange brokerages, insurance agents, insurance companies
+96925682	Legal and Financial Services	96928025	Life Insurance	Y	life insurance company, life insurance co, life insurance agents, term life insurance
+96925682	Legal and Financial Services	96928026	Home Insurance	Y	house insurance, howmeowners insurance
+96925682	Legal and Financial Services	96928027	Health Insurance	Y	health insurances, health insurance, individual health insurance, health insurance, health care insurance, healthcare insurance, individual health insurance, medical insurance, health plans, health care insurance, healthcare insurance, health insurance
+96925682	Legal and Financial Services	96928066	Automotive Financing	N	car financing, truck financing, auto loans, automobile financing, car loans, auto financing, car title loan, auto title loan, pink slip loan, car title loans, auto title loans, title loans
+96925682	Legal and Financial Services	96928067	Real Estate Financing	Y	mortgage companies,  mortgage refinance, lender refinancing, home mortgage, mortgage loan, mortgage rate, home loan, mortgage financing, mortgage refinancing, mortgage broker, mortgage brokers, mortgage brokerage, mortgage brokerages, mortgage, mortgages, mortgage lenders, mortgage lender, mortgage lending, mortgage company, mortgage loans, mortgage loan
+96925682	Legal and Financial Services	96928068	Personal Financing	Y	loans, loan, personal loan, personal loans, loan companies, loan company, lender, lenders
+96925682	Legal and Financial Services	96928069	Business Financing	N	transaction clearing, commercial loan, commercial lending, small business financing
+96925682	Legal and Financial Services	96928070	Adoption Lawyers	N	Adoption lawyer, Adoption attorney, Adoption attorneys, 
+96925682	Legal and Financial Services	96928071	Real Estate Lawyers	Y	Real Estate lawyer, Real Estate attorney, Real Estate attorneys, real estate lawyers
+96925682	Legal and Financial Services	96928072	Medical Malpractice Lawyers	N	Medical Malpractice lawyer, Medical Malpractice attorney, Medical Malpractice attorneys, 
+96925682	Legal and Financial Services	96928073	Maritime Lawyers	N	Maritime lawyer, Maritime attorney, Maritime attorneys, 
+96925682	Legal and Financial Services	96928074	International Lawyers	N	International lawyer, International attorney, International attorneys, 
+96925682	Legal and Financial Services	96928075	Intellectual Property Lawyers	Y	Intellectual Property lawyer, Intellectual Property attorney, Intellectual Property attorneys, 
+96925682	Legal and Financial Services	96928076	Insurance Lawyers	Y	Insurance lawyer, Insurance attorney, Insurance attorneys, 
+96925682	Legal and Financial Services	96928077	Immigration Lawyers	Y	Immigration lawyer, Immigration attorney, Immigration attorneys, naturalization
+96925682	Legal and Financial Services	96928078	Family Lawyers	Y	Family lawyer, Family attorney, Family attorneys, 
+96925682	Legal and Financial Services	96928079	Estate &amp; Probate Lawyers	Y	Estate &amp; Probate lawyer, Estate &amp; Probate attorney, Estate &amp; Probate attorneys, estate lawyers, estate lawyer, estate attorney, estate attorneys, probate lawyers, probate lawyer, probate attorney, probate attorneys, estate probate lawyers
+96925682	Legal and Financial Services	96928080	Sexual Harassment Lawyers	N	Sexual Harassment lawyer, Sexual Harassment attorney, Sexual Harassment attorneys, sexual harasment
+96925682	Legal and Financial Services	96928081	Landlord:Tenant Law Attorneys	N	Landlord Tenant lawyer, Landlord Tenant attorney, Landlord Tenant attorneys, 
+96925682	Legal and Financial Services	96928082	Accident Lawyers	N	Car Accident lawyer, Car Accident attorney, Car Accident attorneys, auto accident lawyer, accidents lawyers, crash lawyers, car accident lawyers, auto injury lawyers
+96925682	Legal and Financial Services	96928083	Workers' Compensation Lawyers	Y	Workers' Compensation lawyer, Workers' Compensation attorney, Workers' Compensation attorneys, workers comp, workers' comp
+96925682	Legal and Financial Services	96928084	Tax Attorneys	Y	Tax Attorneys, tax lawyers, Tax Attorney, tax lawyer, irs attorney
+96925682	Legal and Financial Services	96928085	Product Liability Lawyers	Y	Product Liability lawyer, Product Liability attorney, Product Liability attorneys, 
+96925682	Legal and Financial Services	96928086	Litigation	Y	Litigation lawyer, Litigation attorney, Litigation attorneys, civil litigation lawyers, civil litigation lawyer, civil litigation, civil litigation attorneys, litigation support, litigation services
+96925682	Legal and Financial Services	96928087	Divorce Lawyers	Y	Divorce lawyer, Divorce attorney, Divorce attorneys, divorce lawyer, divorce attorneys, divorce attorney
+96925682	Legal and Financial Services	96928088	Elder Law Attorneys	Y	Elder Law lawyer, Elder Law attorney, Elder Law attorneys, 
+96925682	Legal and Financial Services	96928089	Criminal Lawyers	Y	Criminal lawyer, Criminal attorney, Criminal attorneys, defense attorney, criminal lawyers
+96925682	Legal and Financial Services	96928090	Social Security Lawyers	Y	Social Security lawyer, Social Security attorney, Social Security attorneys, 
+96925682	Legal and Financial Services	96928091	Corporate Lawyers	Y	Corporate lawyer, Corporate attorney, Corporate attorneys, 
+96925682	Legal and Financial Services	96928092	Bankruptcy Lawyers	Y	Bankruptcy lawyer, Bankruptcy attorney, Bankruptcy attorneys, chapter 11 lawyers, bankrupt, bankruptcy, filing, bankruptcy lawyer
+96925682	Legal and Financial Services	96928093	Health Lawyers	N	Health lawyer, Health attorney, Health attorneys, healthcare lawyer, healthcare attorneys, healthcare attorney, healthcare lawyers
+96925682	Legal and Financial Services	96928094	All Law Firms	Y	attorney, attorneys, lawyer, lawyers attornies, attomy, atorney, atorneys, law office, law offices, attorney at law, attorneys at law
+96925682	Legal and Financial Services	96928095	Trade Lawyers	N	Trade lawyer, Trade attorney, Trade attorneys, 
+96925682	Legal and Financial Services	96928097	DUI Lawyers	Y	DUI lawyer, DUI attorney, DUI attorneys, dui, drunk driving, dui lawyers, drunk driving lawyers,  dwi, dwi lawyer, dwi attorney, dwi attorneys, dwi lawyers
+96925682	Legal and Financial Services	96928098	Personal Injury Lawyers	Y	Personal Injury lawyer, Personal Injury attorney, Personal Injury attorneys, Personal Injury Lawyer
+96925682	Legal and Financial Services	96928099	Environmental Lawyers	Y	Environmental lawyer, Environmental attorney, Environmental attorneys, 
+96925682	Legal and Financial Services	96928100	Entertainment Lawyers	N	Entertainment lawyer, Entertainment attorney, Entertainment attorneys, 
+96925682	Legal and Financial Services	96928101	Employment &amp; Labor Relations Lawyers	Y	Employment &amp; Labor Relations lawyer, Employment &amp; Labor Relations attorney, Employment &amp; Labor Relations attorneys, employment lawyers, employment lawyer, employment attorney, employment attorneys, labor lawyers, labor lawyer, labor attorney, labor attorneys
+96925682	Legal and Financial Services	96928102	Construction Lawyers	N	Construction lawyer, Construction attorney, Construction attorneys, building lawyers
+96925682	Legal and Financial Services	96928103	Aviation Lawyers	N	Aviation lawyer, Aviation attorney, Aviation attorneys, 
+96925682	Legal and Financial Services	96937232	Attorney Referral Services	Y	
+96925682	Legal and Financial Services	96937233	Legal Research	N	
+96925682	Legal and Financial Services	96937234	Paralegals	N	
+96925682	Legal and Financial Services	96937235	Expert Witness &amp; Testimony	N	
+96925682	Legal and Financial Services	96937236	Legal Process Servers	N	
+96925685	Retail Shopping	96926007	Used &amp; Rare Bookstores	N	used books, used book store, used book stores
+96925685	Retail Shopping	96926008	Bookstores	N	book store, book stores
+96925685	Retail Shopping	96926009	Religious Bookstores	N	religious books, 
+96925685	Retail Shopping	96926010	Comic Shops	N	comic books,  comics, comics shops, comic book store, comic book stores, comic book shop, comic book shops
+96925685	Retail Shopping	96928498	T-Shirts	N	tshirts, t shirts, tshirt shop, t shirt shop, tshirt shops, t shirt shops, tshirt store, t shirt store, tshirt stores, t shirt stores
+96925685	Retail Shopping	96928499	Clothing Accessories	N	apparel accessories, clothes accessories, clotheswear accessories,
+96925685	Retail Shopping	96928501	Athletic Wear	N	athletic retailers, sports clothing, sports clothes, sports apparel
+96925685	Retail Shopping	96928503	Clothing Retailers	N	apparel retailers,  apparel clothes, clothes retailers, dept stores, clothing retailers, clothing stores, clothes stores, clothes, clothing, clothing store, clothes store, clothing shop, clothes shop, clothing stores
+96925685	Retail Shopping	96928504	Costumes	N	costume shops, costume shop, costume stores, costume store
+96925685	Retail Shopping	96928505	Formal Wear &amp; Tuxedos	N	formal wear manufacturers,  tuxedo, gown, ball gown, prom dresses, formal dresses, evening wear,  gowns, prom dresses,  prom gowns, prom dress,  tux, tux rental, tuxedo rental,  formalwear
+96925685	Retail Shopping	96928507	Laundromats	N	laundry, self service laundromats, coin laundry, coin laundries, laundries, laundry mats, laundry mat
+96925685	Retail Shopping	96928508	Clothing Wholesalers	N	clothes wholesalers, apparel wholesalers, dresses wholesalers, 
+96925685	Retail Shopping	96928509	Clothing Manufacturers	N	apparel manufacturers, clothes manufacturers
+96925685	Retail Shopping	96928510	Women's Clothing	N	womens clothing, womans clothing, women's clothing, women's apparel, womens clothes, womans clothes, women's clothes, dress shops, dress shop, dresses, dress store, dress stores
+96925685	Retail Shopping	96928511	Vintage &amp; Used Clothing	N	resale, consignment, vintage clothing, used clothing, vintage clothes, used clothes, second hand clothing, second hand clothes, consignment shop, consignment shops, resale shop, resale shops, vintage store, vintage stores, vintage shop, vintage shops, vintage used clothing
+96925685	Retail Shopping	96928512	Uniforms	N	uniform store, uniform stores
+96925685	Retail Shopping	96928513	Men's Clothing	N	men's clothing, mens clothing, men's clothes, mens clothes
+96925685	Retail Shopping	96928514	Children's Clothing	N	kids clothes, kid's clothes, kid's clothing, kids clothing, children's clothes, childrens clothes, child clothes
+96925685	Retail Shopping	96928573	Sports Collectibles	N	sports collectables, memorabilia, sports cards, sports card
+96925685	Retail Shopping	96928574	Antiques &amp; Collectibles	N	antiques and collectables, antique shop, antique shops, antique store, antique stores, antique mall, antique malls
+96925685	Retail Shopping	96928576	Movie Memorabilia	N	film memorabilia, movies memorabilia
+96925685	Retail Shopping	96928578	Antique Appraisals	Y	
+96925685	Retail Shopping	96928595	Art Galleries	N	paintings galleries, artwork galleries, arts galleries
+96925685	Retail Shopping	96928596	Fabric Stores	N	 fabrics stores,  fabrics
+96925685	Retail Shopping	96928597	Sewing	N	sewing machine, sewing supplies,  sewingmachines, usewing machines-household, sewings crafts store, sewing machine dealers, sewing machine stores
+96925685	Retail Shopping	96928598	Knitting	N	knitting supplies, knitting shops, knitting yarn, knitting stores, yarn, yarn stores, yarn shops
+96925685	Retail Shopping	96928599	Quilting	N	quilting shops, machine quilting, quilting supplies, quilting fabric, quilting fabrics, quilting classes, quilting materials, quilting stores, quilting store, quilting fabric stores,  quilts, quilt shops, quilt shop, quilt store, quilt stores
+96925685	Retail Shopping	96928600	Embroidery	N	stitchery
+96925685	Retail Shopping	96928602	Other Arts &amp; Crafts	N	
+96925685	Retail Shopping	96928603	Picture Framing	N	picture framing shops,  frames, framed, picture framing supplies, picture fram, custom picture framing, photos framing, picture frame, custom framing, custom frames, picture frame, picture frames
+96925685	Retail Shopping	96928604	Art &amp; Craft Supplies	N	craft stores, crafts stores, art supply, art supplies, art and craft supplies, arts and crafts, art supply store, art supply stores, art supply shop, art supply shops
+96925685	Retail Shopping	96928605	Art Instruction	N	paintings instruction, arts instruction, art classes
+96925685	Retail Shopping	96928634	Television &amp; Electronics Repair	N	television repair, television repairs, electronics repair, electronics repairs
+96925685	Retail Shopping	96928635	Electronics Retailers	N	
+96925685	Retail Shopping	96928636	Electronics Parts	N	
+96925685	Retail Shopping	96928637	Stereo Equipment	N	cd player equipment, cd players, 
+96925685	Retail Shopping	96928640	TV &amp; Electronics Rental	N	
+96925685	Retail Shopping	96928851	Wedding Venues	N	chapels, wedding chapel, wedding chapels, chapel, reception, reception hall, wedding venues, bridal venues, wedding hall, wedding receptions, wedding chapels, wedding halls, wedding location, wedding locations, wedding reception halls, wedding reception hall, wedding place, wedding places, wedding reception sites, wedding reception site, reception sites, receptions, reception site
+96925685	Retail Shopping	96928853	Bridal Boutiques	N	bridesmaid, gowns, dresses, prom boutiques, wedding boutiques, bridal boutiques, wedding gowns, bridal gowns, bridal shop, wedding dresses, bridal dresses, bridal shops, bridal store, bridal stores, wedding store, wedding stores, wedding shops, wedding shop
+96925685	Retail Shopping	96928856	Wedding Planners	N	bridal planners, 
+96925685	Retail Shopping	96928857	Wedding Invitations	N	wedding invitation cards, wedding invitation stores, wedding invitation printing, bridal invitations
+96925685	Retail Shopping	96928859	Wedding Supplies &amp; Services	N	bridal supplies, bridal services, wedding supplies services, wedding supply
+96925685	Retail Shopping	96928925	Wigs &amp; Hairpieces	N	toupees
+96925685	Retail Shopping	96928926	Sunglasses	Y	sun glasses, sunglasses and goggles,  eyewear
+96925685	Retail Shopping	96928977	Athletic Shoes	N	athletic shoes, running shoes, sneakers, sports shoes, running shoe, sports shoe
+96925685	Retail Shopping	96928978	Children's Shoes	N	kids shoes, kid's shoes, childrens shoes
+96925685	Retail Shopping	96928979	Men's Shoes	N	mens shoes, men's shoes
+96925685	Retail Shopping	96928980	Shoe Wholesalers	N	footwear wholesalers, shoes wholesalers, shoe wholesalers
+96925685	Retail Shopping	96928981	Shoe Stores	N	
+96925685	Retail Shopping	96928982	Shoe Repair	N	shoe repait, shoe repair shops, shoe repari, shoe repai, shoe repar, shoes repair,  cobblers
+96925685	Retail Shopping	96928983	Women's Shoes	N	womens shoes, women's shoes, ladies shoes
+96925685	Retail Shopping	96928984	Hosiery &amp; Socks	N	
+96925685	Retail Shopping	96929016	Clothing Stores	N	dept stores, clothing retailers, clothing stores, clothes stores, clothes, clothing, clothing store, clothes store, clothing shop, clothes shop
+96925685	Retail Shopping	96929030	School Uniforms	N	schools uniforms, education uniforms
+96925685	Retail Shopping	96929032	Military Surplus	N	navy surplus, air force surplus, army surplus
+96925685	Retail Shopping	96929049	Jewelry Repair &amp; Service	N	
+96925685	Retail Shopping	96929050	Jewelry Appraisers	N	jewlery appraisers, jewerly appraisers, necklaces appraisers
+96925685	Retail Shopping	96929051	Antique Jewelry	N	estate jewelry
+96925685	Retail Shopping	96929052	Jewelry Retailers	N	jewlry, diamonds, jewlery, jewlery retailers, jewelry retailers, jewerly retailers,  jewerly, necklaces retailers,  necklaces rings, engagement rings,  engagement jewels, jewelry store, jewlery stores, jeweler, jewelers, jewelry shop, jewelry shops, jewel, jewels, jewlers, jewerly store, jewerly stores
+96925685	Retail Shopping	96929070	Mastectomy Boutiques	N	
+96925685	Retail Shopping	96929705	Artificial Plants &amp; Flowers	N	silk plants, silk flowers, silk flower arrangements
+96925685	Retail Shopping	96929708	Wholesale Flowers	N	wholesale florists
+96925685	Retail Shopping	96929712	Plant &amp; Flower Rental	N	
+96925685	Retail Shopping	96929717	Florists	N	flowers, flower arrangements,  bouquets, flower shops, flower shop, floral shop, floral shops
+96925685	Retail Shopping	96935005	Department Stores	N	
+96925685	Retail Shopping	96935006	Shopping Centers	N	store centers, stores centers, malls, mall
+96925685	Retail Shopping	96935007	Thrift Stores	N	charity shops, thrift store
+96925685	Retail Shopping	96935008	Flea Markets	N	
+96925685	Retail Shopping	96935009	Outlet Malls	N	outlets, outlets malls,  outletss, outlet stores, outlet store
+96925685	Retail Shopping	96935377	Toys	N	toy stores, toy store, toy shop, toy shops
+96925685	Retail Shopping	96935378	Games	N	game store, games stores
+96925685	Retail Shopping	96935379	Arcades	N	video arcades, videogame arcades, video game arcades
+96925685	Retail Shopping	96935380	Video Games	N	used video games, videos games, video game stores, video games
+96925685	Retail Shopping	96935829	Christmas Decorations &amp; Trees	N	xmas trees, xmas decorations
+96925685	Retail Shopping	96935830	Pumpkin Patches	N	
+96925685	Retail Shopping	96935831	Turkey Farms	N	
+96925685	Retail Shopping	96935832	Halloween	N	haunted houses
+96925685	Retail Shopping	96935903	Baby Furniture	N	
+96925685	Retail Shopping	96935904	Diaper Service	N	cloth diaper service,  diapers, diapers service, diaper delivery services, daiper
+96925685	Retail Shopping	96935905	Formula Service	N	
+96925685	Retail Shopping	96935906	Carriages &amp; Strollers	N	
+96925685	Retail Shopping	96935907	Birth Announcements	N	
+96925685	Retail Shopping	96935908	Maternity Needs	N	maternity apparel, maternity, maternity store, maternity stores, maternity shop,  maternity shops 
+96925685	Retail Shopping	96935909	Breastfeeding	N	breastfeeding supplies
+96925685	Retail Shopping	96935910	Shoe Bronzing	N	baby shoe bronzing
+96925685	Retail Shopping	96935911	Baby Sitters	N	nanny, nannies, au pair,  babsitter
+96925685	Retail Shopping	96935912	Baby Apparel	N	baby clothes, baby clothing
+96925685	Retail Shopping	96936054	Luggage &amp; Accessories	N	
+96925685	Retail Shopping	96936060	Convenience Stores	N	
+96925685	Retail Shopping	96936063	Trophies, Plaques, &amp; Awards	N	
+96925685	Retail Shopping	96936089	Awnings &amp; Canopies	N	
+96925685	Retail Shopping	96936090	Party Supplies	N	party store, party renting, party rentals, party supply, party rental, birthday party supplies, theme party supplies, party stores, party supply stores, party supply store, party store
+96925685	Retail Shopping	96936094	Invitations &amp; Announcements	N	
+96925685	Retail Shopping	96936833	DVD Players	N	dvd player repair, dvd player rentals,  vcd, vcd players
+96925685	Retail Shopping	96936834	Home Theater	N	home theater systems
+96925685	Retail Shopping	96936838	VCRs	N	vhs
+96925685	Retail Shopping	96937228	Gifts	N	personalized gifts,  giftshops, gifts and collectibles, gift shop, cards and gifts, flowers and gifts, gags and gifts, 
+96925685	Retail Shopping	96937229	Greeting Cards	N	greetings, greetings cards, 
+96925685	Retail Shopping	96937230	Balloons	N	party balloons, balloons and flowers, mylar balloons, balloons and cards, balloons and bears, helium balloons, balloons and novelties, stuffed balloons makers, flowers and balloons, all occasion balloons
+96925685	Retail Shopping	96937231	Gift Baskets	N	gifts baskets,  baskets, gift baskets and parcels, gift basket manufacturers, gift basket shops, 
+96925686	Professional Services	96926011	Photographers	N	photojournalism, portrait photographers, photographers portrait, photographers portrait, photography studio, photography studios, portrait studios, portrait studio, portraits, portrait, photo studio, photo studios
+96925686	Professional Services	96926012	Photography Wholesalers	N	
+96925686	Professional Services	96926013	Photography Labs	N	photo finishing, photo developing, film developing, photographers labs
+96925686	Professional Services	96926015	Photography Manufacturers	N	photography manufacturers, photographers manufacturers
+96925686	Professional Services	96926016	Photographic Supplies	N	photo supplies, camera store, camera stores, cameras, camera, camera shop, camera shops, camera equipment
+96925686	Professional Services	96926017	Photographic Restoration	N	photo restoration
+96925686	Professional Services	96927200	Television	N	television stations, television channels,  televisionstations, TV, tv stations
+96925686	Professional Services	96927201	Newspapers	N	newspaper subscriptions, newspaper delivery, news paper, news papers, local newspaper, local newspapers
+96925686	Professional Services	96927202	Radio	N	radio stations, radio station
+96925686	Professional Services	96927203	Magazines	N	
+96925686	Professional Services	96927936	Records Storage	N	
+96925686	Professional Services	96927938	Self Storage	N	self storag, storage unit, climate controlled self storage, warehouses-merchandise and self storage, self storage facilities, secured self storage, self-storage, storage units, storage facilities, storage facility, self storage units
+96925686	Professional Services	96928516	Pet Supplies	Y	pet stores, pet food, pet food stores, pet shop, pet store
+96925686	Professional Services	96928518	Fish	N	tropical fish,  
+96925686	Professional Services	96928519	Pet Sitting Services	Y	kennel, pet sit, kennels, pet sitting, pet sitter, pet sitters
+96925686	Professional Services	96928520	Pet Cemeteries	N	dog cemeteries, pets cemeteries, pet cemetaries, pet cemataries, pet cemateries
+96925686	Professional Services	96928521	Veterinary Emergency Services	Y	emergency vet, emergency animal care
+96925686	Professional Services	96928524	Taxidermy	N	taxidermist
+96925686	Professional Services	96928525	Reptiles	N	captive born reptiles,  amphibians
+96925686	Professional Services	96928526	All Animal Services	Y	
+96925686	Professional Services	96928527	Livestock	N	
+96925686	Professional Services	96928528	Veterinary Medicine	Y	vet, vets, veterinarians, animal clinic, animal hospital, animal hospitals, veterenarian, veterinarian, pet hospitals, pets hospitals, animal vets, veterinarian, veterinary clinics, veterinary clinic, animal clinics, vet clinic, vet clinics, veterinary clinic, veternarian, veternarians, pet hospital, pet hospitals, veterinary hospital, veterinary hospitals
+96925686	Professional Services	96928530	Birds	N	aviary avian
+96925686	Professional Services	96928538	Cat Breeders	N	cats breeders,  cats
+96925686	Professional Services	96928539	Cat Boarding	N	kennels, kennel, cats boarding, cat sitting, cat sit, cat sitter, pet sit, cat kennel, cat kennels
+96925686	Professional Services	96928542	Dog Breeders	N	dogs breeders, pet breeders, puppies for sale, puppy for sale, dogs for sale, dog for sale
+96925686	Professional Services	96928543	Dog Boarding	Y	kennels, kennel, dogs boarding,  dogs, pet boarding, pet sit, dog sitting, dog sitter, dog sit, dog kennel, dog kennels
+96925686	Professional Services	96928545	Pet Grooming	Y	dog groomin, dog groomimg, dog groom, dog groomings, dogs grooming, dog grooming, dog groomers, dog groomer, pet groomer, pet groomers, groomer, groomers
+96925686	Professional Services	96928546	Dog Behavior Training	N	dog trainer, dog trainers, dog training
+96925686	Professional Services	96928547	Horse Training	N	horses training
+96925686	Professional Services	96928548	Horse Supplies &amp; Equipment	N	horse tack, tack stores, tack shop
+96925686	Professional Services	96928550	Horse Boarding Stables	N	
+96925686	Professional Services	96928551	Horse Breeders	N	horses breeders
+96925686	Professional Services	96928631	Graphic Design	N	designer, graphic design companies, graphic design firms, graphic design agencies, graphic design studios, graphic designers, graphic desing,  gif, gif design,  graphics, graphics design,  animation, animation design,  logos
+96925686	Professional Services	96928664	Resume Services	N	resume services in, resumes services,  resumes
+96925686	Professional Services	96928666	All Employment Services	Y	
+96925686	Professional Services	96928667	Temporary Employment Agencies	N	temp agency, temporary employment agencies in, temp agencies, temp services, temp service
+96925686	Professional Services	96928668	Employment Training	Y	
+96925686	Professional Services	96928703	Office Furniture	N	offices furniture
+96925686	Professional Services	96928704	Writing Instruments	N	pens, pencils, fine writing instruments, reading instruments
+96925686	Professional Services	96928705	Personal Stationery	N	personal stationery, business cards,  stationary invitations, stationary
+96925686	Professional Services	96928706	Office Supplies	N	office supply
+96925686	Professional Services	96928710	Astrology &amp; Numerology	N	
+96925686	Professional Services	96928711	Tarot	N	tarot cards, tarot readings, tarot card reading, tarot card readers, tarot card readings
+96925686	Professional Services	96928712	Paranormal Retailers	N	
+96925686	Professional Services	96928713	Psychics	N	fortune tellers
+96925686	Professional Services	96928781	Adult Retail Stores	N	sex store, sex stores, sex shop, sex shops, adult books, adult bookstores, adult bookstore, porn, adult store, adult stores, adult shop, adult shops, adult video, sex toys, adult book stores, adult book store, porno, pornos
+96925686	Professional Services	96928786	Movers	N	moving, moving company, moving companies,  move, national move, moving truck, long distance movers, interstate mover, moving quote, moving estimate, household goods transport
+96925686	Professional Services	96928787	Courier Services	N	shipping
+96925686	Professional Services	96928788	Mail Services	N	mailing service, mail box,  mailbox
+96925686	Professional Services	96928789	Piano &amp; Organ Moving	N	piano movers
+96925686	Professional Services	96928797	Fax Services	N	faxes
+96925686	Professional Services	96928799	Electronic Mail	N	email, free email, electronics mail, e-mail
+96925686	Professional Services	96928800	Telegram Services	N	telegraph
+96925686	Professional Services	96928808	Phone Answering Services	N	telephone answering service
+96925686	Professional Services	96928809	Phone Messaging Services	N	
+96925686	Professional Services	96928816	Cellular Providers	N	cell providers, mobile providers, cell phones, cell phone providers, cell phones providers, phone providers, phones providers, mobile phone providers, mobile phone, cell phone plans, mobile phone plans
+96925686	Professional Services	96928817	Cellular Phones	N	cellular phone companies, cellular phone accessories, cellular phone dealers, cellular phone stores, cell phone, mobile phone, cell phones, wireless phones, text messaging, cell phone phones,  cellphone, cell phones phones,  mobile phones, mobile phone phones, cell phoness, cellular phones, cell phone stores, cell phone store
+96925686	Professional Services	96928818	Pagers	N	beepers
+96925686	Professional Services	96929736	Newspaper Publishers	N	
+96925686	Professional Services	96929737	Magazine Publishers	N	magazine publishers
+96925686	Professional Services	96929738	Book Publishers	N	books publishers
+96925686	Professional Services	96929748	Screen Printing	N	screen printing supplies, silk screen printing, screen print
+96925686	Professional Services	96929749	Commercial Printers	N	labels, printing companies, printing company
+96925686	Professional Services	96929750	Printing Facilities	N	copy printer copying print, printers facilities,  printers, printer, printer facilities, print shops, print shop
+96925686	Professional Services	96929751	Book Printers	N	books printers, book printers, book binding, book binders
+96925686	Professional Services	96929752	Signage	N	sign, signsage, signs
+96925686	Professional Services	96929753	Business Forms Printers	N	
+96925686	Professional Services	96929788	Health Employment Recruiting	N	medical recruiting, medical recruitment, medical staffing
+96925686	Professional Services	96929789	Advertising &amp; Marketing Employment	N	
+96925686	Professional Services	96929790	General Employment Placement	N	work, job, unemployment, staffing, employment agencies, employment agency, career counseling, unemployment office, jobs, staffing agencies, staffing agency, staffing, job opportunities, job agencies, job agency, staffing service, staffing services, employment office, employment offices, staffing companies, staffing company, job center, job centers, career center
+96925686	Professional Services	96929791	High Tech Employment Recruiting	N	high-tech employment
+96925686	Professional Services	96929792	Education Employment	N	schools employment, scholarships employment, school employment
+96925686	Professional Services	96934730	Consumer Protection Agencies	N	
+96925686	Professional Services	96936043	Private Investigation	N	private detective, private investigators,  pi investigators, private eyes, private investigator, private detectives
+96925686	Professional Services	96936044	Photocopying	N	copies, photocopies, photocopiers, photocopier
+96925686	Professional Services	96936046	Auctioneers	Y	
+96925686	Professional Services	96936047	Genealogy	N	Genealogy society, geneaologist, family tree
+96925687	Business to Business	96929856	Electrostatic Equipment	N	
+96925687	Business to Business	96929857	Electronics Transducers	N	
+96925687	Business to Business	96929861	Board Level Components	N	capacitors resistors, resistors components,  semiconductors, semiconductors components
+96925687	Business to Business	96929862	Power Supplies	N	surge protection
+96925687	Business to Business	96929863	Lasers	N	laser holography, laser equipment
+96925687	Business to Business	96929864	Printed Circuit Boards	N	printed circuit board manufacturers
+96925687	Business to Business	96929865	RF &amp; Microwave	N	microwave antennas, microwave communications
+96925687	Business to Business	96929866	Batteries	N	rechargeable batteries,  battery
+96925687	Business to Business	96929869	Air Quality	N	air duct cleaning, duct cleaning, air purifying duct,  vents
+96925687	Business to Business	96929872	Environmental Equipment	Y	
+96925687	Business to Business	96929875	Pollution Control	N	pollution assessment
+96925687	Business to Business	96929876	Environmental Consulting	N	
+96925687	Business to Business	96929899	Spill Management	N	
+96925687	Business to Business	96929905	Waste Consulting	Y	water and sewage consulting
+96925687	Business to Business	96929906	Waste Management Supplies	N	water and sewage, water and sewage equipment, waste manag, waste manage, waste disposal supplies, waste management, waste disposal,  groundwater stormwater waste
+96925687	Business to Business	96929911	B2B Landfills	N	
+96925687	Business to Business	96929913	Waste Containers	N	
+96925687	Business to Business	96929940	Asbestos Management	N	
+96925687	Business to Business	96929941	Radon Management	N	
+96925687	Business to Business	96929942	Lead Management	N	
+96925687	Business to Business	96929965	Wildlife Services	N	fish and wildlife service
+96925687	Business to Business	96929967	Lakes &amp; Waterways Services	N	
+96925687	Business to Business	96929969	B2B Sewage &amp; Drain	N	septic systems,  sewers, sewer systems, sewer, sewage &amp; drain, sewage, drainage, drain
+96925687	Business to Business	96929973	Water Supply	N	water services, water companies, water company
+96925687	Business to Business	96929987	Hazardous Waste Equipment	N	nuclear waste equipment, nuclear waste, solid waste, solid waste equipment,  hazmat
+96925687	Business to Business	96929988	Waste Removal, Storage, &amp; Treatment	N	hazmat
+96925687	Business to Business	96929989	Medical Waste Management	N	
+96925687	Business to Business	96929996	Garbage Removal	N	solid waste disposal, hazardous waste disposal, hazardous waste, solid waste, waste containers,  waste landfills, hauling
+96925687	Business to Business	96929999	Septic Systems	N	
+96925687	Business to Business	96930004	B2B Recycling	N	recycling equipment, recycle equipment
+96925687	Business to Business	96930015	Water Wells	N	well drilling
+96925687	Business to Business	96930039	Portable Toilets	N	portable toilet rentals, portable toilets rental, rental portable toilet, rental of portable toilets, portable toilets rentals
+96925687	Business to Business	96930307	Commercial Photographers	N	
+96925687	Business to Business	96930311	B2B Desktop Publishing	N	
+96925687	Business to Business	96930313	Wholesale Media Equipment	N	communications cable, radio equipment
+96925687	Business to Business	96930316	Audio Communications	N	sound communications, media communications
+96925687	Business to Business	96930358	Pageants	N	beauty pageants
+96925687	Business to Business	96930360	Entertainment Talent Agencies	N	booking agent
+96925687	Business to Business	96930362	Gambling	N	casinos supplies, casino supplies, slot machines service
+96925687	Business to Business	96930363	Entertainment Ticket Services	N	
+96925687	Business to Business	96930365	Entertainment Producers	N	
+96925687	Business to Business	96930371	Amusement Devices	N	juggling toys
+96925687	Business to Business	96930373	Opera Venues	N	
+96925687	Business to Business	96930377	Movie Exhibition	N	theater exhibition, theaters exhibition, theatre exhibition, cinemas exhibition, cinema exhibition
+96925687	Business to Business	96930378	Movie Pre-Production	N	location scouts
+96925687	Business to Business	96930379	Movie Distribution	N	movies distribution, movie distributor
+96925687	Business to Business	96930380	Movie Production	N	motion picture facilities, movie studios,  animations, movie technicians, movies technicians, movie producers, movies producers, film stock, films stock, movie props, movies props,  film
+96925687	Business to Business	96930381	Movie Post-Production	N	movies sound, movie sound, motion picture laboratories, motion picture, stock footage, special effects, sound effects, close captioning
+96925687	Business to Business	96930405	Video Production	N	video production companies, video production services, videos production, production companies, production company
+96925687	Business to Business	96930406	Video Duplication	N	video duplicating, videos duplication
+96925687	Business to Business	96930407	Video Distribution	N	videos distribution, video distributor
+96925687	Business to Business	96930408	Underwater Video	N	
+96925687	Business to Business	96930409	Video Post-Production	N	
+96925687	Business to Business	96930411	Livestock	Y	livestock breeding, livestock equipment, other livestock, livestock wholesalers, livestock services
+96925687	Business to Business	96930412	Agricultural Storage	N	foods storage, food storage
+96925687	Business to Business	96930413	Dairies	N	dairy equipment, dairy services, dairy farms
+96925687	Business to Business	96930418	Fish &amp; Aquaculture	N	fish, fisheries, fishery
+96925687	Business to Business	96930428	Horses	N	general horses
+96925687	Business to Business	96930487	Farming	Y	crop management, crop services, crop planting,
+96925687	Business to Business	96930510	B2B Contractors	Y	general contractors, building contractors, building contractor
+96925687	Business to Business	96930511	B2B Materials &amp; Supplies	N	building materials, building supplies, building supply
+96925687	Business to Business	96930519	Construction Metals	N	building metals
+96925687	Business to Business	96930521	Industrial Design	Y	industrial designer, industrial designers, commercial design, commercial designer
+96925687	Business to Business	96930523	Land Surveyors	Y	professional land surveyor, engineers and land surveyors, property surveyors
+96925687	Business to Business	96930525	B2B Masonry	N	masonry contractors, concrete masonry, cement masonry, brick masons, brick masonry, stone masons, stone masonry, stones masonry, cultured stone masonry, masonry tools, masonry contractor
+96925687	Business to Business	96930527	B2B Doors &amp; Windows	N	door wholesalers, doors wholesalers, wholesale windows, wood doors
+96925687	Business to Business	96930530	Preconstruction Consulting	N	construction consulting, construction consultants
+96925687	Business to Business	96930531	Preconstruction Management	Y	construction management, construction managers
+96925687	Business to Business	96930532	Building Inspection	N	construction inspection, building inspectors, building inspector
+96925687	Business to Business	96930533	Cabinetry Manufacturers	N	cabinetry manufacturers, cabinet makers
+96925687	Business to Business	96930534	Cabinetry Wholesalers	N	cabinetry wholesalers, cabinet wholesalers
+96925687	Business to Business	96930535	Cabinetry Refacing	N	cabinetry refacing, cabinet refacing
+96925687	Business to Business	96930536	Concrete Contractors	N	concrete contractors, cement contractors, cement
+96925687	Business to Business	96930537	Concrete Materials	N	ready-mixed concrete manufacturers, concrete aggregates, cement aggregates
+96925687	Business to Business	96930538	Precast Concrete	N	precast concrete panels, precast concrete steps, precast concrete products, precast concrete
+96925687	Business to Business	96930539	Concrete Equipment	N	cement equipment
+96925687	Business to Business	96930540	Concrete Repair &amp; Restoration	N	cement repair
+96925687	Business to Business	96930541	Concrete Sawing &amp; Coring	N	
+96925687	Business to Business	96930542	Concrete Pumping	N	concrete pumping service, cement pumping, concrete pump, cement pump
+96925687	Business to Business	96930543	Elevators	N	elevator contractor, elevator contractors
+96925687	Business to Business	96930544	Escalators	N	escalator contractor, escalator contractors
+96925687	Business to Business	96930545	Dumbwaiters	N	
+96925687	Business to Business	96930552	Electrical Contractors	N	electrical contractor
+96925687	Business to Business	96930553	B2B Electrical Supplies	N	switches, electrical supply manufacturers
+96925687	Business to Business	96930555	B2B Lighting	N	lights consultants, lighting consultants, lightning protection, lighting contractors, light contractors, lighting contractor, light contractor
+96925687	Business to Business	96930556	Electrical Engineers	Y	
+96925687	Business to Business	96930557	Tub &amp; Tile Refinishing	N	bathtub refinishing
+96925687	Business to Business	96930558	B2B Flooring	N	hardwood, hardwood floor, hardwood flooring, hardwood floors, carpet manufacturers, flooring manufacturers, floors manufacturers, floors wholesalers, flooring wholesalers, floor contractors, flooring contractors, carpet supplies, carpet wholesalers, floor contractor, flooring contractor
+96925687	Business to Business	96930559	B2B Plaster &amp; Stucco	N	
+96925687	Business to Business	96930561	Drywall Finishes	N	drywall finishers, drywall contractor, drywall contractors
+96925687	Business to Business	96930562	Ceiling Finishes	N	
+96925687	Business to Business	96930563	Acoustical Finishes	N	
+96925687	Business to Business	96930564	B2B Tile	N	tile contractor, tile contractors, tiles contractors, ceramic tile contractors, tile manufacturers, tiles manufacturers, ceramic tile manufacturers, tile distributors, tiles distributors, ceramic tile distributors
+96925687	Business to Business	96930565	B2B Paint &amp; Wall Coverings	N	paint contractors, painting contractors, paint manufacturers, painting manufacturers, paint wholesalers, painting wholesalers, paint contractor, painting contractor, painting company, painting companies
+96925687	Business to Business	96930566	Residential Contractors	Y	
+96925687	Business to Business	96930567	Historical Restoration &amp; Preservation	N	
+96925687	Business to Business	96930568	Foundation Contractors	N	foundation repair, foundation contrator
+96925687	Business to Business	96930570	Heavy Construction Contractors	N	
+96925687	Business to Business	96930571	Commercial Contractors	Y	b2b contractors, construction companies, building contractors, building contractor, construction company
+96925687	Business to Business	96930586	Mechanical Contractors	Y	
+96925687	Business to Business	96930591	B2B Sitework Utilities	N	
+96925687	Business to Business	96930592	Grading &amp; Paving	N	asphalt, paving contractor, grading contractor, paving contractors, grading contractors
+96925687	Business to Business	96930593	Well Drilling	N	well drill
+96925687	Business to Business	96930594	Demolition	N	building demolition, demolition contractor, demolition contractors, demo
+96925687	Business to Business	96930595	Land Development	Y	developers, property development
+96925687	Business to Business	96930596	Excavation Work	N	excavation, excavating contractor, excavating
+96925687	Business to Business	96930597	Sitework Drainage	N	
+96925687	Business to Business	96930598	Geotextiles	N	
+96925687	Business to Business	96930599	Building Automation	N	
+96925687	Business to Business	96930600	Metal Buildings	N	metal building erection, pre-engineered metal buildings, metal building erectors
+96925687	Business to Business	96930601	Portable Buildings	N	
+96925687	Business to Business	96930602	Dome Construction	N	
+96925687	Business to Business	96930603	Storage Buildings Construction	N	
+96925687	Business to Business	96930604	Rinks Construction	N	
+96925687	Business to Business	96930605	Solarium &amp; Conservatory Construction	N	
+96925687	Business to Business	96930606	Prefabricated Construction	N	prefab, prefab construction, manufactured buildings,  prefabricated buildings,  prefabricated, manufactured building,  prefabricated building
+96925687	Business to Business	96930607	Partition Construction	N	
+96925687	Business to Business	96930608	Stair Construction	N	stair contractors, stair contractor
+96925687	Business to Business	96930609	Coppersmiths	N	
+96925687	Business to Business	96930610	Pipe Line Construction	N	pipeline construction, pipelines
+96925687	Business to Business	96930611	Access Flooring Construction	N	
+96925687	Business to Business	96930612	Awnings &amp; Covers	N	
+96925687	Business to Business	96930613	Contracting Equipment Rental	N	contractor equipment
+96925687	Business to Business	96930614	Ladder Equipment	N	ladders equipment,  ladders
+96925687	Business to Business	96930615	Crane Equipment	N	crane rental, cranes renting, crane renting, crane service, cranes rental, rent a crane
+96925687	Business to Business	96930616	Scaffolding Equipment	N	shoring scaffold, scaffold rental
+96925687	Business to Business	96930617	B2B Waterproofing	N	waterproofing contractors, waterproofing supplies
+96925687	Business to Business	96930618	Siding	N	siding contractors, siding contractor
+96925687	Business to Business	96930619	B2B Roofing	N	roofing contractors,  roofers, roofing consultants, roofing contractor, roof contractor, roof contractors
+96925687	Business to Business	96930620	B2B Insulation	N	insulation contractors, insulation supplies, insulation contractor
+96925687	Business to Business	96930621	Mold Inspection	N	mold service, mildew service,  mildew molds, molds inspection, mold inspectors
+96925687	Business to Business	96930622	B2B Lumber	N	lumber mills, lumber manufacturers, treated lumber, pressure treated lumber, lumber wholesalers,  lumber, lumber yards, lumber yard
+96925687	Business to Business	96930623	B2B Millwork	N	millwork manufacturers,  millwork millwork, millwork wholesalers
+96925687	Business to Business	96930627	Log Building Construction	N	log houses, log homes
+96925687	Business to Business	96930653	Seeds &amp; Bulbs	N	
+96925687	Business to Business	96930654	Ferneries	N	
+96925687	Business to Business	96930656	Flower Growers	N	flower farms, flower grower, flower farm
+96925687	Business to Business	96930657	Greenhouses	N	
+96925687	Business to Business	96930659	Foresting &amp; Logging	N	
+96925687	Business to Business	96930660	Tree Nurseries &amp; Services	N	wood preserving,  forestry reforestation
+96925687	Business to Business	96930662	Timber Mills	N	
+96925687	Business to Business	96930668	Crop Irrigation	N	
+96925687	Business to Business	96930673	B2B Food Wholesalers	N	agriculture wholesalers, wholesale food, 
+96925687	Business to Business	96930674	Food Manufacturers &amp; Processors	N	
+96925687	Business to Business	96930676	Food Services	N	agriculture services
+96925687	Business to Business	96930677	Food Supplies &amp; Equipment	Y	agricultural supplies, restaurant equipment, restaurant supply, restaurant supplies
+96925687	Business to Business	96930679	Ice Making Equipment	N	ice cream supplies
+96925687	Business to Business	96930846	Marketing Research	N	advertising research
+96925687	Business to Business	96930847	Telemarketing	N	telemarketing services, telemarketing companies, outbound telemarketing
+96925687	Business to Business	96930848	Advertising Agencies	Y	advertising agency, marketing agencies, marketing agency
+96925687	Business to Business	96930854	Television Advertising	N	tv advertising, hdtv advertising
+96925687	Business to Business	96930855	Advertising Promotional Products	N	schwag, tchotchkes, shwag
+96925687	Business to Business	96930857	Print Advertising	N	
+96925687	Business to Business	96930859	Radio Advertising	N	radio ad
+96925687	Business to Business	96930860	Outdoor Advertising	N	advertising specialties,  skywriting, banner towing, billboards
+96925687	Business to Business	96930861	Direct Mail	N	mailing list
+96925687	Business to Business	96930862	B2B Signage	N	sign, banner, billboard, advertising flag, corporate sign, tradeshow sign
+96925687	Business to Business	96930863	Advertising Supplies &amp; Services	N	display design, display designers, display producers, display production,  permanent display
+96925687	Business to Business	96930864	Television	N	satellite providers, tv wholesalers, television wholesalers, tv post-production, television post-production, satellite tv equipment, satellite tv, tv producers, television producers, tv distribution, television distribution, tv distributors, television distributors, tv stations, television stations, hdtv stations, production companies, production company
+96925687	Business to Business	96930865	Newspapers	N	print advertising, newspaper publishers, newspaper printers
+96925687	Business to Business	96930867	News Services	N	news services
+96925687	Business to Business	96930869	Radio	N	radio equipment, radio commercials, radio manufacturers, radio wholesalers, radio consulting, radio consultant, radio producers
+96925687	Business to Business	96930932	Concrete Pipe	N	
+96925687	Business to Business	96930953	Laboratory Cleanrooms	N	lab cleanrooms, clean room, clean rooms, lab clean room, lab clean rooms, lab cleanroom
+96925687	Business to Business	96930954	Science Engineers	Y	biology engineers, chemistry engineers, physics engineers
+96925687	Business to Business	96930955	Laboratories	Y	labs
+96925687	Business to Business	96930956	Science Professionals	Y	
+96925687	Business to Business	96930959	Educational Research	N	
+96925687	Business to Business	96930960	Educational Supplies &amp; Equipment	N	teacher store, teacher stores, teacher supplies, teacher supply, teacher supply store, teacher supply stores, teacher supply shop, teacher supply shops
+96925687	Business to Business	96930961	Teaching &amp; Learning Aids	N	
+96925687	Business to Business	96930964	Education Training Consultants	N	
+96925687	Business to Business	96930965	Government Education Programs	N	
+96925687	Business to Business	96930966	Education Associations	N	
+96925687	Business to Business	96930967	Education Testing &amp; Assessment	N	
+96925687	Business to Business	96930968	School Management	N	schools management
+96925687	Business to Business	96930969	Professional Development	N	
+96925687	Business to Business	96930970	Education Administration	N	
+96925687	Business to Business	96930971	Educational Consulting	Y	
+96925687	Business to Business	96930972	Education Marketing &amp; Recruiting	N	
+96925687	Business to Business	96930976	Business Taxes	Y	
+96925687	Business to Business	96930977	Valuation Services	N	
+96925687	Business to Business	96930980	B2B Accounting	Y	accounting firms, accountant cpa, cpa, accountant, accountants, cpas, cpa firms, cpa firm, accounting firm
+96925687	Business to Business	96930984	Financial Consulting	Y	financial consultant, financial consultants
+96925687	Business to Business	96930985	Payroll	Y	payroll services, payroll preparation, payroll preparation services,  payrolling, payroll processing
+96925687	Business to Business	96930986	Medical Imaging	N	ultrasounds, 4d ultrasound, 3d ultrasounds, 3d ultrasound,  ultrasound, x-ray apparatus,  x-ray, x ray, xray, x-rays, x rays, x-rays
+96925687	Business to Business	96930987	Pharmaceutical Manufacturers	N	pharmaceutical companies, pharmaceutical company
+96925687	Business to Business	96930988	Medical Transcription	N	
+96925687	Business to Business	96930989	Medical Software	N	
+96925687	Business to Business	96930992	Blood Banks	N	
+96925687	Business to Business	96930993	Dental Laboratories	Y	dental laboratories, dental lab,  ceramicists, dental lab technicians
+96925687	Business to Business	96930994	Health Care Facility Management	N	
+96925687	Business to Business	96930995	Medical Supplies &amp; Equipment	Y	medical supply manufacturers, medical supply store, medical supply stores, medical supplies
+96925687	Business to Business	96930996	Medical Equipment Repair	N	
+96925687	Business to Business	96930997	Medical Records Services	N	
+96925687	Business to Business	96930998	Medical Waste Disposal	N	
+96925687	Business to Business	96931000	Pharmaceutical Wholesalers	N	
+96925687	Business to Business	96931001	Medical Consultants	N	medical consulting
+96925687	Business to Business	96931002	Politics	N	election consultants, political consultants
+96925687	Business to Business	96931005	Government Consulting	N	government consultants
+96925687	Business to Business	96931006	Lobbyists	N	
+96925687	Business to Business	96931007	Correctional Services	N	corrections services,  corrections
+96925687	Business to Business	96931008	City Planning	Y	urban planning, permits, building permits, community development
+96925687	Business to Business	96931010	Glass Manufacturing	N	glass maker, glass manufacturer, glass companies, glass company
+96925687	Business to Business	96931011	Home &amp; Garden Supplies	N	
+96925687	Business to Business	96931013	Silicone Products Manufacturing	N	
+96925687	Business to Business	96931015	Industrial Agents &amp; Representatives	N	
+96925687	Business to Business	96931016	Industrial Exporters	Y	
+96925687	Business to Business	96931017	Industrial Importers	Y	
+96925687	Business to Business	96931019	Photographic Equipment	N	
+96925687	Business to Business	96931020	Musical Instruments Industry	N	
+96925687	Business to Business	96931021	Personal Care Manufacturing	N	personal care manufacturers
+96925687	Business to Business	96931022	Other Manufacturing	N	
+96925687	Business to Business	96931023	Funeral Industry	N	
+96925687	Business to Business	96931024	Metal Industries	N	metal plating, metal rolling, 
+96925687	Business to Business	96931025	Stone, Clay, &amp; Concrete Refractories	N	
+96925687	Business to Business	96931026	Minerals Industry	N	
+96925687	Business to Business	96931027	Plastic Products	N	plastics machinery,  poly polyethylene, plastic bottles manufacturing, plastic bottles, plastic bags manufacturing
+96925687	Business to Business	96931028	Rubber Products	N	rubber machinery
+96925687	Business to Business	96931029	Chemicals &amp; Allied Products	N	
+96925687	Business to Business	96931030	Apparel Manufacturing	N	
+96925687	Business to Business	96931031	Paper &amp; Pulp Manufacturing	N	paper machinery,  paper box boxes, boxes manufacturing,  cardboard corrugated, stationery manufacturing, 
+96925687	Business to Business	96931032	Lumber &amp; Wood Products	N	millwork manufacturers, woodworking, woodworking machinery, containers manufacturing
+96925687	Business to Business	96931033	Machinery &amp; Tools	N	woodworking, woodworking machinery, metalworking products, machinery pumps, machinery bearings, packaging machinery, hydraulics, hydraulic equipment, heavy equipment, construction machinery, building machinery,  conveyor, conveyor machinery, materials handling machinery, materials handling equipment, machine tools, machines tools, power handtools, power tools,  machine shop, machine shops, machinist, machinists, machinery tools
+96925687	Business to Business	96931223	Telecommunications	N	video teleconferencing, long distance carriers, long distance, telecommunications consulting, telephone system, telephone equipment, telecommunications equipment, voice mail equipment, voice mail, voicemail equipment,  voicemail, video conferencing, video conferencing services, telecommunications contractors
+96925687	Business to Business	96931226	Satellite Communication	N	satphones, sat phones
+96925687	Business to Business	96931227	Mobile Communication	N	
+96925687	Business to Business	96931390	Tobacco Wholesalers	N	cigarette wholesalers
+96925687	Business to Business	96931508	Choreographers	N	
+96925687	Business to Business	96931509	Hula Dancing	N	
+96925687	Business to Business	96931510	Dance Companies	N	dancing companies
+96925687	Business to Business	96931511	Square Dancing	N	
+96925687	Business to Business	96931512	Dancing Ballrooms	N	dancing ballrooms
+96925687	Business to Business	96931513	Dance Instruction	N	dance instructions, dancing instruction, dance classes, dancing classes, dance schools, dance school, dance lessons, dance lesson, dance class, dancing school, dancing schools, dancing lessons, adult dance lessons, learn to dance, couples dance lessons, partner dancing
+96925687	Business to Business	96931540	Theater Parties	N	theaters parties, theatre parties, cinemas parties
+96925687	Business to Business	96931542	Play Publishing	N	theatre play publishing, theater play publishing
+96925687	Business to Business	96931543	Theater Consultants	N	theaters consultants, theatre consultants, cinemas consultants, cinema consultants
+96925687	Business to Business	96931545	Theater Production	N	theater makeup, theaters makeup, theatre makeup, cinema makeup, theater lighting, theaters lighting, theatre lighting, cinemas lighting, cinema lighting
+96925687	Business to Business	96931557	Music Composers' Agents	N	
+96925687	Business to Business	96931558	B2B Disc Jockeys	N	disc jockey's,  djs, disc jockey,  deejays
+96925687	Business to Business	96931559	Karaoke	N	
+96925687	Business to Business	96931560	Bands, Orchestras, &amp; Symphonies	N	
+96925687	Business to Business	96931562	Concert Bureaus	N	tour dates bureaus, concert tickets bureaus
+96925687	Business to Business	96931616	Professional Sports Teams	N	sports organizations
+96925687	Business to Business	96931647	B2B Plumbing Supplies	N	plumbing supply manufacturers, plumbing supply wholesalers
+96925687	Business to Business	96931648	B2B Plumbing Contractors	N	b2b plumbers, plumber, plumbers, plumbing companies, plumbing company
+96925687	Business to Business	96931667	HVAC Contractors	N	heating ventilation, air conditioning, air conditioners, hvac contractor, heating and cooling, heating and air
+96925687	Business to Business	96931668	B2B HVAC Supplies	N	heating ventilation, air conditioning, air conditioners, heating equipment, hvac equipment, heater equipment,  hvac, heaters equipment,  heaters, furnace equipment,  furnace
+96925687	Business to Business	96931800	B2B Property Management	Y	property managemetn, property management-apartments, properties management, b2b property management
+96925687	Business to Business	96931801	Commercial Property Appraisal	N	
+96925687	Business to Business	96931802	Office Property	Y	office buildings, office space
+96925687	Business to Business	96931803	Real Estate Business Centers	N	
+96925687	Business to Business	96931804	B2B Auctioneers	Y	
+96925687	Business to Business	96931805	Executive Suites	N	executive office suites
+96925687	Business to Business	96931806	Commercial Real Estate Agents	Y	
+96925687	Business to Business	96931869	Bookbinding	N	bookbinding supplies,  bookbinders
+96925687	Business to Business	96931870	Blueprinting	N	custom blueprinting, blueprinting services,  blueprints
+96925687	Business to Business	96931872	Electronic Publishing	N	electronics publishing, electronic publishers
+96925687	Business to Business	96931873	All Publishing	N	publishers
+96925687	Business to Business	96931875	Book Printing	N	books printing, book printers
+96925687	Business to Business	96931876	Periodicals	N	publishers periodicals, periodical publisher, periodical publishing
+96925687	Business to Business	96931877	Newspapers Printing	N	newspaper printing, news printer, newspaper printer
+96925687	Business to Business	96931887	Check Printing	N	checks printing
+96925687	Business to Business	96931889	Engraving &amp; Platemaking	N	
+96925687	Business to Business	96931893	Greeting Cards Printing	N	
+96925687	Business to Business	96931894	Business Forms Printing	N	business form printing, business forms
+96925687	Business to Business	96931895	Commercial Printing	N	commercial printers, commercial printer
+96925687	Business to Business	96931896	Typesetting	N	typesetters
+96925687	Business to Business	96932150	Franchising	N	franchises
+96925687	Business to Business	96932151	Secretarial	N	secretarial services, secretaries secretary, administrative assistant services,  admins, administrative support, administrative assistant, administrative assistants
+96925687	Business to Business	96932152	Business Development	N	small business development center, business development, small business development, small business, biz dev
+96925687	Business to Business	96932153	Facilities Management	N	facility management,  facility
+96925687	Business to Business	96932154	Human Resources	Y	dept of human resources, human resource consulting, human resource department, dept. of human resources, department of human resource, department of human resources, human resource consultants,  hr, human resource management
+96925687	Business to Business	96932155	Other Business Services	Y	
+96925687	Business to Business	96932156	Trade Organizations	Y	
+96925687	Business to Business	96932158	Translation Services	N	translator, translater, interpreter, translating, translator services, language services, translations services,  translate, translate services,  localization
+96925687	Business to Business	96932159	B2B Corporate Housing	N	corporate lodging
+96925687	Business to Business	96932161	Maintenance Services	N	janitorial, janitorial service,  janitors, janiter, janiters, janitor services, janitor service, janitorial services
+96925687	Business to Business	96932163	Warehouse Storage	Y	warehousing, distributors storage, retailers storage
+96925687	Business to Business	96932167	Document Handling	Y	document storage, document destruction, document preparation,  data, document recovery, data recovery
+96925687	Business to Business	96932168	Transcription &amp; Recording	N	
+96925687	Business to Business	96932169	Business Brokers	Y	small business brokers, accounting brokers
+96925687	Business to Business	96932170	Business Billing &amp; Collection	Y	accounts payable, collection agencies, collection agency
+96925687	Business to Business	96932171	Purchasing &amp; Supply	N	
+96925687	Business to Business	96932172	Management &amp; Consulting	Y	management consulting, management consultant, management consultants
+96925687	Business to Business	96932173	Facilitation	N	
+96925687	Business to Business	96932174	Public Relations	N	investor relations, public relations agencies, public relation agencies, public relation firms, public relations firms,  pr, pr firms
+96925687	Business to Business	96932175	Incorporation Services	N	
+96925687	Business to Business	96932176	Customer Service	N	
+96925687	Business to Business	96932179	Employee Benefits	Y	employee benefit consultants, employee benefit solutions, employee benefit plans
+96925687	Business to Business	96932180	Training	N	
+96925687	Business to Business	96932181	Employee Assistance	N	
+96925687	Business to Business	96932183	Background Verification	N	background check, backgrounds verification
+96925687	Business to Business	96932184	Workplace Safety	N	
+96925687	Business to Business	96932185	Recruitment &amp; Placement	N	headhunters, recruiter, recruiters, headhunter, recruiting, headhunting, executive placement, job hunter, job search
+96925687	Business to Business	96932186	Employee Screening	N	
+96925687	Business to Business	96932187	Outsourcing	N	
+96925687	Business to Business	96932374	Motorcycle Distributors	N	motorcycle distributors
+96925687	Business to Business	96932376	Trailer Distributors	N	trailers distributors
+96925687	Business to Business	96932377	Bus Distributors	N	buses distributors
+96925687	Business to Business	96932379	ATV Distributors	N	dirt bike distributors, motocross distributors, dirtbike distributors, atvs
+96925687	Business to Business	96932380	RV Distributors	N	rvs, camper distributors,  campers, mobile homes, motorhome distributors, mobile home distributors,  motorhome
+96925687	Business to Business	96932381	Boat Distributors	N	boats distributors
+96925687	Business to Business	96932417	Specialty Vehicle Manufacturing	N	
+96925687	Business to Business	96932418	Automotive Manufacturing	N	auto parts manufacturers, car parts manufacturers, parts manufacturers, truck manufacturers,  truck, trucks manufacturers
+96925687	Business to Business	96932419	Motorcycle Manufacturers	N	atv manufacturers,  dirt bike manufacturers, motocross manufacturers, motorcycles manufacturers
+96925687	Business to Business	96932420	Bus Manufacturers	N	buses manufacturers,  buses
+96925687	Business to Business	96932421	Railroad Manufacturers	N	
+96925687	Business to Business	96932423	RV Manufacturers	N	camper manufacturers,  camper, mobile home manufacturers, motorhome manufacturers, mobile home,  motorhome
+96925687	Business to Business	96932424	Trailer Manufacturers	N	trailers manufacturers
+96925687	Business to Business	96932425	Bicycle Manufacturers	N	bike manufacturers, mountain bike manufacturers,  bikes manufacturers, bicycles manufacturers
+96925687	Business to Business	96932426	Aerospace Manufacturing	N	
+96925687	Business to Business	96932427	Aircraft Manufacturing	N	aircraft manufacturers, planes manufacturers, airplanes manufacturers, helicopter manufacturers, plane manufacturers, aircraft parts, planes parts, airplanes parts, helicopter parts, plane parts, airplane parts
+96925687	Business to Business	96932428	Boat Manufacturers	N	boats manufacturers,  boats
+96925687	Business to Business	96932429	Auto Brokers	N	automobile brokers, automotive brokers
+96925687	Business to Business	96932430	Car Distributors	N	
+96925687	Business to Business	96932432	Fleet Vehicles	N	
+96925687	Business to Business	96932435	Car Auctions	N	car auction, auto auction, auto auctions
+96925687	Business to Business	96932687	Equipment Movers	N	supplies movers, supply movers
+96925687	Business to Business	96932688	Software	Y	software programming, software publishing, medical software, computer software, laptop software, pc software
+96925687	Business to Business	96932689	Computer Recycling &amp; Salvaging	N	electronics recycling, recycle electronics, electronic recycling, recycle computers, computers recycle, recycle cell phones, cell phone recycling, cell phone recycle, recycling cell phones
+96925687	Business to Business	96932690	B2B Computer Retailers	Y	computer stores
+96925687	Business to Business	96932693	Computer Communications	N	pc communications
+96925687	Business to Business	96932696	Electronics Wholesalers	N	wholesale scanners, wholesale software
+96925687	Business to Business	96932697	Computer Electronics Manufacturers	N	
+96925687	Business to Business	96932766	Data Preparation &amp; Processing	N	credit card merchant services, bar coding, bars coding, document storage,  document
+96925687	Business to Business	96932767	CAD Systems &amp; Services	N	
+96925687	Business to Business	96932768	Disaster Planning &amp; Recovery	N	
+96925687	Business to Business	96932769	Business Computer Maintenance	N	
+96925687	Business to Business	96932770	Business Information Systems	N	
+96925687	Business to Business	96932773	Computer Business Solutions	N	
+96925687	Business to Business	96932775	Business Computers Support	N	
+96925687	Business to Business	96932776	Business Computer Consulting	Y	
+96925687	Business to Business	96932777	Business Computers Leasing	N	
+96925687	Business to Business	96932825	Computer Facilities Management	N	
+96925687	Business to Business	96932826	Business Computer Furniture	N	
+96925687	Business to Business	96932827	Business Computer Equipment	N	
+96925687	Business to Business	96932828	Business Computer Cleaning	N	
+96925687	Business to Business	96932882	Nuclear Energy	N	nuclear engineering, nuclear consulting
+96925687	Business to Business	96932883	Energy Management	N	
+96925687	Business to Business	96932884	Mineral &amp; Mining Industries	N	mining exploration, all mining, mining brokers,  mining, property mining, metal ores, mining equipment
+96925687	Business to Business	96932885	Electricity	Y	electric consulting, electric distribution, electric generators, electric company, electric companies, electric engineering
+96925687	Business to Business	96932886	Renewable Energy	N	geothermal energy, wind power, solar energy, solar power
+96925687	Business to Business	96932888	Natural Gas &amp; Petroleum	N	natural gas, natural gas services, lpg oil, oil refining, fuel distributors,  fuel, fuel oil,  petroleum oil,industrial oil, natural gas, wholesale grease, fuel distributors, automobile oil, automotive oil,  petroleum, natural gas companies, gas companies, natural gas storage,  cng, compressed natural gas,  gasoline, oil company, oil companies
+96925687	Business to Business	96933150	Business Alarm Systems	N	security systems
+96925687	Business to Business	96933151	Video Surveillance	N	video surveillance equipment, photos surveillance, photo surveillance, videos surveillance, movie surveillance, movies surveillance,  cctv, closed circuit
+96925687	Business to Business	96933152	Security Guard &amp; Patrols	N	security guard and patrol services, security company, security companies
+96925687	Business to Business	96933153	Armored Car Services	N	armored cars
+96925687	Business to Business	96934252	Laboratory Equipment	N	laboratories equipment
+96925687	Business to Business	96934253	Lab Optical Instruments	N	
+96925687	Business to Business	96934254	Lab Measurement &amp; Control Devices	Y	scales
+96925687	Business to Business	96934297	B2B Banks	N	
+96925687	Business to Business	96934298	B2B Credit Unions	N	
+96925687	Business to Business	96934300	Checks	N	
+96925687	Business to Business	96934301	ATMs	N	cash machines, atm's, atms
+96925687	Business to Business	96934309	B2B Bankruptcy Services	Y	
+96925687	Business to Business	96934310	Credit Report Services	N	
+96925687	Business to Business	96934312	Corporate Credit Cards	N	
+96925687	Business to Business	96934314	Corporate Real Estate Financing	N	
+96925687	Business to Business	96934315	Insurance Adjusters	Y	home insurance adjusters, insurance adjusters, claim adjusters
+96925687	Business to Business	96934317	Commercial Insurance	Y	
+96925687	Business to Business	96934318	Brokerages	N	
+96925687	Business to Business	96934319	Market Research	N	
+96925687	Business to Business	96934320	Mutual Funds	N	
+96925687	Business to Business	96934357	Corporate Investment Banks	Y	
+96925687	Business to Business	96934358	Venture Capital	N	venture capitalists
+96925687	Business to Business	96934395	Packaging	N	packaging manufacturers
+96925687	Business to Business	96934397	Shipyards	N	
+96925687	Business to Business	96934398	B2B Truck Stops	N	truck stop, truck stops, truck stops plazas, truck stops and plazas, trucks stops, travel plazas
+96925687	Business to Business	96934403	Moving Companies &amp; Equipment	N	int'l shipping, international shipping
+96925687	Business to Business	96934404	B2B Courier Services	N	shipping
+96925687	Business to Business	96934405	Customs Brokers	N	
+96925687	Business to Business	96934406	Cargo Services	N	maritime cargo, ocean freight, sea shipping, ocean shipping,  rail cargo, railway cargo,  air cargo, freight, shipping
+96925687	Business to Business	96935156	Office Machinery	Y	office machine repair, offices machinery
+96925687	Business to Business	96935158	Cash Registers	N	cash register repair, cash register sales, cash register systems
+96925687	Business to Business	96935159	B2B Writing Instruments	N	fine writing instruments,  pens pencils
+96925687	Business to Business	96935160	B2B Office Furniture	N	office furniture liquidator, office furniture liquidation, office furniture-used, surplus furniture, furniture liquidators, usedoffice furniture, furniture liquidation, refurbished office furniture, gently used office furniture, used office furniture, office furniture liquidators, offices furniture,  cubicles
+96925687	Business to Business	96935162	Copy &amp; Fax Machines	N	
+96925687	Business to Business	96935163	Office Paper	N	offices paper, business cards, letterhead stationery
+96925687	Business to Business	96935277	Convention Centers	N	
+96925687	Business to Business	96935278	Trade Shows	N	display booth, trade show booths, tradeshow booth, tradeshow booths, trade show exhibit, exhibit booth display, trade show booth,  tradeshow, trade show display, tradeshow display
+96925687	Business to Business	96935279	Conference Centers	N	
+96925687	Business to Business	96937252	Parks &amp; Playgrounds	N	swing sets manufacturing, swingsets manufacturing, playsets manufacturing, playground equipment manufacturing
+96925687	Business to Business	96937263	Vending Machines	N	vending manufacturers, vending machine manufacturers, vending products, vending machine products
+96925687	Business to Business	96937264	Water Coolers	N	water delivery, water cooler repair, bottled water
+96925687	Business to Business	96937265	Business Coffee Service	N	
+96925687	Business to Business	96937293	Media Consulting &amp; Production	N	audio visual equipment, av equipment, a/v equipment
+96925687	Business to Business	96950477	Textiles	N	fabrics mills,  textiles, textile, textile machinery,  textile, textile machinery
+96925688	Travel and Lodging	96926018	Charter Buses	N	bus charter, charter bus, bus rental, charter bus rental
+96925688	Travel and Lodging	96926020	Cruises	N	cruiseships,  boat cruises
+96925688	Travel and Lodging	96926021	Taxi Services	N	cab, taxicab, cabs, taxi, taxi cabs, taxi cab, taxis, cab service, cab services
+96925688	Travel and Lodging	96926022	Parking Services	N	park, parking lot, longterm parking, long-term parking, parking garage, parking garages
+96925688	Travel and Lodging	96926023	Charter Flights	N	charter flight
+96925688	Travel and Lodging	96926025	Passport &amp; Visa Services	Y	passports, pass port
+96925688	Travel and Lodging	96926026	Tourist Attractions	N	sights
+96925688	Travel and Lodging	96926028	Tour Operators	N	tour operators promoters,  tours, tours operators
+96925688	Travel and Lodging	96926029	Travel Agents	Y	 travel agentcy, travel agengy, travel agen, travel agence, travel agencies, travel agengies, travel agenc, travel agencey, travel agencis, travel agencies, travel agenci, travel agens, travel agent, travel ageny, travel agents, international travel agents, travel agenices, travel agency, travel agents, 
+96925688	Travel and Lodging	96926030	Mass Transit	N	commuter, public transport, public transportation, station
+96925688	Travel and Lodging	96926031	Limos &amp; Shuttles	N	limo service, shuttle service, sedan service, limousine service,  limo services, limos, limos shuttles, limousine services, limos and shuttles, limo, limos shuttles, limo rentals, shuttle rentals, limo rental, shuttle rental
+96925688	Travel and Lodging	96926032	Concierge Services	N	
+96925688	Travel and Lodging	96926034	Airlines	N	
+96925688	Travel and Lodging	96929266	Hostels	N	youth hostels
+96925688	Travel and Lodging	96929268	Other Lodging	N	
+96925688	Travel and Lodging	96929271	Bed &amp; Breakfasts	N	bed and breakfasts, bed and breakfast inns,  inns, b&amp;bs, b and b, bed and breakfast
+96925688	Travel and Lodging	96929273	Casinos	N	hotelcasinos, casino, casinos
+96925688	Travel and Lodging	96929274	Resorts	N	hotelsresorts, vacation packages,   hotels
+96925689	Recreation and Sporting Goods	96925969	Amusement &amp; Theme Parks	N	amusement theme parks
+96925689	Recreation and Sporting Goods	96925972	Skydiving	N	
+96925689	Recreation and Sporting Goods	96925973	Volleyball	N	volleyball club
+96925689	Recreation and Sporting Goods	96925975	Surfing	N	surfing shops, surfing equipment,  surf, surf shop, surf shops, surf stores, surf store
+96925689	Recreation and Sporting Goods	96925976	Sporting Goods	N	sports stores, sports store, sports equipment stores, sports apparel stores, sports equipment store, sports apparel store, sports equipment, sports apparel, sporting goods stores, sporting goods store
+96925689	Recreation and Sporting Goods	96925981	Gymnastics	N	gymnastics instruction
+96925689	Recreation and Sporting Goods	96925983	Soccer	N	soccer goods, soccer cleats, soccer shop, soccer shops, soccer store, soccer stores
+96925689	Recreation and Sporting Goods	96925984	Playgrounds	N	 outdoor playgrounds
+96925689	Recreation and Sporting Goods	96925985	Archery	N	archery ranges, archery bows
+96925689	Recreation and Sporting Goods	96925986	Lacrosse	N	
+96925689	Recreation and Sporting Goods	96925987	Football	N	
+96925689	Recreation and Sporting Goods	96925988	Basketball	N	
+96925689	Recreation and Sporting Goods	96925989	Softball	N	amateur softball association, softball leagues, 
+96925689	Recreation and Sporting Goods	96925990	Wrestling Venues	N	
+96925689	Recreation and Sporting Goods	96925991	Paint Ball	N	paint balling, paint ball games,  paintball
+96925689	Recreation and Sporting Goods	96925992	Baseball	N	
+96925689	Recreation and Sporting Goods	96925993	Fencing	N	
+96925689	Recreation and Sporting Goods	96925996	Skiing	N	ski shop, ski shops
+96925689	Recreation and Sporting Goods	96925997	Other Sports	N	
+96925689	Recreation and Sporting Goods	96926001	Martial Arts	N	martial arts equipment, martial art, martial arts supplies, martial arts schools, martial arts supply, martial arts instruction,  
+96925689	Recreation and Sporting Goods	96926003	Cycling	N	bicycle, biking, bikes, bicycling, cycling shops, bike repair, bike shops, bicycles, bike shop, bike, bicycle shop, bicycle shops, bike stores, bike store, bicycle store, bicycle shops
+96925689	Recreation and Sporting Goods	96926004	Arenas &amp; Stadiums	N	
+96925689	Recreation and Sporting Goods	96926005	Bowling	N	bowling tournaments, bowling ally, bowlings alleys, bowling allie, bowling alleys, bowling alley, bowling balls, bowling lane,  bowlingalleys, bowling center, bowling alley's, bowling centers, bowling allys, bowling allies,  lanes, bowling lane, bowling lanes
+96925689	Recreation and Sporting Goods	96926006	Aviation	N	
+96925689	Recreation and Sporting Goods	96928298	Horse Riding Instruction	N	horse riding instruction, horseback riding lessons, horse back riding lessons, horse riding lessons
+96925689	Recreation and Sporting Goods	96928299	Golf Carts	N	
+96925689	Recreation and Sporting Goods	96928301	Golf Driving Ranges	N	
+96925689	Recreation and Sporting Goods	96928302	Golf Instruction	N	
+96925689	Recreation and Sporting Goods	96928303	Golf Courses	N	
+96925689	Recreation and Sporting Goods	96928304	Miniature Golf	N	miniature golf courses, putt putt golf, miniature golfing, mini golf, mini putt, putt putt,  minigolf, peewee golf, pee wee golf, pee wee golfing, peewee golfing, mini-golf, miniture golf, minature golf
+96925689	Recreation and Sporting Goods	96928305	Golf Retailers	N	golf shops, golf shop, golf store, golf stores
+96925689	Recreation and Sporting Goods	96928328	Gardening	N	 gardening organizations, landscaping organizations,  
+96925689	Recreation and Sporting Goods	96928329	Stamp Collecting	N	rubber stamp, stamps collecting,  philatelics philatelist philately
+96925689	Recreation and Sporting Goods	96928330	Metal Detecting	N	
+96925689	Recreation and Sporting Goods	96928331	Model Making	N	models making
+96925689	Recreation and Sporting Goods	96928332	Magic	N	
+96925689	Recreation and Sporting Goods	96928333	Smoking &amp; Tobacco	N	cigarettes and cigars, cigars and pipes, smoking accessories, smoke shops, smoke shop, cigars, cigar, cigarette, cigarettes, cigar stores, cigar store, cigar shop, cigar shops
+96925689	Recreation and Sporting Goods	96928334	Kites	N	
+96925689	Recreation and Sporting Goods	96928335	Other Hobbies	N	
+96925689	Recreation and Sporting Goods	96928336	Coin Collecting	N	numismatism, numismatists, numismatics
+96925689	Recreation and Sporting Goods	96928337	Homebrewing	N	homebrewing supplies, beer homebrewing, home brew, home brewing, beer making
+96925689	Recreation and Sporting Goods	96928338	Hobby Shops	N	hobby store, hobby stores
+96925689	Recreation and Sporting Goods	96928348	Marinas	N	boat marinas
+96925689	Recreation and Sporting Goods	96928349	Paddling	N	
+96925689	Recreation and Sporting Goods	96928350	Scuba	N	scubadiving, scuba dive shops, scuba dive, scuba dive shop,  diving, snorkeling, scuba diving,  dive, scuba gear, dive shop, dive shops, dive store, dive stores
+96925689	Recreation and Sporting Goods	96928353	Hunting	N	hunting and fishing,  bowhunting, hunting supplies, hunting preserves
+96925689	Recreation and Sporting Goods	96928354	Outdoor Parks	N	public parks
+96925689	Recreation and Sporting Goods	96928355	Climbing	N	rockclimbing, mountain climbing,  rock climbing
+96925689	Recreation and Sporting Goods	96928364	Campgrounds	N	camping, camp sites, rv campgrounds,  rvcampgrounds, rv parks, rv park, camp grounds, camp ground, rv camping, camping sites
+96925689	Recreation and Sporting Goods	96928365	Camping Equipment &amp; Gear	N	
+96925689	Recreation and Sporting Goods	96928395	Skateboarding	N	skateboarding shops, skateboard shop, skateboard shops, skateboards, skateboard, skateboarding stores, skate shop, skate shops, skate store, skate stores
+96925689	Recreation and Sporting Goods	96928396	Inline &amp; Roller Skating	N	rollerskates, rollerskating, inline skates, inline rollerskates, 
+96925689	Recreation and Sporting Goods	96928397	Ice Skating	N	ice skatin, ice skating, ice skating center, ice skating ring, ice skating rink, ice skating rinks, ice skating arena, ice skating rings, ice rinks, skating rink, skating rinks, ice rink
+96925689	Recreation and Sporting Goods	96928426	Swim Centers	N	swimming, swimming centers, swimming pools, swimming pool, pool, pools, swim pool, swim pools, swim club, swimming club, swim clubs, swimming clubs, pools, aquatic center
+96925689	Recreation and Sporting Goods	96928427	Swimming Instruction	N	swim instruction, swim lessen, swimming lessons, swim school, swimming school, swimming classes, swim classes, swim lesson, swim lessons
+96925689	Recreation and Sporting Goods	96928428	Diving Instruction	N	scuba instruction,  scuba
+96925689	Recreation and Sporting Goods	96928429	Diving Equipment	N	dive, dive shop, scuba equipment,  scuba
+96925689	Recreation and Sporting Goods	96928433	Tennis Courts	N	
+96925689	Recreation and Sporting Goods	96928434	Tennis Retailers	N	tennis store, tennis stores, tennis shop, tennis shops
+96925689	Recreation and Sporting Goods	96928436	Tennis Instruction	N	
+96925689	Recreation and Sporting Goods	96929534	Lottery	N	lotteries, lotto,
+96925689	Recreation and Sporting Goods	96937066	Boat Rental &amp; Charter	N	boats rental and charter, boat rental charter
+96925689	Recreation and Sporting Goods	96937067	Boat Sales &amp; Service	N	boat dealers
+96925689	Recreation and Sporting Goods	96937068	Boating Harbors &amp; Docks	N	
+96925689	Recreation and Sporting Goods	96937069	Boat Storage	N	boats storage
+96925689	Recreation and Sporting Goods	96937070	Boating Equipment	N	boat equipment, boating supplies, boat supplies, marine equipment, marine supplies
+96925689	Recreation and Sporting Goods	96937071	Boat Launches	N	boat launch, boat launching, public boat launch, boats launches
+96925689	Recreation and Sporting Goods	96937072	Boat Repair	N	inflatable boat repair, boat repairing
+96925689	Recreation and Sporting Goods	96937225	Billiard Supplies	N	billiards supplies
+96925690	Real Estate	96925949	Mobile Home Parks	N	mobile home parks and communities, manufactured mobile home parks, mobile home parks and communities, trailer park, manufactured homes, manufactured home, mobile home park, mobile home parks
+96925690	Real Estate	96925950	Apartments	Y	condos, apartment, condominiums, condo, apts, appartments, apartments, condominium,apartments for rent, aparments, for rent, apartment rental, apartment rentals, apartment for rent
+96925690	Real Estate	96925951	Escrow Services	N	
+96925690	Real Estate	96925952	Home Builders	Y	new home builders, custom home builders, home builders, single family home builders
+96925690	Real Estate	96925956	Real Estate Title Companies	Y	title company
+96925690	Real Estate	96925957	Rental Agencies	Y	apartment locator, apartment finder, rentals agencies, rent a agencies, rental agencies, apartment rentals, apt rentals, home rentals, house for rent, rental houses, rental properties, rental property, houses for rent, house rentals, homes for rent, rental homes, rent to own homes, rent houses, house rental, for rent, rental house
+96925690	Real Estate	96925958	Relocation Services	Y	international mover, commercial mover, international relocation, corporate relocation, overseas moving, overseas mover, commercial moving, moving overseas, international moving
+96925690	Real Estate	96925959	Real Estate Agents	Y	real estate, real estate agent, real estate agents,  realtor realty, real estate sales, realators, realitors, realtors, realtor, realestate, realty companies, realty, real estate agencys, real estate agencies, real estate agency, real estate broker, real estate brokers, agents, agent
+96925690	Real Estate	96925960	Property Management	Y	property managemetn, property managements,  property, property management, properties management, property management companies, property managment, property managers
+96925690	Real Estate	96925962	Timeshares	N	vacation timeshares, time shares
+96925690	Real Estate	96925965	Home Inspection Services	Y	home inspection, home inspections, home inspectors, home inspector, real estate inspection services, home inspection services, real estate inspection service, home inspection service
+96925690	Real Estate	96925966	Real Estate Appraisal	Y	real estate appraisors, real estate appraisel, real estate appraisels, real estate apprais, commercial real estate appraisal, commercial real estate appraisals, real estate appraisal services, real estate appraisals,  appraiser appraisal, real estate appraisers, real estate appraiser
+96925690	Real Estate	96925967	Vacation Rentals	N	vacation rental homes, vacation rental, vacation packages rentals, 
+96925690	Real Estate	96925968	Corporate Housing	N	
+96925690	Real Estate	96926808	Country Club Communities	N	golf and country clubs, country clubs
+96925690	Real Estate	96926809	Gated Communities	N	
+96925690	Real Estate	96926810	Retirement Communities	N	retirement communities in, retirement communities and homes, retirement communities and homes, senior retirement communities, retirement home, retirement homes
+96925691	Health and Beauty	96925725	Barbers	N	barbershops, barbershop, barber shop, barber shops
+96925691	Health and Beauty	96925726	Beauty Supplies	N	beauty supply, beauty supply stores, beauty supply store
+96925691	Health and Beauty	96925728	Bath &amp; Body Products	N	
+96925691	Health and Beauty	96925729	Diet Centers	N	dieting, weight loss, diets centers,  diets
+96925691	Health and Beauty	96925731	Skin Care	Y	skin care spa,  facial, skin care treatments, skin care center, skin care salon,  skincare
+96925691	Health and Beauty	96925732	Tattoos &amp; Piercings	Y	tattoo parlor, tattoo parlors, tattoo shops, tattoo shop, tattoos piercings, tattoos, piercings, tattoos and piercings, tatoo, tatoos, tattoo and piercing, tattoos piercings
+96925691	Health and Beauty	96925733	Day Spas	N	dayspa, spa, spas, day spa, day spas, spa's, salon and spa, spa salon
+96925691	Health and Beauty	96925734	Fragrances	N	
+96925691	Health and Beauty	96925736	Cosmetology	N	beauty schools, beauty school, cosmetology schools, cosmetology school, 
+96925691	Health and Beauty	96925738	Tanning Salons	N	spray on tanning salon, airbrush tanning salons, sun tanning salon, tanning salong, tanning salones, sunless tanning salons, nail and tanning salons, tanning saloons, tanning salons in, tanning bed, tan, tanning beds
+96925691	Health and Beauty	96925739	Nail Salons	N	nail, nails, nails care,  manicure, pedicure, mani pedi, nail salons, nail salon, manicures, pedicures, nails salon, nails salons, nail shop, nail shops, nail spa, nail spas, nail care
+96925691	Health and Beauty	96925886	Medical Education	N	continuing medical education, nursing school, nursing schools, medical school, medical schools
+96925691	Health and Beauty	96925890	First Aid	N	firstaid, first aid supplies, first aid kits, 
+96925691	Health and Beauty	96925892	Pharmacies	N	retail pharmacies,  pharmacy prescriptions
+96925691	Health and Beauty	96927282	Nutrition &amp; Supplements	Y	vitamins, nutritional supplements
+96925691	Health and Beauty	96927283	Alternative Medicine Retailers	N	
+96925691	Health and Beauty	96927284	Aromatherapy	N	aromatherapist, aromatherapists
+96925691	Health and Beauty	96927285	Alternative Clinics	Y	alternative healing,  homeopaths, holistic homeopathy homeopathic,  naturopathic, homeopathic medicine
+96925691	Health and Beauty	96927286	Spinology	N	spinologist
+96925691	Health and Beauty	96927287	Acupuncture	Y	acupuncturists, acupuncturist, accupuncture
+96925691	Health and Beauty	96927288	Hypnotherapy	Y	hypnotist, hypnotherapist, hypnotherapy, hypnotism
+96925691	Health and Beauty	96927289	Chiropractic Offices	Y	chiropractor, chiropractic offices,  chiropracter, chiropractors, chiropractic offices, chiropractors
+96925691	Health and Beauty	96927290	Massage Therapy	Y	licensed massage therapists, massage theraphy, massage therapists, massage spa, massage therapist, massages, masseuse, massage parlor, massage parlors, massage parlour, massage parlours
+96925691	Health and Beauty	96927327	Home Health Care Services &amp; Supplies	Y	home healthcare
+96925691	Health and Beauty	96927328	Nurses	Y	nurses aides, nurses aide training, registered nurses, visiting nurses, nursing
+96925691	Health and Beauty	96927330	Long-Term &amp; Hospice Care	Y	residential hospice, nursing home, hospice care,  longterm healthcare, long term healthcare
+96925691	Health and Beauty	96927331	Allergies &amp; Asthma	N	allergist, allergists, immunologist, immunologists, immunology
+96925691	Health and Beauty	96927332	Pediatrics	Y	pediatrician, children's doctor, childrens doctor, pediatricians
+96925691	Health and Beauty	96927333	General Practice Medicine	Y	internal medicine internist, internal medicine, family practice,  GP
+96925691	Health and Beauty	96927334	Family Medical Practice	Y	internal medicine, family practice,  GP, family medical practice, family doctor, family doctors, family physician, family physicians, family medicine
+96925691	Health and Beauty	96927335	Podiatry	Y	podiatrist, foot doctor, podiatrists
+96925691	Health and Beauty	96927336	Doctors &amp; Clinics	Y	physician, doctors, clinics, medical clinics, medical clinic, doctors offices, doctors office, doctor office, doctor offices, medical office, medical offices, doctors and clinics
+96925691	Health and Beauty	96927339	Cosmetic Surgery	Y	cosmetic surgey,  cosmetic surgeory, cosmetic surgery center, cosmetic surgeon, cosmetic surgeons, cosmetic surgens, laser cosmetic surgery, plastic and cosmetic surgeons,  plastic surgeon, plastic surgery, plastic surgeons,  cosmetic surgeon
+96925691	Health and Beauty	96927340	Physical Therapy	Y	physical therapists, physical theraphy, physical therap,  PTs, physical therapist
+96925691	Health and Beauty	96927341	Nephrology	Y	nephrologist, nephrologists
+96925691	Health and Beauty	96927342	Rheumatology	Y	rheumatologist, rheumatologists
+96925691	Health and Beauty	96927343	Pathology	Y	clinical pathology laboratories, clinical pathology lab, clinical pathology, clinical pathology labs, clinical pathology laboratory,  pathologist, pathologists
+96925691	Health and Beauty	96927344	Ear Care	Y	audiology, audiologist, otolaryngology, ENT, audiologists
+96925691	Health and Beauty	96927345	Gastroenterology	Y	pediatric gastroenterology,  gastroenterologist, gastroenterologists, gastro
+96925691	Health and Beauty	96927346	Endocrinology	Y	reproductive endocrinology, pediatric endocrinology,  endocrinologist, endocrinologists, endocrinology
+96925691	Health and Beauty	96927347	Medical Referral Services	Y	
+96925691	Health and Beauty	96927350	Anesthesiology	Y	anesthesiologists, anesthesiologist
+96925691	Health and Beauty	96927351	Geriatrics	N	geriatric care
+96925691	Health and Beauty	96927352	Radiology	Y	interventional radiology,  radiologist, radiologists
+96925691	Health and Beauty	96927353	Neurology	Y	pediatric neurology,  neurologist, neurologists
+96925691	Health and Beauty	96927354	Urology	Y	urologyst, urologist, urologists
+96925691	Health and Beauty	96927356	Rehabilitation Services	Y	social and rehabilitation services, vocational rehabilitation services, rehabilitation center, rehab center,  rehab
+96925691	Health and Beauty	96927357	AIDS &amp; HIV Clinics	N	
+96925691	Health and Beauty	96927358	Oncology	Y	hematologyoncology, oncology hematology, radiation oncology, gynecologic oncology, hemotology oncology, oncology hematology care, gynecological oncology, hematology and oncology, hematology oncology, oncology hematology associates,  oncologist, oncologists
+96925691	Health and Beauty	96927359	Sports Medicine	Y	sports therapy
+96925691	Health and Beauty	96927360	Hematology	Y	hematologyoncology, oncology hematology care, hematology and oncology, oncology hematology associates, oncology hematology, hematology oncology associates, hematology oncology,  rhematology hematologist
+96925691	Health and Beauty	96927361	Epidemiology	N	epidemiologist, epidemiologists
+96925691	Health and Beauty	96927362	Cardiology	Y	interventional cardiology, cardiologist, heart care, cardiologists, heart clinics
+96925691	Health and Beauty	96927364	Dermatology	Y	dermatologist, appearance dermatology,  dermatologyst, dermatologists
+96925691	Health and Beauty	96927365	Orthopedics	Y	orthopedics and prosthetics,  orthopedist surgery-orthopedics, orthopedic surgeon, orthopedic surgeon
+96925691	Health and Beauty	96927376	Psychiatric Hospitals	Y	
+96925691	Health and Beauty	96927377	Hospitals	Y	hospitals clinics
+96925691	Health and Beauty	96927379	Urgent Care	Y	rapid care, rapid response, urgent care clinic, doctor's urgent care,  er, emergency room, emergency rooms
+96925691	Health and Beauty	96927380	Children's Hospitals	Y	children's hospitals
+96925691	Health and Beauty	96927391	Eye Care Referral Services	Y	
+96925691	Health and Beauty	96927392	Laser Vision Correction	Y	lasik, eye surgery, eye surgeries,  lasix, refractive surgery,  PRK, lasik eye surgery, lasik surgery
+96925691	Health and Beauty	96927393	Ophthalmology	Y	ophthalmologists, ophthalmologist, opthomologist, opthomologists, opthamologist, opthamologists, opthamalogist, opthamalogists, opthomology, opthamology
+96925691	Health and Beauty	96927394	Optometry	Y	optometrist, optometrists, eye doctor, eye doctors, eye clinic, eye clinics
+96925691	Health and Beauty	96927395	Opticians	Y	eye glasses,  glasses, contacts, eyeglasses, contact lenses, eye wear
+96925691	Health and Beauty	96927396	Eyewear	Y	eye glasses,  glasses, contacts, eyeglasses, contact lenses, eye wear
+96925691	Health and Beauty	96927458	Obstetrics &amp; Gynecology	Y	obgyn, ob gyn,  gynecology, gynecologist, ob-gyn, gynecologists, ob gyn doctors, ob gyn doctor
+96925691	Health and Beauty	96927460	Mammograms	Y	breast imaging,  mammography mammographies
+96925691	Health and Beauty	96927462	Midwives	Y	midwife, midwifery
+96925691	Health and Beauty	96927481	Health Clubs	Y	gymnasiums, workouts, exercises, exercise, gyms, fitness clubs,  healthclubs, fitness centers, fitness center, fitness gym, fitness gyms
+96925691	Health and Beauty	96927482	Yoga	N	yoga studio, yoga classes, yoga studios, yoga class, yoga lesson, yoga lessons
+96925691	Health and Beauty	96927483	Personal Trainers	Y	personal training
+96925691	Health and Beauty	96927484	Fitness	Y	
+96925691	Health and Beauty	96927485	Weight Loss	Y	weight control, weight loss clinics, weight loss programs,  weight loss centers, weight loss management, 
+96925691	Health and Beauty	96927486	Exercise Equipment	N	workout equipment, workouts equipment, exercises equipment, home gym equipment
+96925691	Health and Beauty	96927514	Mental Health Clinics	Y	mental healt,  therapist, therapists, therapy, psychology, psychologist, psychologists
+96925691	Health and Beauty	96927515	Mental Health Residential Facilities	N	
+96925691	Health and Beauty	96927517	Life Coaches	N	
+96925691	Health and Beauty	96928155	Cosmetics Retailers	N	, make-up,  makeup
+96925691	Health and Beauty	96928156	Permanent Cosmetics	N	permanent make-up, cosmetic tattooing, cosmentic tattoos
+96925691	Health and Beauty	96928157	Make-Up Studios	N	makeup studios,  makeup artist, make-up artists,  make-up artist, make-up artists, make-up studio
+96925691	Health and Beauty	96928176	Drug Stores	N	drugstore, drugstores, drug store
+96925691	Health and Beauty	96928179	Hair Replacement	Y	hair styles replacement, hair replacement, hair replacement supplies, hair replacement salons, hair replacement
+96925691	Health and Beauty	96928180	Hair Removal	Y	hair removing, hair remove, hair remover, hair removal waxing, laser hair remova, hair removel, lazer hair removal, permanent hair removal, electrolysis laser hair removal, laser hair removal clinics, laser hair removing, laser hair removal, lasar hair removal, lazor hair removal, laser hair removel, hair removal clinics, laser hair remover,  waxing
+96925691	Health and Beauty	96928181	Hair Supplies	N	
+96925691	Health and Beauty	96928182	Hair Salons	N	beauty salon, beauty salons, hairdresser, hairdressers, hair dresser, hair dressers, hair stylist, hair stylists
+96925691	Health and Beauty	96928246	Salons	Y	beauty shop, beauty shops
+96925691	Health and Beauty	96935237	Dentistry	Y	cosmetic dentist, cosmetic dentists, cosmetic dentistry, general dentistry, general dentist, general dentists,  gentle dentistry, dentistry for adults, family dentistry, family dentist, family dentists,  dentists, dentist, dental offices, dental office, dentist office, dentist offices, dental clinic, dental clinics
+96925691	Health and Beauty	96935238	Orthodontists	Y	orthodontia, braces, orthodontics
+96925691	Health and Beauty	96935239	Oral Surgeons	Y	oral surgeons maxillofacial, dentist oral surgeon, oral surgery
+96925691	Health and Beauty	96935240	Other Dental Specialties	Y	
+96925691	Health and Beauty	96935241	Dental Referral Services	N	
+96925691	Health and Beauty	96935318	Medical Laboratories	Y	medical lab
+96925691	Health and Beauty	96935319	X-Ray, MRI, &amp; Imaging	Y	
+96925691	Health and Beauty	96935320	Paternity Testing	N	dna paternity testing, paternity testing centers, paternity test,  
+96925691	Health and Beauty	96935321	Drug Laboratories	Y	drug labs
+96925691	Health and Beauty	96935457	Addiction Treatment	Y	drugs, alcohol, alcoholism,  substance rehab, rehab centers, rehab, drug rehab, drug treatment centers, drug treatment center
+96925691	Health and Beauty	96935458	Sexual Abuse Treatment	N	rape, harassment, assault, molesting, molestation, child abuse
+96925691	Health and Beauty	96935459	Domestic Abuse Treatment	N	child abuse treatment, elder abuse treatment, spousal abuse, spouse abuse
+96925691	Health and Beauty	96937054	Medical Oxygen	N	o2, medical supplies equipment
+96925691	Health and Beauty	96937055	Wheelchairs &amp; Walkers	N	scooter scooters
+96925691	Health and Beauty	96937058	Prosthetic Devices	N	amputation devices,  amputation prosthetics
