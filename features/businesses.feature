@@ -18,4 +18,9 @@ Feature: Add business
       And I enter Business description 1 in Business description
       And I enter Worldwide in Geographic Areas
       And I save changes
-    Then I should see feedback Business created successfully.
+    Then Business name should be Business name 1
+      And Local phone should be 555-555-1212
+      And Address should be 1 Address
+      And Business description should be Business description 1
+      And Geographic Areas should be Worldwide
+      And I should see feedback Business created successfully.
