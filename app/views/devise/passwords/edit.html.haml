@@ -6,7 +6,7 @@
     = f.input :password, hint:"Enter new password"
     = f.input :password_confirmation, hint:"Confirm new password"
   = f.hidden_field :reset_password_token
-  = f.buttons do
-    = f.commit_button :button_html => {:class => "primary", :value => "Change my password"}
+  = f.actions do
+    = f.action :submit, :as => :button, :label => 'Change my password', :button_html => {:class => "btn btn-primary"}
 
 = render :partial => "devise/shared/links"
