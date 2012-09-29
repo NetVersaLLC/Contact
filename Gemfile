@@ -3,6 +3,13 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.5'
 gem 'mysql2'
 
+group :development do
+  gem 'guard-rspec'
+  gem 'capistrano'
+  gem 'rvm-capistrano'
+  gem 'rb-fsevent'
+end
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.5'
   gem 'coffee-rails', '~> 3.2.1'
@@ -15,14 +22,20 @@ group :production do
   gem 'thin'
 end
 
+group :test do
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
+  gem 'page-object'
+  gem 'rspec-expectations'
+  gem 'watir-webdriver'
+end
+
 gem 'nokogiri'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'devise'
 gem 'haml'
 gem 'haml-rails'
-gem 'capistrano'
-gem 'rvm-capistrano'
 gem 'zip'
 gem 'activeadmin'
 gem "meta_search",    '>= 1.1.0.pre'
@@ -42,9 +55,3 @@ gem 'paypal-recurring'
 gem 'detect_email_settings'
 gem 'deathbycaptcha'
 
-group :test do
-  gem 'cucumber'
-  gem 'page-object'
-  gem 'rspec-expectations'
-  gem 'watir-webdriver'
-end

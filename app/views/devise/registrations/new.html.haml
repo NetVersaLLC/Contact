@@ -6,6 +6,6 @@
     = f.input :email, :placeholder => "Enter your email address"
     = f.input :password, :placeholder => "Enter password"
     = f.input :password_confirmation, :placeholder => "Confirm password"
-  = f.buttons do
-    = f.commit_button 'Sign Up', :button_html => {:class => "btn btn-primary"}
+  = f.actions do
+    = f.action :submit, :as => :button, :label => 'Sign Up', :button_html => {:class => "btn btn-primary"}
 = render :partial => "devise/shared/links"
