@@ -30,6 +30,12 @@ group :test do
   gem 'watir-webdriver'
 end
 
+group :test, :development do
+  gem 'awesome_print'
+  gem 'factory_girl'
+  gem "factory_girl_rails", "~> 4.0"
+end
+
 gem 'nokogiri'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -51,7 +57,6 @@ gem 'client_side_validations'
 gem 'carmen'
 gem 'httparty'
 gem 'coderay'
-gem 'paypal-recurring'
+gem 'activemerchant', :require => 'active_merchant'
 gem 'detect_email_settings'
 gem 'deathbycaptcha'
-

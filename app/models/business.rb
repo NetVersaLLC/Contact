@@ -3,6 +3,7 @@ class Business < ActiveRecord::Base
   has_attached_file :logo, :styles => { :thumb => "100x100>" }
   has_many   :jobs, :order => "position"
   belongs_to :user
+  belongs_to :subscription
 
   attr_accessible :business_name, :corporate_name, :duns_number, :sic_code
   attr_accessible :contact_gender, :contact_prefix, :contact_first_name, :contact_middle_name, :contact_last_name

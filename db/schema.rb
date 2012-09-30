@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120917154406) do
+ActiveRecord::Schema.define(:version => 20120930221506) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -59,6 +59,16 @@ ActiveRecord::Schema.define(:version => 20120917154406) do
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
+
+  create_table "affiliates", :force => true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.boolean  "active"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "affiliates", ["code"], :name => "index_affiliates_on_code"
 
   create_table "angies_lists", :force => true do |t|
     t.integer  "business_id"
@@ -179,6 +189,7 @@ ActiveRecord::Schema.define(:version => 20120917154406) do
     t.string   "category1"
     t.string   "category2"
     t.string   "category3"
+    t.integer  "subscription_id"
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
@@ -418,6 +429,15 @@ ActiveRecord::Schema.define(:version => 20120917154406) do
 
   add_index "map_quests", ["business_id"], :name => "index_map_quests_on_business_id"
 
+  create_table "packages", :force => true do |t|
+    t.string   "name"
+    t.integer  "price"
+    t.text     "description"
+    t.text     "short_description"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
   create_table "payload_categories", :force => true do |t|
     t.string   "name"
     t.integer  "position"
@@ -467,6 +487,29 @@ ActiveRecord::Schema.define(:version => 20120917154406) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "subscriptions", :force => true do |t|
+    t.integer  "affiliate_id"
+    t.integer  "package_id"
+    t.string   "package_name"
+    t.integer  "total"
+    t.string   "first_name"
+    t.string   "address"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "phone"
+    t.boolean  "tos_agreed"
+    t.boolean  "active"
+    t.string   "authorizenet_code"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "last_name"
+  end
+
+  add_index "subscriptions", ["affiliate_id"], :name => "index_subscriptions_on_affiliate_id"
+  add_index "subscriptions", ["package_id"], :name => "index_subscriptions_on_package_id"
 
   create_table "tasks", :force => true do |t|
     t.integer  "user_id"
