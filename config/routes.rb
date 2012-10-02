@@ -2,6 +2,7 @@ Contact::Application.routes.draw do
 
   resources :google_categories
   resources :payloads
+  resources :subscriptions
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -15,7 +16,7 @@ Contact::Application.routes.draw do
   resources :tasks
   resources :jobs
   get "yelps/check_email"
-  devise_for :users
+  devise_for :users, :controllers => { :registrations => "registrations" }
 
   post '/captcha/recaptcha',      :controller => :captcha,         :action => :recaptcha
   get  '/downloads/:business_id', :controller => :downloads,       :action => :download
@@ -27,7 +28,4 @@ Contact::Application.routes.draw do
   resources :city, :only => [:index]
   resources :places
   root :to => 'pages#index'
-  namespace :user do
-    root :to => "businesses#new"
-  end
 end

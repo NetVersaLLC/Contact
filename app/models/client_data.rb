@@ -30,7 +30,6 @@ class ClientData < ActiveRecord::Base
   # This is a class method, which records the custom attrs in a class variable
   # then defines the accessors for the variables on the class.
   def self.virtual_attr_accessor(*args)
-    STDERR.puts "virtual_attr_accessor()"
     @@custom_attributes ||= {}
     args.each do |sym|
       @@custom_attributes[sym] = nil
