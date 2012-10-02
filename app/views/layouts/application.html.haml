@@ -6,24 +6,22 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body{'data-spy' => 'scroll', 'data-target' => 'form-sidebar'}
-    :css
-      @import url('http://getbarometer.s3.amazonaws.com/assets/barometer/css/barometer.css');
-    %script{:src => "http://getbarometer.s3.amazonaws.com/assets/barometer/javascripts/barometer.js", :type => "text/javascript"}
-    %script{:charset => "utf-8", :type => "text/javascript"}
-      BAROMETER.load('HaD25zRyqMbxAcX1SC9Zh');
     .navbar
       .navbar-inner
         .container
           %ul.nav.pull-right
             %li
               = link_to 'Home', businesses_path
-            %li
-              = link_to 'Edit Profile', edit_user_registration_path
-            %li
               - if user_signed_in?
-                = link_to 'Sign Out', destroy_user_session_path, :method => :delete
+                %li
+                  = link_to 'Edit Profile', edit_user_registration_path
+                %li
+                  = link_to 'Sign Out', destroy_user_session_path, :method => :delete
               - else
-                = link_to 'Sign In', new_user_session_path
+                %li
+                  = link_to 'Sign In', new_user_session_path
+                %li
+                  = link_to 'Sign Up', new_user_registration_path
     .container
       .row
         .offset2.span4
