@@ -1,0 +1,23 @@
+# Skills Descriptions
+
+## Level 1 Programmer
+
+### Watir
+
+A level 1 programmer should have a working knowledge of Ruby with a minimum of 1 month experience. They should be able to setup Ruby using RVM (Mac/Linux) or Pik (Windows) as well as understand basic Ruby constructs such as classes, modules and methods. For our purposes they should also understand CSS and HTML as well as have some familiarity with website automation scripting. Some example automation systems would be watir, selenium, mechanize, LWP::UserAGent or curl.
+
+### HTML/Slicer
+
+An HTML slicer should have familiarity with HTML, CSS and an image editor such as Photoshop or Fireworks.
+
+## Level 2 Programmer
+
+### Ruby on Rails
+
+A programmer in this class should have a mastery of basic Ruby constructs and development patterns. They should be able to solve basic issues without intervention. They must have experience with Ruby on Rails or some other MVC based framework.
+
+## Level 3 Programmer
+
+## Ruby on Rails
+
+A programmer in this class should have mastery of Ruby constructs and at least five years experience with Rails. They should know the difference between Rails 2 and Rails 3 and Rails 3.2. Caching, asset mangement, overall system design and database mastery on at least MySQL and one NoSQL database. An expert understanding of Javascript, CSS, DOM manipulation and AJAX principles are also required. The applicant should have a working knowledge of agile design principles and tecniques. An understanding of Capistrano deployment and Linux Rails hosting is also required.
