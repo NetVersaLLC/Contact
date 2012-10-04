@@ -24,13 +24,9 @@ And /^I fill in "Password" with "(.*?)"$/ do |pass|
 end
 
 And /^I fill in "Password Confirmation" with "(.*?)"$/ do |pass|
-  fill_in(:password_confirmation, :with => pass)
+  fill_in("user[password_confirmation]", :with => pass)
 end
 
-And /^I click "Sign Up"$/ do
-  click_link(:user_submit_action)
-end
-
-Then /^I should see "Packages"$/ do
-  page.should have_content('Packages')
+Then /^I should see "(.*?)"$/ do |arg|
+  page.should have_content(arg)
 end

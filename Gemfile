@@ -28,6 +28,8 @@ group :test do
   gem 'page-object'
   gem 'rspec-expectations'
   gem 'watir-webdriver'
+  gem "capybara-webkit"
+  gem 'capybara-screenshot'
 end
 
 group :test, :development do
