@@ -1,0 +1,21 @@
+ActiveAdmin.register_page "Dashboard" do
+
+  menu :priority => 1, :label => 'Dashboard'
+
+  content :title => 'Dashboard' do
+    div :class => "blank_slate_container", :id => "dashboard_default_message" do
+      span :class => "blank_slate" do
+        span 'Welcome'
+        small 'This is the welcome message'
+      end
+    end
+
+    #   column do
+    #     panel "Info" do
+    #       para "Welcome to ActiveAdmin."
+    #     end
+    #   end
+    # end
+  end # content
+end
+
