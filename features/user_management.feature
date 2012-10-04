@@ -11,7 +11,7 @@ Feature: User management
   Scenario: Sign up
     Given I am on the sign up page
     When I fill in "Email" with "test@example.com"
-    And I fill in "Password" with "test"
-    And I fill in "Password Confirmation" with "test"
-    And I click "Sign Up"
+    And I fill in "Password" with "xyzzy191"
+    And I fill in "Password Confirmation" with "xyzzy191"
+    And I press "Sign Up"
     Then I should see "Packages"
