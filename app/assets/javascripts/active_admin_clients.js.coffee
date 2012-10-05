@@ -98,22 +98,23 @@ showClient = (panel)->
     $(panel).html( html )
 
 window.loadPayloads = ()->
-  $.getJSON '/admin/jobs/'+$('#payload_categories_select').val()+'/payloads_list.js', (data)->
+  $.getJSON '/admin/jobs/'+$('#payload_categories_select').val()+'/payload_list.js', (data)->
     html = '<ul id="payload_list_ul">'
     $.each data, (i,e)->
-      html += '<li class="ui-state-default" data-payload-id="'+e['id']+'">'+e['name']+'</li>'
+      html += '<li class="ui-state-default" data-payload-id="'+e+'">'+e+'</li>'
     html += '</ul>'
     $('#payload_list_container').html(html)
     $('#payload_list_ul > li').click (e)->
       window.assign_payload = $(e.target).attr('data-payload-id')
-      $('#assign_payload').dialog( "open" )
+      $('#assign_payload').dialog("open")
 
 window.startPayloads = () ->
   # Setup Payload Categories
   $.getJSON '/admin/jobs/payloads_categories_list.js', (data)->
+    console.log(data)
     html = '<select id="payload_categories_select" onchange="window.loadPayloads();">'
     $.each data, (i,e)->
-      html += '<option value="'+e['id']+'">'+e['name']+'</option>'
+      html += '<option value="'+e+'">'+e+'</option>'
     html += '</select><div id="payload_list_container"></div><br />'
     $('#payload_list').html(html)
     window.loadPayloads()
@@ -176,7 +177,7 @@ window.startPayloads = () ->
         obj = {}
         obj['table']          = window.current_tab
         obj['name']           = $('#job_name').val()
-        obj['data_generator']          = $('#job_data_generator').val()
+        obj['data_generator'] = $('#job_data_generator').val()
         obj['status']         = $('#job_status').val()
         obj['status_message'] = $('#job_status_message').val()
         obj['position']       = $('#job_position').val()
@@ -192,20 +193,24 @@ window.startPayloads = () ->
         $( this ).dialog( "close" )
       Cancel: ()->
         $( this ).dialog( "close" )
-  
+
   $('#assign_payload').dialog
     autoOpen: false,
     show: "blind",
     hide: "explode"
+    modal: true
     buttons:
-      Ok: ()->
+      'Ok': ()->
+        console.log "OK"
         $.ajax
-          url: '/admin/jobs/'+window.assign_payload+'/create_job.js?business_id='+window.business_id,
+          url: "/admin/jobs/#{window.assign_payload}/create_job.js?business_id=#{window.business_id}&category=#{$('#payload_categories_select').val()}"
           type: 'POST',
           success: ( response ) ->
+            console.log(response)
             $('#assign_payload').dialog( "close" )
             window.reloadView()
-      Cancel: ()->
+      'Cancel': ()->
+        console.log "close"
         $( this ).dialog( "close" )
 
   $('#view_booboo').dialog

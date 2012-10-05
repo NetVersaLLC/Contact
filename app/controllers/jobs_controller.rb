@@ -33,9 +33,9 @@ class JobsController < ApplicationController
       format.json { render json: {:error => 'Not Found'}, status: :not_found}
       return
     end
-    @job = Job.new
+    @job             = Job.new
     @job.business_id = @business.id
-    @job.user_id = current_user.id
+    @job.user_id     = current_user.id
 
     respond_to do |format|
       if @job.save
@@ -48,7 +48,7 @@ class JobsController < ApplicationController
 
   def update
     @job = Job.find(params[:id])
-    unless @job.user_id == current_user.id
+    unless @job.business.user_id == current_user.id
       redirect_to '/', :status => 403
     else
       if params[:status] == 'success'

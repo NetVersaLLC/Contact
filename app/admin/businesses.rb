@@ -5,6 +5,9 @@ ActiveAdmin.register Business do
     column :business_name do |v|
       link_to v.business_name, "/admin/client_manager?business_id=#{v.id}"
     end
+    column :business_name do |v|
+      v.id
+    end
     column :company_website do |v|
       link_to v.company_website, v.company_website
     end
