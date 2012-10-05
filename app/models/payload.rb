@@ -39,11 +39,15 @@ class Payload
     @payload        = nil
     @data_generator = nil
 
+    STDERR.puts "Site: #{site}"
+    STDERR.puts "Payload: #{payload}"
+
     sites = Rails.root.join('sites')
 
     begin
       @shared = File.open( sites.join(@site_dir, 'shared.rb') ).read
-    rescue
+    rescue Exception => e
+      STDERR.puts "Shared: #{e}"
     end
 
     begin
@@ -51,7 +55,8 @@ class Payload
       if File.exists? @data_generator_file
         @data_generator = File.open(@data_generator_file).read
       end
-    rescue
+    rescue Exception => e
+      STDERR.puts "Data generator: #{e}"
     end
 
     begin
@@ -59,15 +64,17 @@ class Payload
       if File.exists? @ready_file
         @ready = File.open(@ready_file).read
       end
-    rescue
+    rescue Exception => e
+      STDERR.puts "Ready: #{e}"
     end
 
     begin
       @payload_file = sites.join(@site_dir, @payload_dir, 'client_script.rb')
       if File.exists? @payload_file
-        @payload = File.open(@paload_file).read
+        @payload = File.open(@payload_file).read
       end
-    rescue
+    rescue Exception => e
+      STDERR.puts "Payload: #{e}"
     end
   end
 end

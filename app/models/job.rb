@@ -11,8 +11,6 @@ class Job < ActiveRecord::Base
     :presence => true
   validates :payload,
     :presence => true
-  validates :data_generator,
-    :presence => true
   validates :business_id,
     :presence => true
 
@@ -48,7 +46,6 @@ class Job < ActiveRecord::Base
         else
           # Reap a stalled/failed job
           @job.with_lock do
-            @job.wait           = false
             @job.status         = TO_CODE[:error]
             @job.status_message = 'Job never returned results.'
             @job.save
@@ -60,7 +57,6 @@ class Job < ActiveRecord::Base
         @job.with_lock do
           @job.status         = TO_CODE[:running]
           @job.status_message = 'Starting job'
-          @job.wait           = true
           @job.waited_at      = Time.now
           @job.save
         end
@@ -105,6 +101,7 @@ class Job < ActiveRecord::Base
   def is_now(klass)
     obj = klass.create do |o|
       o.name           = self.name
+      o.business_id    = self.business_id
       o.data_generator = self.data_generator
       o.status         = self.status
       o.payload        = self.payload

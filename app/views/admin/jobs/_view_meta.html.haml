@@ -1,8 +1,32 @@
-= semantic_form_for(@job) do |f|
-  = f.inputs "Job Details" do
-    = f.input :name
-    = f.input :data_generator
-    = f.input :status
-    = f.input :status_message
-    = f.input :wait
-    = f.input :position
+%form#edit_job_61.formtastic.job{"accept-charset" => "UTF-8", :action => "/jobs/61", :method => "post", :novalidate => "novalidate"}
+  %div{:style => "margin:0;padding:0;display:inline"}
+    %input{:name => "utf8", :type => "hidden", :value => "✓"}
+    %input{:name => "_method", :type => "hidden", :value => "put"}
+    %input{:name => "authenticity_token", :type => "hidden", :value => "eJuJutmv7eR/ZWz+AprC9akcGKK65lIp0pfySq9r51c="}/
+  %fieldset.inputs
+    %legend Job Details
+    #job_name_input.string.control-group.optional.stringish
+      %label.control-label{:for => "job_name"} Name
+      .controls
+        %input#job_name{:maxlength => "255", :name => "job[name]", :type => "text", :value => @job['name']}
+    #job_data_generator_input.string.control-group.optional.stringish
+      %label.control-label{:for => "job_data_generator"} Data generator
+      .controls
+        %input#job_data_generator{:maxlength => "255", :name => "job[data_generator]", :type => "text", :value => @job['data_generator']}
+    #job_status_input.number.control-group.required.numeric.stringish
+      %label.control-label{:for => "job_status"}
+        Status
+        %abbr{:title => "required"} *
+      .controls
+        %input#job_status{:name => "job[status]", :step => "any", :type => "number", :value => @job['status']}
+    #job_status_message_input.string.control-group.required.stringish
+      %label.control-label{:for => "job_status_message"}
+        Status message
+        %abbr{:title => "required"} *
+      .controls
+        %input#job_status_message{:maxlength => "255", :name => "job[status_message]", :type => "text", :value => @job['status_message']}
+    #job_position_input.number.control-group.optional.numeric.stringish
+      %label.control-label{:for => "job_position"} Position
+      .controls
+        %input#job_position{:name => "job[position]", :step => "any", :type => "number", :value => @job['position']}
+

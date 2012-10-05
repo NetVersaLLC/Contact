@@ -1,0 +1,6 @@
+#
+# Sample
+#
+
+class Sample
+end

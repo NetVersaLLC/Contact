@@ -22,14 +22,17 @@ ActiveAdmin.register Job do
     @jobs = Job.where('business_id = ? AND status IN (0,1)', params[:business_id]).order(:position)
     render json: @jobs
   end
+
   collection_action :failed_jobs, :method => :get do
     @jobs = FailedJob.where('business_id = ?', params[:business_id]).order(:position)
     render json: @jobs
   end
+
   collection_action :completed_jobs, :method => :get do
     @jobs = CompletedJob.where('business_id = ?', params[:business_id]).order(:position)
     render json: @jobs
   end
+
   member_action :view_payload, :method => :get do
     if params[:table] == 'jobs'
       job = Job.find(params[:id])
@@ -40,6 +43,7 @@ ActiveAdmin.register Job do
     end
     render :inline => CodeRay.scan(job.payload, :ruby).page
   end
+
   member_action :view_meta, :method => :get do
     if params[:table] == 'jobs'
       @job = Job.find(params[:id])
@@ -50,6 +54,7 @@ ActiveAdmin.register Job do
     end
     render :partial => '/admin/jobs/view_meta'
   end
+
   member_action :update_job, :method => :put do
     if params[:table] == 'jobs'
       @job = Job.find(params[:id])
@@ -61,17 +66,13 @@ ActiveAdmin.register Job do
     [:name, :data_generator, :status, :status_message, :position].each do |em|
       @job[em] = params[em]
     end
-    if params[:wait] == 'true'
-      @job.wait = 1
-    else
-      @job.wait = nil
-    end
     if @job.save
       render json: true
     else
       render json: false
     end
   end
+
   member_action :delete_job, :method => :delete do
     job = Job.find(params[:id])
     if job.delete
@@ -80,6 +81,7 @@ ActiveAdmin.register Job do
       render json: false
     end
   end
+
   member_action :create_job, :method => :post do
     payload = Payload.new( params[:category], params[:id] )
     job = Job.inject(params[:business_id], payload.payload, payload.data_generator, payload.ready)
@@ -87,6 +89,7 @@ ActiveAdmin.register Job do
     job.save
     render json: true
   end
+
   member_action :reorder, :method => :post do
     business = Business.find(params[:id])
     if params[:table] == 'jobs'
