@@ -1,7 +1,7 @@
 class DownloadsController < ApplicationController
   def download
     @business = Business.find(params[:business_id])
-    if @business.user_id != current_user.id
+    if current_user.nil? or @business.user_id != current_user.id
       redirect_to '/'
     else
       @download         = Download.new

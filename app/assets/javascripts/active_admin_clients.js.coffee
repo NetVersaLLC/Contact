@@ -19,6 +19,7 @@ window.buildTable = (data) ->
     html += '<span class="ui-icon ui-icon-trash delete_job" title="Delete Job"></span>'
     html += '<span class="ui-icon ui-icon-script view_payload" title="View Payload"></span>'
     html += '<span class="ui-icon ui-icon-tag view_meta" title="View Meta"></span>'
+    html += '<span class="ui-icon icon-arrow-left rerun" title="Rerun Job"></span>'
     html += '</li>'
   html
 

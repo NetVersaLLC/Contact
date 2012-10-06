@@ -31,6 +31,11 @@ class Payload
     all
   end
 
+  def self.start(name)
+    site, payload = *name.split("/")
+    inst = new(site,payload)
+  end
+
   def initialize(site, payload)
     @site_dir       = site
     @payload_dir    = payload
@@ -41,8 +46,15 @@ class Payload
 
     STDERR.puts "Site: #{site}"
     STDERR.puts "Payload: #{payload}"
+    raise ArgumentError, "Site or payload cannot be nil" if site == nil or payload == nil
 
     sites = Rails.root.join('sites')
+    unless File.exists?( sites.join(site) )
+      raise ArgumentError, "Site does not exist: #{site}"
+    end
+    unless File.exists?( sites.join(site,payload) )
+      raise ArgumentError, "Payload does not exist: #{site}/#{payload}"
+    end
 
     begin
       @shared = File.open( sites.join(@site_dir, 'shared.rb') ).read
