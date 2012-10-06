@@ -14,3 +14,5 @@ else
   STDERR.puts "Executing setup: #{tmpexe}"
   system tmpexe
 end
+
+true

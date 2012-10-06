@@ -11,3 +11,5 @@ end
 solution = CAPTCHA.solve captcha, 'manual'
 
 STDERR.puts "Solution: #{solution}"
+
+true

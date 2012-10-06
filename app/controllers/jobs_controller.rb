@@ -25,17 +25,22 @@ class JobsController < ApplicationController
   def create
     @business = Business.find(params[:business_id])
     if @business.user_id != current_user.id
-      format.json { render json: {:error => 'No permissions'}, status: :unprocessable_entity }
+      respond_to do |format|
+        format.json { render json: {:error => 'No permissions'}, status: :unprocessable_entity }
+      end
       return
     end
-    payload = Payload.where(:name => params[:name])
-    if payload.nil?
-      format.json { render json: {:error => 'Not Found'}, status: :not_found}
+    payload = Payload.start(params[:name])
+    if payload == nil
+      respond_to do |format|
+        format.json { render json: {:error => 'Not Found'}, status: :not_found}
+      end
       return
     end
-    @job             = Job.new
-    @job.business_id = @business.id
-    @job.user_id     = current_user.id
+
+    @job = Job.inject(params[:business_id], payload.payload, payload.data_generator, payload.ready)
+    @job.name        = params[:name]
+    @job.save
 
     respond_to do |format|
       if @job.save

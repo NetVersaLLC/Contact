@@ -115,4 +115,15 @@ class Job < ActiveRecord::Base
     self.delete
     obj
   end
+
+  def self.get(table, id)
+    if table == 'jobs' or table == nil
+      @job = Job.find(id)
+    elsif table == 'failed_jobs'
+      @job = FailedJob.find(id)
+    elsif table == 'completed_jobs'
+      @job = CompletedJob.find(id)
+    end
+    @job
+  end
 end
