@@ -12,7 +12,7 @@ namespace :yelp do
     #    c.write body
     #  end
     #end
-    body = File.open(Rails.root.join("doc", "yelp_categories.json"), 'r').read
+    body = File.open(Rails.root.join("categories", "yelp", "yelp_categories.json"), 'r').read
     categories = JSON.parse(body)
     root = YelpCategory.create(:name => 'root')
     categories.each do |row|
