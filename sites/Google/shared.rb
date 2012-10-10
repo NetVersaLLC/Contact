@@ -1,12 +1,3 @@
-require 'rubygems'
-begin
-	require 'watir'
-rescue LoadError
-	require 'watir-webdriver'
-end
-require 'nokogiri'
-
-
 def browser_instance
 	
 	@browser_type = :ie

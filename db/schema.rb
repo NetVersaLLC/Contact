@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120930221506) do
+ActiveRecord::Schema.define(:version => 20121008205412) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email"
@@ -189,6 +189,7 @@ ActiveRecord::Schema.define(:version => 20120930221506) do
     t.string   "category2"
     t.string   "category3"
     t.integer  "subscription_id"
+    t.date     "contact_birthday"
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
@@ -561,6 +562,31 @@ ActiveRecord::Schema.define(:version => 20120930221506) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["parent_id"], :name => "index_users_on_parent_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+
+  create_table "yahoo_categories", :force => true do |t|
+    t.integer  "rcatid"
+    t.string   "catname"
+    t.integer  "subcatid"
+    t.string   "subcatname"
+    t.boolean  "subprofcontact"
+    t.string   "synonyms"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  create_table "yahoos", :force => true do |t|
+    t.integer  "business_id"
+    t.integer  "yahoo_category_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "yahoos", ["business_id"], :name => "index_yahoos_on_business_id"
+  add_index "yahoos", ["email"], :name => "index_yahoos_on_email"
+  add_index "yahoos", ["yahoo_category_id"], :name => "index_yahoos_on_yahoo_category_id"
 
   create_table "yellow_bots", :force => true do |t|
     t.string   "username"

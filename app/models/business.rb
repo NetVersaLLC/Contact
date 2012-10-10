@@ -1,12 +1,11 @@
 class Business < ActiveRecord::Base
-
   has_attached_file :logo, :styles => { :thumb => "100x100>" }
-  has_many   :jobs, :order => "position"
-  belongs_to :user
-  belongs_to :subscription
+  has_many          :jobs, :order => "position"
+  belongs_to        :user
+  belongs_to        :subscription
 
   attr_accessible :business_name, :corporate_name, :duns_number, :sic_code
-  attr_accessible :contact_gender, :contact_prefix, :contact_first_name, :contact_middle_name, :contact_last_name
+  attr_accessible :contact_gender, :contact_prefix, :contact_first_name, :contact_middle_name, :contact_last_name, :contact_birthday
   attr_accessible :local_phone, :alternate_phone, :toll_free_phone, :mobile_phone, :mobile_appears, :fax_number
   attr_accessible :address, :address2, :city, :state, :zip
   attr_accessible :open_24_hours, :open_by_appointment
@@ -41,12 +40,18 @@ class Business < ActiveRecord::Base
   attr_accessible :yelps_attributes
   has_many :yelps, :dependent => :destroy
   accepts_nested_attributes_for :yelps, :allow_destroy => true
+  
+  add_nested :yahoos
+  attr_accessible :yahoos_attributes
+  has_many :yahoos, :dependent => :destroy
+  accepts_nested_attributes_for :yahoos, :allow_destroy => true
 
   add_nested :map_quests
   attr_accessible :map_quests_attributes
   has_many :map_quests, :dependent => :destroy
   accepts_nested_attributes_for :map_quests, :allow_destroy => true
 
+  add_nested :foursquares
   attr_accessible :foursquares_attributes
   has_many :foursquares, :dependent => :destroy
   accepts_nested_attributes_for :foursquares, :allow_destroy => true
@@ -115,8 +120,16 @@ class Business < ActiveRecord::Base
   def self.prefix_list
     ['Mr.', 'Mrs.', 'Miss.', 'Ms.', 'Dr.', 'Prof.']
   end
-  def make_contact
-    [first_name, middle_name, last_name].join(" ").gsub(/\s+/, ' ')
+  def name
+    [self.first_name, self.middle_name, self.last_name].join(" ").gsub(/\s+/, ' ')
+  end
+  def state_name
+    states = {"AL"=>"Alabama", "AK"=>"Alaska", "AZ"=>"Arizona", "AR"=>"Arkansas", "CA"=>"California", "CO"=>"Colorado", "CT"=>"Connecticut", "DE"=>"Delaware", "FL"=>"Florida", "GA"=>"Georgia", "HI"=>"Hawaii", "ID"=>"Idaho", "IL"=>"Illinois", "IN"=>"Indiana", "IA"=>"Iowa", "KS"=>"Kansas", "KY"=>"Kentucky", "LA"=>"Louisiana", "ME"=>"Maine", "MD"=>"Maryland", "MA"=>"Massachusetts", "MI"=>"Michigan", "MN"=>"Minnesota", "MS"=>"Mississippi", "MO"=>"Missouri", "MT"=>"Montana", "NE"=>"Nebraska", "NV"=>"Nevada", "NH"=>"New Hampshire", "NJ"=>"New Jersey", "NM"=>"New Mexico", "NY"=>"New York", "NC"=>"North Carolina", "ND"=>"North Dakota", "OH"=>"Ohio", "OK"=>"Oklahoma", "OR"=>"Oregon", "PA"=>"Pennsylvania", "RI"=>"Rhode Island", "SC"=>"South Carolina", "SD"=>"South Dakota", "TN"=>"Tennessee", "TX"=>"Texas", "UT"=>"Utah", "VT"=>"Vermont", "VA"=>"Virginia", "WA"=>"Washington", "WV"=>"West Virginia", "WI"=>"Wisconsin", "WY"=>"Wyoming"}
+    unless states[ self.state ].nil?
+      states[ self.state ]
+    else
+      nil
+    end
   end
 
 
