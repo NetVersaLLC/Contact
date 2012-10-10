@@ -19,18 +19,18 @@ phone
 
 =end
 
-business = { 'email' => '', # Actual gmail email
-		'pass' => '', # Actual gmail pasword
-		'owner' => 'Sir Apple Boss',
-		'first name' => 'Sir Apple',
-		'last name' => 'Boss',
-		# NOTE business name didn't accept this symbol '(' on search, but did for registering business
-		'business' => 'Apple Newton', # Business name for google can't be longer than 50 characters
-		'acceptable_alternates' => ["apple.in.sky","apples.are.yummy","apples.go.round"],
-		'phone' => '(540)622-2342',
-		'address' => '101 apple orchard ln.',
-		'zipcode' => '22601',
-		'zip' => '22601',
-		'country' => 'United States'
+business = {
+  'email'                 => '', # Actual gmail email
+  'pass'                  => '', # Actual gmail pasword
+  'owner'                 => 'Sir Apple Boss',
+  'first name'            => 'Sir Apple',
+  'last name'             => 'Boss',
+  'business'              => 'Apple Newton', # Business name for google can't be longer than 50 characters
+  'acceptable_alternates' => ["apple.in.sky","apples.are.yummy","apples.go.round"],
+  'phone'                 => '(540)622-2342',
+  'address'               => '101 apple orchard ln.',
+  'zipcode'               => '22601',
+  'zip'                   => '22601',
+  'country'               => 'United States'
 }
 #=end

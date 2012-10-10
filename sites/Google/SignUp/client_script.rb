@@ -1,8 +1,4 @@
-eval File.open('../shared.rb').read
-
-
 def signup_generic( business )
-
 	site = 'https://accounts.google.com/SignUp'
 	
 	if not @browser.respond_to?(:htmls)

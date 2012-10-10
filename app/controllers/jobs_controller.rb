@@ -30,6 +30,7 @@ class JobsController < ApplicationController
       end
       return
     end
+
     payload = Payload.start(params[:name])
     if payload == nil
       respond_to do |format|
@@ -38,8 +39,8 @@ class JobsController < ApplicationController
       return
     end
 
-    @job = Job.inject(params[:business_id], payload.payload, payload.data_generator, payload.ready)
-    @job.name        = params[:name]
+    @job = Job.inject(params[:business_id], payload.shared + "\n" + payload.payload, payload.data_generator, payload.ready)
+    @job.name = params[:name]
     @job.save
 
     respond_to do |format|
