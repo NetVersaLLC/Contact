@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121011150714) do
+ActiveRecord::Schema.define(:version => 20121011201205) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -101,8 +101,9 @@ ActiveRecord::Schema.define(:version => 20121011150714) do
     t.text     "secrets"
     t.string   "status"
     t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.integer  "bing_category_id"
   end
 
   add_index "bings", ["business_id"], :name => "index_bings_on_business_id"
@@ -313,8 +314,9 @@ ActiveRecord::Schema.define(:version => 20121011150714) do
     t.text     "secrets"
     t.string   "status"
     t.datetime "force_update"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "google_category_id"
   end
 
   add_index "googles", ["business_id"], :name => "index_googles_on_business_id"
