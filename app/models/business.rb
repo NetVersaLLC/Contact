@@ -46,6 +46,11 @@ class Business < ActiveRecord::Base
   has_many :yahoos, :dependent => :destroy
   accepts_nested_attributes_for :yahoos, :allow_destroy => true
 
+  add_nested :bings
+  attr_accessible :bings_attributes
+  has_many :bings, :dependent => :destroy
+  accepts_nested_attributes_for :bings, :allow_destroy => true
+
   add_nested :map_quests
   attr_accessible :map_quests_attributes
   has_many :map_quests, :dependent => :destroy

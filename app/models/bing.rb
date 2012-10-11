@@ -1,25 +1,25 @@
 class Bing < ClientData
   attr_accessible :email
-  virtual_attr_accessor :password
+  virtual_attr_accessor :password, :secret_answer
   validates :email,
             :presence => true,
             :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
   validates :password,
             :presence => true
 
-  def make_password
+  def self.make_password
     SecureRandom.urlsafe_base64(rand()*6 + 6)
   end
 
-  def make_secret_answer
+  def self.make_secret_answer
     Faker::Name.first_name
   end
 
-  def get_category(business)
+  def self.get_category(business)
     nil
   end
 
-  def make_payments(business)
+  def self.make_payments(business)
     methods = {
       'cash'       => 'Cash',
       'checks'     => 'Checks',

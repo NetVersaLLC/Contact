@@ -46,4 +46,18 @@ class ClientData < ActiveRecord::Base
   def data(business_id)
     {}
   end
+
+  def self.create_or_update(business, *args)
+    inst = business.send(self.to_s.tableize.to_sym).first
+    if inst == nil
+      inst = new
+      inst.business_id = business.id
+      inst.save
+    end
+    args[0].each_key do |col|
+      inst.send("#{col}=".to_sym, args[0][col])
+    end
+    inst.save!
+    inst
+  end
 end

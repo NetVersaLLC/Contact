@@ -14,7 +14,6 @@
 ActiveRecord::Schema.define(:version => 20121010162928) do
 
   create_table "accounts", :force => true do |t|
-    t.integer  "business_id"
     t.string   "email"
     t.string   "username"
     t.integer  "port"
@@ -23,10 +22,10 @@ ActiveRecord::Schema.define(:version => 20121010162928) do
     t.datetime "force_update"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.integer  "business_id"
     t.string   "connection_type"
   end
 
-  add_index "accounts", ["business_id"], :name => "index_accounts_on_business_id"
   add_index "accounts", ["email"], :name => "index_accounts_on_email"
 
   create_table "active_admin_comments", :force => true do |t|
@@ -364,7 +363,7 @@ ActiveRecord::Schema.define(:version => 20121010162928) do
   create_table "jobs", :force => true do |t|
     t.integer  "business_id"
     t.string   "name"
-    t.string   "model"
+    t.string   "data_generator"
     t.integer  "status"
     t.string   "status_message"
     t.text     "payload"
@@ -376,7 +375,7 @@ ActiveRecord::Schema.define(:version => 20121010162928) do
     t.text     "ready"
   end
 
-  add_index "jobs", ["business_id"], :name => "index_jobs_on_business_id"
+  add_index "jobs", ["business_id"], :name => "index_jobs_on_user_id"
   add_index "jobs", ["status"], :name => "index_jobs_on_status"
 
   create_table "judys_books", :force => true do |t|
@@ -460,7 +459,7 @@ ActiveRecord::Schema.define(:version => 20121010162928) do
   end
 
   create_table "payloads", :force => true do |t|
-    t.text     "data_generator"
+    t.string   "data_generator"
     t.string   "name"
     t.text     "payload"
     t.integer  "position"

@@ -15,6 +15,10 @@ Contact::Application.routes.draw do
   resources :results
   resources :tasks
   resources :jobs
+  post '/bing/save_hotmail', :controller => :bing, :action => :save_hotmail
+  post '/yahoo/save_email',  :controller => :yahoo, :action => :save_email
+  post '/google/save_email', :controller => :google, :action => :save_email
+
   get "yelps/check_email"
   devise_for :users, :controllers => { :registrations => "registrations" }
 

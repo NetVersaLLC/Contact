@@ -26,35 +26,15 @@ def enter_personal_contact_info( business )
   @browser.div( :class, 'LiveUI_Area_Bing_Portal_Announcement_Subscription' ).div( :class, 'LiveUI_Field_Flag' ).div().click
   @browser.div( :text, 'Accept' ).click
 
-  # TODO: assert form disappeared
-
 end
 
 sign_in( business )
 search_for_business( business )
 add_new_listing( business )
 enter_personal_contact_info( business )
-enter_business_portal_details( business )
-enter_business_portal_more_details( business )
 
-# Refactor to separate functions
-Watir::Wait::until do
-  @browser.div( :class, 'LiveUI_Area_Profile_Title' ).exists?
+if @chained
+  ContactJob.start("Bing/Update")
 end
-@browser.div( :text, 'Next' ).click # skip profile tab
-
-enter_business_portal_mobile()
-
-Watir::Wait::until do
-  @browser.div( :text, 'PHOTOS' ).exists?
-end
-@browser.div( :text, 'Next' ).click # skip photos tab
-
-Watir::Wait::until do
-  @browser.div( :class, 'LiveUI_Area_Publish_Title' ).exists?
-end
-@browser.div( :text, 'Next' ).click # skip preview tab
-
-@browser.div( :text, 'Verify' ).click
 
 true

@@ -1,4 +1,5 @@
 data = {
-  :email => business.yahoos.first.email,
+  :email    => business.yahoos.first.email,
   :password => business.yahoos.first.password
 }
+data
