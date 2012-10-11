@@ -1,26 +1,3 @@
-def browser_instance
-	
-	@browser_type = :ie
-
-	if Gem.loaded_specs.has_key?('watir-webdriver')
-		@browser_type = :ff
-		puts "Firefox Browser loaded, using watir-webdriver."
-	else
-		@browser_type = :ie
-		puts "Internet Explorer Browser loaded, using watir."
-	end
-
-	# browser_start(Watir Browser Object) : INTERNAL FUNCTION : Select which browser you want to open, and open it.
-	if not @browser.respond_to?(:htmls)
-		if @browser_type == :ie
-			@browser = Watir::IE.new
-		else
-			@browser = Watir::Browser.new @browser_type
-		end
-	end
-end
-
-
 def retryable(options = {}, &block)
 	opts = { :tries => 1, :on => Exception }.merge(options)
 
@@ -44,11 +21,30 @@ def watir_must( &block )
 	end
 end
 
-def google_error?
-    watir_must do
-	if @browser.h1(:text, "Problem loading Google+").exists?
-		fail StandardError.new('Problem loading Google+ in google_error?')
+def login ( business )
+	site = 'https://plus.google.com/local'
+	
+	watir_must do
+		@browser.goto site
 	end
-	return false
-    end
+	
+	if !!@browser.html['Recommended places']
+		return true # Already logged in (IE/watir behaviour)
+	end
+	
+	page = Nokogiri::HTML(@browser.html)
+	
+	if not page.at_css('div.signin-box') # Check for <div class="signin-box">
+		watir_must do @browser.link(:text => 'Sign in').click; end
+	end
+	
+  if !business['email'].empty? and !business['pass'].empty? # Watir::Exception::UnknownObjectException
+    @browser.text_field(:id, "Email").set(business['email'])
+    @browser.text_field(:id, "Passwd").set(business['pass'])
+    @browser.button.focus
+    @browser.button.send_keys :return
+  else
+    raise StandardError.new("You must provide both a username AND password for gplus_login!")
+  end
 end
+

@@ -18,7 +18,7 @@ def sign_up( business )
 
   sleep 2
   @browser.select_list( :id, 'iSQ' ).option( :index, 1 ).select
-  @browser.text_field( :id, 'iAltEmail' ).set    business[ 'email' ]
+  # @browser.text_field( :id, 'iAltEmail' ).set    business[ 'email' ]
   @browser.text_field( :id, 'iSA' ).set          business[ 'secret_answer' ]
   @browser.select_list( :id, 'iCountry' ).select business[ 'country' ]
   @browser.text_field( :id, 'iZipCode' ).set     business[ 'zip' ]
@@ -39,9 +39,16 @@ def sign_up( business )
   end until @browser.link( :text, 'Continue to Hotmail' ).exists?
 
   business[ 'hotmail' ] = email_name + '@hotmail.com'
-  @browser.link( :text, 'Continue to Hotmail' ).click
+
+  RestClient.post "#{@host}/bing/save_hotmail?auth_token=#{@key}&business_id=#{@bid}", :email => business['hotmail'], :password => business['password'], :secret_answer => business['secret_answer']
 end
 
 @browser = Watir::Browser.new
 @browser.goto( 'https://signup.live.com/' )
 sign_up( business )
+
+if @chained
+  ContactJob.start("Bing/CheckListing")
+end
+
+true
