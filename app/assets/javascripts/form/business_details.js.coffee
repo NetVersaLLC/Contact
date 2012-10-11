@@ -21,3 +21,4 @@ $(document).ready ->
   $('#business_address').after('<button class="btn btn-info" onclick="window.openMap();" id="mapit">Map</button>')
   $('#mapit').click (event)->
     event.preventDefault()
+  $('#business_contact_birthday').datepicker()

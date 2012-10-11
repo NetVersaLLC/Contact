@@ -27,3 +27,13 @@ def search_for_business( business )
   @browser.div( :class , 'LiveUI_Area_Search_Button LiveUI_Short_Button_Medium' ).click
 end
 
+def goto_listing( business )
+  @browser.goto( 'http://www.bing.com/businessportal/' )
+  @browser.link( :text , 'Sign In Here').click
+
+  Watir::Wait::until do
+    @browser.div( :text, 'LISTINGS' ).exists?
+  end
+
+  @browser.div( :class, 'LiveUI_Area_Items_Repeating' ).div( :text, business['name'] ).click
+end
