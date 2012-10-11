@@ -50,6 +50,11 @@ class Business < ActiveRecord::Base
   attr_accessible :bings_attributes
   has_many :bings, :dependent => :destroy
   accepts_nested_attributes_for :bings, :allow_destroy => true
+  
+  add_nested :googles
+  attr_accessible :googles_attributes
+  has_many :googles, :dependent => :destroy
+  accepts_nested_attributes_for :googles, :allow_destroy => true
 
   add_nested :map_quests
   attr_accessible :map_quests_attributes
@@ -94,11 +99,13 @@ class Business < ActiveRecord::Base
   validates :geographic_areas,
     :presence => true
   validates :year_founded,
-    :allow_blank => true,
-    :format => { :with => /^\d\d\d\d$/ }
+    :presence => true
   validates :fan_page_url,
     :allow_blank => true,
     :format => { :with => /^https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?$/ }
+  validates :contact_birthday,
+    :presence => true,
+    :format => { :with => /^\d\d\/\d\d\/\d\d\d\d$/ }
 
   after_initialize :set_times
   def set_times
@@ -299,5 +306,8 @@ class Business < ActiveRecord::Base
   def checkin
     self.client_checkin = Time.now
     save
+  end
+  def birthday
+    self.contact_birthday.to_date
   end
 end
