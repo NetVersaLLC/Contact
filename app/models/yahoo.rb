@@ -4,14 +4,8 @@ class Yahoo < ClientData
   belongs_to            :yahoo_category
 
   validates :email,
-            :presence => true,
+            :allow_blank => true,
             :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
-  validates :password,
-            :presence => true
-  validates :secret1,
-            :presence => true
-  validates :secret2,
-            :presence => true
 
   def self.make_password
     SecureRandom.urlsafe_base64(rand()*6 + 6)

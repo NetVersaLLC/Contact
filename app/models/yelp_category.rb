@@ -1,6 +1,7 @@
 class YelpCategory < ActiveRecord::Base
   acts_as_tree :order => :name
   belongs_to :google_category
+  has_many :yelp
   def to_list
     res = []
     anc = self.ancestors
