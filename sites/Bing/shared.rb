@@ -2,9 +2,14 @@ def solve_captcha
   puts 'Solve captcha'
 
   image = "#{Dir.tmpdir}/bing_captcha.png"
-  @browser.image( :src, /HIPImage/ ).save( image )
+  obj = @browser.image( :xpath, "//div/table/tbody/tr/td/img[1]" )
+  puts "obj: #{obj.name}"
+  puts "spect: #{obj.inspect}"
+  puts "width: #{obj.width}"
 
-  CAPTCHA.solve file_path, :manual
+  CAPTCHA.solve obj, :manual
+  print "Solve captcha: "
+  gets
 end
 
 def sign_in( business )

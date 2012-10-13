@@ -18,8 +18,12 @@ def sign_up_personal( business )
 
   # .. select email
   @browser.text_field( :id => 'yahooid' ).clear # shows suggestions list; [click, flash]
-  Watir::Wait::until do @browser.h5( :text => 'Here are some suggestions...' ).exists? end
-  @browser.div( :id => 'yidsuggestion' ).link.click
+  @browser.execute_script("document.getElementById('yahooid').focus();")
+
+  Watir::Wait::until do
+    @browser.element(:xpath, '//ol[@id="yidSug"]/li[1]/a').exists?
+  end
+  @browser.element(:xpath, '//ol[@id="yidSug"]//a[1]').click
 
   # .. remember the selected email to click in account confirmation email later
   Watir::Wait::until do @browser.span( :id => 'choosenyid' ).exists? end
@@ -31,16 +35,18 @@ def sign_up_personal( business )
   @browser.text_field( :id => 'passwordconfirm' ).set business[ 'password' ]
 
   # .. skip alternate email
-  @browser.select_list( :id => 'secquestion' ).option( :index => 1 ).select
-  @browser.text_field( :id => 'secquestionanswer' ).set business[ 'secret_answer_1' ]
-  @browser.select_list( :id => 'secquestion2' ).option( :index => 1 ).select
-  @browser.text_field( :id => 'secquestionanswer2' ).set business[ 'secret_answer_2' ]
+  @browser.select_list( :id, 'secquestion' ).set 'Where did you meet your spouse?'
+  @browser.text_field( :id, 'secquestionanswer' ).set business[ 'secret_answer_1' ]
+  @browser.select_list( :id, 'secquestion2' ).set 'Where did you spend your childhood summers?'
+  @browser.text_field( :id, 'secquestionanswer2' ).set business[ 'secret_answer_2' ]
 
   file = Tempfile.new('image.png')
-  @browser.image(:id, 'captcha').save file.path
-  text = CAPTCHA.solve file.path, :yahoo
-  @browser.text_field( :id => 'captcha_text' ).set text
+  @browser.image(:class, 'captchaImage').save file.path
+  text = CAPTCHA.solve file.path, :manual
+  @browser.text_field( :id => 'captchaV5Answer' ).set text
 
+  RestClient.post "#{@host}/yahoo/save_email?auth_token=#{@key}&business_id=#{@bid}", :email => business['business_email'], :password => business['password'], :secret1 => business['secret1'], :secret2 => business['secret2']
+  return
   # @browser.text_field( :id => 'captchaV5Answer' ).set 'Captcha'
   sleep 12
   @browser.button( :id => 'IAgreeBtn' ).click
