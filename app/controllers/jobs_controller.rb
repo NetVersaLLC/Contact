@@ -39,7 +39,7 @@ class JobsController < ApplicationController
       return
     end
 
-    @job = Job.inject(params[:business_id], payload.shared + "\n" + payload.payload, payload.data_generator, payload.ready)
+    @job = Job.inject(params[:business_id], payload.payload, payload.data_generator, payload.ready)
     @job.name = params[:name]
     @job.save
 

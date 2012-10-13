@@ -10,4 +10,5 @@ data[ 'birth_month' ]       = Date::MONTHNAMES[business.birthday.month]
 data[ 'birth_day' ]         = business.birthday.day
 data[ 'birth_year' ]        = business.birthday.year
 data[ 'gender' ]            = business.contact_gender
+data[ 'zip' ]               = business.zip
 data

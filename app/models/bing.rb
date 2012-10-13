@@ -11,7 +11,10 @@ class Bing < ClientData
   end
 
   def self.make_secret_answer
-    Faker::Name.first_name
+    begin
+      name = Faker::Name.first_name
+    end while name.length < 5
+    name
   end
 
   def get_category

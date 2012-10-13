@@ -1,4 +1,5 @@
 class BingController < ApplicationController
+  respond_to    :js
   def save_hotmail
     @business = Business.find(params[:business_id])
     if current_user.nil? or @business.user_id != current_user.id
@@ -9,5 +10,6 @@ class BingController < ApplicationController
                             :password      => params[:password],
                             :secret_answer => params[:secret_answer])
     end
+    respond_with({:status => :ok})
   end
 end

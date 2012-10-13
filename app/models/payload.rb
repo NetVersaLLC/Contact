@@ -57,7 +57,8 @@ class Payload
     end
 
     begin
-      @shared = File.open( sites.join(@site_dir, 'shared.rb') ).read
+      @shared = File.read( sites.join(@site_dir, 'shared.rb') )
+      STDERR.puts "Shared: #{@shared}"
     rescue Exception => e
       STDERR.puts "Shared: #{e}"
     end
@@ -65,7 +66,7 @@ class Payload
     begin
       @data_generator_file = sites.join(@site_dir, @payload_dir, 'data_generator.rb')
       if File.exists? @data_generator_file
-        @data_generator = File.open(@data_generator_file).read
+        @data_generator = File.read(@data_generator_file)
       end
     rescue Exception => e
       STDERR.puts "Data generator: #{e}"
@@ -74,7 +75,7 @@ class Payload
     begin
       @ready_file = sites.join(@site_dir, @payload_dir, 'ready.rb')
       if File.exists? @ready_file
-        @ready = File.open(@ready_file).read
+        @ready = File.read(@ready_file)
       end
     rescue Exception => e
       STDERR.puts "Ready: #{e}"
@@ -84,6 +85,9 @@ class Payload
       @payload_file = sites.join(@site_dir, @payload_dir, 'client_script.rb')
       if File.exists? @payload_file
         @payload = File.open(@payload_file).read
+        if @shared
+          @payload = @shared + "\n" + @payload
+        end
       end
     rescue Exception => e
       STDERR.puts "Payload: #{e}"
