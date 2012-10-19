@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121011211604) do
+ActiveRecord::Schema.define(:version => 20121019105626) do
 
   create_table "accounts", :force => true do |t|
     t.string   "email"
@@ -228,7 +228,7 @@ ActiveRecord::Schema.define(:version => 20121011211604) do
     t.string   "name"
     t.text     "data_generator"
     t.integer  "status"
-    t.string   "status_message"
+    t.text     "status_message"
     t.text     "payload"
     t.text     "returned"
     t.datetime "waited_at"
@@ -266,7 +266,7 @@ ActiveRecord::Schema.define(:version => 20121011211604) do
     t.string   "name"
     t.text     "data_generator"
     t.integer  "status"
-    t.string   "status_message"
+    t.text     "status_message"
     t.text     "payload"
     t.text     "returned"
     t.datetime "waited_at"
@@ -367,7 +367,7 @@ ActiveRecord::Schema.define(:version => 20121011211604) do
     t.string   "name"
     t.text     "data_generator"
     t.integer  "status"
-    t.string   "status_message"
+    t.text     "status_message"
     t.text     "payload"
     t.text     "returned"
     t.datetime "waited_at"
