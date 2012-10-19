@@ -5,7 +5,12 @@ class JobsController < ApplicationController
   def index
     @business = Business.find(params[:business_id])
     if @business.user_id != current_user.id
-      format.json { render json: {:error => 'No permissions'}, status: :unprocessable_entity }
+      respond_to do |format|
+        format.json {
+          render json: {:error => 'No permissions'},
+            status: :unprocessable_entity
+        }
+      end
       return
     end
     @business.checkin()
