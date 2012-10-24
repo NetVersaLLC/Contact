@@ -1,4 +1,4 @@
-class Job < ActiveRecord::Base
+class Job < JobBase
   belongs_to :business
 
   attr_accessible :payload, :data_generator, :status
@@ -96,24 +96,6 @@ class Job < ActiveRecord::Base
       j.data_generator = data_generator
       j.ready          = ready
     end
-  end
-
-  def is_now(klass)
-    obj = klass.create do |o|
-      o.name           = self.name
-      o.business_id    = self.business_id
-      o.data_generator = self.data_generator
-      o.status         = self.status
-      o.payload        = self.payload
-      o.returned       = self.returned
-      o.position       = self.position
-      o.waited_at      = self.waited_at
-      o.created_at     = self.created_at
-      o.updated_at     = self.updated_at
-      o.status_message = self.status_message
-    end
-    self.delete
-    obj
   end
 
   def self.get(table, id)

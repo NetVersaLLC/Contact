@@ -1,2 +1,2 @@
-class FailedJob < ActiveRecord::Base
+class FailedJob < JobBase
 end

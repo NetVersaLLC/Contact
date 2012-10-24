@@ -13,6 +13,14 @@ ActiveAdmin.register Job do
     @payloads = Payload.list(params[:id])
     render json: @payloads
   end
+  member_action :rerun_job, :method => :put do
+    @failed = FailedJob.find(params[:id])
+    @job = @failed.is_now(Job)
+    @job.status = 0
+    @job.status_message = 'Recreated'
+    @job.save
+    render json: @job
+  end
   collection_action :payloads_categories_list, :method => :get do
     @cats = Payload.sites
     render json: @cats
