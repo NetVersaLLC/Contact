@@ -16,6 +16,10 @@ ActiveAdmin.register_page "Client Manager" do
       h2 "Delete job?"
       para "Are you sure you want to delete this job?"
     end
+    div(:id => 'rerun_payload', :style => 'display: none') do
+      h2 "Re-run job?"
+      para "Are you sure you want to add this job back to the queue?"
+    end
     div(:id => 'view_payload', :style => 'display: none') do
       ""
     end

@@ -19,7 +19,7 @@ window.buildTable = (data) ->
     html += '<span class="ui-icon ui-icon-trash delete_job" title="Delete Job"></span>'
     html += '<span class="ui-icon ui-icon-script view_payload" title="View Payload"></span>'
     html += '<span class="ui-icon ui-icon-tag view_meta" title="View Meta"></span>'
-    html += '<span class="ui-icon icon-arrow-left rerun" title="Rerun Job"></span>'
+    html += '<span class="ui-icon ui-icon-triangle-1-w rerun" title="Rerun Job"></span>'
     html += '</li>'
   html
 
@@ -64,6 +64,11 @@ registerHooks = ()->
       console.log em
       $.post '/admin/jobs/'+window.business_id+'/reorder.js', { table: window.current_tab, order: JSON.stringify(em) }, (data)->
         console.log data
+  $('.rerun').click (e)->
+    window.job_id = $(e.target).parent().attr('data-job-id')
+    console.log window.job_id
+    $('#rerun_payload').dialog( "open" )
+
 
 showPending = (panel)->
   window.current_tab = "jobs"
@@ -168,6 +173,23 @@ window.startPayloads = () ->
       Cancel: ()->
         $( this ).dialog( "close" )
 
+  $('#rerun_payload').dialog
+    autoOpen: false,
+    show: "blind",
+    hide: "explode"
+    width: 750
+    buttons:
+      Ok: ()->
+        $.ajax
+          url: '/admin/jobs/'+window.job_id+'/rerun_job.js',
+          type: 'PUT',
+          success: ( response ) ->
+            $('#rerun_payload').dialog( "close" )
+            window.reloadView()
+
+      Cancel: ()->
+        $( this ).dialog( "close" )
+
   $('#view_meta').dialog
     autoOpen: false,
     show: "blind",
@@ -223,4 +245,23 @@ window.startPayloads = () ->
       Ok: ()->
         $( this ).dialog( "close" )
       Cancel: ()->
+        $( this ).dialog( "close" )
+
+  $('#assign_payload').dialog
+    autoOpen: false,
+    show: "blind",
+    hide: "explode"
+    modal: true
+    buttons:
+      'Ok': ()->
+        console.log "OK"
+        $.ajax
+          url: "/admin/jobs/#{window.assign_payload}/create_job.js?business_id=#{window.business_id}&category=#{$('#payload_categories_select').val()}"
+          type: 'POST',
+          success: ( response ) ->
+            console.log(response)
+            $('#assign_payload').dialog( "close" )
+            window.reloadView()
+      'Cancel': ()->
+        console.log "close"
         $( this ).dialog( "close" )

@@ -1,2 +1,2 @@
-class CompletedJob < ActiveRecord::Base
+class CompletedJob < JobBase
 end
