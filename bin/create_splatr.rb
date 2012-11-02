@@ -9,7 +9,7 @@ images_dir = 'public/system/businesses/logos/splatr/'
 file = ARGV.shift
 
 headers = nil
-CSV.open(file).each do |row|
+CSV.open(file, :encoding => 'windows-1251:utf-8').each do |row|
   headers = row and next unless headers
   hash = {}
   row.each_with_index do |data,i|
@@ -102,11 +102,13 @@ CSV.open(file).each do |row|
     end
   end
   hash.delete 'logo'
+  next unless hash['email'] and hash['email'] =~ /\@/
   ap hash
-  u = User.new
+  u = User.where(:email => hash['email']).first
+  u = User.new unless u
   u.email = hash['email']
   hash.delete 'email'
-  password = SecureRandom.urlsafe_base64(rand()*6 + 6)
+  password = SecureRandom.urlsafe_base64(10)
   u.password = password
   u.password_confirmation = password
   u.save
