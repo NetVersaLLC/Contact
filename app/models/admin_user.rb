@@ -1,4 +1,5 @@
 class AdminUser < ActiveRecord::Base
+  belongs_to :label
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121019105626) do
+ActiveRecord::Schema.define(:version => 20121106201651) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -55,9 +55,11 @@ ActiveRecord::Schema.define(:version => 20121019105626) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.integer  "label_id"
   end
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
+  add_index "admin_users", ["label_id"], :name => "index_admin_users_on_label_id"
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
 
   create_table "affiliates", :force => true do |t|
@@ -409,6 +411,20 @@ ActiveRecord::Schema.define(:version => 20121019105626) do
 
   add_index "kudzus", ["business_id"], :name => "index_kudzus_on_business_id"
 
+  create_table "labels", :force => true do |t|
+    t.string   "name"
+    t.string   "domain"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
+    t.text     "custom_css"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "labels", ["domain"], :name => "index_labels_on_domain"
+
   create_table "linkedins", :force => true do |t|
     t.integer  "business_id"
     t.string   "email"
@@ -574,10 +590,12 @@ ActiveRecord::Schema.define(:version => 20121019105626) do
     t.string   "authentication_token"
     t.datetime "created_at",                                    :null => false
     t.datetime "updated_at",                                    :null => false
+    t.integer  "label_id"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["label_id"], :name => "index_users_on_label_id"
   add_index "users", ["parent_id"], :name => "index_users_on_parent_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
