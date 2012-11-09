@@ -30,8 +30,8 @@ ActiveAdmin.register_page "Client Manager" do
       ""
     end
     script do
-      "window.business_id = #{params[:business_id]};" +
-      "$(document).ready(function() { window.startPayloads(); });"
+      raw "window.business_id = #{params[:business_id]};\n" +
+      "window.payloadListAction = window.clientPayloadListAction;\n"
     end
     div(:id => 'client_tabs') do
       ul(:id => 'client_tabs_top') do

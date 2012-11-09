@@ -2,6 +2,7 @@ Contact::Application.routes.draw do
 
   resources :google_categories
   resources :payloads
+  resources :packages
   resources :subscriptions
 
   devise_for :admin_users, ActiveAdmin::Devise.config

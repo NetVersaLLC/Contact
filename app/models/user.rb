@@ -57,15 +57,4 @@ class User < ActiveRecord::Base
     self.access_level <= User.owner
   end
 
-  after_create :copy_rookies
-
-  def copy_rookies
-    Rookie.all.each do |rookie|
-      Job.create do |j|
-        j.name           = rookie.name
-        j.payload        = rookie.payload
-        j.data_generator = rookie.data_generator
-      end
-    end
-  end
 end

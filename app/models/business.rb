@@ -1,8 +1,10 @@
 class Business < ActiveRecord::Base
   has_attached_file :logo, :styles => { :thumb => "100x100>" }
+  after_create      :create_jobs
   has_many          :jobs, :order => "position"
   belongs_to        :user
   belongs_to        :subscription
+  has_many          :notifications
 
   attr_accessible :business_name, :corporate_name, :duns_number, :sic_code
   attr_accessible :contact_gender, :contact_prefix, :contact_first_name, :contact_middle_name, :contact_last_name, :contact_birthday
@@ -309,5 +311,25 @@ class Business < ActiveRecord::Base
   end
   def birthday
     self.contact_birthday.to_date
+  end
+  def create_jobs
+    sub = nil
+    if self.subscription_id == nil
+      sub = Subscription.create do |sub|
+        sub.package_id = Package.first
+        sub.package_name = Package.first.name
+        sub.total = Package.first.price
+        sub.tos_agreed = true
+        sub.active = true
+      end
+    else
+      sub = self.subscription
+    end
+    PackagesPayloads.where(:package_id => sub.package_id).each do |obj|
+      payload = Payload.new( obj.site, obj.payload )
+      job = Job.inject(self.id, payload.payload, payload.data_generator, payload.ready)
+      job.name = "#{obj.site}/#{obj.payload}"
+      job.save
+    end
   end
 end
