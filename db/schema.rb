@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121106201651) do
+ActiveRecord::Schema.define(:version => 20121109175420) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -368,7 +368,7 @@ ActiveRecord::Schema.define(:version => 20121106201651) do
   create_table "jobs", :force => true do |t|
     t.integer  "business_id"
     t.string   "name"
-    t.string   "model"
+    t.text     "data_generator"
     t.integer  "status"
     t.text     "status_message"
     t.text     "payload"
@@ -378,7 +378,6 @@ ActiveRecord::Schema.define(:version => 20121106201651) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.text     "ready"
-    t.text     "data_generator"
   end
 
   add_index "jobs", ["business_id"], :name => "index_jobs_on_business_id"
@@ -462,6 +461,17 @@ ActiveRecord::Schema.define(:version => 20121106201651) do
 
   add_index "map_quests", ["business_id"], :name => "index_map_quests_on_business_id"
 
+  create_table "notifications", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "title"
+    t.text     "body"
+    t.string   "url"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "notifications", ["business_id"], :name => "index_notifications_on_business_id"
+
   create_table "packages", :force => true do |t|
     t.string   "name"
     t.integer  "price"
@@ -471,25 +481,26 @@ ActiveRecord::Schema.define(:version => 20121106201651) do
     t.datetime "updated_at",        :null => false
   end
 
+  create_table "packages_payloads", :force => true do |t|
+    t.integer  "package_id"
+    t.string   "site"
+    t.string   "payload"
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "packages_payloads", ["package_id"], :name => "index_packages_payloads_on_package_id"
+  add_index "packages_payloads", ["payload"], :name => "index_packages_payloads_on_payload"
+  add_index "packages_payloads", ["site"], :name => "index_packages_payloads_on_site"
+
   create_table "payload_categories", :force => true do |t|
     t.string   "name"
     t.integer  "position"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  create_table "payloads", :force => true do |t|
-    t.string   "model"
-    t.string   "name"
-    t.text     "payload"
-    t.integer  "position"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
-    t.integer  "payload_category_id"
-  end
-
-  add_index "payloads", ["name"], :name => "index_payloads_on_name"
-  add_index "payloads", ["payload_category_id"], :name => "index_payloads_on_payload_category_id"
 
   create_table "pings", :force => true do |t|
     t.integer  "user_id"
