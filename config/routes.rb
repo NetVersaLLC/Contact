@@ -6,6 +6,10 @@ Contact::Application.routes.draw do
   resources :subscriptions
 
   devise_for :admin_users, ActiveAdmin::Devise.config
+  devise_for :users,
+    :controllers  => {
+      :registrations => 'my_devise/registrations',
+    }
   ActiveAdmin.routes(self)
 
   resources :booboos
@@ -21,7 +25,6 @@ Contact::Application.routes.draw do
   post '/google/save_email', :controller => :google, :action => :save_email
 
   get "yelps/check_email"
-  devise_for :users, :controllers => { :registrations => "registrations" }
 
   post '/captcha/recaptcha',      :controller => :captcha,         :action => :recaptcha
   get  '/downloads/:business_id', :controller => :downloads,       :action => :download

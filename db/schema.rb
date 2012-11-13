@@ -368,7 +368,7 @@ ActiveRecord::Schema.define(:version => 20121109175420) do
   create_table "jobs", :force => true do |t|
     t.integer  "business_id"
     t.string   "name"
-    t.text     "data_generator"
+    t.string   "model"
     t.integer  "status"
     t.text     "status_message"
     t.text     "payload"
@@ -378,6 +378,7 @@ ActiveRecord::Schema.define(:version => 20121109175420) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.text     "ready"
+    t.text     "data_generator"
   end
 
   add_index "jobs", ["business_id"], :name => "index_jobs_on_business_id"
