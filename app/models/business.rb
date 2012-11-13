@@ -316,20 +316,23 @@ class Business < ActiveRecord::Base
     sub = nil
     if self.subscription_id == nil
       sub = Subscription.create do |sub|
-        sub.package_id = Package.first
+        sub.package_id   = Package.first
         sub.package_name = Package.first.name
-        sub.total = Package.first.price
-        sub.tos_agreed = true
-        sub.active = true
+        sub.total        = Package.first.price
+        sub.tos_agreed   = true
+        sub.active       = true
       end
     else
       sub = self.subscription
     end
     PackagesPayloads.where(:package_id => sub.package_id).each do |obj|
-      payload = Payload.new( obj.site, obj.payload )
-      job = Job.inject(self.id, payload.payload, payload.data_generator, payload.ready)
+      payload  = Payload.new( obj.site, obj.payload )
+      job      = Job.inject(self.id, payload.payload, payload.data_generator, payload.ready)
       job.name = "#{obj.site}/#{obj.payload}"
       job.save
     end
+  end
+  def get_label
+    self.user.label
   end
 end

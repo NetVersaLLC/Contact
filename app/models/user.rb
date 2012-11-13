@@ -7,7 +7,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  has_many :businesses
+  has_many   :businesses
+  belongs_to :label
 
   TYPES = {
     :admin    => 46118,

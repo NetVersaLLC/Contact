@@ -1,5 +1,10 @@
+# Test account login:
+# https://test.authorize.net/
+# Username: netversa411
+# Password: ErK448qcKc 
+
 ::AUTHORIZENETGATEWAY = ActiveMerchant::Billing::AuthorizeNetGateway.new(
-  :login  => "4kKZ7828aE",
-  :password => "8x2nUY33N2eKjB4d",
-  :test => true
+  :login    => "8g5FEvUR7De",
+  :password => "49296x6ESxJZgq9g",
+  :test     => true
 )

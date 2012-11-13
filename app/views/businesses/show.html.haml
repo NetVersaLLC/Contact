@@ -1,12 +1,10 @@
 %p#notice= notice
 
 
-.btn.btn-info.btn-large#startJobs Start Jobs
-
 %h1
-  Business Status
+  = @business.business_name
   %sup
-    = link_to 'Edit', edit_business_path(@business), :style => 'font-size: 12pt'
+    = link_to 'Edit This Business', edit_business_path(@business), :class => 'btn btn-info'
 
 %br/
 

@@ -7,7 +7,9 @@ class Download < ActiveRecord::Base
     1.upto(10) do |i|
       setup += c[rand() * 26]
     end
-    original = Rails.root.join("doc", "Setup.exe").to_s
+    business = Business.find(business_id)
+    original = Rails.root.join("labels", business.user.label.name, "Setup.exe").to_s
+    STDERR.puts "#{original}"
     tmp      = Rails.root.join('tmp', setup)
     Dir.mkdir tmp unless File.exists? tmp
     file     = tmp.join(setup+'.exe').to_s

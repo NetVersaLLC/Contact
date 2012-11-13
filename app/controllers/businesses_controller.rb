@@ -40,6 +40,23 @@ class BusinessesController < ApplicationController
     end
   end
 
+  def save_state
+    business = Business.where(:user_id=>current_user.id, :status => 0).first
+    if business.nil?
+      business = Business.new(params[:business])
+      business.user = current_user
+    else
+      #business.update_attributes(params[:business])
+      business.attributes = params[:business]
+    end
+    if business.save(:validate => false)
+      render :text => "Data saved.".to_json
+    else
+      render :text => "Data not saved.".to_json
+    end
+  end
+  
+
   # POST /businesses
   # POST /businesses.json
   def create
