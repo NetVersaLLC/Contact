@@ -33,7 +33,11 @@ class Subscription < ActiveRecord::Base
   end
 
   def self.months
-    Date::MONTHNAMES[1..12]
+    months = {}
+    Date::MONTHNAMES[1..12].each_with_index do |e,i|
+      months[e] = (i + 1).to_s
+    end
+    months
   end
 
   def self.cards
