@@ -265,6 +265,10 @@ class Business < ActiveRecord::Base
     b.business_id = self.id
     b.password = ''
     b.save
+    b = Google.new
+    b.business_id = self.id
+    b.password = ''
+    b.save
   end
   def create_jobs
     sub = nil
