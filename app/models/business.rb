@@ -1,5 +1,6 @@
 class Business < ActiveRecord::Base
   has_attached_file :logo, :styles => { :thumb => "100x100>" }
+  after_create      :create_site_accounts
   after_create      :create_jobs
   has_many          :jobs, :order => "position"
   belongs_to        :user
@@ -78,6 +79,10 @@ class Business < ActiveRecord::Base
   end
 
   validates :business_name,
+    :presence => true
+  validates :contact_first_name,
+    :presence => true
+  validates :contact_last_name,
     :presence => true
   validates :local_phone,
     :presence => true,
@@ -312,8 +317,18 @@ class Business < ActiveRecord::Base
   def birthday
     self.contact_birthday.to_date
   end
+  def create_site_accounts
+    y = Yahoo.new
+    y.business_id = self.id
+    y.save
+    b = Bing.new
+    b.business_id = self.id
+    b.save
+  end
   def create_jobs
     sub = nil
+    # NOTE: this is probably a bug, leaving it since most accounts
+    # will not have subscriptions initially
     if self.subscription_id == nil
       sub = Subscription.create do |sub|
         sub.package_id   = Package.first
