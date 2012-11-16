@@ -315,7 +315,7 @@ class Business < ActiveRecord::Base
     save
   end
   def birthday
-    self.contact_birthday.to_date
+    Date.strptime(self.contact_birthday, '%m/%d/%Y')
   end
   def create_site_accounts
     y = Yahoo.new
