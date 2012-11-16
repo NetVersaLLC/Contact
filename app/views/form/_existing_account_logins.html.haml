@@ -2,6 +2,7 @@
   = @f.inputs "Existing Account Logins" do
     = ''
   - @business.sites.each do |site|
+    - STDERR.puts site.inspect
     .well
       = @f.inputs site[0] do
         .fields
