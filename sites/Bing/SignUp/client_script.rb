@@ -56,12 +56,11 @@ def sign_up( business )
   business[ 'hotmail' ] = email_name + '@hotmail.com'
   #puts 'Hotmail account: ' + business[ 'hotmail' ] + " - " + business[ 'password' ]
   RestClient.post "#{@host}/bing/save_hotmail?auth_token=#{@key}&business_id=#{@bid}", :email => business['hotmail'], :password => business['password'], :secret_answer => business['secret_answer']
-  
 end
 
 
 @browser = Watir::Browser.new
-@browser.goto( 'https://signup.live.com/' )
+@browser.goto('https://signup.live.com/')
 sign_up( data )
 
 if @chained
