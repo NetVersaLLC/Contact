@@ -35,12 +35,15 @@ def sign_up_personal( business )
   @browser.text_field( :id => 'passwordconfirm' ).set business[ 'password' ]
 
   # .. skip alternate email
-  @browser.select_list( :id, 'secquestion' ).set 'Where did you meet your spouse?'
+  @browser.select_list( :id, 'secquestion' ).select 'Where did you meet your spouse?'
   @browser.text_field( :id, 'secquestionanswer' ).set business[ 'secret_answer_1' ]
-  @browser.select_list( :id, 'secquestion2' ).set 'Where did you spend your childhood summers?'
+  @browser.select_list( :id, 'secquestion2' ).select 'Where did you spend your childhood summers?'
   @browser.text_field( :id, 'secquestionanswer2' ).set business[ 'secret_answer_2' ]
 
   file = Tempfile.new('image.png')
+  file.close
+ #path = Dir.pwd + "\\image.png"
+  #@browser.image(:class, 'captchaImage').save file.path
   @browser.image(:class, 'captchaImage').save file.path
   text = CAPTCHA.solve file.path, :manual
   @browser.text_field( :id => 'captchaV5Answer' ).set text
