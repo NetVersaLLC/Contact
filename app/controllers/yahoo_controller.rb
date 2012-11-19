@@ -12,4 +12,7 @@ class YahooController < ApplicationController
     end
 
   end
+  def yahoo_category
+    render json: YahooCategory.categories
+  end
 end

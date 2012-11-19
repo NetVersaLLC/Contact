@@ -1,6 +1,6 @@
 # Business form
 
-#= require demo
+#= require jquery.optionTree
 #= require form/listing_finder
 #= require form/business_details
 #= require form/payment_methods
