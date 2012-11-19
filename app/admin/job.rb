@@ -72,6 +72,24 @@ ActiveAdmin.register Job do
     end
   end
 
+  # NOTE: These poorly named things shouldn't be here
+  # they should be in a differnt place, probably the
+  # packages controller.
+  member_action :assload, :method => :post do
+    PackagesPayloads.create do |pac|
+      pac.package_id = params[:id]
+      pac.site = params[:category]
+      pac.payload = params[:payload_id]
+    end
+    render json: true
+  end
+  member_action :removeass, :method => :delete do
+    package = PackagesPayloads.find(params[:id])
+    package.delete
+    render json: true
+  end
+  # END NOTE
+
   member_action :create_job, :method => :post do
     payload = Payload.new( params[:category], params[:id] )
     job = Job.inject(params[:business_id], payload.payload, payload.data_generator, payload.ready)
@@ -79,7 +97,6 @@ ActiveAdmin.register Job do
     job.save
     render json: true
   end
-
   member_action :reorder, :method => :post do
     business = Business.find(params[:id])
     if params[:table] == 'jobs'

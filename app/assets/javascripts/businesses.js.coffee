@@ -11,3 +11,14 @@
 
 $(document).ready ->
   $('input[rel=popover]').popover()
+
+root = exports ? this
+root.save_stages = ->
+  $.ajax
+    type: "POST"
+    cache: false
+    dataType: "json"
+    url: "/save_state"
+    data: $('form.business').serialize()
+    success: (data) ->
+      alert data

@@ -111,8 +111,12 @@ window.loadPayloads = ()->
     html += '</ul>'
     $('#payload_list_container').html(html)
     $('#payload_list_ul > li').click (e)->
-      window.assign_payload = $(e.target).attr('data-payload-id')
-      $('#assign_payload').dialog("open")
+      window.payloadListAction(e)
+
+window.clientPayloadListAction = (e)->
+  window.assign_payload = $(e.target).attr('data-payload-id')
+  window.payload_post_url = "/admin/jobs/#{window.assign_payload}/create_job.js?business_id=#{window.business_id}&category=#{$('#payload_categories_select').val()}"
+  $('#assign_payload').dialog("open")
 
 window.startPayloads = () ->
   # Setup Payload Categories
@@ -226,10 +230,11 @@ window.startPayloads = () ->
       'Ok': ()->
         console.log "OK"
         $.ajax
-          url: "/admin/jobs/#{window.assign_payload}/create_job.js?business_id=#{window.business_id}&category=#{$('#payload_categories_select').val()}"
+          url: window.payload_post_url
           type: 'POST',
           success: ( response ) ->
             console.log(response)
+            window.location.reload()
             $('#assign_payload').dialog( "close" )
             window.reloadView()
       'Cancel': ()->
@@ -256,7 +261,7 @@ window.startPayloads = () ->
       'Ok': ()->
         console.log "OK"
         $.ajax
-          url: "/admin/jobs/#{window.assign_payload}/create_job.js?business_id=#{window.business_id}&category=#{$('#payload_categories_select').val()}"
+          url: window.payload_post_url
           type: 'POST',
           success: ( response ) ->
             console.log(response)

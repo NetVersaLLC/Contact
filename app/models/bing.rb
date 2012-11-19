@@ -18,7 +18,8 @@ class Bing < ClientData
   end
 
   def get_category
-    self.bing_category.name
+    'Bathroom Fixtures, Cabinets & Accessories'
+    # self.bing_category.name
   end
 
   def self.make_payments(business)

@@ -36,6 +36,6 @@
       %i.icon-chevron-right
       9. Logo
   %li
-    %a{:href => '#section-save'}
+    %a{:href => '#;',:onclick =>'save_stages()'}
       %i.icon-chevron-right
-      = submit_tag "Save Changes", :class => 'btn btn-large btn-primary'
+      = link_to "Save Stage", '#', :name => "save_stage"

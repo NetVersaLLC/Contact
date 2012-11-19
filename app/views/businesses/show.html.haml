@@ -1,32 +1,27 @@
 %p#notice= notice
 
 
-.btn.btn-info.btn-large#startJobs Start Jobs
-
 %h1
-  Business Status
+  = @business.business_name
   %sup
-    = link_to 'Edit', edit_business_path(@business), :style => 'font-size: 12pt'
+    = link_to 'Edit This Business', edit_business_path(@business), :class => 'btn btn-info'
 
 %br/
 
-%table.table.table-bordered
-  %thead
-    %tr
-      %th Site
-      %th Status
-  %tbody
-    - i = 0
-    - Business.bullshit_accounts.each do |account|
-      - i = i + 1
-      %tr
-        %td
-          = account[0].gsub(/([A-Z])/, ' \\1')
-          %span{:id => "social#{i}"}
-            &nbsp;
-        %td{:id => "checkbox#{i}"}
-          = image_tag "/assets/notchecked.png", :class => :checkicon
-%br/
+- if @business.notifications.count > 0
+  %h2 Pending Notifications
+  %table.table.table-bordered
+    %tbody
+      - @business.notifications.each do |note|
+        %tr
+          %td
+            %h3
+              = note.title
+            = note.body
+            = raw '&nbsp;'
+            - if note.url != nil
+              = link_to "Start", note.url, :class => 'btn btn-info'
+  %br/
 
 .row
   .span4
