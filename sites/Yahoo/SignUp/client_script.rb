@@ -45,7 +45,7 @@ def sign_up_personal( business )
   text = CAPTCHA.solve file.path, :manual
   @browser.text_field( :id => 'captchaV5Answer' ).set text
 
-  RestClient.post "#{@host}/yahoo/save_email?auth_token=#{@key}&business_id=#{@bid}", :email => business['business_email'], :password => business['password'], :secret1 => business['secret1'], :secret2 => business['secret2']
+  RestClient.post "#{@host}/yahoo/save_email.json?auth_token=#{@key}&business_id=#{@bid}", :email => business['business_email'], :password => business['password'], :secret1 => business['secret_answer_1'], :secret2 => business['secret_answer_2']
   return
   # @browser.text_field( :id => 'captchaV5Answer' ).set 'Captcha'
   sleep 12
@@ -62,7 +62,7 @@ def sign_up_personal( business )
 
   @browser.button( :id => 'ContinueBtn' ).click
 
-  RestClient.post "#{@host}/yahoo/save_email.json?auth_token=#{@key}&business_id=#{@bid}", :email => business['business_email'], :password => business['password'], :secret1 => business['secret1'], :secret2 => business['secret2']
+  RestClient.post "#{@host}/yahoo/save_email.json?auth_token=#{@key}&business_id=#{@bid}", :email => business['business_email'], :password => business['password'], :secret1 => business['secret_answer_1'], :secret2 => business['secret_answer_2']
 end
 
 @browser = Watir::Browser.new
