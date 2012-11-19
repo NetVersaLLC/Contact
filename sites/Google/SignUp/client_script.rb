@@ -53,6 +53,7 @@ def signup_generic( business )
 	# TODO Captcha
 	#<img class="decoded" alt="https://www.google.com/recaptcha/api/image?c=03AHJ_VushQ-GsHbv6xNOVQfzKE8jfDFrqBB1GSvfA55jaI2PNtpVGuM1Eo2jSjd0DSezOCDSvvDKojdrEv020d_5j9Tgv0eNLRn0KEJ8rJ4c724UmGb1oH4kLMoYx9mMPdstYXdtnaFAanpTkgJS1PBQcSVY1ZhqCRg" src="https://www.google.com/recaptcha/api/image?c=03AHJ_VushQ-GsHbv6xNOVQfzKE8jfDFrqBB1GSvfA55jaI2PNtpVGuM1Eo2jSjd0DSezOCDSvvDKojdrEv020d_5j9Tgv0eNLRn0KEJ8rJ4c724UmGb1oH4kLMoYx9mMPdstYXdtnaFAanpTkgJS1PBQcSVY1ZhqCRg">
   file = Tempfile.new('image.png')
+  file.close
   @browser.image(:src, /recaptcha\/api\/image/).save file.path
   text = CAPTCHA.solve file.path
   @browser.text_field( :id => 'captcha_text' ).set text

@@ -1,6 +1,6 @@
 %h1 Packages
 
-= semantic_form_for @subscription, :validate => true, :html => {:multipart => true, :class => 'form-horizontal' }  do |f|
+= semantic_form_for @subscription, :html => {:multipart => true, :class => 'form-horizontal' }  do |f|
   = f.semantic_errors
   - @f = f
   .offset3.span8
@@ -16,7 +16,11 @@
                 %abbr{:title => "required"} *
                 .choices.controls
                   %label.choice.radio{ :for => "subscription_package_id"}
-                    %input#subscription_package_id{ :name => "subscription[package_id]", :type => "radio", :value => package.id} Select
+                    - if package.id == @subscription.package_id
+                      - @checked = 'checked'
+                    - else
+                      - @checked = ''
+                    %input#subscription_package_id{ :name => "subscription[package_id]", :type => "radio", :value => package.id, :checked => @checked} Select
     %section{:id => 'section-billing'}
       = @f.inputs "Billing Information", :class => 'inputs tab-pane', :id => 'section2' do
         = @f.input :first_name,  :placeholder => "First Name",  :input_html => { 'data-content' => 'The first name of the person listed on the card.', 'title' => 'First Name on Card',   :rel => 'popover' }
