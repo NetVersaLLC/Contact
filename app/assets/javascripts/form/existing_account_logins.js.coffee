@@ -23,7 +23,36 @@ window.addSocial = (name)->
   $('#socialmedia').append( html )
   $("#add_accounts option[value='"+name+"']").remove();
 
+window.clearCategory = (em)->
+  div = em.parentNode
+  console.log div
+  input = div.previousSibling.previousSibling
+  console.log input
+  div.parentNode.removeChild(div)
+  id = $(input).attr('id')
+  name = $(input).attr('name')
+  parts = name.match(/business\[[^\]]+\]\[0\]\[(.*?)_id\]/)
+  source = parts[1]
+  value  = $(input).attr('value')
+  console.log("Fetching: ", source)
+  $.getJSON "/"+source+".json", (data)->
+    $('#'+id).optionTree( data )
+
+
+
 $(document).ready ->
+  $('.load_categories').each (i,e)->
+    id = $(e).attr('id')
+    name = $(e).attr('name')
+    parts = name.match(/business\[[^\]]+\]\[0\]\[(.*?)_id\]/)
+    source = parts[1]
+    value  = $(e).attr('value')
+    console.log("Fetching: ", source)
+    if value == ''
+      $.getJSON "/"+source+".json", (data)->
+        $('#'+id).optionTree( data )
+
+
   $('#add_account_button').click (e) ->
     e.preventDefault()
     key = $('#add_accounts').val()

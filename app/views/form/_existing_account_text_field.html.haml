@@ -1,0 +1,8 @@
+.control-group
+  %label.control-label{:for => "business[#{@site[1]}_attributes][0][#{@field[1]}]"} #{@field[1]}
+  .controls
+    %input{:type => @field[0], :size => "30", :name => "business[#{@site[1]}_attributes][0][#{@field[1]}]", :value => @obj.send(@field[1]), :id => "business_#{@site[1]}_attributes_0_#{@field[1]}"}/
+    %input{:type => "hidden", :value => "false", :name => "business[#{@site[1]}_attributes][0][_destroy]", :id => "business_#{@site[1]}_attributes_0__destroy"}/
+    %a{:class => "remove_nested_fields", :href => "javascript:void(0)"} Remove #{@site[0]}
+    %br/
+    %input{:type => "hidden", :value => @obj.id, :name => "business[#{@site[1]}_attributes][0][id]", :id => "business_#{@site[1]}_attributes_0_id" }
