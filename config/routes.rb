@@ -26,11 +26,11 @@ Contact::Application.routes.draw do
   get     '/jobs/list(.:format)',:controller => :jobs,   :action => :list
 
   # Bing 
-  post    '/bing/save_hotmail',  :controller => :bing,   :action => :save_hotmail
+  post    '/bing/save_hotmail(.:format)',  :controller => :bing,   :action => :save_hotmail
   get     '/bing_category(.:format)',  :controller => :bing,   :action => :bing_category
 
   # Yahoo 
-  post    '/yahoo/save_email',   :controller => :yahoo,  :action => :save_email
+  post    '/yahoo/save_email(.:format)',   :controller => :yahoo,  :action => :save_email
   get     '/yahoo_category(.:format)',  :controller => :yahoo,   :action => :yahoo_category
 
   # Yelp
