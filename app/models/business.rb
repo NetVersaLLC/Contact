@@ -80,6 +80,8 @@ class Business < ActiveRecord::Base
 
   validates :business_name,
     :presence => true
+  validates :contact_gender,
+    :presence => true
   validates :contact_first_name,
     :presence => true
   validates :contact_last_name,
