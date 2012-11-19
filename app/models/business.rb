@@ -183,7 +183,8 @@ class Business < ActiveRecord::Base
         [
           ['text', 'email'],
           ['text', 'password'],
-          ['text', 'secret_answer']
+          ['text', 'secret_answer'],
+          ['select', 'bing_category']
         ]
       ],
       ['Google', 'googles',
@@ -197,7 +198,8 @@ class Business < ActiveRecord::Base
           ['text', 'email'],
           ['text', 'password'],
           ['text', 'secret1'],
-          ['text', 'secret2']
+          ['text', 'secret2'],
+          ['select', 'yahoo_category']
         ]
       ],
       ['Yelp', 'yelps',

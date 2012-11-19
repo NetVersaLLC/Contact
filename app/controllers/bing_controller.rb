@@ -12,4 +12,8 @@ class BingController < ApplicationController
     end
     respond_with({:status => :ok})
   end
+
+  def bing_category
+    render json: BingCategory.categories
+  end
 end

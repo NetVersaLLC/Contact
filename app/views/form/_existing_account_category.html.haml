@@ -1,0 +1,10 @@
+%p Please select a category:
+- if @obj.send(@field[1]).nil?
+  %input{:type => "hidden", :value => "", :name => "business[#{@site[1]}_attributes][0][#{@field[1]}_id]", :id => "business_#{@site[1]}_attributes_0__#{@field[1]}_id", :class => 'load_categories'}/
+- else
+  %input{:type => "hidden", :value => @obj.send(@field[1]).id, :name => "business[#{@site[1]}_attributes][0][#{@field[1]}_id]", :id => "business_#{@site[1]}_attributes_0__#{@field[1]}_id", :class => 'load_categories'}/
+  %div{:id => "#{@field[1]}_category_display"}
+    Selected Category:
+    = @obj.send(@field[1]).make_category
+    .btn.btn-warning{:onclick => 'window.clearCategory(this)'}
+      Clear
