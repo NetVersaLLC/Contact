@@ -10,7 +10,7 @@ class BingController < ApplicationController
                             :password      => params[:password],
                             :secret_answer => params[:secret_answer])
     end
-    respond_with({:status => :ok})
+    render json: {status: 'success'}
   end
 
   def bing_category

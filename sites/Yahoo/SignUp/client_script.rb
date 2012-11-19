@@ -40,11 +40,8 @@ def sign_up_personal( business )
   @browser.select_list( :id, 'secquestion2' ).select 'Where did you spend your childhood summers?'
   @browser.text_field( :id, 'secquestionanswer2' ).set business[ 'secret_answer_2' ]
 
-  file = Tempfile.new('image.png')
-  file.close
- #path = Dir.pwd + "\\image.png"
-  #@browser.image(:class, 'captchaImage').save file.path
-  @browser.image(:class, 'captchaImage').save file.path
+  file = "%{ENV['USERPROFILE']}\\citation\\yahoo_captcha.png"
+  @browser.image(:class, 'captchaImage').save file
   text = CAPTCHA.solve file.path, :manual
   @browser.text_field( :id => 'captchaV5Answer' ).set text
 
@@ -65,7 +62,7 @@ def sign_up_personal( business )
 
   @browser.button( :id => 'ContinueBtn' ).click
 
-  RestClient.post "#{@host}/yahoo/save_email?auth_token=#{@key}&business_id=#{@bid}", :email => business['business_email'], :password => business['password'], :secret1 => business['secret1'], :secret2 => business['secret2']
+  RestClient.post "#{@host}/yahoo/save_email.json?auth_token=#{@key}&business_id=#{@bid}", :email => business['business_email'], :password => business['password'], :secret1 => business['secret1'], :secret2 => business['secret2']
 end
 
 @browser = Watir::Browser.new
