@@ -150,13 +150,12 @@ def main( business )
     provide_business_info(business, existing_business)
     preview_and_submit
   elsif @not_found_text_present
-    ContactJob.start( "Yahoo/CreateListing" )
+    @job.start( "Yahoo/CreateListing" )
   else
-    ContactJob.failure( 'Invalid condition after business search!' )
+    @job.failure( 'Invalid condition after business search!' )
   end
 end
 
-@browser = Watir::Browser.new
 main(data)
 
 true

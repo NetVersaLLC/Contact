@@ -100,7 +100,6 @@ def main(business)
   @browser.div( :text, 'Verify' ).click
 end
 
-@browser = Watir::Browser.new
 main(data)
 
 true

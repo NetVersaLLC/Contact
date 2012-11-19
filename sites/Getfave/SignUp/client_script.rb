@@ -1,6 +1,5 @@
 # Launch url
 @url = 'https://www.getfave.com'
-@browser = Watir::Browser.new
 @browser.goto(@url)
 
 begin
