@@ -116,7 +116,6 @@ def main(business)
 	end
 end
 
-@browser = Watir::Browser.new
 main(data)
 
 true

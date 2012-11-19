@@ -64,8 +64,6 @@ def signup_generic( business )
   RestClient.post "#{@host}/google/save_email?auth_token=#{@key}&business_id=#{@bid}", :email => "#{@name}@gmail.com", :password => business['password']
 end
 
-@browser = Watir::Browser.new
-
 signup_generic(data)
 
 true

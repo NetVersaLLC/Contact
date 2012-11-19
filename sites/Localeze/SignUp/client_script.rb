@@ -1,5 +1,4 @@
 url = 'http://webapp.localeze.com/directory/get-started.aspx'
-@browser = Watir::Browser.new
 #@browser.maximize()
 @browser.goto(url)
 #@browser.speed = :slow
