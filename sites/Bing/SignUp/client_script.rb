@@ -58,8 +58,6 @@ def sign_up( business )
   RestClient.post "#{@host}/bing/save_hotmail?auth_token=#{@key}&business_id=#{@bid}", :email => business['hotmail'], :password => business['password'], :secret_answer => business['secret_answer']
 end
 
-
-@browser = Watir::Browser.new
 @browser.goto('https://signup.live.com/')
 sign_up( data )
 

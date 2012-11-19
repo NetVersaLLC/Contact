@@ -2,20 +2,18 @@
   = @f.inputs "Existing Account Logins" do
     = ''
   - @business.sites.each do |site|
-    - STDERR.puts site.inspect
+    - @site = site
     .well
       = @f.inputs site[0] do
         .fields
           - @business.send(site[1]).each do |obj|
+            - @obj = obj
             - site[2].each do |field|
-              .control-group
-                %label.control-label{:for => "business[#{site[1]}_attributes][0][#{field[1]}]"} #{field[1]}
-                .controls
-                  %input{:type => field[0], :size => "30", :name => "business[#{site[1]}_attributes][0][#{field[1]}]", :value => obj.send(field[1]), :id => "business_#{site[1]}_attributes_0_#{field[1]}"}/
-                  %input{:type => "hidden", :value => "false", :name => "business[#{site[1]}_attributes][0][_destroy]", :id => "business_#{site[1]}_attributes_0__destroy"}/
-                  %a{:class => "remove_nested_fields", :href => "javascript:void(0)"} Remove #{site[0]}
-                  %br/
-                  %input{:type => "hidden", :value => obj.id, :name => "business[#{site[1]}_attributes][0][id]", :id => "business_#{site[1]}_attributes_0_id" }
+              - @field = field
+              - if @field[0] == 'select'
+                = render :partial => 'form/existing_account_category'
+              - else
+                = render :partial => 'form/existing_account_text_field'
   %h3 Add New
   #socialButtons
     = select_tag :add_accounts, options_for_select(@accounts)

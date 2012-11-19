@@ -21,4 +21,8 @@ class YelpsController < ApplicationController
     end
   end
 
+  def yelp_category
+    render json: YelpCategory.categories
+  end
+
 end
