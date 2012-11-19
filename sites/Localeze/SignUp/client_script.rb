@@ -68,7 +68,7 @@ end
 	end
 
 if @chained
-  ContactJob.start("Localeze/VerifyPhone")
+  @job.start("Localeze/VerifyPhone")
 end
 
 rescue Exception => e

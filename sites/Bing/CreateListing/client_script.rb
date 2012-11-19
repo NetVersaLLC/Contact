@@ -34,7 +34,7 @@ add_new_listing( business )
 enter_personal_contact_info( business )
 
 if @chained
-  ContactJob.start("Bing/Update")
+  @job.start("Bing/Update")
 end
 
 true

@@ -62,7 +62,7 @@ end
 sign_up( data )
 
 if @chained
-  ContactJob.start("Bing/CheckListing")
+  @job.start("Bing/CheckListing")
 end
 
 true
