@@ -20,9 +20,9 @@ sign_in( business )
 search_for_business( business )
 result = listing_already_exists()
 if result == true
-  ContactJob.start("Bing/ClaimListing")
+  @job.start("Bing/ClaimListing")
 elsif result == false
-  ContactJob.start("Bing/CreateListing")
+  @job.start("Bing/CreateListing")
 else
   raise StandardError.new( 'Invalid condition after business search!' )
 end
