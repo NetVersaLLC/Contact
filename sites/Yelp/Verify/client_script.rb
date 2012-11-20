@@ -1,6 +1,6 @@
 link = data['link']
 
-browser = Watir::Browser.start(link)
+browser = Watir::Browser.goto(link)
 Watir::Wait::until do
   browser.text.include? "Your Business Has Been Added To Yelp"
 end

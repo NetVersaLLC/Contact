@@ -30,12 +30,21 @@ if @login_error.exist?
 	@browser.text_field(:id,'user_email').set data[ 'email' ]
 	@browser.text_field(:id,'user_password').set data[ 'email' ]
 	@browser.button(:value,'Join Us').click
-#	@browser.goto(@url)
-	puts ("Signup successful. Verify email to continue")
-	true
+
+end
+
+if @browser.text.include? 'Please correct the errors and try again.'
+		throw ("There are an error while creating the account")
+	end
+
+	puts ("Signup successful. Verifying email to continue")
+
+	if @chained
+	  self.start("Getfave/Verify")
 end
 
 rescue Exception => e
   puts("Exception Caught in Business Listing")
   puts(e)
 end
+
