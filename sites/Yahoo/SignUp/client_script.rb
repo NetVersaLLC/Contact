@@ -66,7 +66,7 @@ end
 sign_up_personal(data)
 
 if @chained
-  @job.start("Yahoo/CheckListing")
+  self.start("Yahoo/CheckListing")
 end
 
 true
