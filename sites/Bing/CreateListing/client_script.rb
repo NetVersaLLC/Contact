@@ -1,10 +1,10 @@
 def add_new_listing( business )
-  puts 'Add new listing'
-  @browser.div( :text, 'Add new listing' ).click
 
-  Watir::Wait::until do
-    @browser.div( :class, 'Dialog_TitleContainer' ).exists?
-  end
+  puts 'Add new listing'
+  watir_must do @browser.div( :text, 'Add new listing' ).click end
+  watir_must do @browser.div( :class, 'Dialog_TitleContainer' ).exists? end
+  #sleep 4 # because fails to wait
+  puts '=== Done -> Watir::Wait::until do @browser.div( Dialog_TitleContainer ).exists?'
 
   # Note that business name, city, state and country are already populated.
   # Only USA as coutry is allowed at the time of this writing.
@@ -12,9 +12,10 @@ def add_new_listing( business )
   @browser.div( :class , 'LiveUI_Area_Confirm___ZipCode' ).text_field().set business[ 'zip' ]
   @browser.div( :class , 'LiveUI_Area_Confirm___Phone' ).text_field().set business[ 'phone' ]
 
-  captcha_text = solve_captcha()
+  captcha_text = solve_captcha( :add_listing )
   @browser.div( :class, 'LiveUI_Area_Picture_Password_Verification' ).text_field().set captcha_text
   @browser.div( :text, 'Ok' ).click
+
 end
 
 def enter_personal_contact_info( business )
@@ -28,13 +29,13 @@ def enter_personal_contact_info( business )
 
 end
 
-sign_in( business )
-search_for_business( business )
-add_new_listing( business )
-enter_personal_contact_info( business )
+sign_in( data )
+search_for_business( data )
+add_new_listing( data )
+enter_personal_contact_info( data )
 
 if @chained
-  @job.start("Bing/Update")
+  self.start("Bing/Update")
 end
 
 true
