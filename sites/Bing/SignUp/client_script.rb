@@ -33,7 +33,7 @@ def sign_up( business )
 
   # A) Simple one time email field input - if it is taken the script will fail
   @browser.text_field( :id, 'imembernamelive' ).set email_name
-  captcha_text = solve_captcha()
+  captcha_text = solve_captcha( :sign_up )
   @browser.text_field( :class, 'spHipNoClear hipInputText' ).set captcha_text
 
   # B) Alternative email name guessing loop, that tries to get available email name but it may froze
@@ -56,7 +56,8 @@ def sign_up( business )
   business[ 'hotmail' ] = email_name + '@hotmail.com'
   #puts 'Hotmail account: ' + business[ 'hotmail' ] + " - " + business[ 'password' ]
   @browser.button( :title, 'I accept' ).click
-  
+  watir_must do @browser.link( :text, 'Continue to Hotmail' ).exists? end
+
   RestClient.post "#{@host}/bing/save_hotmail?auth_token=#{@key}&business_id=#{@bid}", :email => business['hotmail'], :password => business['password'], :secret_answer => business['secret_answer']
   
 end

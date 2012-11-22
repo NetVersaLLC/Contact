@@ -1,11 +1,49 @@
-def solve_captcha
-  image = "#{ENV['USERPROFILE']}\\citation\\bing_captcha.png"
-  obj = @browser.image( :xpath, "//div/table/tbody/tr/td/img[1]" )
+#require 'gp_requires'
+
+def retryable(options = {}, &block)
+  opts = { :tries => 1, :on => Exception }.merge(options)
+  retry_exceptions, retries = opts[:on], opts[:tries]
+  exceptLogger = []
+  begin
+    return yield
+  rescue Exception => ex # FIXME # Currently catches everything... need to figure out 'rescue *retry_exceptions
+    exceptLogger += [ex.inspect]
+    sleep(3)
+    retry if (retries -= 1) > 0
+  raise StandardError.new("You maxed out on retries!  These error's came back: \n#{exceptLogger.join("\n")}")
+  end
+end
+
+def watir_must( &block )
+  retryable(:tries => 5, :on => [ Watir::Exception::UnknownObjectException, Timeout::Error ] ) do
+    yield
+  end
+end
+
+captcha_types = { :sign_up, :add_listing }
+def solve_captcha( type )
+
+  if :sign_up == type then
+    
+    image = "#{ENV['USERPROFILE']}\\citation\\bing_signup_captcha.png"
+    obj = @browser.image(:xpath, "//div/table/tbody/tr/td/img[1]")
+
+  elsif :add_listing == type then
+
+    image = "#{ENV['USERPROFILE']}\\citation\\bing_add_listing_captcha.png"
+    obj = @browser.div( :class, 'LiveUI_Area_Picture_Password_Verification' ).image()
+
+  else
+    raise StandardError( 'Invalid capctha type specified' )
+  end
+  
+
   puts "CAPTCHA source: #{obj.src}"
   puts "CAPTCHA width: #{obj.width}"
   obj.save image
 
   CAPTCHA.solve image, :manual
+
 end
 
 def sign_in( business )
@@ -18,7 +56,7 @@ def sign_in( business )
   @browser.input( :name, 'login' ).send_keys email_parts[ 0 ]
   @browser.input( :name, 'login' ).send_keys :decimal
   @browser.input( :name, 'login' ).send_keys email_parts[ 1 ]
-
+  # TODO: check that email entered correctly since other characters may play a trick
   @browser.text_field( :name, 'passwd' ).set business[ 'password' ]
   # @browser.checkbox( :name, 'KMSI' ).set
   @browser.button( :name, 'SI' ).click
@@ -31,12 +69,12 @@ def search_for_business( business )
   puts 'Search for the ' + business[ 'name' ] + ' business at ' + business[ 'city' ] + ' city'
   @browser.link( :text , 'Get Started Now!' ).click
 
-  sleep 4 # seems that div's are not loaded quickly simetimes
-  @browser.div( :class , 'LiveUI_Area_Find___Business' ).text_field( :class, 'LiveUI_Field_Input' ).set business[ 'name' ]
+  #sleep 4 # seems that div's are not loaded quickly simetimes
+  watir_must do @browser.div( :class , 'LiveUI_Area_Find___Business' ).text_field( :class, 'LiveUI_Field_Input' ).set business[ 'name' ] end
   @browser.div( :class , 'LiveUI_Area_Find___City' ).text_field( :class, 'LiveUI_Field_Input' ).set business[ 'city' ]
   @browser.div( :class , 'LiveUI_Area_Find___State' ).text_field( :class, 'LiveUI_Field_Input' ).set business[ 'state_short' ]
   @browser.div( :class , 'LiveUI_Area_Search_Button LiveUI_Short_Button_Medium' ).click
-  sleep 4
+  #sleep 4
   
 end
 

@@ -1,8 +1,9 @@
 def claim_it()
-  @browser.div( :text , 'Claim' ).click
+
+  watir_must do @browser.div( :text , 'Claim' ).click end
   count = 1
   begin
-    captcha_text = solve_captcha()
+    captcha_text = solve_captcha( :add_listing )
     @browser.div( :class, 'LiveUI_Area_Picture_Password_Verification' ).text_field().set captcha_text
     @browser.div( :text , 'Continue' ).click
     count += 1
