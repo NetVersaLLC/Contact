@@ -8,6 +8,7 @@ def add_new_listing( business )
 
   # Note that business name, city, state and country are already populated.
   # Only USA as coutry is allowed at the time of this writing.
+  # TODO: try focusing on fields first if it thinks they are blank
   @browser.div( :class , 'LiveUI_Area_Confirm___Address' ).text_field().set business[ 'address' ]
   @browser.div( :class , 'LiveUI_Area_Confirm___ZipCode' ).text_field().set business[ 'zip' ]
   @browser.div( :class , 'LiveUI_Area_Confirm___Phone' ).text_field().set business[ 'phone' ]
@@ -20,12 +21,19 @@ end
 
 def enter_personal_contact_info( business )
 
+  # TODO: handle the case that personal info may be entered already and 'YOUR BUSINESS INFORMATION' page opens
+  watir_must do # wait div( :class, 'LiveUI_Area_AcceptForm' )
+    @browser.text.include? 'CONTACT INFORMATION AND COMMUNICATION PREFERENCES'
+  end
+
   @browser.div( :class, 'LiveUI_Area_Phone_number' ).text_field().set business[ 'phone' ]
   @browser.div( :class, 'LiveUI_Area_Confirm_Email_address1' ).text_field().set business[ 'hotmail' ]
 
-  @browser.div( :class, 'LiveUI_Area_Agreement_of_Terms_and_Conditions' ).div( :class, 'LiveUI_Field_Flag' ).div().click
-  @browser.div( :class, 'LiveUI_Area_Bing_Portal_Announcement_Subscription' ).div( :class, 'LiveUI_Field_Flag' ).div().click
-  @browser.div( :text, 'Accept' ).click
+  @browser.div( :class, 'LiveUI_Area_Agreement_of_Terms_and_Conditions' ).div( :class, 'LiveUI_Field_Flag' ).div().fire_event( 'onMouseDown' )
+  @browser.div( :class, 'LiveUI_Area_Agreement_of_Terms_and_Conditions' ).div( :class, 'LiveUI_Field_Flag' ).div().fire_event( 'onMouseUp' )
+  @browser.div( :class, 'LiveUI_Area_Bing_Portal_Announcement_Subscription' ).div( :class, 'LiveUI_Field_Flag' ).div().fire_event( 'onMouseDown' )
+  @browser.div( :class, 'LiveUI_Area_Bing_Portal_Announcement_Subscription' ).div( :class, 'LiveUI_Field_Flag' ).div().fire_event( 'onMouseUp' )
+  @browser.div( :class, 'LiveUI_Area_btnAccept LiveUI_Button_Medium' ).click #watir_must do
 
 end
 
