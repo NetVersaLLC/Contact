@@ -1,10 +1,11 @@
 def enter_business_portal_details( business )
-  Watir::Wait::until do
+
+  watir_must do
     @browser.div( :text, 'YOUR BUSINESS INFORMATION' ).exists?
   end
 
   # .. Select business category
-  @browser.div( :class, 'LiveUI_Area_Category' ).text_field().focus
+  @browser.div( :class, 'LiveUI_Area_Category' ).input().focus
   # Can't find the way to click on a first search result, so click on 1st category without searching
   # @browser.div( :class, 'LiveUI_Area_Browse_and_Search' ).text_field().set business[ 'category' ]
   # @browser.send_keys :enter
