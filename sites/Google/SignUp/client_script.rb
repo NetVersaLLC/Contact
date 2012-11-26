@@ -1,7 +1,7 @@
 def verify_account_name_available( data )
 	
   #Verify user name is available or not
-  @browser.text_field(:id, "GmailAddress").value = data['email_name']
+  @browser.text_field(:id, "GmailAddress").value = data['business']
   @browser.div(:id,'gmail-address-form-element').span(:text,'@gmail.com').click
   @browser.text_field(:id, "GmailAddress").send_keys :tab
   @browser.span(:id, "errormsg_0_GmailAddress").text != ""
@@ -32,7 +32,7 @@ def signup_generic( data )
   @browser.text_field(:id, "LastName").value = data['last name']
 	
   #Verify if username is available
-  verify_account_name_available( business )
+  verify_account_name_available( data )
 	
   @browser.text_field(:id, "Passwd").value = data['pass']
   @browser.text_field(:id, "PasswdAgain").value = data['pass']
@@ -47,7 +47,7 @@ def signup_generic( data )
   @browser.div(:class => "goog-inline-block goog-flat-menu-button-dropdown", :index => 1).click
   @browser.div(:text, "#{data['gender']}").click
   @browser.text_field(:id, "RecoveryPhoneNumber").set data['phone']
-  #~ @browser.text_field(:id, "RecoveryEmailAddress").value = data['alt_email']
+  @browser.text_field(:id, "RecoveryEmailAddress").value = data['alt_email']
 	
   @browser.div(:class => "goog-inline-block goog-flat-menu-button-dropdown", :index => 2).click
   @browser.div(:text, "#{data['country']}").click
