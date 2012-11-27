@@ -9,12 +9,32 @@ def add_new_listing( business )
   # Note that business name, city, state and country are already populated.
   # Only USA as coutry is allowed at the time of this writing.
   # TODO: try focusing on fields first if it thinks they are blank
-  @browser.div( :class , 'LiveUI_Area_Confirm___Address' ).text_field().set business[ 'address' ]
-  @browser.div( :class , 'LiveUI_Area_Confirm___ZipCode' ).text_field().set business[ 'zip' ]
-  @browser.div( :class , 'LiveUI_Area_Confirm___Phone' ).text_field().set business[ 'phone' ]
+  addres_field = @browser.div(:class, 'LiveUI_Area_Confirm___Address').text_field()
+  addres_field.click
+  addres_field.set business[ 'address' ]
+
+  zip_field = @browser.div(:class, 'LiveUI_Area_Confirm___ZipCode').text_field()
+  zip_field.click
+  zip_field.set business[ 'zip' ]
+
+  phone_field = @browser.div(:class, 'LiveUI_Area_Confirm___Phone').text_field()
+  phone_field.click
+  phone_field.set business[ 'phone' ]
 
   captcha_text = solve_captcha( :add_listing )
-  @browser.div( :class, 'LiveUI_Area_Picture_Password_Verification' ).text_field().set captcha_text
+  captcha_field = @browser.div(:class, 'LiveUI_Area_Picture_Password_Verification').text_field()
+  # @browser.input( :name, /Widget_AuthentifyField/ )
+  captcha_field.flash
+  captcha_field.click #captcha_field.clear
+  sleep 1
+  captcha_field.fire_event( 'onkeypress' )
+  sleep 1
+  captcha_field.send_keys captcha_text
+  sleep 1
+  captcha_field.fire_event( 'onchange' )
+  sleep 1
+
+  @browser.div( :text, 'Ok' ).focus
   @browser.div( :text, 'Ok' ).click
 
 end
@@ -23,7 +43,7 @@ def enter_personal_contact_info( business )
 
   # TODO: handle the case that personal info may be entered already and 'YOUR BUSINESS INFORMATION' page opens
   watir_must do # wait div( :class, 'LiveUI_Area_AcceptForm' )
-    @browser.text.include? 'CONTACT INFORMATION AND COMMUNICATION PREFERENCES'
+    @browser.text.include? 'CONTACT INFORMATION AND COMMUNICATION PREFERENCES' #:class => LiveUI_Area_Contact_title
   end
 
   @browser.div( :class, 'LiveUI_Area_Phone_number' ).text_field().set business[ 'phone' ]

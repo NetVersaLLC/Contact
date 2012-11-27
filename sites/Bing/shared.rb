@@ -15,7 +15,7 @@ def retryable(options = {}, &block)
 end
 
 def watir_must( &block )
-  retryable(:tries => 5, :on => [ Watir::Exception::UnknownObjectException, Timeout::Error ] ) do
+  retryable(:tries => 3, :on => [ Watir::Exception::UnknownObjectException, Timeout::Error ] ) do
     yield
   end
 end
