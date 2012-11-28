@@ -87,8 +87,6 @@ def main( business )
   preview_and_submit
 end
 
-@browser = Watir::Browser.new
-
 main(data)
 
 true
