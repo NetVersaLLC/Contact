@@ -55,4 +55,5 @@ class Yelp < ClientData
     end
     @link
   end
+
 end

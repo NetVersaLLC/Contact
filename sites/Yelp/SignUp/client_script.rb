@@ -10,7 +10,7 @@ class Yelp
     end
 end
 
-browser = Watir::Browser.start("https://biz.yelp.com")
+browser = @browser.goto("https://biz.yelp.com")
 browser.a(:text => 'Create your free account now').click
 browser.text_field(:id => 'business-search-query').set data['name']
 browser.text_field(:id => 'business-search-location').set "#{data['city']}, #{data['state']}"

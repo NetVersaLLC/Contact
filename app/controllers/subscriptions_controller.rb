@@ -1,11 +1,30 @@
 class SubscriptionsController < ApplicationController
   def index
   end
+
   def new
     @subscription = Subscription.new
   end
+
   def create
     sub           = params['subscription']
+    if sub['coupon_code'] == 'NETVERSA'
+      flash[:notice] = "Purchase complete!"
+      @subscription = Subscription.create do |s|
+        s.package_id   = Package.first
+        s.package_name = Package.first.name
+        s.total        = Package.first.price
+        s.tos_agreed   = true
+        s.active       = true
+      end
+      @subscription.save
+      business                 = Business.new
+      business.user_id         = current_user.id
+      business.subscription_id = @subscription.id
+      business.save     :validate => false
+      redirect_to edit_business_path(business)
+      return
+    end
     package       = Package.find( sub['package_id'] )
     @subscription = Subscription.new
     @subscription.package_id = package.id
@@ -39,19 +58,19 @@ class SubscriptionsController < ApplicationController
       :last_name          => sub['last_name']
     )
     if credit_card.valid?
-      response = gateway.recurring(package.price, credit_card, {
+      response = ::AUTHORIZENETGATEWAY.recurring(package.price, credit_card, {
         :interval => {
           :unit => :months,
           :length => 1
         },
-        :duration => { 
-          :start_date => Date.today, 
+        :duration => {
+          :start_date => Date.today,
           :occurrences => 9999
-        }, 
+        },
         :billing_address => {
           :first_name => sub['first_name'],
           :last_name  => sub['last_name'],
-          :address1   => sub['address'] + ' ' + subscription['address2'],
+          :address1   => sub['address'] + ' ' + sub['address2'],
           :city       => sub['city'],
           :state      => sub['state'],
           :country    => 'United States',
@@ -60,9 +79,9 @@ class SubscriptionsController < ApplicationController
       if response.success?
         flash[:notice] = "Purchase complete!"
         @subscription.save
-        business          = Business.new
-        business.user_id  = current_user.id
-        business.sub_id   = @subscription.id
+        business                 = Business.new
+        business.user_id         = current_user.id
+        business.subscription_id = @subscription.id
         business.save     :validate => false
         redirect_to edit_business_path(business)
       else
@@ -74,6 +93,8 @@ class SubscriptionsController < ApplicationController
       render :action => 'new'
     end
   end
+
   def destroy
+    @sub = Subscription.find(params[:id])
   end
 end

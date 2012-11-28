@@ -1,0 +1,23 @@
+data = {}
+data[ 'phone_area' ] = business.local_phone.split("-")[0]
+data[ 'phone_prefix' ] = business.local_phone.split("-")[1]
+data[ 'phone_suffix' ] = business.local_phone.split("-")[2]
+data[ 'phone' ] = business.local_phone
+data[ 'first_name' ] = business.contact_first_name
+data[ 'last_name' ] = business.contact_last_name
+data[ 'email' ] = 'netversatest74@gmail.com' #business.yahoos.first.email
+data[ 'business' ] = business.business_name
+data[ 'streetnumber' ] = business.address + ' ' + business.address2
+data[ 'city' ] = business.city
+data[ 'state' ] = business.state_name
+data[ 'stateabreviation' ] = business.state
+data[ 'zip' ] = business.zip
+data[ 'country' ] = 'United States'
+data[ 'citystate' ] = data[ 'city' ] + ', ' + data[ 'stateabreviation' ]
+data[ 'url' ] = business.company_website
+data[ 'tagline' ] = business.keyword1 + ' ' + business.keyword2 + ' ' + business.keyword3 + ' ' + business.keyword4 + ' ' + business.keyword5
+data[ 'description' ] = business.business_description
+data[ 'password' ] = 'applesunday' #business.yahoos.first.password
+data[ 'category' ] = business.category1
+data[ 'gender' ] = business.contact_gender
+data

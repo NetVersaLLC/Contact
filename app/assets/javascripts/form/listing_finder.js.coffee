@@ -25,13 +25,18 @@ window.selectPlace = (el)->
         $('#business_zip').val $('#zip').val()
       if result['url']
         $('#business_google_places_url').val result['url']
+    $('#zip_search_form').dialog('close')
 
 $(document).ready ->
+  $('#show_zip_form').click (e)->
+    $('#zip_search_form').dialog
+      width:  800
+      height: 500
   $('#city').autocomplete
     minLength: 3,
-    delay: 600,
-    disabled: false,
-    source: (request, response)->
+    delay:     600,
+    disabled:  false,
+    source:    (request, response)->
       $.ajax
         url: "/city.js",
         dataType: "json",

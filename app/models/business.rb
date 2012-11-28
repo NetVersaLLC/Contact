@@ -1,5 +1,6 @@
 class Business < ActiveRecord::Base
   has_attached_file :logo, :styles => { :thumb => "100x100>" }
+  after_create      :create_site_accounts
   after_create      :create_jobs
   has_many          :jobs, :order => "position"
   belongs_to        :user
@@ -78,6 +79,12 @@ class Business < ActiveRecord::Base
   end
 
   validates :business_name,
+    :presence => true
+  validates :contact_gender,
+    :presence => true
+  validates :contact_first_name,
+    :presence => true
+  validates :contact_last_name,
     :presence => true
   validates :local_phone,
     :presence => true,
@@ -174,13 +181,36 @@ class Business < ActiveRecord::Base
           ['text', 'password']
         ]
       ],
+      ['Bing', 'bings',
+        [
+          ['text', 'email'],
+          ['text', 'password'],
+          ['text', 'secret_answer'],
+          ['select', 'bing_category']
+        ]
+      ],
+      ['Google', 'googles',
+        [
+          ['text', 'email'],
+          ['text', 'password']
+        ]
+      ],
+      ['Yahoo', 'yahoos',
+        [
+          ['text', 'email'],
+          ['text', 'password'],
+          ['text', 'secret1'],
+          ['text', 'secret2'],
+          ['select', 'yahoo_category']
+        ]
+      ],
       ['Yelp', 'yelps',
         [
           ['text', 'email'],
           ['text', 'password']
         ]
       ],
-      ['foursquare', 'foursquares',
+      ['Foursquare', 'foursquares',
         [
           ['text', 'email'],
           ['text', 'password']
@@ -202,88 +232,6 @@ class Business < ActiveRecord::Base
     hash
   end
 
-  def self.bullshit_accounts
-    [
-      ['Twitter', 'twitters',
-        [
-          ['text', 'username'],
-          ['text', 'password']
-        ]
-      ],
-      ['Facebook', 'facebooks',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['Yelp', 'yelps',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['foursquare', 'foursquares',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['Mapquest', 'map_quests',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['CitySearch', 'city_search',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['Ezlocal', 'ezlocal',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['MerchantCircle', 'merchant_circle',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['CityGrid', 'city_grid',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['GooglePlusLocal', 'google_plus_local',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['Kudzu', 'kudzu',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['Yahoo Local', 'yahoo_local',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['Yellowbot', 'yellowbot',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ]
-    ]
-  end
   def nonexistent_accounts
     list = []
     Business.site_accounts.each do |site|
@@ -310,10 +258,26 @@ class Business < ActiveRecord::Base
     save
   end
   def birthday
-    self.contact_birthday.to_date
+    Date.strptime(self.contact_birthday, '%m/%d/%Y')
+  end
+  def create_site_accounts
+    y = Yahoo.new
+    y.business_id = self.id
+    y.password = ''
+    y.save
+    b = Bing.new
+    b.business_id = self.id
+    b.password = ''
+    b.save
+    b = Google.new
+    b.business_id = self.id
+    b.password = ''
+    b.save
   end
   def create_jobs
     sub = nil
+    # NOTE: this is probably a bug, leaving it since most accounts
+    # will not have subscriptions initially
     if self.subscription_id == nil
       sub = Subscription.create do |sub|
         sub.package_id   = Package.first

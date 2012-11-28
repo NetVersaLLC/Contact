@@ -50,7 +50,7 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.save
-        format.json { render json: @job, status: :created, location: @job }
+        format.json { render json: @job }
       else
         format.json { render json: @job.errors, status: :unprocessable_entity }
       end
@@ -71,6 +71,28 @@ class JobsController < ApplicationController
         format.json { head :no_content }
       end
     end
+  end
+
+  def list
+    @jobs = Job.where('business_id = ? AND status IN (0,1)', params[:business_id]).order(:position)
+    final = []
+    @jobs.each do |job|
+      final.push({
+        :id          => job.id,
+        :business_id => job.business_id,
+        :name        => job.name,
+        :status      => job.status,
+        :waited_at   => job.waited_at,
+        :updated_at  => job.updated_at
+      })
+    end
+    render json: final
+  end
+
+  def remove
+    @job = Job.find( params[:id] )
+    @job.delete
+    render json: true
   end
 
 end
