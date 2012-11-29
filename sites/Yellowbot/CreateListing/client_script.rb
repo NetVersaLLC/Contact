@@ -1,5 +1,3 @@
-begin
-	
 @browser.goto( "https://www.yellowbot.com/signin/register" )
 
   @browser.text_field( :id => 'reg_email' ).set data[ 'email' ]
@@ -28,11 +26,6 @@ captcha_text = solve_captcha()
 			create_business( data )
 		end  
 	end
-
-else 
-	throw('There was an error during registration')
-end
-
 
 
 def create_business( data )
@@ -65,12 +58,3 @@ end
 
 
 end
-
-
-
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  puts(e)
-end
-
-
