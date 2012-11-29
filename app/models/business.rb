@@ -78,6 +78,12 @@ class Business < ActiveRecord::Base
     /^\d\d\d-\d\d\d-\d\d\d\d$/
   end
 
+  validates :category1,
+    :presence => true
+  validates :category2,
+    :presence => true
+  validates :category3,
+    :presence => true
   validates :business_name,
     :presence => true
   validates :contact_gender,
