@@ -3,7 +3,6 @@ def get_email_name( business )
 end
 
 def sign_up( business )
-
   @browser.text_field(  :id, 'iFirstName' ).set     business[ "first_name" ]
   @browser.text_field(  :id, 'iLastName' ).set      business[ "last_name" ]
   @browser.select_list( :id, 'iBirthMonth' ).select business[ 'birth_month' ]
@@ -21,7 +20,7 @@ def sign_up( business )
   @browser.select_list( :id, 'iSQ' ).select      'Name of first pet'
   @browser.text_field( :id, 'iAltEmail' ).set    business[ 'alt_email' ]
   @browser.text_field( :id, 'iSA' ).set          business[ 'secret_answer' ]
-  
+
   @browser.select_list( :id, 'iCountry' ).select business[ 'country' ]
   @browser.text_field( :id, 'iZipCode' ).set     business[ 'zip' ]
   @browser.checkbox( :id, 'iOptinEmail' ).clear
@@ -59,7 +58,6 @@ def sign_up( business )
   watir_must do @browser.link( :text, 'Continue to Hotmail' ).exists? end
 
   RestClient.post "#{@host}/bing/save_hotmail?auth_token=#{@key}&business_id=#{@bid}", :email => business['hotmail'], :password => business['password'], :secret_answer => business['secret_answer']
-  
 end
 
 @browser.goto('https://signup.live.com/')
