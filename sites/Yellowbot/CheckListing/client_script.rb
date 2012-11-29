@@ -1,5 +1,3 @@
-begin
-	
 @browser.goto( "http://www.yellowbot.com/" )
 @browser.text_field( :id => 'search-field' ).set data[ 'phone' ]
 @browser.button( :value => 'Find my business' ).click #, :type => 'submit'
@@ -19,7 +17,6 @@ if submit_link.exists?
 	end
 # Claim existing business
 elsif claim_link.exists?
-	
 
 	puts("Business exists, claiming")
 	if @chained
@@ -29,9 +26,3 @@ elsif claim_link.exists?
 else
  throw( "Problem with locating link to continue YellowBot registration!" )
 end
-
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  puts(e)
-end
-

@@ -1,5 +1,5 @@
 namespace :package do
-  task :add, :business_id, :needs => :environment do |t,args|
+  task :tadd, [:business_id] => [:environment] do 
     business = Business.find(args[:business_id])
     business.create_jobs
   end

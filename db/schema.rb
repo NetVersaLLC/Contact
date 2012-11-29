@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121112233645) do
+ActiveRecord::Schema.define(:version => 20121123233028) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -294,6 +294,17 @@ ActiveRecord::Schema.define(:version => 20121112233645) do
 
   add_index "foursquares", ["business_id"], :name => "index_foursquares_on_business_id"
 
+  create_table "getfavs", :force => true do |t|
+    t.datetime "force_update"
+    t.text     "secrets"
+    t.string   "email"
+    t.integer  "business_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "getfavs", ["business_id"], :name => "index_getfavs_on_business_id"
+
   create_table "google_categories", :force => true do |t|
     t.string   "name"
     t.string   "slug"
@@ -557,6 +568,17 @@ ActiveRecord::Schema.define(:version => 20121112233645) do
   add_index "subscriptions", ["affiliate_id"], :name => "index_subscriptions_on_affiliate_id"
   add_index "subscriptions", ["package_id"], :name => "index_subscriptions_on_package_id"
 
+  create_table "superpages", :force => true do |t|
+    t.integer  "business_id"
+    t.datetime "force_update"
+    t.text     "secrets"
+    t.string   "email"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "superpages", ["business_id"], :name => "index_superpages_on_business_id"
+
   create_table "tasks", :force => true do |t|
     t.integer  "user_id"
     t.string   "name"
@@ -566,6 +588,17 @@ ActiveRecord::Schema.define(:version => 20121112233645) do
 
   add_index "tasks", ["name"], :name => "index_tasks_on_name"
   add_index "tasks", ["user_id"], :name => "index_tasks_on_user_id"
+
+  create_table "thumbtacks", :force => true do |t|
+    t.integer  "business_id"
+    t.datetime "force_update"
+    t.text     "secrets"
+    t.string   "email"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "thumbtacks", ["business_id"], :name => "index_thumbtacks_on_business_id"
 
   create_table "tweets", :force => true do |t|
     t.integer  "business_id"
@@ -643,6 +676,17 @@ ActiveRecord::Schema.define(:version => 20121112233645) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
+
+  create_table "yellowbots", :force => true do |t|
+    t.integer  "business_id"
+    t.datetime "force_update"
+    t.text     "secrets"
+    t.text     "email"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "yellowbots", ["business_id"], :name => "index_yellowbots_on_business_id"
 
   create_table "yelp_categories", :force => true do |t|
     t.integer  "parent_id"
