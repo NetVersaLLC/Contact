@@ -1,6 +1,7 @@
 # Launch url
 begin 
 url = 'http://www.opentable.com/'
+@browser = Watir::Browser.new
 @browser.goto(url)
 @browser.link(:text => 'manage reservations with OpenTable.').click
 @browser.link(:text => 'Join Us').click
