@@ -29,7 +29,6 @@ begin
 @browser.select_list(:id => "dCategory2").select data['ezlocal_category2']
 @browser.select_list(:id => "dCategory3").select data['ezlocal_category3']
 @browser.text_field(:id => "tWebsite").set data['website']
-# browser.file_field(:id => "fuImage").set "C:\\Users\\jonathan\\Downloads\\me.jpg"
 @browser.button(:id => "btnContinue").click
 @browser.checkbox(:id => "chkTerms").click
 @browser.button(:id => "bFinish").click
