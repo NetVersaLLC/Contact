@@ -1,6 +1,6 @@
 data = {}
-data[ 'email' ]             = business.yahoos.first.email 
-data[ 'password' ]          = business.yahoos.first.password
+data[ 'email' ]             = 'netversatest1@gmail.com'#business.bings.first.email 
+data[ 'password' ]          = 'applesunday'#business.bings.first.password
 data[ 'first_name' ]        = business.contact_first_name
 data[ 'last_name' ]         = business.contact_last_name
 data[ 'gender' ]            = business.contact_gender
