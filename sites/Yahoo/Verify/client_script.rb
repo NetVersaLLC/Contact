@@ -3,7 +3,7 @@ def verify_be_email()
   puts 'Verify by email'
 
   # Send confirmation email
-  @browser.radio( :id => 'opt-email' ).set 
+  @browser.radio( :id => 'opt-email' ).set data['email']
   @browser.button( :id => 'btn-email' ).click
   sleep 20 # for email to arrive
 
