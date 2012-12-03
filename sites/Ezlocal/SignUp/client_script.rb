@@ -1,4 +1,3 @@
-begin
 @browser.goto("https://secure.ezlocal.com/newbusiness/default.aspx")
 #@browser.text_field(:id =>"tPhone1").set data['phone_area_code']
 #@browser.text_field(:id => "tPhone2").set data['phone_prefix']
@@ -36,9 +35,4 @@ begin
 if @browser.text.include? 'Welcome to EZlocal - Your profile is now active!'
 puts( 'Account signup and business registration successful!' )
 true
-end
-
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  puts(e)
 end

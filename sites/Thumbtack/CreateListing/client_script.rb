@@ -1,4 +1,3 @@
-begin
   #Open Verification link & attach it to watir.
   @browser = Watir::Browser.attach(:title,/Create a password/)
 
@@ -40,8 +39,3 @@ end
   else
     throw("Business Registration Failed")
   end
-
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  puts(e)
-end

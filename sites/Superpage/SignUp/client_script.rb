@@ -1,5 +1,4 @@
 url = 'http://www.superpages.com/'
-begin
 @browser.goto(url)
 	@browser.link(:href,/business-listings/).click
 	@browser.text_field(:xpath, '/html/body/div[2]/div[2]/div/div/div/form/div/table/tbody/tr/td/table/tbody/tr[4]/td/input').set data[ 'phone' ]
@@ -46,9 +45,4 @@ begin
 		puts 'Registered, waiting email verification'
 		true
 	end
-end
-
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  puts(e)
 end

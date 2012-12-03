@@ -1,4 +1,3 @@
-begin
 @browser.goto("http://www.merchantcircle.com/signup?utm_medium=signup")
 @browser.text_field(:id, "name").set data['name']
 @browser.text_field(:id, "telephone").set data['phone']
@@ -12,6 +11,10 @@ begin
 @browser.checkbox(:id, "offers").click
 @browser.checkbox(:id, "tos_agree").click
 @browser.button(:value, "Submit").click
+
+RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => data['email'], 'account[password]' => data['password'], 'model' => 'Merchantcircle'
+
+
 #@browser.button(:value, "Finished").click
 @browser.link(:text, "No, Thanks").click
 @browser.link(:text, "No, thanks").click
@@ -38,11 +41,3 @@ begin
 @browser.select( :name, "NewHours-6.openingStart").select data[ 'sunOpen' ]
 @browser.select( :name, "NewHours-6.closingEnd").select data[ 'sunClose' ]
 @browser.button( :name, "updateListing").click
-
-
-
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  puts(e)
-end
-

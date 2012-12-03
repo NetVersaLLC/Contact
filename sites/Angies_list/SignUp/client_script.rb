@@ -28,6 +28,7 @@ def claim_business(data)
 	if @validation_error.exist?
 		throw("Please correct these value:#{@validation_error.text}")
 	elsif @browser.html.include?('Thank you for registering!')
+		RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => data['email'], 'account[password]' => data['password'], 'model' => 'AngiesList'
 		puts "Business listing claim successful"
 		true
 	end
@@ -53,7 +54,6 @@ end
 # Main Script start from here
 # Launch url
 @url = 'https://business.angieslist.com/'
-begin
   @browser.goto(@url)
   
   #sign out
@@ -165,9 +165,3 @@ begin
 	  puts "Business already Listed"
 	  claim_business(data)
   end
-   
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  puts(e)
-end
-

@@ -1,4 +1,3 @@
-begin
 def add_business ( data )
 
 	@browser.goto('http://mojopages.com/biz/add')
@@ -43,6 +42,7 @@ def add_business ( data )
 	#Wait until category ajax loads
 	Watir::Wait::until do @browser.radio( :name => 'category' ).exists? or  @browser.text.include? 'No results found. Try a different keyword' end
 
+	RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => data['email'], 'account[password]' => data['password'], 'model' => 'Mojopage'
 
 	#does the category exist?
 	if @browser.text.include? 'No results found. Try a different keyword'
@@ -71,7 +71,3 @@ true
 
 end
 add_business( data )
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  puts(e)
-end

@@ -69,6 +69,40 @@ class Business < ActiveRecord::Base
   has_many :foursquares, :dependent => :destroy
   accepts_nested_attributes_for :foursquares, :allow_destroy => true
 
+  add_nested :angies_lists
+  attr_accessible :angies_lists_attributes
+  has_many :angies_lists, :dependent => :destroy
+  accepts_nested_attributes_for :angies_lists, :allow_destroy => true
+
+  add_nested :businesscoms
+  attr_accessible :businesscoms_attributes
+  has_many :businesscoms, :dependent => :destroy
+  accepts_nested_attributes_for :businesscoms, :allow_destroy => true
+
+  add_nested :aols
+  attr_accessible :aols_attributes
+  has_many :aols, :dependent => :destroy
+  accepts_nested_attributes_for :aols, :allow_destroy => true
+
+  add_nested :citisquares
+  attr_accessible :citisquares_attributes
+  has_many :citisquares, :dependent => :destroy
+  accepts_nested_attributes_for :citisquares, :allow_destroy => true
+
+  add_nested :getfavs
+  attr_accessible :getfavs_attributes
+  has_many :getfavs, :dependent => :destroy
+  accepts_nested_attributes_for :getfavs, :allow_destroy => true
+
+  add_nested :merchantcircles
+  attr_accessible :merchantcircles_attributes
+  has_many :merchantcircles, :dependent => :destroy
+  accepts_nested_attributes_for :merchantcircles, :allow_destroy => true
+  
+  add_nested :kudzus
+  attr_accessible :kudzus_attributes
+  has_many :kudzus, :dependent => :destroy
+  accepts_nested_attributes_for :kudzus, :allow_destroy => true
 
   def self.email_regex
     /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
@@ -175,6 +209,30 @@ class Business < ActiveRecord::Base
   end
   def self.site_accounts
     [
+      ['Aol', 'aols',
+        [
+          ['text', 'username'],
+          ['text', 'password']
+        ]
+      ],
+      ['AngiesList', 'angies_lists',
+        [
+          ['text', 'email'],
+          ['text', 'password']
+        ]
+      ],
+      ['Businesscom', 'businesscoms',
+        [
+          ['text', 'email'],
+          ['text', 'password']
+        ]
+      ],
+      ['Citisquare', 'citisquares',
+        [
+          ['text', 'email'],
+          ['text', 'password']
+        ]
+      ],
       ['Twitter', 'twitters',
         [
           ['text', 'username'],
@@ -266,19 +324,25 @@ class Business < ActiveRecord::Base
   def birthday
     Date.strptime(self.contact_birthday, '%m/%d/%Y')
   end
+  def self.sub_models
+    [AngiesList, Aol, Businesscom, Citisquare, Getfav, Yahoo, Bing, Google, Merchantcircle, Kudzu]
+  end
   def create_site_accounts
-    y = Yahoo.new
-    y.business_id = self.id
-    y.password = ''
-    y.save
-    b = Bing.new
-    b.business_id = self.id
-    b.password = ''
-    b.save
-    b = Google.new
-    b.business_id = self.id
-    b.password = ''
-    b.save
+    Business.sub_models.each do |klass| 
+    	y = klass.new
+	y.business_id = self.id
+	y.password = ''
+	y.save
+    end
+  end
+  def self.get_sub_model(str)
+    Business.sub_models.each do |klass|
+	STDERR.puts "Comparing #{str} <=> #{klass.class.to_s}"
+	if klass.to_s == str
+	  return klass
+	end
+    end
+    nil
   end
   def create_jobs
     sub = nil
