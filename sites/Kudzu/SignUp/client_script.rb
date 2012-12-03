@@ -1,5 +1,3 @@
-begin
-
 payment_types = { 
 	'AmericanExpress' => '673', 
 	'CashOnly' => '320360', 
@@ -95,13 +93,11 @@ end
 @browser.checkbox( :name, 'businessAgreement' ).click
 @browser.button( :name, 'submitButton' ).click
 
+RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[username]' => data['userName'], 'account[password]' => data['pass'], 'account[secret_answer]' => data['answer'], 'model' => 'Kudzu'
+
+
 #Kudzu.notify_of_join( key )
 
 if @chained
   self.start("Kudzu/Verify")
-end
-
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  puts(e)
 end

@@ -1,7 +1,7 @@
-class Getfav < ActiveRecord::Base
+class Getfav < ClientData
   attr_accessible :business_id, :force_update, :secrets
- 
-  
+  virtual_attr_accessor :password
+
   def self.my_mail(mail)
     if mail.subject =~ /Activate Your Fave Account/
       true

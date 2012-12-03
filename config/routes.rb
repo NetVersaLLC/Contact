@@ -25,6 +25,7 @@ Contact::Application.routes.draw do
   delete  '/jobs/:id(.:format)', :controller => :jobs,   :action => :remove
   get     '/jobs/list(.:format)',:controller => :jobs,   :action => :list
 
+  post    '/accounts(.:format)', :controller => :accounts,   :action => :create
   # Bing 
   post    '/bing/save_hotmail(.:format)',  :controller => :bing,   :action => :save_hotmail
   get     '/bing_category(.:format)',  :controller => :bing,   :action => :bing_category

@@ -1,9 +1,9 @@
 data = {}
 seed = rand( 1000 ).to_s()
-data[ 'email' ] 		= 'netversatest74@yahoo.com'#business.yahoos.first.email
-data[ 'username' ] 		= 'netversatest74@yahoo.com'#business.yahoos.first.email
-data[ 'password' ] 		= 'applesunday'#business.yahoos.first.password
-data[ 'phone' ] 		= '454123'+seed#business.local_phone
+data[ 'email' ] 		= business.bings.first.email
+data[ 'username' ] 		= business.bings.first.email
+data[ 'password' ] 		= Yahoo.make_password
+data[ 'phone' ] 		= business.local_phone
 data[ 'link' ] 			= Yellowbot.check_email(business)
 data[ 'business' ]		= business.business_name
 data[ 'phone' ]			= business.local_phone

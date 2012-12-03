@@ -1,13 +1,13 @@
 def verify_account_name_available( data )
 	
   #Verify user name is available or not
-  @browser.text_field(:id, "GmailAddress").value = data['business']
+  @browser.text_field(:id, "GmailAddress").value = data['email']
   @browser.div(:id,'gmail-address-form-element').span(:text,'@gmail.com').click
   @browser.text_field(:id, "GmailAddress").send_keys :tab
   @browser.span(:id, "errormsg_0_GmailAddress").text != ""
   if @browser.span(:id, "errormsg_0_GmailAddress") != ""
     puts 'Business Name is already used as a google username.  Need alternate!'
-    if business.has_key?('acceptable_alternates')
+    if data.has_key?('acceptable_alternates')
       data['acceptable_alternates'].each do |new_name|
       @browser.text_field(:id, "GmailAddress").value = new_name
       @browser.text_field(:id, "GmailAddress").send_keys :tab
@@ -54,17 +54,22 @@ def signup_generic( data )
   @browser.checkbox(:id,'TermsOfService').set
 	
   #Captcha Code
-  file = Tempfile.new('image.png')
-  file.close
   
+  image = "#{ENV['USERPROFILE']}\\citation\\google_captcha.png"
+  obj = @browser.image(:src, /recaptcha\/api\/image/)
+  puts "CAPTCHA source: #{obj.src}"
+  puts "CAPTCHA width: #{obj.width}"
+  obj.save image
 
-  @browser.image(:src, /recaptcha\/api\/image/).save file.path
-  text = CAPTCHA.solve file.path
+  text = CAPTCHA.solve image, :manual
+
   @browser.text_field( :id => 'captcha_text' ).set text
 	
   @browser.button(:value, 'Next step').click
   @browser.wait
-	
+  
+  email = @browser.text_field(:id, "GmailAddress").value
+  RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => "#{email}@gmail.com", 'account[password]' => data['pass'], 'model' => 'Google'
 
   if @browser.text.include?('Verify your account')
     @browser.text_field(:id, 'signupidvinput').set data[ 'phone' ]
@@ -85,4 +90,8 @@ def signup_generic( data )
   end	
 end
 
-signup_generic(data)
+login (data)
+
+if @chained
+  self.start("Google/CheckListing")
+end

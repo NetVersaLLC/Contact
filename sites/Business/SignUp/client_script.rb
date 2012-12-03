@@ -30,6 +30,7 @@ begin
   else
     puts "Steps I successfully passed"
   end
+  RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[username]' => data['email'], 'account[password]' => data['password'], 'model' => 'Businesscom'
 
   #Fill last form page
   @browser.text_field(:id => 'Company_name').set data['company_name']

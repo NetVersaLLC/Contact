@@ -1,4 +1,3 @@
-begin
 link = data['link']
 @browser.goto(link)
 
@@ -101,14 +100,3 @@ end
 @browser.text_field( :name => 'bpinfo.specialisations' ).set data[ 'specials' ]
 
 @browser.button( :name => '_eventId_submit').click
-
-
-
-
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  puts(e)
-end
-
-
-

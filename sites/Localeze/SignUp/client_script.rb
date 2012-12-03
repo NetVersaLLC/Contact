@@ -1,10 +1,8 @@
 url = 'http://webapp.localeze.com/directory/get-started.aspx'
 @browser = Watir::Browser.new
 #@browser.maximize()
-@browser.goto(url)
 #@browser.speed = :slow
 
-begin
 @browser.goto(url)
 #@browser.link(:href => /get-started/).click
 #@browser.close
@@ -73,8 +71,3 @@ number = @browser.p( :xpath, "/html/body/form/div[3]/div/div/div/div[3]/div/div[
 code = PhoneVerify.ask_for_code(number)
 @browser.button(:id,'ctl00_ContentPlaceHolderMain_PhoneVerification_btnCallMe').click
 @browser.text_field(:id,'ctl00_ContentPlaceHolderMain_PhoneVerification_txtVerificationCode').set code
-
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  puts(e)
-end
