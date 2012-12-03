@@ -53,7 +53,6 @@ end
 # Main Script start from here
 # Launch url
 @url = 'https://business.angieslist.com/'
-begin
   @browser.goto(@url)
   
   #sign out
@@ -158,16 +157,14 @@ begin
 			throw("Profile didn't updated successfully")
 		end
 		@browser.button(:src,/close_btn/).click
+		RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => data['email'], 'account[password]' => data['password'], 'model' => 'AngiesList'
 		true
 	  end
 	  
   elsif  search_business(data)
 	  puts "Business already Listed"
 	  claim_business(data)
+	  RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => data['email'], 'account[password]' => data['password'], 'model' => 'AngiesList'
   end
    
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  puts(e)
-end
 
