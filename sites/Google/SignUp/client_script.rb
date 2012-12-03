@@ -1,13 +1,13 @@
 def verify_account_name_available( data )
 	
   #Verify user name is available or not
-  @browser.text_field(:id, "GmailAddress").value = data['business']
+  @browser.text_field(:id, "GmailAddress").value = data['email']
   @browser.div(:id,'gmail-address-form-element').span(:text,'@gmail.com').click
   @browser.text_field(:id, "GmailAddress").send_keys :tab
   @browser.span(:id, "errormsg_0_GmailAddress").text != ""
   if @browser.span(:id, "errormsg_0_GmailAddress") != ""
     puts 'Business Name is already used as a google username.  Need alternate!'
-    if business.has_key?('acceptable_alternates')
+    if data.has_key?('acceptable_alternates')
       data['acceptable_alternates'].each do |new_name|
       @browser.text_field(:id, "GmailAddress").value = new_name
       @browser.text_field(:id, "GmailAddress").send_keys :tab
@@ -90,4 +90,8 @@ def signup_generic( data )
   end	
 end
 
-signup_generic(data)
+login (data)
+
+if @chained
+  self.start("Google/CheckListing")
+end
