@@ -1,4 +1,3 @@
-begin
 #Search Business
 @url = 'https://www.getfave.com/login'
 @browser = Watir::Browser.new
@@ -43,9 +42,4 @@ if @results.exist? && @results.text.include?(@result_msg) || @matching_result.ex
 	end
 else
 puts "Business is already listed on Getfave"
-end
-
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  puts(e)
 end

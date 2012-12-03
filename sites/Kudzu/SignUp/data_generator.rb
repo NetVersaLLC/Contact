@@ -1,10 +1,10 @@
 data = {}
 seedString 			= rand( 1000 ).to_s()
-data[ 'userName' ] 		= business.contact_first_name + business.contact_last_name + seedString
-data[ 'email' ]			= 'netversatest74@yahoo.com'#'netversatest'+seedString+'@gmail.com'#business.yahoos.email.first
-data[ 'pass' ]			= 'applesunday'
+data[ 'userName' ] 		= (business.contact_first_name + business.contact_last_name + seedString).to_s.gsub(/\s+/, '')
+data[ 'email' ]			= business.bings.email.first
+data[ 'pass' ]			= Yahoo.make_password
 data[ 'securityQuestion' ]	= 'City of Birth?'
-data[ 'answer' ] 		= 'Boston'
+data[ 'answer' ] 		= Yahoo.make_secret_answer2
 data[ 'prefix' ]		= business.contact_prefix
 data[ 'firstName' ]		= business.contact_first_name
 data[ 'lastName' ]		= business.contact_last_name

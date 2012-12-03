@@ -9,5 +9,5 @@ data[ 'website' ]	= business.company_website
 data[ 'category' ]	= business.category1
 data[ 'first_name' ]	= business.contact_first_name
 data[ 'last_name' ]	= business.contact_last_name
-data[ 'email' ]		= 'netversatest74@gmail.com'
+data[ 'email' ]		= business.bings.first.email
 data

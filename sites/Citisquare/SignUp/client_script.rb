@@ -9,6 +9,7 @@
 	  @browser.text_field(:name => 'last_name').set data[ 'last_name' ] 
 	  @browser.text_field(:name => 'zip').set data[ 'zip' ] 
 	  @browser.button(:value => 'Register').click
+	  RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => data['email'], 'account[password]' => data['password'], 'model' => 'Citisquare'
   end	
   
   def matching_result(data)
@@ -61,7 +62,6 @@
 # Main Script start from here
 # Launch url
 @url = 'http://citysquares.com/'
-begin
   @browser.goto(@url)
 
   #sign out
@@ -103,8 +103,3 @@ begin
 		puts "Business successfully registered"
 	  end
   end
-   
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  raise(e)
-end

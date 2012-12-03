@@ -2,8 +2,6 @@
 @url = 'https://www.getfave.com'
 @browser.goto(@url)
 
-begin
-
 #Check for existing session
 @sign_out = @browser.link(:text,'Log Out')
 
@@ -28,7 +26,7 @@ if @login_error.exist?
 	@browser.link(:text,'create a new one,').click
 	@browser.text_field(:id,'user_name').set data[ 'name' ]
 	@browser.text_field(:id,'user_email').set data[ 'email' ]
-	@browser.text_field(:id,'user_password').set data[ 'email' ]
+	@browser.text_field(:id,'user_password').set data[ 'password' ]
 	@browser.button(:value,'Join Us').click
 
 end
@@ -37,14 +35,11 @@ if @browser.text.include? 'Please correct the errors and try again.'
 		throw ("There are an error while creating the account")
 	end
 
+RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => data['email'], 'account[password]' => data['password'], 'model' => 'Getfave'
 	puts ("Signup successful. Verifying email to continue")
 
+	
 	if @chained
 	  self.start("Getfave/Verify")
-end
-
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  puts(e)
 end
 

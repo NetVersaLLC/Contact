@@ -1,5 +1,4 @@
 @url = 'https://www.thumbtack.com/welcome'
-begin
   @browser = Watir::Browser.new
   @browser.goto(@url)
   @browser.text_field(:name => 'sav_business_name').set data ['business']
@@ -52,8 +51,3 @@ begin
     throw("Initial Registration Unsuccessful")
   end
 #  @browser.close
-  
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  puts(e)
-end

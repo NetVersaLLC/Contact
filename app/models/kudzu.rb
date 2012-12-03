@@ -1,10 +1,6 @@
 class Kudzu < ClientData
   attr_accessible :username
-  virtual_attr_accessor :password
-  validates :username,
-            :presence => true
-  validates :password,
-            :presence => true
+  virtual_attr_accessor :password, :secret_answer
 
   def self.check_email(business)
     @link = nil

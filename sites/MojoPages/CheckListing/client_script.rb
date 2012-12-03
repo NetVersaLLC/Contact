@@ -1,4 +1,3 @@
-begin
 def search_for_business( data )
 
 	#load the browser and navigate to the business search page
@@ -75,8 +74,3 @@ end
 
 
 main( data )
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  puts(e)
-end
-
