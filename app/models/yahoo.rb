@@ -37,4 +37,15 @@ class Yahoo < ClientData
     end
     accepted
   end
+  def email_available(business)
+    @link = nil
+    CheckMail.get_link(business) do |mail|
+      if mail.subject =~ //
+        if mail.body =~ //
+          @link = $1
+        end
+      end
+    end
+    @link
+  end
 end

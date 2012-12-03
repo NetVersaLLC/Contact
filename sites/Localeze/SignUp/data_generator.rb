@@ -1,11 +1,11 @@
 data = {}
-data[ 'phone' ]      = business.local_phone
+data[ 'phone' ]     	    = business.local_phone
 data[ 'phone_area' ]        = business.local_phone.split("-")[1]
 data[ 'phone_prefix' ]      = business.local_phone.split("-")[2]
 data[ 'phone_suffix' ]      = business.local_phone.split("-")[3]
 data[ 'first_name' ]        = business.contact_first_name
 data[ 'last_name' ]         = business.contact_last_name
-data[ 'email' ]             =  business.bings.first.email
+data[ 'email' ]             = 'nullemail@null.com' #business.yahoos.first.email
 data[ 'city' ]     	    = business.city
 data[ 'state' ]    	    = business.state + ' - ' + business.state_name
 data[ 'zip' ]      	    = business.zip

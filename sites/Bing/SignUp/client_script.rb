@@ -1,5 +1,5 @@
 def get_email_name( business )
-  business[ 'name' ].downcase.delete( ' ' ).strip + rand( 1000 ).to_s
+  business[ 'name' ].downcase.delete( ' ' ).strip + (rand( 10000 )+200).to_s
 end
 
 def sign_up( business )

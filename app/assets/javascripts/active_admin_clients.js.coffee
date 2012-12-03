@@ -120,6 +120,7 @@ window.clientPayloadListAction = (e)->
 
 window.startPayloads = () ->
   # Setup Payload Categories
+  window.payloadListAction = window.clientPayloadListAction
   $.getJSON '/admin/jobs/payloads_categories_list.js', (data)->
     console.log(data)
     html = '<select id="payload_categories_select" onchange="window.loadPayloads();">'
