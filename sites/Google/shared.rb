@@ -28,12 +28,12 @@ end
 
 def search_for_business( data )
 
-	puts 'Search for the ' + data[ 'business' ] + ' business at ' + data[ 'zip' ] +  data['zip_location']
+	puts 'Search for the ' + data[ 'business' ] + ' business at ' + data[ 'zip' ] +  data['city']
 	# 'https://plus.google.com/local' ) # Must be logged in to search
 	@browser.goto('https://plus.google.com/local')
 
 	@browser.text_field(:name, "qc").set data['business']
-	@browser.text_field(:name, "qb").set data['zip_location']
+	@browser.text_field(:name, "qb").set data['city']
 	@browser.button(:id,'gbqfb').click
 	@browser.wait
 	sleep(5)
