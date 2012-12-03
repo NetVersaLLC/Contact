@@ -1,6 +1,6 @@
 data = {}
 data[ 'email' ]             = business.bings.first.email 
-data[ 'password' ]          = AngiesList.make_password
+data[ 'password' ]          = business.bings.first.password
 data[ 'first_name' ]        = business.contact_first_name
 data[ 'last_name' ]         = business.contact_last_name
 data[ 'gender' ]            = business.contact_gender
