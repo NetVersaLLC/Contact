@@ -31,6 +31,7 @@ end
 url = 'http://www.aol.com/'
 @browser.goto(url)
 
+begin
 # step 1
 @browser.link(:text => 'Sign In').when_present.click
 @browser.link(:text => 'Get a Free Username').click
@@ -49,11 +50,9 @@ if @error_msg.text == ""
 else
 	throw("Dispaying Error Message:#{@browser.div(:class,'errorMsg').text}")
 end
-sleep(3)
 
 # step 2
 @email = @browser.div(:id,'conf-un-pi').text
-puts( @email )
 @browser.div(:id,'dobMonth_custom').click
 @browser.div(:class,'selMeUlWrap').ul(:class,'selectME').link(:text,"#{data[ 'month' ] }").click
 @browser.text_field(:id,'dobDay').set data[ 'day' ] 
@@ -64,7 +63,7 @@ puts( @email )
 @browser.div(:id,'asq-toggle-sect').div(:class,'selMeUlWrap').ul(:class,'selectME').link(:text,"#{data[ 'security_question' ] }").click
 @browser.text_field(:id,'acctSecurityAnswer').set data[ 'Security_answer' ] 
 @browser.link(:id,'step-two').click
-
+ 
 #Check for error message
 if @error_msg.text == ""
 	puts "Step - 2 is successful completed"
@@ -75,7 +74,8 @@ end
 # step 3
 #captcha Code
 captcha_code = solve_captcha
-@browser.text_field(:id,'wordVerify').set captcha_code 
+@browser.text_field(:id,'wordVerify').focus
+@browser.text_field(:id,'wordVerify').set captcha_code
 @browser.link(:id,'step-three').click
 
 if @error_msg.exist? == false
@@ -111,8 +111,12 @@ end
 #Verify email login
 if @browser.div(:id,'om_aol-jumpbar').text.include?("Welcome #{@user_name_header}")
   puts "Able to login successfully"
-  RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[username]' => @user_name, 'account[password]' => data['password'], 'model' => 'Aol'
   true
 else
   puts "Not able to access successfully"
+end
+
+rescue Exception => e
+  puts("Exception Caught in Business Listing")
+  puts(e)
 end
