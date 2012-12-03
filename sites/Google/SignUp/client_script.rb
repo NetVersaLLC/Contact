@@ -54,17 +54,22 @@ def signup_generic( data )
   @browser.checkbox(:id,'TermsOfService').set
 	
   #Captcha Code
-  file = Tempfile.new('image.png')
-  file.close
   
+  image = "#{ENV['USERPROFILE']}\\citation\\google_captcha.png"
+  obj = @browser.image(:src, /recaptcha\/api\/image/)
+  puts "CAPTCHA source: #{obj.src}"
+  puts "CAPTCHA width: #{obj.width}"
+  obj.save image
 
-  @browser.image(:src, /recaptcha\/api\/image/).save file.path
-  text = CAPTCHA.solve file.path
+  text = CAPTCHA.solve image, :manual
+
   @browser.text_field( :id => 'captcha_text' ).set text
 	
   @browser.button(:value, 'Next step').click
   @browser.wait
-	
+  
+  email = @browser.text_field(:id, "GmailAddress").value
+  RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => "#{email}@gmail.com", 'account[password]' => data['pass'], 'model' => 'Google'
 
   if @browser.text.include?('Verify your account')
     @browser.text_field(:id, 'signupidvinput').set data[ 'phone' ]

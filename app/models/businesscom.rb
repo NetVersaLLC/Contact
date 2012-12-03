@@ -1,6 +1,7 @@
-class AngiesList < ClientData
-  attr_accessible :email
+class Businesscom < ClientData
+  attr_accessible :business_id, :email
   virtual_attr_accessor :password
+
   validates :email,
             :allow_blank => true,
             :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }

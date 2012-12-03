@@ -1,4 +1,3 @@
-begin
 def claim_business( business )
 
 
@@ -62,7 +61,7 @@ url = "http://mojopages.com/biz/find?areaCode=#{area}&exchange=#{prefix}&phoneNu
 	
 	#wait until 'This your business? loads
 	Watir::Wait::until do @browser.text.include? 'Is this your business?' end
-	
+	RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => data['email'], 'account[password]' => data['password'], 'model' => 'Mojopage'
 	#say yes
 	@browser.link( :class => 'button positive').click
 
@@ -131,9 +130,3 @@ theform = @browser.form(:action, '/business/claim').id
 end
 
 claim_business( data )
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  puts(e)
-end
-
-

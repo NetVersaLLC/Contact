@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121123233028) do
+ActiveRecord::Schema.define(:version => 20121203141344) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -85,6 +85,17 @@ ActiveRecord::Schema.define(:version => 20121123233028) do
 
   add_index "angies_lists", ["business_id"], :name => "index_angies_lists_on_business_id"
 
+  create_table "aols", :force => true do |t|
+    t.integer  "business_id"
+    t.datetime "force_update"
+    t.text     "secrets"
+    t.string   "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "aols", ["username"], :name => "index_aols_on_username"
+
   create_table "bing_categories", :force => true do |t|
     t.integer  "parent_id"
     t.string   "name"
@@ -124,6 +135,17 @@ ActiveRecord::Schema.define(:version => 20121123233028) do
 
   add_index "booboos", ["business_id"], :name => "index_booboos_on_business_id"
   add_index "booboos", ["user_id"], :name => "index_booboos_on_user_id"
+
+  create_table "businesscoms", :force => true do |t|
+    t.datetime "force_update"
+    t.text     "secrets"
+    t.integer  "business_id"
+    t.string   "email"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "businesscoms", ["business_id"], :name => "index_businesscoms_on_business_id"
 
   create_table "businesses", :force => true do |t|
     t.integer  "user_id"

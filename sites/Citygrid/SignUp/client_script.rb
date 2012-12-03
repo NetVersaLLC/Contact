@@ -1,5 +1,3 @@
-begin
-
 # Search for the business
 @browser.goto( "http://www.citygrid.com" )
 @browser.text_field( :id => 'what' ).set data[ 'business_name' ]
@@ -52,11 +50,3 @@ code = PhoneVerify.ask_for_code(number)
 
 @browser.checkbox( :id => 'check-agree' ).set
 @browser.button( :id => 'check_button' ).click
-
-
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  puts(e)
-end
-
-

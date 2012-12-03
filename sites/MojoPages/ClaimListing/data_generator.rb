@@ -5,7 +5,7 @@ data[ 'phone_suffix' ] = business.local_phone.split("-")[2]
 data[ 'phone' ] = business.local_phone
 data[ 'first_name' ] = business.contact_first_name
 data[ 'last_name' ] = business.contact_last_name
-data[ 'email' ] = 'netversatest85@gmail.com' #business.yahoos.first.email
+data[ 'email' ] = business.bings.first.email
 data[ 'business' ] = business.business_name
 data[ 'streetnumber' ] = business.address + ' ' + business.address2
 data[ 'city' ] = business.city
@@ -17,7 +17,7 @@ data[ 'citystate' ] = data[ 'city' ] + ', ' + data[ 'stateabreviation' ]
 data[ 'url' ] = business.company_website
 data[ 'tagline' ] = business.keyword1 + ' ' + business.keyword2 + ' ' + business.keyword3 + ' ' + business.keyword4 + ' ' + business.keyword5
 data[ 'description' ] = business.business_description
-data[ 'password' ] = 'applesunday' #business.yahoos.first.password
+data[ 'password' ] = Mojopage.make_password
 data[ 'category' ] = business.category1
 data[ 'gender' ] = business.contact_gender
 data
