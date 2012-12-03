@@ -1,4 +1,5 @@
 #method for adding the company to the Manta listing
+begin
 def add_company( data )
 
 	#verify we are on the correct page. 
@@ -69,11 +70,8 @@ verifyCode = nok.xpath('//*[@id="get-verified-dialog-container-edit-existing"]/d
 verifyCode = verifyCode.gsub(/[^0-9A-Za-z]/, '')
 verifyCode = verifyCode.gsub("ReferenceCode", '')
 
-
-
-puts(verifyCode)
-
-#TODO ADD PHONE VERIFICATION
+puts ("Doing phone verification")
+code = PhoneVerify.enter_code(number, verifyCode)
 
 true
 
@@ -96,3 +94,16 @@ add_company( data )
 end
 
 main( data )
+
+
+rescue Exception => e
+  puts("Exception Caught in Business Listing")
+  puts(e)
+end
+
+
+
+
+
+
+
