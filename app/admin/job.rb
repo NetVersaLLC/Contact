@@ -78,8 +78,8 @@ ActiveAdmin.register Job do
   member_action :assload, :method => :post do
     PackagesPayloads.create do |pac|
       pac.package_id = params[:id]
-      pac.site = params[:category]
-      pac.payload = params[:payload_id]
+      pac.site       = params[:category]
+      pac.payload    = params[:payload_id]
     end
     render json: true
   end

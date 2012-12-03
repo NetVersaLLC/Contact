@@ -6,15 +6,15 @@ def sign_up_personal( business )
   puts 'Sign up for new Yahoo account'
   @browser.link(:id => 'signUpBtn').click
 
-  @browser.text_field( :id => 'firstname' ).set business[ 'first_name' ]
-  @browser.text_field( :id => 'secondname' ).set business[ 'last_name' ]
-  @browser.select_list( :id => 'gender' ).select business[ 'gender' ]
-  @browser.select_list( :id => 'mm' ).select business[ 'month' ]
-  @browser.text_field( :id => 'dd' ).set business[ 'day' ]
-  @browser.text_field( :id => 'yyyy' ).set business[ 'year' ]
-  @browser.select_list( :id => 'country' ).select business[ 'country' ]
+  @browser.text_field(  :id => 'firstname' ).set   business[ 'first_name' ]
+  @browser.text_field(  :id => 'secondname' ).set  business[ 'last_name' ]
+  @browser.select_list( :id => 'gender' ).select   business[ 'gender' ]
+  @browser.select_list( :id => 'mm' ).select       business[ 'month' ]
+  @browser.text_field(  :id => 'dd' ).set          business[ 'day' ]
+  @browser.text_field(  :id => 'yyyy' ).set        business[ 'year' ]
+  @browser.select_list( :id => 'country' ).select  business[ 'country' ]
   @browser.select_list( :id => 'language' ).select business[ 'language' ]
-  @browser.text_field( :id => 'postalcode' ).set business[ 'zip' ]
+  @browser.text_field(  :id => 'postalcode' ).set  business[ 'zip' ]
 
   # .. select email
   @browser.text_field( :id => 'yahooid' ).clear # shows suggestions list; [click, flash]

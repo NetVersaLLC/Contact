@@ -42,14 +42,17 @@ end
 @browser.button( :id => 'create_account_button' ).click
 
 
-# TODO: verify by phone?
 # assert( @browser.text.include? "Verify" ) #and call_button
 raise 'Not on verify page' unless @browser.text.include? 'Verify'
-@browser.checkbox( :id => 'check-agree' ).set
-#@browser.text_field( :id => 'code_field').set "31232"
-#@browser.button( :id => 'check_button' ).click
 
-puts("Registered but still needs phone verification")
+number = @browser.( :id, "call_button").value
+number = number.slice! "Call me now at "
+code = PhoneVerify.ask_for_code(number)
+@browser.text_field( :id, "code_field").set code
+
+@browser.checkbox( :id => 'check-agree' ).set
+@browser.button( :id => 'check_button' ).click
+
 
 rescue Exception => e
   puts("Exception Caught in Business Listing")
