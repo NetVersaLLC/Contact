@@ -1,5 +1,5 @@
 #method for adding the company to the Manta listing
-begin
+
 def add_company( data )
 
 	#verify we are on the correct page. 
@@ -90,20 +90,7 @@ def main( data )
 
 add_company( data )
 
-
 end
 
 main( data )
-
-
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  puts(e)
-end
-
-
-
-
-
-
 

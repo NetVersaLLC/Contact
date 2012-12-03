@@ -31,7 +31,6 @@ end
 url = 'http://www.aol.com/'
 @browser.goto(url)
 
-begin
 # step 1
 @browser.link(:text => 'Sign In').when_present.click
 @browser.link(:text => 'Get a Free Username').click
@@ -111,12 +110,10 @@ end
 #Verify email login
 if @browser.div(:id,'om_aol-jumpbar').text.include?("Welcome #{@user_name_header}")
   puts "Able to login successfully"
+  RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[username]' => @user_name_header, 'model' => 'Aol'
   true
 else
   puts "Not able to access successfully"
 end
 
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  puts(e)
-end
+
