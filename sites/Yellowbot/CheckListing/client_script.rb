@@ -26,3 +26,4 @@ elsif claim_link.exists?
 else
  throw( "Problem with locating link to continue YellowBot registration!" )
 end
+true
