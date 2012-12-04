@@ -74,7 +74,7 @@ def signup_generic( data )
   
   RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => "#{email}@gmail.com", 'account[password]' => data['pass'], 'model' => 'Google'
 
-  if @browser.text.include?('Verify your account')
+  if @browser.wait_until {@browser.text_field(:id, 'signupidvinput').exist?}
     @browser.text_field(:id, 'signupidvinput').set data[ 'phone' ]
     @browser.radio(:id,'signupidvmethod-sms').set
     @browser.button(:value,'Continue').click

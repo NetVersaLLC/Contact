@@ -12,7 +12,7 @@ data = { 'phone' => business.local_phone.to_s,
          'zipcode' => business.zip,
          'country' => 'United States',
 	 'birthmonth' => Date::MONTHNAMES[business.birthday.month],
-	 'alt_email' => 'test@test.com',
+	 'alt_email' => '',
 	 'birthday' => business.birthday.day.to_s,
 	 'birthyear' => business.birthday.year.to_s,
 	 'gender' => business.contact_gender
