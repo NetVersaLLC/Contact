@@ -58,7 +58,7 @@ def sign_up( business )
   watir_must do @browser.link( :text, 'Continue to Hotmail' ).exists? end
 
   # RestClient.post "#{@host}/bing/save_hotmail?auth_token=#{@key}&business_id=#{@bid}", :email => business['hotmail'], :password => business['password'], :secret_answer => business['secret_answer']
-  RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => business['hotmail'], 'account[password]' => data['password'], 'account[secret_answer]' => business['secret_answer'], 'model' => 'Bing'
+  RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => business['hotmail'], 'account[password]' => business['password'], 'account[secret_answer]' => business['secret_answer'], 'model' => 'Bing'
 end
 
 @browser.goto('https://signup.live.com/')

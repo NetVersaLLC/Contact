@@ -261,6 +261,12 @@ class Business < ActiveRecord::Base
           ['text', 'password']
         ]
       ],
+      ['Mojopage', 'mojopages',
+        [
+          ['text', 'email'],
+          ['text', 'password']
+        ]
+      ],
       ['Twitter', 'twitters',
         [
           ['text', 'username'],
