@@ -18,7 +18,7 @@
   if @browser.div(:class,'form-error').visible?
     throw("Validation Fails : #{@browser.div(:class,'form-error').text}")
   end
-
+sleep(2)
 # Remove this line if we have a way to login via facebook
   @browser.link(:text,/Skip this step/).when_present.click
 
@@ -41,6 +41,7 @@
   #@browser.link(:text,/Continue/).when_present.click
 
   #remove this line if the image stuff is fixed.
+ sleep (3)
   @browser.link(:text,/Skip this step/).when_present.click
  sleep (3)
   # Last Step
