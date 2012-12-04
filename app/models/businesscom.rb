@@ -1,5 +1,5 @@
 class Businesscom < ClientData
-  attr_accessible :business_id, :email
+  attr_accessible :business_id, :email, :username
   virtual_attr_accessor :password
 
   validates :email,
