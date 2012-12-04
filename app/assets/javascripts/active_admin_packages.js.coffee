@@ -2,6 +2,7 @@ window.loadPayloadList = ()->
   console.log $('#packages_list').val()
 
 window.packagePayloadListAction = (e)->
+  console.log "payloadListAction()"
   window.assign_payload = $(e.target).attr('data-payload-id')
   window.payload_post_url = "/admin/jobs/#{$('#packages_list').val()}/assload.js?payload_id=#{window.assign_payload}&category=#{$('#payload_categories_select').val()}"
   $('#assign_payload').dialog("open")

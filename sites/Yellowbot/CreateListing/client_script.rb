@@ -16,15 +16,6 @@ captcha_text = solve_captcha()
 	if @browser.text.include? 'Welcome to YellowBot!'
 		puts("Registered! Confirming email...")
 		true
-	
-	link = data['link']
-	@browser.goto(link)
-	
-		if @browser.text.include? 'Email Address Confirmed'
-			@browser.link( :text, 'Continue to where I was going').click
-			puts( 'Emailed confirmed, adding business listing' )
-			create_business( data )
-		end  
 	end
 
 
@@ -58,3 +49,7 @@ end
 
 
 end
+
+create_business(data)
+
+true
