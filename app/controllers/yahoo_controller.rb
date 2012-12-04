@@ -1,4 +1,5 @@
 class YahooController < ApplicationController
+  skip_before_filter :verify_authenticity_token
   def save_email
     @business = Business.find(params[:business_id])
     if current_user.nil? or @business.user_id != current_user.id

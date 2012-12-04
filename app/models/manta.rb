@@ -1,4 +1,4 @@
-class Merchantcircle < ClientData
+class Manta < ClientData
   attr_accessible :email
   virtual_attr_accessor :password
   validates :email,
@@ -28,7 +28,6 @@ class Merchantcircle < ClientData
         end
       end
     end
-    STDERR.puts "Merchantcircle link: #{@link}"
     @link
   end
 end
