@@ -28,8 +28,8 @@ def signup_generic( data )
   #Launch Browser
   @browser.goto site
 
-  @browser.text_field(:id, "FirstName").value = data['first name']
-  @browser.text_field(:id, "LastName").value = data['last name']
+  @browser.text_field(:id, "FirstName").value = data['first_name']
+  @browser.text_field(:id, "LastName").value = data['last_name']
 	
   #Verify if username is available
   verify_account_name_available( data )
@@ -46,7 +46,10 @@ def signup_generic( data )
   # Gender
   @browser.div(:class => "goog-inline-block goog-flat-menu-button-dropdown", :index => 1).click
   @browser.div(:text, "#{data['gender']}").click
-  @browser.text_field(:id, "RecoveryPhoneNumber").set data['phone']
+  # Country code for US
+  country_code = '+1'
+  phone = country_code + data['phone']
+  @browser.text_field(:id, "RecoveryPhoneNumber").set phone
   @browser.text_field(:id, "RecoveryEmailAddress").value = data['alt_email']
 	
   @browser.div(:class => "goog-inline-block goog-flat-menu-button-dropdown", :index => 2).click
@@ -61,25 +64,27 @@ def signup_generic( data )
   puts "CAPTCHA width: #{obj.width}"
   obj.save image
 
-  text = CAPTCHA.solve image, :manual
+  captcha_text = CAPTCHA.solve image, :manual
 
-  @browser.text_field( :id => 'captcha_text' ).set text
-	
+  @browser.text_field( :id => 'recaptcha_response_field' ).set captcha_text
+  @browser.checkbox(:id => 'TermsOfService').set
+  email = @browser.text_field(:id, "GmailAddress").value
   @browser.button(:value, 'Next step').click
   @browser.wait
   
-  email = @browser.text_field(:id, "GmailAddress").value
   RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => "#{email}@gmail.com", 'account[password]' => data['pass'], 'model' => 'Google'
 
   if @browser.text.include?('Verify your account')
     @browser.text_field(:id, 'signupidvinput').set data[ 'phone' ]
     @browser.radio(:id,'signupidvmethod-sms').set
     @browser.button(:value,'Continue').click
+    # fetch Phone verification code
+    @code = PhoneVerify.ask_for_code
     if @browser.span(:class,'errormsg').exist? 
       puts "#{@browser.span(:class,'errormsg').text}"
     end
     if @browser.text_field(:id,'verify-phone-input').exist?
-      @browser.text_field(:id,'verify-phone-input').set data[ 'pass-code' ]
+      @browser.text_field(:id,'verify-phone-input').set @code
       @browser.button(:value,'Continue').click
         if @browser.span(:class,'errormsg').exist? 
     	puts "#{@browser.span(:class,'errormsg').text}"
