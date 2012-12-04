@@ -1,6 +1,6 @@
 email_names = Google.make_email_names(business)
 
-data = { 'phone' => business.local_phone,
+data = { 'phone' => business.local_phone.to_s,
          'pass' => Google.make_password,
          'first_name' => business.contact_first_name,
          'last_name' => business.contact_last_name,
