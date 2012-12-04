@@ -16,6 +16,8 @@ class Payload
     payloads = []
     Dir.open( Rails.root.join("sites", site) ).each do |payload|
       next if payload =~ /^\./
+      STDERR.puts "Examining: #{site}/#{payload}"
+      next unless File.directory? Rails.root.join("sites", site, payload)
       payloads.push payload
     end
     payloads.sort
