@@ -1,32 +1,27 @@
 class Getfav < ClientData
-  attr_accessible :business_id, :force_update, :secrets
+  attr_accessible :email
   virtual_attr_accessor :password
-
-  def self.my_mail(mail)
-    if mail.subject =~ /Activate Your Fave Account/
-      true
-    else
-      false
-    end
-  end
-
-  def self.get_link(mail)
-    if mail.body =~ /(https:\/\/www.getfave.com\/?activate=\S+)/
-      $1
-    else
-      nil
-    end
-  end
 
   def self.check_email(business)
     @link = nil
     CheckMail.get_link(business) do |mail|
-      if mail.subject =~ /Activate Your Fave Account/
-        if mail.body =~ /(https:\/\/www.getfave.com\/?activate=\S+)/
-          @link = $1
+      # STDERR.puts "Examining: #{mail.subject}"
+      if mail.subject =~ /Activate Your Fave Account/i
+        mail.parts.map do |p|
+          if p.content_type =~ /text\/html/
+            # STDERR.puts "Body: #{p.decoded}"
+            nok = Nokogiri::HTML(p.decoded)
+            nok.xpath("//a").each do |link|
+              # STDERR.puts "Link: #{link.attr('href')}"
+              if link.attr('href') =~ /getfave.com\/\?activate/i
+                @link = link.attr('href')
+              end
+            end
+          end
         end
       end
     end
+    STDERR.puts "Getfav link: #{@link}"
     @link
   end
 

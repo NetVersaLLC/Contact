@@ -64,7 +64,6 @@
 @url = 'http://citysquares.com/'
   @browser.goto(@url)
 
-  #sign out
   @sign_out = @browser.link(:text, 'Sign Out')
   @sign_out.click if @sign_out.exist?
   
@@ -103,3 +102,5 @@
 		puts "Business successfully registered"
 	  end
   end
+
+true
