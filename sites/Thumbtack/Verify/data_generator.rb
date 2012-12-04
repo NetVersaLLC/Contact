@@ -1,4 +1,4 @@
 data = {
-  :link => Getfav.check_email(business)
+  :link => Thumbtack.check_email(business)
 }
 

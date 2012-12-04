@@ -1,4 +1,6 @@
 link = data['link']
+puts("Here is the link")
+puts(link)
 @browser.goto(link)
 Watir::Wait::until do
   browser.text.include? "Log Out"
