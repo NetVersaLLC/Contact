@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121203141344) do
+ActiveRecord::Schema.define(:version => 20121203171353) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(:version => 20121203141344) do
     t.string   "email"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.string   "username"
   end
 
   add_index "businesscoms", ["business_id"], :name => "index_businesscoms_on_business_id"
@@ -233,6 +234,17 @@ ActiveRecord::Schema.define(:version => 20121203141344) do
   add_index "businesses", ["category2"], :name => "index_businesses_on_category2"
   add_index "businesses", ["category3"], :name => "index_businesses_on_category3"
   add_index "businesses", ["user_id"], :name => "index_businesses_on_user_id"
+
+  create_table "citisquares", :force => true do |t|
+    t.datetime "force_update"
+    t.text     "secrets"
+    t.integer  "business_id"
+    t.string   "email"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "citisquares", ["business_id"], :name => "index_citisquares_on_business_id"
 
   create_table "citysearches", :force => true do |t|
     t.integer  "business_id"
@@ -494,6 +506,28 @@ ActiveRecord::Schema.define(:version => 20121203141344) do
   end
 
   add_index "map_quests", ["business_id"], :name => "index_map_quests_on_business_id"
+
+  create_table "merchantcircles", :force => true do |t|
+    t.datetime "force_update"
+    t.text     "secrets"
+    t.integer  "business_id"
+    t.string   "email"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "merchantcircles", ["business_id"], :name => "index_merchantcircles_on_business_id"
+
+  create_table "mojopages", :force => true do |t|
+    t.datetime "force_update"
+    t.text     "secrets"
+    t.integer  "business_id"
+    t.string   "email"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "mojopages", ["business_id"], :name => "index_mojopages_on_business_id"
 
   create_table "notifications", :force => true do |t|
     t.integer  "business_id"

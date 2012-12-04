@@ -13,10 +13,10 @@ data['state_long']		= business.state_name
 data['zip']			= business.zip
 data['first_name']		= business.contact_first_name
 data['last_name']		= business.contact_last_name
-data['email']			= business.yahoos.first.email
+data['email']			= business.bings.first.email
 data['description']		= business.business_description
-data['ezlocal_category1']	= 'Restaurant' #business.category1
-data['ezlocal_category2']	= '3D Designs' #business.category2
-data['ezlocal_category3']	= '3D Signs' #business.category3
+data['ezlocal_category1']	= business.category1
+data['ezlocal_category2']	= business.category2
+data['ezlocal_category3']	= business.category3
 data['website']			= business.company_website
 data

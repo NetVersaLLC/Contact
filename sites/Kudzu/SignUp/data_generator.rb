@@ -1,7 +1,7 @@
 data = {}
 seedString 			= rand( 1000 ).to_s()
 data[ 'userName' ] 		= (business.contact_first_name + business.contact_last_name + seedString).to_s.gsub(/\s+/, '')
-data[ 'email' ]			= business.bings.email.first
+data[ 'email' ]			= business.bings.first.email
 data[ 'pass' ]			= Yahoo.make_password
 data[ 'securityQuestion' ]	= 'City of Birth?'
 data[ 'answer' ] 		= Yahoo.make_secret_answer2

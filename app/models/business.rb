@@ -103,6 +103,11 @@ class Business < ActiveRecord::Base
   attr_accessible :kudzus_attributes
   has_many :kudzus, :dependent => :destroy
   accepts_nested_attributes_for :kudzus, :allow_destroy => true
+  
+  add_nested :mojopages
+  attr_accessible :mojopages_attributes
+  has_many :mojopages, :dependent => :destroy
+  accepts_nested_attributes_for :mojopages, :allow_destroy => true
 
   def self.email_regex
     /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
@@ -233,6 +238,12 @@ class Business < ActiveRecord::Base
           ['text', 'password']
         ]
       ],
+      ['Getfav', 'getfavs',
+        [
+          ['text', 'email'],
+          ['text', 'password']
+        ]
+      ],
       ['Twitter', 'twitters',
         [
           ['text', 'username'],
@@ -325,7 +336,7 @@ class Business < ActiveRecord::Base
     Date.strptime(self.contact_birthday, '%m/%d/%Y')
   end
   def self.sub_models
-    [AngiesList, Aol, Businesscom, Citisquare, Getfav, Yahoo, Bing, Google, Merchantcircle, Kudzu]
+    [AngiesList, Aol, Businesscom, Citisquare, Getfav, Yahoo, Bing, Google, Merchantcircle, Kudzu, Mojopage]
   end
   def create_site_accounts
     Business.sub_models.each do |klass| 
