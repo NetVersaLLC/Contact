@@ -4,7 +4,7 @@ data[ 'email' ] 		= business.bings.first.email
 data[ 'username' ] 		= business.bings.first.email
 data[ 'password' ] 		= Yahoo.make_password
 data[ 'phone' ] 		= business.local_phone
-data[ 'link' ] 			= Yellowbot.check_email(business)
+# data[ 'link' ] 			= YellowBot.check_email(business)
 data[ 'business' ]		= business.business_name
 data[ 'phone' ]			= business.local_phone
 data[ 'address' ]		= business.address + ' ' + business.address2
@@ -13,6 +13,6 @@ data[ 'city_name' ]		= business.city
 data[ 'state' ]			= business.state
 data[ 'zip' ]			= business.zip
 data[ 'tollfree_number' ]	= business.toll_free_phone
-data[ 'website' ]		= business.website
+data[ 'website' ]		= business.company_website
 data[ 'hours_open' ]		= Getfav.consolidate_hours( business )
 data

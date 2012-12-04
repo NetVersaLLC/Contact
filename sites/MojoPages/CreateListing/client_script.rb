@@ -67,7 +67,7 @@ def add_business ( data )
 	@browser.link( :class => 'bizCenterButton greenButton').click
 
 puts("MojoPages business added successfully")
-true
 
 end
 add_business( data )
+true

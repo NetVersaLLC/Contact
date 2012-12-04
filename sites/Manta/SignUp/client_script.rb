@@ -52,6 +52,7 @@ def add_company( data )
 	
 	@browser.link(:class, 'btn-join btn-continue').click
 	
+  RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => data['email'], 'account[password]' => data['password'], 'model' => 'Manta'
 	sleep(5)
 	
 	@browser.goto('http://www.manta.com/')
