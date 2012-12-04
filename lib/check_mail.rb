@@ -10,8 +10,9 @@ class CheckMail
         :enable_ssl   => true
       }
     end
+    STDERR.puts "BLOCK: #{block.inspect}"
     Mail.all.each do |mail|
-      block(mail)
+      block.call(mail)
     end
   end
 

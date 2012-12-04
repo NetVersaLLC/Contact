@@ -1,5 +1,4 @@
 @url = 'http://www.business.com/company/create/'
-begin
   @browser.goto(@url)
 
   #Fill form on Step -I
@@ -62,8 +61,3 @@ begin
 
   #Click on 'Close' link
   @browser.link(:text => 'Close').click
-
-rescue Exception => e
-  puts("Exception Caught in Business Listing")
-  puts(e)
-end
