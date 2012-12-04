@@ -9,7 +9,7 @@ class Thumbtack < ClientData
   def self.check_email(business)
     @link = nil
     CheckMail.get_link(business) do |mail|
-      if mail.subject =~ /Activate your Thumbtack.com account\?/i
+      if mail.subject =~ /Activate your Thumbtack.com account/i
         mail.parts.map do |p|
           if p.content_type =~ /text\/html/
             nok = Nokogiri::HTML(p.decoded)

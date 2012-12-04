@@ -47,6 +47,9 @@ sleep(2)
   # Last Step
   if @browser.text.include? 'Check your email'
     puts "Initial Registration Successful"
+	if @chained
+	  self.start("Thumbtack/CreateListing")
+	end
     true
   else
     throw("Initial Registration Unsuccessful")
