@@ -50,10 +50,13 @@ def sign_up_personal( business )
   @browser.button( :id => 'IAgreeBtn' ).click
 
   puts 'Continue to Yahoo Local'
-  if not @browser.title == 'Yahoo! Registration Confirmation' #and @browser.text.include? 'Congratulations'
-    raise StandardError.new( 'Not on Registration Confirmation page' )
-  end
 
+  if @browser.wait_until {@browser.button( :id => 'ContinueBtn' ).exist?}
+	  puts "Initial registration successful"
+  else
+	  throw("Initial Registration is not successful")
+  end
+  
   # .. waits long here
   def homepage_checkbox; @browser.checkbox( :id => 'setHomepage' ) end
   if homepage_checkbox.exists? then homepage_checkbox.clear end
