@@ -114,9 +114,13 @@ window.loadPayloads = ()->
       window.payloadListAction(e)
 
 window.clientPayloadListAction = (e)->
-  window.assign_payload = $(e.target).attr('data-payload-id')
-  window.payload_post_url = "/admin/jobs/#{window.assign_payload}/create_job.js?business_id=#{window.business_id}&category=#{$('#payload_categories_select').val()}"
-  $('#assign_payload').dialog("open")
+  console.log("clientPayloadListAction()")
+  if window.location.href.match(/package/) == null
+    window.assign_payload = $(e.target).attr('data-payload-id')
+    window.payload_post_url = "/admin/jobs/#{window.assign_payload}/create_job.js?business_id=#{window.business_id}&category=#{$('#payload_categories_select').val()}"
+    $('#assign_payload').dialog("open")
+  else
+    window.packagePayloadListAction(e)
 
 window.startPayloads = () ->
   # Setup Payload Categories
