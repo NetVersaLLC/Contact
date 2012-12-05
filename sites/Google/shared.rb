@@ -62,7 +62,7 @@ def retry_captcha
    @captcha_error = @browser.span(:id => 'errormsg_0_signupcaptcha')
    @captcha_error_msg = "The characters you entered didn't match the word verification. Please try again."
    #Check if there is any captcha mismatch error
-   if @captcha_error.exist? && captcha_error.text.include?(@captcha_error_msg)
+   if @captcha_error.exist? && @captcha_error.text.include?(@captcha_error_msg)
     image = "#{ENV['USERPROFILE']}\\citation\\google_captcha.png"
     obj = @browser.image(:src, /recaptcha\/api\/image/)
     puts "CAPTCHA source: #{obj.src}"
