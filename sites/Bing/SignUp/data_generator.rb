@@ -1,5 +1,5 @@
 data = {}
-data[ 'name' ]              = business.business_name
+data[ 'name' ]              = business.business_name.strip.gsub(/[^A-Za-z0-9_ ]/, '')
 data[ 'country' ]           = 'United States'
 data[ 'password' ]          = Bing.make_password
 data[ 'secret_answer' ]     = Bing.make_secret_answer
