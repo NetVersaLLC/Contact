@@ -72,6 +72,9 @@ def signup_generic( data )
   @browser.button(:value, 'Next step').click
   @browser.wait
   
+  #If there is any captcha mismatch then solve it again
+  retry_captcha
+  
   RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => "#{email}@gmail.com", 'account[password]' => data['pass'], 'model' => 'Google'
 
   if @browser.wait_until {@browser.text_field(:id, 'signupidvinput').exist?}
