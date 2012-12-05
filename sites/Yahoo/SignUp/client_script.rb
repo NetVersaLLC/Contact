@@ -45,10 +45,11 @@ def sign_up_personal( business )
   text = CAPTCHA.solve file, :manual
   @browser.text_field( :id => 'captchaV5Answer' ).set text
 
-  # @browser.text_field( :id => 'captchaV5Answer' ).set 'Captcha'
   sleep 12
   @browser.button( :id => 'IAgreeBtn' ).click
-
+  #Check if there is any captcha mismatch
+  retry_captcha
+  
   puts 'Continue to Yahoo Local'
 
   if @browser.wait_until {@browser.button( :id => 'ContinueBtn' ).exist?}
