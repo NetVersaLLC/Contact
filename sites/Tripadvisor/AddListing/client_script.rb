@@ -134,7 +134,7 @@ end
 
 
 def update_existing( data, listing_type )
-
+#This method updates and adds new listings
   puts 'Update existing listing: ' + data[ 'business_name' ]
   @browser.goto( UPDATE_URL )
 
@@ -276,7 +276,6 @@ def sign_in( data )
 	@browser.button( :value, 'Sign in').click
 	@browser.window(:title => "TripAdvisor").close
 
-find_business( data, listing_type )
 end
 
 find_business( data, data[ 'business_type' ] )

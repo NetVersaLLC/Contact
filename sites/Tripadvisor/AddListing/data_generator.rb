@@ -3,7 +3,7 @@ data[ 'personal_firstname' ] 		= business.contact_first_name
 data[ 'personal_lastname' ] 		= business.contact_last_name
 data[ 'personal_name' ] 		= data[ 'personal_firstname' ] + ' ' + data[ 'personal_lastname' ]
 data[ 'personal_connection' ]  		= 'Owner'
-data[ 'personal_email' ]  		= 'netversatest103@yahoo.com'#business.bings.first.email
+data[ 'personal_email' ]  		= business.bings.first.email
 data[ 'personal_password' ]  		= business.bings.first.password
 data[ 'personal_url' ] 			= business.company_website
 
@@ -27,12 +27,12 @@ data[ 'restaurant_cuisine_types' ] 	= [ 'American', 'Asian', 'Pizza' ]
 
 # Additional hotel details
 data[ 'hotel_rooms_total' ] 		= '12'
-#data[ 'minimum_stay_nights' ] 		= @minimum_stay_nights[ :LessThanThree ]
-#data[ 'security' ] 			= @security[ :OnSite ]
-#data[ 'on_site_staff' ] 		= @on_site_staff[ :Yes ]
-#data[ 'room_cleaning' ] 		= @room_cleaning[ :IncludedInRate ]
-#data[ 'front_desk' ] 			= @front_desk[ :TwentyFourHours ]
-#data[ 'bathroom' ] 			= @bathroom[ :AllEnSuite ]
-#data[ 'housekeeping' ] 			= @housekeeping[ :Daily ]
-#data[ 'resource_type' ] 		= @resource_types[ :Timeshare ]
+data[ 'minimum_stay_nights' ] 		= @minimum_stay_nights[ :LessThanThree ]
+data[ 'security' ] 			= @security[ :OnSite ]
+data[ 'on_site_staff' ] 		= @on_site_staff[ :Yes ]
+data[ 'room_cleaning' ] 		= @room_cleaning[ :IncludedInRate ]
+data[ 'front_desk' ] 			= @front_desk[ :TwentyFourHours ]
+data[ 'bathroom' ] 			= @bathroom[ :AllEnSuite ]
+data[ 'housekeeping' ] 			= @housekeeping[ :Daily ]
+data[ 'resource_type' ] 		= @resource_types[ :Timeshare ]
 data
