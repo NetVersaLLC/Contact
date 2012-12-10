@@ -21,6 +21,15 @@ def sign_up( data )
 
   # If no return URl then 'Thank You for Registering with Express Update. An activation email sent!'
 
+RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => data['email'], 'account[password]' => data['password'], 'model' => 'Expressupdateusa'
+
+true 
+
+if @chained
+	  self.start("Expressupdateusa/Verify")
+end
+
+
 end
 
 

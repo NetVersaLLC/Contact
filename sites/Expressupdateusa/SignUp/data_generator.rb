@@ -7,6 +7,8 @@
     data[ 'personal_url' ]  = business.company_website
     data[ 'personal_title' ]  = 'Owner'
     data[ 'personal_phone' ] = business.local_phone
+    data[ 'business_name' ] = business.business_name
+    data[ 'business_phone' ] = business.local_phone
 
     data[ 'business_state' ] = business.state_name
 data
