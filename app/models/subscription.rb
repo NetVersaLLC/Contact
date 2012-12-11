@@ -6,6 +6,7 @@ class Subscription < ActiveRecord::Base
   attr_accessible :address,     :address2, :affiliate_id, :city, :first_name, :last_name, :package_id, :package_name, :phone, :state, :tos_agreed, :total, :zip
   has_one :business
   belongs_to :package
+  belongs_to :coupon
 
   validates :total,
     :presence => true,
@@ -18,11 +19,6 @@ class Subscription < ActiveRecord::Base
   validates :state,      :presence => true
   validates :zip,        :presence => true
 
-  validates :card_type,   :presence => true
-  validates :card_number, :presence => true
-  validates :exp_year,    :presence => true
-  validates :exp_month,   :presence => true
-  validates :cvv,         :presence => true
 
   def self.years
     (Time.now.year .. Time.now.year + 10).to_a
