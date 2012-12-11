@@ -18,11 +18,6 @@ class Subscription < ActiveRecord::Base
   validates :state,      :presence => true
   validates :zip,        :presence => true
 
-  validates :card_type,   :presence => true
-  validates :card_number, :presence => true
-  validates :exp_year,    :presence => true
-  validates :exp_month,   :presence => true
-  validates :cvv,         :presence => true
 
   def self.years
     (Time.now.year .. Time.now.year + 10).to_a

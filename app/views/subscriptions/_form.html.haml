@@ -1,0 +1,48 @@
+- if @subscription.active
+  %h3 Subscription Active
+  = link_to 'Cancel Subscription', subscription_path(@business), :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-info'
+- else
+  = semantic_form_for @subscription, :html => {:multipart => true, :class => 'form-horizontal' }  do |f|
+    = f.semantic_errors
+    - @f = f
+    .offset3.span8
+      %section{:id => 'section-packages'}
+        = @f.inputs "Packages", :class => 'inputs tab-pane', :id => 'section1' do
+          - Package.all.each do |package|
+            .package
+              %h3 #{package.name} #{package.total}
+              %p #{package.short_description}
+              .radio.control-group.required#subscription_package_id_input
+                %label.control-label
+                  Package
+                  %abbr{:title => "required"} *
+                  .choices.controls
+                    %label.choice.radio{ :for => "subscription_package_id"}
+                      - if package.id == @subscription.package_id
+                        - @checked = 'checked'
+                      - else
+                        - @checked = ''
+                      %input#subscription_package_id{ :name => "subscription[package_id]", :type => "radio", :value => package.id, :checked => @checked} Select
+      %section{:id => 'section-billing'}
+        = @f.inputs "Billing Information", :class => 'inputs tab-pane', :id => 'section2' do
+          = @f.input :first_name,  :placeholder => "First Name",  :input_html => { 'data-content' => 'The first name of the person listed on the card.', 'title' => 'First Name on Card',   :rel => 'popover' }
+          = @f.input :last_name,   :placeholder => "Last Name",   :input_html => { 'data-content' => 'The last name of the person listed on the card.', 'title' => 'Last Name on Card',   :rel => 'popover' }
+          = @f.input :address,     :placeholder => "Billing Address",    :input_html => { 'data-content' => 'Address listed on the card', 'title' => 'Billing Address', :rel => 'popover' }
+          = @f.input :address2,    :placeholder => "Address Line 2"
+          = @f.input :city,        :placeholder => "City"
+          = @f.input :state,       :as => :select, :collection => Carmen::states('US')
+          = @f.input :zip,         :placeholder => "Zip"
+      %section{:id => 'section-cardnumber'}
+        = @f.inputs "Credit Card Information", :class => 'inputs tab-pane', :id => 'section3' do
+          = @f.input :card_type,   :as => :select, :collection => Subscription.cards
+          = @f.input :card_number, :placeholder => "Card Number"
+          = @f.input :exp_year,    :as => :select, :collection => Subscription.years
+          = @f.input :exp_month,   :as => :select, :collection => Subscription.months
+          = @f.input :cvv,         :placeholder => "Card Verification Number"
+      %section{:id => 'section-coupon'}
+        = @f.inputs "Coupon Code", :class => 'inputs tab-pane', :id => 'section4' do
+          = @f.input :coupon_code, :placeholder => "Coupon Code"
+          %input{:name => 'business_id', :type => 'hidden', :value => (@business.nil? ? '' : @business.id) }
+      %section{:id => 'section-save'}
+        = @f.actions do 
+          = submit_tag "Subscribe", :class => 'btn btn-large btn-primary'
