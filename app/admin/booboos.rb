@@ -10,6 +10,13 @@ ActiveAdmin.register Booboo do
   index do
     column :business_id
     column :created_at
+    column :message do |booboo|
+      if booboo.message.length > 100
+        booboo.message[0 .. 100] + '...'
+      else
+        booboo.message
+      end
+    end
     default_actions
   end
 end
