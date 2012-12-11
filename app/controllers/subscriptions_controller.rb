@@ -2,6 +2,9 @@ class SubscriptionsController < ApplicationController
   def index
   end
 
+  def show
+  end
+
   def new
     @subscription = Subscription.new
   end
@@ -16,12 +19,14 @@ class SubscriptionsController < ApplicationController
 
   def create
     sub           = params['subscription']
-    if sub['coupon_code'] == 'NETVERSA'
-      flash[:notice] = "Purchase complete!"
-      @subscription = Subscription.create do |s|
+    coupon = Coupon.where(:code => sub['coupon_code']).first
+    if coupon != nil
+      flash[:notice]   = "Purchase complete!"
+      @subscription    = Subscription.create do |s|
         s.package_id   = Package.first
         s.package_name = Package.first.name
         s.total        = Package.first.price
+        s.coupon_id    = coupon.id
         s.tos_agreed   = true
         s.active       = true
       end
@@ -33,7 +38,7 @@ class SubscriptionsController < ApplicationController
       end
       business.user_id         = current_user.id
       business.subscription_id = @subscription.id
-      business.save              :validate => false
+      business.save            :validate => false
       redirect_to edit_business_path(business)
       return
     end
@@ -100,36 +105,33 @@ class SubscriptionsController < ApplicationController
         redirect_to edit_business_path(business)
       else
         flash[:alert] = "Error: #{resp.message}"
-        render :action => 'new'
+        redirect_to new_subscription_path
       end
     else
       flash[:alert] = "Error: Credit card is invalid."
-      render :action => 'new'
+      redirect_to new_subscription_path
     end
   end
 
   def update
-    @business = Business.find(params[:id])
+    @business = Business.find(params[:business_id])
     sub       = params['subscription']
-    if sub['coupon_code'] == 'NETVERSA'
+    coupon = Coupon.where(:code => sub['coupon_code']).first
+    if coupon != nil
       flash[:notice]   = "Purchase complete!"
       @subscription    = Subscription.create do |s|
         s.package_id   = Package.first
         s.package_name = Package.first.name
         s.total        = Package.first.price
+        s.coupon_id    = coupon.id
         s.tos_agreed   = true
         s.active       = true
       end
       @subscription.save
-      if params[:business_id]
-        business = Business.find(params[:business_id])
-      else
-        business = Business.new
-      end
-      business.user_id         = current_user.id
-      business.subscription_id = @subscription.id
-      business.save              :validate => false
-      redirect_to edit_business_path(business)
+      @business.user_id         = current_user.id
+      @business.subscription_id = @subscription.id
+      @business.save              :validate => false
+      redirect_to edit_business_path(@business)
       return
     end
     package       = Package.find( sub['package_id'] )
@@ -166,11 +168,11 @@ class SubscriptionsController < ApplicationController
     if credit_card.valid?
       resp = ::AUTHORIZENETGATEWAY.recurring(package.price, credit_card, {
         :interval => {
-          :unit => :months,
-          :length => 1
+          :unit    => :months,
+          :length  => 1
         },
         :duration => {
-          :start_date => Date.today,
+          :start_date  => Date.today,
           :occurrences => 9999
         },
         :billing_address => {
@@ -195,11 +197,11 @@ class SubscriptionsController < ApplicationController
         redirect_to edit_business_path(business)
       else
         flash[:alert] = "Error: #{resp.message}"
-        render :action => 'new'
+        redirect_to edit_subscription_path(@business.id)
       end
     else
       flash[:alert] = "Error: Credit card is invalid."
-      render :action => 'new'
+      redirect_to edit_subscription_path(@business.id)
     end
   end
 
