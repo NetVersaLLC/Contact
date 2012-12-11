@@ -20,7 +20,8 @@
               = select_tag "business[#{day}_close]".to_sym, options_for_select(Business.list_times, @business.send("#{day}_close")), :class => 'timeitem'
               -# if @business.send("#{day}_enabled")
             %td
-              = link_to "Set", "#", :class => 'set_business_hours btn btn-success'
+              - if day == 'monday'
+                = link_to "Set", "#", :class => 'set_business_hours btn btn-success'
         %tr.timerow
           %td{:colspan => 3}
             %label.checkbox
