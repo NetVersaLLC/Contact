@@ -43,3 +43,4 @@ RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}",
 	  self.start("Getfave/Verify")
 end
 
+true

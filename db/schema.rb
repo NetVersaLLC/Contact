@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121204220134) do
+ActiveRecord::Schema.define(:version => 20121211072501) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -276,6 +276,15 @@ ActiveRecord::Schema.define(:version => 20121204220134) do
 
   add_index "completed_jobs", ["business_id"], :name => "index_completed_jobs_on_business_id"
   add_index "completed_jobs", ["status"], :name => "index_completed_jobs_on_status"
+
+  create_table "coupons", :force => true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "coupons", ["code"], :name => "index_coupons_on_code"
 
   create_table "downloads", :force => true do |t|
     t.integer  "user_id"
@@ -630,6 +639,7 @@ ActiveRecord::Schema.define(:version => 20121204220134) do
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
     t.string   "last_name"
+    t.integer  "coupon_id"
   end
 
   add_index "subscriptions", ["affiliate_id"], :name => "index_subscriptions_on_affiliate_id"
