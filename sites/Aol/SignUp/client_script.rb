@@ -72,10 +72,18 @@ end
 
 # step 3
 #captcha Code
-captcha_code = solve_captcha
+
 @browser.text_field(:id,'wordVerify').focus
-@browser.text_field(:id,'wordVerify').set captcha_code
-@browser.link(:id,'step-three').click
+
+
+capSolved = false
+textField = @browser.text_field(:id,'wordVerify')
+theButton = @browser.link(:id,'step-three')
+captchaError = @browser.div( :id, 'captchaError' )
+
+enter_captcha( captchaError, theButton, textField)
+
+
 
 if @error_msg.exist? == false
 	puts "Step - 3 is successful completed"

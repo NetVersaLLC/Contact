@@ -21,21 +21,29 @@ class SubscriptionsController < ApplicationController
     sub           = params['subscription']
     coupon = Coupon.where(:code => sub['coupon_code']).first
     if coupon != nil
-      flash[:notice]   = "Purchase complete!"
+      flash[:notice]   = "Subscription started and coupon applied!"
       @subscription    = Subscription.create do |s|
         s.package_id   = Package.first
         s.package_name = Package.first.name
         s.total        = Package.first.price
+        s.first_name   = sub['first_name']
+        s.last_name    = sub['last_name']
+        s.address      = sub['address']
+        s.address2     = sub['address2']
+        s.city         = sub['city']
+        s.state        = sub['state']
+        s.zip          = sub['zip']
         s.coupon_id    = coupon.id
         s.tos_agreed   = true
         s.active       = true
       end
-      @subscription.save
+      @subscription.save!
       if params[:business_id]
         business = Business.find(params[:business_id])
       else
         business = Business.new
       end
+      logger.info "Adding subscription #{@subscription.id} to business #{business.id}"
       business.user_id         = current_user.id
       business.subscription_id = @subscription.id
       business.save            :validate => false
@@ -97,7 +105,7 @@ class SubscriptionsController < ApplicationController
         logger.info resp.to_json
         flash[:notice] = "Purchase complete!"
         @subscription.authorizenet_code = resp.authorization
-        @subscription.save
+        @subscription.save!
         business                 = Business.new
         business.user_id         = current_user.id
         business.subscription_id = @subscription.id
@@ -118,16 +126,23 @@ class SubscriptionsController < ApplicationController
     sub       = params['subscription']
     coupon = Coupon.where(:code => sub['coupon_code']).first
     if coupon != nil
-      flash[:notice]   = "Purchase complete!"
+      flash[:notice]   = "Coupon applied and subscription complete!"
       @subscription    = Subscription.create do |s|
         s.package_id   = Package.first
         s.package_name = Package.first.name
         s.total        = Package.first.price
+        s.first_name   = sub['first_name']
+        s.last_name    = sub['last_name']
+        s.address      = sub['address']
+        s.address2     = sub['address2']
+        s.city         = sub['city']
+        s.state        = sub['state']
+        s.zip          = sub['zip']
         s.coupon_id    = coupon.id
         s.tos_agreed   = true
         s.active       = true
       end
-      @subscription.save
+      @subscription.save!
       @business.user_id         = current_user.id
       @business.subscription_id = @subscription.id
       @business.save              :validate => false
@@ -189,7 +204,7 @@ class SubscriptionsController < ApplicationController
         logger.info resp.to_json
         flash[:notice] = "Purchase complete!"
         @subscription.authorizenet_code = resp.authorization
-        @subscription.save
+        @subscription.save!
         business                 = @business
         business.user_id         = current_user.id
         business.subscription_id = @subscription.id
@@ -210,13 +225,19 @@ class SubscriptionsController < ApplicationController
     if @sub.active == false
       flash[:alert] = "Subscription already cancelled."
     else
-      resp = ::AUTHORIZENETGATEWAY.cancel_recurring(@sub.authorizenet_code)
-      if resp.success?
+      if @sub.authorizenet_code
+        resp = ::AUTHORIZENETGATEWAY.cancel_recurring(@sub.authorizenet_code)
+        if resp.success?
+          @sub.active = false
+          @sub.save!
+          flash[:alert] = "Subscription cancelled."
+        else
+          flash[:alert] = "Error: #{resp.message}"
+        end
+      else # For coupons
         @sub.active = false
         @sub.save!
         flash[:alert] = "Subscription cancelled."
-      else
-        flash[:alert] = "Error: #{resp.message}"
       end
     end
     redirect_to businesses_path

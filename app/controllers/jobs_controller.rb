@@ -22,6 +22,9 @@ class JobsController < ApplicationController
     else
       @job['payload_data'] = @job.get_job_data(@business, params)
     end
+    unless @business.subscription and @business.subscription.active?
+      @job = {:status => 'inactive'}
+    end
     respond_to do |format|
       format.json { render json: @job }
     end

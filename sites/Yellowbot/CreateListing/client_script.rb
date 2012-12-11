@@ -9,10 +9,13 @@
   
   @browser.checkbox( :name => 'tos' ).set
   @browser.checkbox( :name => 'opt_in' ).clear
-captcha_text = solve_captcha()
-@browser.text_field( :id => 'recaptcha_response_field' ).set captcha_text
 
+	enter_captcha( data )
+
+  captcha_text = solve_captcha()
+  @browser.text_field( :id => 'recaptcha_response_field' ).set captcha_text
   @browser.button( :name => 'subbtn' ).click
+
 	if @browser.text.include? 'Welcome to YellowBot!'
 		puts("Registered! Confirming email...")
 		true
@@ -34,10 +37,13 @@ def create_business( data )
 @browser.text_field( :name, 'email').set data['email']
 @browser.text_field( :name, 'website').set data['website']
 
-captcha_text2 = solve_captcha2()
-@browser.text_field( :name, 'recaptcha_response_field').set captcha_text2
 
-@browser.button( :name, 'subbtn').click
+
+	captcha_text2 = solve_captcha2()
+	@browser.text_field( :name, 'recaptcha_response_field').set captcha_text2
+	@browser.button( :name, 'subbtn').click
+
+
 
 if @browser.text.include? 'Thank you for submitting a new business.'
 

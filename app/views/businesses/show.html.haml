@@ -4,8 +4,12 @@
   = @business.business_name
   %sup
     = link_to 'Edit This Business', edit_business_path(@business), :class => 'btn btn-info'
-  %sup
-    = link_to 'Edit Your Subscription', edit_subscription_path(@business), :class => 'btn btn-info'
+  - if @business.subscription and @business.subscription.active?
+    %sup
+      = link_to 'Edit Your Subscription', edit_subscription_path(@business), :class => 'btn btn-info'
+  - else
+    %sup
+      = link_to 'Renew Your Subscription', edit_subscription_path(@business), :class => 'btn btn-info'
 
 %br/
 
