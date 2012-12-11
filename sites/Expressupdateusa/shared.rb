@@ -24,3 +24,32 @@ if time[0,1] == '0'
 end
 time
 end
+
+
+
+
+def enter_captcha( data )
+
+	capSolved = false
+	count = 1
+	until capSolved or count > 5 do
+		captcha_code = solve_captcha
+		@browser.text_field( :id, 'Captcha').set captcha_code
+		@browser.button( :class, 'RegisterNowButton' ).click
+
+		if not @browser.li( :text, 'Check the Captcha').exists?
+			capSolve = true
+		end
+		@browser.text_field( :id, 'Password' ).set data[ 'personal_password' ]
+		@browser.text_field( :id, 'ConfirmPassword' ).set data[ 'personal_password' ]
+	count+=1	
+	end
+
+	if capSolve == true
+		true
+	else
+		throw("Captcha was not solved")
+	end
+end
+
+

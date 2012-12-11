@@ -1,14 +1,11 @@
 url = 'http://www.superpages.com/'
 @browser.goto(url)
-	@browser.link(:href,/business-listings/).click
-	@browser.text_field(:xpath, '/html/body/div[2]/div[2]/div/div/div/form/div/table/tbody/tr/td/table/tbody/tr[4]/td/input').set data[ 'phone' ]
-	@browser.span(:xpath, '/html/body/div[2]/div[2]/div/div/div/form/div/table/tbody/tr/td/table/tbody/tr[4]/td/span/a/span').click
-	
-	if @browser.div(:id, 'matchHeader').text == 'Choose the most accurate listing for'	
+@browser.link(:href,/business-listings/).click
+@browser.text_field(:xpath, '/html/body/div[2]/div[2]/div/div/div/form/div/table/tbody/tr/td/table/tbody/tr[4]/td/input').set data[ 'phone' ]
+@browser.span(:xpath, '/html/body/div[2]/div[2]/div/div/div/form/div/table/tbody/tr/td/table/tbody/tr[4]/td/span/a/span').click
+if @browser.div(:id, 'matchHeader').text == 'Choose the most accurate listing for'	
 		throw 'Business has already beeen registered'
-	
-	
-	else
+else
 	sleep(1)
 	@browser.link(:text,'select').click
 	@browser.link(:text,'next').click
@@ -32,17 +29,17 @@ url = 'http://www.superpages.com/'
         @browser.text_field( :name => 'customerProfile.email' ).set data[ 'email' ]
         @browser.text_field( :name => 'emailConfirmation' ).set data[ 'email' ]	
 	
-	captcha_text = solve_captcha()
-	@browser.text_field( :name => 'captchaRes' ).set captcha_text
+	enter_captcha( data )
+	#captcha_text = solve_captcha()
+	#@browser.text_field( :name => 'captchaRes' ).set captcha_text
 
-
-	@browser.link( :text => 'continue' ).click
 	@browser.checkbox( :id, 'acceptterms').when_present.set
 	@browser.link( :id => 'popup_ok' ).when_present.click
 
-
+	
 	if @browser.text.include? 'Confirm Your Email Address'
-		puts 'Registered, waiting email verification'
+		puts( 'Registered, waiting email verification' )
 		true
 	end
 end
+
