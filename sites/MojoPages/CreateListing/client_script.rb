@@ -16,21 +16,20 @@ def add_business ( data )
 	@browser.text_field( :id => 'fullPhone' ).set data[ 'phone' ]
 	@browser.text_field( :id => 'url' ).set data[ 'url' ]
 	@browser.text_field( :id => 'businessDescription' ).set data[ 'tagline' ]
-	@browser.text_field( :id => 'businessMetaDescription' ).set data[ 'description' ]
+	@browser.text_field( :id => 'businessMetaDescription' ).set data[ 'description' ] + "asdfadfs dasfasdf dasfasdfadfs dasfasdf dasfasdfadfs dasfasdf dasfasdfadfs dasfasdf dasfasdfadfs dasfasdf dasf"
 	@browser.text_field( :id => 'owner.password' ).set data[ 'password' ]
 	@browser.text_field( :xpath => '/html/body/div/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/form/div[4]/div[12]/input' ).set data[ 'password' ]
 
-	captcha_text = solve_captcha()
-	@browser.text_field( :id => 'recaptcha_response_field').set captcha_text	
+	#captcha_text = solve_captcha()
+	#@browser.text_field( :id => 'recaptcha_response_field').set captcha_text	
 	
 	
 	# submit the form
-	@browser.button( :value => 'Continue' ).click
+	#@browser.button( :value => 'Continue' ).click
 	
-	if @browser.div( :class, 'error').exists?
-		errors = @browser.div( :class, 'error').text
-		puts( errors )
-	end
+	enter_captcha( data )
+
+	
 
 	#Wait until the Choose Category Screen loads
 	Watir::Wait::until do @browser.text.include? 'Choose your business category' end

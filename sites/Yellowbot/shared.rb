@@ -17,3 +17,38 @@ def solve_captcha2
 
   CAPTCHA.solve image, :manual
 end
+
+
+def enter_captcha( data )
+
+	capSolved = false
+	count = 1
+	until capSolved or count > 5 do
+		captcha_code = solve_captcha
+		@browser.text_field( :id => 'recaptcha_response_field' ).set captcha_code
+		@browser.button( :name => 'subbtn' ).click
+		
+		if @browser.div( :class, 'error').exists?
+			errors = @browser.div( :class, 'error').text
+			puts( errors )
+		end
+
+		if not @browser.text.include? "Please correct the errors below and resubmit"
+			capSolve = true
+		end
+
+		  @browser.text_field( :id => 'reg_password' ).set data[ 'password' ]
+		  @browser.text_field( :id => 'reg_password2' ).set data[ 'password' ]		
+	count+=1	
+	end
+
+	if capSolve == true
+		true
+	else
+		throw("Captcha was not solved")
+	end
+end
+
+
+
+
