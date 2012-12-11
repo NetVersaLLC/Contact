@@ -2,7 +2,6 @@ ActiveAdmin.register Job do
   index do
     column :business_id
     column :name
-    column :data_generator
     column :status
     column :created_at
     column :waited_at

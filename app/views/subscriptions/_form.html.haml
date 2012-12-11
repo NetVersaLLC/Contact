@@ -1,5 +1,21 @@
 - if @subscription.active
-  %h3 Subscription Active
+  %h4 Subscription Active
+  %table.table.table-striped
+    %tr
+      %td Package Name
+      %td
+        = @business.subscription.package.name
+    %tr
+      %td Package Price
+      %td 
+        = "$%.02f" % (@business.subscription.package.price.to_i / 100.0)
+    %tr
+      %td Started
+      %td
+        = @business.subscription.created_at.to_date.to_s
+    %tr
+      %td Billing Type
+      %td Monthly
   = link_to 'Cancel Subscription', subscription_path(@business), :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-info'
 - else
   = semantic_form_for @subscription, :html => {:multipart => true, :class => 'form-horizontal' }  do |f|

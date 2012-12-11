@@ -15,9 +15,9 @@ def sign_up( data )
   @browser.text_field( :id, 'LastName' ).set data[ 'personal_lastname' ]
   
   @browser.select_list( :id, 'State' ).select data[ 'business_state' ]
-  @browser.text_field( :id, 'Captcha').set solve_captcha
   @browser.checkbox( :id, 'DoesAcceptTerms' ).set
-  @browser.button( :class, 'RegisterNowButton' ).click
+
+enter_captcha( data )
 
   # If no return URl then 'Thank You for Registering with Express Update. An activation email sent!'
 

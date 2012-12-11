@@ -10,7 +10,8 @@
 #= require form/categories
 
 $(document).ready ->
-  $('input[rel=popover]').popover()
+  $('input[rel=popover]').popover
+    trigger: 'hover'
 
 root = exports ? this
 root.save_stages = ->
