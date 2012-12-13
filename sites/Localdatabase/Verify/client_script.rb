@@ -1,0 +1,1 @@
+@browser.goto(data['link'])
