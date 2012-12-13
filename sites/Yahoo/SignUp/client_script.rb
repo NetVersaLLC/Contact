@@ -40,19 +40,15 @@ def sign_up_personal( business )
   @browser.select_list( :id, 'secquestion2' ).select 'Where did you spend your childhood summers?'
   @browser.text_field( :id, 'secquestionanswer2' ).set business[ 'secret_answer_2' ]
 
-  file = "#{ENV['USERPROFILE']}\\citation\\yahoo_captcha.png"
-  @browser.image(:class, 'captchaImage').save file
-  text = CAPTCHA.solve file, :manual
-  @browser.text_field( :id => 'captchaV5Answer' ).set text
-
-  sleep 12
+# Decode captcha code
+  @browser.text_field( :id => 'captchaV5Answer' ).set solve_captcha
   @browser.button( :id => 'IAgreeBtn' ).click
-  #Check if there is any captcha mismatch
-  retry_captcha
+
+  retry_captcha(solve_captcha)
   
   puts 'Continue to Yahoo Local'
 
-  if @browser.wait_until {@browser.button( :id => 'ContinueBtn' ).exist?}
+  if @browser.button( :id => 'ContinueBtn' ).exist?
 	  puts "Initial registration successful"
   else
 	  throw("Initial Registration is not successful")
