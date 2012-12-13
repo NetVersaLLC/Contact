@@ -120,15 +120,19 @@ class Business < ActiveRecord::Base
   accepts_nested_attributes_for :yellow_bots, :allow_destroy => true
   
   add_nested :localdatabases
-  attr_accessible :localdatabases
+  attr_accessible :localdatabases_attributes
   has_many :localdatabases, :dependent => :destroy
   accepts_nested_attributes_for :localdatabases, :allow_destroy => true
 
   add_nested :crunchbases
-  attr_accessible :crunchbases
+  attr_accessible :crunchbases_attributes
   has_many :crunchbases, :dependent => :destroy
   accepts_nested_attributes_for :crunchbases, :allow_destroy => true
 
+  add_nested :tupalos
+  attr_accessible :tupalos_attributes
+  has_many :tupalos, :dependent => :destroy
+  accepts_nested_attributes_for :tupalos, :allow_destroy => true
 
 
   def self.email_regex
@@ -350,6 +354,12 @@ class Business < ActiveRecord::Base
   	   ['text', 'password']
         ]
       ],
+      ['Tupalo', 'tupalos',
+        [
+          ['text', 'username'],
+  	   ['text', 'password']
+        ]
+      ],
       ['Mapquest', 'map_quests',
         [
           ['text', 'email'],
@@ -395,7 +405,7 @@ class Business < ActiveRecord::Base
     Date.strptime(self.contact_birthday, '%m/%d/%Y')
   end
   def self.sub_models
-    [AngiesList, Aol, Businesscom, Citisquare, Getfav, Yahoo, Bing, Google, Merchantcircle, Manta, Kudzu, Mojopage, YellowBot, Localdatabase, Crunchbase]
+    [AngiesList, Aol, Businesscom, Citisquare, Getfav, Yahoo, Bing, Google, Merchantcircle, Manta, Kudzu, Mojopage, YellowBot, Localdatabase, Crunchbase, Tupalo]
   end
   def create_site_accounts
     Business.sub_models.each do |klass| 
