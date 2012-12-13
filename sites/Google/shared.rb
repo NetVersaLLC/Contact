@@ -58,19 +58,29 @@ def parse_results( data )
 	return applicableLinks.to_a
 end
 
-def retry_captcha
+def retry_captcha(data,captcha_text)
+   #~ capSolved = false
    @captcha_error = @browser.span(:id => 'errormsg_0_signupcaptcha')
    @captcha_error_msg = "The characters you entered didn't match the word verification. Please try again."
-   #Check if there is any captcha mismatch error
-   if @captcha_error.exist? && @captcha_error.text.include?(@captcha_error_msg)
-    image = "#{ENV['USERPROFILE']}\\citation\\google_captcha.png"
-    obj = @browser.image(:src, /recaptcha\/api\/image/)
-    puts "CAPTCHA source: #{obj.src}"
-    puts "CAPTCHA width: #{obj.width}"
-    obj.save image
-    captcha_text = CAPTCHA.solve image, :manual
-    @browser.text_field( :id => 'recaptcha_response_field' ).set captcha_text
-    @browser.checkbox(:id => 'TermsOfService').set
-    @browser.button(:value, 'Next step').click
+   count = 1
+# Decode captcha code until its decoded (Maximum 5 times)
+   while @captcha_error.exist? do
+     @browser.text_field(:id, "Passwd").value = data['pass']
+     @browser.text_field(:id, "PasswdAgain").value = data['pass']
+     @browser.text_field( :id => 'recaptcha_response_field' ).set captcha_text
+     @browser.checkbox(:id => 'TermsOfService').set
+     @browser.button(:value, 'Next step').click
+     count+=1
+   break if count == 5
    end
+end
+
+def solve_captcha
+  image = "#{ENV['USERPROFILE']}\\citation\\google_captcha.png"
+  obj = @browser.image(:src, /recaptcha\/api\/image/)
+  puts "CAPTCHA source: #{obj.src}"
+  puts "CAPTCHA width: #{obj.width}"
+  obj.save image
+  captcha_text = CAPTCHA.solve image, :manual
+  return captcha_text
 end
