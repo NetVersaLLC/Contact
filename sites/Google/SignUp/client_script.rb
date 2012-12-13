@@ -57,29 +57,20 @@ def signup_generic( data )
   @browser.checkbox(:id,'TermsOfService').set
 	
   #Captcha Code
-  
-  image = "#{ENV['USERPROFILE']}\\citation\\google_captcha.png"
-  obj = @browser.image(:src, /recaptcha\/api\/image/)
-  puts "CAPTCHA source: #{obj.src}"
-  puts "CAPTCHA width: #{obj.width}"
-  obj.save image
-
-  captcha_text = CAPTCHA.solve image, :manual
-
-  @browser.text_field( :id => 'recaptcha_response_field' ).set captcha_text
+  @browser.text_field( :id => 'recaptcha_response_field' ).set solve_captcha
   @browser.checkbox(:id => 'TermsOfService').set
   email = @browser.text_field(:id, "GmailAddress").value
   @browser.button(:value, 'Next step').click
   @browser.wait
   
   #If there is any captcha mismatch then solve it again
-  retry_captcha
+  retry_captcha(data,solve_captcha)
   
   RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => "#{email}@gmail.com", 'account[password]' => data['pass'], 'model' => 'Google'
 
-  if @browser.wait_until {@browser.text_field(:id, 'signupidvinput').exist?}
+  if @browser.text_field(:id, 'signupidvinput').exist?
     @browser.text_field(:id, 'signupidvinput').set data[ 'phone' ]
-    @browser.radio(:id,'signupidvmethod-sms').set
+    @browser.radio(:id,'signupidvmethod-phone').set
     @browser.button(:value,'Continue').click
     # fetch Phone verification code
     @code = PhoneVerify.ask_for_code
