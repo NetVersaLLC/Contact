@@ -1,4 +1,6 @@
 class Business < ActiveRecord::Base
+  include Business::SiteAccounts
+
   has_attached_file :logo, :styles => { :thumb => "100x100>" }
   after_create      :create_site_accounts
   after_create      :create_jobs
@@ -25,108 +27,33 @@ class Business < ActiveRecord::Base
   attr_accessible :logo
 
   add_nested :accounts
-  attr_accessible :accounts_attributes
-  has_many :accounts, :dependent => :destroy
-  accepts_nested_attributes_for :accounts, :allow_destroy => false
-
   add_nested :twitters
-  attr_accessible :twitters_attributes
-  has_many :twitters, :dependent => :destroy
-  accepts_nested_attributes_for :twitters, :allow_destroy => true
-
   add_nested :facebooks
-  attr_accessible :facebooks_attributes
-  has_many :facebooks, :dependent => :destroy
-  accepts_nested_attributes_for :facebooks, :allow_destroy => true
-
   add_nested :yelps
-  attr_accessible :yelps_attributes
-  has_many :yelps, :dependent => :destroy
-  accepts_nested_attributes_for :yelps, :allow_destroy => true
-  
   add_nested :yahoos
-  attr_accessible :yahoos_attributes
-  has_many :yahoos, :dependent => :destroy
-  accepts_nested_attributes_for :yahoos, :allow_destroy => true
-
   add_nested :bings
-  attr_accessible :bings_attributes
-  has_many :bings, :dependent => :destroy
-  accepts_nested_attributes_for :bings, :allow_destroy => true
-  
   add_nested :googles
-  attr_accessible :googles_attributes
-  has_many :googles, :dependent => :destroy
-  accepts_nested_attributes_for :googles, :allow_destroy => true
-
   add_nested :map_quests
-  attr_accessible :map_quests_attributes
-  has_many :map_quests, :dependent => :destroy
-  accepts_nested_attributes_for :map_quests, :allow_destroy => true
-
   add_nested :foursquares
-  attr_accessible :foursquares_attributes
-  has_many :foursquares, :dependent => :destroy
-  accepts_nested_attributes_for :foursquares, :allow_destroy => true
-
   add_nested :angies_lists
-  attr_accessible :angies_lists_attributes
-  has_many :angies_lists, :dependent => :destroy
-  accepts_nested_attributes_for :angies_lists, :allow_destroy => true
-
   add_nested :businesscoms
-  attr_accessible :businesscoms_attributes
-  has_many :businesscoms, :dependent => :destroy
-  accepts_nested_attributes_for :businesscoms, :allow_destroy => true
-
   add_nested :aols
-  attr_accessible :aols_attributes
-  has_many :aols, :dependent => :destroy
-  accepts_nested_attributes_for :aols, :allow_destroy => true
-
   add_nested :citisquares
-  attr_accessible :citisquares_attributes
-  has_many :citisquares, :dependent => :destroy
-  accepts_nested_attributes_for :citisquares, :allow_destroy => true
-
   add_nested :getfavs
-  attr_accessible :getfavs_attributes
-  has_many :getfavs, :dependent => :destroy
-  accepts_nested_attributes_for :getfavs, :allow_destroy => true
-
   add_nested :merchantcircles
-  attr_accessible :merchantcircles_attributes
-  has_many :merchantcircles, :dependent => :destroy
-  accepts_nested_attributes_for :merchantcircles, :allow_destroy => true
-  
   add_nested :kudzus
-  attr_accessible :kudzus_attributes
-  has_many :kudzus, :dependent => :destroy
-  accepts_nested_attributes_for :kudzus, :allow_destroy => true
-  
   add_nested :mojopages
-  attr_accessible :mojopages_attributes
-  has_many :mojopages, :dependent => :destroy
-  accepts_nested_attributes_for :mojopages, :allow_destroy => true
-
   add_nested :mantas
   add_nested :yellow_bots
   add_nested :localdatabases
+  add_nested :tupalos
 
+  # This classify()s "crunchases" to Crunchbasis
+  # so we need to manaully set "class_name"
   # add_nested      :crunchbases
   has_many :crunchbases, :dependent => :destroy, :class_name => "Crunchbase"
   attr_accessible :crunchbases_attributes
   accepts_nested_attributes_for :crunchbases, :allow_destroy => true
-
-  add_nested :tupalos
-  attr_accessible :tupalos_attributes
-  has_many :tupalos, :dependent => :destroy
-  accepts_nested_attributes_for :tupalos, :allow_destroy => true
-
-
-  def self.email_regex
-    /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
-  end
 
   def self.phone_regex
     /^\d\d\d-\d\d\d-\d\d\d\d$/
@@ -227,136 +154,6 @@ class Business < ActiveRecord::Base
     list
   end
 
-  def self.site_accounts
-    [
-      ['Aol', 'aols',
-        [
-          ['text', 'username'],
-          ['text', 'password']
-        ]
-      ],
-      ['AngiesList', 'angies_lists',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['Businesscom', 'businesscoms',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['Citisquare', 'citisquares',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['Getfav', 'getfavs',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['Merchantcircle', 'merchantcircles',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['Manta', 'mantas',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['Mojopage', 'mojopages',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['Twitter', 'twitters',
-        [
-          ['text', 'username'],
-          ['text', 'password']
-        ]
-      ],
-      ['Facebook', 'facebooks',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['YellowBot', 'yellow_bots',
-        [
-          ['text', 'email'],
-          ['text', 'username'],
-          ['text', 'password']
-        ]
-      ],
-      ['Bing', 'bings',
-        [
-          ['text', 'email'],
-          ['text', 'password'],
-          ['text', 'secret_answer'],
-          ['select', 'bing_category']
-        ]
-      ],
-      ['Google', 'googles',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['Yahoo', 'yahoos',
-        [
-          ['text', 'email'],
-          ['text', 'password'],
-          ['text', 'secret1'],
-          ['text', 'secret2'],
-          ['select', 'yahoo_category']
-        ]
-      ],
-      ['Yelp', 'yelps',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['Foursquare', 'foursquares',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ],
-      ['Localdatabase', 'localdatabases',
-        [
-          ['text', 'username'],
-          ['text', 'password']
-        ]
-      ],
-      ['Crunchbase', 'crunchbases',
-        [
-          ['text', 'username'],
-          ['text', 'password']
-        ]
-      ],
-      ['Tupalo', 'tupalos',
-        [
-          ['text', 'username'],
-          ['text', 'password']
-        ]
-      ],
-      ['Mapquest', 'map_quests',
-        [
-          ['text', 'email'],
-          ['text', 'password']
-        ]
-      ]
-    ]
-  end
   def self.site_accounts_by_key
     hash = {}
     self.site_accounts.each do |site|
