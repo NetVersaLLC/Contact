@@ -1,0 +1,24 @@
+data = {}
+seed = rand(10000).to_s()
+data['fb_email'] 		= ''
+data['fb_password'] 		= ''
+data['first_name'] 		= business.contact_first_name
+data['last_name'] 		= business.contact_last_name
+data['display_name'] 		= data['first_name'] + data['last_name']  + seed
+data['email'] 			= business.bings.first.email
+data['password'] 		= Yahoo.make_password
+data['recieve_offers'] 		= false
+data['extra_fields'] 		= true
+data['address'] 		= business.address + ' ' + business.address2
+data['city'] 			= business.city
+data['state'] 			= business.state
+data['zipcode'] 		= business.zip
+data['gender'] 			= business.contact_gender
+data['dob_d'] 			= business.contact_birthday.split("/")[0]
+data['dob_m'] 			= business.contact_birthday.split("/")[1]
+data['dob_y'] 			= business.contact_birthday.split("/")[2]
+data['hide_birthday'] 		= true
+data['mob_1'] 			= business.local_phone.split("-")[0]
+data['mob_2'] 			= business.local_phone.split("-")[1]
+data['mob_3'] 			= business.local_phone.split("-")[2]
+data
