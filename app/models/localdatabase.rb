@@ -5,18 +5,11 @@ class Localdatabase < ClientData
   def self.check_email(business)
     @link = nil
     CheckMail.get_link(business) do |mail|
-	    puts(mail.subject)
-	STDERR.puts mail.subject
+      puts(mail.subject)
+      STDERR.puts mail.subject
       if mail.subject =~ /Action Required to Activate Membership for Local Database/i
-        mail.parts.map do |p|
-          if p.content_type =~ /text\/html/
-            nok = Nokogiri::HTML(p.decoded)
-            nok.xpath("//a").each do |link|
-              if link.attr('href') =~ /http:\/\/www.localdatabase.com\/forum\/register.php\?a=act/i
-                @link = link.attr('href')
-              end
-            end
-          end
+        if mail.body.decoded =~ /(http:\/\/www.localdatabase.com\/forum\/register.php\?a=act\S+)/i
+          @link = $1
         end
       end
     end
