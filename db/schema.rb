@@ -220,14 +220,15 @@ ActiveRecord::Schema.define(:version => 20121212213326) do
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.datetime "client_checkin"
     t.string   "category1"
     t.string   "category2"
     t.string   "category3"
     t.integer  "subscription_id"
     t.string   "contact_birthday"
+    t.integer  "captcha_solves",            :default => 200
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"

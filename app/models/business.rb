@@ -110,23 +110,12 @@ class Business < ActiveRecord::Base
   accepts_nested_attributes_for :mojopages, :allow_destroy => true
 
   add_nested :mantas
-  attr_accessible :mantas_attributes
-  has_many :mantas, :dependent => :destroy
-  accepts_nested_attributes_for :mantas, :allow_destroy => true
-  
   add_nested :yellow_bots
-  attr_accessible :yellow_bots_attributes
-  has_many :yellow_bots, :dependent => :destroy
-  accepts_nested_attributes_for :yellow_bots, :allow_destroy => true
-  
   add_nested :localdatabases
-  attr_accessible :localdatabases_attributes
-  has_many :localdatabases, :dependent => :destroy
-  accepts_nested_attributes_for :localdatabases, :allow_destroy => true
 
-  add_nested :crunchbases
+  # add_nested      :crunchbases
+  has_many :crunchbases, :dependent => :destroy, :class_name => "Crunchbase"
   attr_accessible :crunchbases_attributes
-  has_many :crunchbases, :dependent => :destroy
   accepts_nested_attributes_for :crunchbases, :allow_destroy => true
 
   add_nested :tupalos
@@ -224,7 +213,6 @@ class Business < ActiveRecord::Base
     end
   end
 
-
   def self.geographic_areas_list
     list = ['Worldwide', 'Unknown']
     number = 10
@@ -238,6 +226,7 @@ class Business < ActiveRecord::Base
     end
     list
   end
+
   def self.site_accounts
     [
       ['Aol', 'aols',
@@ -345,19 +334,19 @@ class Business < ActiveRecord::Base
       ['Localdatabase', 'localdatabases',
         [
           ['text', 'username'],
-  	   ['text', 'password']
+          ['text', 'password']
         ]
       ],
       ['Crunchbase', 'crunchbases',
         [
           ['text', 'username'],
-  	   ['text', 'password']
+          ['text', 'password']
         ]
       ],
       ['Tupalo', 'tupalos',
         [
           ['text', 'username'],
-  	   ['text', 'password']
+          ['text', 'password']
         ]
       ],
       ['Mapquest', 'map_quests',
@@ -409,18 +398,18 @@ class Business < ActiveRecord::Base
   end
   def create_site_accounts
     Business.sub_models.each do |klass| 
-    	y = klass.new
-	y.business_id = self.id
-	y.password = ''
-	y.save
+      y = klass.new
+      y.business_id = self.id
+      y.password = ''
+      y.save
     end
   end
   def self.get_sub_model(str)
     Business.sub_models.each do |klass|
-	STDERR.puts "Comparing #{str} <=> #{klass.class.to_s}"
-	if klass.to_s == str
-	  return klass
-	end
+      STDERR.puts "Comparing #{str} <=> #{klass.class.to_s}"
+      if klass.to_s == str
+        return klass
+      end
     end
     nil
   end
