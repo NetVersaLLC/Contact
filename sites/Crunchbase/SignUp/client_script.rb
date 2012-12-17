@@ -20,6 +20,7 @@ def process_crunchbase_signup(profile)
   end
 
 	puts 'Signup is Completed'
+	RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[username]' => profile[ 'username' ], 'account[password]' => profile[ 'password' ], 'model' => 'Crunchbase'
 end
 goto_signup_page
 process_crunchbase_signup(data)
