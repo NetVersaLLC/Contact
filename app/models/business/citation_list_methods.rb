@@ -38,8 +38,12 @@ module Business::CitationListMethods
       list
     end
 
+    def self.sub_models=(models)
+      @site_models = models
+    end
+
     def self.sub_models
-      @@site_models
+      @site_models
     end
 
     def create_site_accounts
