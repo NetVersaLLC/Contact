@@ -144,5 +144,12 @@ Business::CITATION_LIST = [
       ['text', 'password']
     ],
       'MapQuest'
-  ]
+  ],
+  ['InsiderPage', 'insider_pages',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'InsiderPage'
+  ]  
 ]
