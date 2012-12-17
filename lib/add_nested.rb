@@ -9,11 +9,11 @@ class ActiveRecord::Base
   end
 
   def self.load_citation_list
-    @@site_models = []
+    site_models = []
     self.citation_list.each do |site|
       model = site[0].constantize
       table = site[1].to_sym
-      @@site_models.push model
+      site_models.push model
 
       # NOTE: Must skip this due to an invalid inflection
       if table == :crunchbases
@@ -21,6 +21,7 @@ class ActiveRecord::Base
       end
       add_nested table
     end
+    Business.sub_models = site_models
   end
 
 end
