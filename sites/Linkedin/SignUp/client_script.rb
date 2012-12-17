@@ -7,5 +7,9 @@ sleep(3)
 
 @browser.link( :text, /Send a confirmation email instead/).click
 
+if @chained
+  self.start("Linkedin/Verify")
+end
+
 true
 
