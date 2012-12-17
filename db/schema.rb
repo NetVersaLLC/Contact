@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121212213326) do
+ActiveRecord::Schema.define(:version => 20121214181304) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -502,6 +502,17 @@ ActiveRecord::Schema.define(:version => 20121212213326) do
   end
 
   add_index "linkedins", ["business_id"], :name => "index_linkedins_on_business_id"
+
+  create_table "localcoms", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "localcoms", ["business_id"], :name => "index_localcoms_on_business_id"
 
   create_table "localdatabases", :force => true do |t|
     t.integer  "business_id"
