@@ -7,15 +7,15 @@ class CerebusClient
 
   def dump(obj)
     return nil unless obj
-    STDERR.puts "dump(#{obj})"
+    # STDERR.puts "dump(#{obj})"
     Cerebus.encrypt obj.to_json, Rails.root.join("config", "public.pem")
   end
 
   def load(secret)
     return nil unless secret
-    STDERR.puts "load(#{secret})"
+    # STDERR.puts "load(#{secret})"
     uri              = URI("#{CEREBUS_SERVER}#{CEREBUS_KEY}.json")
-    STDERR.puts "Posting to: #{uri}"
+    # STDERR.puts "Posting to: #{uri}"
     pem              = File.read(Rails.root.join("config", "cerebus_server.pem"))
     http             = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl     = true
@@ -26,7 +26,7 @@ class CerebusClient
     req              = Net::HTTP::Post.new(uri.path)
     req.set_form_data('secret' => secret)
     res = http.request req
-    STDERR.puts res.body
+    # STDERR.puts res.body
     JSON(res.body)
   end
 

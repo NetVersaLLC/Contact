@@ -1,5 +1,4 @@
 class Business < ActiveRecord::Base
-  require(Rails.root.join("lib", "citation_list"))
   include Business::Attributes
   include Business::Validations
 

@@ -2,8 +2,12 @@ module Business::CitationListMethods
   extend ActiveSupport::Concern
   included do
 
+    def self.ensure_citation_list
+      @citation_list = eval File.read(Rails.root.join("lib", "citation_list.rb")) unless @citation_list
+    end
+
     def self.citation_list
-      Business::CITATION_LIST
+      @citation_list
     end
 
     def self.site_accounts_by_key

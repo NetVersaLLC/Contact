@@ -1,4 +1,4 @@
-Business::CITATION_LIST = [
+[
   ['Aol', 'aols',
     [
       ['text', 'username'],
