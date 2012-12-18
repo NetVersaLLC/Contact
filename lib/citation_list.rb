@@ -151,5 +151,12 @@
       ['text', 'password']
     ],
       'InsiderPage'
-  ]  
+  ],
+  ['Ibegin', 'ibegins',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Ibegin'
+  ]
 ]
