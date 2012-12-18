@@ -144,5 +144,12 @@
       ['text', 'password']
     ],
       'MapQuest'
-  ]
+  ],
+  ['InsiderPage', 'insider_pages',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'InsiderPage'
+  ]  
 ]
