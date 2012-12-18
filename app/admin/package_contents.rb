@@ -1,5 +1,5 @@
 ActiveAdmin.register_page "Package Contents" do
-  # menu :label => ''
+  menu :label => 'Package Contents'
 
   sidebar :payloads do
     div({:id => 'payload_list'}) do

@@ -9,6 +9,7 @@ class ActiveRecord::Base
   end
 
   def self.load_citation_list
+    Business.ensure_citation_list
     site_models = []
     self.citation_list.each do |site|
       model = site[0].constantize
