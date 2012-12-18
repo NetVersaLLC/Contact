@@ -158,5 +158,12 @@
       ['text', 'password']
     ],
       'Ibegin'
+  ],
+  ['Findstorenearu', 'findstorenearus',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Findstorenearu'
   ]
 ]
