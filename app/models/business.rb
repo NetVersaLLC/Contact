@@ -1,5 +1,4 @@
 class Business < ActiveRecord::Base
-  require(Rails.root.join("lib", "citation_list"))
   include Business::Attributes
   include Business::Validations
 
@@ -34,5 +33,9 @@ class Business < ActiveRecord::Base
   has_many :crunchbases, :dependent => :destroy, :class_name => "Crunchbase"
   attr_accessible :crunchbases_attributes
   accepts_nested_attributes_for :crunchbases, :allow_destroy => true
+
+  def label_id
+    self.user.label_id
+  end
 
 end
