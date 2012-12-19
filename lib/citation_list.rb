@@ -165,5 +165,12 @@
       ['text', 'password']
     ],
       'Findstorenearu'
+  ],
+  ['Justclicklocal', 'justclicklocals',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Justclicklocal'
   ]
 ]

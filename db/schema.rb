@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121218222750) do
+ActiveRecord::Schema.define(:version => 20121219153955) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -493,6 +493,17 @@ ActiveRecord::Schema.define(:version => 20121218222750) do
   end
 
   add_index "judys_books", ["business_id"], :name => "index_judys_books_on_business_id"
+
+  create_table "justclicklocals", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "justclicklocals", ["business_id"], :name => "index_justclicklocals_on_business_id"
 
   create_table "kudzus", :force => true do |t|
     t.integer  "business_id"
