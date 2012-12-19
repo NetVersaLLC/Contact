@@ -2,7 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if user and user.admin?
+    if user and user.admin
       can :manage, :all
     elsif user and user.class.to_s == 'AdminUser'
       can :manage, Business
