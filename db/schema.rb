@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121218161339) do
+ActiveRecord::Schema.define(:version => 20121218222750) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -337,6 +337,17 @@ ActiveRecord::Schema.define(:version => 20121218161339) do
   add_index "failed_jobs", ["business_id"], :name => "index_failed_jobs_on_business_id"
   add_index "failed_jobs", ["status"], :name => "index_failed_jobs_on_status"
 
+  create_table "findstorenearus", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "email"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "findstorenearus", ["business_id"], :name => "index_findstorenearus_on_business_id"
+
   create_table "foursquares", :force => true do |t|
     t.integer  "business_id"
     t.string   "email"
@@ -440,6 +451,15 @@ ActiveRecord::Schema.define(:version => 20121218161339) do
   end
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
+
+  create_table "insiderpages", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "jobs", :force => true do |t|
     t.integer  "business_id"
