@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121214181304) do
+ActiveRecord::Schema.define(:version => 20121218222750) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -45,8 +45,8 @@ ActiveRecord::Schema.define(:version => 20121214181304) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
   create_table "admin_users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "email",                  :default => "",    :null => false
+    t.string   "encrypted_password",     :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20121214181304) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.integer  "label_id"
+    t.boolean  "admin",                  :default => false
   end
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
@@ -336,6 +337,17 @@ ActiveRecord::Schema.define(:version => 20121214181304) do
   add_index "failed_jobs", ["business_id"], :name => "index_failed_jobs_on_business_id"
   add_index "failed_jobs", ["status"], :name => "index_failed_jobs_on_status"
 
+  create_table "findstorenearus", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "email"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "findstorenearus", ["business_id"], :name => "index_findstorenearus_on_business_id"
+
   create_table "foursquares", :force => true do |t|
     t.integer  "business_id"
     t.string   "email"
@@ -417,6 +429,15 @@ ActiveRecord::Schema.define(:version => 20121214181304) do
 
   add_index "hotfrogs", ["business_id"], :name => "index_hotfrogs_on_business_id"
 
+  create_table "ibegins", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "insider_pages", :force => true do |t|
     t.integer  "business_id"
     t.string   "email"
@@ -430,6 +451,15 @@ ActiveRecord::Schema.define(:version => 20121214181304) do
   end
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
+
+  create_table "insiderpages", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "jobs", :force => true do |t|
     t.integer  "business_id"
