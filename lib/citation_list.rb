@@ -151,5 +151,19 @@
       ['text', 'password']
     ],
       'InsiderPage'
-  ]  
+  ],
+  ['Ibegin', 'ibegins',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Ibegin'
+  ],
+  ['Findstorenearu', 'findstorenearus',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Findstorenearu'
+  ]
 ]
