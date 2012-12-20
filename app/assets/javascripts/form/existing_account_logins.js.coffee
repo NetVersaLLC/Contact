@@ -1,3 +1,11 @@
+window.togglePasswordField = (button)->
+  el = $(button).prev()
+  el = el[0]
+  if el.type == 'password'
+    el.type = 'text'
+  else
+    el.type = 'password'
+
 window.addSocial = (name)->
   console.log "Got: ", name
   html = ''
@@ -11,7 +19,11 @@ window.addSocial = (name)->
     html += '<div class="control-group">'
     html += '<label class="control-label" for="business['+e[1]+'_attributes][new_'+[1]+']['+f[1]+']">'+f[1]+'</label>'
     html += '<div class="controls">'
-    html += '<input type="'+f[0]+'" size="30" name="business['+e[1]+'_attributes][new_'+e[1]+']['+f[1]+']" id="business_'+e[1]+'_attributes_new_'+e[1]+'_'+f[1]+'">'
+    if f[0] == 'text' and f[1] == 'password'
+      html += '<input type="password" size="30" name="business['+e[1]+'_attributes][new_'+e[1]+']['+f[1]+']" id="business_'+e[1]+'_attributes_new_'+e[1]+'_'+f[1]+'">'
+      html += '<input class="btn btn-info" type="button" value="Show" onclick="window.togglePasswordField(this)" />'
+    else
+      html += '<input type="'+f[0]+'" size="30" name="business['+e[1]+'_attributes][new_'+e[1]+']['+f[1]+']" id="business_'+e[1]+'_attributes_new_'+e[1]+'_'+f[1]+'">'
     html += '</div>'
     html += '</div>'
   html += '<input type="hidden" value="false" name="business['+e[1]+'_attributes][new_'+e[1]+'][_destroy]" id="business_'+e[1]+'_attributes_new_'+e[1]+'__destroy">'

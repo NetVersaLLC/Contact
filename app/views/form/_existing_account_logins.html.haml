@@ -14,6 +14,7 @@
                 = render :partial => 'form/existing_account_category'
               - else
                 = render :partial => 'form/existing_account_text_field'
+            %a{:class => "remove_nested_fields", :href => "javascript:void(0)", :class => 'btn btn-info'} Remove #{@site[0]}
   %h3 Add New
   #socialButtons
     = select_tag :add_accounts, options_for_select(@accounts)
