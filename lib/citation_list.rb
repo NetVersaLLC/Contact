@@ -179,6 +179,12 @@
       ['text', 'password']
     ],
       'Freebusinessdirectory'
+  ],
+  ['Yellowise', 'yellowises',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Yellowise'
   ]
-
 ]
