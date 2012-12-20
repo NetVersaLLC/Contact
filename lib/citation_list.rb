@@ -172,5 +172,13 @@
       ['text', 'password']
     ],
       'Justclicklocal'
+  ],
+  ['Freebusinessdirectory', 'freebusinessdirectories',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Freebusinessdirectory'
   ]
+
 ]
