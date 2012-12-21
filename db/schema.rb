@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121220174400) do
+ActiveRecord::Schema.define(:version => 20121220204013) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -848,6 +848,17 @@ ActiveRecord::Schema.define(:version => 20121220174400) do
     t.text     "secrets"
     t.integer  "business_id"
   end
+
+  create_table "yellowees", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "yellowees", ["business_id"], :name => "index_yellowees_on_business_id"
 
   create_table "yellowises", :force => true do |t|
     t.integer  "business_id"

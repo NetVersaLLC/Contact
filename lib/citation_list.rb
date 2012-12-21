@@ -186,5 +186,12 @@
       ['text', 'password']
     ],
       'Yellowise'
+  ],
+  ['Yellowee', 'yellowees',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Yellowee'
   ]
 ]
