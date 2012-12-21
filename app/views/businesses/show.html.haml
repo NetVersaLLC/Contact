@@ -1,12 +1,10 @@
-%p#notice= notice
-
 %h1
   = @business.business_name
   %sup
     = link_to 'Edit This Business', edit_business_path(@business), :class => 'btn btn-info'
   - if @business.subscription and @business.subscription.active?
     %sup
-      = link_to 'Edit Your Subscription', edit_subscription_path(@business), :class => 'btn btn-info'
+      = link_to 'Edit Your Subscription',  edit_subscription_path(@business), :class => 'btn btn-info'
   - else
     %sup
       = link_to 'Renew Your Subscription', edit_subscription_path(@business), :class => 'btn btn-info'
@@ -27,6 +25,18 @@
             - if note.url != nil
               = link_to "Start", note.url, :class => 'btn btn-info'
   %br/
+
+- if @job_count > 0
+  %h2 Pending Jobs
+  %table.table.table-bordered
+    %tbody
+      %tr
+        %td
+          You have #{@job_count} pending citation jobs.
+        %td
+          = form_for Task.new do
+            %input{:type => :submit, :value => 'Start Sync', :class => 'btn btn-info btn-xlarge'}
+
 
 .row
   .span4

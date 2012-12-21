@@ -19,6 +19,7 @@ Contact::Application.routes.draw do
   resources :map_quests
   resources :results
   resources :tasks
+
   get     '/jobs(.:format)',     :controller => :jobs,   :action => :index
   post    '/jobs(.:format)',     :controller => :jobs,   :action => :create
   put     '/jobs/:id(.:format)', :controller => :jobs,   :action => :update
@@ -26,6 +27,7 @@ Contact::Application.routes.draw do
   get     '/jobs/list(.:format)',:controller => :jobs,   :action => :list
 
   post    '/accounts(.:format)', :controller => :accounts,   :action => :create
+  
   # Bing 
   post    '/bing/save_hotmail(.:format)',  :controller => :bing,   :action => :save_hotmail
   get     '/bing_category(.:format)',  :controller => :bing,   :action => :bing_category
