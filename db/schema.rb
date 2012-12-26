@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121226183543) do
+ActiveRecord::Schema.define(:version => 20121226212623) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -320,6 +320,17 @@ ActiveRecord::Schema.define(:version => 20121226183543) do
   end
 
   add_index "downloads", ["user_id"], :name => "index_downloads_on_user_id"
+
+  create_table "expressbusinessdirectories", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "expressbusinessdirectories", ["business_id"], :name => "index_expressbusinessdirectories_on_business_id"
 
   create_table "facebooks", :force => true do |t|
     t.integer  "business_id"
