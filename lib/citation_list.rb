@@ -200,5 +200,12 @@
       ['text', 'password']
     ],
       'Listwns'
+  ],
+  ['Localndex', 'localndexes',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Localndex'
   ]
 ]
