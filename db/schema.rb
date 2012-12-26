@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121221193741) do
+ActiveRecord::Schema.define(:version => 20121226183543) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -278,6 +278,17 @@ ActiveRecord::Schema.define(:version => 20121221193741) do
 
   add_index "completed_jobs", ["business_id"], :name => "index_completed_jobs_on_business_id"
   add_index "completed_jobs", ["status"], :name => "index_completed_jobs_on_status"
+
+  create_table "cornerstonesworlds", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "cornerstonesworlds", ["business_id"], :name => "index_cornerstonesworlds_on_business_id"
 
   create_table "coupons", :force => true do |t|
     t.string   "name"
