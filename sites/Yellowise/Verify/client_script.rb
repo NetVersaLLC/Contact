@@ -5,8 +5,9 @@ if @browser.text.include? "Your account has been activated. To gain access to th
 	puts( "Successfully verified." )
 	
 	if @chained
-		self.start("Yellowise/Verify")
+		self.start("Yellowise/CreateListing")
 	end
 	true
 
 end
+
