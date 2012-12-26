@@ -207,5 +207,13 @@
       ['text', 'password']
     ],
       'Localndex'
+  ],
+  ['Cornerstonesworld', 'cornerstonesworlds',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Cornerstonesworld'
   ]
+
 ]
