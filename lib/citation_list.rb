@@ -214,6 +214,12 @@
       ['text', 'password']
     ],
       'Cornerstonesworld'
+  ],
+  ['Expressbusinessdirectory', 'expressbusinessdirectories',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Expressbusinessdirectory'
   ]
-
 ]
