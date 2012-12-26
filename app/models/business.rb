@@ -34,6 +34,12 @@ class Business < ActiveRecord::Base
   attr_accessible :crunchbases_attributes
   accepts_nested_attributes_for :crunchbases, :allow_destroy => true
 
+  #Fix for the Listwns model trying to change it to Listwn.
+  has_many :listwns, :dependent => :destroy, :class_name => "Listwns"
+  attr_accessible :listwns_attributes
+  accepts_nested_attributes_for :listwns, :allow_destroy => true
+
+
   def label_id
     self.user.label_id
   end
