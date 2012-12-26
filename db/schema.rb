@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121221173146) do
+ActiveRecord::Schema.define(:version => 20121221193741) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -585,6 +585,17 @@ ActiveRecord::Schema.define(:version => 20121221173146) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
+
+  create_table "localndexes", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "localndexes", ["business_id"], :name => "index_localndexes_on_business_id"
 
   create_table "locations", :force => true do |t|
     t.string   "zip",                                        :null => false
