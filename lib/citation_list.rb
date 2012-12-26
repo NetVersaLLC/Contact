@@ -186,5 +186,19 @@
       ['text', 'password']
     ],
       'Yellowise'
+  ],
+  ['Yellowee', 'yellowees',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Yellowee'
+  ],
+  ['Listwns', 'listwns',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Listwns'
   ]
 ]
