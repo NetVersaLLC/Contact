@@ -235,5 +235,12 @@
       ['text', 'password']
     ],
       'Hyplo'
+  ],
+  ['Localizedbiz', 'localizedbizs',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Localizedbiz'
   ]
 ]
