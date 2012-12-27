@@ -221,5 +221,12 @@
       ['text', 'password']
     ],
       'Expressbusinessdirectory'
+  ],
+  ['Showmelocal', 'showmelocals',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Showmelocal'
   ]
 ]
