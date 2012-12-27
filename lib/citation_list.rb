@@ -228,5 +228,12 @@
       ['text', 'password']
     ],
       'Showmelocal'
+  ],
+  ['Hyplo', 'hyplos',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Hyplo'
   ]
 ]
