@@ -242,5 +242,12 @@
       ['text', 'password']
     ],
       'Localizedbiz'
+  ],
+  ['Mycitybusiness', 'mycitybusinesses',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Mycitybusiness'
   ]
 ]
