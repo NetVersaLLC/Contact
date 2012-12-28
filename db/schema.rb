@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121227203727) do
+ActiveRecord::Schema.define(:version => 20121227222101) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -496,15 +496,6 @@ ActiveRecord::Schema.define(:version => 20121227203727) do
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
 
-  create_table "insiderpages", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "email"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
   create_table "jobs", :force => true do |t|
     t.integer  "business_id"
     t.string   "name"
@@ -699,6 +690,16 @@ ActiveRecord::Schema.define(:version => 20121227203727) do
 
   add_index "mojopages", ["business_id"], :name => "index_mojopages_on_business_id"
 
+  create_table "mycitybusinesses", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "mycitybusinesses", ["business_id"], :name => "index_mycitybusinesses_on_business_id"
+
   create_table "notifications", :force => true do |t|
     t.integer  "business_id"
     t.string   "title"
@@ -818,14 +819,13 @@ ActiveRecord::Schema.define(:version => 20121227203727) do
   add_index "superpages", ["business_id"], :name => "index_superpages_on_business_id"
 
   create_table "tasks", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "business_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.datetime "started_at"
   end
 
-  add_index "tasks", ["name"], :name => "index_tasks_on_name"
-  add_index "tasks", ["user_id"], :name => "index_tasks_on_user_id"
+  add_index "tasks", ["business_id"], :name => "index_tasks_on_user_id"
 
   create_table "thumbtacks", :force => true do |t|
     t.integer  "business_id"
