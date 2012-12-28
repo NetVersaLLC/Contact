@@ -249,5 +249,13 @@
       ['text', 'password']
     ],
       'Mycitybusiness'
+  ],
+  ['Usbdn', 'usbdns',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Usbdn'
   ]
+
 ]
