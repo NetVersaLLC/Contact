@@ -1,5 +1,5 @@
 @browser.goto( 'http://www.showmelocal.com/businessregistration.aspx' )
-
+puts(data['password'])
 #business info
 @browser.text_field( :id => 'txtBusinessName').set data[ 'business' ]
 @browser.select_list( :id => '_ctl7_cboCategory').select data[ 'category' ]
