@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121221173146) do
+ActiveRecord::Schema.define(:version => 20121228164536) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -279,6 +279,17 @@ ActiveRecord::Schema.define(:version => 20121221173146) do
   add_index "completed_jobs", ["business_id"], :name => "index_completed_jobs_on_business_id"
   add_index "completed_jobs", ["status"], :name => "index_completed_jobs_on_status"
 
+  create_table "cornerstonesworlds", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "cornerstonesworlds", ["business_id"], :name => "index_cornerstonesworlds_on_business_id"
+
   create_table "coupons", :force => true do |t|
     t.string   "name"
     t.string   "code"
@@ -309,6 +320,17 @@ ActiveRecord::Schema.define(:version => 20121221173146) do
   end
 
   add_index "downloads", ["user_id"], :name => "index_downloads_on_user_id"
+
+  create_table "expressbusinessdirectories", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "expressbusinessdirectories", ["business_id"], :name => "index_expressbusinessdirectories_on_business_id"
 
   create_table "facebooks", :force => true do |t|
     t.integer  "business_id"
@@ -439,6 +461,17 @@ ActiveRecord::Schema.define(:version => 20121221173146) do
   end
 
   add_index "hotfrogs", ["business_id"], :name => "index_hotfrogs_on_business_id"
+
+  create_table "hyplos", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "hyplos", ["business_id"], :name => "index_hyplos_on_business_id"
 
   create_table "ibegins", :force => true do |t|
     t.integer  "business_id"
@@ -586,6 +619,28 @@ ActiveRecord::Schema.define(:version => 20121221173146) do
     t.datetime "updated_at",   :null => false
   end
 
+  create_table "localizedbizs", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "localizedbizs", ["business_id"], :name => "index_localizedbizs_on_business_id"
+
+  create_table "localndexes", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "localndexes", ["business_id"], :name => "index_localndexes_on_business_id"
+
   create_table "locations", :force => true do |t|
     t.string   "zip",                                        :null => false
     t.string   "city"
@@ -643,6 +698,16 @@ ActiveRecord::Schema.define(:version => 20121221173146) do
   end
 
   add_index "mojopages", ["business_id"], :name => "index_mojopages_on_business_id"
+
+  create_table "mycitybusinesses", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "mycitybusinesses", ["business_id"], :name => "index_mycitybusinesses_on_business_id"
 
   create_table "notifications", :force => true do |t|
     t.integer  "business_id"
@@ -715,6 +780,17 @@ ActiveRecord::Schema.define(:version => 20121221173146) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "showmelocals", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "showmelocals", ["business_id"], :name => "index_showmelocals_on_business_id"
 
   create_table "subscriptions", :force => true do |t|
     t.integer  "affiliate_id"
@@ -799,6 +875,17 @@ ActiveRecord::Schema.define(:version => 20121221173146) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
+
+  create_table "usbdns", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "usbdns", ["business_id"], :name => "index_usbdns_on_business_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",        :null => false

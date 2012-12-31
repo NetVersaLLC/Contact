@@ -200,5 +200,62 @@
       ['text', 'password']
     ],
       'Listwns'
+  ],
+  ['Localndex', 'localndexes',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Localndex'
+  ],
+  ['Cornerstonesworld', 'cornerstonesworlds',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Cornerstonesworld'
+  ],
+  ['Expressbusinessdirectory', 'expressbusinessdirectories',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Expressbusinessdirectory'
+  ],
+  ['Showmelocal', 'showmelocals',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Showmelocal'
+  ],
+  ['Hyplo', 'hyplos',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Hyplo'
+  ],
+  ['Localizedbiz', 'localizedbizs',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Localizedbiz'
+  ],
+  ['Mycitybusiness', 'mycitybusinesses',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Mycitybusiness'
+  ],
+  ['Usbdn', 'usbdns',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Usbdn'
   ]
+
 ]
