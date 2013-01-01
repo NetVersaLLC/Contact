@@ -256,6 +256,12 @@
       ['text', 'password']
     ],
       'Usbdn'
+  ],
+  ['Shopinusa', 'shopinusas',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Shopinusa'
   ]
-
 ]
