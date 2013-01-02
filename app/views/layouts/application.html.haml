@@ -1,33 +1,36 @@
 !!!
-%html
+%html{:lang => "en"}
   %head
-    %title Sign-Up Manager
+    %title Town Center :: NetVersa
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
+    /[if lt IE 8]
+      <script src="/assets/html5shiv.js"></script>
+    /[if lt IE 8]
+      <script src="/assets/jquery.fixPNG.js"></script>
+    /[if IE]
+      <script src="/assets/jquery.placeholder.js"></script>
+    :javascript
+      $.noConflict();
+      jQuery(function($) {
+      	$("ul>li:first:not(.igc-f)").addClass("first");
+      	$("ul>li:last:not(.igc-l)").addClass("last");
+      });
   %body{'data-spy' => 'scroll', 'data-target' => 'form-sidebar'}
-    .navbar
-      .navbar-inner
-        .container
-          %ul.nav.pull-right
-            %li
-              = link_to 'Home', businesses_path
-              - if user_signed_in?
-                %li
-                  = link_to 'Edit Profile', edit_user_registration_path
-                %li
-                  = link_to 'Sign Out', destroy_user_session_path, :method => :delete
-              - else
-                %li
-                  = link_to 'Sign In', new_user_session_path
-                %li
-                  = link_to 'Sign Up', new_user_registration_path
-    .container
-      .row
-        .offset2.span4
-      %br
-      .row
-        .offset2.span8
+    %header#header
+      .container
+        .row
+          .span4
+            %a.brand{:href => "#"}
+            %h1 Town Center
+          .span8
+            .navbar
+              .nav-collapse.collapse
+                = render :partial => 'pages/menu'
+    %section#contents-top
+      .container
+        #main
           - if notice
             .alert.alert-block
               %a.close{'data-dismiss' => 'alert', :href => '#'} x
@@ -36,10 +39,63 @@
             .alert.alert-block
               %a.close{'data-dismiss' => 'alert', :href => '#'} x
               = alert
-      .row
-        .span12
           = yield
-    %br
-    %br
+    %section#our-customers
+      .container
+        %h4 SOME OF OUR CUSTOMERS
+        %ul.customers-list
+          %li.customer-asus
+            %a{:href => "#"}
+              %img{:alt => "ASUS", :src => "/assets/customer_asus.jpg"}/
+          %li.customer-symantec
+            %a{:href => "#"}
+              %img{:alt => "SYMANTEC", :src => "/assets/customer_symantec.jpg"}/
+          %li.customer-yahoo
+            %a{:href => "#"}
+              %img{:alt => "YAHOO", :src => "/assets/customer_yahoo.jpg"}/
+          %li.customer-bea
+            %a{:href => "#"}
+              %img{:alt => "BEA", :src => "/assets/customer_bea.jpg"}/
+          %li.customer-netscape
+            %a{:href => "#"}
+              %img{:alt => "NETSCAPE", :src => "/assets/customer_netscape.jpg"}/
+          %li.customer-intel
+            %a{:href => "#"}
+              %img{:alt => "INTEL", :src => "/assets/customer_intel.jpg"}/
+          %li.customer-oracle
+            %a{:href => "#"}
+              %img{:alt => "ORACLE", :src => "/assets/customer_oracle.jpg"}/
+        .clearfix
+    %footer#footer
+      .container
+        .row
+          .span6
+            .navbar
+              %ul.nav
+                %li
+                  %a{:href => "#home"} Home
+                %li
+                  %a{:href => "#about-us"} About Us
+                %li
+                  %a{:href => "#pricing"} Pricing
+                %li
+                  %a{:href => "#edit-profile"} Edit Profile
+                %li
+                  %a{:href => "#contact-us"} Contact Us
+            .clearfix
+            %p.copyrights
+              Copyright &copy; 2012
+              = succeed "." do
+                %a{:href => "#"} Net Versa
+              All Rights Reserved
+          .span7
+            .footer-socials
+              %span.follow-us-text Follow Us
+              %a.social-icon-small.facebook-small-icon{:href => "#facebook"} Facebook
+              %a.social-icon-small.twitter-small-icon{:href => "#twitter"} Twitter
+              %a.social-icon-small.youtube-small-icon{:href => "#youtube"} Youtube
+              %a.social-icon-small.rss-small-icon{:href => "#rss"} RSS
+            .clearfix
+    %script{:src => "js/bootstrap.min.js"}
     :javascript
       $('.form-navbar').scrollspy()
