@@ -27,43 +27,7 @@
           .span8
             .navbar
               .nav-collapse.collapse
-                %ul.nav
-                  %li
-                    %span.nav-start &nbsp;
-                  %li
-                    = link_to 'HOME', businesses_path
-                  %li
-                    %span.nav-seperator &nbsp;
-                  %li
-                    %a{:href => "#about-us"} ABOUT US
-                  %li
-                    %span.nav-seperator &nbsp;
-                  %li
-                    %a{:href => "#pricing"} PRICING
-                  %li
-                    %span.nav-seperator &nbsp;
-                  %li
-                    %a{:href => "#blog"} BLOG
-                  - if user_signed_in?
-                    %li
-                      %span.nav-seperator &nbsp;
-                    %li
-                      = link_to 'PROFILE', edit_user_registration_path
-                    %li
-                      %span.nav-seperator &nbsp;
-                    %li
-                      = link_to 'SIGN OUT', destroy_user_session_path, :method => :delete
-                  - else
-                    %li
-                      %span.nav-seperator &nbsp;
-                    %li
-                      = link_to 'SIGN IN', new_user_session_path
-                    %li
-                      %span.nav-seperator &nbsp;
-                    %li
-                      = link_to 'SIGN UP', new_user_registration_path
-                  %li
-                    %span.nav-end &nbsp;
+                = render :partial => 'pages/menu'
     %section#contents-top
       .container
         #main
