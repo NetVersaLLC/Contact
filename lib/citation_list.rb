@@ -249,5 +249,34 @@
       ['text', 'password']
     ],
       'Mycitybusiness'
+  ],
+  ['Usbdn', 'usbdns',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Usbdn'
+  ],
+  ['Shopinusa', 'shopinusas',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Shopinusa'
+  ],
+  ['Zippro', 'zippros',
+    [
+      ['text', 'username'],
+      ['text', 'password'],
+      ['text', 'secret1']
+    ],
+      'Zippro'
+  ],
+  ['Yellowassistance', 'yellowassistances',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Yellowassistance'
   ]
 ]
