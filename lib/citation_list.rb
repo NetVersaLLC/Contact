@@ -186,5 +186,97 @@
       ['text', 'password']
     ],
       'Yellowise'
+  ],
+  ['Yellowee', 'yellowees',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Yellowee'
+  ],
+  ['Listwns', 'listwns',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Listwns'
+  ],
+  ['Localndex', 'localndexes',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Localndex'
+  ],
+  ['Cornerstonesworld', 'cornerstonesworlds',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Cornerstonesworld'
+  ],
+  ['Expressbusinessdirectory', 'expressbusinessdirectories',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Expressbusinessdirectory'
+  ],
+  ['Showmelocal', 'showmelocals',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Showmelocal'
+  ],
+  ['Hyplo', 'hyplos',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Hyplo'
+  ],
+  ['Localizedbiz', 'localizedbizs',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Localizedbiz'
+  ],
+  ['Mycitybusiness', 'mycitybusinesses',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Mycitybusiness'
+  ],
+  ['Usbdn', 'usbdns',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Usbdn'
+  ],
+  ['Shopinusa', 'shopinusas',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Shopinusa'
+  ],
+  ['Zippro', 'zippros',
+    [
+      ['text', 'username'],
+      ['text', 'password'],
+      ['text', 'secret1']
+    ],
+      'Zippro'
+  ],
+  ['Yellowassistance', 'yellowassistances',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Yellowassistance'
   ]
 ]
