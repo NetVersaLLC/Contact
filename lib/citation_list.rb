@@ -271,5 +271,12 @@
       ['text', 'secret1']
     ],
       'Zippro'
+  ],
+  ['Yellowassistance', 'yellowassistances',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Yellowassistance'
   ]
 ]
