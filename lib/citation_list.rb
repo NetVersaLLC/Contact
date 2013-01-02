@@ -263,5 +263,13 @@
       ['text', 'password']
     ],
       'Shopinusa'
+  ],
+  ['Zippro', 'zippros',
+    [
+      ['text', 'username'],
+      ['text', 'password'],
+      ['text', 'secret1']
+    ],
+      'Zippro'
   ]
 ]
