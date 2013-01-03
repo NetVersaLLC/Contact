@@ -285,5 +285,12 @@
       ['text', 'password']
     ],
       'Primeplace'
+  ],
+  ['Shopcity', 'shopcities',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Shopcity'
   ]
 ]
