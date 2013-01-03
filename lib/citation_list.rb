@@ -278,5 +278,12 @@
       ['text', 'password']
     ],
       'Yellowassistance'
+  ],
+  ['Primeplace', 'primeplaces',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Primeplace'
   ]
 ]
