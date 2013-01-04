@@ -1,3 +1,3 @@
-data = {
-  :link => Yelp.check_email(business)
-}
+data = {}
+data[ 'link' ]  	= Yelp.check_email(business)
+data

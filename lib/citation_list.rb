@@ -278,5 +278,26 @@
       ['text', 'password']
     ],
       'Yellowassistance'
+  ],
+  ['Primeplace', 'primeplaces',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Primeplace'
+  ],
+  ['Shopcity', 'shopcities',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Shopcity'
+  ],
+  ['Supermedia', 'supermedia',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Supermedia'
   ]
 ]

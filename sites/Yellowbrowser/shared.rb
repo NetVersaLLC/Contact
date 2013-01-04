@@ -15,10 +15,10 @@ def enter_captcha( data )
 	until capSolved or count > 5 do
 		captcha_code = solve_captcha	
 		@browser.text_field( :id, 'captcha').set captcha_code
-		#@browser.button( :xpath => '/html/body/div/div[3]/div/div/form/table/tbody/tr[17]/td[2]/input').fire_event("onmousedown")
-		#@browser.button( :xpath => '/html/body/div/div[3]/div/div/form/table/tbody/tr[17]/td[2]/input').fire_event("onmouseup")
-		#@browser.button( :xpath => '/html/body/div/div[3]/div/div/form/table/tbody/tr[17]/td[2]/input').fire_event("onblur")		
-		@browser.execute_script 'window.wFORMS.processedForm.Submit()'
+		@browser.button( :index => 0).fire_event('onkeydown')
+		@browser.button( :index => 0).fire_event('onkeyup')
+		@browser.button( :index => 0).fire_event('onBlur')
+		#@browser.form( :index => 0).submit
 		
 		#		@browser.button( :name => "Submit").click
 		sleep(2)
