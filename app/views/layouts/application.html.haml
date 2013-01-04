@@ -12,7 +12,6 @@
     /[if IE]
       <script src="/assets/jquery.placeholder.js"></script>
     :javascript
-      $.noConflict();
       jQuery(function($) {
       	$("ul>li:first:not(.igc-f)").addClass("first");
       	$("ul>li:last:not(.igc-l)").addClass("last");
@@ -96,6 +95,5 @@
               %a.social-icon-small.youtube-small-icon{:href => "#youtube"} Youtube
               %a.social-icon-small.rss-small-icon{:href => "#rss"} RSS
             .clearfix
-    %script{:src => "js/bootstrap.min.js"}
     :javascript
       $('.form-navbar').scrollspy()
