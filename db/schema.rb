@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130103190536) do
+ActiveRecord::Schema.define(:version => 20130104163720) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -847,6 +847,17 @@ ActiveRecord::Schema.define(:version => 20130103190536) do
 
   add_index "subscriptions", ["affiliate_id"], :name => "index_subscriptions_on_affiliate_id"
   add_index "subscriptions", ["package_id"], :name => "index_subscriptions_on_package_id"
+
+  create_table "supermedia", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "supermedia", ["business_id"], :name => "index_supermedia_on_business_id"
 
   create_table "superpages", :force => true do |t|
     t.integer  "business_id"

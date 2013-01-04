@@ -39,6 +39,12 @@ class Business < ActiveRecord::Base
   attr_accessible :listwns_attributes
   accepts_nested_attributes_for :listwns, :allow_destroy => true
 
+  #Fix for the Supermedia model trying to change it to Supermedia.
+  has_many :supermedia, :dependent => :destroy, :class_name => "Supermedia"
+  attr_accessible :supermedia_attributes
+  accepts_nested_attributes_for :supermedia, :allow_destroy => true
+
+
 
   def label_id
     self.user.label_id
