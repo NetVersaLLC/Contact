@@ -292,5 +292,12 @@
       ['text', 'password']
     ],
       'Shopcity'
+  ],
+  ['Supermedia', 'supermedia',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Supermedia'
   ]
 ]
