@@ -306,5 +306,12 @@
       ['text', 'password']
     ],
       'Matchpoint'
+  ],
+  ['Magicyellow', 'magicyellow',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Magicyellow'
   ]
 ]
