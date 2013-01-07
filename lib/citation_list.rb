@@ -299,5 +299,12 @@
       ['text', 'password']
     ],
       'Supermedia'
+  ],
+  ['Matchpoint', 'matchpoints',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Matchpoint'
   ]
 ]
