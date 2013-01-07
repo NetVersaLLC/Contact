@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130104163720) do
+ActiveRecord::Schema.define(:version => 20130107145800) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -676,6 +676,17 @@ ActiveRecord::Schema.define(:version => 20130104163720) do
   end
 
   add_index "map_quests", ["business_id"], :name => "index_map_quests_on_business_id"
+
+  create_table "matchpoints", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "matchpoints", ["business_id"], :name => "index_matchpoints_on_business_id"
 
   create_table "merchantcircles", :force => true do |t|
     t.datetime "force_update"
