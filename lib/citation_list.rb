@@ -313,5 +313,12 @@
       ['text', 'password']
     ],
       'Magicyellow'
+  ],
+  ['Localpages', 'localpages',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Localpages'
   ]
 ]
