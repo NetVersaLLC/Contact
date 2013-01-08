@@ -320,5 +320,11 @@
       ['text', 'password']
     ],
       'Gomylocal'
+  ],
+  ['Digabusiness', 'digabusinesses',
+    [
+      ['text', 'password']
+    ],
+      'Digabusiness'
   ]
 ]
