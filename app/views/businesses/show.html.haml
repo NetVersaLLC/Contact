@@ -37,21 +37,15 @@
           = form_for Task.new do
             %input{:type => :submit, :value => 'Start Sync', :class => 'btn btn-info btn-xlarge'}
 
-
+-#  .span4
+-#    %h3 Social Update
+-#    %p Keep your customers up to date with every aspect of your business! Use the form below to update all your social media sites.
+-#    %form.form-search.well
+-#      = text_field_tag :q, '', :placeholder => 'Send social media update.', :class => 'search-query input-medium'
+-#      %a{:class => "btn btn-success", :href => "#" } Update
 .row
-  .span4
-    %h3 Social Update
-    %p Keep your customers up to date with every aspect of your business! Use the form below to update all your social media sites.
-    %form.form-search.well
-      = text_field_tag :q, '', :placeholder => 'Send social media update.', :class => 'search-query input-medium'
-      %a{:class => "btn btn-success", :href => "#" } Update
   .span4
     %h3 Download Client Software
     %p Use the button below to download the client software for this business. For best results this software should be installed on a system at the business location.
     .well
       %a.btn.btn-warning.btn-large{:href => "/downloads/#{@business.id}"} Download Client
-
-%br/
-%br/
-%br/
-%a.btn.btn-info.btn-large{:href => new_business_path()} Add Another Business
