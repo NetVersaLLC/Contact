@@ -44,6 +44,10 @@ class Business < ActiveRecord::Base
   attr_accessible :supermedia_attributes
   accepts_nested_attributes_for :supermedia, :allow_destroy => true
 
+  #Fix for the Localpages model trying to change it to Localpage.
+  has_many :localpages, :dependent => :destroy, :class_name => "Localpages"
+  attr_accessible :localpages_attributes
+  accepts_nested_attributes_for :localpages, :allow_destroy => true
 
 
   def label_id

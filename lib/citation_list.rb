@@ -299,5 +299,26 @@
       ['text', 'password']
     ],
       'Supermedia'
+  ],
+  ['Matchpoint', 'matchpoints',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Matchpoint'
+  ],
+  ['Magicyellow', 'magicyellow',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Magicyellow'
+  ],
+  ['Localpages', 'localpages',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Localpages'
   ]
 ]
