@@ -35,6 +35,7 @@
           You have #{@job_count} pending citation jobs.
         %td
           = form_for Task.new do
+            %input{:type => :hidden, :value => @business.id, :name => 'business_id'}
             %input{:type => :submit, :value => 'Start Sync', :class => 'btn btn-info btn-xlarge'}
 
 -#  .span4
