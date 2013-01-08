@@ -14,7 +14,7 @@ class Business < ActiveRecord::Base
   has_many          :notifications
 
   # Triggers
-  after_create      :create_citation_list
+  after_create      :create_site_accounts
   after_create      :create_jobs
   after_initialize  :set_times
 
