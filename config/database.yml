@@ -28,5 +28,15 @@ production:
   password: "2LCuNQ2nAq"
   host: localhost
 
+staging:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: contact
+  pool: 5
+  username: contact
+  password: "2LCuNQ2nAq"
+  host: localhost
+
 cucumber:
   <<: *test

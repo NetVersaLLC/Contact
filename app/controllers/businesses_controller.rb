@@ -13,8 +13,9 @@ class BusinessesController < ApplicationController
   # GET /businesses/1
   # GET /businesses/1.json
   def show
-    @business = Business.find(params[:id])
-    @accounts = @business.nonexistent_accounts_array
+    @business  = Business.find(params[:id])
+    @accounts  = @business.nonexistent_accounts_array
+    @job_count = Job.where(:business_id => @business.id, :status => 0).count
   end
 
   # GET /businesses/new
