@@ -38,7 +38,7 @@ class SubscriptionsController < ApplicationController
         s.active       = true
       end
       @subscription.save!
-      if params[:business_id]
+      if params[:business_id] and params[:business_id] != ''
         business = Business.find(params[:business_id])
       else
         business = Business.new
