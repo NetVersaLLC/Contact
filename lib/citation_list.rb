@@ -313,5 +313,12 @@
       ['text', 'password']
     ],
       'Localpages'
+  ],
+  ['Gomylocal', 'gomylocals',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Gomylocal'
   ]
 ]
