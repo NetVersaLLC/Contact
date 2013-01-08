@@ -126,7 +126,7 @@
   ],
   ['Crunchbase', 'crunchbases',
     [
-      ['text', 'username'],
+      ['text', 'email'],
       ['text', 'password']
     ],
       'CrunchBase'
@@ -242,13 +242,6 @@
       ['text', 'password']
     ],
       'Localizedbiz'
-  ],
-  ['Mycitybusiness', 'mycitybusinesses',
-    [
-      ['text', 'username'],
-      ['text', 'password']
-    ],
-      'Mycitybusiness'
   ],
   ['Usbdn', 'usbdns',
     [
