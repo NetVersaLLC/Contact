@@ -27,7 +27,6 @@ Contact::Application.routes.draw do
   get     '/jobs/list(.:format)',:controller => :jobs,   :action => :list
 
   post    '/accounts(.:format)', :controller => :accounts,   :action => :create
-
   # Bing 
   get     '/bing_category(.:format)',  :controller => :bing,   :action => :bing_category
 
