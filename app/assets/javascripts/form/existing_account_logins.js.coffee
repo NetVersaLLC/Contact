@@ -3,11 +3,12 @@ window.togglePasswordField = (button)->
   el = el[0]
   if el.type == 'password'
     el.type = 'text'
+    $(button).val('Hide')
   else
     el.type = 'password'
+    $(button).val('Show')
 
 window.addSocial = (name)->
-  console.log "Got: ", name
   html = ''
   e = window.socialAccounts[name]
   html += '<div id="'+e[1]+'_fields_blueprint">'
@@ -36,35 +37,29 @@ window.addSocial = (name)->
   $("#add_accounts option[value='"+name+"']").remove();
 
 window.clearCategory = (em)->
-  div = em.parentNode
-  console.log div
+  div   = em.parentNode
   input = div.previousSibling.previousSibling
-  console.log input
   div.parentNode.removeChild(div)
-  id = $(input).attr('id')
-  name = $(input).attr('name')
-  parts = name.match(/business\[[^\]]+\]\[0\]\[(.*?)_id\]/)
+  id     = $(input).attr('id')
+  name   = $(input).attr('name')
+  parts  = name.match(/business\[[^\]]+\]\[0\]\[(.*?)_id\]/)
   source = parts[1]
   value  = $(input).attr('value')
   console.log("Fetching: ", source)
   $.getJSON "/"+source+".json", (data)->
     $('#'+id).optionTree( data )
 
-
-
 $(document).ready ->
   $('.load_categories').each (i,e)->
-    id = $(e).attr('id')
-    name = $(e).attr('name')
-    parts = name.match(/business\[[^\]]+\]\[0\]\[(.*?)_id\]/)
+    id     = $(e).attr('id')
+    name   = $(e).attr('name')
+    parts  = name.match(/business\[[^\]]+\]\[0\]\[(.*?)_id\]/)
     source = parts[1]
     value  = $(e).attr('value')
     console.log("Fetching: ", source)
     if value == ''
       $.getJSON "/"+source+".json", (data)->
         $('#'+id).optionTree( data )
-
-
   $('#add_account_button').click (e) ->
     e.preventDefault()
     key = $('#add_accounts').val()

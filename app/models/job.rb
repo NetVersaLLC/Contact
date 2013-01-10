@@ -38,6 +38,9 @@ class Job < JobBase
   end
 
   def self.pending(business)
+    if Task.where("business_id = #{business.id} AND started_at > DATE_SUB(NOW(), INTERVAL 1 DAY)").count == 0
+      return nil
+    end
     @job = Job.where('business_id = ? AND status IN (0,1)', business.id).order(:position).first
     if @job != nil
       if @job.wait == true

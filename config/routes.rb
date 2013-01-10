@@ -14,11 +14,12 @@ Contact::Application.routes.draw do
 
   resources :booboos
   resources :pings
-  resources :tweets
   resources :businesses
-  resources :map_quests
   resources :results
   resources :tasks
+  resources :zip,  :only => [:index]
+  resources :city, :only => [:index]
+
   get     '/jobs(.:format)',     :controller => :jobs,   :action => :index
   post    '/jobs(.:format)',     :controller => :jobs,   :action => :create
   put     '/jobs/:id(.:format)', :controller => :jobs,   :action => :update
@@ -27,7 +28,6 @@ Contact::Application.routes.draw do
 
   post    '/accounts(.:format)', :controller => :accounts,   :action => :create
   # Bing 
-  post    '/bing/save_hotmail(.:format)',  :controller => :bing,   :action => :save_hotmail
   get     '/bing_category(.:format)',  :controller => :bing,   :action => :bing_category
 
   # Yahoo 
@@ -41,15 +41,8 @@ Contact::Application.routes.draw do
   post    '/google/save_email',  :controller => :google, :action => :save_email
   post    '/captcha/recaptcha',      :controller => :captcha,         :action => :recaptcha
   get     '/downloads/:business_id', :controller => :downloads,       :action => :download
-  get     '/welcome',                :controller => :pages,           :action => :index
   get     '/emails/check/:site',     :controller => :emails,          :action => :check
-  post    '/detect',                 :controller => :detect_settings, :action => :detect
 
-
-
-
-  resources :zip,  :only => [:index]
-  resources :city, :only => [:index]
   resources :places
   root :to => 'pages#index'
 end
