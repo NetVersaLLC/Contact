@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121228164536) do
+ActiveRecord::Schema.define(:version => 20130108193630) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -310,6 +310,16 @@ ActiveRecord::Schema.define(:version => 20121228164536) do
 
   add_index "crunchbases", ["business_id"], :name => "index_crunchbases_on_business_id"
 
+  create_table "digabusinesses", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "digabusinesses", ["business_id"], :name => "index_digabusinesses_on_business_id"
+
   create_table "downloads", :force => true do |t|
     t.integer  "user_id"
     t.string   "name"
@@ -404,6 +414,17 @@ ActiveRecord::Schema.define(:version => 20121228164536) do
   end
 
   add_index "getfavs", ["business_id"], :name => "index_getfavs_on_business_id"
+
+  create_table "gomylocals", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "gomylocals", ["business_id"], :name => "index_gomylocals_on_business_id"
 
   create_table "google_categories", :force => true do |t|
     t.string   "name"
@@ -641,6 +662,17 @@ ActiveRecord::Schema.define(:version => 20121228164536) do
 
   add_index "localndexes", ["business_id"], :name => "index_localndexes_on_business_id"
 
+  create_table "localpages", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "localpages", ["business_id"], :name => "index_localpages_on_business_id"
+
   create_table "locations", :force => true do |t|
     t.string   "zip",                                        :null => false
     t.string   "city"
@@ -653,6 +685,16 @@ ActiveRecord::Schema.define(:version => 20121228164536) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "magicyellows", :force => true do |t|
+    t.datetime "force_update"
+    t.integer  "business_id"
+    t.string   "email"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "magicyellows", ["business_id"], :name => "index_magicyellows_on_business_id"
 
   create_table "manta", :force => true do |t|
     t.integer  "business_id"
@@ -676,6 +718,17 @@ ActiveRecord::Schema.define(:version => 20121228164536) do
   end
 
   add_index "map_quests", ["business_id"], :name => "index_map_quests_on_business_id"
+
+  create_table "matchpoints", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "matchpoints", ["business_id"], :name => "index_matchpoints_on_business_id"
 
   create_table "merchantcircles", :force => true do |t|
     t.datetime "force_update"
@@ -761,6 +814,17 @@ ActiveRecord::Schema.define(:version => 20121228164536) do
   add_index "pings", ["business_id"], :name => "index_pings_on_business_id"
   add_index "pings", ["user_id"], :name => "index_pings_on_user_id"
 
+  create_table "primeplaces", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "primeplaces", ["business_id"], :name => "index_primeplaces_on_business_id"
+
   create_table "results", :force => true do |t|
     t.integer  "job_id"
     t.string   "status"
@@ -780,6 +844,27 @@ ActiveRecord::Schema.define(:version => 20121228164536) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "shopcities", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "shopcities", ["business_id"], :name => "index_shopcities_on_business_id"
+
+  create_table "shopinusas", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "shopinusas", ["business_id"], :name => "index_shopinusas_on_business_id"
 
   create_table "showmelocals", :force => true do |t|
     t.integer  "business_id"
@@ -816,6 +901,17 @@ ActiveRecord::Schema.define(:version => 20121228164536) do
   add_index "subscriptions", ["affiliate_id"], :name => "index_subscriptions_on_affiliate_id"
   add_index "subscriptions", ["package_id"], :name => "index_subscriptions_on_package_id"
 
+  create_table "supermedia", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "supermedia", ["business_id"], :name => "index_supermedia_on_business_id"
+
   create_table "superpages", :force => true do |t|
     t.integer  "business_id"
     t.datetime "force_update"
@@ -828,14 +924,13 @@ ActiveRecord::Schema.define(:version => 20121228164536) do
   add_index "superpages", ["business_id"], :name => "index_superpages_on_business_id"
 
   create_table "tasks", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "business_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.datetime "started_at"
   end
 
-  add_index "tasks", ["name"], :name => "index_tasks_on_name"
-  add_index "tasks", ["user_id"], :name => "index_tasks_on_user_id"
+  add_index "tasks", ["business_id"], :name => "index_tasks_on_user_id"
 
   create_table "thumbtacks", :force => true do |t|
     t.integer  "business_id"
@@ -947,6 +1042,17 @@ ActiveRecord::Schema.define(:version => 20121228164536) do
     t.integer  "business_id"
   end
 
+  create_table "yellowassistances", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "yellowassistances", ["business_id"], :name => "index_yellowassistances_on_business_id"
+
   create_table "yellowees", :force => true do |t|
     t.integer  "business_id"
     t.text     "secrets"
@@ -990,5 +1096,17 @@ ActiveRecord::Schema.define(:version => 20121228164536) do
   end
 
   add_index "yelps", ["business_id"], :name => "index_yelps_on_business_id"
+
+  create_table "zippros", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.text     "username"
+    t.text     "secret1"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "zippros", ["business_id"], :name => "index_zippros_on_business_id"
 
 end

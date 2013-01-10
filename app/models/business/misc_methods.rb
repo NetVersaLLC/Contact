@@ -41,5 +41,13 @@ module Business::MiscMethods
       self.user.label
     end
 
+    def birthday
+      if self.contact_birthday
+        Date.strptime self.contact_birthday, '%m/%d/%Y'
+      else
+        Date.today - 30.year - (rand()*365).day
+      end
+    end
+
   end
 end

@@ -126,7 +126,7 @@
   ],
   ['Crunchbase', 'crunchbases',
     [
-      ['text', 'username'],
+      ['text', 'email'],
       ['text', 'password']
     ],
       'CrunchBase'
@@ -243,19 +243,75 @@
     ],
       'Localizedbiz'
   ],
-  ['Mycitybusiness', 'mycitybusinesses',
-    [
-      ['text', 'username'],
-      ['text', 'password']
-    ],
-      'Mycitybusiness'
-  ],
   ['Usbdn', 'usbdns',
     [
       ['text', 'username'],
       ['text', 'password']
     ],
       'Usbdn'
+  ],
+  ['Shopinusa', 'shopinusas',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Shopinusa'
+  ],
+  ['Zippro', 'zippros',
+    [
+      ['text', 'username'],
+      ['text', 'password'],
+      ['text', 'secret1']
+    ],
+      'Zippro'
+  ],
+  ['Yellowassistance', 'yellowassistances',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Yellowassistance'
+  ],
+  ['Primeplace', 'primeplaces',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Primeplace'
+  ],
+  ['Shopcity', 'shopcities',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Shopcity'
+  ],
+  ['Supermedia', 'supermedia',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Supermedia'
+  ],
+  ['Matchpoint', 'matchpoints',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Matchpoint'
+  ],
+  ['Magicyellow', 'magicyellow',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Magicyellow'
+  ],
+  ['Localpages', 'localpages',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Localpages'
   ]
-
 ]
