@@ -1,5 +1,5 @@
 @browser.goto("http://localizedbiz.com/login/register.php")
-
+puts(data['username'])
 @browser.text_field( :id => 'username').set data['username']
 @browser.text_field( :id => 'password').set data['password']
 @browser.text_field( :id => 'password_confirmed').set data['password']

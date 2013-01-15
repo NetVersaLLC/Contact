@@ -1,6 +1,6 @@
 data = {}
 data[ 'phone' ] = business.local_phone
-data[ 'email' ] = business.magicyellows.first.email
+data[ 'email' ] = business.bings.first.email
 data[ 'business' ] = business.business_name
 data[ 'address' ] = business.address
 data[ 'city' ] = business.city
@@ -12,7 +12,7 @@ data[ 'claim_business'] = 'yes'
 data[ 'fullname' ] = data[ 'first_name' ] + " " + data[ 'last_name' ]
 data[ 'business_category']  = business.category1
 data[ 'business_description']  = business.business_description	
-data[ 'payment_option'] = Magicyellow.payment_methods(business)
+data[ 'payment_option'] = Yahoo.payment_methods(business)
 data[ 'relation_to_business' ] = 'Agent'
 data[ 'is_owner'] = 'Yes'
 data[ 'additional_services' ] = ' '

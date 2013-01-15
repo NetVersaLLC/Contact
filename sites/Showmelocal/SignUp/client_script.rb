@@ -25,10 +25,8 @@ puts(data['password'])
 
 enter_captcha( data )
 
-if @browser.text.include? 'Your account requires activation. Your Business Profile is HIDDEN until your account is ACTIVATED.'
 RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[username]' => data['email'], 'account[password]' => data['password'], 'model' => 'Showmelocal'
 	if @chained
 		self.start("Showmelocal/Verify")
 	end
-end
-
+true

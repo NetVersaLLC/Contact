@@ -1,5 +1,5 @@
 data = {}
-data[ 'phone' ]			= "872-233-4865"#business.local_phone
+data[ 'phone' ]			= business.local_phone
 data[ 'business' ]		= business.business_name
 data[ 'addressComb' ]		= business.address + " " + business.address2
 data[ 'city' ]			= business.city

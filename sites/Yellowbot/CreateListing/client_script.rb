@@ -12,15 +12,6 @@
 
 	enter_captcha( data )
 
-  captcha_text = solve_captcha()
-  @browser.text_field( :id => 'recaptcha_response_field' ).set captcha_text
-  @browser.button( :name => 'subbtn' ).click
-
-	if @browser.text.include? 'Welcome to YellowBot!'
-		puts("Registered! Confirming email...")
-		true
-	end
-
 
 def create_business( data )
 @browser.goto( 'http://www.yellowbot.com/submit/newbusiness' )

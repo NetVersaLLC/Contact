@@ -66,3 +66,4 @@ sleep(3)
 sleep(3)
 @browser.button( :value => /Finish/).click
 
+true
