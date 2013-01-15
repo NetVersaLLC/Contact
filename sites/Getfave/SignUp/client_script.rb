@@ -2,16 +2,8 @@
 @url = 'https://www.getfave.com'
 @browser.goto(@url)
 
-#Check for existing session
-@sign_out = @browser.link(:text,'Log Out')
-
-if @sign_out.exist?
-	@sign_out.click
-end
 
 #Sign in
-@sign_in = @browser.link(:text,'Log In/Join')
-@sign_in.click
 @browser.link(:text,'Log In/Join').click
 @browser.text_field(:id,'session_email').set data[ 'email' ]
 @browser.text_field(:id,'session_password').set data[ 'password' ]

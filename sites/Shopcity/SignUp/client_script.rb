@@ -13,6 +13,7 @@
 
 @browser.link( :title => 'GET STARTED!').click
 
+sleep(5)
 if @browser.text.include? "Congratulations!"
 	RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[username]' => data['email'], 'account[password]' => data['password'], 'model' => 'Shopcity'
 

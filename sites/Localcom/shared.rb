@@ -5,7 +5,7 @@ def goto_signup_page fb=false
 	@browser.div(:id => 'logBarJoin').click
 
 	@browser.frame(:id => 'createNewAccount').wait_until_present
-  @frame = @browser.frame(:id => 'createNewAccount')
+  	
 
   if fb == true
     @frame.locate
@@ -23,7 +23,7 @@ end
 
 def process_local_signup(profile)
 	puts 'Sign up for new Local.com account'
-
+@frame = @browser.frame(:id => 'createNewAccount')
   @frame.text_field(:id, "defaultPageTemplate_firstName").set profile['first_name']
   @frame.text_field(:id, "defaultPageTemplate_lastName").set profile['last_name']
   @frame.text_field(:id, "defaultPageTemplate_displayName").set profile['display_name']

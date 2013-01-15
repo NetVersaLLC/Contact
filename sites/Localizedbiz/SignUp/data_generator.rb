@@ -1,6 +1,6 @@
 data = {}
-seed = rand(10000).to_s()
-data[ 'username' ]		= business.bings.first.email[0..14]
+seed = rand(10000).to_s
+data[ 'username' ]		= business.bings.first.email[0..10] + seed
 data[ 'password' ]		= Yahoo.make_password
-data[ 'email' ]			= business.bings.first.email
+data[ 'email' ]		= business.bings.first.email
 data
