@@ -52,25 +52,25 @@ end
 
 # Main Script start from here
 # Launch url
-@url = 'https://business.angieslist.com/'
-  @browser.goto(@url)
+#@url = 'https://business.angieslist.com/'
+#  @browser.goto(@url)
   
   #sign out
-  @sign_out = @browser.link(:text, 'Sign Out')
-  @sign_out.click if @sign_out.exist?
+ # @sign_out = @browser.link(:text, 'Sign Out')
+  #@sign_out.click if @sign_out.exist?
   
   #Fill form on Step -I
-  @browser.image(:src,/CreateBtn/).click
+  @browser.goto( 'https://business.angieslist.com/Registration/Registration.aspx' )
   @browser.text_field(:id => /CompanyName/).set data[ 'company_name' ]
   @browser.text_field(:id => /CompanyZip/).set data[ 'zip' ]
   @browser.image(:alt,'Search').click
-  sleep(3)
+  sleep(5)
   
   #Check if business already listed
   @error_msg = @browser.span(:class,'errortext')
   @no_match_text = 'No companies were found. Try entering partial information in the search fields.'
   
-  if @error_msg.exist? && @error_msg.text.include?(@no_match_text)
+  if not @browser.span( :text => /#{data['company_name']}/i).exists?
 	  @browser.image(:alt,'Add Company').click
 	  @browser.div(:class,'lightboxcontentbackground paddedmargin10').text_field(:id,/CompanyName/).when_present.set data['company_name']
 	  @browser.div(:class,'lightboxcontentbackground paddedmargin10').text_field(:id,/CompanyAddress/).set data['address']

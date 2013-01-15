@@ -61,13 +61,9 @@
   
 # Main Script start from here
 # Launch url
-@url = 'http://citysquares.com/'
+@url = 'http://my.citysquares.com/search'
   @browser.goto(@url)
 
-  @sign_out = @browser.link(:text, 'Sign Out')
-  @sign_out.click if @sign_out.exist?
-  
-  @browser.link(:text => 'Add a Business').click
   @browser.text_field(:name => 'b_standardname').set data[ 'business' ] 
   @browser.text_field(:name => 'b_zip').set data[ 'zip' ] 
   @browser.button(:value => 'Find My Business').click
@@ -90,9 +86,10 @@
 	  @browser.text_field(:name => 'phonenumber').set data[ 'phone_suffix' ]
 	  @browser.text_field(:name => 'specials').set data[ 'specials' ]
 	  @browser.select_list(:name => 'top_cat').select data[ 'category' ]
-	  @browser.wait_until { @browser.select_list(:name => 'inet_cat').option(:text => "#{data[ 'sub_category']}").exist? }
+	  #@browser.wait_until { @browser.select_list(:name => 'inet_cat').option(:text => "#{data[ 'sub_category']}").exist? }
+	  sleep(3)
 	  @browser.select_list(:name => 'inet_cat').select data[ 'sub_category' ]
-	  @browser.checkbox(:name => 'termsChoice').set
+	  @browser.checkbox(:name => 'termsChoice').click
 	  @browser.button(:value => 'Add Business').click
 	  @confirmation = @browser.div(:id => 'landingWelcome')
 	  @confirmation_msg = "Welcome to your business dashboard #{data[ 'first_name']}"

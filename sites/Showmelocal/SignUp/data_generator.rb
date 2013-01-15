@@ -1,21 +1,21 @@
 data = {}
-data[ 'business' ]		= "JiaTest"#business.business_name
+data[ 'business' ]		= business.business_name
 data[ 'category' ]		= "Everything Else"
-data[ 'type' ]			= business.category1
-data[ 'address' ]		= "54123 Sagamore St"#business.address
+data[ 'type' ]		= business.category1
+data[ 'address' ]		= business.address
 data[ 'address2' ]		= business.address2
 data[ 'country' ]		= "United States"
-data[ 'state' ]			= business.state_name
-data[ 'city' ]			= business.city
+data[ 'state' ]		= business.state_name
+data[ 'city' ]		= business.city
 data[ 'zip' ]			= business.zip
-data[ 'phone' ]			= business.local_phone
+data[ 'phone' ]		= business.local_phone
 data[ 'fax' ]			= business.fax_number
-data[ 'email' ]			= "jiatester3302@hotmail.com"#business.bings.first.email
+data[ 'email' ]		= business.bings.first.email
 data[ 'website' ]		= business.company_website
-data[ 'description' ]		= business.business_description
+data[ 'description' ]	= business.business_description
 data[ 'keywords' ]		= business.keyword1 + ", " +business.keyword2 + ", " +business.keyword3 + ", " +business.keyword4 + ", " +business.keyword5
-data[ 'fname' ]			= business.contact_first_name
-data[ 'lname' ]			= business.contact_last_name
+data[ 'fname' ]		= business.contact_first_name
+data[ 'lname' ]		= business.contact_last_name
 data[ 'password' ]		= Yahoo.make_password
 data
 

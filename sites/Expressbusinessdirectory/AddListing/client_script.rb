@@ -43,7 +43,7 @@ RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}",
 	if @chained
 		self.start("Expressbusinessdirectory/Verify")
 	end
-
+true
 
 end
 

@@ -20,6 +20,8 @@ def watir_must( &block )
   end
 end
 
+
+
 captcha_types = { :sign_up, :add_listing }
 def solve_captcha( type )
 
@@ -87,4 +89,36 @@ def goto_listing( business )
   end
 
   @browser.div( :class, 'LiveUI_Area_Items_Repeating' ).div( :text, business['name'] ).click
+end
+
+
+def solve_captcha2
+  image = "#{ENV['USERPROFILE']}\\citation\\bing1_captcha.png"
+  obj = @browser.img( :xpath, '//div/table/tbody/tr/td/img[1]' )
+  puts "CAPTCHA source: #{obj.src}"
+  puts "CAPTCHA width: #{obj.width}"
+  obj.save image
+
+  CAPTCHA.solve image, :manual
+end
+
+def enter_captcha
+
+	capSolved = false
+	count = 1
+	until capSolved or count > 5 do
+		captcha_code = solve_captcha2	
+		@browser.text_field( :class => 'spHipNoClear hipInputText' ).set captcha_code
+		@browser.button( :title => /I accept/i ).click
+		sleep(2)
+		if not @browser.text.include? "The characters didn't match the picture. Please try again."
+			capSolved = true
+		end
+	count+=1
+	end
+	if capSolved == true
+		true
+	else
+		throw("Captcha was not solved")
+	end
 end

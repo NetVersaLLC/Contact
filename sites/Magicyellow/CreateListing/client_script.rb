@@ -50,6 +50,7 @@ def add_new_business(data)
 	
   if @browser.text.include?(@success_msg)
     puts "Initial registration is Successful"
+true
   else
     throw "Initial registration is not Successful"
   end

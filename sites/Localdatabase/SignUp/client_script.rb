@@ -12,7 +12,11 @@ process_localdatabase_signup(data)
 
 RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[username]' => data[ 'username' ], 'account[password]' => data[ 'password' ], 'model' => 'Localdatabase'
 
+	if @chained
+		self.start("Localdatabase/Verify")
+	end
 
+true
 
 
 
