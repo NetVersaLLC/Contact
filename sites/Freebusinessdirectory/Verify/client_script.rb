@@ -1,2 +1,3 @@
-puts(data['username'])
-puts(data['password'])
+@browser.goto(data['url'])
+
+true

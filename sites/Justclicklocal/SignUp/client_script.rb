@@ -11,6 +11,7 @@
 RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[username]' => data['email'], 'account[password]' => data['password'], 'model' => 'Justclicklocal'
 
 if @chained
-  self.start("Justclicklocal/Verify")
+  self.start("Justclicklocal/CreateListing")
 end
 
+true
