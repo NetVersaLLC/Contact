@@ -27,11 +27,6 @@ def enter_captcha( data )
 		captcha_code = solve_captcha
 		@browser.text_field( :id => 'recaptcha_response_field' ).set captcha_code
 		@browser.button( :name => 'subbtn' ).click
-		
-		if @browser.div( :class, 'error').exists?
-			errors = @browser.div( :class, 'error').text
-			puts( errors )
-		end
 
 		if not @browser.text.include? "Please correct the errors below and resubmit"
 			capSolve = true
@@ -60,10 +55,6 @@ def enter_captcha_add_business( data )
 		@browser.text_field( :id => 'recaptcha_response_field' ).set captcha_code
 		@browser.button( :name => 'subbtn' ).click
 		
-		if @browser.div( :class, 'corr_error').exists?
-			errors = @browser.div( :corr_error, 'error').text
-			puts( errors )
-		end
 
 		if not @browser.text.include? "Incorrect. Try again."
 			capSolve = true

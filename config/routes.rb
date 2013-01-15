@@ -43,6 +43,7 @@ Contact::Application.routes.draw do
   get     '/downloads/:business_id', :controller => :downloads,       :action => :download
   get     '/emails/check/:site',     :controller => :emails,          :action => :check
 
+  get     '/contact-us', :controller => :pages, :action => :contact_us
   resources :places
   root :to => 'pages#index'
 end

@@ -9,7 +9,4 @@
 
 enter_captcha( data )
 
-if @browser.text.include? "received"
-puts("Listing submitted")
 true
-end

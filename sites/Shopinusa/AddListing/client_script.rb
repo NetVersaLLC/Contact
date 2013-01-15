@@ -107,13 +107,8 @@ payments.each do |payment|
 end
 
 @browser.button( :id => 'ctl00_MainContent_submitButton').click
-sleep(5)
-@browser.link( :text => 'Skip').when_present.click
-sleep(3)
-@brower.alert.ok
-
-if @browser.text.include? "Congratulations! Your free listing has been successfully submitted for review."
+sleep(8)
+@browser.goto('http://www.shopinusa.com/signup/Preview.aspx')
 
 true
 
-end

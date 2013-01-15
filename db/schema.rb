@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130108193630) do
+ActiveRecord::Schema.define(:version => 20130107215310) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -310,16 +310,6 @@ ActiveRecord::Schema.define(:version => 20130108193630) do
 
   add_index "crunchbases", ["business_id"], :name => "index_crunchbases_on_business_id"
 
-  create_table "digabusinesses", :force => true do |t|
-    t.integer  "business_id"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
-  add_index "digabusinesses", ["business_id"], :name => "index_digabusinesses_on_business_id"
-
   create_table "downloads", :force => true do |t|
     t.integer  "user_id"
     t.string   "name"
@@ -415,17 +405,6 @@ ActiveRecord::Schema.define(:version => 20130108193630) do
 
   add_index "getfavs", ["business_id"], :name => "index_getfavs_on_business_id"
 
-  create_table "gomylocals", :force => true do |t|
-    t.integer  "business_id"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.text     "username"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
-  add_index "gomylocals", ["business_id"], :name => "index_gomylocals_on_business_id"
-
   create_table "google_categories", :force => true do |t|
     t.string   "name"
     t.string   "slug"
@@ -516,15 +495,6 @@ ActiveRecord::Schema.define(:version => 20130108193630) do
   end
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
-
-  create_table "insiderpages", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "email"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
 
   create_table "jobs", :force => true do |t|
     t.integer  "business_id"
