@@ -1,20 +1,26 @@
 %ul.nav
-  %li
-    %span.nav-start &nbsp;
-  %li
-    = link_to 'HOME', businesses_path
-  %li
-    %span.nav-seperator &nbsp;
-  %li
-    %a{:href => "#about-us"} ABOUT US
-  %li
-    %span.nav-seperator &nbsp;
-  %li
-    %a{:href => "#pricing"} PRICING
+  - if user_signed_in?
+    %li
+      %span.nav-start &nbsp;
+    %li
+      = link_to 'HOME', businesses_path
+  - else
+    %li
+      %span.nav-start &nbsp;
+    %li
+      = link_to 'HOME', '/'
   %li
     %span.nav-seperator &nbsp;
   %li
-    %a{:href => "#blog"} BLOG
+    %a{:href => "/about-us"} ABOUT US
+  %li
+    %span.nav-seperator &nbsp;
+  %li
+    %a{:href => "/subscriptions/new"} PRICING
+  %li
+    %span.nav-seperator &nbsp;
+  %li
+    %a{:href => "/blog"} BLOG
   - if user_signed_in?
     %li
       %span.nav-seperator &nbsp;

@@ -32,8 +32,8 @@ def add_business ( data )
 	
 
 	#Wait until the Choose Category Screen loads
-	Watir::Wait::until do @browser.text.include? 'Choose your business category' end
-	
+	#Watir::Wait::until do @browser.text.include? 'Choose your business category' end
+	sleep(4)
 	#Enter the business' category
 	@browser.text_field( :name => 'category' ).set data[ 'category' ]
 	@browser.button( :value => 'Find Category' ).click

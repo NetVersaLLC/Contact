@@ -79,6 +79,11 @@ namespace :deploy do
   task :migrations, :roles => :db do
     run "cd #{release_path} && bundle exec rake db:migrate RAILS_ENV=#{rails_env}"
   end
+
+  desc 'Building assets'
+  task :assets do
+    run "cd #{release_path} && bundle exec rake assets:precompile"
+  end
 end
 
 namespace :nginx do
@@ -102,7 +107,8 @@ task :after_update_code do
 end
 
 after 'deploy'           , 'deploy:migrations'
-after 'deploy:migrations', 'nginx:reload'
+after 'deploy:migrations', 'deploy:assets'
+after 'deploy:assets',     'nginx:reload'
 after 'nginx:reload'     , 'thin:restart'
 
 require './config/boot'

@@ -39,31 +39,6 @@
               %a.close{'data-dismiss' => 'alert', :href => '#'} x
               = alert
           = yield
-    %section#our-customers
-      .container
-        %h4 SOME OF OUR CUSTOMERS
-        %ul.customers-list
-          %li.customer-asus
-            %a{:href => "#"}
-              %img{:alt => "ASUS", :src => "/assets/customer_asus.jpg"}/
-          %li.customer-symantec
-            %a{:href => "#"}
-              %img{:alt => "SYMANTEC", :src => "/assets/customer_symantec.jpg"}/
-          %li.customer-yahoo
-            %a{:href => "#"}
-              %img{:alt => "YAHOO", :src => "/assets/customer_yahoo.jpg"}/
-          %li.customer-bea
-            %a{:href => "#"}
-              %img{:alt => "BEA", :src => "/assets/customer_bea.jpg"}/
-          %li.customer-netscape
-            %a{:href => "#"}
-              %img{:alt => "NETSCAPE", :src => "/assets/customer_netscape.jpg"}/
-          %li.customer-intel
-            %a{:href => "#"}
-              %img{:alt => "INTEL", :src => "/assets/customer_intel.jpg"}/
-          %li.customer-oracle
-            %a{:href => "#"}
-              %img{:alt => "ORACLE", :src => "/assets/customer_oracle.jpg"}/
         .clearfix
     %footer#footer
       .container
@@ -72,20 +47,20 @@
             .navbar
               %ul.nav
                 %li
-                  %a{:href => "#home"} Home
+                  %a{:href => "/"} Home
                 %li
-                  %a{:href => "#about-us"} About Us
+                  %a{:href => "/about-us"} About Us
                 %li
-                  %a{:href => "#pricing"} Pricing
+                  %a{:href => "/subscriptions/new"} Pricing
                 %li
-                  %a{:href => "#edit-profile"} Edit Profile
+                  %a{:href => "/users/edit"} Edit Profile
                 %li
-                  %a{:href => "#contact-us"} Contact Us
+                  %a{:href => "/contact-us"} Contact Us
             .clearfix
             %p.copyrights
               Copyright &copy; 2012
               = succeed "." do
-                %a{:href => "#"} Net Versa
+                %a{:href => "/"} Net Versa
               All Rights Reserved
           .span7
             .footer-socials
