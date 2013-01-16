@@ -32,13 +32,6 @@ end
 #  @browser.text_field(:name => 'recipients').when_present.set data['recipients']
   @browser.link(:text, /Save/).when_present.click
   @browser.link(:text, /Continue/).when_present.click
-sleep(3)
-  if @browser.div(:class => 'pod-content').h2.text == "#{data[ 'business' ]}"
-    puts "Business Registered Succesfully"
 
-RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => data['email'], 'account[password]' => data['password'], 'model' => 'Thumbtack'
-
-    true
-  else
-    throw("Business Registration Failed")
-  end
+true
+  

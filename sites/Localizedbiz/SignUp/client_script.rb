@@ -8,7 +8,7 @@ puts(data['username'])
 @browser.button( :name => 'register').click
 
 if @browser.text.include? 'Account registered. Please check your email for details on how to activate it.'
-RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[username]' => data['email'], 'account[password]' => data['password'], 'model' => 'Localizedbiz'
+RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[username]' => data['username'], 'account[password]' => data['password'], 'model' => 'Localizedbiz'
 	if @chained
 		self.start("Localizedbiz/Verify")
 	end
