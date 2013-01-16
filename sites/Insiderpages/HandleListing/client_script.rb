@@ -5,7 +5,8 @@ def add_listing( data )
 	@browser.text_field( :id, 'business_address_1' ).set data[ 'address' ]
 	
 	@browser.text_field( :name, 'city' ).set data[ 'city' ]
-	@browser.li( :id, 'as-result-item-0').when_present.click
+	sleep(2)
+	@browser.li( :id, 'as-result-item-0')
 
 	@browser.select_list( :id, 'business_state_code' ).select data[ 'state' ]
 	@browser.text_field( :id, 'business_zip_code' ).set data[ 'zip' ]
@@ -55,7 +56,7 @@ def claim_business( data )
 	@browser.div( :id, 'recaptcha_widget_div').wait_until_present
 	enter_captcha( data )
 	update_business( data )
-
+true
 end
 
 def update_business( data )
@@ -68,8 +69,6 @@ def update_business( data )
 		@browser.text_field( :id, 'business_merchant_attributes_services' ).set data[ 'services' ]
 		@browser.text_field( :id, 'business_merchant_attributes_message' ).set data[ 'message' ]
 		@browser.button( :value, 'update business' ).click
-		
-
 		true
 
 end
@@ -89,10 +88,10 @@ sign_in( data )
 if @browser.link( :text, /#{data['business']}/i).exists?
 #Claim the business
 claim_business( data )
-
+true
 else
 #add new listing
 add_listing( data )
-
+true
 end
 

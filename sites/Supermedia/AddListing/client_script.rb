@@ -26,12 +26,11 @@ enter_captcha( data )
 @browser.checkbox( :id => 'acceptterms').when_present.click
 @browser.link(:id => 'popup_ok').click
 
-
-if @browser.text.include? "Confirm Your Email Address"
+sleep(5)
 	RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[username]' => data['email'], 'model' => 'Supermedia'
 
 	if @chained
 		self.start("Supermedia/Verify")
 	end
 true
-end
+

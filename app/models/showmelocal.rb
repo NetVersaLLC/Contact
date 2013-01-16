@@ -9,7 +9,7 @@ class Showmelocal < ClientData
     @link = nil
     CheckMail.get_link(business) do |mail|
   	if mail.subject =~ /Welcome to the ShowMeLocal\.com/i
-	          @link = mail.body.decoded.match(/(http:\/\/www.showmelocal.com\S+)/i)[1]
+	          @link = mail.body.decoded.match(/(http:\/\/www.showmelocal.com\S+)/i)[0]
   	end
     end
     @link

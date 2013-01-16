@@ -2,8 +2,8 @@
 @browser.text_field( :id => 'user_id').set data[ 'username' ]
 @browser.text_field( :id => 'pass').set data[ 'password' ]
 @browser.button( :id => 'login').click
-	
-@browser.img( :src => /get_button_image.php?tx=Start/i).click
+sleep(3)
+@browser.img( :src => /get_button_image.php?tx=Start%20%3E%3E/i).click
 
 @browser.text_field( :id => 'company_descr').set data[ 'description' ]
 @browser.text_field( :id => 'company_site').set data[ 'website' ]

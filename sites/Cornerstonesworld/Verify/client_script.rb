@@ -4,7 +4,7 @@ puts("waiting for email to arrive")
 sleep(15)
 
 if @chained
-	self.start("Cornerstonesworld/Verify")
+	self.start("Cornerstonesworld/GetUsername")
 end
 
 true

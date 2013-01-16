@@ -9,12 +9,12 @@
 
 @browser.button( :value => 'Sign Up').click
 
-if @browser.text.include? 'Confirmation sent!'
+
 RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[username]' => data['email'], 'account[password]' => data['password'], 'model' => 'Showmelocal'
 	if @chained
 		self.start("Hyplo/Verify")
 	end
 true
-end
+
 
 		    
