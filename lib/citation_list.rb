@@ -313,5 +313,12 @@
       ['text', 'password']
     ],
       'Localpages'
+  ],
+  ['Ezlocal', 'ezlocals',
+    [
+      ['select', 'ezlocal_category']
+    ],
+      'Ezlocal'
   ]
+
 ]
