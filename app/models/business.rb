@@ -49,6 +49,16 @@ class Business < ActiveRecord::Base
   attr_accessible :localpages_attributes
   accepts_nested_attributes_for :localpages, :allow_destroy => true
 
+  #Fix for the Localcensus model trying to change it to Localcensu.
+  has_many :localcensus, :dependent => :destroy, :class_name => "Localcensus"
+  attr_accessible :localcensus_attributes
+  accepts_nested_attributes_for :localcensus, :allow_destroy => true
+
+  #Fix for the Yippie model trying to change it to Yippy.
+  has_many :yippies, :dependent => :destroy, :class_name => "Yippie"
+  attr_accessible :yippies_attributes
+  accepts_nested_attributes_for :yippies, :allow_destroy => true
+
 
   def label_id
     self.user.label_id
