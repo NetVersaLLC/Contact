@@ -316,9 +316,26 @@
   ],
   ['Ezlocal', 'ezlocals',
     [
-      ['select', 'ezlocal_category']
+	['select', 'ezlocal_category']
     ],
       'Ezlocal'
+  ],
+  ['Ebusinesspage', 'ebusinesspages',
+    [
+	['select', 'ebusinesspage_category']
+    ],
+      'Ebusinesspage'
+  ],
+  ['Localcensus', 'localcensus',
+    [
+	['select', 'localcensus_category']
+    ],
+      'Localcensus'
+  ],
+  ['Yippie', 'yippies',
+    [
+	['select', 'yippie_category']
+    ],
+      'Yippie'
   ]
-
 ]
