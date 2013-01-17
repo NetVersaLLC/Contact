@@ -3,9 +3,32 @@
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %title Home
-    = stylesheet_link_tag 'mock'
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = stylesheet_link_tag    'mock'
+    = csrf_meta_tags
+    /[if lt IE 8]
+      <script src="/assets/html5shiv.js"></script>
+    /[if lt IE 8]
+      <script src="/assets/jquery.fixPNG.js"></script>
+    /[if IE]
+      <script src="/assets/jquery.placeholder.js"></script>
+    :javascript
+      jQuery(function($) {
+        $("ul>li:first:not(.igc-f)").addClass("first");
+        $("ul>li:last:not(.igc-l)").addClass("last");
+      });
   %body
     .container
+      %ul.topright
+        - if user_signed_in?
+          %li
+            = link_to 'SIGN OUT', '/users/sign_out'
+        - else
+          %li
+            = link_to 'SIGN UP', '/users/sign_up'
+        %li{:style => 'border-right: 0px'}
+          = link_to 'CONTACT US', '/'
       .content
         %h1
           %img{:alt => "Map", :border => "0", :height => "1453", :src => "/assets/mock_background.png", :usemap => "#map", :width => "997"}/
@@ -17,3 +40,35 @@
             %area{:alt => "Packages", :coords => "639,13,751,63", :href => "/subscriptions/new", :shape => "rect"}/
             %area{:alt => "Get Started", :coords => "750,15,886,61", :href => "/users/sign_up", :shape => "rect"}/
             %area{:alt => "Reviews", :coords => "885,10,981,65", :href => "/reviews", :shape => "rect"}/
+    %footer#footer
+      .container
+        .row
+          .span6
+            .navbar
+              %ul.nav{:style => 'font-size: 6pt'}
+                %li
+                  %a{:href => "/"} HOME
+                %li
+                  %a{:href => "/learn-more"} LEARN MORE
+                %li
+                  %a{:href => "/subscriptions/new"} PACKAGES
+                %li
+                  %a{:href => "/users/edit"} GET STARTED
+                %li
+                  %a{:href => "/reviews"} REVIEWS
+                %li
+                  %a{:href => "/contact-us"} CONTACT
+                %li
+                  %a{:href => "/users/sign_in"} SIGN IN
+          .span7
+            .footer-socials
+              = image_tag '/assets/social_icons.png'
+            .clearfix
+      .container{:style => 'background-color: #808080; width: 100%;' }
+        .row
+          #copyright{:style => 'text-align: center; font-size: 6pt;'}
+            %p.copyrights
+              Copyright &copy; 2013
+              = succeed "." do
+                %a{:href => "/"} Net Versa, LLC.
+                All Rights Reserved
