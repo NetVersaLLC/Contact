@@ -45,30 +45,30 @@
         .row
           .span6
             .navbar
-              %ul.nav
+              %ul.nav{:style => 'font-size: 6pt'}
                 %li
-                  %a{:href => "/"} Home
+                  %a{:href => "/"} HOME
                 %li
-                  %a{:href => "/about-us"} About Us
+                  %a{:href => "/learn-more"} LEARN MORE
                 %li
-                  %a{:href => "/subscriptions/new"} Pricing
+                  %a{:href => "/subscriptions/new"} PACKAGES
                 %li
-                  %a{:href => "/users/edit"} Edit Profile
+                  %a{:href => "/users/edit"} GET STARTED
                 %li
-                  %a{:href => "/contact-us"} Contact Us
-            .clearfix
-            %p.copyrights
-              Copyright &copy; 2012
-              = succeed "." do
-                %a{:href => "/"} Net Versa
-              All Rights Reserved
+                  %a{:href => "/reviews"} REVIEWS
+                %li
+                  %a{:href => "/contact-us"} CONTACT
+                %li
+                  %a{:href => "/users/sign_in"} SIGN IN
           .span7
             .footer-socials
-              %span.follow-us-text Follow Us
-              %a.social-icon-small.facebook-small-icon{:href => "#facebook"} Facebook
-              %a.social-icon-small.twitter-small-icon{:href => "#twitter"} Twitter
-              %a.social-icon-small.youtube-small-icon{:href => "#youtube"} Youtube
-              %a.social-icon-small.rss-small-icon{:href => "#rss"} RSS
+              = image_tag '/assets/social_icons.png'
             .clearfix
-    :javascript
-      $('.form-navbar').scrollspy()
+      .container{:style => 'background-color: #808080; width: 100%;' }
+        .row
+          #copyright{:style => 'text-align: center; font-size: 6pt;'}
+            %p.copyrights
+              Copyright &copy; 2013
+              = succeed "." do
+                %a{:href => "/"} Net Versa, LLC.
+                All Rights Reserved
