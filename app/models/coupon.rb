@@ -1,3 +1,3 @@
 class Coupon < ActiveRecord::Base
-  attr_accessible :code, :name
+  attr_accessible :code, :name, :percentage_off
 end

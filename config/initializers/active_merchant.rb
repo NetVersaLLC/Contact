@@ -3,7 +3,7 @@
 # Username: netversa411
 # Password: ErK448qcKc 
 
-if Rails.env == "production"
+if Rails.env == "production" or Rails.env == :production
   ActiveMerchant::Billing::Base.mode = :production
   ::AUTHORIZENETGATEWAY = ActiveMerchant::Billing::Base.gateway(:authorize_net).new(
     :login    => "5SJ7zUf5m2c3",

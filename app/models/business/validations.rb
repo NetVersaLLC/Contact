@@ -36,15 +36,14 @@ module Business::Validations
       :format => { :with => phone_regex }
     validates :address,
       :presence => true
-    validates :business_description,
-      :presence => true
+    validates_length_of :business_description, :minimum => 50, :maximum => 200, :presence => true
     validates :geographic_areas,
       :presence => true
     validates :year_founded,
       :presence => true
-    validates :fan_page_url,
+    validates :company_website,
       :allow_blank => true,
-      :format => { :with => /^https?\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?$/ }
+      :format => { :with => /^https?\:\/\// }
     validates :contact_birthday,
       :presence => true,
       :format => { :with => /^\d\d\/\d\d\/\d\d\d\d$/ }

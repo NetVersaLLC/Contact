@@ -7,6 +7,7 @@ class SubscriptionsController < ApplicationController
 
   def new
     @subscription = Subscription.new
+    @package      = Package.first
   end
 
   def edit
@@ -20,7 +21,7 @@ class SubscriptionsController < ApplicationController
   def create
     sub           = params['subscription']
     coupon = Coupon.where(:code => sub['coupon_code']).first
-    if coupon != nil
+    if coupon != nil and coupon.percentage_off == 100
       flash[:notice]   = "Subscription started and coupon applied!"
       @subscription    = Subscription.create do |s|
         s.package_id   = Package.first
@@ -50,10 +51,19 @@ class SubscriptionsController < ApplicationController
       redirect_to edit_business_path(business)
       return
     end
-    package       = Package.find( sub['package_id'] )
+    package     = Package.find( sub['package_id'] )
+    price       = package.price
+    monthly_fee = package.monthly_fee
+
+    if coupon
+      price       = price       * ( 1.0 - (100 / coupon.percentage_off) )
+      monthly_fee = monthly_fee * ( 1.0 - (100 / coupon.percentage_off) )
+    end
+
     @subscription = Subscription.new
     @subscription.package_id = package.id
-    @subscription.total      = package.price
+    @subscription.total      = monthly_fee
+    @subscription.intial_fee = price
     @subscription.first_name = sub['first_name']
     @subscription.last_name  = sub['last_name']
     @subscription.address    = sub['address']
@@ -82,15 +92,7 @@ class SubscriptionsController < ApplicationController
       :last_name          => sub['last_name']
     )
     if credit_card.valid?
-      resp = ::AUTHORIZENETGATEWAY.recurring(package.price, credit_card, {
-        :interval => {
-          :unit => :months,
-          :length => 1
-        },
-        :duration => {
-          :start_date => Date.today,
-          :occurrences => 9999
-        },
+      resp = ::AUTHORIZENETGATEWAY.purchase(price, credit_card, {
         :billing_address => {
           :first_name => sub['first_name'],
           :last_name  => sub['last_name'],
@@ -99,7 +101,29 @@ class SubscriptionsController < ApplicationController
           :state      => sub['state'],
           :country    => 'United States',
           :zip        => sub['zip']
-      }})
+        }
+      })
+      logger.info resp.inspect
+      if resp.success?
+        resp = ::AUTHORIZENETGATEWAY.recurring(monthly_fee, credit_card, {
+          :interval => {
+            :unit => :months,
+            :length => 1
+          },
+          :duration => {
+            :start_date => Date.today,
+            :occurrences => 9999
+          },
+          :billing_address => {
+            :first_name => sub['first_name'],
+            :last_name  => sub['last_name'],
+            :address1   => sub['address'] + ' ' + sub['address2'],
+            :city       => sub['city'],
+            :state      => sub['state'],
+            :country    => 'United States',
+            :zip        => sub['zip']
+        }})
+      end
       if resp.success?
         logger.info "Printing response:"
         logger.info resp.to_json
@@ -112,6 +136,7 @@ class SubscriptionsController < ApplicationController
         business.save     :validate => false
         redirect_to edit_business_path(business)
       else
+        resp = ::AUTHORIZENETGATEWAY.credit(price, credit_card)
         flash[:alert] = "Error: #{resp.message}"
         redirect_to new_subscription_path
       end

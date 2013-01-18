@@ -22,8 +22,8 @@
     = f.semantic_errors
     - @f = f
     %h3
-      One-time Setup $299.99 + $19.99 recurring
     %p
+      One-time Setup #{@package.show_initial_fee} + #{@package.show_monthly_fee}  recurring
       Get listed in 45+ of the top online directories and start growing your online presence today.
     .offset3.span8
       %section{:id => 'section-packages'}

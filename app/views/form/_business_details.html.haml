@@ -2,8 +2,6 @@
   = @f.inputs "Business Details", :class => 'inputs tab-pane', :id => 'section1' do
     = @f.input :business_name,      :placeholder => "The name of the business."
     = @f.input :corporate_name,     :placeholder => "DBA/Corporate Name"
-    = @f.input :duns_number,        :placeholder => "DUNS number (if any)"
-    = @f.input :sic_code,           :placeholder => "SIC or NAICS code (if any)"
     = @f.input :contact_prefix,     :as => :select, :collection => Business.prefix_list
     = @f.input :contact_gender,     :as => :select, :collection => Business.gender_list
     = @f.input :contact_first_name, :placeholder => "Contact First Name",  :input_html => { 'data-content' => 'The first name of the person that LLH should speak to regarding your account.', 'title' => 'Main Contact Person',   :rel => 'popover' }
