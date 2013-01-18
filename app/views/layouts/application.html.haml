@@ -29,7 +29,7 @@
                 = render :partial => 'pages/menu'
     %section#contents-top
       .container
-        #main
+        #main{:style => 'box-shadow: -5px -5px 15px #888888;'}
           - if notice
             .alert.alert-block
               %a.close{'data-dismiss' => 'alert', :href => '#'} x
