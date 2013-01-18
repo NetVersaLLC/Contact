@@ -11,3 +11,11 @@ $(document).ready ->
     source: (req, add)->
       $.getJSON "/google_categories/"+$('#business_category3').val(), req, (data)->
         add(data)
+  $('#business_category4').autocomplete
+    source: (req, add)->
+      $.getJSON "/google_categories/"+$('#business_category4').val(), req, (data)->
+        add(data)
+  $('#business_category5').autocomplete
+    source: (req, add)->
+      $.getJSON "/google_categories/"+$('#business_category5').val(), req, (data)->
+        add(data)
