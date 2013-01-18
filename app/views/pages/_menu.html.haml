@@ -1,43 +1,7 @@
-%ul.nav
-  - if user_signed_in?
-    %li
-      %span.nav-start &nbsp;
-    %li
-      = link_to 'HOME', businesses_path
-  - else
-    %li
-      %span.nav-start &nbsp;
-    %li
-      = link_to 'HOME', '/'
-  %li
-    %span.nav-seperator &nbsp;
-  %li
-    %a{:href => "/about-us"} ABOUT US
-  %li
-    %span.nav-seperator &nbsp;
-  %li
-    %a{:href => "/subscriptions/new"} PRICING
-  %li
-    %span.nav-seperator &nbsp;
-  %li
-    %a{:href => "/blog"} BLOG
-  - if user_signed_in?
-    %li
-      %span.nav-seperator &nbsp;
-    %li
-      = link_to 'PROFILE', edit_user_registration_path
-    %li
-      %span.nav-seperator &nbsp;
-    %li
-      = link_to 'SIGN OUT', destroy_user_session_path, :method => :delete
-  - else
-    %li
-      %span.nav-seperator &nbsp;
-    %li
-      = link_to 'SIGN IN', new_user_session_path
-    %li
-      %span.nav-seperator &nbsp;
-    %li
-      = link_to 'SIGN UP', new_user_registration_path
-  %li
-    %span.nav-end &nbsp;
+%img{:alt => "Map", :border => "0", :height => "70", :src => "/assets/menu.png", :usemap => "#map", :width => "566" }/
+%map#map{:name => "map"}
+  %area{:alt => "Home", :coords => "0,0,75,50", :href => "/", :shape => "rect"}/
+  %area{:alt => "Learn More", :coords => "75,0,220,70", :href => "/learn_more", :shape => "rect"}/
+  %area{:alt => "Packages", :coords => "220,0,330,70", :href => "/subscriptions/new", :shape => "rect"}/
+  %area{:alt => "Get Started", :coords => "330,0,460,70", :href => "/users/sign_up", :shape => "rect"}/
+  %area{:alt => "Reviews", :coords => "460,10,566,70", :href => "/reviews", :shape => "rect"}/
