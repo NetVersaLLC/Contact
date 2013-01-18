@@ -3,7 +3,7 @@
 	width:990px;
 }
 body {
-	background:#FFF url('/assets/body_bg.jpg');
+	background:#FFF url('/assets/mock_bg.jpg');
 }
 h1, h2, h3, h4, h5, h6, .section-title {
 	color:#474747;
@@ -128,7 +128,6 @@ ul.styled li {
 #header {
 	height:74px;
 	width:100%;
-	background:transparent url('/assets/top_header_bg.jpg');
 }
 #header .container .brand {
 	width:235px;
@@ -430,13 +429,14 @@ ul.styled li {
 
 /** Content Top Styling **/
 #contents-top {
-	background:transparent url('/assets/top_banner.jpg') top center no-repeat;
+	/* background:transparent url('/assets/top_banner.jpg') top center no-repeat; */
 }
 #contents-top .container {
 	width:990px;
 	position:relative;
 	top:-7px;
-	background:#FFF url('/assets/contents_top_bg.jpg') top center no-repeat;
+	/* background:#FFF url('/assets/contents_top_bg.jpg') top center no-repeat; */
+        background-color: #FFF;
 }
 #contents-top .container h3 {
 	margin-top:40px;
