@@ -4,7 +4,7 @@ class CreateEzlocals < ActiveRecord::Migration
       t.integer  :business_id
       t.datetime :force_update
       t.text     :secrets
-      t.integer, :ezlocal_category_id
+      t.integer :ezlocal_category_id
       t.timestamps
     end
   end
