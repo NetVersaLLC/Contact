@@ -8,7 +8,6 @@ set :rvm_type, :user
 set :user, 'deploy'
 set :deploy_to, '/home/deploy/contact'
 set :keep_releases, 5
-server "staging.netversa.com", :app, :web, :db, :primary => true
 set :default_shell, "bash -l"
 set :rvm_ruby_string, '1.9.3'
 set :rvm_type, :user
