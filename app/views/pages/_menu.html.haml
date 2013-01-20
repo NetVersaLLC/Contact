@@ -1,7 +1,28 @@
-%img{:alt => "Map", :border => "0", :height => "70", :src => "/assets/menu.png", :usemap => "#map", :width => "566" }/
-%map#map{:name => "map"}
-  %area{:alt => "Home", :coords => "0,0,75,50", :href => "/", :shape => "rect"}/
-  %area{:alt => "Learn More", :coords => "75,0,220,70", :href => "/learn_more", :shape => "rect"}/
-  %area{:alt => "Packages", :coords => "220,0,330,70", :href => "/subscriptions/new", :shape => "rect"}/
-  %area{:alt => "Get Started", :coords => "330,0,460,70", :href => "/users/sign_up", :shape => "rect"}/
-  %area{:alt => "Reviews", :coords => "460,10,566,70", :href => "/reviews", :shape => "rect"}/
+.row-fluid.span12
+  .span4
+    .logo_div
+      %a{:href => "/"}
+        = image_tag 'logo.png'
+  .span8
+    .pull-right
+      .sign_div
+        - if user_signed_in?
+          = link_to 'SIGN OUT', '/users/sign_out'
+        - else
+          = link_to 'SIGN UP', '/users/sign_up'
+        |
+        = link_to 'CONTACT US', '/contact_us'
+      .clearfix
+      %span.nav_menu_r
+      %ul.nav_menu
+        %li
+          = link_to 'HOME', '/'
+        %li
+          = link_to 'LEARN MORE', '/learn_more'
+        %li
+          = link_to 'PACKAGES', '/packages'
+        %li
+          = link_to 'GET STARTED', '/get_started'
+        %li.last
+          = link_to 'REVIEWS', '/reviews'
+      %span.nav_menu_l

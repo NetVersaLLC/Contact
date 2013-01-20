@@ -1,74 +1,44 @@
 !!!
 %html{:lang => "en"}
   %head
-    %title Town Center :: NetVersa
+    %meta{:charset => "utf-8"}/
+    %title Town Center
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
-    /[if lt IE 8]
-      <script src="/assets/html5shiv.js"></script>
-    /[if lt IE 8]
-      <script src="/assets/jquery.fixPNG.js"></script>
-    /[if IE]
-      <script src="/assets/jquery.placeholder.js"></script>
-    :javascript
-      jQuery(function($) {
-      	$("ul>li:first:not(.igc-f)").addClass("first");
-      	$("ul>li:last:not(.igc-l)").addClass("last");
-      });
-  %body{'data-spy' => 'scroll', 'data-target' => 'form-sidebar'}
-    %header#header
+  %body
+    %header
       .container
-        .row
-          .span4
-            %a.brand{:href => "#"}
-            %h1 Town Center
-          .span8
-            .navbar
-              .nav-collapse.collapse
-                = render :partial => 'pages/menu'
-    %section#contents-top
-      .container
-        #main{:style => 'box-shadow: -5px -5px 15px #888888;'}
-          - if notice
-            .alert.alert-block
-              %a.close{'data-dismiss' => 'alert', :href => '#'} x
-              = notice
-          - if alert
-            .alert.alert-block
-              %a.close{'data-dismiss' => 'alert', :href => '#'} x
-              = alert
-          = yield
-        .clearfix
-    %footer#footer
-      .container
-        .row
-          .span6
-            .navbar
-              %ul.nav{:style => 'font-size: 6pt'}
-                %li
-                  %a{:href => "/"} HOME
-                %li
-                  %a{:href => "/learn-more"} LEARN MORE
-                %li
-                  %a{:href => "/subscriptions/new"} PACKAGES
-                %li
-                  %a{:href => "/users/edit"} GET STARTED
-                %li
-                  %a{:href => "/reviews"} REVIEWS
-                %li
-                  %a{:href => "/contact-us"} CONTACT
-                %li
-                  %a{:href => "/users/sign_in"} SIGN IN
-          .span7
-            .footer-socials
-              = image_tag '/assets/social_icons.png'
-            .clearfix
-      .container{:style => 'background-color: #808080; width: 100%;' }
-        .row
-          #copyright{:style => 'text-align: center; font-size: 6pt;'}
-            %p.copyrights
-              Copyright &copy; 2013
-              = succeed "." do
-                %a{:href => "/"} Net Versa, LLC.
-                All Rights Reserved
+        = render :partial => 'pages/menu'
+    %section
+      %article
+        .container
+          - show_notices alert, notice
+          .row-fluid.span12
+            .des_content
+              .bos_content
+                = yield
+          .row-fluid.span12
+            .content_3_back
+            .content_3
+              .span4
+                .content_4
+                  %p.con_title Businesses face several challeges managing their online presence.
+                  %p.con_sub_txt Business information changes regularly, not only as a business opens, closes, or moves.
+                  %p.con_sub_txt But also with special offers, new products, employee hires, holiday hours and more.
+                  %p.con_sub_txt Jumbled and inconsistent information creates a frustrated and misinformed user.
+              .span4
+                .content_5
+                  %p.sub_title Here are a few clients proudly using TownCenter already.
+                  %img{:alt => "", :src => "images/marks.png"}/
+              .span4
+                .content_4
+                  %p.con_title Town Centers one-point control saves you hours.
+                  %p.con_sub_txt Setup takes just minutes and your listings will go live in no time!
+                  %p.con_sub_txt Communicate with the large crowd of sites through one simple database listing.
+                  %p.con_sub_txt Town Center will keep posted business information current on 45+ (growing quickly) of the most popularly used sites.
+                  %a.scan_now{:href => "#"}
+    = render :partial => 'pages/footer'

@@ -1,74 +1,84 @@
 !!!
-%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+%html{:lang => "en"}
   %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %title Home
+    %meta{:charset => "utf-8"}/
+    %title Town Center
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
     = stylesheet_link_tag    "application", :media => "all"
+    = stylesheet_link_tag    "skin"
     = javascript_include_tag "application"
-    = stylesheet_link_tag    'mock'
+    = javascript_include_tag 'jquery.jcarousel.min'
     = csrf_meta_tags
-    /[if lt IE 8]
-      <script src="/assets/html5shiv.js"></script>
-    /[if lt IE 8]
-      <script src="/assets/jquery.fixPNG.js"></script>
-    /[if IE]
-      <script src="/assets/jquery.placeholder.js"></script>
     :javascript
-      jQuery(function($) {
-        $("ul>li:first:not(.igc-f)").addClass("first");
-        $("ul>li:last:not(.igc-l)").addClass("last");
+      jQuery(document).ready(function() {
+          jQuery('#mycarousel').jcarousel({
+            wrap: 'circular'
+          });
       });
   %body
-    .container
-      %ul.topright
-        - if user_signed_in?
-          %li
-            = link_to 'SIGN OUT', '/users/sign_out'
-        - else
-          %li
-            = link_to 'SIGN UP', '/users/sign_up'
-        %li{:style => 'border-right: 0px'}
-          = link_to 'CONTACT US', '/'
-      .content
-        %h1
-          %img{:alt => "Map", :border => "0", :height => "1453", :src => "/assets/mock_background.png", :usemap => "#map", :width => "997"}/
-          %map#map{:name => "map"}
-            %area{:alt => "Home", :coords => "438,15,513,64", :href => "/", :shape => "rect"}/
-            %area{:alt => "Scan Now", :coords => "797,1370,956,1413", :href => "/scan", :shape => "rect"}/
-            %area{:alt => "Scan Now", :coords => "799,867,954,904", :href => "/scan", :shape => "rect"}/
-            %area{:alt => "Learn More", :coords => "513,15,639,65", :href => "/learn_more", :shape => "rect"}/
-            %area{:alt => "Packages", :coords => "639,13,751,63", :href => "/subscriptions/new", :shape => "rect"}/
-            %area{:alt => "Get Started", :coords => "750,15,886,61", :href => "/users/sign_up", :shape => "rect"}/
-            %area{:alt => "Reviews", :coords => "885,10,981,65", :href => "/reviews", :shape => "rect"}/
-    %footer#footer
+    %header
       .container
-        .row
-          .span6
-            .navbar
-              %ul.nav{:style => 'font-size: 6pt'}
+        = render :partial => 'pages/menu'
+    %section
+      %article
+        .container
+          .row-fluid.span12
+            .banner
+              = image_tag 'feature.png', :alt => 'Banner'
+      %article
+        .container
+          .row-fluid.span12
+            .span8
+              .content_1
+                %p.title_txt
+                  Keep all your Business Listings up-to-date
+                  %br>/
+                  from one location.
+              .content_2
+                = image_tag 'big_logo.png'
+                %p.con_txt Town Center lets you manage, update and promote your Business Listing in every online database such as; Google+ Local, Facebook, Twitter, Yelp, Foursquare and countless more.
+                .b25
+                %p.con_txt Town Center helps you appear in the most possible local searches with Guaranteed Presence making sure your listings are present with the correct information. It automatically adds missing listings, and it updates critical fields like name, address, phone number, and categories across our network. Change your information anytime and it will update everywhere.
+            .span4
+              .content_action
+                .action_sub
+                  %p.action_title
+                    %b Start here!
+                    Check to see how your business appears across the internet.
+                  %p.action_txt Enter you business information below.
+                  %input#bussiness_name.action_input_1{:name => "bussiness_name", :placeholder => "Business name", :type => "text"}/
+                  %input#bussiness_number.action_input_1{:name => "bussiness_number", :placeholder => "Business telephone number", :type => "text"}/
+                  %input#bussiness_address.action_input_1{:name => "bussiness_address", :placeholder => "Business address", :type => "text"}/
+                  %input#city.action_input_2{:name => "city", :placeholder => "City", :type => "text"}/
+                  %input#zip.action_input_3{:name => "zip", :placeholder => "Zip", :type => "text"}/
+                  %a.scan_now{:href => "/scan"}
+          .row-fluid.span12
+            %p.title_txt Town Center Network
+            %p.con_txt Our network consists of the top local search properties across platforms – online, mobile & navigation devices. These sites, including Yahoo!, MapQuest, Yelp and a host of other properties, get over 150,000,000 unique visitors every month in the US.
+            %ul#mycarousel.jcarousel-skin-tango
+              - [1 .. 11].each do |num|
                 %li
-                  %a{:href => "/"} HOME
-                %li
-                  %a{:href => "/learn-more"} LEARN MORE
-                %li
-                  %a{:href => "/subscriptions/new"} PACKAGES
-                %li
-                  %a{:href => "/users/edit"} GET STARTED
-                %li
-                  %a{:href => "/reviews"} REVIEWS
-                %li
-                  %a{:href => "/contact-us"} CONTACT
-                %li
-                  %a{:href => "/users/sign_in"} SIGN IN
-          .span7
-            .footer-socials
-              = image_tag '/assets/social_icons.png'
-            .clearfix
-      .container{:style => 'background-color: #808080; width: 100%;' }
-        .row
-          #copyright{:style => 'text-align: center; font-size: 6pt;'}
-            %p.copyrights
-              Copyright &copy; 2013
-              = succeed "." do
-                %a{:href => "/"} Net Versa, LLC.
-                All Rights Reserved
+                  = image_tag "link_img_#{num}.png"
+          .row-fluid.span12
+            .content_3_back
+            .content_3
+              .span4
+                .content_4
+                  %p.con_title Businesses face several challeges managing their online presence.
+                  %p.con_sub_txt Business information changes regularly, not only as a business opens, closes, or moves.
+                  %p.con_sub_txt But also with special offers, new products, employee hires, holiday hours and more.
+                  %p.con_sub_txt Jumbled and inconsistent information creates a frustrated and misinformed user.
+              .span4
+                .content_5
+                  %p.sub_title Here are a few clients proudly using TownCenter already.
+                  = image_tag 'marks.png'
+              .span4
+                .content_4
+                  %p.con_title Town Centers one-point control saves you hours.
+                  %p.con_sub_txt Setup takes just minutes and your listings will go live in no time!
+                  %p.con_sub_txt Communicate with the large crowd of sites through one simple database listing.
+                  %p.con_sub_txt Town Center will keep posted business information current on 45+ (growing quickly) of the most popularly used sites.
+                  %a.scan_now{:href => "/scan"}
+    = render :partial => 'pages/footer'
