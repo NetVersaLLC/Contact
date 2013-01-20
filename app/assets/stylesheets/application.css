@@ -9,13 +9,11 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require bootstrap.min
  *= require formtastic-bootstrap
  *= require jquery-ui
  *= require jquery-bootstrap
- *= require bootstrap.min
- *= require custom
  *= require include-bootstrap
  *= require businesses
- *= require fonts
  *= require style
 */
