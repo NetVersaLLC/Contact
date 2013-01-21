@@ -35,4 +35,83 @@ class Subscription < ActiveRecord::Base
   def self.cards
     %w/visa mastercard/
   end
+
+  def self.create_subscription(sub, business_id)
+    business = nil
+    @subscription    = Subscription.create do |s|
+      s.package_id   = Package.first.id
+      s.package_name = Package.first.name
+      s.total        = Package.first.price
+      s.first_name   = sub['first_name']
+      s.last_name    = sub['last_name']
+      s.address      = sub['address']
+      s.address2     = sub['address2']
+      s.city         = sub['city']
+      s.state        = sub['state']
+      s.zip          = sub['zip']
+      s.coupon_id    = coupon.id
+      s.tos_agreed   = true
+      s.active       = true
+    end
+    @subscription.save!
+    if business_id and business_id != ''
+      business = Business.find(business_id)
+    else
+      business = Business.new
+    end
+    logger.info "Adding subscription #{@subscription.id} to business #{business.id}"
+    business.user_id         = current_user.id
+    business.subscription_id = @subscription.id
+    business.save            :validate => false
+    return business
+  end
+
+  def self.copy_subscription(sub,package)
+    subscription = Subscription.new
+    subscription.package_id = package.id
+    subscription.total      = package.monthly_fee
+    subscription.intial_fee = package.price
+    subscription.first_name = sub['first_name']
+    subscription.last_name  = sub['last_name']
+    subscription.address    = sub['address']
+    subscription.address2   = sub['address2']
+    subscription.city       = sub['city']
+    subscription.state      = sub['state']
+    subscription.zip        = sub['zip']
+    subscription.tos_agreed = true
+    subscription.active     = true
+    subscription.card_type  = sub['card_type']
+    subscription.card_number= sub['card_number']
+    subscription.cvv        = sub['cvv']
+    subscription.exp_month  = sub['exp_month']
+    subscription.exp_year   = sub['exp_year']
+    subscription
+  end
+
+  def self.copy_card_info(sub)
+    credit_card = ActiveMerchant::Billing::CreditCard.new(
+      :type               => sub['card_type'],
+      :number             => sub['card_number'],
+      :verification_value => sub['cvv'],
+      :month              => sub['exp_month'],
+      :year               => sub['exp_year'],
+      :first_name         => sub['first_name'],
+      :last_name          => sub['last_name']
+    )
+    credit_card
+  end
+
+  def self.get_gateway(coupon)
+    gateway = ActiveMerchant::Billing::Base.gateway(:authorize_net).new(
+      :login    => "7j9B4jFqY8vQ",
+      :password => "5qA4St4Nyb68j72k",
+      :test     => true
+    )
+    if Rails.env == :production or Rails.env == 'production'
+      if coupon
+        gateway = coupon.get_gateway
+      end
+    end
+    gateway
+  end
 end

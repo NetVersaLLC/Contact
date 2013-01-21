@@ -19,80 +19,25 @@ class SubscriptionsController < ApplicationController
   end
 
   def create
-    sub           = params['subscription']
+    sub    = params['subscription']
     coupon = Coupon.where(:code => sub['coupon_code']).first
+    logger.info "Coupon: #{coupon.inspect}"
     if coupon != nil and coupon.percentage_off == 100
-      flash[:notice]   = "Subscription started and coupon applied!"
-      @subscription    = Subscription.create do |s|
-        s.package_id   = Package.first
-        s.package_name = Package.first.name
-        s.total        = Package.first.price
-        s.first_name   = sub['first_name']
-        s.last_name    = sub['last_name']
-        s.address      = sub['address']
-        s.address2     = sub['address2']
-        s.city         = sub['city']
-        s.state        = sub['state']
-        s.zip          = sub['zip']
-        s.coupon_id    = coupon.id
-        s.tos_agreed   = true
-        s.active       = true
-      end
-      @subscription.save!
-      if params[:business_id] and params[:business_id] != ''
-        business = Business.find(params[:business_id])
-      else
-        business = Business.new
-      end
-      logger.info "Adding subscription #{@subscription.id} to business #{business.id}"
-      business.user_id         = current_user.id
-      business.subscription_id = @subscription.id
-      business.save            :validate => false
+      flash[:notice] = "Subscription started and coupon applied!"
+      business       = Subscription.create_subsciption(sub, params[:business_id])
       redirect_to edit_business_path(business)
       return
     end
-    package     = Package.find( sub['package_id'] )
-    price       = package.price
-    monthly_fee = package.monthly_fee
+    package      = Package.apply_coupon(sub['package_id'], coupon)
 
-    if coupon
-      price       = price       * ( 1.0 - (100 / coupon.percentage_off) )
-      monthly_fee = monthly_fee * ( 1.0 - (100 / coupon.percentage_off) )
-    end
+    logger.info "Creating subscription..."
 
-    @subscription = Subscription.new
-    @subscription.package_id = package.id
-    @subscription.total      = monthly_fee
-    @subscription.intial_fee = price
-    @subscription.first_name = sub['first_name']
-    @subscription.last_name  = sub['last_name']
-    @subscription.address    = sub['address']
-    @subscription.address2   = sub['address2']
-    @subscription.city       = sub['city']
-    @subscription.state      = sub['state']
-    @subscription.zip        = sub['zip']
-    @subscription.tos_agreed = true
-    @subscription.active     = true
-
-    # Copy values over to re-render the form in case of
-    # an error.
-    @subscription.card_type   = sub['card_type']
-    @subscription.card_number = sub['card_number']
-    @subscription.cvv         = sub['cvv']
-    @subscription.exp_month   = sub['exp_month']
-    @subscription.exp_year    = sub['exp_year']
-
-    credit_card = ActiveMerchant::Billing::CreditCard.new(
-      :type               => sub['card_type'],
-      :number             => sub['card_number'],
-      :verification_value => sub['cvv'],
-      :month              => sub['exp_month'],
-      :year               => sub['exp_year'],
-      :first_name         => sub['first_name'],
-      :last_name          => sub['last_name']
-    )
+    subscription = Subscription.copy_subscription(sub,package)
+    credit_card  = Subscription.copy_card_info(sub)
+    gateway      = Subscription.get_gateway(coupon)
     if credit_card.valid?
-      resp = ::AUTHORIZENETGATEWAY.purchase(price, credit_card, {
+      logger.info "Creating purchase..."
+      resp = gateway.purchase(package.price, credit_card, {
         :billing_address => {
           :first_name => sub['first_name'],
           :last_name  => sub['last_name'],
@@ -105,7 +50,8 @@ class SubscriptionsController < ApplicationController
       })
       logger.info resp.inspect
       if resp.success?
-        resp = ::AUTHORIZENETGATEWAY.recurring(monthly_fee, credit_card, {
+        logger.info "Creating recurring..."
+        resp = gateway.recurring(package.monthly_fee, credit_card, {
           :interval => {
             :unit => :months,
             :length => 1
@@ -136,7 +82,7 @@ class SubscriptionsController < ApplicationController
         business.save     :validate => false
         redirect_to edit_business_path(business)
       else
-        resp = ::AUTHORIZENETGATEWAY.credit(price, credit_card)
+        resp = gateway.credit(package.price, credit_card)
         flash[:alert] = "Error: #{resp.message}"
         redirect_to new_subscription_path
       end
