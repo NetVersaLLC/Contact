@@ -5,7 +5,7 @@ class CreateUsbdns < ActiveRecord::Migration
       t.text :secrets
       t.datetime :force_update
       t.text :username
-
+	  t.integer :usbdn_category_id
       t.timestamps
     end
     add_index :usbdns, :business_id

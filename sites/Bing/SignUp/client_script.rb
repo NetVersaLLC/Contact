@@ -36,6 +36,10 @@ puts("before goto")
 @browser.goto('https://signup.live.com/')
 sign_up( data )
 
+if @chained
+		self.start("Bing/CreateRule")
+end
+
 true
 
 

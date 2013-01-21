@@ -72,8 +72,13 @@ def search_for_business( business )
   @browser.link( :text , 'Get Started Now!' ).click
 
   #sleep 4 # seems that div's are not loaded quickly simetimes
-  watir_must do @browser.div( :class , 'LiveUI_Area_Find___Business' ).text_field( :class, 'LiveUI_Field_Input' ).set business[ 'name' ] end
+  watir_must do @browser.div( :class , 'LiveUI_Area_Find___Business' ).text_field( :class, 'LiveUI_Field_Input' ).click end
+  @browser.div( :class , 'LiveUI_Area_Find___Business' ).text_field( :class, 'LiveUI_Field_Input' ).flash
+  @browser.div( :class , 'LiveUI_Area_Find___Business' ).text_field( :class, 'LiveUI_Field_Input' ).focus
+  @browser.div( :class , 'LiveUI_Area_Find___Business' ).text_field( :class, 'LiveUI_Field_Input' ).set business[ 'name' ]
+  @browser.div( :class , 'LiveUI_Area_Find___City' ).text_field( :class, 'LiveUI_Field_Input' ).click
   @browser.div( :class , 'LiveUI_Area_Find___City' ).text_field( :class, 'LiveUI_Field_Input' ).set business[ 'city' ]
+  @browser.div( :class , 'LiveUI_Area_Find___State' ).text_field( :class, 'LiveUI_Field_Input' ).click
   @browser.div( :class , 'LiveUI_Area_Find___State' ).text_field( :class, 'LiveUI_Field_Input' ).set business[ 'state_short' ]
   @browser.div( :class , 'LiveUI_Area_Search_Button LiveUI_Short_Button_Medium' ).click
   #sleep 4
@@ -84,11 +89,14 @@ def goto_listing( business )
   @browser.goto( 'http://www.bing.com/businessportal/' )
   @browser.link( :text , 'Sign In Here').click
 
-  Watir::Wait::until do
-    @browser.div( :text, 'LISTINGS' ).exists?
-  end
+  
+  #Watir::Wait::until do
+  #  @browser.div( :text, 'LISTINGS' ).exists?
+  #end
+  sleep(10)
 
-  @browser.div( :class, 'LiveUI_Area_Items_Repeating' ).div( :text, business['name'] ).click
+  @browser.div( :class, 'LiveUI_Area_ClickOverlay' ).div( :text, business['businessname'] ).click
+  
 end
 
 
@@ -122,3 +130,40 @@ def enter_captcha
 		throw("Captcha was not solved")
 	end
 end
+
+
+def solve_captcha3
+  image = "#{ENV['USERPROFILE']}\\citation\\bing3_captcha.png"
+  obj = @browser.img( :xpath, '//*[@id="Popup_1||Search_Claim||Picture Password Verification"]/img' )
+  puts "CAPTCHA source: #{obj.src}"
+  puts "CAPTCHA width: #{obj.width}"
+  obj.save image
+
+  CAPTCHA.solve image, :manual
+end
+
+def enter_captcha3
+
+	capSolved = false
+	count = 1
+	until capSolved or count > 5 do
+		captcha_code = solve_captcha3	
+		captcha_field = @browser.div(:class, 'LiveUI_Area_Picture_Password_Verification').text_field()
+		captcha_field.set captcha_code
+
+		@browser.div( :class, /LiveUI_Area_Continue_Button/ ).click
+		
+		sleep(2)
+		if not @browser.text.include? "Characters do not match. Please try again."
+			capSolved = true
+		end
+	count+=1
+	end
+	if capSolved == true
+		true
+	else
+		throw("Captcha was not solved")
+	end
+end
+
+

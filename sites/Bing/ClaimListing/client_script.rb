@@ -12,10 +12,11 @@ def claim_it()
     end
   end while @browser.html =~ /Characters did not match/
 
-  Watir::Wait::until do
-    @browser.div( :text, 'Ok' ).exists? # or  :class, 'Dialog_TitleContainer'
-  end
-  @browser.div( :text, 'Ok' ).click
+  #Watir::Wait::until do
+  #  @browser.div( :text, 'Ok' ).exists? # or  :class, 'Dialog_TitleContainer'
+  #end
+  sleep(5)
+  @browser.div( :text, /OK/i ).click
   # Redirected to Business Portal - Details Page, so enter all the info as with new listing
 end
 

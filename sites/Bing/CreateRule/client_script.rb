@@ -8,3 +8,9 @@ sign_in( data )
 @opt_frame.text_field( :id, 'MatchString').set "@"
 @opt_frame.button( :value, /Save/).click
 
+if @chained
+		self.start("Bing/CheckListing")
+end
+
+true
+

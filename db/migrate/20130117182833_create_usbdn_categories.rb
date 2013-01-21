@@ -8,7 +8,9 @@ class CreateUsbdnCategories < ActiveRecord::Migration
     end
     add_index :usbdn_categories, :parent_id
     add_index :usbdn_categories, :name
-    add_column :google_categories, :usbdn_category_id, :integer
-    add_column :usbdns, :usbdn_category_id, :integer
+	unless column_exists? :google_categories, :usbdn_category_id
+		add_column :google_categories, :usbdn_category_id, :integer
+	end
+    
   end
 end
