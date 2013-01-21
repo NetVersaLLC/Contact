@@ -7,9 +7,9 @@
     %meta{:content => "", :name => "description"}/
     %meta{:content => "", :name => "author"}/
     = stylesheet_link_tag    "application", :media => "all"
-    = stylesheet_link_tag    "skin"
+    %link{:rel => "stylesheet", :type => "text/css", :href => "/assets/skin.css"}
     = javascript_include_tag "application"
-    = javascript_include_tag 'jquery.jcarousel.min'
+    %script{:src => '/assets/jquery.jcarousel.min.js'}/
     = csrf_meta_tags
     :javascript
       jQuery(document).ready(function() {
