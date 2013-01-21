@@ -17,7 +17,7 @@
             wrap: 'circular'
           });
       });
-  %body
+  %body.front_page
     %header
       .container
         = render :partial => 'pages/menu'
@@ -28,7 +28,7 @@
             .banner
               = image_tag 'feature.png', :alt => 'Banner'
       %article
-        .container
+        .container.bos_content
           .row-fluid.span12
             .span8
               .content_1
