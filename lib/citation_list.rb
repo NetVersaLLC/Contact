@@ -246,7 +246,8 @@
   ['Usbdn', 'usbdns',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'usbdn_category']
     ],
       'Usbdn'
   ],
