@@ -56,37 +56,38 @@ def signup_generic( data )
   @browser.div(:text, "#{data['country']}").click
   @browser.checkbox(:id,'TermsOfService').set
 	
-  #Captcha Code
-  @browser.text_field( :id => 'recaptcha_response_field' ).set solve_captcha
-  @browser.checkbox(:id => 'TermsOfService').set
+  #get value of email id
   email = @browser.text_field(:id, "GmailAddress").value
-  @browser.button(:value, 'Next step').click
-  @browser.wait
   
-  #If there is any captcha mismatch then solve it again
-  retry_captcha(data,solve_captcha)
+  #Solve captcha & if there is any captcha mismatch then solve it again
+  retry_captcha(data)
   
   RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => "#{email}@gmail.com", 'account[password]' => data['pass'], 'model' => 'Google'
 
   if @browser.text_field(:id, 'signupidvinput').exist?
-    @browser.text_field(:id, 'signupidvinput').set data[ 'phone' ]
-    @browser.radio(:id,'signupidvmethod-phone').set
+    @browser.text_field(:id, 'signupidvinput').when_present.set data[ 'phone' ]
+    @browser.radio(:id,'signupidvmethod-voice').set
     @browser.button(:value,'Continue').click
     # fetch Phone verification code
     @code = PhoneVerify.ask_for_code
-    if @browser.span(:class,'errormsg').exist? 
+    if @browser.span(:class,'errormsg').exist?
       puts "#{@browser.span(:class,'errormsg').text}"
     end
     if @browser.text_field(:id,'verify-phone-input').exist?
-      @browser.text_field(:id,'verify-phone-input').set @code
+      @browser.text_field(:id,'verify-phone-input').when_present.set @code
       @browser.button(:value,'Continue').click
-        if @browser.span(:class,'errormsg').exist? 
-    	puts "#{@browser.span(:class,'errormsg').text}"
+        if @browser.span(:class,'errormsg').exist?
+        puts "#{@browser.span(:class,'errormsg').text}"
         end
+    end
+    if @browser.text.include?("Now that you have a Google Account, create your Google profile")
+       puts "Initial Registration is successful"
+    else
+       puts "Initial Registration is not successful"
     end
   else
     throw("Initial Registration is not successful")
-  end	
+  end
 end
 
 login (data)
