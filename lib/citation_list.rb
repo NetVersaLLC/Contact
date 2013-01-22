@@ -254,7 +254,8 @@
   ['Shopinusa', 'shopinusas',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+	  ['select', 'shopinusa_category']
     ],
       'Shopinusa'
   ],
@@ -269,7 +270,8 @@
   ['Yellowassistance', 'yellowassistances',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+	  ['select', 'yellowassistance_category']
     ],
       'Yellowassistance'
   ],

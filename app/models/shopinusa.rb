@@ -1,5 +1,5 @@
 class Shopinusa < ClientData
-	attr_accessible :username
+	attr_accessible :username, :shopinusa_category_id, :shopinusa_category
 	virtual_attr_accessor :password
 	validates :password,
             :presence => true

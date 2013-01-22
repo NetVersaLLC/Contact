@@ -1,5 +1,5 @@
 class Yellowassistance < ClientData
-	attr_accessible :username
+	attr_accessible :username, :yellowassistance_category_id, :yellowassistance_category
 	virtual_attr_accessor :password
 	validates :password,
             :presence => true
