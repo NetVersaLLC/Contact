@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130121151102) do
+ActiveRecord::Schema.define(:version => 20130122191252) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -461,8 +461,8 @@ ActiveRecord::Schema.define(:version => 20130121151102) do
     t.string   "name"
     t.string   "slug"
     t.integer  "yelp_category_id"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
     t.integer  "yahoo_category_id"
     t.integer  "bing_category_id"
     t.integer  "ezlocal_category_id"
@@ -470,6 +470,8 @@ ActiveRecord::Schema.define(:version => 20130121151102) do
     t.integer  "localcensus_category_id"
     t.integer  "yippie_category_id"
     t.integer  "usbdn_category_id"
+    t.integer  "yellowassistance_category_id"
+    t.integer  "shopinusa_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -914,6 +916,16 @@ ActiveRecord::Schema.define(:version => 20130121151102) do
 
   add_index "shopcities", ["business_id"], :name => "index_shopcities_on_business_id"
 
+  create_table "shopinusa_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "shopinusa_categories", ["name"], :name => "index_shopinusa_categories_on_name"
+  add_index "shopinusa_categories", ["parent_id"], :name => "index_shopinusa_categories_on_parent_id"
+
   create_table "shopinusas", :force => true do |t|
     t.integer  "business_id"
     t.text     "secrets"
@@ -1111,6 +1123,16 @@ ActiveRecord::Schema.define(:version => 20130121151102) do
     t.text     "secrets"
     t.integer  "business_id"
   end
+
+  create_table "yellowassistance_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "yellowassistance_categories", ["name"], :name => "index_yellowassistance_categories_on_name"
+  add_index "yellowassistance_categories", ["parent_id"], :name => "index_yellowassistance_categories_on_parent_id"
 
   create_table "yellowassistances", :force => true do |t|
     t.integer  "business_id"
