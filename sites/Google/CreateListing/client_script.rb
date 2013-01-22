@@ -10,9 +10,7 @@ def create_business( data )
 
 	puts 'Business is not found - Creating business listing'
 	
-	# select link on bottom of page https://plus.google.com/pages/create
 	@browser.goto "https://plus.google.com/pages/create"
-
 	@browser.div(:class => "W0 pBa").click
 	@browser.div(:class => "W0 pBa").click if @browser.div(:class => "W0 pBa").exist?
 	@browser.div(:class => /AX kFa a-yb Vn a-f-e a-u-q-b/).when_present.click
@@ -45,7 +43,7 @@ def create_business( data )
 	if @browser.wait_until { @browser.span(:text, 'Select profile photo').exist? }
 		@browser.div(:id => /select-files-button/).div(:index, 0).when_present.click
 		@browser.div(:id => /select-files-button/).div(:index, 1).click if @browser.div(:id => /select-files-button/).div(:index, 1).exist?
-		photo = data['image_path']+data['image_name']
+		photo = data[ 'image' ]
 		photo_upload_pop(photo)
 		Watir::Wait.until { @browser.div(:text, 'To crop this image, drag the region below and then click "Set as profile photo"').exist? }
 		Watir::Wait.until { @browser.div(:text, 'Add Caption').exist? }
@@ -59,7 +57,7 @@ def create_business( data )
 	# Confirmation
 	
 	if @browser.div(:class => 'inproduct-guide-modal').exist?
-		@browser.link(:text => '×').when_present.click
+		@browser.link(:text => 'x').when_present.click
 	end
 	
 	# Update profile

@@ -16,9 +16,10 @@ def login ( data )
     @browser.text_field(:id, "Email").set data['email']
     @browser.text_field(:id, "Passwd").set data['pass']
     @browser.button(:value, "Sign in").click
-    @validation_error = @browser.span(:id,'errormsg_0_Passwd')
+    sleep(5)
+    @validation_error = "The username or password you entered is incorrect"
     # If user name or password is not correct
-      if @validation_error.exist? 
+      if @browser.html.include?(@validation_error)
         signup_generic( data )
       end
   else
@@ -29,9 +30,18 @@ end
 def search_for_business( data )
 
 	puts 'Search for the ' + data[ 'business' ] + ' business at ' + data[ 'zip' ] +  data['city']
+	
+	#Upgrade the account
+        if @browser.div(:class => /BSa TVa/).exist?
+          @browser.div(:class => /BSa TVa/).click
+          @browser.div(:class=> 'a-f-e c-b c-b-M YY Tma').click
+          @browser.button(:name => 'continue').click
+          @browser.div(:class=> /a-f-e c-b c-b-M/).click
+          @browser.button(:name => 'continue').click
+        end
+	
 	# 'https://plus.google.com/local' ) # Must be logged in to search
 	@browser.goto('https://plus.google.com/local')
-
 	@browser.text_field(:name, "qc").set data['business']
 	@browser.text_field(:name, "qb").set data['city']
 	@browser.button(:id,'gbqfb').click
@@ -58,21 +68,28 @@ def parse_results( data )
 	return applicableLinks.to_a
 end
 
-def retry_captcha(data,captcha_text)
-   #~ capSolved = false
-   @captcha_error = @browser.span(:id => 'errormsg_0_signupcaptcha')
-   @captcha_error_msg = "The characters you entered didn't match the word verification. Please try again."
-   count = 1
-# Decode captcha code until its decoded (Maximum 5 times)
-   while @captcha_error.exist? do
-     @browser.text_field(:id, "Passwd").value = data['pass']
-     @browser.text_field(:id, "PasswdAgain").value = data['pass']
-     @browser.text_field( :id => 'recaptcha_response_field' ).set captcha_text
-     @browser.checkbox(:id => 'TermsOfService').set
-     @browser.button(:value, 'Next step').click
-     count+=1
-   break if count == 5
+def retry_captcha(data)
+  capSolved = false
+  count = 1
+  until capSolved or count > 5 do
+    captcha_text = solve_captcha	
+    @browser.text_field(:id, "Passwd").value = data['pass']
+    @browser.text_field(:id, "PasswdAgain").value = data['pass']
+    @browser.text_field( :id => 'recaptcha_response_field' ).set captcha_text
+    @browser.checkbox(:id => 'TermsOfService').set
+    @browser.button(:value, 'Next step').click
+
+     sleep(5)
+    if not @browser.text.include? "The characters that you entered didn't match the word verification"
+      capSolved = true
+    end
+    count+=1
    end
+  if capSolved == true
+    true
+  else
+  throw("Captcha was not solved")
+  end
 end
 
 def solve_captcha
