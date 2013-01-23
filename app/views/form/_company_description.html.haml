@@ -1,6 +1,9 @@
+
+
 %section{:id => 'section-company-description'}
   = @f.inputs "Company Description", :class => 'inputs tab-pane', :id => 'section4' do 
-    = @f.input :business_description,      :placeholder => 'Business Description'
+    %p Your customers will likely have their first experience with your business. Your business description should be between 50 and 200 characters.
+    = @f.input :business_description,      :placeholder => "Business Description"
     = @f.input :professional_associations, :placeholder => 'Professional Associations and Memberships'
     = @f.input :geographic_areas,          :as => :select, :collection => Business.geographic_areas_list, :label => 'Geographic Area Serviced'
     = @f.input :year_founded,              :placeholder => 'Year Founded'

@@ -54,7 +54,6 @@ module Business::CitationListMethods
       Business.sub_models.each do |klass| 
         y = klass.new
         y.business_id = self.id
-        y.password = ''
         y.save
       end
     end
