@@ -23,7 +23,8 @@
   ['Citisquare', 'citisquares',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+	  ['select', 'citisquare_category']
     ],
       'CitySquares'
   ],

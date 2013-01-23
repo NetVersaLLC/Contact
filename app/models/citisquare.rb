@@ -1,5 +1,5 @@
 class Citisquare < ClientData
-  attr_accessible       :email
+  attr_accessible :email, :citisquare_category_id, :citisquare_category
   virtual_attr_accessor :password
 
   validates :email,

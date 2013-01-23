@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130122191252) do
+ActiveRecord::Schema.define(:version => 20130122231324) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -227,6 +227,16 @@ ActiveRecord::Schema.define(:version => 20130122191252) do
   add_index "businesses", ["category2"], :name => "index_businesses_on_category2"
   add_index "businesses", ["category3"], :name => "index_businesses_on_category3"
   add_index "businesses", ["user_id"], :name => "index_businesses_on_user_id"
+
+  create_table "citisquare_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "citisquare_categories", ["name"], :name => "index_citisquare_categories_on_name"
+  add_index "citisquare_categories", ["parent_id"], :name => "index_citisquare_categories_on_parent_id"
 
   create_table "citisquares", :force => true do |t|
     t.datetime "force_update"
@@ -472,6 +482,7 @@ ActiveRecord::Schema.define(:version => 20130122191252) do
     t.integer  "usbdn_category_id"
     t.integer  "yellowassistance_category_id"
     t.integer  "shopinusa_category_id"
+    t.integer  "citisquare_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
