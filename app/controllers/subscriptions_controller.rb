@@ -35,9 +35,10 @@ class SubscriptionsController < ApplicationController
     subscription = Subscription.copy_subscription(sub,package)
     credit_card  = Subscription.copy_card_info(sub)
     gateway      = Subscription.get_gateway(coupon)
+    logger.info gateway.inspect
     if credit_card.valid?
       logger.info "Creating purchase..."
-      resp = gateway.purchase(package.price, credit_card, {
+      purchase_resp = gateway.purchase(package.price, credit_card, {
         :billing_address => {
           :first_name => sub['first_name'],
           :last_name  => sub['last_name'],
@@ -48,10 +49,10 @@ class SubscriptionsController < ApplicationController
           :zip        => sub['zip']
         }
       })
-      logger.info resp.inspect
-      if resp.success?
+      logger.info purchase_resp.inspect
+      if purchase_resp.success?
         logger.info "Creating recurring..."
-        resp = gateway.recurring(package.monthly_fee, credit_card, {
+        subscription_resp = gateway.recurring(package.monthly_fee, credit_card, {
           :interval => {
             :unit => :months,
             :length => 1
@@ -69,21 +70,28 @@ class SubscriptionsController < ApplicationController
             :country    => 'United States',
             :zip        => sub['zip']
         }})
-      end
-      if resp.success?
-        logger.info "Printing response:"
-        logger.info resp.to_json
-        flash[:notice] = "Purchase complete!"
-        @subscription.authorizenet_code = resp.authorization
-        @subscription.save!
-        business                 = Business.new
-        business.user_id         = current_user.id
-        business.subscription_id = @subscription.id
-        business.save     :validate => false
-        redirect_to edit_business_path(business)
+        if subscription_resp.success?
+          logger.info "Printing response:"
+          logger.info subscription_resp.to_json
+          flash[:notice] = "Purchase complete!"
+          subscription.transaction_code  = purchase_resp.params['transaction_id']
+          subscription.subscription_code = subscription_resp.params['subscription_id']
+          subscription.authorizenet_code = purchase_resp.authorization
+          subscription.save!
+          business                 = Business.new
+          business.user_id         = current_user.id
+          business.subscription_id = subscription.id
+          business.save     :validate => false
+          redirect_to edit_business_path(business)
+        else
+          resp = gateway.refund(package.price, purchase_resp.params['transaction_id'], {:card_number => sub['card_number'] })
+          logger.info "Refund response:"
+          logger.info resp.inspect
+          flash[:alert] = "Error: #{subscription_resp.message}"
+          redirect_to new_subscription_path
+        end
       else
-        resp = gateway.credit(package.price, credit_card)
-        flash[:alert] = "Error: #{resp.message}"
+        flash[:alert] = "Error: #{purchase_resp.message}"
         redirect_to new_subscription_path
       end
     else

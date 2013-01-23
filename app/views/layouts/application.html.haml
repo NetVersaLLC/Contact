@@ -16,7 +16,7 @@
     %section
       %article
         .container
-          - show_notices alert, notice
+          - show_notices flash[:alert], flash[:notice]
           .row-fluid.span12.des_content
             = yield
             = image_tag 'bottom_bar.png', :style => 'margin-left: 30px'
