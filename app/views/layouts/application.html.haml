@@ -16,7 +16,10 @@
     %section
       %article
         .container
-          - show_notices flash[:alert], flash[:notice]
+          - [notice,alert].each do |msg|
+            - if msg
+              - @message = msg
+              = render :partial => 'pages/alert'
           .row-fluid.span12.des_content
             = yield
             = image_tag 'bottom_bar.png', :style => 'margin-left: 30px'
