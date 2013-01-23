@@ -10,6 +10,13 @@ ActiveAdmin.register User do
       f.input :authentication_token
       f.input :password
     end
+    f.inputs "Businesses" do
+      column :businesses do |v|
+        v.businesses.each do |b|
+          link_to b.company_name, business_path(b.id)
+        end
+      end
+    end
     f.buttons
   end
   member_action :update, :method => :put do
