@@ -102,14 +102,18 @@ class Subscription < ActiveRecord::Base
   end
 
   def self.get_gateway(coupon)
-    gateway = ActiveMerchant::Billing::Base.gateway(:authorize_net).new(
-      :login    => "7j9B4jFqY8vQ",
-      :password => "5qA4St4Nyb68j72k",
+    ActiveMerchant::Billing::Base.mode = :test
+    gateway = ActiveMerchant::Billing::AuthorizeNetGateway.new(
+      # iwntbbnprn2
+      #
+      :login    => "8e3UfTHKM9d2",
+      :password => "5B7t5V6S65m3WkdU",
       :test     => true
     )
     if Rails.env == :production or Rails.env == 'production'
       if coupon
         gateway = coupon.get_gateway
+        ActiveMerchant::Billing::Base.mode = :production
       end
     end
     gateway
