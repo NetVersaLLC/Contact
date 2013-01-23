@@ -1,5 +1,5 @@
 class Shopcity < ClientData
-	attr_accessible :username
+	attr_accessible :username, :shopcity_category_id, :shopcity_category
 	virtual_attr_accessor :password
 	validates :password,
             :presence => true
