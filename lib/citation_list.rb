@@ -286,7 +286,8 @@
   ['Shopcity', 'shopcities',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'shopcity_category']
     ],
       'Shopcity'
   ],
