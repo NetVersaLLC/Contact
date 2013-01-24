@@ -184,7 +184,8 @@
   ['Yellowise', 'yellowises',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'yellowee_category']
     ],
       'Yellowise'
   ],

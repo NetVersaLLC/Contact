@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130124210648) do
+ActiveRecord::Schema.define(:version => 20130124231317) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -485,6 +485,7 @@ ActiveRecord::Schema.define(:version => 20130124210648) do
     t.integer  "citisquare_category_id"
     t.integer  "shopcity_category_id"
     t.integer  "zippro_category_id"
+    t.integer  "yellowee_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -1169,6 +1170,16 @@ ActiveRecord::Schema.define(:version => 20130124210648) do
   end
 
   add_index "yellowassistances", ["business_id"], :name => "index_yellowassistances_on_business_id"
+
+  create_table "yellowee_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "yellowee_categories", ["name"], :name => "index_yellowee_categories_on_name"
+  add_index "yellowee_categories", ["parent_id"], :name => "index_yellowee_categories_on_parent_id"
 
   create_table "yellowees", :force => true do |t|
     t.integer  "business_id"
