@@ -12,7 +12,8 @@ def retry_captcha(captcha_text)
 # Decode captcha code until its decoded (Maximum 5 times)
    while @captcha_error.exist? do
       @browser.text_field( :id => 'captchaV5Answer' ).set captcha_text
-      @browser.button( :id => 'IAgreeBtn' ).click
+      @browser.button( :id => 'IAgreeBtn' ).click if @browser.button( :id => 'IAgreeBtn' ).exist?
+      @browser.button( :id => 'VerifyCollectBtn' ).click if @browser.button( :id => 'VerifyCollectBtn' ).exist?
       count+=1
       break if count == 5
    end

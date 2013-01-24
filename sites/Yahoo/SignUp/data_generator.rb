@@ -11,4 +11,7 @@ data[ 'zip' ]               = business.zip.to_s
 data[ 'password' ]          = Yahoo.make_password
 data[ 'secret_answer_1' ]   = Yahoo.make_secret_answer1
 data[ 'secret_answer_2' ]   = Yahoo.make_secret_answer2
+data[ 'alt_email' ] = ''
+data[ 'phone'] = business.local_phone
+business[ 'country_code' ] = 'United States (+1)'
 data
