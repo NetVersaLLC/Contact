@@ -5,19 +5,28 @@ def sign_in(business)
   @browser.button(:id, '.save').click
 end
 
-def retry_captcha(captcha_text)
-   @captcha_error = @browser.div(:id => 'captchaFld')
-   @captcha_error_msg = "Please try this code instead"
-   count = 1
-# Decode captcha code until its decoded (Maximum 5 times)
-   while @captcha_error.exist? do
-      @browser.text_field( :id => 'captchaV5Answer' ).set captcha_text
-      @browser.button( :id => 'IAgreeBtn' ).click if @browser.button( :id => 'IAgreeBtn' ).exist?
-      @browser.button( :id => 'VerifyCollectBtn' ).click if @browser.button( :id => 'VerifyCollectBtn' ).exist?
-      count+=1
-      break if count == 5
+def retry_captcha(data)
+  capSolved = false
+  count = 1
+  until capSolved or count > 5 do
+    captcha_text = solve_captcha
+    @browser.text_field( :id => 'captchaV5Answer' ).set captcha_text
+    @browser.button( :id => 'IAgreeBtn' ).click if @browser.button( :id => 'IAgreeBtn' ).exist?
+    @browser.button( :id => 'VerifyCollectBtn' ).click if @browser.button( :id => 'VerifyCollectBtn' ).exist?
+
+     sleep(5)
+    if not @browser.text.include? "Please try this code instead"
+      capSolved = true
+    end
+    count+=1
    end
+  if capSolved == true
+    true
+  else
+  throw("Captcha was not solved")
+  end
 end
+
 
 def solve_captcha
       file = "#{ENV['USERPROFILE']}\\citation\\yahoo_captcha.png"
