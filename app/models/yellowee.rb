@@ -1,5 +1,5 @@
 class Yellowee < ClientData
-	attr_accessible :username
+	attr_accessible :username, :yellowee_category_id, :yellowee_category
 	virtual_attr_accessor :password
 	validates :password,
             :presence => true
