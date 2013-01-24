@@ -264,7 +264,8 @@
     [
       ['text', 'username'],
       ['text', 'password'],
-      ['text', 'secret1']
+      ['text', 'secret1'],
+      ['select', 'zippro_category']
     ],
       'Zippro'
   ],

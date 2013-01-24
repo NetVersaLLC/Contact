@@ -1,9 +1,10 @@
 class Zippro < ClientData
-	attr_accessible :username, :secret1
+	attr_accessible :username, :secret1, :zippro_category_id, :zippro_category  
 	virtual_attr_accessor :password
 	validates :password,
             :presence => true
-
+            
+belongs_to :zippro_category
 
  def self.check_email(business)
     @link = nil
