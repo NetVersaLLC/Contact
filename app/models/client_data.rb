@@ -15,11 +15,18 @@ class ClientData < ActiveRecord::Base
     # STDERR.puts @@custom_attributes.inspect
     # STDERR.puts "class : #{self.class.name.to_s}"
     name = self.class.name.to_s.to_sym
-    @@custom_attributes[name].each_key do |sym|
-      @metadata[sym] = self.send(sym)
+    STDERR.puts "class : #{name.to_s}"
+    if name.is_a?(Hash)
+      STDERR.puts "Is a HASH"
+      @@custom_attributes[name].each_key do |sym|
+        @metadata[sym] = self.send(sym)
+      end
+      # STDERR.puts "SECRETS: #{@metadata.inspect}"
+      self.secrets = @metadata
+    else
+      STDERR.puts "Is a forced HASH"
+      self.secrets = {:fart => :bad}
     end
-    # STDERR.puts "SECRETS: #{@metadata.inspect}"
-    self.secrets = @metadata
   end
 
   # This loads the virtual attributes from the hash
@@ -28,8 +35,10 @@ class ClientData < ActiveRecord::Base
     # STDERR.puts @@custom_attributes.inspect
     # STDERR.puts "SECRETS: #{self[:secrets]}"
     name = self.class.name.to_s.to_sym
-    @@custom_attributes[name].each_key do |sym|
-      self.send(sym.to_s+'=', self[:secrets][sym.to_s])
+    if @@custom_attributes[name].respond_to? 'each_key'
+      @@custom_attributes[name].each_key do |sym|
+        self.send(sym.to_s+'=', self[:secrets][sym.to_s])
+      end
     end
   end
 
