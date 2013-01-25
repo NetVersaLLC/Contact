@@ -14,6 +14,10 @@ class BusinessesController < ApplicationController
   # GET /businesses/1.json
   def show
     @business  = Business.find(params[:id])
+    if @business.user_id != current_user.id
+      redirect_to root_path
+      return
+    end
     @accounts  = @business.nonexistent_accounts_array
     @job_count = Job.where(:business_id => @business.id, :status => 0).count
   end
@@ -33,6 +37,10 @@ class BusinessesController < ApplicationController
   # GET /businesses/1/edit
   def edit
     @business = Business.find(params[:id])
+    if @business.user_id != current_user.id
+      redirect_to root_path
+      return
+    end
     @accounts = @business.nonexistent_accounts_array
     if @business == nil
       redirect_to new_business_path()
