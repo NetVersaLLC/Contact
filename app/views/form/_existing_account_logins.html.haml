@@ -6,15 +6,18 @@
     .well
       = @f.inputs site[0] do
         .fields
-          - @business.send(site[1]).each do |obj|
-            - @obj = obj
-            - site[2].each do |field|
-              - @field = field
-              - if @field[0] == 'select'
-                = render :partial => 'form/existing_account_category'
-              - else
-                = render :partial => 'form/existing_account_text_field'
-            %a{:class => "remove_nested_fields", :href => "javascript:void(0)", :class => 'btn btn-info'} Remove #{@site[0]}
+          - if @business.respond_to? site[1]
+            - logger.info "HOHOHO: #{site[1]}"
+            - logger.info "XYZYSK: #{@business.send(site[1]).inspect}"
+            - @business.send(site[1]).each do |obj|
+              - @obj = obj
+              - site[2].each do |field|
+                - @field = field
+                - if @field[0] == 'select'
+                  = render :partial => 'form/existing_account_category'
+                - else
+                  = render :partial => 'form/existing_account_text_field'
+              %a{:class => "remove_nested_fields", :href => "javascript:void(0)", :class => 'btn btn-info'} Remove #{@site[0]}
   %h3 Add New
   #socialButtons
     = select_tag :add_accounts, options_for_select(@accounts)
