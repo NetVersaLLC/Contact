@@ -1,6 +1,7 @@
 class Citisquare < ClientData
-  attr_accessible :email, :citisquare_category_id, :citisquare_category
+  attr_accessible :email, :citisquare_category_id
   virtual_attr_accessor :password
+  belongs_to            :citisquare_category
 
   validates :email,
             :allow_blank => true,

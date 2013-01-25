@@ -33,7 +33,11 @@ class Subscription < ActiveRecord::Base
   end
 
   def self.cards
-    %w/visa mastercard/
+    x = { :visa => 'Visa',
+      :master => 'Master Card',
+      :american_express => 'American Express',
+      :discover => 'Discover' }
+    x.invert
   end
 
   def self.create_subscription(sub, business_id)
