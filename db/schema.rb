@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130124231317) do
+ActiveRecord::Schema.define(:version => 20130125011831) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -486,6 +486,8 @@ ActiveRecord::Schema.define(:version => 20130124231317) do
     t.integer  "shopcity_category_id"
     t.integer  "zippro_category_id"
     t.integer  "yellowee_category_id"
+    t.integer  "yellowise_category_id"
+    t.integer  "primeplace_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -888,6 +890,16 @@ ActiveRecord::Schema.define(:version => 20130124231317) do
   add_index "pings", ["business_id"], :name => "index_pings_on_business_id"
   add_index "pings", ["user_id"], :name => "index_pings_on_user_id"
 
+  create_table "primeplace_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "primeplace_categories", ["name"], :name => "index_primeplace_categories_on_name"
+  add_index "primeplace_categories", ["parent_id"], :name => "index_primeplace_categories_on_parent_id"
+
   create_table "primeplaces", :force => true do |t|
     t.integer  "business_id"
     t.text     "secrets"
@@ -1191,6 +1203,16 @@ ActiveRecord::Schema.define(:version => 20130124231317) do
   end
 
   add_index "yellowees", ["business_id"], :name => "index_yellowees_on_business_id"
+
+  create_table "yellowise_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "yellowise_categories", ["name"], :name => "index_yellowise_categories_on_name"
+  add_index "yellowise_categories", ["parent_id"], :name => "index_yellowise_categories_on_parent_id"
 
   create_table "yellowises", :force => true do |t|
     t.integer  "business_id"
