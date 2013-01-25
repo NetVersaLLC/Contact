@@ -1,9 +1,9 @@
 class Yellowise  < ClientData
-  attr_accessible :username
+  attr_accessible :username, :yellowise_category_id, :yellowise_category
   virtual_attr_accessor :password
   validates :password,
             :presence => true
-
+belongs_to :yellowise_category
 
  def self.check_email(business)
     @link = nil

@@ -185,14 +185,15 @@
     [
       ['text', 'username'],
       ['text', 'password'],
-      ['select', 'yellowee_category']
+      ['select', 'yellowise_category']
     ],
       'Yellowise'
   ],
   ['Yellowee', 'yellowees',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'yellowee_category']
     ],
       'Yellowee'
   ],
@@ -281,7 +282,8 @@
   ['Primeplace', 'primeplaces',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'primeplace_category']
     ],
       'Primeplace'
   ],

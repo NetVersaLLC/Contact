@@ -3,7 +3,7 @@ class Yellowee < ClientData
 	virtual_attr_accessor :password
 	validates :password,
             :presence => true
-
+belongs_to :yellowee_category
   def self.check_email(business)
     @link = nil
     CheckMail.get_link(business) do |mail|
