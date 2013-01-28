@@ -346,5 +346,11 @@
 	['select', 'yippie_category']
     ],
       'Yippie'
+  ],
+  ['Digabusiness', 'digabusinesses',
+    [
+      ['select', 'digabusiness_category']
+    ],
+      'Digabusiness'
   ]
 ]
