@@ -1,5 +1,6 @@
 data = {}
-data[ 'category' ]		= "Information Services"#business.category1
+localy = Localcensus.where(:business_id => business.id).first
+data[ 'category' ]          = localy.localcensus_category.name.gsub("\n", "")
 data[ 'state' ]			= business.state_name
 data[ 'city' ]			= business.city
 data[ 'business' ]		= business.business_name
