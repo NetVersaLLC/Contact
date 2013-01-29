@@ -15,7 +15,7 @@ class CerebusClient
     return nil unless secret
     # STDERR.puts "load(#{secret})"
     uri              = URI("#{CEREBUS_SERVER}#{CEREBUS_KEY}.json")
-    # STDERR.puts "Posting to: #{uri}"
+    STDERR.puts "Posting to: #{uri}"
     pem              = File.read(Rails.root.join("config", "cerebus_server.pem"))
     http             = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl     = true

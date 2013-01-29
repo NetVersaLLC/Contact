@@ -12,7 +12,7 @@ class AccountsController < ApplicationController
 				obj.business_id = @business.id
 			end
 			obj.update_attributes(params[:account])
-			obj.save
+			obj.save!
 		end
 		render json: {'status' => 'success'}
 	end
