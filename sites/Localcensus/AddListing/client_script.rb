@@ -1,4 +1,5 @@
 @browser.goto( 'http://www.localcensus.com/add_business.php' )
+puts(data[ 'category' ])
 
 @browser.select_list( :name => 'business_category' ).select data[ 'category' ]
 @browser.button( :value => 'Next').click
