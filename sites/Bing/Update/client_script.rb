@@ -13,9 +13,10 @@ puts("before the wait in enter_business_portal_details")
   # @browser.send_keys :enter
   #Watir::Wait::until do
    # @browser.div( :class, /Hierarchy_Item/ ).exists?
-   sleep(3)
+   puts("Sleeping until all the Divs and Javascript Load")
+   sleep(10)
   #end
-  @browser.div( :title, /Arts & Entertainment/ ).click #fire_event( 'onMouseDown' )
+  @browser.div( :title, /#{business[ 'category' ]}/i ).click #fire_event( 'onMouseDown' )
   @browser.div( :title => 'Close').click
 
   @browser.div( :class, 'LiveUI_Area_Business_address_line_1' ).text_field().click
@@ -119,8 +120,10 @@ def main(business)
   #end
   
   @browser.div( :text, 'Next' ).click # skip preview tab
-  sleep(4)
-  @browser.div( :text, 'Verify' ).click
+  puts("Trying to verify")
+  sleep(5)
+  @browser.div( :class, 'LiveUI_Area_Verfiy_Mail_Button LiveUI_Button_Medium' ).click
+  puts("verified mailer sent!")
 end
 
 main(data)
