@@ -243,11 +243,13 @@ ActiveRecord::Schema.define(:version => 20130128185930) do
     t.text     "secrets"
     t.integer  "business_id"
     t.string   "email"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.integer  "citisquare_category_id"
   end
 
   add_index "citisquares", ["business_id"], :name => "index_citisquares_on_business_id"
+  add_index "citisquares", ["citisquare_category_id"], :name => "index_citisquares_on_citisquare_category_id"
 
   create_table "citysearches", :force => true do |t|
     t.integer  "business_id"

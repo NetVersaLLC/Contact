@@ -28,6 +28,7 @@ def sign_up( business )
   @browser.text_field( :id, 'imembernamelive' ).set email_name
   business[ 'hotmail' ] = email_name + '@hotmail.com'
   enter_captcha
+ 
 	RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => business['hotmail'], 'account[password]' => business['password'], 'account[secret_answer]' => business['secret_answer'], 'model' => 'Bing'
 
  end
