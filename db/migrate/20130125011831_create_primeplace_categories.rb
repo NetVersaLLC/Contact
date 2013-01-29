@@ -11,5 +11,8 @@ class CreatePrimeplaceCategories < ActiveRecord::Migration
     unless column_exists? :google_categories, :primeplace_category_id
       add_column :google_categories, :primeplace_category_id, :integer
     end
+    unless column_exists? :primeplaces, :primeplace_category_id
+      add_column :primeplaces, :primeplace_category_id, :integer
+    end
   end
 end
