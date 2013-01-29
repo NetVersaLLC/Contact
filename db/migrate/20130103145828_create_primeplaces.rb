@@ -5,7 +5,7 @@ class CreatePrimeplaces < ActiveRecord::Migration
       t.text :secrets
       t.datetime :force_update
       t.text :username
-
+      
       t.timestamps
     end
     add_index :primeplaces, :business_id

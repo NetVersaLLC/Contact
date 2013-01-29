@@ -15,6 +15,8 @@ sleep(2)
 @browser.text_field( :id => 'postalCode').set data['zip']
 @browser.text_field( :id => 'city').set data['city']
 
+puts(data['category1'])
+puts(data['category2'])
 @browser.select_list( :id => 'level1Category').select data['category1']
 sleep(1)
 @browser.select_list( :id => 'level3Category').select data['category2']
@@ -24,3 +26,7 @@ sleep(1)
 if @browser.link( :text => /Accept/i).exists?
 	@browser.link( :text => /Accept/i).click
 end
+
+@browser.button( :id => 'verifyPostcard').when_present.click
+
+true
