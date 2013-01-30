@@ -1,5 +1,5 @@
 class Yellowise  < ClientData
-  attr_accessible :username, :yellowise_category_id, :yellowise_category
+  attr_accessible :username
   virtual_attr_accessor :password
   validates :password,
             :presence => true
