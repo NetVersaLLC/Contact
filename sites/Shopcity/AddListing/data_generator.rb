@@ -1,4 +1,7 @@
 data = {}
+catty = Shopcity.where(:business_id => business.id).first
+data[ 'category1' ]          = catty.shopcity_category.name
+
 seed = rand(100..1000).to_s
 data[ 'country' ]		= "United States"
 data[ 'state' ]			= business.state_name
@@ -18,7 +21,6 @@ data[ 'email' ]			= business.bings.first.email
 data[ 'fname' ]			= business.contact_first_name
 data[ 'lname' ]			= business.contact_last_name
 data[ 'fullname' ]		= data[ 'fname' ] + ' ' + data[ 'lname' ]
-data[ 'category1' ]		= "Restaurants"
 data[ 'phone' ]			= business.local_phone
 data[ 'payments' ]		= Shopcity.payment_methods(business)
 data
