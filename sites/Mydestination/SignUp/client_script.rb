@@ -8,7 +8,7 @@ def add_business(data)
   @browser.text_field(:name => 'address').set data[ 'address' ]
   
   # Enter Captcha code
-  enter_captcha
+  enter_captcha(data)
 
   #Check for error
   @error_msg = @browser.div(:id => 'error')
