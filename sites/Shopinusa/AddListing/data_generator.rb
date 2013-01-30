@@ -1,11 +1,16 @@
 data = {}
+catty                       = Shopinusa.where(:business_id => business.id).first
+
+
 data[ 'username' ]		= business.bings.first.email[0..14]
 data[ 'password' ]		= Yahoo.make_password
 data[ 'fname' ]			= business.contact_first_name
 data[ 'lname' ]			= business.contact_last_name
 data[ 'fullname' ]		= data[ 'fname' ] + ' ' + data[ 'lname' ]
-data[ 'category1' ]		= "Restaurants"#business.category1
-data[ 'category2' ]		= "Asian Restaurants"#business.category2
+
+data[ 'category1' ]          = catty.shopinusa_category.parent.name.gsub("\n", "")
+data[ 'category2' ]           = catty.shopinusa_category.name.gsub("\n", "")
+
 data[ 'category3' ]		= business.category3
 data[ 'state_name' ]		= business.state_name
 data[ 'state' ]			= business.state
@@ -24,12 +29,6 @@ data[ 'email' ]			= business.bings.first.email
 data[ 'website' ]		= business.company_website
 data[ 'hours' ]			= Getfav.consolidate_hours( business )
 data[ 'description' ]		= business.business_description
-data[ 'keywords' ]		= business.keyword1 + ", " + business.keyword2 + ", " + business.keyword3 + ", " + business.keyword4 + ", " + business.keyword5
-data[ 'keyword1' ]		= business.keyword1
-data[ 'keyword2' ]		= business.keyword2
-data[ 'keyword3' ]		= business.keyword3
-data[ 'keyword4' ]		= business.keyword4
-data[ 'keyword5' ]		= business.keyword5
 data[ 'tagline' ]		= business.category1 + " " + business.category2 + " " + business.category3
 data[ 'image' ]			= "C:\\1.jpg"
 data[ 'country' ]		= "United States"
