@@ -1,3 +1,5 @@
+puts(data[ 'category1' ])
+
 @browser.goto("http://www.shopcity.com/map/mapnav_locations.cfm?")
 
 @browser.link( :text => /#{data['country']}/).click

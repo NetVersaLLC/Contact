@@ -1,9 +1,9 @@
 class Shopcity < ClientData
-	attr_accessible :username, :shopcity_category_id, :shopcity_category
+	attr_accessible :username, :shopcity_category_id
 	virtual_attr_accessor :password
 	validates :password,
             :presence => true
-
+  belongs_to :shopcity_category
 
 def self.payment_methods(business)
     methods = {}

@@ -3,7 +3,7 @@ class Yellowassistance < ClientData
 	virtual_attr_accessor :password
 	validates :password,
             :presence => true
-
+belongs_to :yellowassistance_category
 
 def self.payment_methods(business)
     methods = {}

@@ -1,4 +1,6 @@
 data = {}
+catty                       = Citisquare.where(:business_id => business.id).first
+
 data[ 'email' ] = business.bings.first.email
 data[ 'password' ] = Yahoo.make_password
 data[ 'phone_area' ] = business.local_phone.split("-")[0]
@@ -12,7 +14,8 @@ data[ 'first_name' ] = business.contact_first_name
 data[ 'last_name' ] = business.contact_last_name
 data[ 'address' ] = business.address + ' ' +business.address2
 data[ 'city' ] = business.city
-data[ 'category' ] = 'Legal'#business.category1
-data[ 'sub_category' ] = 'Bail Bonds' #business.category2
-data[ 'specials' ] = business.keyword1 + ' ' +business.keyword2 + ' ' +business.keyword3 + ' ' +business.keyword4 + ' ' +business.keyword5
+data[ 'category' ]          = catty.citisquare_category.parent.name.gsub("\n", "")
+data[ 'sub_category' ] = catty.citisquare_category.name.gsub("\n", "")
+
+data[ 'specials' ] = business.category1 + ' ' +business.category2 + ' ' +business.category3 + ' ' +business.category4 + ' ' +business.category5
 data
