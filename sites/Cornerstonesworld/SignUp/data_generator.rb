@@ -1,6 +1,7 @@
 data = {}
+catty                       = Cornerstonesworld.where(:business_id => business.id).first
 data[ 'business' ]		= business.business_name
-data[ 'category' ]		= "Entertainment & Arts ---> Bars, nightclubs, gaming & casino"
+#data[ 'category' ]  = catty.cornerstoneworld_category.name.gsub("\n", "")
 data[ 'address' ]		= business.address + ' ' + business.address2
 data[ 'city' ]			= business.city
 data[ 'zip' ] 			= business.zip
