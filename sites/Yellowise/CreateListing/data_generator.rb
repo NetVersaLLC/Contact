@@ -1,4 +1,5 @@
 data = {}
+catty                       = Yellowise.where(:business_id => business.id).first
 data[ 'password' ]		= business.yellowises.first.password #DgyggRoMBZU
 data[ 'username' ]		= business.yellowises.first.username
 data[ 'city' ]			= business.city
@@ -15,6 +16,6 @@ data[ 'fax' ]			= business.fax_number
 data[ 'tollfree' ]		= business.toll_free_phone
 data[ 'website' ]		= business.company_website.gsub("http://", "")
 data[ 'description' ]		= business.business_description
-data[ 'category' ]		= "Restaurants"
-data[ 'keywords' ]		= business.keyword1 + "\n" + business.keyword2 + "\n" + business.keyword3 + "\n" + business.keyword4 + "\n" + business.keyword5
+data[ 'category' ]          = catty.yellowise_category.parent.name.gsub("\n", "")
+data[ 'keywords' ]		= business.category1 + "\n" + business.category2 + "\n" + business.category3 + "\n" + business.category4 + "\n" + business.category5
 data

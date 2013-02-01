@@ -11,8 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130131232112) do
-
+ActiveRecord::Schema.define(:version => 20130131235126) do
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
     t.string   "email"
@@ -287,11 +286,22 @@ ActiveRecord::Schema.define(:version => 20130131232112) do
     t.text     "secrets"
     t.datetime "force_update"
     t.text     "username"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.integer  "cornerstonesworld_category_id"
   end
 
   add_index "cornerstonesworlds", ["business_id"], :name => "index_cornerstonesworlds_on_business_id"
+
+  create_table "cornerstoneworld_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "cornerstoneworld_categories", ["name"], :name => "index_cornerstoneworld_categories_on_name"
+  add_index "cornerstoneworld_categories", ["parent_id"], :name => "index_cornerstoneworld_categories_on_parent_id"
 
   create_table "coupons", :force => true do |t|
     t.string   "name"
@@ -362,6 +372,25 @@ ActiveRecord::Schema.define(:version => 20130131232112) do
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
   end
+
+  create_table "expertfocus", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "expertfocus_category_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+  end
+
+  create_table "expertfocus_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "expertfocus_categories", ["name"], :name => "index_expertfocus_categories_on_name"
+  add_index "expertfocus_categories", ["parent_id"], :name => "index_expertfocus_categories_on_parent_id"
 
   create_table "expressbusinessdirectories", :force => true do |t|
     t.integer  "business_id"
@@ -489,6 +518,8 @@ ActiveRecord::Schema.define(:version => 20130131232112) do
     t.integer  "primeplace_category_id"
     t.integer  "digabusiness_category_id"
     t.integer  "supermedia_category_id"
+    t.integer  "expertfocus_category_id"
+    t.integer  "cornerstoneworld_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -1080,8 +1111,9 @@ ActiveRecord::Schema.define(:version => 20130131232112) do
     t.integer  "business_id"
     t.text     "secrets"
     t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.integer  "shopinusa_category_id"
   end
 
   add_index "shopinusas", ["business_id"], :name => "index_shopinusas_on_business_id"
@@ -1096,6 +1128,22 @@ ActiveRecord::Schema.define(:version => 20130131232112) do
   end
 
   add_index "showmelocals", ["business_id"], :name => "index_showmelocals_on_business_id"
+
+  create_table "snoopitnow_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "snoopitnows", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "snoopitnow_category_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+  end
 
   create_table "subscriptions", :force => true do |t|
     t.integer  "affiliate_id"
@@ -1352,8 +1400,9 @@ ActiveRecord::Schema.define(:version => 20130131232112) do
     t.text     "secrets"
     t.datetime "force_update"
     t.text     "username"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.integer  "yellowise_category_id"
   end
 
   add_index "yellowises", ["business_id"], :name => "index_yellowises_on_business_id"
@@ -1415,8 +1464,11 @@ ActiveRecord::Schema.define(:version => 20130131232112) do
     t.datetime "force_update"
     t.text     "username"
     t.text     "secret1"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.integer  "zippro_category2_id"
+    t.integer  "zippro_category_id"
+    t.integer  "form_id"
   end
 
   add_index "zippros", ["business_id"], :name => "index_zippros_on_business_id"

@@ -22,15 +22,11 @@ enter_captcha( data )
 
 @browser.text_field( :id => 'ctl00_MainContent_description').set data[ 'description' ]
 
-@browser.text_field( :id => 'ctl00_MainContent_productDataList_ctl00_productTextBox').set data[ 'keyword1' ]
-@browser.text_field( :id => 'ctl00_MainContent_productDataList_ctl01_productTextBox').set data[ 'keyword2' ]
-@browser.text_field( :id => 'ctl00_MainContent_productDataList_ctl02_productTextBox').set data[ 'keyword3' ]
-@browser.text_field( :id => 'ctl00_MainContent_productDataList_ctl03_productTextBox').set data[ 'keyword4' ]
-@browser.text_field( :id => 'ctl00_MainContent_productDataList_ctl04_productTextBox').set data[ 'keyword5' ]
-@browser.text_field( :id => 'ctl00_MainContent_productDataList_ctl15_productTextBox').set data[ 'category1' ]
-@browser.text_field( :id => 'ctl00_MainContent_productDataList_ctl16_productTextBox').set data[ 'category2' ]
-@browser.text_field( :id => 'ctl00_MainContent_productDataList_ctl17_productTextBox').set data[ 'category3' ]
-
+@browser.text_field( :id => 'ctl00_MainContent_productDataList_ctl01_productTextBox').set data[ 'category1' ]
+@browser.text_field( :id => 'ctl00_MainContent_productDataList_ctl02_productTextBox').set data[ 'category2' ]
+@browser.text_field( :id => 'ctl00_MainContent_productDataList_ctl03_productTextBox').set data[ 'category3' ]
+@browser.text_field( :id => 'ctl00_MainContent_productDataList_ctl04_productTextBox').set data[ 'category4' ]
+@browser.text_field( :id => 'ctl00_MainContent_productDataList_ctl05_productTextBox').set data[ 'category5' ]
 
 
 hours = data[ 'hours' ]

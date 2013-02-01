@@ -1,3 +1,4 @@
+puts(data['category1'])
 @browser.goto( 'http://submit.yippie.biz/' )
 
 @browser.text_field( :name => 'businessname').set data['business']
@@ -12,7 +13,8 @@
 @browser.text_field( :name => 'website').set data['website']
 @browser.text_field( :name => 'email').set data['email']
 @browser.select_list( :name => 'categories').click
-@browser.select_list( :name => 'categories').select data[ 'category1' ]
+@browser.select_list( :name => 'categories').option( :text => /#{data['category1']}/i).click
+
 @browser.button( :value => 'Submit').click
 
 if @browser.text.include? "Thank you for submitting your FREE business listing to YiPpIe!"
