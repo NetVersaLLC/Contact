@@ -7,7 +7,7 @@
     .pull-right
       .sign_div
         - if user_signed_in?
-          = link_to 'SIGN OUT', destroy_user_session_path, :method => :delete
+          = link_to 'SIGN OUT', '/users/sign_out', :method => :delete
         - else
           = link_to 'SIGN UP', '/users/sign_up'
           |
