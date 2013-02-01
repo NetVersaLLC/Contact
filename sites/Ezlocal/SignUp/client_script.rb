@@ -25,8 +25,6 @@
 @browser.button(:id => "bSubmit").click
 @browser.a(:text => "None of these, just a free basic listing.").click
 @browser.text_field(:id => "tDescription").set data['description']
-@browser.select_list(:id => "dCategory2").select data['ezlocal_category2']
-@browser.select_list(:id => "dCategory3").select data['ezlocal_category3']
 @browser.text_field(:id => "tWebsite").set data['website']
 @browser.button(:id => "btnContinue").click
 @browser.checkbox(:id => "chkTerms").click

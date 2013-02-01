@@ -1,11 +1,30 @@
 data = {}
+catty                       = Zippro.where(:business_id => business.id).first
+data[ 'category1' ]         = ZipproCategory.where(:id => catty.zippro_category_id).first.name
+data[ 'category2' ]         = ZipproCategory.where(:id => catty.zippro_category2_id).first.name
+data['parent1']    = ZipproCategory.where(:id => catty.zippro_category_id).first.parent.name
+data['parent2']    = ZipproCategory.where(:id => catty.zippro_category2_id).first.parent.name
+
+paren1  = ZipproCategory.where(:id => catty.zippro_category_id).first.parent
+paren2  = ZipproCategory.where(:id => catty.zippro_category2_id).first.parent
+data['root1']    = paren1.parent.name
+data['root2']    = paren2.parent.name
+
+
+paren21  = paren1.parent.parent
+paren22  = paren2.parent.parent
+data['root21']    = paren21.name
+data['root22']    = paren22.name
+
+
+
+
+
 data[ 'username' ]		= business.bings.first.email[0..14]
 data[ 'password' ]		= Yahoo.make_password
 data[ 'fname' ]			= business.contact_first_name
 data[ 'lname' ]			= business.contact_last_name
 data[ 'fullname' ]		= data[ 'fname' ] + ' ' + data[ 'lname' ]
-data[ 'category1' ]		= "Education"#business.category1
-data[ 'category2' ]		= "Asian Restaurants"#business.category2
 data[ 'category3' ]		= business.category3
 data[ 'state_name' ]		= business.state_name
 data[ 'state' ]			= business.state
@@ -23,12 +42,6 @@ data[ 'fax' ]			= business.fax_number
 data[ 'email' ]			= business.bings.first.email
 data[ 'website' ]		= business.company_website
 data[ 'description' ]		= business.business_description
-data[ 'keywords' ]		= business.keyword1 + ", " + business.keyword2 + ", " + business.keyword3 + ", " + business.keyword4 + ", " + business.keyword5
-data[ 'keyword1' ]		= business.keyword1
-data[ 'keyword2' ]		= business.keyword2
-data[ 'keyword3' ]		= business.keyword3
-data[ 'keyword4' ]		= business.keyword4
-data[ 'keyword5' ]		= business.keyword5
 data[ 'tagline' ]		= business.category1 + " " + business.category2 + " " + business.category3
 data[ 'image' ]			= "C:\\1.jpg"
 data[ 'country' ]		= "United States"
