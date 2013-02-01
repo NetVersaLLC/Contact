@@ -31,4 +31,15 @@ module RefineryPatch
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
   end
+
+  def just_installed?
+    Role[:refinery].users.empty?
+  end
+
+  protected
+    def refinery_user_required?
+      if just_installed? and %w[registrations users].exclude?(controller_name)
+        redirect_to main_app.new_user_registration_path
+      end
+    end
 end
