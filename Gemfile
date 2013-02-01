@@ -24,7 +24,6 @@ end
 
 group :test do
   gem 'cucumber-rails', :require => false
-  gem 'database_cleaner'
   gem 'page-object'
   gem 'rspec-expectations'
   gem 'watir-webdriver'
@@ -35,7 +34,7 @@ end
 group :test, :development do
   gem 'awesome_print'
   gem 'factory_girl'
-  gem "factory_girl_rails", "~> 4.0"
+  gem "factory_girl_rails"
 end
 
 gem 'nokogiri'
@@ -46,7 +45,7 @@ gem 'haml'
 gem 'haml-rails'
 gem 'zip'
 gem 'activeadmin'
-gem "meta_search",    '>= 1.1.0.pre'
+gem "meta_search"
 gem 'acts_as_list'
 gem 'acts_as_tree'
 gem 'rabl'
@@ -63,3 +62,9 @@ gem 'activemerchant', :require => 'active_merchant'
 gem 'detect_email_settings'
 gem 'deathbycaptcha'
 gem 'faker'
+
+gem 'refinerycms-dashboard', '~> 2.0.0'
+gem 'refinerycms-images', '~> 2.0.0'
+gem 'refinerycms-pages', '~> 2.0.0'
+gem 'refinerycms-resources', '~> 2.0.0'
+gem 'refinerycms-testing', '~> 2.0.0', :group => :test
