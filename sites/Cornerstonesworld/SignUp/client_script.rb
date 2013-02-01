@@ -1,3 +1,4 @@
+puts(data['category'])
 @browser.goto( 'http://www.cornerstonesworld.com/index.php?page=addurl' )
 
 @browser.text_field( :id => 'cname').set data[ 'business' ]

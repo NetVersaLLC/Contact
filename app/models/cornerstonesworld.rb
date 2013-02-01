@@ -1,8 +1,9 @@
 class Cornerstonesworld < ClientData
-	attr_accessible :username
+	attr_accessible :username, :cornerstornesworld_category_id
 	virtual_attr_accessor :password
 	validates :password,
             :presence => true
+  belongs_to :cornerstoneworld_category
 
 
  def self.check_email(business)

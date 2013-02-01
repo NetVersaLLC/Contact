@@ -1,3 +1,7 @@
+puts(data[ 'category1' ] + " < " + data['parent1'] + " < " + data['root1'] + " < " + data['root21'])
+puts(data[ 'category2' ] + " < " + data['parent2'] + " < " + data['root2'] + " < " + data['root22'])
+
+
 @browser.goto( "http://myaccount.zip.pro/find-business.php" )
 @browser.text_field( :id => 'bzPhone').set data['phone']
 
@@ -15,16 +19,43 @@
 @browser.text_field( :id => 'comp_name').set data[ 'business' ]
 
 @browser.link( :id => 'zpPriCatPop').click
-sleep(2)
-@browser.link( :id => 'catTree_30162').click
-@browser.link( :id => 'zpCatMoveRight').click
-@browser.button( :id => 'zpSaveCategory').click
 
-@browser.link( :id => 'zpSecCatPop').click
-sleep(2)
-@browser.link( :id => 'catTree_30165').click
-@browser.link( :id => 'zpCatMoveRight').click
-@browser.button( :id => 'zpSaveCategory').click
+
+@browser.ul( :id => 'jqueryTree').divs(:class => /hitarea hasChildren-hitarea expandable-hitarea/i ).each do |root1|
+  root1.click
+ 
+end
+
+@browser.ul( :id => 'jqueryTree').divs(:class => /hitarea hasChildren-hitarea expandable-hitarea/i ).each do |root1|
+  root1.click
+
+  
+end
+
+@browser.ul( :id => 'jqueryTree').divs(:class => /hitarea hasChildren-hitarea expandable-hitarea/i ).each do |root1|
+  root1.click
+  
+end
+
+@browser.ul( :id => 'jqueryTree').divs(:class => /hitarea hasChildren-hitarea expandable-hitarea/i ).each do |root1|
+  root1.click
+  
+end
+
+sleep(3)  
+  
+  @browser.link( :text => /#{data[ 'category1' ]}/i).click
+  
+  @browser.link( :id => 'zpCatMoveRight').click
+
+  @browser.button( :id => 'zpSaveCategory').click
+ 
+
+
+#@browser.link( :id => 'zpSecCatPop').click
+
+
+
 
 enter_captcha( data )
 
@@ -47,3 +78,5 @@ if @browser.text.include? "Verify your email address"
 	
 	true
 end
+
+
