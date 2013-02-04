@@ -347,6 +347,13 @@
     ],
       'Yippie'
   ],
+  ['Staylocal', 'staylocal',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Staylocal'
+  ],
   ['Digabusiness', 'digabusinesses',
     [
       ['select', 'digabusiness_category']
