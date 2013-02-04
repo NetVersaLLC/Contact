@@ -1,3 +1,4 @@
+
 sign_in( data )
 
 @browser.h2( :text => 'Search for Your Business Listing').wait_until_present
@@ -44,19 +45,29 @@ if businessFound == false
 @browser.text_field( :id => 'id_phone').set data[ 'phone' ]
 @browser.text_field( :id => 'id_website').set data[ 'website' ]
 
-@browser.select_list( :name => 'category1_1').select data['cat11']
-sleep(2)
-@browser.select_list( :name => 'category1_2').select data['cat12']
-#@browser.select_list( :name => 'category1_3').select data['cat13']
 
-@browser.select_list( :name => 'category2_1').select data['cat21']
-sleep(2)
-@browser.select_list( :name => 'category2_2').select data['cat22']
-#@browser.select_list( :name => 'category2_3').select data['cat23']
+if data['cat2'] == nil
+  data['cat1'] = data['cat3']
+end
 
-@browser.select_list( :name => 'category3_1').select data['cat31']
-#@browser.select_list( :name => 'category3_2').select data['cat32']
-#@browser.select_list( :name => 'category3_3').select data['cat33']
+if data['cat1'] == nil
+  data['cat1'] = data['cat2']
+  data['cat2'] = data['cat3']
+end
+
+
+
+@browser.select_list( :name => 'category1_1').select data['cat1']
+sleep(2)
+if @browser.select_list( :name => 'category1_2').options.to_a.length > 1
+  @browser.select_list( :name => 'category1_2').select data['cat2']
+end
+sleep(2)
+if @browser.select_list( :name => 'category1_3').options.to_a.length > 1
+  @browser.select_list( :name => 'category1_3').select data['cat3']
+end
+
+
 
 
 hours = data[ 'hours' ]
