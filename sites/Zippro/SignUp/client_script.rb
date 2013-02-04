@@ -18,42 +18,50 @@ puts(data[ 'category2' ] + " < " + data['parent2'] + " < " + data['root2'] + " <
 @browser.text_field( :id => 'main_phone').set data[ 'phone' ]
 @browser.text_field( :id => 'comp_name').set data[ 'business' ]
 
+
+
+
 @browser.link( :id => 'zpPriCatPop').click
-
-
-@browser.ul( :id => 'jqueryTree').divs(:class => /hitarea hasChildren-hitarea expandable-hitarea/i ).each do |root1|
-  root1.click
+root = @browser.link( :text => "#{data['root21']}").parent()
+root.div( :class => 'hitarea hasChildren-hitarea expandable-hitarea').click
+sleep(1)
+sub1 = @browser.link( :text => "#{data['root1']}").parent()
+sub1.div( :class => 'hitarea hasChildren-hitarea expandable-hitarea').click
+sleep(1)
+sub2 = @browser.link( :text => "#{data['parent1']}").parent()
+sub2.div( :class => 'hitarea hasChildren-hitarea expandable-hitarea').click
+sleep(1)
+sub3 = @browser.link( :text => "#{data['category1']}")
+sub3.click
+sleep(1)  
+  
  
-end
-
-@browser.ul( :id => 'jqueryTree').divs(:class => /hitarea hasChildren-hitarea expandable-hitarea/i ).each do |root1|
-  root1.click
-
-  
-end
-
-@browser.ul( :id => 'jqueryTree').divs(:class => /hitarea hasChildren-hitarea expandable-hitarea/i ).each do |root1|
-  root1.click
-  
-end
-
-@browser.ul( :id => 'jqueryTree').divs(:class => /hitarea hasChildren-hitarea expandable-hitarea/i ).each do |root1|
-  root1.click
-  
-end
-
-sleep(3)  
-  
-  @browser.link( :text => /#{data[ 'category1' ]}/i).click
-  
   @browser.link( :id => 'zpCatMoveRight').click
-
   @browser.button( :id => 'zpSaveCategory').click
  
-
-
-#@browser.link( :id => 'zpSecCatPop').click
-
+ 
+ #second category
+sleep(2)
+@browser.link( :id => 'zpSecCatPop').click
+ sleep(1) 
+ 
+ @browser.divs( :class => 'hitarea hasChildren-hitarea collapsable-hitarea').reverse_each.each do |di|
+ di.click
+ end
+ sleep(1)
+ 
+ 
+ root = @browser.link( :text => "#{data['root22']}").parent()
+  root.div( :class => 'hitarea hasChildren-hitarea expandable-hitarea').click
+sub1 = @browser.link( :text => "#{data['root2']}").parent()
+  sub1.div( :class => 'hitarea hasChildren-hitarea expandable-hitarea').click
+sub2 = @browser.link( :text => "#{data['parent2']}").parent()
+  sub2.div( :class => 'hitarea hasChildren-hitarea expandable-hitarea').click
+sub3 = @browser.link( :text => "#{data['category2']}")
+sub3.click
+  @browser.link( :id => 'zpCatMoveRight').click
+  @browser.button( :id => 'zpSaveCategory').click
+ 
 
 
 
