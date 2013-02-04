@@ -1,6 +1,7 @@
 class SiteCategory < ActiveRecord::Base
   self.abstract_class = true
   def self.list_categories(node)
+    return nil if node == nil
     present = {}
     node.children.each do |child|
       if child.children and child.children.count > 0
@@ -13,6 +14,14 @@ class SiteCategory < ActiveRecord::Base
   end
   def self.categories
     self.list_categories(self.root)
+  end
+  def self.blist_categories(node)
+    node = self.root if node == nil
+    present = {}
+    node.children.each do |child|
+      present[child.name] = child.id
+    end
+    present
   end
   def to_list
     res = []

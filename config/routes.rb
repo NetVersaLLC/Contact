@@ -52,6 +52,11 @@ Contact::Application.routes.draw do
   get     '/emails/check/:site',     :controller => :emails,          :action => :check
 
   get     '/contact-us', :controller => :pages, :action => :contact_us
+
+  get     '/bunnies(.:format)', :controller => :categories, :action => :index
+  get     '/bunnies/:id(.:format)', :controller => :categories, :action => :show
+  post    '/bunnies(.:format)', :controller => :categories, :action => :create
+
   resources :places
   root :to => 'pages#index'
 end
