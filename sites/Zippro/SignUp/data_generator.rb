@@ -1,19 +1,19 @@
 data = {}
 catty                       = Zippro.where(:business_id => business.id).first
-data[ 'category1' ]         = ZipproCategory.where(:id => catty.zippro_category_id).first.name
+data[ 'category1' ]         = ZipproCategory.where(:id => catty.zippro_category_id).first.name.gsub("\r","").gsub("\n","")
 data[ 'category2' ]         = ZipproCategory.where(:id => catty.zippro_category2_id).first.name
-data['parent1']    = ZipproCategory.where(:id => catty.zippro_category_id).first.parent.name
+data['parent1']    = ZipproCategory.where(:id => catty.zippro_category_id).first.parent.name.gsub("\r","").gsub("\n","")
 data['parent2']    = ZipproCategory.where(:id => catty.zippro_category2_id).first.parent.name
 
 paren1  = ZipproCategory.where(:id => catty.zippro_category_id).first.parent
 paren2  = ZipproCategory.where(:id => catty.zippro_category2_id).first.parent
-data['root1']    = paren1.parent.name
+data['root1']    = paren1.parent.name.gsub("\r","").gsub("\n","")
 data['root2']    = paren2.parent.name
 
 
 paren21  = paren1.parent.parent
 paren22  = paren2.parent.parent
-data['root21']    = paren21.name
+data['root21']    = paren21.name.gsub("\r","").gsub("\n","")
 data['root22']    = paren22.name
 
 
