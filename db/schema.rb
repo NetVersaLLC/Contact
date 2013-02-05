@@ -327,6 +327,17 @@ ActiveRecord::Schema.define(:version => 20130205173154) do
 
   add_index "crunchbases", ["business_id"], :name => "index_crunchbases_on_business_id"
 
+  create_table "cylexes", :force => true do |t|
+    t.datetime "force_update"
+    t.text     "secrets"
+    t.integer  "business_id"
+    t.string   "email"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "cylexes", ["business_id"], :name => "index_cylexes_on_business_id"
+
   create_table "digabusiness_categories", :force => true do |t|
     t.integer  "parent_id"
     t.string   "name"
@@ -341,9 +352,9 @@ ActiveRecord::Schema.define(:version => 20130205173154) do
     t.integer  "business_id"
     t.text     "secrets"
     t.datetime "force_update"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
-    t.integer  "yellowee_category_id"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+    t.integer  "digabusiness_category_id"
   end
 
   create_table "downloads", :force => true do |t|

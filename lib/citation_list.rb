@@ -107,7 +107,8 @@
   ['Yelp', 'yelps',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'yelp_category']
     ],
       'Yelp'
   ],
@@ -214,7 +215,8 @@
   ['Cornerstonesworld', 'cornerstonesworlds',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select' , 'cornerstonesworld_category']
     ],
       'Cornerstonesworld'
   ],
@@ -267,7 +269,7 @@
       ['text', 'username'],
       ['text', 'password'],
       ['text', 'secret1'],
-      ['select', 'zippro_category']
+      ['select', 'zippro_category']      
     ],
       'Zippro'
   ],
@@ -366,6 +368,12 @@
       ['text', 'password']
     ],
       'Cylex'
+  ],
+  ['Snoopitnow', 'snoopitnows',
+    [
+      ['select', 'snoopitnow_category']      
+    ],
+      'Snoopitnow'
   ]
 ]
 
