@@ -359,5 +359,13 @@
       ['select', 'digabusiness_category']
     ],
       'Digabusiness'
+  ],
+  ['Cylex', 'cylex',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Cylex'
   ]
 ]
+
