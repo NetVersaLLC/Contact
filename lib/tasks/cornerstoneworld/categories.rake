@@ -5,9 +5,11 @@ namespace :cornerstoneworld do
 	body = File.open(Rails.root.join("categories", "Cornerstoneworld", "categories.json"), 'r').read
     categories = JSON.parse(body) 
 
+    root = CornerstoneworldCategory.create(:name => 'root')
 	categories.each do |v|	
-	root = CornerstoneworldCategory.create(:name => v)		
+	node = CornerstoneworldCategory.create(:name => v, :parent_id => root.id)		
 		puts(v)	
   end
   end
 end
+ 

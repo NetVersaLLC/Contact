@@ -1,10 +1,11 @@
 namespace :ebusinesspage do
   task :categories => :environment do
-    File.open(Rails.root.join("categories", "Ebusinesspages", "final_list.txt"), 'r').each do |line|
-      EbusinesspageCategory.create do |y|
-        y.parent_id      = 0
-        y.name           = line        
-      end
+root = EbusinesspageCategory.create(:name => 'root')  
+  File.open(Rails.root.join("categories", "Ebusinesspages", "final_list.txt"), 'r').each do |line|
+	next if line == ""
+      EbusinesspageCategory.create( :name => line, :parent_id => root.id)      
+      puts(line)           
     end
   end
 end
+ 

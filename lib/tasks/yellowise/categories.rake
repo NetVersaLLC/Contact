@@ -1,11 +1,11 @@
 namespace :yellowise do
   task :categories => :environment do
-    File.open(Rails.root.join("categories", "Yellowise", "finalCategories.txt"), 'r').each do |line|
+root = YellowiseCategory.create(:name => 'root')  
+  File.open(Rails.root.join("categories", "Yellowise", "finalCategories.txt"), 'r').each do |line|
 	next if line == ""
-      YellowiseCategory.create do |y|
-        y.parent_id      = 0
-        y.name           = line        
-      end
+      YellowiseCategory.create( :name => line, :parent_id => root.id)      
+      puts(line)           
     end
   end
 end
+ 
