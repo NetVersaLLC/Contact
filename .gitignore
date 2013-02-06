@@ -100,3 +100,4 @@ capybara-*html
 # vendor/extensions dummy applications.
 vendor/extensions/**/spec/dummy
 
+captchas/uploads
