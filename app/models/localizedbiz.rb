@@ -1,9 +1,9 @@
 class Localizedbiz < ClientData
-	attr_accessible :username
+	attr_accessible :username, :localized_category_id
 	virtual_attr_accessor :password
 	validates :password,
             :presence => true
-
+belongs_to            :localizedbiz_category
 def self.check_email(business)
     @link = nil
     CheckMail.get_link(business) do |mail|
