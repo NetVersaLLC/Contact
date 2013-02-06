@@ -68,8 +68,8 @@ puts("Adding new listing")
 
 
 number = @browser.p( :xpath, "/html/body/form/div[3]/div/div/div/div[3]/div/div[2]/ol/li/div/p[2]").text
-code = PhoneVerify.ask_for_code(number)
 @browser.button(:id,'ctl00_ContentPlaceHolderMain_PhoneVerification_btnCallMe').click
+code = PhoneVerify.ask_for_code(number)
 @browser.text_field(:id,'ctl00_ContentPlaceHolderMain_PhoneVerification_txtVerificationCode').set code
   
   else
