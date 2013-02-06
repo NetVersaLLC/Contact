@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130206182403) do
+ActiveRecord::Schema.define(:version => 20130206191458) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -558,6 +558,7 @@ ActiveRecord::Schema.define(:version => 20130206182403) do
     t.integer  "cornerstoneworld_category_id"
     t.integer  "angies_list_category_id"
     t.integer  "localizedbiz_category_id"
+    t.integer  "kudzu_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -694,6 +695,16 @@ ActiveRecord::Schema.define(:version => 20130206182403) do
 
   add_index "justclicklocals", ["business_id"], :name => "index_justclicklocals_on_business_id"
 
+  create_table "kudzu_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "kudzu_categories", ["name"], :name => "index_kudzu_categories_on_name"
+  add_index "kudzu_categories", ["parent_id"], :name => "index_kudzu_categories_on_parent_id"
+
   create_table "kudzus", :force => true do |t|
     t.integer  "business_id"
     t.string   "username"
@@ -701,8 +712,9 @@ ActiveRecord::Schema.define(:version => 20130206182403) do
     t.string   "listing_url"
     t.string   "status"
     t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.integer  "kudzu_category_id"
   end
 
   add_index "kudzus", ["business_id"], :name => "index_kudzus_on_business_id"
