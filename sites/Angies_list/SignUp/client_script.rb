@@ -28,7 +28,8 @@ def claim_business(data)
 	if @validation_error.exist?
 		throw("Please correct these value:#{@validation_error.text}")
 	elsif @browser.html.include?('Thank you for registering!')
-		puts "Business listing claim successful"
+		puts "Business listing claim successful"   
+    
 		true
 	end
 end	
@@ -124,6 +125,10 @@ end
 	  puts "Business already Listed"
 	  claim_business(data)
 	  RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => data['email'], 'account[password]' => data['password'], 'model' => 'AngiesList'
+    if @chained
+      self.start("Angies_list/UpdateListing")
+    end
+    true
   end
    
 
