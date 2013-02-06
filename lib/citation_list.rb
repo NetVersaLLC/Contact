@@ -376,6 +376,12 @@
       ['select', 'snoopitnow_category']      
     ],
       'Snoopitnow'
+  ],
+  ['Kudzu', 'kudzus',
+    [
+      ['select', 'kudzu_category']      
+    ],
+      'Kudzu'
   ]
 ]
 
