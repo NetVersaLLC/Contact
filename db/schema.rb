@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130206191458) do
+ActiveRecord::Schema.define(:version => 20130206215356) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -559,6 +559,7 @@ ActiveRecord::Schema.define(:version => 20130206191458) do
     t.integer  "angies_list_category_id"
     t.integer  "localizedbiz_category_id"
     t.integer  "kudzu_category_id"
+    t.integer  "localeze_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -796,6 +797,27 @@ ActiveRecord::Schema.define(:version => 20130206191458) do
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
+
+  create_table "localeze_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "localeze_categories", ["name"], :name => "index_localeze_categories_on_name"
+  add_index "localeze_categories", ["parent_id"], :name => "index_localeze_categories_on_parent_id"
+
+  create_table "localezes", :force => true do |t|
+    t.integer  "business_id"
+    t.integer  "localeze_category_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  add_index "localezes", ["business_id"], :name => "index_localezes_on_business_id"
 
   create_table "localizedbiz_categories", :force => true do |t|
     t.integer  "parent_id"

@@ -16,13 +16,14 @@ url = 'http://webapp.localeze.com/directory/get-started.aspx'
 @browser.button(:id,'ctl00_ContentPlaceHolderMain_SearchControl_SearchByNameButton').click
 
 #@browser.wait_until { @browser.div(:class => 'well', :index => 2).exist?}
-
+sleep(4)
 # Search for existing listing
-if @browser.div(:id => 'search-directory-results').exists?
-	puts "Business is Already Listed"
-else
+results = @browser.link(:text,/Add a new listing to our directory./)
+
+if results.exists?
 #Step 1
-	@browser.link(:text,'Add a new listing to our directory.').click
+puts("Adding new listing")
+	@browser.link(:text,/Add a new listing to our directory./).click
 	@browser.wait_until { @browser.div(:class,'content shadowed').exist?}
 	@browser.div(:class,'content shadowed').button(:id,'ctl00_ContentPlaceHolderMain_signinsupPopUp_Btn_SignUp').click
 	@browser.div(:class,'content shadowed').radio(:value,"#{data['associated_as']}").set
@@ -47,9 +48,8 @@ else
 	if @error_header.exist? && @error_header.text.include?('Please correct the marked field')
 		throw("Throwing Error:#{@error_header.text}")
 	end
-end
 
-#Step -2
+  #Step -2
 	@browser.text_field(:id,'ctl00_ContentPlaceHolderMain_UserContactInfo_txtFirstName').set data[ 'first_name' ] 
 	@browser.text_field(:id,'ctl00_ContentPlaceHolderMain_UserContactInfo_txtLastName').set data[ 'last_name' ] 
 	@browser.text_field(:id,'ctl00_ContentPlaceHolderMain_UserContactInfo_txtAddress').set data[ 'address' ] 
@@ -71,3 +71,9 @@ number = @browser.p( :xpath, "/html/body/form/div[3]/div/div/div/div[3]/div/div[
 code = PhoneVerify.ask_for_code(number)
 @browser.button(:id,'ctl00_ContentPlaceHolderMain_PhoneVerification_btnCallMe').click
 @browser.text_field(:id,'ctl00_ContentPlaceHolderMain_PhoneVerification_txtVerificationCode').set code
+  
+  else
+	puts "Business is Already Listed"
+end
+
+
