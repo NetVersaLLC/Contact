@@ -245,7 +245,8 @@
   ['Localizedbiz', 'localizedbizs',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'localizedbiz_category']
     ],
       'Localizedbiz'
   ],
