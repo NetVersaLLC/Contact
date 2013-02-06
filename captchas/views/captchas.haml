@@ -1,0 +1,27 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %title CAPTCHA Solver
+    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
+    %link{:href  => "/css/bootstrap.min.css", :rel => "stylesheet"}/
+    %script{:src => "/js/bootstrap.min.js", :type => "text/javascript"}
+    %script{:src => "/js/jquery.min.js", :type => "text/javascript"}
+  %body
+    .navbar
+      .navbar-inner
+        %a.brand{:href => '#'}
+          Town Center
+          %ul.nav
+            %li.active
+              %a{:href => '#'} CAPTCHA Solver
+    .row-fluid
+      .span1
+      .span9
+        %table.table.table-hover
+          %thead
+            %tr
+              %th Count
+              %th Image
+              %th Solution
+          %tbody{:id => 'solutions'}
