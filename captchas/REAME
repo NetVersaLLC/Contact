@@ -1,0 +1,4 @@
+Here's the Town Center CAPTCHA solver code. It consists of a Sinatra application
+found in server.rb, and a Chrome extension for desktop notifications.
+
+
