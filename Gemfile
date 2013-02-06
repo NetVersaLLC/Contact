@@ -62,9 +62,3 @@ gem 'activemerchant', :require => 'active_merchant'
 gem 'detect_email_settings'
 gem 'deathbycaptcha'
 gem 'faker'
-
-gem 'refinerycms-dashboard', '~> 2.0.0'
-gem 'refinerycms-images', '~> 2.0.0'
-gem 'refinerycms-pages', '~> 2.0.0'
-gem 'refinerycms-resources', '~> 2.0.0'
-gem 'refinerycms-testing', '~> 2.0.0', :group => :test
