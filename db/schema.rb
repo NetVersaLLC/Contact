@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130205173154) do
+ActiveRecord::Schema.define(:version => 20130206145012) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -73,6 +73,16 @@ ActiveRecord::Schema.define(:version => 20130205173154) do
 
   add_index "affiliates", ["code"], :name => "index_affiliates_on_code"
 
+  create_table "angies_list_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "angies_list_categories", ["name"], :name => "index_angies_list_categories_on_name"
+  add_index "angies_list_categories", ["parent_id"], :name => "index_angies_list_categories_on_parent_id"
+
   create_table "angies_lists", :force => true do |t|
     t.integer  "business_id"
     t.string   "email"
@@ -80,8 +90,9 @@ ActiveRecord::Schema.define(:version => 20130205173154) do
     t.string   "status"
     t.datetime "force_update"
     t.string   "listing_url"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+    t.integer  "angies_list_category_id"
   end
 
   add_index "angies_lists", ["business_id"], :name => "index_angies_lists_on_business_id"
@@ -283,6 +294,16 @@ ActiveRecord::Schema.define(:version => 20130205173154) do
   add_index "completed_jobs", ["business_id"], :name => "index_completed_jobs_on_business_id"
   add_index "completed_jobs", ["status"], :name => "index_completed_jobs_on_status"
 
+  create_table "cornerstonesworld_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "cornerstonesworld_categories", ["name"], :name => "index_cornerstoneworld_categories_on_name"
+  add_index "cornerstonesworld_categories", ["parent_id"], :name => "index_cornerstoneworld_categories_on_parent_id"
+
   create_table "cornerstonesworlds", :force => true do |t|
     t.integer  "business_id"
     t.text     "secrets"
@@ -294,16 +315,6 @@ ActiveRecord::Schema.define(:version => 20130205173154) do
   end
 
   add_index "cornerstonesworlds", ["business_id"], :name => "index_cornerstonesworlds_on_business_id"
-
-  create_table "cornerstoneworld_categories", :force => true do |t|
-    t.integer  "parent_id"
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "cornerstoneworld_categories", ["name"], :name => "index_cornerstoneworld_categories_on_name"
-  add_index "cornerstoneworld_categories", ["parent_id"], :name => "index_cornerstoneworld_categories_on_parent_id"
 
   create_table "coupons", :force => true do |t|
     t.string   "name"
@@ -545,6 +556,7 @@ ActiveRecord::Schema.define(:version => 20130205173154) do
     t.integer  "supermedia_category_id"
     t.integer  "expertfocus_category_id"
     t.integer  "cornerstoneworld_category_id"
+    t.integer  "angies_list_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"

@@ -9,7 +9,8 @@
   ['AngiesList', 'angies_lists',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'angies_list_category']
     ],
       'Angies List'
   ],
