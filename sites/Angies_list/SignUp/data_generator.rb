@@ -29,9 +29,11 @@ data[ 'languages_served' ]  = 'English'
 data[ 'description' ] 	    = business.business_description
 data[ 'business_description' ] 	    = business.business_description
 data['service_group'] = 'Consumer Services'
-data['category'] = business.category1
+
+data['category'] = "Wrought Iron"#business.category1
+
 data[ 'service_not_offered' ] = ''
-data[ 'service_offered' ] = business.keyword1 + ' ' + business.keyword2 + ' ' + business.keyword3 + ' ' + business.keyword4 + ' ' + business.keyword5
+data[ 'service_offered' ] = business.category1 + ' ' + business.category2 + ' ' + business.category3 + ' ' + business.category4 + ' ' + business.category5
 if business.accepts_checks
        	data['check'] = 'yes'
 else 
