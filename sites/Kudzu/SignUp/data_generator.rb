@@ -1,5 +1,10 @@
 data = {}
 seedString 			= rand( 1000 ).to_s()
+
+catty                       = Kudzu.where(:business_id => business.id).first
+data[ 'industry' ]          = catty.kudzu_category.parent.name.gsub("\n", "")
+data[ 'category' ]       = catty.kudzu_category.name.gsub("\n", "")
+
 data[ 'userName' ] 		= (business.contact_first_name + business.contact_last_name + seedString).to_s.gsub(/\s+/, '')
 data[ 'email' ]			= business.bings.first.email
 data[ 'pass' ]			= Kudzu.make_password
@@ -27,6 +32,5 @@ data[ 'paymentTypes' ] = [ :AmericanExpress, :DebitCard, :MasterCard ]
 
 data[ 'languagesSpoken' ] = [ :English, :Spanish ]
 data[ 'yearEstablished' ] = business.year_founded
-data[ 'industry' ] = 'Pets ->'
-data[ 'category' ] = 'Aquarium Maintenance & Design'
+
 data
