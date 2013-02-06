@@ -9,10 +9,6 @@ class ApplicationController < ActionController::Base
     label
   end
 
-  def refinery_user_required?
-    false
-  end
-
   # rescue_from CanCan::AccessDenied do |exception|
   #   redirect_to root_url, :alert => exception.message
   # end
