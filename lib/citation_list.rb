@@ -231,7 +231,8 @@
   ['Showmelocal', 'showmelocals',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'showmelocal_category']
     ],
       'Showmelocal'
   ],
