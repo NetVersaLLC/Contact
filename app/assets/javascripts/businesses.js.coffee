@@ -5,8 +5,6 @@
 #= require form/business_details
 #= require form/payment_methods
 #= require form/business_hours
-## require form/mail_settings
-#= require form/existing_account_logins
 #= require form/categories
 
 $(document).ready ->

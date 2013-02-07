@@ -5,7 +5,6 @@ Contact::Application.routes.draw do
   resources :packages
   resources :subscriptions
 
-  devise_for :admin_users, ActiveAdmin::Devise.config
   devise_for :users,
     :controllers  => {
       :registrations => 'my_devise/registrations',

@@ -294,16 +294,6 @@ ActiveRecord::Schema.define(:version => 20130206215356) do
   add_index "completed_jobs", ["business_id"], :name => "index_completed_jobs_on_business_id"
   add_index "completed_jobs", ["status"], :name => "index_completed_jobs_on_status"
 
-  create_table "cornerstonesworld_categories", :force => true do |t|
-    t.integer  "parent_id"
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "cornerstonesworld_categories", ["name"], :name => "index_cornerstoneworld_categories_on_name"
-  add_index "cornerstonesworld_categories", ["parent_id"], :name => "index_cornerstoneworld_categories_on_parent_id"
-
   create_table "cornerstonesworlds", :force => true do |t|
     t.integer  "business_id"
     t.text     "secrets"
@@ -315,6 +305,16 @@ ActiveRecord::Schema.define(:version => 20130206215356) do
   end
 
   add_index "cornerstonesworlds", ["business_id"], :name => "index_cornerstonesworlds_on_business_id"
+
+  create_table "cornerstoneworld_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "cornerstoneworld_categories", ["name"], :name => "index_cornerstoneworld_categories_on_name"
+  add_index "cornerstoneworld_categories", ["parent_id"], :name => "index_cornerstoneworld_categories_on_parent_id"
 
   create_table "coupons", :force => true do |t|
     t.string   "name"
@@ -442,9 +442,9 @@ ActiveRecord::Schema.define(:version => 20130206215356) do
     t.integer  "business_id"
     t.datetime "force_update"
     t.text     "secrets"
+    t.integer  "ezlocal_category_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
-    t.integer  "ezlocal_category_id"
   end
 
   create_table "facebooks", :force => true do |t|
@@ -519,17 +519,6 @@ ActiveRecord::Schema.define(:version => 20130206215356) do
   end
 
   add_index "getfavs", ["business_id"], :name => "index_getfavs_on_business_id"
-
-  create_table "gomylocals", :force => true do |t|
-    t.integer  "business_id"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.text     "username"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
-  add_index "gomylocals", ["business_id"], :name => "index_gomylocals_on_business_id"
 
   create_table "google_categories", :force => true do |t|
     t.string   "name"
@@ -642,15 +631,6 @@ ActiveRecord::Schema.define(:version => 20130206215356) do
   end
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
-
-  create_table "insiderpages", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "email"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
 
   create_table "jobs", :force => true do |t|
     t.integer  "business_id"
@@ -1370,9 +1350,9 @@ ActiveRecord::Schema.define(:version => 20130206215356) do
     t.text     "secrets"
     t.datetime "force_update"
     t.text     "username"
-    t.integer  "usbdn_category_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.integer  "usbdn_category_id"
   end
 
   add_index "usbdns", ["business_id"], :name => "index_usbdns_on_business_id"
@@ -1572,7 +1552,6 @@ ActiveRecord::Schema.define(:version => 20130206215356) do
     t.datetime "updated_at",          :null => false
     t.integer  "zippro_category2_id"
     t.integer  "zippro_category_id"
-    t.integer  "form_id"
   end
 
   add_index "zippros", ["business_id"], :name => "index_zippros_on_business_id"
