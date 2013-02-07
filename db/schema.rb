@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130207162918) do
+ActiveRecord::Schema.define(:version => 20130207220428) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -561,6 +561,7 @@ ActiveRecord::Schema.define(:version => 20130207162918) do
     t.integer  "kudzu_category_id"
     t.integer  "localeze_category_id"
     t.integer  "showmelocal_category_id"
+    t.integer  "hyplo_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -610,13 +611,24 @@ ActiveRecord::Schema.define(:version => 20130207162918) do
 
   add_index "hotfrogs", ["business_id"], :name => "index_hotfrogs_on_business_id"
 
+  create_table "hyplo_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "hyplo_categories", ["name"], :name => "index_hyplo_categories_on_name"
+  add_index "hyplo_categories", ["parent_id"], :name => "index_hyplo_categories_on_parent_id"
+
   create_table "hyplos", :force => true do |t|
     t.integer  "business_id"
     t.text     "secrets"
     t.datetime "force_update"
     t.text     "username"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.integer  "hyplo_category_id"
   end
 
   add_index "hyplos", ["business_id"], :name => "index_hyplos_on_business_id"
