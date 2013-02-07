@@ -5,3 +5,5 @@
 @browser.link( :id => 'ctl00_ContentPlaceHolder1_cmdLogin').click
 
 @browser.link( :text => "#{data[ 'business' ]}").click
+
+true
