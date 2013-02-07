@@ -7,4 +7,4 @@
     = @f.input :professional_associations, :placeholder => 'Professional Associations and Memberships'
     = @f.input :geographic_areas,          :as => :select, :collection => Business.geographic_areas_list, :label => 'Geographic Area Serviced'
     = @f.input :year_founded,              :placeholder => 'Year Founded'
-    = @f.input :company_website, :placeholder => 'Company Website'
+    = @f.input :company_website, :placeholder => 'Company Website', :hint => "Format: http://mycompany.com", :input_html => { 'data-content' => 'Your company website.', 'title' => 'Company Website',    :rel => 'popover' }

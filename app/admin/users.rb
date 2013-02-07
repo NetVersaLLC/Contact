@@ -2,6 +2,13 @@ ActiveAdmin.register User do
   index do
     column :email
     column :sign_in_count
+    column :businesses do |v|
+      links = []
+      v.businesses.each do |b|
+        links.push "<a href='/admin/client_manager?business_id=#{b.id}'>#{b.business_name}</a>"
+      end
+      raw links.join(", ")
+    end
     default_actions
   end
   form do |f|
@@ -9,13 +16,6 @@ ActiveAdmin.register User do
       f.input :email
       f.input :authentication_token
       f.input :password
-    end
-    f.inputs "Businesses" do
-      column :businesses do |v|
-        v.businesses.each do |b|
-          link_to b.company_name, business_path(b.id)
-        end
-      end
     end
     f.buttons
   end

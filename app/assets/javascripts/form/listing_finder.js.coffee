@@ -72,3 +72,6 @@ $(document).ready ->
           html += '</tr>'
         $('#business_results').html(html)
 
+$(document).ready ()->
+  $('#close_zip_search_form').click ->
+    $('#zip_search_form').dialog('close')
