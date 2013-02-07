@@ -11,10 +11,6 @@ end
 
 module Contact
   class Application < Rails::Application
-    config.before_initialize do
-      require Rails.root.join('lib', 'refinery', 'refinery_patch')
-      require Rails.root.join('lib', 'refinery', 'restrict_refinery_to_refinery_users')
-    end
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

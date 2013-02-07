@@ -23,6 +23,7 @@ function checkForCaptchas() {
         $.post('/solve.json', data, function(data) {
           console.log(data);
           window.checkForCaptchasInterval = window.setInterval(checkForCaptchas, 1000);
+          document.getElementById('solutions').innerHTML = '';
         });
       });
     }

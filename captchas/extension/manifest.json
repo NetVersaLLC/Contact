@@ -4,7 +4,7 @@
   "name": "TownCenter CAPTCHA Client",
   "description": "This exension enables desktop notifications for incoming CAPTCHA solutions",
   "version": "1.0",
-  "permissions": ["http://localhost:4567/", "http://captchas.netversa.com/", "notifications"],
+  "permissions": ["http://localhost:4567/", "http://captcha.netversa.com/", "notifications"],
   "content_scripts": [{
     "matches": ["http://localhost:4567/*", "http://captcha.netversa.com:8080/*"],
     "js": ["jquery.min.js", "solutions.js"]
