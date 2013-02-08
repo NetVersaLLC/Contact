@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130207220428) do
+ActiveRecord::Schema.define(:version => 20130208154100) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -562,6 +562,7 @@ ActiveRecord::Schema.define(:version => 20130207220428) do
     t.integer  "localeze_category_id"
     t.integer  "showmelocal_category_id"
     t.integer  "hyplo_category_id"
+    t.integer  "ibegin_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -633,13 +634,24 @@ ActiveRecord::Schema.define(:version => 20130207220428) do
 
   add_index "hyplos", ["business_id"], :name => "index_hyplos_on_business_id"
 
+  create_table "ibegin_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "ibegin_categories", ["name"], :name => "index_ibegin_categories_on_name"
+  add_index "ibegin_categories", ["parent_id"], :name => "index_ibegin_categories_on_parent_id"
+
   create_table "ibegins", :force => true do |t|
     t.integer  "business_id"
     t.string   "email"
     t.text     "secrets"
     t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "ibegin_category_id"
   end
 
   create_table "insider_pages", :force => true do |t|
