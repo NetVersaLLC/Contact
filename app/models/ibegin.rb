@@ -1,6 +1,7 @@
 class Ibegin < ClientData
-attr_accessible :email
+attr_accessible :email, :ibegin_category_id
   virtual_attr_accessor :password
+  belongs_to            :ibegin_category
   validates :email,
             :presence => true,
             :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
