@@ -1,8 +1,7 @@
 class Localpages < ClientData
 	attr_accessible :username
 	virtual_attr_accessor :password
-	validates :password,
-            :presence => true
+	
 
   def self.check_email(business)
     @password = nil
