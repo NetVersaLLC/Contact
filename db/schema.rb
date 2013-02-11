@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130208154100) do
+ActiveRecord::Schema.define(:version => 20130211184545) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -563,6 +563,7 @@ ActiveRecord::Schema.define(:version => 20130208154100) do
     t.integer  "showmelocal_category_id"
     t.integer  "hyplo_category_id"
     t.integer  "ibegin_category_id"
+    t.integer  "insider_page_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -654,6 +655,16 @@ ActiveRecord::Schema.define(:version => 20130208154100) do
     t.integer  "ibegin_category_id"
   end
 
+  create_table "insider_page_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "insider_page_categories", ["name"], :name => "index_insider_page_categories_on_name"
+  add_index "insider_page_categories", ["parent_id"], :name => "index_insider_page_categories_on_parent_id"
+
   create_table "insider_pages", :force => true do |t|
     t.integer  "business_id"
     t.string   "email"
@@ -662,8 +673,9 @@ ActiveRecord::Schema.define(:version => 20130208154100) do
     t.boolean  "facebook_signin"
     t.string   "status"
     t.datetime "force_update"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+    t.integer  "insider_page_category_id"
   end
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"

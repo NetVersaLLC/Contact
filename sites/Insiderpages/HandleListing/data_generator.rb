@@ -1,4 +1,5 @@
 data = {}
+catty                       = InsiderPage.where(:business_id => business.id).first
 data[ 'business' ]		= business.business_name
 data[ 'near_city' ]		= business.city + ', ' + business.state
 data[ 'email' ]			= business.insider_pages.first.email
@@ -13,8 +14,8 @@ data[ 'website' ]		= business.company_website
 data[ 'business_description' ]	= business.business_description
 data[ 'services' ]		= ""#services
 data[ 'message' ]		= ""#Message to customers
-
-data[ 'categories' ]		= ['Restaurants','Chinese Restaurants','Sushi Restaurants']#{business.category1,business.category2,business.category3}
-data[ 'tags' ]			= ['sushi', 'asian buffet','asian cuisine']#[business.keyword1, business.keyword2, business.keyword3, business.keyword4, business.keyword5]
+data[ 'categories' ]          = [catty.insider_page_category.name.gsub("\n", "")]
+#data[ 'categories' ]		= [business.category1,business.category2,business.category3,business.category4,business.category5]
+data[ 'tags' ]			= [business.category1,business.category2,business.category3,business.category4,business.category5]
 
 data

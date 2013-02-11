@@ -6,8 +6,9 @@ def add_listing( data )
 	
 	@browser.text_field( :name, 'city' ).set data[ 'city' ]
 	sleep(2)
-	@browser.li( :id, 'as-result-item-0')
+	@browser.li( :id => 'as-result-item-0', :index => 1).click
 
+  
 	@browser.select_list( :id, 'business_state_code' ).select data[ 'state' ]
 	@browser.text_field( :id, 'business_zip_code' ).set data[ 'zip' ]
 	@browser.text_field( :id, 'business_phone' ).set data[ 'phone' ]
@@ -24,19 +25,23 @@ def add_listing( data )
 			@browser.li( :id => 'as-result-item-0', :index => 1).click	
 		end
 	end
-	tags = data[ 'tags' ]
-	tags.each do |tag| 
-		if tag != ""
-			@browser.text_field( :name, 'selected_taggings').set tag
-			@browser.text_field( :name, 'selected_taggings').focus
-			sleep(5)
-			@browser.li( :id => 'as-result-item-0', :index => 2).click	
-		end
-	end
-
-	@browser.radio( :id, 'yes').click
-	@browser.button( :value, /Submit & Go to Step 2/).click
 	
+  
+  #tags = data[ 'tags' ]
+	#tags.each do |tag| 
+	#	if tag != ""
+	#		@browser.text_field( :name, 'selected_taggings').set tag
+	#		@browser.text_field( :name, 'selected_taggings').focus
+	#		sleep(5)
+	#		@browser.li( :id => 'as-result-item-0', :index => 2).click	
+	#	end
+	#end
+ 
+ @browser.radio( :id, 'yes').click
+  puts("Committing")
+	@browser.button( :name, "commit").click
+	sleep(5)
+  puts("After commit")
 	if @browser.text.include? "You might be adding a duplicate"
 		# adding a duplicate? Claim the business.
 		claim_business( data )
