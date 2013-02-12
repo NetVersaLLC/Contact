@@ -64,18 +64,9 @@ def add_company( data )
 sleep(5)
 @browser.button(:text, 'Done').click
 sleep(2)
-@browser.button( :class, 'get_verified_btn').click
-sleep(3)
-nok = Nokogiri::HTML( @browser.html )
-verifyCode = nok.xpath('//*[@id="get-verified-dialog-container-edit-existing"]/div[2]/div[2]/p[2]').inner_text
-verifyCode = verifyCode.gsub(/[^0-9A-Za-z]/, '')
-verifyCode = verifyCode.gsub("ReferenceCode", '')
 
-puts ("Doing phone verification")
-code = PhoneVerify.enter_code(number, verifyCode)
 
 true
-
 
 
 end 
@@ -85,8 +76,7 @@ end
 def main( data )
 
 #load the browser and navigate to the business search page
-	@browser.goto('http://www.manta.com/logout')
-	sleep 3
+
 	@browser.goto('http://www.manta.com/profile/my-companies/select?add_driver=home-getstarted')
 
 add_company( data )
@@ -95,3 +85,8 @@ end
 
 main( data )
 
+if @chained
+      self.start("Manta/Verify")
+    end
+
+true

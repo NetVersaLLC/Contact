@@ -13,6 +13,6 @@ data[ 'country' ] = 'United States'
 data[ 'countryAbrv' ] = 'US'
 data[ 'citystate' ] = data[ 'city' ] + ', ' + data[ 'stateabreviation' ]
 data[ 'password' ] = Yahoo.make_password
-data[ 'short_desc' ] = business.keyword1 + ' ' + business.keyword2 + ' ' + business.keyword3 + ' ' + business.keyword4 + ' ' + business.keyword5
+data[ 'short_desc' ] = business.category1 + ' ' + business.category2 + ' ' + business.category3 + ' ' + business.category4 + ' ' + business.category5
 data[ 'description' ] = business.business_description
 data
