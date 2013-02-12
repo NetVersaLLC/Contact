@@ -28,9 +28,15 @@
 			")
 			
 
-@browser.text_field( :id => 'cat_text_temp').set data['category1']
-sleep(2)
-@browser.li( :id => 'as-result-item-0').click
+data['tagline'].each do |cat|
+  @browser.text_field( :id => 'cat_text_temp').set cat
+  sleep(4)
+  if @browser.div( :class => 'as-results').visible?
+    @browser.li( :id => 'as-result-item-0').click
+  else
+    @browser.text_field( :id => 'cat_text_temp').set ","
+  end
+end
 
 @browser.button( :id => 'mpAddBusinessSubmit').click
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130211184545) do
+ActiveRecord::Schema.define(:version => 20130211235944) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -945,6 +945,16 @@ ActiveRecord::Schema.define(:version => 20130211184545) do
   end
 
   add_index "map_quests", ["business_id"], :name => "index_map_quests_on_business_id"
+
+  create_table "matchpoint_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "matchpoint_categories", ["name"], :name => "index_matchpoint_categories_on_name"
+  add_index "matchpoint_categories", ["parent_id"], :name => "index_matchpoint_categories_on_parent_id"
 
   create_table "matchpoints", :force => true do |t|
     t.integer  "business_id"
