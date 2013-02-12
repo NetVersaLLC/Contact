@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130206215356) do
+ActiveRecord::Schema.define(:version => 20130212152339) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -233,6 +233,7 @@ ActiveRecord::Schema.define(:version => 20130206215356) do
     t.string   "category4"
     t.string   "category5"
     t.boolean  "categorized"
+    t.integer  "label_id"
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
@@ -569,21 +570,6 @@ ActiveRecord::Schema.define(:version => 20130206215356) do
   end
 
   add_index "googles", ["business_id"], :name => "index_googles_on_business_id"
-
-  create_table "hits", :force => true do |t|
-    t.integer  "tag_id"
-    t.integer  "category_id"
-    t.string   "site"
-    t.string   "assignment"
-    t.string   "remote_ip"
-    t.string   "user_agent"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "hits", ["category_id"], :name => "index_hits_on_category_id"
-  add_index "hits", ["site"], :name => "index_hits_on_site"
-  add_index "hits", ["tag_id"], :name => "index_hits_on_tag_id"
 
   create_table "hotfrogs", :force => true do |t|
     t.integer  "business_id"
@@ -953,17 +939,7 @@ ActiveRecord::Schema.define(:version => 20130206215356) do
 
   add_index "notifications", ["business_id"], :name => "index_notifications_on_business_id"
 
-  create_table "packages", :force => true do |t|
-    t.string   "name"
-    t.integer  "price"
-    t.text     "description"
-    t.text     "short_description"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-    t.integer  "monthly_fee"
-  end
-
-  create_table "packages_payloads", :force => true do |t|
+  create_table "package_payloads", :force => true do |t|
     t.integer  "package_id"
     t.string   "site"
     t.string   "payload"
@@ -973,27 +949,20 @@ ActiveRecord::Schema.define(:version => 20130206215356) do
     t.datetime "updated_at",  :null => false
   end
 
-  add_index "packages_payloads", ["package_id"], :name => "index_packages_payloads_on_package_id"
-  add_index "packages_payloads", ["payload"], :name => "index_packages_payloads_on_payload"
-  add_index "packages_payloads", ["site"], :name => "index_packages_payloads_on_site"
+  add_index "package_payloads", ["package_id"], :name => "index_packages_payloads_on_package_id"
+  add_index "package_payloads", ["payload"], :name => "index_packages_payloads_on_payload"
+  add_index "package_payloads", ["site"], :name => "index_packages_payloads_on_site"
 
-  create_table "payload_categories", :force => true do |t|
+  create_table "packages", :force => true do |t|
     t.string   "name"
-    t.integer  "position"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "price"
+    t.text     "description"
+    t.text     "short_description"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.integer  "monthly_fee"
+    t.integer  "label_id"
   end
-
-  create_table "pings", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "business_id"
-    t.string   "message"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "pings", ["business_id"], :name => "index_pings_on_business_id"
-  add_index "pings", ["user_id"], :name => "index_pings_on_user_id"
 
   create_table "primeplace_categories", :force => true do |t|
     t.integer  "parent_id"
@@ -1017,115 +986,6 @@ ActiveRecord::Schema.define(:version => 20130206215356) do
 
   add_index "primeplaces", ["business_id"], :name => "index_primeplaces_on_business_id"
 
-  create_table "refinery_images", :force => true do |t|
-    t.string   "image_mime_type"
-    t.string   "image_name"
-    t.integer  "image_size"
-    t.integer  "image_width"
-    t.integer  "image_height"
-    t.string   "image_uid"
-    t.string   "image_ext"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-  end
-
-  create_table "refinery_page_part_translations", :force => true do |t|
-    t.integer  "refinery_page_part_id"
-    t.string   "locale"
-    t.text     "body"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
-  end
-
-  add_index "refinery_page_part_translations", ["locale"], :name => "index_refinery_page_part_translations_on_locale"
-  add_index "refinery_page_part_translations", ["refinery_page_part_id"], :name => "index_f9716c4215584edbca2557e32706a5ae084a15ef"
-
-  create_table "refinery_page_parts", :force => true do |t|
-    t.integer  "refinery_page_id"
-    t.string   "title"
-    t.text     "body"
-    t.integer  "position"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-  end
-
-  add_index "refinery_page_parts", ["id"], :name => "index_refinery_page_parts_on_id"
-  add_index "refinery_page_parts", ["refinery_page_id"], :name => "index_refinery_page_parts_on_refinery_page_id"
-
-  create_table "refinery_page_translations", :force => true do |t|
-    t.integer  "refinery_page_id"
-    t.string   "locale"
-    t.string   "title"
-    t.string   "custom_slug"
-    t.string   "menu_title"
-    t.string   "slug"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-  end
-
-  add_index "refinery_page_translations", ["locale"], :name => "index_refinery_page_translations_on_locale"
-  add_index "refinery_page_translations", ["refinery_page_id"], :name => "index_d079468f88bff1c6ea81573a0d019ba8bf5c2902"
-
-  create_table "refinery_pages", :force => true do |t|
-    t.integer  "parent_id"
-    t.string   "path"
-    t.string   "slug"
-    t.boolean  "show_in_menu",        :default => true
-    t.string   "link_url"
-    t.string   "menu_match"
-    t.boolean  "deletable",           :default => true
-    t.boolean  "draft",               :default => false
-    t.boolean  "skip_to_first_child", :default => false
-    t.integer  "lft"
-    t.integer  "rgt"
-    t.integer  "depth"
-    t.string   "view_template"
-    t.string   "layout_template"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
-  end
-
-  add_index "refinery_pages", ["depth"], :name => "index_refinery_pages_on_depth"
-  add_index "refinery_pages", ["id"], :name => "index_refinery_pages_on_id"
-  add_index "refinery_pages", ["lft"], :name => "index_refinery_pages_on_lft"
-  add_index "refinery_pages", ["parent_id"], :name => "index_refinery_pages_on_parent_id"
-  add_index "refinery_pages", ["rgt"], :name => "index_refinery_pages_on_rgt"
-
-  create_table "refinery_resources", :force => true do |t|
-    t.string   "file_mime_type"
-    t.string   "file_name"
-    t.integer  "file_size"
-    t.string   "file_uid"
-    t.string   "file_ext"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-  end
-
-  create_table "results", :force => true do |t|
-    t.integer  "job_id"
-    t.string   "status"
-    t.string   "message"
-    t.text     "output"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "results", ["job_id"], :name => "index_results_on_job_id"
-  add_index "results", ["status"], :name => "index_results_on_status"
-
-  create_table "roles", :force => true do |t|
-    t.string   "title"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "roles_users", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "role_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "rookies", :force => true do |t|
     t.integer  "position"
     t.string   "name"
@@ -1133,19 +993,6 @@ ActiveRecord::Schema.define(:version => 20130206215356) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
-
-  create_table "seo_meta", :force => true do |t|
-    t.integer  "seo_meta_id"
-    t.string   "seo_meta_type"
-    t.string   "browser_title"
-    t.string   "meta_keywords"
-    t.text     "meta_description"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-  end
-
-  add_index "seo_meta", ["id"], :name => "index_seo_meta_on_id"
-  add_index "seo_meta", ["seo_meta_id", "seo_meta_type"], :name => "index_seo_meta_on_seo_meta_id_and_seo_meta_type"
 
   create_table "shopcities", :force => true do |t|
     t.integer  "business_id"
@@ -1250,6 +1097,8 @@ ActiveRecord::Schema.define(:version => 20130206215356) do
     t.integer  "intial_fee"
     t.string   "transaction_code"
     t.string   "subscription_code"
+    t.integer  "label_id"
+    t.integer  "business_id"
   end
 
   add_index "subscriptions", ["affiliate_id"], :name => "index_subscriptions_on_affiliate_id"
@@ -1289,12 +1138,12 @@ ActiveRecord::Schema.define(:version => 20130206215356) do
 
   create_table "tasks", :force => true do |t|
     t.integer  "business_id"
+    t.datetime "started_at"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-    t.datetime "started_at"
   end
 
-  add_index "tasks", ["business_id"], :name => "index_tasks_on_user_id"
+  add_index "tasks", ["business_id"], :name => "index_tasks_on_business_id"
 
   create_table "thumbtacks", :force => true do |t|
     t.integer  "business_id"
@@ -1356,14 +1205,6 @@ ActiveRecord::Schema.define(:version => 20130206215356) do
   end
 
   add_index "usbdns", ["business_id"], :name => "index_usbdns_on_business_id"
-
-  create_table "user_plugins", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "name"
-    t.integer  "position"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",        :null => false

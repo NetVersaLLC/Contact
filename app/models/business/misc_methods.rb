@@ -29,7 +29,7 @@ module Business::MiscMethods
       else
         sub = self.subscription
       end
-      PackagesPayloads.where(:package_id => sub.package_id).each do |obj|
+      PackagePayload.where(:package_id => sub.package_id).each do |obj|
         payload  = Payload.new( obj.site, obj.payload )
         job      = Job.inject(self.id, payload.payload, payload.data_generator, payload.ready)
         job.name = "#{obj.site}/#{obj.payload}"

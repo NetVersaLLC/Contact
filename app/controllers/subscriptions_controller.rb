@@ -13,6 +13,7 @@ class SubscriptionsController < ApplicationController
   def edit
     @business = Business.find(params[:id])
     @subscription = @business.subscription
+    @package = @subscription.package
     if @subscription == nil
       @subscription = Subscription.new
     end
@@ -50,7 +51,7 @@ class SubscriptionsController < ApplicationController
         }
       })
       logger.info purchase_resp.inspect
-      if purchase_resp.success?
+      if purchase_resp.success? and package.monthly_fee and package.monthly_fee > 0
         logger.info "Creating recurring..."
         subscription_resp = gateway.recurring(package.monthly_fee, credit_card, {
           :interval => {
@@ -81,9 +82,12 @@ class SubscriptionsController < ApplicationController
           business                 = Business.new
           business.user_id         = current_user.id
           business.subscription_id = subscription.id
+          business.label_id         = current_label.id
           business.save     :validate => false
           redirect_to edit_business_path(business)
         else
+          logger.info "Failed response:"
+          logger.info subscription_resp.to_json
           resp = gateway.refund(package.price, purchase_resp.params['transaction_id'], {:card_number => sub['card_number'] })
           logger.info "Refund response:"
           logger.info resp.inspect
@@ -91,8 +95,16 @@ class SubscriptionsController < ApplicationController
           redirect_to new_subscription_path
         end
       else
-        flash[:alert] = "Error: #{purchase_resp.message}"
-        redirect_to new_subscription_path
+        unless purchase_resp.success?
+          flash[:alert] = "Error: #{purchase_resp.message}"
+          redirect_to new_subscription_path
+        else
+          business                 = Business.new
+          business.user_id         = current_user.id
+          business.label_id         = current_label.id
+          business.save     :validate => false
+          redirect_to edit_business_path(business)
+        end
       end
     else
       flash[:alert] = "Error: Credit card is invalid."
@@ -186,6 +198,7 @@ class SubscriptionsController < ApplicationController
         @subscription.save!
         business                 = @business
         business.user_id         = current_user.id
+        business.label_id         = current_label.id
         business.subscription_id = @subscription.id
         business.save     :validate => false
         redirect_to edit_business_path(business)

@@ -1,8 +1,12 @@
 class PagesController < ApplicationController
-  def index
-    render :layout => 'home'
+  def contact_us
   end
 
-  def contact_us
+  def make_redirect
+    if user_signed_in?
+      redirect_to '/businesses'
+    else
+      redirect_to '/users/sign_in'
+    end
   end
 end

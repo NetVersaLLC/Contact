@@ -1,4 +1,6 @@
 ActiveAdmin.register Business do
+  scope_to :current_user, :association_method => :business_scope
+
   form :partial => 'form'
 
   index do

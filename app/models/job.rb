@@ -111,4 +111,8 @@ class Job < JobBase
     end
     @job
   end
+
+  def label_id
+    self.business.label_id
+  end
 end

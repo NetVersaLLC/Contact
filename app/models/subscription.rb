@@ -7,6 +7,8 @@ class Subscription < ActiveRecord::Base
   has_one :business
   belongs_to :package
   belongs_to :coupon
+  belongs_to :business
+  belongs_to :label
 
   validates :total,
     :presence => true,

@@ -1,4 +1,6 @@
 ActiveAdmin.register_page "Categories" do
+  menu false
+
   content do
     business = Business.find(params[:business_id])
     h1(:id => 'categorized') do

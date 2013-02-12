@@ -9,7 +9,6 @@ class Business < ActiveRecord::Base
   # Associations
   has_attached_file :logo, :styles => { :thumb => "100x100>" }
   validates_attachment :logo,
-    :content_type => { :content_type => "image/jpg" },
     :size => { :in => 1..1500.kilobytes }
 
   has_many          :jobs, :order => "position"
