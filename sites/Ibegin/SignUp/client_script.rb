@@ -8,6 +8,9 @@
 
 RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => data['email'], 'account[password]' => data['password'], 'model' => 'Ibegin'
 
+	if @chained
+		self.start("Ibegin/CreateListing")
+	end
 
 true
 

@@ -1,5 +1,5 @@
 sign_in(data)
-
+puts(data['category'])
 @browser.goto('http://www.hyplo.com/editsite.php')
 
 @browser.text_field( :id => 'url').when_present.set data['website']
@@ -11,4 +11,6 @@ sign_in(data)
 @browser.text_field( :id => 'zip').set data['zip']
 
 @browser.button( :value => 'Save' ).click
+
+true
 

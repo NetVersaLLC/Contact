@@ -1,5 +1,5 @@
 data = {}
 data['url']		= Expressbusinessdirectory.check_email(business)
 data['email']		= business.bings.first.email
-data['password']	= Yahoo.make_password #4SDorsOHa0jOdata
+data['password']	= [*?a..?z,*?A..?Z,*?0..?9].sample(8).join
 data

@@ -25,26 +25,6 @@ sleep(3)
 	@browser.link( :text => /#{data[ 'category1' ]}/i).click
 end
 
-@browser.div( :id => 'id_category1_wrap', :index => 1).link( :title, 'Select' ).click
-@browser.window( :title, "Categories Selector | iBegin").when_present.use do
-sleep(3)
-	@browser.text_field( :id, 'id_q').set data[ 'category2' ]
-	@browser.button( :value, 'Go').click
-	sleep(2)
-	@browser.link( :text => /#{data[ 'category2' ]}/i).click
-end
-@browser.div( :id => 'id_category1_wrap', :index => 2 ).link( :title, 'Select' ).click
-@browser.window( :title, "Categories Selector | iBegin").when_present.use do
-sleep(3)
-	@browser.text_field( :id, 'id_q').set data[ 'category3' ]
-	@browser.button( :value, 'Go').click
-	sleep(2)	
-	@browser.link( :text => /#{data[ 'category3' ]}/i).click
-end
-sleep(1)
-#@browser.div( :id, 'id_category2').link( :title, 'Select' ).click
-#@browser.div( :id, 'id_category3').link( :title, 'Select' ).click
-
 
 data[ 'payment_methods' ].each{ | method |
     @browser.checkbox( :id => /#{method}/ ).click
