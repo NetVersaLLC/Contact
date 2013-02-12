@@ -1,6 +1,12 @@
 class Package < ActiveRecord::Base
   attr_accessible :description, :name, :price, :short_description, :monthly_fee
+  has_many :package_payloads
   has_many :subscriptions
+
+  validates :monthly_fee,
+    :numericality => { :greater_than => 0 }
+  validates :price,
+    :numericality => { :greater_than => 0 }
 
   def self.list
     ret = []

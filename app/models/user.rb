@@ -58,4 +58,46 @@ class User < ActiveRecord::Base
     self.access_level <= User.owner
   end
 
+  def labels
+    if self.admin?
+      Label.where('id is not null')
+    elsif self.reseller?
+      Label.where(:id => self.label_id)
+    end
+  end
+
+  def coupons
+    if self.admin?
+      Coupon.where('id is not null')
+    elsif self.reseller?
+      Coupon.where(:label_id => self.label_id)
+    end
+  end
+
+  def packages
+    if self.admin?
+      Package.where('id is not null')
+    elsif self.reseller?
+      Package.where(:label_id => self.label_id)
+    end
+  end
+
+  def business_scope
+    if self.admin?
+      Business.where('id is not null')
+    elsif self.reseller?
+      Business.where(:label_id => self.label_id)
+    else
+      Business.where(:user_id => self.id)
+    end
+  end
+
+  def job_scope
+    if self.reseller?
+      Job.where('id is not null')
+    else
+      Job.where(:user_id => self.id)
+    end
+  end
+
 end

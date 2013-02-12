@@ -1,4 +1,5 @@
 ActiveAdmin.register Job do
+  scope_to :current_user, :association_method => :job_scope
   index do
     column :business_id
     column :name
@@ -75,7 +76,7 @@ ActiveAdmin.register Job do
   # they should be in a differnt place, probably the
   # packages controller.
   member_action :assload, :method => :post do
-    PackagesPayloads.create do |pac|
+    PackagePayload.create do |pac|
       pac.package_id = params[:id]
       pac.site       = params[:category]
       pac.payload    = params[:payload_id]
@@ -83,10 +84,16 @@ ActiveAdmin.register Job do
     render json: true
   end
   member_action :removeass, :method => :delete do
-    package = PackagesPayloads.find(params[:id])
+    package = PackagePayload.find(params[:id])
     package.delete
     render json: true
   end
+  member_action :showass, :method => :get do
+    @packages = Package.find(params[:id]).package_payloads
+    STDERR.puts @packages.to_json
+    render json: @packages
+  end
+  # END NOTE
   # END NOTE
 
   member_action :create_job, :method => :post do

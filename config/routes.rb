@@ -16,6 +16,7 @@ Contact::Application.routes.draw do
   resources :businesses
   resources :results
   resources :tasks
+  resources :places
   resources :zip,  :only => [:index]
   resources :city, :only => [:index]
 
@@ -48,6 +49,7 @@ Contact::Application.routes.draw do
   get     '/bunnies/:id(.:format)', :controller => :categories, :action => :show
   post    '/bunnies(.:format)', :controller => :categories, :action => :create
 
-  resources :places
-  root :to => 'pages#index'
+  get     '/pages/make_redirect', :controller => :pages, :action => :make_redirect
+
+  root :to => redirect("/pages/make_redirect")
 end

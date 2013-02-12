@@ -1,5 +1,14 @@
 window.loadPayloadList = ()->
   console.log $('#packages_list').val()
+  $.getJSON '/admin/jobs/' + $('#packages_list').val() + '/showass.json', (data)->
+    html = '<tbody>'
+    $.each data, (i,e)->
+      html += '<tr>'
+      html += '<td class="payload_name">'+e['site']+'/'+e['payload']+'</td>'
+      html += '<td class="payload_delete" data-package-id="'+e['id']+'">Delete</td>'
+      html += '</tr>'
+    html += '</tbody>'
+    $('#package_content_table').html(html)
 
 window.packagePayloadListAction = (e)->
   console.log "payloadListAction()"
@@ -8,6 +17,7 @@ window.packagePayloadListAction = (e)->
   $('#assign_payload').dialog("open")
 
 $(document).ready ()->
+  $('#label_form_xyzzy').append('<input type="hidden" name="authenticity_token" value="'+$('meta[name="csrf-token"]').attr('content')+'" />')
   window.payloadListAction = window.packagePayloadListAction
   window.loadPayloadList()
   window.startPayloads()

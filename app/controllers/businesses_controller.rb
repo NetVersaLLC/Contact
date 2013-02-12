@@ -54,6 +54,7 @@ class BusinessesController < ApplicationController
     if business.nil?
       business = Business.new(params[:business])
       business.user = current_user
+      business.label = current_label
     else
       #business.update_attributes(params[:business])
       business.attributes = params[:business]
@@ -71,6 +72,7 @@ class BusinessesController < ApplicationController
   def create
     @business = Business.new(params[:business])
     @business.user_id = current_user.id
+    @business.label_id = current_label.id
     respond_to do |format|
       if @business.save
         format.html { redirect_to @business, notice: 'Created your business profile.' }

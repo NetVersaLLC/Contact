@@ -9,15 +9,15 @@ ActiveAdmin.register_page "Package Contents" do
 
   content do
     select(:id => 'packages_list') do
-      Package.all.each do |pac|
+      current_user.packages.each do |pac|
         option(:value => pac.id) do
           pac.name
         end
       end
     end
-    pac = Package.first
-    table(:id => 'package_contents') do
-      PackagesPayloads.where(:package_id => pac.id).each do |obj|
+    pac = current_user.packages.first
+    table(:id => 'package_content_table') do
+      PackagePayload.where(:package_id => pac.id).each do |obj|
         tr do
           td(:class => 'payload_name') do 
             "#{obj.site}/#{obj.payload}"
