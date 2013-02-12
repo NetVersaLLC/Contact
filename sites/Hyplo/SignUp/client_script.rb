@@ -10,7 +10,7 @@
 @browser.button( :value => 'Sign Up').click
 
 
-RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[username]' => data['email'], 'account[password]' => data['password'], 'model' => 'Showmelocal'
+RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[username]' => data['email'], 'account[password]' => data['password'], 'model' => 'Hyplo'
 	if @chained
 		self.start("Hyplo/Verify")
 	end

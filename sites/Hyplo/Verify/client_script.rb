@@ -1,5 +1,5 @@
 @browser.goto(data['url'])
 	if @chained
-		self.start("Hyplo/Verify")
+		self.start("Hyplo/AddListing")
 	end
 true

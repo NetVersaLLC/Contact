@@ -1,6 +1,7 @@
 data = {}
+catty                       = Showmelocal.where(:business_id => business.id).first
 data[ 'business' ]		= business.business_name
-data[ 'category' ]		= "Everything Else"
+data[ 'category' ]          = catty.showmelocal_category.name.gsub("\n", "")
 data[ 'type' ]		= business.category1
 data[ 'address' ]		= business.address
 data[ 'address2' ]		= business.address2
@@ -13,7 +14,7 @@ data[ 'fax' ]			= business.fax_number
 data[ 'email' ]		= business.bings.first.email
 data[ 'website' ]		= business.company_website
 data[ 'description' ]	= business.business_description
-data[ 'keywords' ]		= business.keyword1 + ", " +business.keyword2 + ", " +business.keyword3 + ", " +business.keyword4 + ", " +business.keyword5
+data[ 'keywords' ]		= business.category1 + ", " +business.category2 + ", " +business.category3 + ", " +business.category4 + ", " +business.category5
 data[ 'fname' ]		= business.contact_first_name
 data[ 'lname' ]		= business.contact_last_name
 data[ 'password' ]		= Yahoo.make_password

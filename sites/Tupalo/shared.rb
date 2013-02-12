@@ -55,6 +55,8 @@ end
 
 def process_tupalo_signin(profile)
 	puts 'Signin to your Tupalo account'
+  puts(profile['email'])
+  puts(profile['password'])
 	@browser.text_field(:id, "account_email").set profile['email']
 	@browser.text_field(:id, "account_password").set profile['password']
 

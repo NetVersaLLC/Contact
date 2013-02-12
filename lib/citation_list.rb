@@ -158,7 +158,8 @@
   ['Ibegin', 'ibegins',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'ibegin_category']
     ],
       'Ibegin'
   ],
@@ -231,7 +232,8 @@
   ['Showmelocal', 'showmelocals',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'showmelocal_category']
     ],
       'Showmelocal'
   ],

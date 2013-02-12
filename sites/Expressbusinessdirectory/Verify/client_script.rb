@@ -8,3 +8,5 @@ puts(data['password'])
 @browser.link( :id => 'ctl00_ContentPlaceHolder1_cmdSave').click
 
 RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[password]' => data['password'], 'model' => 'Expressbusinessdirectory'
+
+true

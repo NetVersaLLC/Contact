@@ -4,6 +4,7 @@
 @browser.text_field( :name => 'lastName').set data[ 'lname' ]
 
 @browser.text_field( :name => 'companyName').set data['business']
+sleep(5)
 @browser.text_field( :name => 'title').set data['title']
 
 @browser.select_list( :name => 'industryId').select data['category1']
