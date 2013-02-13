@@ -384,6 +384,13 @@
       ['select', 'kudzu_category']      
     ],
       'Kudzu'
+  ],
+  ['Expressupdateusa', 'expressupdateusas',
+    [
+      ['text', 'email'],
+      ['text', 'password']  
+    ],
+      'Expressupdateusa'
   ]
 ]
 

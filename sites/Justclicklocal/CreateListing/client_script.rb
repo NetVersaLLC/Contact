@@ -1,5 +1,7 @@
 sign_in( data )
-days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
+sleep(5) # divs inside the dom load in late.
+
+
 hours = data[ 'hours' ]
 
 @browser.link( :text => 'Submit a New Listing').click
@@ -26,27 +28,35 @@ if data['24hours'] == true
 	@browser.radio( :id => 'hours_1').click
 else
 	
-	days.each do |day|
-		open = nil
-		close = nil
-		if hours["#{day}"] != ""
-			open = hours["#{day}"][0]
-			close = hours["#{day}"][1]
-			if open[0] = "0"
-				open[0] = ''
-			end
-			if close[0] = "0"
-				close[0] = ''
-			end
-			@browser.select_list( :id => "#{day}_open").select open
-			@browser.select_list( :id => "#{day}_close").select close
-		else
-			@browser.select_list( :id => "#{day}_open").select "Closed"
-			@browser.select_list( :id => "#{day}_close").select "Closed"
-		end
+	
 
 
+hours = data[ 'hours' ]
+hours.each_with_index do |hour, day|
+	theday = hour[0]	
+	
+	if hour[1][0] != "closed"
+		# Is the day closed?	
+		open = hour[1][0]
+		openAMPM = open[-2, 2]
+		close = hour[1][1]
+		closeAMPM = close[-2, 2]
+
+    if open.chars.first == "0"
+      open[0] = ""
+    end
+    if close.chars.first == "0"
+      close[0] = ""
+    end
+    
+		@browser.select_list( :id => "#{theday}_open").select open
+			@browser.select_list( :id => "#{theday}_close").select close
+	else
+		@browser.select_list( :id => "#{theday}_open").select "Closed"
+			@browser.select_list( :id => "#{theday}_close").select "Closed"
 	end
+
+end
 
 	@browser.button( :name => 'NextButton').click
 

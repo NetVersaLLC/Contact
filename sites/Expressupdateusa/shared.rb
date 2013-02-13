@@ -34,22 +34,34 @@ def enter_captcha( data )
 	count = 1
 	until capSolved or count > 5 do
 		captcha_code = solve_captcha
-		@browser.text_field( :id, 'Captcha').set captcha_code
-		@browser.button( :class, 'RegisterNowButton' ).click
-
-		if not @browser.li( :text, 'Check the Captcha').exists?
-			capSolve = true
-		end
+    puts("1")
 		@browser.text_field( :id, 'Password' ).set data[ 'personal_password' ]
-		@browser.text_field( :id, 'ConfirmPassword' ).set data[ 'personal_password' ]
+		puts("2")
+    @browser.text_field( :id, 'ConfirmPassword' ).set data[ 'personal_password' ]  
+    puts("3")
+    @browser.text_field( :id, 'Captcha').set captcha_code
+		puts("4")
+    @browser.button( :class, 'RegisterNowButton' ).click
+    puts("5")
+sleep(5)
+puts("6")
+		if not @browser.text.include? 'Check the Captcha'
+    puts("7")
+			capSolved = true
+		end
+		puts("8")
 	count+=1	
 	end
-
-	if capSolve == true
+puts("9")
+	if capSolved == true
+  puts("10")
 		true
+    puts("11")
 	else
+  puts("12")
 		throw("Captcha was not solved")
 	end
+  puts("13")
 end
 
 
