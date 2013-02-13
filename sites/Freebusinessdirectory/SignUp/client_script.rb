@@ -8,7 +8,6 @@
 
 enter_captcha( data )
 
-if @browser.text.include? "Registration Successful"
 
 	RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[username]' => data['userid'], 'account[password]' => data['password'], 'model' => 'Freebusinessdirectory'
 	if @chained
@@ -16,4 +15,4 @@ if @browser.text.include? "Registration Successful"
 	end
 true
 
-end
+

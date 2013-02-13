@@ -45,7 +45,7 @@ if businessFound == false
 @browser.text_field( :id => 'id_phone').set data[ 'phone' ]
 @browser.text_field( :id => 'id_website').set data[ 'website' ]
 
-
+=begin
 if data['cat2'] == nil
   data['cat1'] = data['cat3']
 end
@@ -66,9 +66,11 @@ sleep(2)
 if @browser.select_list( :name => 'category1_3').options.to_a.length > 1
   @browser.select_list( :name => 'category1_3').select data['cat3']
 end
+=end
 
-
-
+@browser.select_list( :name => 'category1_1').select data['cat1']
+sleep(4)
+@browser.select_list( :name => 'category1_2').select data['cat2']
 
 hours = data[ 'hours' ]
 hours.each_with_index do |hour, day|
