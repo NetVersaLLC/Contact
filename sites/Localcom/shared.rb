@@ -4,15 +4,16 @@ def goto_signup_page fb=false
 
 	@browser.div(:id => 'logBarJoin').click
 
-	@browser.frame(:id => 'createNewAccount').wait_until_present
-  	
+	#@browser.frame(:id => 'createNewAccount').wait_until_present
+  	sleep(10)
 
   if fb == true
     @frame.locate
     sleep 5
     @frame.link(:id => 'FBRegister').click
 
-    @browser.frame(:src => /FBRegisterProcess.aspx/i).wait_until_present
+    sleep(5)
+    #@browser.frame(:src => /FBRegisterProcess.aspx/i).wait_until_present
     @frame2 = @browser.frame(:src => /FBRegisterProcess.aspx/i)
 
     @frame2.locate
@@ -36,13 +37,14 @@ def process_local_signup(profile)
   else
     @frame.fieldset(:class => 'regCreateAct').checkbox(:class => 'fl').clear
   end
-
+puts("6")
 	@frame.button(:id => 'defaultPageTemplate_signUp').click
 
   #@browser.wait_until {@browser.div(:id => 'logBarMyAct').exists?}
 
-  @browser.frame(:id => 'createNewAccount').wait_until_present
-
+  #@browser.frame(:id => 'createNewAccount').wait_until_present
+sleep(5)
+puts("7")
   process_extra_fields_signup(profile)
 
 	puts 'Signup is Completed'
@@ -52,8 +54,8 @@ end
 def process_local_fbsignup(profile)
 	puts 'Sign up for new Local.com account with Facebook'
 
-  @browser.wait_until {@browser.window(:title => "Log In | Facebook").exists?}
-
+  #@browser.wait_until {@browser.window(:title => "Log In | Facebook").exists?}
+sleep(5)
   @browser.window(:title => "Log In | Facebook").use do
     begin
       @browser.text_field(:id => "email").set profile['fb_email']
@@ -61,17 +63,20 @@ def process_local_fbsignup(profile)
 
       @browser.label(:id => 'loginbutton').button(:index => 0).click
 
-      @browser.wait_until {@browser.label(:id => "grant_required_clicked").exists?}
+      #@browser.wait_until {@browser.label(:id => "grant_required_clicked").exists?}
+      sleep(8)
       @browser.label(:id => "grant_required_clicked").button(:index => 0).click
 
-      @browser.wait_until {@browser.button(:value => 'Allow').exists?}
+      #@browser.wait_until {@browser.button(:value => 'Allow').exists?}
+      sleep(5)
       @browser.button(:value => 'Allow').click
     rescue
       #do nothing
     end
   end
 
-  @browser.frame(:src => /FBConnectSuccess.aspx/i).wait_until_present
+  #@browser.frame(:src => /FBConnectSuccess.aspx/i).wait_until_present
+  sleep(5)
   @frame3 = @browser.frame(:src => /FBConnectSuccess.aspx/i)
 
   @frame3.locate
@@ -90,9 +95,9 @@ def process_local_fbsignup(profile)
 
 	@frame3.button(:id => 'defaultPageTemplate_SaveBttn').click
 
-  @browser.wait_until {@browser.div(:id => 'logBarMyAct').exists?}
-
-  @browser.frame(:id => 'createNewAccount').wait_until_present
+  #@browser.wait_until {@browser.div(:id => 'logBarMyAct').exists?}
+  sleep(8)
+  #@browser.frame(:id => 'createNewAccount').wait_until_present
 
   process_extra_fields_signup(profile)
 
@@ -100,59 +105,65 @@ def process_local_fbsignup(profile)
 end
 
 def process_extra_fields_signup(profile)
+puts("1")
   if profile['extra_fields'] == true
     #begin
-      @browser.button(:vlaue => 'Continue').click
-
+    puts("1.5")
+    sleep(8)
+      @frame.button(:id => 'ContinueBttn').click
+puts("2")
+sleep(10)
       #@browser.frame(:src => Local.frame2_link1).wait_until_present
-      @frame_l = @browser#.frame(:src => Local.frame2_link1)
+      #@frame = @browser.frame(:id => 'createNewAccount')#
+      #@browser.frame(:src => Local.frame2_link1)
     #rescue
-     # @browser.div(:id => 'logBarMyAct').click
-
+      #@browser.div(:id => 'logBarMyAct').click
+puts("2.5")
 #      @browser.wait_until {@browser.link(:id => 'acctSettingsLink').exists?}
+sleep(5)
+      #@browser.div(:class => 'acctTabWrap').li(:index => 1).link(:index => 0).click
 
- #     @browser.div(:class => 'acctTabWrap').li(:index => 1).link(:index => 0).click
-
-  #    @browser.frame(:src => Local.frame2_link2).wait_until_present
-   #   @frame_l = @browser.frame(:src => Local.frame2_link2)
+     #@browser.frame(:src => Local.frame2_link2).wait_until_present
+    #@frame = @browser.frame(:src => Local.frame2_link2)
     #end
-
-    #@frame_l.locate
-    @frame_l.text_field(:id => 'Address').set profile['address']
-    @frame_l.text_field(:id => 'City').set profile['city']
-    @frame_l.select_list(:id => 'State').option(:value => profile['state']).select
-    @frame_l.text_field(:id => 'Zip').set profile['zipcode']
-
+@frame = @browser.frame(:id => 'createNewAccount')
+    #@frame.locate
+    puts("2.6")
+    @frame.text_field(:id => 'Address').set profile['address']
+    @frame.text_field(:id => 'City').set profile['city']
+    @frame.select_list(:id => 'State').option(:value => profile['state']).select
+    @frame.text_field(:id => 'Zip').set profile['zipcode']
+puts("3")
     if profile['gender'] == 'male'
-      @frame_l.radio(:id => 'radioMale').set
+      @frame.radio(:id => 'radioMale').set
     elsif profile['gender'] == 'female'
-      @frame_l.radio(:id => 'radioFemale').set
+      @frame.radio(:id => 'radioFemale').set
     else
-      @frame_l.radio(:id => 'radioNo').set
+      @frame.radio(:id => 'radioNo').set
     end
+puts("4")
+    @frame.text_field(:id => 'birthdayMonth').set profile['dob_m']
+    @frame.text_field(:id => 'birthdayDay').set profile['dob_d']
+    @frame.text_field(:id => 'birthdayYear').set profile['dob_y']
 
-    @frame_l.text_field(:id => 'birthdayMonth').set profile['dob_m']
-    @frame_l.text_field(:id => 'birthdayDay').set profile['dob_d']
-    @frame_l.text_field(:id => 'birthdayYear').set profile['dob_y']
-
-    @frame_l.checkbox(:id => 'checkboxBirthYear').clear
+    @frame.checkbox(:id => 'checkboxBirthYear').clear
     if profile['hide_birthday'] == true
-      @frame_l.checkbox(:id => 'checkboxBirthYear').set
+      @frame.checkbox(:id => 'checkboxBirthYear').set
     end
+puts("5")
+    @frame.text_field(:id => 'mobileArea').set profile['mob_1']
+    @frame.text_field(:id => 'mobileFirst').set profile['mob_2']
+    @frame.text_field(:id => 'mobileLast').set profile['mob_3']
 
-    @frame_l.text_field(:id => 'mobileArea').set profile['mob_1']
-    @frame_l.text_field(:id => 'mobileFirst').set profile['mob_2']
-    @frame_l.text_field(:id => 'mobileLast').set profile['mob_3']
+    @frame.button(:id => 'SaveBtn').click
 
-    @frame_l.button(:id => 'SaveBtn').click
+    sleep 8
+    #@browser.wait_until {@frame.button(:id => 'SaveBtn').exists?}
+    @frame.button(:class => 'regBlkBtn111').click
 
-    sleep 2
-    @browser.wait_until {@frame_l.button(:id => 'SaveBtn').exists?}
-    @frame_l.button(:class => 'regBlkBtn111').click
-
-    sleep 2
-    @browser.wait_until {@frame_l.button(:id => 'SaveBtn').exists?}
-    @frame_l.button(:id => 'SaveBtn').click
+    sleep 8
+    #@browser.wait_until {@frame.button(:id => 'SaveBtn').exists?}
+    @frame.button(:id => 'SaveBtn').click
   else
     @browser.frame(:id => 'createNewAccount').div(:class => 'regContinueOpts').link(:index => 0).click
   end
@@ -164,7 +175,8 @@ def goto_signin_page
 
   @browser.div(:id => 'logBarSignIn').click
 
-	@browser.frame(:id => 'signIn').wait_until_present
+	#@browser.frame(:id => 'signIn').wait_until_present
+  sleep(5)
   @frame = @browser.frame(:id => 'signIn')
 end
 
@@ -182,8 +194,8 @@ def process_local_signin(profile)
 
 	@frame.button(:value, "SIGN IN").click
 
-	@browser.wait_until {@browser.div(:id => 'logBarMyAct').exists?}
-
+	#@browser.wait_until {@browser.div(:id => 'logBarMyAct').exists?}
+sleep(5)
 	puts 'Signin is Completed'
 end
 
@@ -193,10 +205,12 @@ def goto_recover_page
 
   @browser.div(:id => 'logBarSignIn').click
 
-	@browser.frame(:id => 'signIn').wait_until_present
+	#@browser.frame(:id => 'signIn').wait_until_present
+  sleep(5)
   @browser.frame(:id => 'signIn').link(:id => 'forgotPasswordLink').click
 
-  @browser.frame(:id => 'forgotPassword').wait_until_present
+  #@browser.frame(:id => 'forgotPassword').wait_until_present
+  sleep(5)
   @frame = @browser.frame(:id => 'forgotPassword')
 end
 
@@ -208,8 +222,8 @@ def process_local_recover(email)
 
 	@frame.button(:id, "defaultPageTemplate_Reset_btn").click
 
-	@browser.wait_until {@frame.h2(:class => 'regGreyH2').exists?}
-
+	#@browser.wait_until {@frame.h2(:class => 'regGreyH2').exists?}
+sleep(5)
 	puts 'Recover Account is Completed'
 end
 
