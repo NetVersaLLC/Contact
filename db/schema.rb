@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130212152339) do
+ActiveRecord::Schema.define(:version => 20130212184950) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -233,7 +233,7 @@ ActiveRecord::Schema.define(:version => 20130212152339) do
     t.string   "category4"
     t.string   "category5"
     t.boolean  "categorized"
-    t.integer  "label_id"
+    t.integer  "label_id",                  :default => 1
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
@@ -675,6 +675,14 @@ ActiveRecord::Schema.define(:version => 20130212152339) do
     t.datetime "updated_at",   :null => false
   end
 
+  create_table "jaydes", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "jobs", :force => true do |t|
     t.integer  "business_id"
     t.string   "name"
@@ -1010,7 +1018,6 @@ ActiveRecord::Schema.define(:version => 20130212152339) do
     t.integer  "package_id"
     t.string   "site"
     t.string   "payload"
-    t.string   "name"
     t.string   "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
