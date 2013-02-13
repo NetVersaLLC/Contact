@@ -391,6 +391,13 @@
       ['text', 'password']  
     ],
       'Expressupdateusa'
+  ],
+  ['Localcom', 'localcoms',
+    [
+      ['text', 'username'],
+      ['text', 'password']  
+    ],
+      'Localcom'
   ]
 ]
 
