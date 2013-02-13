@@ -18,5 +18,5 @@ data['num_locations']		= ""
 data['num_employees']		= ""
 data['year_established']	= business.year_founded
 data[ '24hours' ]		= business.open_24_hours
-data[ 'hours' ]			= Justclicklocal.get_hours( business )
+data[ 'hours' ]			= Localndex.get_hours( business )
 data

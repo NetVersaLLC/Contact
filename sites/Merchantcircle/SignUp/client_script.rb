@@ -27,4 +27,8 @@ RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}",
 @browser.text_field( :id, "tags").set data[ 'keywords']
 @browser.button( :name, "updateListing").click
 
+if @chained
+  self.start("Merchantcircle/Verify")
+end
+
 true
