@@ -28,20 +28,21 @@ def add_business ( data )
 	#@browser.button( :value => 'Continue' ).click
 	
 	enter_captcha( data )
-
+RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => data['email'], 'account[password]' => data['password'], 'model' => 'Mojopage'
 	
 
 	#Wait until the Choose Category Screen loads
 	#Watir::Wait::until do @browser.text.include? 'Choose your business category' end
-	sleep(4)
+	sleep(8)
 	#Enter the business' category
+  puts(data['category'])
 	@browser.text_field( :name => 'category' ).set data[ 'category' ]
 	@browser.button( :value => 'Find Category' ).click
 	
 	#Wait until category ajax loads
-	Watir::Wait::until do @browser.radio( :name => 'category' ).exists? or  @browser.text.include? 'No results found. Try a different keyword' end
+	#Watir::Wait::until do @browser.radio( :name => 'category' ).exists? or  @browser.text.include? 'No results found. Try a different keyword' end
 
-	RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => data['email'], 'account[password]' => data['password'], 'model' => 'Mojopage'
+	
 
 	#does the category exist?
 	if @browser.text.include? 'No results found. Try a different keyword'
