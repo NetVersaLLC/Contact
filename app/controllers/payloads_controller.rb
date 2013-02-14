@@ -1,11 +1,12 @@
-class PayloadsController < InheritedResources::Base
-  before_filter :authenticate_user!
+class PayloadsController < ApplicationController
+  skip_load_and_authorize_resource
   def index
-    @payloads = Payload.where(:status => 'enabled')
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @payloads }
+    if current_user.reseller?
+      @payloads = Payload.list(params[:id])
+      render json: @payloads
+    else
+      error = {:error => :access_denied}
+      render json: error, :status => 403
     end
   end
 end

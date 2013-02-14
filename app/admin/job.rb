@@ -9,10 +9,6 @@ ActiveAdmin.register Job do
     default_actions
   end
 
-  member_action :payload_list, :method => :get do
-    @payloads = Payload.list(params[:id])
-    render json: @payloads
-  end
   member_action :rerun_job, :method => :put do
     @failed = FailedJob.find(params[:id])
     @job = @failed.is_now(Job)
@@ -71,30 +67,6 @@ ActiveAdmin.register Job do
       render json: false
     end
   end
-
-  # NOTE: These poorly named things shouldn't be here
-  # they should be in a differnt place, probably the
-  # packages controller.
-  member_action :assload, :method => :post do
-    PackagePayload.create do |pac|
-      pac.package_id = params[:id]
-      pac.site       = params[:category]
-      pac.payload    = params[:payload_id]
-    end
-    render json: true
-  end
-  member_action :removeass, :method => :delete do
-    package = PackagePayload.find(params[:id])
-    package.delete
-    render json: true
-  end
-  member_action :showass, :method => :get do
-    @packages = Package.find(params[:id]).package_payloads
-    STDERR.puts @packages.to_json
-    render json: @packages
-  end
-  # END NOTE
-  # END NOTE
 
   member_action :create_job, :method => :post do
     payload = Payload.new( params[:category], params[:id] )

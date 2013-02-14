@@ -104,7 +104,7 @@ showClient = (panel)->
     $(panel).html( html )
 
 window.loadPayloads = ()->
-  $.getJSON '/admin/jobs/'+$('#payload_categories_select').val()+'/payload_list.js', (data)->
+  $.getJSON '/payloads/'+$('#payload_categories_select').val()+'.json', (data)->
     html = '<ul id="payload_list_ul">'
     $.each data, (i,e)->
       html += '<li class="ui-state-default" data-payload-id="'+e+'">'+e+'</li>'
@@ -115,7 +115,8 @@ window.loadPayloads = ()->
 
 window.clientPayloadListAction = (e)->
   console.log("clientPayloadListAction()")
-  if window.location.href.match(/package/) == null
+  match = window.location.href.match(/package/)
+  if match != null and match.length > 0
     window.assign_payload = $(e.target).attr('data-payload-id')
     window.payload_post_url = "/admin/jobs/#{window.assign_payload}/create_job.js?business_id=#{window.business_id}&category=#{$('#payload_categories_select').val()}"
     $('#assign_payload').dialog("open")

@@ -4,8 +4,13 @@ ActiveAdmin.register_page "My Label" do
   content do
     div(:id => 'main_content') do
       labelObj = current_user.label
+      if params[:label_id]
+        labelObj = Label.find(params[:label_id])
+      end
       form(:action => "/admin/labels/#{labelObj.id}/plow", :method => 'post', :class => 'formtastic label', :id => 'label_form_xyzzy', :enctype => "multipart/form-data") do
+        form_authenticity_token
         fieldset(:class => 'inputs') do
+          input(:name => "authenticity_token", :value => form_authenticity_token, :type => "hidden")
           ol do
             li(:class => 'string input optional stringish') do
               label(:for => 'label_name') do
@@ -39,12 +44,14 @@ ActiveAdmin.register_page "My Label" do
                 labelObj.custom_css
               end
             end
+            if labelObj.logo
+              li(:class => 'input optional') do
+                image_tag(labelObj.logo.url(:thumb))
+              end
+            end
             li(:class => 'string input optional stringish') do
               label(:for => 'label_logo') do
                 'Logo'
-              end
-              if labelObj.logo
-                image_tag(labelObj.logo.url(:thumb))
               end
               input(:id => 'label_logo', :type => 'file', 'name' => 'label[logo]')
             end

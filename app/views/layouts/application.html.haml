@@ -2,7 +2,8 @@
 %html{:lang => "en"}
   %head
     %meta{:charset => "utf-8"}/
-    %title Town Center
+    %title
+      = current_label.name
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
     %meta{:content => "", :name => "description"}/
     %meta{:content => "", :name => "author"}/
@@ -22,5 +23,6 @@
               = render :partial => 'pages/alert'
           .row-fluid.span12.des_content
             = yield
-            = image_tag 'bottom_bar.png', :style => 'margin-left: 30px'
-    = render :partial => 'pages/footer'
+    %section
+      Copyright &copy; 2013 NetVersa, LLC.
+    -#= render :partial => 'pages/footer'

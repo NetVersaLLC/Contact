@@ -1,4 +1,5 @@
 ActiveAdmin.register User do
+  scope_to :current_user, :association_method => :user_scope
   index do
     column :email
     column :sign_in_count
