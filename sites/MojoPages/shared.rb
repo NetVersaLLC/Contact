@@ -10,29 +10,30 @@ end
 
 
 def enter_captcha( data )
-
+puts("1")
 	capSolved = false
 	count = 1
 	until capSolved or count > 5 do
+  puts("2")
 		captcha_code = solve_captcha
+    @browser.text_field( :id, 'owner.password' ).set data[ 'personal_password' ]
+		@browser.text_field( :xpath, '/html/body/div/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/form/div[4]/div[12]/input' ).set data[ 'personal_password' ]
 		@browser.text_field( :id, 'recaptcha_response_field').set captcha_code
 		@browser.button( :value, 'Continue' ).click
+	puts("3")	
 		
-		if @browser.div( :class, 'error').exists?
-			errors = @browser.div( :class, 'error').text
-			puts( errors )
-		end
-
 		if not @browser.text.include? "Your text didn't match the image correctly."
-			capSolve = true
+			capSolved = true
 		end
-		@browser.text_field( :id, 'owner.password' ).set data[ 'personal_password' ]
-		@browser.text_field( :xpath, '/html/body/div/div[3]/div[2]/div/div[2]/div[2]/div/div[3]/form/div[4]/div[12]/input' ).set data[ 'personal_password' ]
+    puts("4")
+		
 	count+=1	
+  puts("5")
 	end
-
-	if capSolve == true
+puts("6")
+	if capSolved == true
 		true
+    puts("7")
 	else
 		throw("Captcha was not solved")
 	end
