@@ -1,9 +1,11 @@
 Contact::Application.routes.draw do
 
-  resources :google_categories
-  resources :payloads
-  resources :packages
+  get    '/payloads/:id(.:format)', :controller => :payloads, :action => :index
+  get    '/packages/:id(.:format)', :controller => :packages, :action => :index
+  delete '/packages/:id(.:format)', :controller => :packages, :action => :destroy
+  post   '/packages/:id(.:format)',     :controller => :packages, :action => :create
   resources :subscriptions
+  resources :google_categories
 
   devise_for :users,
     :controllers  => {
@@ -50,6 +52,10 @@ Contact::Application.routes.draw do
   post    '/bunnies(.:format)', :controller => :categories, :action => :create
 
   get     '/pages/make_redirect', :controller => :pages, :action => :make_redirect
+
+  get     '/scan', :controller => :scan, :action => :index
+  get     '/scan/sites(.:format)', :controller => :scan, :action => :sites
+  get     '/scan/sites/:id(.:format)', :controller => :scan, :action => :site
 
   root :to => redirect("/pages/make_redirect")
 end

@@ -33,9 +33,7 @@
   - @accounts = [] if @accounts.nil?
   = f.semantic_errors
   - @f = f
-  .span3.form-sidebar
-    = render :partial => 'form/menu'
-  .offset3.span8
+  .span8
     = render :partial => 'form/business_details'
     = render :partial => 'form/payment_methods'
     = render :partial => 'form/business_hours'

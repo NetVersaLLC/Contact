@@ -1,0 +1,19 @@
+%h3 Scan Results
+
+%h4#name
+  = @name
+%h4#zip
+  = @zip
+
+#sites
+  %h2 Scanning...
+  %img{:src => '/assets/progress.gif'}
+
+:javascript
+  $(document).ready(function(){
+    name = escape($.trim($('#name').html()));
+    zip  = $.trim($('#zip').html());
+    $.getJSON('/scan/sites.json?name='+name+'&zip='+zip, function(data){
+      $('#sites').html(data['html']);
+    });
+  });

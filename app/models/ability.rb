@@ -8,10 +8,11 @@ class Ability
     elsif user.reseller?
       can :manage, Business, :user => { :label_id => user.label_id }
       can :manage, Coupon, :label_id => user.label_id
-      can [:read, :update], Label, :id => user.label_id
+      can :manage, Label, :id => user.label_id
       can :read,   Location
       can :manage, PackagePayload, :package => { :label_id => user.label_id }
       can :manage, Package, :label_id => user.label_id
+      can :manage, User, :label_id => user.label_id
       Business.citation_list.each do |site|
         can :manage, site[0].constantize, :business => { :label_id => user.label_id }
       end

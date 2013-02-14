@@ -100,4 +100,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def user_scope
+    if self.admin?
+      User.where('id is not null')
+    elsif self.reseller?
+      User.where(:label_id => self.label_id)
+    else
+      User.where(:user_id => self.id)
+    end
+  end
+
 end
