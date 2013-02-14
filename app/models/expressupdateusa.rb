@@ -2,28 +2,44 @@ class Expressupdateusa < ClientData
  attr_accessible :email
   virtual_attr_accessor :password	
  
+ 
   def self.check_email(business)
     @link = nil
-    STDERR.puts( "test test, is this thing on?" )
     CheckMail.get_link(business) do |mail|
-	    STDERR.puts "Does this even work?"
-      if mail.subject =~ /Please Confirm Your Email Address - ExpressUpdate/i
-	      STDERR.puts "subject found"
-        mail.parts.map do |p|
-          if p.content_type =~ /text\/html/
-            nok = Nokogiri::HTML(p.decoded)
-            nok.xpath("//a").each do |link|
-              if link.attr('href') =~ /https:\/\/listings.expressupdateusa.com\/Account\/Activate/i
-                @link = link.attr('href')
-              end
-            end
-          end
-        end
-      end
+  	if mail.subject =~ /Please Confirm Your Email Address - ExpressUpdate/i
+		if mail.body.decoded =~ /(https:\/\/listings.expressupdateusa.com\/Account\/Activate\S+)/i
+	          @link = $1
+	        end
+  	end
     end
-    STDERR.puts "Expressupdate link: #{@link}"
     @link
-  end
+ end  
+ 
+
+#  def self.check_email(business)
+#    @link = nil
+#    STDERR.puts( "test test, is this thing on?" )
+#    CheckMail.get_link(business) do |mail|
+#	    STDERR.puts "Does this even work?"
+#      if mail.subject =~ /Please Confirm Your Email Address - ExpressUpdate/i
+#	      STDERR.puts "subject found"
+#        mail.parts.map do |p|
+#          if p.content_type =~ /text\/html/
+#            nok = Nokogiri::HTML(p.decoded)
+#            nok.xpath("//a").each do |link|
+#              if link.attr('href') =~ /https:\/\/listings.expressupdateusa.com\/Account\/Activate/i
+#              puts(link.attr('href'))
+#                @link = link.attr('href')
+#              end
+#            end
+#          end
+#        end
+#      end
+#    end
+#    STDERR.puts "Expressupdate link: #{@link}"
+#    @link
+#  end
+
 
    def self.payment_methods(business)
     methods = {}

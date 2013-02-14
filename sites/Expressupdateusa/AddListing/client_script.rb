@@ -1,5 +1,5 @@
 @payment_type_ids = { 'AmericanExpress' => 'Amex', 'CashOnly' => 'Cash',
-  'DebitCard' => 'DebitCard', 'DinnersClub' => 'DinersClub',
+  'DebitCard' => 'DebitCard', 'DinersClub' => 'DinersClub',
   'Discover' => 'Discover', 'Financing' => 'Financing',
   'GoogleCheckout' => 'GoogleCheckout', 'Invoice' => 'Invoice',
   'MasterCard' => 'MasterCard', 'OtherCard' => 'StoreCard',
@@ -35,10 +35,13 @@ def add_new_listing( data )
   # select first category from the list
   @browser.text_field( :id, 'CategorySearch' ).set data[ 'business_category' ]
   @browser.link( :id, 'categorySearch' ).click
+  sleep(10)
+  @browser.div( :class, 'categoryItem' ).click
+=begin
   def first_found_category; @browser.div( :class, 'categoryItem' ) end
   Watir::Wait::until do first_found_category.exists? end
   first_found_category.click
-
+=end
   @browser.text_field( :id, 'Enhanced_Products' ).set data[ 'business_products' ]
   @browser.text_field( :id, 'Enhanced_Services' ).set data[ 'business_services' ]
   @browser.text_field( :id, 'Enhanced_Keywords' ).set data[ 'business_keywords' ]
@@ -72,24 +75,31 @@ def add_new_listing( data )
   @browser.select_list( :id, 'Enhanced_SundayOpen' ).select clean_time(data[ 'business_mondayopen' ])
   @browser.select_list( :id, 'Enhanced_SundayClose' ).select clean_time(data[ 'business_mondayclose' ])
 
+=begin
   data[ 'payment_types' ].each { |item|
+  puts(@payment_type_ids[ item ])
+  puts(item)
+  next if @payment_type_ids[ item ].to_s == ""
+  next if @payment_type_ids[ item ].to_s == "nil"
     @browser.checkbox( :id, 'Enhanced_' + @payment_type_ids[ item ] ).set
+    puts("payments")
   }
-
+=end
   @browser.text_field( :id, 'Contact_FirstName' ).set data[ 'personal_firstname' ]
   @browser.text_field( :id, 'Contact_LastName' ).set data[ 'personal_lastname' ]
   @browser.select_list( :id, 'ContactTitle' ).select data[ 'personal_title' ]
   @browser.text_field( :id, 'Contact_ContactEmail' ).set data[ 'personal_email' ]
   @browser.text_field( :id, 'Enhanced_MobileNumber' ).set data[ 'personal_phone' ]
-
+  
+=begin
   data[ 'other_information' ].each { |item|
     @browser.checkbox( :id, 'Enhanced_' + item.to_s ).set
   }
-
+=end
   @browser.button( :id, 'SubmitListingButton' ).click
 
 end
 
 sign_in( data )
 add_new_listing( data )
-
+true

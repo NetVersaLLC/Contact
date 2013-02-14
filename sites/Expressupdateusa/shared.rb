@@ -33,6 +33,7 @@ def enter_captcha( data )
 	capSolved = false
 	count = 1
 	until capSolved or count > 5 do
+  sleep(3)
 		captcha_code = solve_captcha
     puts("1")
 		@browser.text_field( :id, 'Password' ).set data[ 'personal_password' ]
@@ -45,7 +46,7 @@ def enter_captcha( data )
     puts("5")
 sleep(5)
 puts("6")
-		if not @browser.text.include? 'Check the Captcha'
+		if not @browser.text.include? "Check the Captcha"
     puts("7")
 			capSolved = true
 		end
