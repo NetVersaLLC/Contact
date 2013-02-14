@@ -1,6 +1,6 @@
     seed = rand( 1000 ).to_s()
     data = {}
-    data[ 'personal_email' ]  = business.bings.first.email #'express' + seed + '@null.com' # l29572@rtrtr.com
+    data[ 'personal_email' ]  =  business.bings.first.email #'express' + seed + '@null.com' # l29572@rtrtr.com #
     data[ 'personal_password' ]  = business.bings.first.password
     data[ 'personal_firstname' ] = business.contact_first_name
     data[ 'personal_lastname' ] = business.contact_last_name
