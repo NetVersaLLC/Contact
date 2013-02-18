@@ -25,19 +25,20 @@ def enter_captcha( data )
 	count = 1
 	until capSolved or count > 5 do
 		captcha_code = solve_captcha
+		  @browser.text_field( :id => 'reg_password' ).set data[ 'password' ]
+		  @browser.text_field( :id => 'reg_password2' ).set data[ 'password' ]	
 		@browser.text_field( :id => 'recaptcha_response_field' ).set captcha_code
 		@browser.button( :name => 'subbtn' ).click
 
 		if not @browser.text.include? "Please correct the errors below and resubmit"
-			capSolve = true
+			capSolved = true
 		end
 
-		  @browser.text_field( :id => 'reg_password' ).set data[ 'password' ]
-		  @browser.text_field( :id => 'reg_password2' ).set data[ 'password' ]		
+	
 	count+=1	
 	end
 
-	if capSolve == true
+	if capSolved == true
 		true
 	else
 		throw("Captcha was not solved")
@@ -69,4 +70,15 @@ def enter_captcha_add_business( data )
 		throw("Captcha was not solved")
 	end
 end
+
+
+def sign_in(data)
+@browser.goto("https://www.yellowbot.com/signin?")
+@browser.text_field( :name => 'login').set data['email']
+@browser.text_field( :name => 'password').set data['password']
+@browser.button( :name => 'subbtn').click
+sleep(5)
+end
+
+
 
