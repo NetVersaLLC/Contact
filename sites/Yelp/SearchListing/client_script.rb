@@ -20,5 +20,5 @@ begin
 rescue Timeout::Error
   businessFound = [:unlisted]
 end
-puts(businessFound.to_s)
-businessFound
+
+return true, businessFound
