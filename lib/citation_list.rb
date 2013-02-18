@@ -73,8 +73,7 @@
   ],
   ['YellowBot', 'yellow_bots',
     [
-      ['text', 'email'],
-      ['text', 'username'],
+      ['text', 'email'],      
       ['text', 'password']
     ],
       'YelloBot'
