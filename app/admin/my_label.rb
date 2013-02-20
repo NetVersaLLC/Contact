@@ -44,6 +44,14 @@ ActiveAdmin.register_page "My Label" do
                 labelObj.custom_css
               end
             end
+            li(:class => 'string input optional stringish') do
+              label(:for => 'label_footer') do
+                'Footer HTML'
+              end
+              textarea(:id => "label_footer", :name => "label[footer]", :rows => "20") do
+                labelObj.footer
+              end
+            end
             if labelObj.logo
               li(:class => 'input optional') do
                 image_tag(labelObj.logo.url(:thumb))
