@@ -1,13 +1,10 @@
 class RemovePayloadCategory < ActiveRecord::Migration
   def change
-    drop_table :payload_categories
-    drop_table :pings
-    drop_table :refinery_images
-    drop_table :refinery_page_part_translations
-    drop_table :refinery_page_parts
-    drop_table :refinery_page_translations
-    drop_table :refinery_pages
-    drop_table :refinery_resources
+    # drop_table :payload_categories
+    #drop_table :pings
+    # drop_table :refinery_images
+    # drop_table :refinery_page_parts
+    # drop_table :refinery_pages
     drop_table :results
     drop_table :roles
     drop_table :roles_users
