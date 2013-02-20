@@ -8,9 +8,9 @@ def sign_up_personal( business )
   
   #select steps for new & old ui
   if @browser.select_list( :id, 'secquestion' ).exist?
-    new_signup_ui(business)
+    old_signup_ui(business)
   else
-    new_signup_ui
+    new_signup_ui(business)
   end
   
   # decode captcha code
@@ -40,8 +40,10 @@ def new_signup_ui(business)
   @browser.text_field( :id => 'yahooid' ).clear # shows suggestions list; [click, flash]
   @browser.execute_script("document.getElementById('yahooid').focus();")
 
-  Watir::Wait::until do
-    @browser.element(:xpath, '//ol[@id="yidSug"]/li[1]/a').exists?
+  if not @browser.div(:id=>'yidsuggestion').exist? && @browser.div(:id=>'yidsuggestion').text.include?('Sorry no ID suggestions are available')
+    Watir::Wait::until do
+      @browser.element(:xpath, '//ol[@id="yidSug"]/li[1]/a').exists?
+    end
   end
   @browser.element(:xpath, '//ol[@id="yidSug"]//a[1]').click
 
