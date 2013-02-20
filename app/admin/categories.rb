@@ -13,8 +13,8 @@ ActiveAdmin.register_page "Categories" do
     h2 do
       "Category: #{business.category1}"
     end
-    cache('citation_list_form') do
-      form(:action => '/bunnies', :method => 'post') do
+    form(:action => '/bunnies', :method => 'post') do
+      cache('citation_list_form') do
         Business.citation_list.each do |data|
           data[2].each do |row|
             if row[0] == 'select'
@@ -34,9 +34,9 @@ ActiveAdmin.register_page "Categories" do
             end
           end
         end
+        input(:type => :hidden, :id => 'business_id', :name => 'business_id', :value => business.id)
+        input(:type => :button, :onclick => 'window.submitCategory()', :value => 'Submit')
       end
-      input(:type => :hidden, :id => 'business_id', :name => 'business_id', :value => business.id)
-      input(:type => :button, :onclick => 'window.submitCategory()', :value => 'Submit')
     end
     res = ActiveRecord::Base.connection.execute("SELECT id FROM businesses WHERE id != #{business.id} AND categorized IS NULL")
     if res.count > 0
