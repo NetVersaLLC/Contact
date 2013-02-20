@@ -17,10 +17,11 @@ def login ( data )
     @browser.text_field(:id, "Passwd").set data['pass']
     @browser.button(:value, "Sign in").click
     sleep(5)
-    @validation_error = "The username or password you entered is incorrect"
     # If user name or password is not correct
-      if @browser.html.include?(@validation_error)
-        signup_generic( data )
+      if @browser.span(:id => 'errormsg_0_Passwd').exist?
+        if  @browser.span(:id => 'errormsg_0_Passwd').visible?
+ 	  signup_generic( data )
+        end
       end
   else
     raise StandardError.new("You must provide both a username AND password for gplus_login!")
@@ -31,7 +32,14 @@ def search_for_business( data )
 
 	puts 'Search for the ' + data[ 'business' ] + ' business at ' + data[ 'zip' ] +  data['city']
 	
-	#Upgrade the account
+	#Close pop up if exist
+	if @browser.div(:class => 'U-L-Y U-L-Y-tm').exist? and @browser.div(:class => 'U-L-Y U-L-Y-tm').visible?
+           if @browser.button(:name => 'continue').exist?
+	     @browser.button(:name => 'continue').click
+	   end 
+	end
+
+        #Upgrade the account
         if @browser.div(:class => /BSa TVa/).exist?
           @browser.div(:class => /BSa TVa/).click
           @browser.div(:class=> 'a-f-e c-b c-b-M YY Tma').click

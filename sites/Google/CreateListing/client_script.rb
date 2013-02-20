@@ -27,6 +27,7 @@ def create_business( data )
 	@browser.div(:class => "rta Si").click
 	@browser.text_field(:xpath, "//input[contains(@label, 'Enter your business name')]").set data['business']
 	@browser.text_field(:xpath, "//input[contains(@label, 'Enter your full business address')]").set data['address']
+	@browser.text_field(:class=>'c-cc g9jP6 M3LyOb').set data['category']
 	#~ @browser.text_field(:xpath, "//input[contains(@label, 'Address')]").send_keys :tab
 	@browser.button(:name, 'ok').click
 	@browser.text_field(:name => 'PlusPageName').when_present.set data['business']
@@ -36,11 +37,12 @@ def create_business( data )
 	@browser.div(:text => 'Any Google+ user').click
 	@browser.checkbox(:name => 'TermsOfService').set
 	@browser.button(:value => 'Continue').click
+        
+	if not data[ 'image' ] == nil
+  	  # Upload photo
+	  @browser.div(:text => 'Add your logo').when_present.click
 	
-	# Upload photo
-	@browser.div(:text => 'Add your logo').when_present.click
-	
-	if @browser.wait_until { @browser.span(:text, 'Select profile photo').exist? }
+	  if @browser.wait_until { @browser.span(:text, 'Select profile photo').exist? }
 		@browser.div(:id => /select-files-button/).div(:index, 0).when_present.click
 		@browser.div(:id => /select-files-button/).div(:index, 1).click if @browser.div(:id => /select-files-button/).div(:index, 1).exist?
 		photo = data[ 'image' ]
@@ -48,9 +50,11 @@ def create_business( data )
 		Watir::Wait.until { @browser.div(:text, 'To crop this image, drag the region below and then click "Set as profile photo"').exist? }
 		Watir::Wait.until { @browser.div(:text, 'Add Caption').exist? }
 		@browser.div(:text => 'Set as profile photo', :index => 1).when_present.click
-	end
+	  end
 	
-	@browser.wait_until { @browser.div(:text => 'Set as profile photo', :index => 1).visible? != true }
+	  @browser.wait_until { @browser.div(:text => 'Set as profile photo', :index => 1).visible? != true }
+	end
+
 	@browser.div(:text => 'Finish', :index => 1).click
 	@browser.wait
 
