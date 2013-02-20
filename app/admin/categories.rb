@@ -13,23 +13,25 @@ ActiveAdmin.register_page "Categories" do
     h2 do
       "Category: #{business.category1}"
     end
-    form(:action => '/bunnies', :method => 'post') do
-      Business.citation_list.each do |data|
-        data[2].each do |row|
-          if row[0] == 'select'
-            klass = row[1].classify.constantize
-            next if klass == YahooCategory
-            category_name = ''
-            if business.send(data[1]).count > 0
-              site = business.send(data[1]).first
-              if site
-                category = site.send("#{row[1]}_id")
-                if category
-                  category_name = klass.find(category).make_category
+    cache('citation_list_form') do
+      form(:action => '/bunnies', :method => 'post') do
+        Business.citation_list.each do |data|
+          data[2].each do |row|
+            if row[0] == 'select'
+              klass = row[1].classify.constantize
+              next if klass == YahooCategory
+              category_name = ''
+              if business.send(data[1]).count > 0
+                site = business.send(data[1]).first
+                if site
+                  category = site.send("#{row[1]}_id")
+                  if category
+                    category_name = klass.find(category).make_category
+                  end
                 end
               end
+              render :partial => 'show', :locals => { :klass => klass, :category_name => category_name }
             end
-            render :partial => 'show', :locals => { :klass => klass, :category_name => category_name }
           end
         end
       end
