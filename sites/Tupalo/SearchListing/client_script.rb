@@ -1,7 +1,7 @@
 @browser.goto('http://tupalo.com/en/discovery')
 
 @browser.text_field( :name => 'q').set data['business']
-@browser.text_field( :name => 'city_select').set data['citystate'] = ", United States"
+@browser.text_field( :name => 'city_select').set data['citystate'] + ", United States"
 @browser.button( :value => 'Search').click
 sleep(10)
 
