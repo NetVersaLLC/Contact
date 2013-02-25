@@ -6,18 +6,18 @@
 @browser.button( :name => '_ctl5:_ctl0:cmdSearch').click
 sleep(5)
 
-begin
-    @browser.link( :text => data['business']).exists?
+if @browser.link( :text => data['business']).exists?
     @browser.link( :text => /#{data['business']}/).click
-      begin
-          @browser.link( :id => '_ctl5_hlAreYourTheOwner').exists?          
+        sleep(5)
+      if @browser.link( :id => '_ctl5_hlAreYourTheOwner').exists?          
           businessFound = [:listed,:unclaimed]
-      rescue Timeout::Error
+      else
           businessFound = [:listed,:claimed]
       end
  
- rescue Timeout::Error
+ else
     businessFound = [:unlisted]
  end  
  
-return true, businessFound
+ 
+[true, businessFound]
