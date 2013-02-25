@@ -1,19 +1,18 @@
 @browser.goto("http://www.shopcity.com/map/mapnav_locations.cfm?")
 
 @browser.link( :text => /#{data['country']}/).click
-@browser.link( :text => /#{data['state']}/).click
-@browser.link( :text => /#{data['cityState']}/).click	
+@browser.link( :text => /#{data['state']}/).when_present.click
+@browser.link( :text => /#{data['citystate']}/).when_present.click	
 
-sleep(5)
 
-@browser.text_field( :name => 'q').set data['business']
+@browser.text_field( :name => 'q').when_present.set data['business']
 @browser.button( :src => '/style/1002/searchbutton.png').click
 
+sleep(5)
 businessFound = []
-
-begin
-  @browser.link( :text => /#{data['business']}/).exists?
-  @browser.link( :text => /#{data['business']}/).click
+if @browser.link( :text => /#{data['business']}/).exists?
+sleep(5)
+  @browser.link( :text => /#{data['business']}/).when_present.click
 
   sleep(5)
   
@@ -22,8 +21,8 @@ begin
   else
     businessFound = [:listed,:claimed]  
   end
-rescue Timeout::Error
+else
     businessFound = [:unlisted]
 end
 
-return true, businessFound
+[true, businessFound]
