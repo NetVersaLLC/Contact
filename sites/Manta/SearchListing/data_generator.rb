@@ -1,7 +1,4 @@
 data = {}
-data[ 'business' ]          = business.business_name
-data[ 'city' ]              = business.city
-data[ 'state_short' ]       = business.state
-data[ 'citystate' ] = data[ 'city' ] + ", " + data[ 'state_short' ]
-data[ 'query' ] = data['business'] + ", " + data[ 'citystate' ]
+data[ 'citystate' ]   = business[ 'city' ] + ", " + business[ 'state_short' ]
+data[ 'query' ]       = business['business'] + ", " + data[ 'citystate' ]
 data

@@ -18,4 +18,5 @@ businessFound = []
   else 
      businessFound = [:unlisted]
   end
-STDERR.puts businessFound.inspect
+
+[true, businessFound]

@@ -24,8 +24,8 @@ window.toggleTimes = (obj) ->
 $(document).ready ->
   $('.set_business_hours').click (e)->
     e.preventDefault()
-    tr = e.target.parentNode.parentNode
-    open = tr.childNodes[3].childNodes[1].value
+    tr    = e.target.parentNode.parentNode
+    open  = tr.childNodes[3].childNodes[1].value
     close = tr.childNodes[5].childNodes[1].value
     $('.timeitem').each (i,e)->
       hasopen = $(e).attr('id').match(/open/)
@@ -33,8 +33,20 @@ $(document).ready ->
         $(e).val(open)
       else
         $(e).val(close)
+  $('.set_weekday_hours').click (e)->
+    e.preventDefault()
+    tr    = e.target.parentNode.parentNode
+    open  = tr.childNodes[3].childNodes[1].value
+    close = tr.childNodes[5].childNodes[1].value
+    $('.timeitem').each (i,e)->
+      if i < 10
+        hasopen = $(e).attr('id').match(/open/)
+        if hasopen != null and hasopen.length > 0
+          $(e).val(open)
+        else
+          $(e).val(close)
   $('#business_open_24_hours').click window.toggleTimes
-  $('#business_open_by_appointment').click window.toggleTimes
+  # $('#business_open_by_appointment').click window.toggleTimes
   $('.timeitem').click (e)->
     wrapper = $(e.target).closest('.timerow')
     checkbox = wrapper.find('input:checkbox')
