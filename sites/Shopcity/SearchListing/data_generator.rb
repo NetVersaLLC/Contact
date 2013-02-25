@@ -62,7 +62,7 @@ state_abbr = {
 }
 
 data[ 'country' ]		= "United States"
-data[ 'state' ]			= state_name = state_abbr.[](business['state_short'])
+data[ 'state' ]			= state_abbr.[](business['state_short'])
 data[ 'city' ]			= business['city']
 data[ 'citystate' ]		= data['city'] + ", " + data['state']
 data[ 'business' ]		= business['business']
