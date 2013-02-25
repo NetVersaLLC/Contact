@@ -6,19 +6,17 @@
 sleep(5)
 businessFound = []
 
-begin
-  @browser.h3( :text => data['business']).exists?
-  puts("exsits!")
+if @browser.h3( :text => data['business']).exists?
   
-  begin 
-  @browser.h3( :text => data['business']).parent.parent.li(:class => 'buttons-col').form(:name => 'select_business_form').button( :text => 'Unlock').exists?
+  if @browser.h3( :text => data['business']).parent.parent.li(:class => 'buttons-col').form(:name => 'select_business_form').button( :text => 'Unlock').exists?
     businessFound = [:listed, :unclaimed]
-  rescue Timeout::Error
+  else
     businessFound = [:listed, :claimed]
   end
   
-rescue Timeout::Error
+else
   businessFound = [:unlisted]
 end
+
 
 return true, businessFound
