@@ -1,20 +1,20 @@
+@data[ 'citystate' ] = @data[ 'city' ] + ", " + @data[ 'state_short' ]
+@browser.goto( 'http://local.yahoo.com/' )
 
-@browser.goto( 'http://www.yahoo.com/' )
+@browser.text_field( :id => 'yls-p').when_present.focus
+@browser.text_field( :id => 'yls-p').set @data['business']
+@browser.text_field( :name => 'addr').set @data['citystate']
 
-@browser.span(:text => 'Local').click
-sleep(5)
-@browser.text_field( :title => 'Local Search').set data['business']
-@browser.text_field( :name => 'csz').set data['citystate']
+@browser.button( :xpath => '//*[@id="bd"]/form/fieldset/button').click
 
-@browser.button( :id => 'search-submit').click
 sleep(5)
 
 businessFound = []
+puts(data['business'])
 
-begin
-@browser.link( :text => data['business']).exists?
+if @browser.link( :text => /#{data['business']}/i).exists?
 businessFound = [:listed, :unclaimed]
-rescue Timeout::Error
+else
 businessFound = [:unlisted]
 end
 
