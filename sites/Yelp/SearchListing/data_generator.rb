@@ -1,5 +1,5 @@
 data = {}
-data['business']    = business.business_name
-data['citystate']   = business.city + ", " + business.state
+data['business']    = business['business']
+data['citystate']   = business['business'] + ", " + business['state_short']
 
 data

@@ -10,7 +10,7 @@ sleep(5)
 if @browser.text.include? "There were no listings that match what you searched for."
   businessFound = [:unlisted]
 else
- begin
+ if @browser.link( :text => data['business']).exists?
  @browser.link( :text => data['business']).click
  sleep(5)
     
@@ -21,10 +21,10 @@ else
     end
      
      
-  rescue Timeout::Error
+  else
      businessFound = [:unlisted]
   end  
 
 end
 
-return true, businessFound
+[true, businessFound]

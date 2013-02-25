@@ -1,4 +1,3 @@
-@data[ 'citystate' ] = @data[ 'city' ] + ", " + @data[ 'state_short' ]
 @browser.goto( 'http://local.yahoo.com/' )
 
 @browser.text_field( :id => 'yls-p').when_present.focus
@@ -17,5 +16,4 @@ businessFound = [:listed, :unclaimed]
 else
 businessFound = [:unlisted]
 end
-
-return true, businessFound
+[true, businessFound]

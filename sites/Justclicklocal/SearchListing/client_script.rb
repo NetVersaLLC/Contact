@@ -1,16 +1,16 @@
 @browser.goto('http://www.justclicklocal.com/')
-
 @browser.text_field( :name => 'query').set data['business']
 @browser.text_field( :name => 'location').set data['citystate']
 @browser.button(:id => 'submit').click
 
 sleep(10)
 
-  begin
-    @browser.link( :text => data['business'], :class => 'link').exists?
+puts(@browser.link( :text => /#{data['business']}/).exists?.to_s)
+puts(@browser.link( :text => /#{data['business']}/).html)
+
+  if @browser.link( :text => /#{data['business']}/).exists?
      businessFound = [:listed, :unclaimed]
-  rescue Timeout::Error
+  else
      businessFound = [:unlisted] 
   end
-
-return true, businessFound
+[true, businessFound]

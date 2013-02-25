@@ -1,3 +1,4 @@
+
 @browser.goto('http://www.yellowassistance.com/')
 
 @browser.text_field( :name => 'txtBusCategory').set data['business']
@@ -28,5 +29,4 @@ else
 
 end
 
-puts(businessFound)
-return true, businessFound
+[true, businessFound]
