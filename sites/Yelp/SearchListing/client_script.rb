@@ -19,4 +19,4 @@ else
 end
 
 
-return true, businessFound
+[true, businessFound]

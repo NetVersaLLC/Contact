@@ -28,4 +28,4 @@ if businessFound == true
   businessFound = [:listed, :claimed]  
   end
 end
-return true, businessFound
+[true, businessFound]
