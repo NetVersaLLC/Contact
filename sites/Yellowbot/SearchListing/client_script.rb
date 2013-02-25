@@ -9,13 +9,11 @@ found = false
 
 
 
-begin
-
-  @browser.link( :text => 'submit a new business').exists?
+if @browser.link( :text => 'submit a new business').exists?
 
   businessFound = [:unlisted]
 
-rescue Timeout::Error
+else
 
 businessFound = true
 end
@@ -24,13 +22,10 @@ if businessFound == true
 
 @browser.link( :text => '(view listing)').click
 
-  begin
-    @browser.link( :class => 'claim-business').exists?
+  if @browser.link( :class => 'claim-business').exists?
     businessFound = [:listed, :unclaimed]
-  rescue Timeout::Error
+  else
   businessFound = [:listed, :claimed]  
   end
 end
-
-puts(businessFound.to_s)
 return true, businessFound
