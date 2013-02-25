@@ -397,6 +397,13 @@
       ['text', 'password']  
     ],
       'Localcom'
+  ],
+  ['Discoverowntown', 'discoverowntowns',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Discoverowntown'
   ]
 ]
 
