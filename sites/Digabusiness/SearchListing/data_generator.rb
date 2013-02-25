@@ -1,3 +1,3 @@
 data = {}
-data['business'] = business.business_name
+data['business'] = business['business']
 data
