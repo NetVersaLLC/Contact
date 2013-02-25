@@ -21,7 +21,8 @@
               -# if @business.send("#{day}_enabled")
             %td
               - if day == 'monday'
-                = link_to "Set", "#", :class => 'set_business_hours btn btn-success'
+                = link_to "Everyday", "#", :class => 'set_business_hours btn btn-success'
+                = link_to "Weekdays", "#", :class => 'set_weekday_hours btn btn-info'
         %tr.timerow
           %td{:colspan => 3}
             %label.checkbox
