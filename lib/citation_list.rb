@@ -398,12 +398,12 @@
     ],
       'Localcom'
   ],
-  ['Discoverowntown', 'discoverowntowns',
+  ['Discoverourtown', 'discoverourtowns',
     [
       ['text', 'email'],
       ['text', 'password']
     ],
-      'Discoverowntown'
+      'Discover Our Town'
   ]
 ]
 

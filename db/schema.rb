@@ -368,6 +368,17 @@ ActiveRecord::Schema.define(:version => 20130225175145) do
     t.integer  "digabusiness_category_id"
   end
 
+  create_table "discoverourtowns", :force => true do |t|
+    t.datetime "force_update"
+    t.text     "secrets"
+    t.integer  "business_id"
+    t.string   "email"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "discoverourtowns", ["business_id"], :name => "index_discoverourtowns_on_business_id"
+
   create_table "downloads", :force => true do |t|
     t.integer  "user_id"
     t.string   "name"
