@@ -6,6 +6,7 @@
 #= require form/payment_methods
 #= require form/business_hours
 #= require form/categories
+#= require form/uploader
 
 $(document).ready ->
   $('input[rel=popover]').popover

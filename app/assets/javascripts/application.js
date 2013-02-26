@@ -8,5 +8,5 @@
 //= require rv
 //= require bootstrap.min
 //= require businesses
-
+//= require jquery.fineuploader-3.3.0.min
 
