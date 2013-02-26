@@ -15,6 +15,7 @@ class Business < ActiveRecord::Base
   belongs_to        :user
   belongs_to        :subscription
   has_many          :notifications
+  has_many          :images
 
   # Triggers
   after_create      :create_site_accounts

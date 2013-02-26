@@ -1,9 +1,23 @@
 %section{:id => 'logo-section'}
   = @f.inputs "Logo", :class => 'inputs' do
     #logo_uploader
-      %h3 Select an image from your computer.
+      %h3 Logo Upload
       = @f.input :logo
     - unless @business.logo.url =~ /missing/
       #logo_shown
         %h3 Current image.
         = link_to image_tag(@business.logo.url(:thumb)), @business.logo.url, :class => 'thumbnail', :title => 'Current Logo'
+  %h3 Additional Images
+  #uploader
+  #thumbnails
+    %ul.thumbnails
+      - @business.images.each do |image|
+        %li.span4{:id => "thumbnail#{image.id}"}
+          .thumbnail
+            %img{'src' => image.url, :alt=>""}
+            %h3
+              = image.position
+              %button.btn.btn-info.remove_thumbnail{'data-image-id' => image.id}
+                Remove
+  :javascript
+    window.business_id = #{@business.id};
