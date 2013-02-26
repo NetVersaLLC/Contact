@@ -6,16 +6,15 @@
 @browser.button( :text => 'Search').click
 sleep(5)
 
-begin
-@browser.div(:class => 'span12 foundsite').exists?
-    begin
-        @browser.link( :text => /#{data['business']}/).exists?
+if @browser.div(:class => 'span12 foundsite').exists?
+    if @browser.link( :text => /#{data['business']}/).exists?
         businessFound = [:listed,:claimed]
-    rescue Timeout::Error
+    else
          businessFound = [:unlisted]
     end
-rescue Timeout::Error
+else
   businessFound = [:unlisted]
 end
  
-return true, businessFound
+ 
+[true, businessFound]
