@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130225175145) do
+ActiveRecord::Schema.define(:version => 20130226001339) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -648,6 +648,23 @@ ActiveRecord::Schema.define(:version => 20130225175145) do
     t.datetime "updated_at",         :null => false
     t.integer  "ibegin_category_id"
   end
+
+  create_table "images", :force => true do |t|
+    t.integer  "business_id"
+    t.integer  "position"
+    t.string   "file_name"
+    t.string   "display_name"
+    t.integer  "data_file_size"
+    t.string   "data_file_name"
+    t.string   "data_content_type"
+    t.datetime "data_updated_at"
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
+
+  add_index "images", ["business_id"], :name => "index_images_on_business_id"
 
   create_table "insider_page_categories", :force => true do |t|
     t.integer  "parent_id"

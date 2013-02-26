@@ -9,7 +9,7 @@ class ScanController < ApplicationController
       next unless File.exists? Rails.root.join('sites', site[0], 'SearchListing')
       resp.push site[0]
     end
-    resp = ['Citisquare']
+    resp = %w/Bing Yelp Yahoo Ezlocal Justclicklocal Yellowassistance Ebusinesspages Citisquare ShopCity Zippro Yellowee Digabusiness Localizedbiz Showmelocal Expressbusinessdirectory/
     render json: resp
   end
   def site
