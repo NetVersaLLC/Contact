@@ -16,7 +16,7 @@
     $.getJSON('/scan/sites.json', function(data){
       $('#sites').html('<table><tbody id="sitestable"></tbody></table>')
       $.each(data, function(i,e){
-        $('#sitestable').append('<tr><td>'+e+'</td><td id="'+e+'"></td></tr>')
+        $('#sitestable').append('<tr><td>'+e+'</td><td id="'+e+'"><img src="/assets/loading.gif" alt="Loading..." /></td></tr>')
         $.getJSON('/scan/sites/'+e+'.json?name='+name+'&zip='+zip, function(data){
           if(data['error'] == null) {
             $('#'+e).html(e+": "+JSON.stringify(data['result']));
