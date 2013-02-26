@@ -11,24 +11,23 @@ if @browser.text.include? "Sorry, no search results found."
   
   businessFound = [:unlisted]
 else
- begin
-    @browser.link( :text => /#{data['business']}/).exists?
+ if @browser.link( :text => /#{data['business']}/).exists?
 
     @browser.link( :text => /#{data['business']}/).click
     sleep(8)
- rescue Timeout::Error
+    
+    if @browser.link( :id => 'ctl00_ContentPlaceHolder1_hypClaimBusiness').exists?
+      businessFound = [:listed, :unclaimed]
+      
+    else
+      businessFound = [:listed, :claimed]    
+    end  
+    
+ else
     businessFound = [:unlisted]
  end  
   
-    @browser.link( :id => 'ctl00_ContentPlaceHolder1_hypClaimBusiness').click
-      sleep(5)
-
-      if @browser.text.include? "Request permission to update a company"
-          businessFound = [:listed, :claimed]
-      else
-          businessFound = [:listed, :unclaimed]
-      end  
+    
 end
 
-puts(businessFound)
-return true, businessFound
+[true, businessFound]
