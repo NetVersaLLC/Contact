@@ -76,8 +76,9 @@ class ImagesController < ApplicationController
     @image = Image.find(params[:id])
     @image.destroy
 
+    @response = {:status => :removed, :image_id => params[:id]}
     respond_to do |format|
-      format.json { head :ok }
+      format.json {render :json => @response }
     end
   end
 
