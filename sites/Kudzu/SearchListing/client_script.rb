@@ -12,6 +12,8 @@ else
       @browser.link( :name => 'name', :text => /#{data['business']}/).exists?
       @browser.link( :name => 'name', :text => /#{data['business']}/).click
       
+      Watir::Wait.until { @browser.span( :text => 'Overview').exists? }
+      
       if @browser.span( :text => 'Claim This Profile!').exists?
           businessFound = [:listed,:unclaimed]
       else
@@ -26,5 +28,4 @@ else
 
 end
 
-puts(businessFound)
-return true, businessFound
+[true, businessFound]

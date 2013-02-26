@@ -20,24 +20,16 @@ businessFound = [:unlisted]
 else
 
     if @matching_result.text =~ /#{data['business']}/
-        @matching_result.click
-        
-        begin
+        @matching_result.click        
             if @browser.link( :text => 'Manage this Business').exists?
                 businessFound = [:listed, :unclaimed]
             else
                 businessFound = [:listed, :claimed]
-            end
-        rescue Timeout::Error
-        
-        end
-        
-        
+            end       
     else
         businessFound = [:unlisted]
     end
-
-
 end
 
-return true, businessFound
+
+[true, businessFound]
