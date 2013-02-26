@@ -7,34 +7,19 @@ sleep(10)
 
 
 @resultList = @browser.div( :id => 'searchResultsWithPreferred')
-begin
-  if @resultList.h3(:class => 'listName').span( :text => /#{data['business']}/).exists? 
+if @resultList.h3(:class => 'listName').span( :text => /#{data['business']}/).exists? 
       @resultList.h3(:class => 'listName').span( :text => /#{data['business']}/).click      
-      sleep(5)
-      
-      begin
+      sleep(5)      
         if @browser.link(:text => 'Claim Your Business').exists?      
-          businessFound = [:listed, :unclaimed]
-          
-        else
-        
+          businessFound = [:listed, :unclaimed]          
+        else        
           businessFound = [:listed, :claimed]
-        end      
-      rescue Timeout::Error
-      
-         businessFound = [:listed, :claimed]
-      end
-  
-  
-  
+        end        
   else
   
       businessFound = [:unlisted]
   end
-  
-rescue Timeout::Error
 
-  businessFound = [:unlisted]
-end
 
-return true, businessFound
+
+[true, businessFound]

@@ -15,30 +15,16 @@ elsif @browser.text.include? "Welcome"
   sleep(5)
   
   thelink = @browser.link( :id => 'ctl00_ContentPlaceHolder1_lnkProfilePage2').attribute_value("href")
-
-  puts(thelink)
-
   @browser.goto(thelink)
-
-  begin
   
     if @browser.link( :id => 'lnkBusLogo').exists?
-
         businessFound = [:listed, :unclaimed]
-
     else
         businessFound = [:listed, :claimed]
-
     end
-    
-  rescue Timeout::Error
-
         businessFound = [:listed, :claimed]
-  end
-  
-  
-  
 end
 
 
-return true, businessFound
+
+[true, businessFound]
