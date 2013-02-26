@@ -13,27 +13,22 @@ if @frame.div(:class => "gs-snippet").text == "No Results"
   
   businessFound = [:unlisted]
 else
-  begin
-        @frame.link( :text => /#{data['business']} in #{data['city']}/).exists?  
+  if @frame.link( :text => /#{data['business']} in #{data['city']}/).exists?  
         Alink = @frame.link( :text => /#{data['business']} in #{data['city']}/i )
         Alink.click
     sleep(8)
       
-  rescue Timeout::Error
+  else
     businessFound = [:unlisted]
   end  
   
-  begin
-        @browser.li(:id => 'axNavClaimit').exists?        
+  if @browser.li(:id => 'axNavClaimit').exists?        
         businessFound = [:listed, :unclaimed]
     
-      rescue Timeout::Error
+     else
         businessFound = [:listed, :claimed]
       
       end
-  
-  
-    
-end
 
-return true, businessFound
+end
+[true, businessFound]
