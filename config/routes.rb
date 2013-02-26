@@ -57,5 +57,11 @@ Contact::Application.routes.draw do
   get     '/scan/sites(.:format)', :controller => :scan, :action => :sites
   get     '/scan/sites/:id(.:format)', :controller => :scan, :action => :site
 
+  get '/images/:id(.:format)', :action => 'index', :controller => 'images'
+  post '/images(.:format)', :action=>"create", :controller=>"images"
+  delete '/images/:id(.:format)',:action=>"destroy", :controller=>"images"
+  delete '/images/:id/all(.:format)',:action=>"destroy_all", :controller=>"images"
+  put '/images/:id(.:format)', :action=>"update", :controller=>"images"
+
   root :to => redirect("/pages/make_redirect")
 end

@@ -6,8 +6,6 @@
 
 @browser.button( :xpath => '//*[@id="bd"]/form/fieldset/button').click
 
-sleep(5)
-
 businessFound = []
 puts(data['business'])
 

@@ -22,4 +22,4 @@ rescue Timeout::Error
   businessFound = [:unlisted]
 end
 
-return true, businessFound
+[true, businessFound]
