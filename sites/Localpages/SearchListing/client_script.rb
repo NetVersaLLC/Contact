@@ -9,18 +9,15 @@ list = @browser.ul( :class => "results_list", :index => 1)
 
 if list.lis.size > 0
 
-  begin
       if list.h3( :text => /#{data['business']}/).exists?       
         businessFound = [:listed,:claimed]
       else
         businessFound = [:unlisted]
       end
     
-  rescue Timeout::Error
-      businessFound = [:unlisted]
-  end  
+  
 else
 businessFound = [:unlisted]
 end
 
-return true, businessFound
+[true, businessFound]
