@@ -1,32 +1,23 @@
-@browser.goto('http://zip.pro/')
-
-
-@browser.text_field( :name => 'q').when_present.set data['business']
-@browser.text_field( :id => 'zp_l').set data['citystate']
-
-@browser.button( :class => 'goBtn').click
-sleep(5)
-
-if @browser.text.include? "No Results Found!"
+@browser.goto("http://myaccount.zip.pro/find-business.php?bzName=#{data[ 'businessfixed' ]}&bzZip=#{data['zip']}&search=zip")
+if @browser.text.include? "Found 0 result(s) for"
 
   businessFound = [:unlisted]
 else
 
- if @browser.link( :text => data['business']).exists?
-    @browser.link( :text => data['business']).click
-    sleep(8)
- 
+ if @browser.div( :class => "searchDisplay").span(:class => 'title', :text => /#{data['business']}/).exists?
+      thelisting = @browser.div( :class => "searchDisplay").span(:class => 'title', :text => /#{data['business']}/)     
+  if thelisting.parent.parent.div(:class => 'btn_wrapp').link( :class => 'claimBtn').exists?  
+     businessFound = [:listed, :unclaimed]
+  else
+     businessFound = [:listed, :claimed]
+  end             
  else
     businessFound = [:unlisted]
     
  end  
-  if @browser.link( :id => 'a_prof_claim').exists?
   
-     businessFound = [:listed, :unclaimed]
-  else
-     businessFound = [:listed, :claimed]
-  end  
   
 end
+
 
 [true, businessFound]

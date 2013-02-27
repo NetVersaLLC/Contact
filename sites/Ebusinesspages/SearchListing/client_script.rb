@@ -1,8 +1,9 @@
+@browser.goto( 'http://ebusinesspages.com/' )
 @browser.text_field( :name => 'co').set data['business']
 @browser.text_field( :name => 'loc').set data['citystate']
 
 @browser.link( :id => 'SearchMag').click
-sleep(5)
+Watir::Wait.until { @browser.div( :class=> 'SearchResults' ).exists? }
 
 if @browser.text.include? "No results found, please try again with less specific terms."
   
@@ -11,7 +12,7 @@ else
 
 if @browser.link( :text => data['business']).exists?
 @browser.link( :text => data['business']).click
-sleep(5)
+Watir::Wait.until { @browser.div( :id=> 'ShowCompany' ).exists? }
   if @browser.link( :id => 'bVerifyButton').exists?
  
       businessFound = [:listed, :unclaimed]
@@ -23,5 +24,4 @@ sleep(5)
     businessFound = [:unlisted]
   end
 end
-
 [true, businessFound]

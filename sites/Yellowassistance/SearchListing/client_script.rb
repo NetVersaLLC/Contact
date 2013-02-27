@@ -1,32 +1,21 @@
-
 @browser.goto('http://www.yellowassistance.com/')
-
 @browser.text_field( :name => 'txtBusCategory').set data['business']
 @browser.text_field( :name => 'ddlBusState').set data['citystate']
-
 @browser.button( :name => 'ibtnBusSearch').click
-sleep(5)
-
+Watir::Wait.until { @browser.span(:id => 'lblTotalRecord').exists?}
 businessFound = []
-
-if @browser.text.include? "We did not find an exact match for your search."
+if @browser.div(:id => 'panExactMatch').exists?
   businessFound = [:unlisted]
 else
-  @browser.link( :text => data['business']).click
-  
-  sleep(5)
+  @browser.link( :text => data['business']).click  
+  Watir::Wait.until { @browser.h1( :class => 'StaticTitle').exists? }
   @browser.link( :id => 'lnkListing').click
-  sleep(5)
-  
-  if @browser.text.include? "Step 1 - Provide your Contact Information"
-    businessFound = [:listed, :unclaimed]
-  
+  Watir::Wait.until { @browser.div( :id => 'panAddUpdateListing').exists? }
+  if @browser.text_field(:name => 'txtName').exists?
+    businessFound = [:listed, :unclaimed]  
   else
-    businessFound = [:listed, :claimed]
-  
-  end
-  
-
+    businessFound = [:listed, :claimed]  
+  end 
 end
 
 [true, businessFound]
