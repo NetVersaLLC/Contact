@@ -1,9 +1,8 @@
-@browser.goto( "http://www.yellowbot.com/" )
-sleep(5)
 @browser.text_field( :id => 'search-field' ).set data[ 'phone' ]
 @browser.button( :value => 'Find my business' ).click #, :type => 'submit'
 
-sleep(5)
+sleep(2)
+Watir::Wait.until { @browser.link(:text => 'Claim').exists? or @browser.link(:text => 'Submit a new listing').exists? }
 businessFound = []
 found = false
 
@@ -28,4 +27,5 @@ if businessFound == true
   businessFound = [:listed, :claimed]  
   end
 end
+
 [true, businessFound]

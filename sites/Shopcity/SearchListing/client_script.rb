@@ -4,19 +4,16 @@
 @browser.link( :text => /#{data['state']}/).when_present.click
 @browser.link( :text => /#{data['citystate']}/).when_present.click	
 
-
 @browser.text_field( :name => 'q').when_present.set data['business']
 @browser.button( :src => '/style/1002/searchbutton.png').click
-
-sleep(5)
+Watir::Wait.until { @browser.table(:id => 'search_results_pod_tag').exists? }
 businessFound = []
 if @browser.link( :text => /#{data['business']}/).exists?
-sleep(5)
+sleep(3)
   @browser.link( :text => /#{data['business']}/).when_present.click
-
-  sleep(5)
-  
-  if @browser.text.include? "Is This Your Business? Click Here to Claim Your Profile"
+Watir::Wait.until { @browser.table(:id => 'toppod').exists? }
+    
+  if @browser.link(:xpath => '//*[@id="toppod"]/tbody/tr[2]/td[2]/div/div[1]/div/a').exists?
     businessFound = [:listed,:unclaimed]
   else
     businessFound = [:listed,:claimed]  

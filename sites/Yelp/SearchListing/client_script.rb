@@ -3,7 +3,7 @@
 @browser.text_field( :name => 'query').set data['business']
 @browser.text_field( :name => 'location').set data['citystate']
 @browser.button( :text => 'Search').click
-sleep(5)
+Watir::Wait.until { @browser.text.include? "Business matches for" or @browser.link(:text => 'Sorry, there were no matches. Please try adjusting your search.').exists? }
 businessFound = []
 
 if @browser.h3( :text => data['business']).exists?
