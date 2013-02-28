@@ -18,5 +18,4 @@ else
   businessFound = [:unlisted]
 end
 
-
 [true, businessFound]

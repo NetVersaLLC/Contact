@@ -5,7 +5,7 @@
 @browser.text_field( :name => 'loc').clear
 
 @browser.button( :name => 'Submit').click
-sleep(5)
+Watir::Wait.until { @browser.text.include? "no result found" or @browser.link( :class => 'biz_title').exists? }
 if @browser.text.include? "no result found"
   businessFound = [:unlisted]
 else
