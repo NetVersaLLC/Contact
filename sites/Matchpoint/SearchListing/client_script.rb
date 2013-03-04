@@ -1,28 +1,19 @@
-@browser.goto('https://www.matchpoint.com/')
+url = "http://www.matchpoint.com/dest?q=#{data['businessfixed']}&g=#{data['city']}%2C+#{data['state_short']}&id=1198&jump=dummy+flow+page&from=searchForm"
+page = Nokogiri::HTML(RestClient.get(url)) 
 
+thelist = page.css('div.mp-result.isFree')
 
-@browser.text_field( :name => 'q').set data['business']
-@browser.text_field( :id => 'g').set data['citystate']
-@browser.button( :id => 'mpSearchTermSubmit').click
-sleep(10)
-
-
-  if @browser.div(:class => 'mp-result isFree ').link(:text => /#{data['business']}/).exists?
-    thelink = @browser.div(:class => 'mp-result isFree ').link(:text => /#{data['business']}/).attribute_value "href"
-    @browser.goto(thelink)
-    sleep(10)
-    
-
-      if @browser.link(:text => /Claim This Page/).exists?
-        businessFound = [:listed, :unclaimed]
-      else
-        businessFound = [:listed, :claimed]
-      end
+if not thelist.length == 0
   
+  subitem = thelist[0]
+  if subitem.css("a.mp-claim-biz-text").length == 0
+    businessFound = [:listed, :claimed]
   else
-    businessFound = [:unlisted]
+    businessFound = [:listed, :unclaimed]
   end
   
-
+else
+  businessFound = [:unlisted]
+end
 
 [true, businessFound]

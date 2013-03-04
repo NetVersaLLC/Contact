@@ -1,22 +1,24 @@
-@browser.goto("http://myaccount.zip.pro/find-business.php?bzName=#{data[ 'businessfixed' ]}&bzZip=#{data['zip']}&search=zip")
-if @browser.text.include? "Found 0 result(s) for"
-
-  businessFound = [:unlisted]
-else
-
- if @browser.div( :class => "searchDisplay").span(:class => 'title', :text => /#{data['business']}/).exists?
-      thelisting = @browser.div( :class => "searchDisplay").span(:class => 'title', :text => /#{data['business']}/)     
-  if thelisting.parent.parent.div(:class => 'btn_wrapp').link( :class => 'claimBtn').exists?  
-     businessFound = [:listed, :unclaimed]
+require 'nokogiri'
+url = "http://#{data['zip']}.zip.pro/#{data['businessfixed']}"
+puts(url)
+page = Nokogiri::HTML(RestClient.get(url)) 
+if not page.css("div.organicListing").length == 0
+  puts("1")
+  link = page.css("a.result-title")
+  link = link[0]["href"]
+  subpage = Nokogiri::HTML(RestClient.get(link)) 
+  puts("2")
+  claimLink = subpage.css("a#a_prof_claim")
+  if claimLink.length == 0
+    businessFound = [:listed, :claimed]
+    puts("3")
   else
-     businessFound = [:listed, :claimed]
-  end             
- else
-    businessFound = [:unlisted]
-    
- end  
-  
-  
+    businessFound = [:listed, :unclaimed]
+    puts("4")
+  end 
+else
+  businessFound = [:unlisted]
+  puts("5")
 end
 
 
