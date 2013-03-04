@@ -1,34 +1,17 @@
-@browser.goto('http://www.ibegin.com/')
-
-@browser.text_field( :name => 'q').set data['query']
-
-@browser.button( :xpath => '//*[@id="column2top"]/form[1]/p/label/input').click
-sleep(5)
-
-@frame = @browser.frame( :name => 'googleSearchFrame')
-
-puts(@frame.div(:class => "gs-snippet").text)
-
-if @frame.div(:class => "gs-snippet").text == "No Results"
-  
-  businessFound = [:unlisted]
-else
-  if @frame.link( :text => /#{data['business']} in #{data['city']}/).exists?  
-        Alink = @frame.link( :text => /#{data['business']} in #{data['city']}/i )
-        Alink.click
-    sleep(8)
-      
+url = "http://www.ibegin.com/search/phone/?phone=#{data['phone']}"
+puts(url)
+page = Nokogiri::HTML(RestClient.get(url)) 
+if not page.css("div.business").length == 0
+  link = page.css("div.business a")
+  link = "http://www.ibegin.com" + link[0]["href"]
+  subpage = Nokogiri::HTML(RestClient.get(link)) 
+  claimLink = subpage.css("li#axNavClaimit a")
+  if claimLink.length == 0
+    businessFound = [:listed, :claimed]
   else
-    businessFound = [:unlisted]
-  end  
-  
-  if @browser.li(:id => 'axNavClaimit').exists?        
-        businessFound = [:listed, :unclaimed]
-    
-     else
-        businessFound = [:listed, :claimed]
-      
-      end
-
+    businessFound = [:listed, :unclaimed]
+  end 
+else
+  businessFound = [:unlisted]
 end
 [true, businessFound]
