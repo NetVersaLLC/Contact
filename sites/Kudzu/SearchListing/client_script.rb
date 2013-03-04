@@ -28,4 +28,22 @@ else
 
 end
 
+=begin
+url = "http://www.kudzu.com/controller.jsp?N=0&searchVal=#{data['businessfixed']}&currentLocation=#{data['zip']}&searchType=keyword&Ns=P_PremiumPlacement"
+puts(url)
+page = Nokogiri::HTML(RestClient.get(url))  
+firstItem = page.css("div.navRecordDiv")
+
+if firstItem.length == 0
+  businessFound = [:unlisted]
+else
+  theLink = firstItem.css("//table/tbody/tr/td[2]/div[1]/a")
+  puts(theLink['href'])
+  
+  
+end
+
+=end
+
+
 [true, businessFound]

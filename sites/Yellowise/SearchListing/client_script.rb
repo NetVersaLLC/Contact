@@ -1,33 +1,28 @@
-@browser.goto('http://www.yellowise.com/')
+url = "http://www.yellowise.com/results/#{data['citystate']}/#{data['businessfixed']}"
 
-@browser.text_field(:id => 'l-what').set data['business']
-@browser.text_field(:id => 'l-where').set data['citystate']
-@browser.button(:class => 'form-submit').click
+page = Nokogiri::HTML(RestClient.get(url))  
+thelist = page.css("div#block-block-25")
 
-Watir::Wait.until { @browser.h2(:class => 'search-title').exists? }
-
-if @browser.text.include? "No Business Results Found!"
+if thelist.css("div.search-item").length == 0
   businessFound = [:unlisted]
 else
-
-
-@browser.divs(:class => 'search-item').each do |item|
   
-    if item.link( :text => /#{data['business']}/).exists?
-      item.link( :text => /#{data['business']}/).click
-      Watir::Wait.until { @browser.h1(:class => 'bigger businessName').exists? }
-      businessFound = [:unlisted]
-      if @browser.span(:id => 'claimbuttonText').exists?
-        businessFound = [:listed, :unclaimed]
-        break
-      else
-        businessFound = [:listed, :claimed]
-        break
-      end
-    end
-  
-  end
-    
+  businessFound = [:unlisted]
+  thelist.css("div.search-item").each do |item|
+      puts(item.css("a[2]").to_s)    
+      if item.css("a[2]").text =~ /#{data['business']}/i
+          thelink = item.css("a[2]")
+          thelink = thelink[0]['href']  
+          subpage = Nokogiri::HTML(RestClient.get(thelink))  
+          if subpage.css("span#claimbuttonText").length == 0
+            businessFound = [:listed, :claimed]
+          else
+            businessFound = [:listed, :unclaimed]
+          end
+          break
+      end                 
+  end    
+ 
 end
   
 [true,businessFound]

@@ -1,4 +1,3 @@
-
 def search_business(data)
 	@browser.wait_until {@browser.div(:class , 'RegistrationLightbox').exist? }
 	result_count = @browser.table(:class, 'wide100percent').rows.length
@@ -20,7 +19,7 @@ end
   @browser.text_field(:id => /CompanyZip/).set data[ 'zip' ]
   @browser.image(:alt,'Search').click
   
-  sleep(5)
+  Watir::Wait.until { @browser.text.include? "Select a Company" }
   #Check if business already listed
   @error_msg = @browser.span(:class,'errortext')
   @no_match_text = 'No companies were found. Try entering partial information in the search fields.'
