@@ -404,6 +404,13 @@
       ['text', 'password']
     ],
       'Discover Our Town'
+  ],
+  ['Uscity', 'uscities',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Uscity'
   ]
 ]
 
