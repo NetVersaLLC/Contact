@@ -1,20 +1,10 @@
 url = "http://listings.expressupdateusa.com/Search/Results?CompanyNameFilter=&State=&PhoneNumberFilter="+data['phone'].gsub("-","")
+page = Nokogiri::HTML(RestClient.get(url))  
 
-@browser.goto(url)
-
-if @browser.text.include? "No listings found."
+if page.css("div#EditListing").length == 0
   businessFound = [:unlisted]
 else
-  
-  begin
-      if @browser.link( :title => 'Verify this listing').exists?
-          businessFound = [:listed, :unclaimed]
-      else
-          businessFound = [:listed, :claimed]
-      end
-  rescue Timeout::Error
-          businessFound = [:listed, :claimed]  
-  end
+  businessFound = [:listed, :unclaimed]
 end
 
 return true, businessFound
