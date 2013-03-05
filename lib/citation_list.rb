@@ -411,6 +411,13 @@
       ['text', 'password']
     ],
       'Uscity'
+  ],
+  ['Spotbusiness', 'spotbusinesses',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Spotbusiness'
   ]
 ]
 
