@@ -1,21 +1,20 @@
-@browser.goto('http://www.yellowassistance.com/')
-@browser.text_field( :name => 'txtBusCategory').set data['business']
-@browser.text_field( :name => 'ddlBusState').set data['citystate']
-@browser.button( :name => 'ibtnBusSearch').click
-Watir::Wait.until { @browser.span(:id => 'lblTotalRecord').exists?}
-businessFound = []
-if @browser.div(:id => 'panExactMatch').exists?
-  businessFound = [:unlisted]
-else
-  @browser.link( :text => data['business']).click  
-  Watir::Wait.until { @browser.h1( :class => 'StaticTitle').exists? }
-  @browser.link( :id => 'lnkListing').click
-  Watir::Wait.until { @browser.div( :id => 'panAddUpdateListing').exists? }
-  if @browser.text_field(:name => 'txtName').exists?
-    businessFound = [:listed, :unclaimed]  
+url = "http://www.yellowassistance.com/frmBusResults.aspx?nas=a&nam=#{data['businessfixed']}&cas=r&cat=#{data['businessfixed']}&mis=a&mil=&zis=a&zip=#{data['zip']}&cis=r&cit=#{data['city']}&sts=r&sta=KS&typ=bus&set=a&myl=&slat=&slon="
+page = Nokogiri::HTML(RestClient.get(url))  
+thelist = page.css("td.Verdana12 a")
+
+businessFound = [:unlisted]
+thelist.each do |item|
+  next if not item.text =~ /#{data['business']}/i  
+  thelink = "http://www.yellowassistance.com/"+item['href']
+  subpage = Nokogiri::HTML(RestClient.get(thelink))  
+  if subpage.css("a#lnkListing").length == 0
+    businessFound = [:listed, :claimed]
+    break
   else
-    businessFound = [:listed, :claimed]  
-  end 
+    
+    businessFound = [:listed, :unclaimed]
+    break
+  end
 end
 
 [true, businessFound]
