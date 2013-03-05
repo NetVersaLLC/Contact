@@ -1,27 +1,21 @@
-@browser.goto( 'http://ebusinesspages.com/' )
-@browser.text_field( :name => 'co').set data['business']
-@browser.text_field( :name => 'loc').set data['citystate']
+url = "http://ebusinesspages.com/search.aspx?co=#{data['businessfixed']}&loc=#{data['city']}%2C+#{data['state_short']}"
+page = Nokogiri::HTML(RestClient.get(url))  
 
-@browser.link( :id => 'SearchMag').click
-Watir::Wait.until { @browser.div( :class=> 'SearchResults' ).exists? }
+thelist = page.css("div.SI a")
 
-if @browser.text.include? "No results found, please try again with less specific terms."
-  
-  businessFound = [:unlisted]
-else
-
-if @browser.link( :text => data['business']).exists?
-@browser.link( :text => data['business']).click
-Watir::Wait.until { @browser.div( :id=> 'ShowCompany' ).exists? }
-  if @browser.link( :id => 'bVerifyButton').exists?
- 
-      businessFound = [:listed, :unclaimed]
-    else
-      businessFound = [:listed, :claimed]
-    end  
-  
+businessFound = [:unlisted]
+thelist.each do |item|
+  next if not item.text =~ /#{data['business']}/i  
+  puts(item.text)
+  thelink = "http://ebusinesspages.com/"+item['href']
+  puts(thelink)
+  subpage = Nokogiri::HTML(RestClient.get(thelink))  
+  if subpage.css("a#bVerifyButton").length == 0
+    businessFound = [:listed, :claimed]
+    break
   else
-    businessFound = [:unlisted]
+    businessFound = [:listed, :unclaimed]
+    break
   end
 end
 [true, businessFound]

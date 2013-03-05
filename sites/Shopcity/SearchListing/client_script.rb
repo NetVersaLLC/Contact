@@ -1,25 +1,29 @@
-@browser.goto("http://www.shopcity.com/map/mapnav_locations.cfm?")
+url = "http://www.shopcity.com/map/mapnav_locations.cfm?region=1001&state="+data['state_short']
 
-@browser.link( :text => /#{data['country']}/).click
-@browser.link( :text => /#{data['state']}/).when_present.click
-@browser.link( :text => /#{data['citystate']}/).when_present.click	
+cities = Nokogiri::HTML(RestClient.get(url))  
+citylink = cities.css("a.navlinks").select{|a|a.text =~ /#{data['citystatelong']}/}
+citylink = citylink[0]['href']
+searchLink = citylink + "/search/inner_results.cfm?where=#{data['citystate']}&action=search&type=businesses&q=#{data['businessfixed']}&categories_search=1&business_posts_search=1&business_search=1&marketplace_search=1%20HTTP/1.1"
+page = Nokogiri::HTML(RestClient.get(searchLink))
 
-@browser.text_field( :name => 'q').when_present.set data['business']
-@browser.button( :src => '/style/1002/searchbutton.png').click
-Watir::Wait.until { @browser.table(:id => 'search_results_pod_tag').exists? }
-businessFound = []
-if @browser.link( :text => /#{data['business']}/).exists?
-sleep(3)
-  @browser.link( :text => /#{data['business']}/).when_present.click
-Watir::Wait.until { @browser.table(:id => 'toppod').exists? }
+thelist = page.css("div.business_title_area a")
+
+businessFound = [:unlisted]
+thelist.each do |item|
+next if item.text =~ /report mistake/
+  next if not item.text =~ /#{data['business']}/i  
+  thelink = item['href']
+  subpage = Nokogiri::HTML(RestClient.get(thelink)) 
     
-  if @browser.link(:xpath => '//*[@id="toppod"]/tbody/tr[2]/td[2]/div/div[1]/div/a').exists?
-    businessFound = [:listed,:unclaimed]
+  if subpage.xpath('//*[@id="toppod"]/tbody/tr[2]/td[2]/div/div[1]/div/a/b').length == 0
+    
+    businessFound = [:listed, :claimed]
+    break
   else
-    businessFound = [:listed,:claimed]  
+    businessFound = [:listed, :unclaimed]
+    break
   end
-else
-    businessFound = [:unlisted]
+
 end
 
 [true, businessFound]
