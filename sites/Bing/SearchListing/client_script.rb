@@ -1,3 +1,4 @@
+
 def listing_already_exists2
 
   #@claim_business_link = @browser.div( :text , 'Claim' )
@@ -24,14 +25,14 @@ end
 def search_for_business2( business )
 
   @browser.goto( 'http://www.bing.com/businessportal/' )
-  puts 'Search for the ' + business[ 'name' ] + ' business at ' + business[ 'city' ] + ' city'
+  puts 'Search for the ' + business[ 'business' ] + ' business at ' + business[ 'city' ] + ' city'
   @browser.link( :text , 'Get Started Now!' ).click
 
   #sleep 4 # seems that div's are not loaded quickly simetimes
   @browser.div( :class , 'LiveUI_Area_Find___Business' ).text_field( :class, 'LiveUI_Field_Input' ).when_present.click
   @browser.div( :class , 'LiveUI_Area_Find___Business' ).text_field( :class, 'LiveUI_Field_Input' ).flash
   @browser.div( :class , 'LiveUI_Area_Find___Business' ).text_field( :class, 'LiveUI_Field_Input' ).focus
-  @browser.div( :class , 'LiveUI_Area_Find___Business' ).text_field( :class, 'LiveUI_Field_Input' ).set business[ 'name' ]
+  @browser.div( :class , 'LiveUI_Area_Find___Business' ).text_field( :class, 'LiveUI_Field_Input' ).set business[ 'business' ]
   @browser.div( :class , 'LiveUI_Area_Find___City' ).text_field( :class, 'LiveUI_Field_Input' ).click
   @browser.div( :class , 'LiveUI_Area_Find___City' ).text_field( :class, 'LiveUI_Field_Input' ).set business[ 'city' ]
   @browser.div( :class , 'LiveUI_Area_Find___State' ).text_field( :class, 'LiveUI_Field_Input' ).click
@@ -51,4 +52,5 @@ if result == true
 else
   businessFound = [:unlisted]
 end
+
 [true, businessFound]
