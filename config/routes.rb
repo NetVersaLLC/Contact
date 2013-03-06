@@ -56,6 +56,7 @@ Contact::Application.routes.draw do
   get     '/scan', :controller => :scan, :action => :index
   get     '/scan/sites(.:format)', :controller => :scan, :action => :sites
   get     '/scan/sites/:id(.:format)', :controller => :scan, :action => :site
+  get     '/scan/status/:id(.:format)', :controller => :scan, :action => :status
 
   get '/images/:id(.:format)', :action => 'index', :controller => 'images'
   post '/images(.:format)', :action=>"create", :controller=>"images"
