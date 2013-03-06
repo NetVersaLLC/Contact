@@ -45,8 +45,8 @@ ActiveRecord::Schema.define(:version => 20130305193233) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
   create_table "admin_users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "email",                  :default => "",    :null => false
+    t.string   "encrypted_password",     :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20130305193233) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.integer  "label_id"
+    t.boolean  "admin",                  :default => false
   end
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
@@ -232,7 +233,7 @@ ActiveRecord::Schema.define(:version => 20130305193233) do
     t.string   "category4"
     t.string   "category5"
     t.boolean  "categorized"
-    t.integer  "label_id",                  :default => 1
+    t.integer  "label_id"
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
@@ -315,6 +316,16 @@ ActiveRecord::Schema.define(:version => 20130305193233) do
   end
 
   add_index "cornerstonesworlds", ["business_id"], :name => "index_cornerstonesworlds_on_business_id"
+
+  create_table "cornerstoneworld_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "cornerstoneworld_categories", ["name"], :name => "index_cornerstoneworld_categories_on_name"
+  add_index "cornerstoneworld_categories", ["parent_id"], :name => "index_cornerstoneworld_categories_on_parent_id"
 
   create_table "coupons", :force => true do |t|
     t.string   "name"
@@ -564,6 +575,7 @@ ActiveRecord::Schema.define(:version => 20130305193233) do
     t.integer  "digabusiness_category_id"
     t.integer  "supermedia_category_id"
     t.integer  "expertfocus_category_id"
+    t.integer  "cornerstoneworld_category_id"
     t.integer  "angies_list_category_id"
     t.integer  "localizedbiz_category_id"
     t.integer  "kudzu_category_id"
@@ -1077,53 +1089,6 @@ ActiveRecord::Schema.define(:version => 20130305193233) do
 
   add_index "primeplaces", ["business_id"], :name => "index_primeplaces_on_business_id"
 
-  create_table "refinery_page_parts", :force => true do |t|
-    t.integer  "refinery_page_id"
-    t.string   "title"
-    t.text     "body"
-    t.integer  "position"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
-  end
-
-  add_index "refinery_page_parts", ["id"], :name => "index_refinery_page_parts_on_id"
-  add_index "refinery_page_parts", ["refinery_page_id"], :name => "index_refinery_page_parts_on_refinery_page_id"
-
-  create_table "refinery_pages", :force => true do |t|
-    t.integer  "parent_id"
-    t.string   "path"
-    t.string   "slug"
-    t.boolean  "show_in_menu",        :default => true
-    t.string   "link_url"
-    t.string   "menu_match"
-    t.boolean  "deletable",           :default => true
-    t.boolean  "draft",               :default => false
-    t.boolean  "skip_to_first_child", :default => false
-    t.integer  "lft"
-    t.integer  "rgt"
-    t.integer  "depth"
-    t.string   "view_template"
-    t.string   "layout_template"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
-  end
-
-  add_index "refinery_pages", ["depth"], :name => "index_refinery_pages_on_depth"
-  add_index "refinery_pages", ["id"], :name => "index_refinery_pages_on_id"
-  add_index "refinery_pages", ["lft"], :name => "index_refinery_pages_on_lft"
-  add_index "refinery_pages", ["parent_id"], :name => "index_refinery_pages_on_parent_id"
-  add_index "refinery_pages", ["rgt"], :name => "index_refinery_pages_on_rgt"
-
-  create_table "refinery_resources", :force => true do |t|
-    t.string   "file_mime_type"
-    t.string   "file_name"
-    t.integer  "file_size"
-    t.string   "file_uid"
-    t.string   "file_ext"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-  end
-
   create_table "rookies", :force => true do |t|
     t.integer  "position"
     t.string   "name"
@@ -1212,6 +1177,17 @@ ActiveRecord::Schema.define(:version => 20130305193233) do
     t.datetime "created_at",             :null => false
     t.datetime "updated_at",             :null => false
   end
+
+  create_table "spotbusinesses", :force => true do |t|
+    t.datetime "force_update"
+    t.text     "secrets"
+    t.integer  "business_id"
+    t.string   "email"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "spotbusinesses", ["business_id"], :name => "index_spotbusinesses_on_business_id"
 
   create_table "staylocals", :force => true do |t|
     t.datetime "force_update"

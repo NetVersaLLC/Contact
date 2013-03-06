@@ -1,7 +1,7 @@
 class Scan
   include HTTParty
 
-  base_uri ENV['SCAN_SERVER'] || 'localhost:4567' #'scan.netversa.com'
+  base_uri ENV['SCAN_SERVER'] || 'scan.netversa.com'
   debug_output $stderr
 
   def initialize(site, business_name, zip)
