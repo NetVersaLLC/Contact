@@ -33,7 +33,7 @@ class JobsController < ApplicationController
   def create
     @business = Business.find(params[:business_id])
 
-    payload = Payload.new(params[:category], params[:name])
+    payload = Payload.start(params[:name])
     if payload == nil
       respond_to do |format|
         format.json { render json: {:error => 'Not Found'}, status: :not_found}
