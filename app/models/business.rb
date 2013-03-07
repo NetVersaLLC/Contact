@@ -12,6 +12,8 @@ class Business < ActiveRecord::Base
     :size => { :in => 1..1500.kilobytes }
 
   has_many          :jobs, :order => "position"
+  has_many          :failed_jobs, :order => "position"
+  has_many          :completed_jobs, :order => "position"
   belongs_to        :user
   belongs_to        :subscription
   has_many          :notifications
