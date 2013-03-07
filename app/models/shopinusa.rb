@@ -1,12 +1,6 @@
 class Shopinusa < ClientData
-	attr_accessible :username, :shopinusa_category_id
-	virtual_attr_accessor :password
-	validates :password,
-            :presence => true
-belongs_to :shopinusa_category            
-         
-
-
+  attr_accessible :shopinusa_category_id
+  belongs_to :shopinusa_category
 
   def self.payment_methods(business)
     methods = {}
