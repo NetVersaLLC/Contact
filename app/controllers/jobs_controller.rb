@@ -32,14 +32,8 @@ class JobsController < ApplicationController
 
   def create
     @business = Business.find(params[:business_id])
-    if @business.user_id != current_user.id
-      respond_to do |format|
-        format.json { render json: {:error => 'No permissions'}, status: :unprocessable_entity }
-      end
-      return
-    end
 
-    payload = Payload.start(params[:name])
+    payload = Payload.new(params[:category], params[:name])
     if payload == nil
       respond_to do |format|
         format.json { render json: {:error => 'Not Found'}, status: :not_found}
@@ -48,7 +42,7 @@ class JobsController < ApplicationController
     end
 
     @job = Job.inject(params[:business_id], payload.payload, payload.data_generator, payload.ready)
-    @job.name = params[:name]
+    @job.name = "#{params[:category]}/#{params[:name]}"
     @job.save
 
     respond_to do |format|

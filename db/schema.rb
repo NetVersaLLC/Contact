@@ -45,8 +45,8 @@ ActiveRecord::Schema.define(:version => 20130305193233) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
   create_table "admin_users", :force => true do |t|
-    t.string   "email",                  :default => "",    :null => false
-    t.string   "encrypted_password",     :default => "",    :null => false
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -56,7 +56,6 @@ ActiveRecord::Schema.define(:version => 20130305193233) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.integer  "label_id"
-    t.boolean  "admin",                  :default => false
   end
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
@@ -233,7 +232,7 @@ ActiveRecord::Schema.define(:version => 20130305193233) do
     t.string   "category4"
     t.string   "category5"
     t.boolean  "categorized"
-    t.integer  "label_id"
+    t.integer  "label_id",                  :default => 1
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
@@ -316,16 +315,6 @@ ActiveRecord::Schema.define(:version => 20130305193233) do
   end
 
   add_index "cornerstonesworlds", ["business_id"], :name => "index_cornerstonesworlds_on_business_id"
-
-  create_table "cornerstoneworld_categories", :force => true do |t|
-    t.integer  "parent_id"
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "cornerstoneworld_categories", ["name"], :name => "index_cornerstoneworld_categories_on_name"
-  add_index "cornerstoneworld_categories", ["parent_id"], :name => "index_cornerstoneworld_categories_on_parent_id"
 
   create_table "coupons", :force => true do |t|
     t.string   "name"
@@ -575,7 +564,6 @@ ActiveRecord::Schema.define(:version => 20130305193233) do
     t.integer  "digabusiness_category_id"
     t.integer  "supermedia_category_id"
     t.integer  "expertfocus_category_id"
-    t.integer  "cornerstoneworld_category_id"
     t.integer  "angies_list_category_id"
     t.integer  "localizedbiz_category_id"
     t.integer  "kudzu_category_id"
@@ -1324,9 +1312,9 @@ ActiveRecord::Schema.define(:version => 20130305193233) do
     t.text     "secrets"
     t.datetime "force_update"
     t.text     "username"
+    t.integer  "usbdn_category_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
-    t.integer  "usbdn_category_id"
   end
 
   add_index "usbdns", ["business_id"], :name => "index_usbdns_on_business_id"
