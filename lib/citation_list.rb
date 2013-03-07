@@ -418,6 +418,13 @@
       ['text', 'password']
     ],
       'Spotbusiness'
+  ],
+  ['Businessdb', 'businessdbs',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Businessdb'
   ]
 ]
 
