@@ -21,6 +21,8 @@ namespace :business do
 
   task :spreadsheet, [:business_id] => :environment do |t,args|
     business = Business.find(args[:business_id])
+    file = business.report
+    puts file
   end
 
 

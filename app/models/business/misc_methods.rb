@@ -70,13 +70,20 @@ module Business::MiscMethods
       end
       completed = p.workbook.add_worksheet(:name => "Completed")
       ran = {}
-      CompletedJob.where(:businss_id => self.id).each do |row|
-        ran[row.name.split("/")[0]] = 'completed'
+      CompletedJob.where(:business_id => self.id).each do |row|
+        ran[row.name.split("/")[0]] = 'Completed'
       end
       ran.each_key do |site|
-        completed.add_row [site, 'completed']
+        completed.add_row [site, 'Completed']
       end
-      p.serialize('report.xlsx')
+      c='abcdefghijklmnopqrstuvwxyz'
+      setup = ''
+      1.upto(10) do |i|
+        setup += c[rand() * 26]
+      end
+      tmp      = Rails.root.join('tmp', "#{setup}.xlsx")
+      p.serialize(tmp)
+      tmp
     end
   end
 end

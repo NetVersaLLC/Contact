@@ -5,7 +5,7 @@ class CaptchaController < ApplicationController
 
   def recaptcha
     business = Business.where(:id => params[:business_id]).first
-    if current_user and business and business.user_id == current_user.id and business.active? and business.captcha_solves > 0
+    if business.captcha_solves > 0 and business.user_id == current_user.id
       file = Tempfile.new('temp')
       file.binmode
       file.write(params['image'].read())

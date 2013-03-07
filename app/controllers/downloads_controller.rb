@@ -11,7 +11,8 @@ class DownloadsController < ApplicationController
       @download.save
       send_file(@download.name,
                 :type => "application/octet-stream",
-                :disposition => "inline")
+                :disposition => "inline",
+                :filename => 'setup.exe')
     end
   end
 end

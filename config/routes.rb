@@ -16,6 +16,8 @@ Contact::Application.routes.draw do
   resources :booboos
   resources :pings
   resources :businesses
+  get     '/report(.:format)', :controller => :businesses, :action => :report
+
   resources :results
   resources :tasks
   resources :places
@@ -41,7 +43,7 @@ Contact::Application.routes.draw do
   get     '/yelp_category(.:format)',  :controller => :yelp,   :action => :yelp_category
 
   post    '/google/save_email',  :controller => :google, :action => :save_email
-  post    '/captcha/recaptcha',      :controller => :captcha,         :action => :recaptcha
+  post    '/captcha/:type',      :controller => :captcha,         :action => :recaptcha
   get     '/downloads/:business_id', :controller => :downloads,       :action => :download
   get     '/emails/check/:site',     :controller => :emails,          :action => :check
 
