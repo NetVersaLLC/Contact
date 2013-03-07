@@ -211,8 +211,6 @@ Devise.setup do |config|
   #   manager.default_strategies(:scope => :user).unshift :some_external_strategy
   # end
 
-  config.action_mailer.default_url_options = { :host => 'towncenter.com' }
-
   #NOTE: Added for cucumber tests
   config.sign_out_via = Rails.env.test? ? :get : :delete
 end
