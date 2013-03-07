@@ -118,7 +118,7 @@ window.clientPayloadListAction = (e)->
   match = window.location.href.match(/client_manager/)
   if match != null and match.length > 0
     window.assign_payload = $(e.target).attr('data-payload-id')
-    window.payload_post_url = "/jobs?name=#{window.assign_payload}&business_id=#{window.business_id}&category=#{$('#payload_categories_select').val()}"
+    window.payload_post_url = "/jobs?name=#{$('#payload_categories_select').val()}/#{window.assign_payload}&business_id=#{window.business_id}"
     $('#assign_payload').dialog("open")
   else
     window.packagePayloadListAction(e)
