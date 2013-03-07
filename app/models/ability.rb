@@ -23,7 +23,9 @@ class Ability
           end
         end
       end
-      can :manage, Job
+      can :manage, Job, :business => { :label_id => user.label }
+      can :manage, CompletedJob, :business => { :label_id => user.label }
+      can :manage, FailedJob, :business => { :label_id => user.label }
     else
       can :manage, Business, :user_id => user.id
       Business.citation_list.each do |site|
@@ -39,6 +41,8 @@ class Ability
       can :manage, Subscription, :business => { :user_id => user.id }
       can :create, Booboo, :user_id => user.id
       can :manage, Job, :business => { :user_id => user.id }
+      can :manage, CompletedJob, :business => { :user_id => user.id }
+      can :manage, FailedJob, :business => { :user_id => user.id }
       can :manage, [CompletedJob, FailedJob], :business => { :user_id => user.id }
       can :manage, Account, :business => { :user_id => user.id }
       can :read,   Coupon
