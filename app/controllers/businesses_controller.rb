@@ -112,4 +112,16 @@ class BusinessesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def report
+    @business = Business.find(params[:business_id])
+    @file = @business.report
+    name = @business.business_name.downcase.gsub(/[^A-Za-z0-9]/, '_')
+    d = DateTime.now
+    name = d.strftime("#{name}_%m/%d/%Y.xlsx")
+    send_file(@file,
+              :type => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+              :disposition => "inline",
+              :filename => name)
+  end
 end

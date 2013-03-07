@@ -51,3 +51,9 @@
     %p Use the button below to download the client software for this business. For best results this software should be installed on a system at the business location.
     .well
       %a.btn.btn-warning.btn-large{:href => "/downloads/#{@business.id}"} Download Client
+.row
+  .span4
+    %h3 Download Report
+    %p Use the button below to download a progress report.
+    .well
+      %a.btn.btn-warning.btn-large{:href => "/report.xlsx?business_id=#{@business.id}"} Download Report
