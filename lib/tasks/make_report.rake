@@ -18,4 +18,10 @@ namespace :business do
       end
     end
   end
+
+  task :spreadsheet, [:business_id] => :environment do |t,args|
+    business = Business.find(args[:business_id])
+  end
+
+
 end

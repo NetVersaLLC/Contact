@@ -49,5 +49,34 @@ module Business::MiscMethods
       end
     end
 
+    def report
+      p = Axlsx::Package.new
+      accounts = p.workbook.add_worksheet(:name => "Accounts")
+      Business.citation_list.each do |site|
+        STDERR.puts "Site: #{site[0]}"
+        if self.respond_to?(site[1]) and self.send(site[1]).count > 0
+          self.send(site[1]).each do |thing|
+            row = [site[3]]
+            site[2].each do |name|
+              if name[0] == 'text'
+                row.push thing.send(name[1])
+              end
+            end
+            accounts.add_row row
+          end
+        else
+          STDERR.puts "Nothing for: #{site[1]}"
+        end
+      end
+      completed = p.workbook.add_worksheet(:name => "Completed")
+      ran = {}
+      CompletedJob.where(:businss_id => self.id).each do |row|
+        ran[row.name.split("/")[0]] = 'completed'
+      end
+      ran.each_key do |site|
+        completed.add_row [site, 'completed']
+      end
+      p.serialize('report.xlsx')
+    end
   end
 end
