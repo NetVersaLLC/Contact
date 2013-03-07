@@ -67,3 +67,5 @@ gem 'faker'
 gem 'cancan'
 gem 'activeadmin-cancan'
 gem 'airbrake'
+gem "capistrano-db-tasks", require: false
+gem 'axlsx'
