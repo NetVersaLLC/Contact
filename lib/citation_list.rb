@@ -261,8 +261,6 @@
   ],
   ['Shopinusa', 'shopinusas',
     [
-      ['text', 'username'],
-      ['text', 'password'],
 	  ['select', 'shopinusa_category']
     ],
       'Shopinusa'

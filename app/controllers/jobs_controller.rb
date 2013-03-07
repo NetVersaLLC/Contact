@@ -42,7 +42,7 @@ class JobsController < ApplicationController
     end
 
     @job = Job.inject(params[:business_id], payload.payload, payload.data_generator, payload.ready)
-    @job.name = "#{params[:category]}/#{params[:name]}"
+    @job.name = params[:name]
     @job.save
 
     respond_to do |format|
