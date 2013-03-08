@@ -100,14 +100,15 @@ namespace :thin do
 end
 
 task :after_update_code do
-  %w{uploads uploads_tmp samples}.each do |share|
+  %w{labels}.each do |share|
     run "ln -s #{shared_path}/#{share} #{release_path}/#{share}"
   end
 end
 
 after 'deploy'           , 'deploy:migrations'
 after 'deploy:migrations', 'deploy:assets'
-after 'deploy:assets',     'nginx:reload'
+after 'deploy:assets',     'after_update_code'
+after 'after_update_code', 'nginx:reload'
 after 'nginx:reload'     , 'thin:restart'
 
 require './config/boot'
