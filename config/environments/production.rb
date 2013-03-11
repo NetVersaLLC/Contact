@@ -52,7 +52,7 @@ Contact::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
   
   # Setting defautt action url
-  config.action_mailer.default_url_options = { :host => 'towncenter.com' }
+  config.action_mailer.default_url_options = { :host => 'signup.towncenter.com' }
 
   # Enable threaded mode
   # config.threadsafe!

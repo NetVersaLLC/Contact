@@ -14,6 +14,7 @@
  *= require jquery-ui
  *= require jquery-bootstrap
  *= require include-bootstrap
+ *= require checkout
  *= require businesses
  *= require style
  *= require fineuploader-3.3.0
