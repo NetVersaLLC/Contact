@@ -7,26 +7,19 @@
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
     %meta{:content => "", :name => "description"}/
     %meta{:content => "", :name => "author"}/
+    %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"}
     = stylesheet_link_tag    "application", :media => "all"
-    %script{:type => "text/javascript", :src => "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"}
     = javascript_include_tag "application"
     = csrf_meta_tags
     %style{:type => "text/css"}
       = current_label.custom_css
-  %body.inner_page
-    %header
-      .container
-        = render :partial => 'pages/menu'
-    %section
-      %article
-        .container
-          - [notice,alert].each do |msg|
-            - if msg
-              - @message = msg
-              = render :partial => 'pages/alert'
-          .row-fluid.span12.des_content
-            = yield
-    %section
-      Copyright &copy; 2013 NetVersa, LLC.
-    = raw current_label.footer
-    -#= render :partial => 'pages/footer'
+    /[if lt IE 9]
+      <script src="/assets/html5shiv.js"></script>
+    /[endif]
+    %link{:href => "/assets/apple-touch-icon-144-precomposed.png", :rel => "apple-touch-icon-precomposed", :sizes => "144x144"}/
+    %link{:href => "/assets/apple-touch-icon-114-precomposed.png", :rel => "apple-touch-icon-precomposed", :sizes => "114x114"}/
+    %link{:href => "/assets/apple-touch-icon-72-precomposed.png", :rel => "apple-touch-icon-precomposed", :sizes => "72x72"}/
+    %link{:href => "/assets/apple-touch-icon-57-precomposed.png", :rel => "apple-touch-icon-precomposed"}/
+    %link{:href => "/assets/favicon.png", :rel => "shortcut icon"}/
+  %body
+    = yield

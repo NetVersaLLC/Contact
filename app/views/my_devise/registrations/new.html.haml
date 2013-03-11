@@ -1,15 +1,104 @@
-%h3.page-title
-  Sign up
-
-= semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => {:class => 'form-horizontal' }) do |f|
+= semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :id => 'checkout') do |f|
   = f.semantic_errors
-  - current_label.packages.each do |package|
-    = f.inputs do
-      = package.name
-  = f.inputs do
-    = f.input :email, :placeholder => "Enter your email address"
-    = f.input :password, :placeholder => "Enter password"
-    = f.input :password_confirmation, :placeholder => "Confirm password"
-  = f.actions do
-    = f.action :submit, :as => :button, :label => 'Sign Up', :button_html => {:class => "btn btn-primary"}
+  .container
+    .row
+      .span10
+        .alert.alert-block.alert-error
+          %button{ :type => "button", :class => "close", 'data-dismiss' => "alert"}
+            &times;
+          %h4 Transaction Declined
+          We&#39;re sorry but the transaction was declined. Please try again or use a different card.
+    .row
+      .span5
+        %fieldset
+          %legend
+            Billing Summary
+          %label{:for => 'package'} Initial Fee
+          .input-prepend.input-append
+            .add-on
+              .span2.total
+                Sub-Total: $
+            %input.span1{:value => '99', :name => 'package', :type => "text", :style => 'text-align: right' }/
+            .add-on .00
+          %br
+          .input-prepend.input-append
+            .add-on
+              .span2.total
+                Coupon: $
+            %input.span1{:value => '-7', :name => 'package', :type => "text", :style => 'text-align: right' }/
+            .add-on .00
+            .add-on NETVERSA
+          %br
+          .input-prepend.input-append
+            .add-on
+              .span2.total.bold
+                Total: $
+            %input.span1{:value => '93', :name => 'package', :type => "text", :style => 'text-align: right' }/
+            .add-on.bold .00
+          %label{:for => 'subscription'} Monthly Subscription
+          .input-prepend.input-append
+            .add-on
+              .span2.total.bold
+                Amount: $
+            %input.span1{:value => '19', :name => 'subscription', :type => "text", :style => 'text-align: right' }/
+            .add-on .00
+      .span5
+        %fieldset
+          %legend
+            Secure Order Form
+            %i.icon-lock
+          %label{:for => 'name'} Name (as it appears on your card)
+          %input{:name => 'name', :placeholder => "Name", :type => "text"}/
+          .cards
+            = image_tag 'mastercard-inactive.gif', :id => 'mastercard'
+            = image_tag 'visa-inactive.gif', :id => 'visa'
+            = image_tag 'americanexpress-inactive.gif', :id => 'americanexpress'
+            = image_tag 'discover-inactive.gif', :id => 'discover'
+          %label{:for => 'card_number'} Card number
+          %input#card_number{:name => 'card_number', :placeholder => "Card Number", :type => "text"}/
+          %label{:for => 'expiration_month'} Expiration date
+          %select.span2{:name => 'card_month'}
+            %option{:value => "01"} January (01)
+            %option{:value => "02"} February (02)
+            %option{:value => "03"} March (03)
+            %option{:value => "04"} April (04)
+            %option{:value => "05"} May (05)
+            %option{:value => "06"} June (06)
+            %option{:value => "07"} July (07)
+            %option{:value => "08"} August (08)
+            %option{:value => "09"} September (09)
+            %option{:value => "10"} October (10)
+            %option{:value => "11"} November (11)
+            %option{:value => "12"} December (12)
+          .input-append
+            %select.span1{:name => 'card_year'}
+              - [Time.now.year .. Time.now.year+10].each do |year|
+                %option
+                  = year
+          %label{:for => 'cvv'} Security code (3 on back, Amex: 4 on front)
+          %input.span1{:placeholder => "CVV", :type => "text", :name => 'cvv' }/
+          = image_tag 'card_back.png',  :style => 'margin-bottom: 10px'
+          = image_tag 'card_front.png',  :style => 'margin-bottom: 10px'
+          %span.help-block Enter your card number without spaces or dashes.
+    .row
+      .span12
+        %fieldset
+          %legend
+            Account Information
+          %label{:for => 'email'} Email
+          %input{:name => 'email', :placeholder => "Email", :type => "text"}/
+          %span.help-block We won&#39;t spam you or share your address.
+          %label{:for => 'password'} Choose a Password
+          %input{:name => 'password', :placeholder => "Password", :type => "password"}/
+          %label{:for => 'password_confirmation'} Verify Password
+          %input{:name => 'password_confirmation', :placeholder => "Password Confirmation", :type => "password"}/
+          %br
+          %br
+          %label.checkbox
+            %input{:type => "checkbox"}/
+            I agree to the
+            %a{:href => '#'}
+              Terms of Service
+          %br
+          %button.btn.btn-large.btn-info#submit{:type => "submit"} Place Order
 = render :partial => "devise/shared/links"
