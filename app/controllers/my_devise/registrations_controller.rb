@@ -3,6 +3,10 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     sign_in(resource_name, resource)
   end
 
+  def new
+    super
+  end
+
   def create
     STDERR.puts "host: #{request.host}"
     build_resource

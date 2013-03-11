@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.5'
+gem 'rails', '3.2.12'
 gem 'mysql2'
 
 group :development do
@@ -29,6 +29,7 @@ group :test do
   gem 'page-object'
   gem 'rspec-expectations'
   gem 'watir-webdriver'
+  gem 'database_cleaner'
   # gem "capybara-webkit"
   # gem 'capybara-screenshot'
 end
