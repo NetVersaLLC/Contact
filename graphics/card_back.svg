@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="64px"
+   height="64px"
+   id="svg2987"
+   version="1.1"
+   inkscape:version="0.48.1 r9760"
+   sodipodi:docname="card_back.svg">
+  <defs
+     id="defs2989" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="3.8890873"
+     inkscape:cx="53.955215"
+     inkscape:cy="50.333071"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:document-units="px"
+     inkscape:grid-bbox="true"
+     inkscape:window-width="1064"
+     inkscape:window-height="660"
+     inkscape:window-x="87"
+     inkscape:window-y="20"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata2992">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <rect
+       style="fill:#999999;fill-opacity:1;stroke:none"
+       id="rect2995"
+       width="64.354721"
+       height="28.339169"
+       x="0.26158655"
+       y="10.900835"
+       ry="4.2528701" />
+    <rect
+       style="fill:#4d4d4d;fill-opacity:1;stroke:none"
+       id="rect2997"
+       width="63.982731"
+       height="3.8019209"
+       x="0.44758284"
+       y="15.057942"
+       ry="0" />
+    <rect
+       style="fill:none;stroke:#de0076;stroke-width:2.06872773;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect2999"
+       width="27.506071"
+       height="12.093744"
+       x="31.721609"
+       y="21.036907" />
+    <text
+       xml:space="preserve"
+       style="font-size:11.07578945px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="30.106106"
+       y="34.253151"
+       id="text3769"
+       sodipodi:linespacing="125%"
+       transform="scale(1.1136406,0.89795578)"><tspan
+         sodipodi:role="line"
+         id="tspan3771"
+         x="30.106106"
+         y="34.253151">989</tspan></text>
+  </g>
+</svg>

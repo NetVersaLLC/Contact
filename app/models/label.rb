@@ -3,4 +3,5 @@ class Label < ActiveRecord::Base
   attr_accessible :name, :domain, :custom_css, :login, :password, :logo, :footer
   has_many :users
   has_many :coupons
+  has_many :packages
 end
