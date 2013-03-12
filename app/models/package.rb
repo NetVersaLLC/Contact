@@ -19,28 +19,14 @@ class Package < ActiveRecord::Base
     ret
   end
 
-  def show_initial_fee
-    if self.price == nil or self.price <= 0
-      '$0.00'
-    else
-      "$%.02f" % (self.price / 100.0)
-    end
-  end
-
-  def show_monthly_fee
-    if self.monthly_fee == nil or self.monthly_fee <= 0
-      '$0.00'
-    else
-      "$%.02f" % (self.monthly_fee / 100.0)
-    end
-  end
-
-  def self.apply_coupon(package_id, coupon)
-    package = Package.find(package_id)
+  def self.apply_coupon(package, coupon)
+    old_price = package.price
     if coupon
-      package.price       = package.price       * ( 1.0 - (100 / coupon.percentage_off) )
-      package.monthly_fee = package.monthly_fee * ( 1.0 - (100 / coupon.percentage_off) )
+      package.price       = (package.price * (1.0 - (coupon.percentage_off / 100.0))).to_i
+      if coupon.percentage_off == 100
+        package.monthly_fee = 0
+      end
     end
-    package
+    old_price - package.price
   end
 end
