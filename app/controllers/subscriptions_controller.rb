@@ -25,7 +25,7 @@ class SubscriptionsController < ApplicationController
     logger.info "Coupon: #{coupon.inspect}"
     if coupon != nil and coupon.percentage_off == 100
       flash[:notice] = "Subscription started and coupon applied!"
-      business       = Subscription.create_subsciption(sub, params[:business_id])
+      business       = Subscription.create_subscription(sub, params[:business_id], coupon, current_user)
       redirect_to edit_business_path(business)
       return
     end

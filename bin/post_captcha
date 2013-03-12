@@ -2,6 +2,8 @@
 
 require 'rest_client'
 res = RestClient.post('http://citation.netversa.com/captcha/recaptcha', 
-                      :image => File.new(ARGV[0]))
+                      :image => File.new(ARGV[0]),
+                      :business_id => 203,
+                      :auth_token => 'iHzCZLzSnyKf8GZ44URq')
 
 STDERR.puts res.inspect

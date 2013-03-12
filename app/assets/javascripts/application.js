@@ -1,6 +1,7 @@
 
 //= require dummy
 //= require jquery_ujs
+//= require jquery-ui
 //= require rails.validations
 //= require bootstrap.min
 //= require businesses

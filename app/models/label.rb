@@ -4,4 +4,12 @@ class Label < ActiveRecord::Base
   has_many :users
   has_many :coupons
   has_many :packages
+
+  def get_gateway
+    gateway = ActiveMerchant::Billing::Base.gateway(:authorize_net).new(
+      :login    => self.login,
+      :password => self.password,
+    )
+    gateway
+  end
 end
