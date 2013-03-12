@@ -6,7 +6,8 @@ def process_crunchbase_signup(profile)
   @browser.text_field(:id, "user_password").set profile['password']
   @browser.text_field(:id, "user_password_confirmation").set profile['password']
   @browser.text_field(:id, "user_email_address").set profile['email']
-  @browser.text_field(:id, "user_twitter_username").set profile['twitter']
+  
+    @browser.text_field(:id, "user_twitter_username").set profile['twitter']
   @browser.text_field(:id, "user_homepage_url").set profile['homepage']
 
   enter_captcha 

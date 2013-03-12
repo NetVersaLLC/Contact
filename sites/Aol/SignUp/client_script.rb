@@ -14,13 +14,21 @@ end
 
 # Function for selecting trying multiple user name until its available
 def select_username(param)
+  puts("5")
   until @browser.text_field( :id => 'desiredSN' ).visible? == false
+    puts("6")
     @browser.text_field( :id => 'desiredSN' ).set(param)
+    puts("7")
     @browser.span( :text => 'Check' ).click
-    @browser.wait_until {@browser.image(:title,/Congratulations/).exist? || @browser.div(:class,'suggMid').exist?}
+    puts("8")
+    Watir::Wait.until {@browser.image(:title,/Congratulations/).exist? || @browser.div(:class,'suggMid').exist?}
+    puts("9")
+    sleep(3)
     if @browser.text_field( :id => 'desiredSN' ).visible? == false
+      puts("10")
       break
     else
+      puts("11")
       select_username(increament(param))
     end
   end
@@ -28,14 +36,22 @@ end
 
 # Script start from here
 # Launch url
+
+
 url = 'http://www.aol.com/'
 @browser.goto(url)
 
+sleep(100)
+
+puts(".5.")
+@browser.link(:name => 'om_signin').click
 # step 1
-@browser.link(:text => 'Sign In').when_present.click
-@browser.link(:text => 'Get a Free Username').click
+puts("1")
+@browser.link(:text => 'Get a Free Username').when_present.click
+puts("2")
 @browser.text_field( :id => 'firstName' ).set data[ 'first_name' ]
 @browser.text_field( :id => 'lastName' ).set data['last_name']
+puts("3")
 @browser.text_field( :id => 'desiredSN' ).set data[ 'username' ]
 select_username(data[ 'username' ])
 @browser.text_field( :id => 'password' ).set data[ 'password' ]
