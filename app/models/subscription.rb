@@ -34,15 +34,7 @@ class Subscription < ActiveRecord::Base
     months
   end
 
-  def self.cards
-    x = { :visa => 'Visa',
-      :master => 'Master Card',
-      :american_express => 'American Express',
-      :discover => 'Discover' }
-    x.invert
-  end
-
-  def self.create_subscription(sub, business_id)
+  def self.create_subscription(sub, business_id, coupon, current_user)
     business = nil
     @subscription    = Subscription.create do |s|
       s.package_id   = Package.first.id
@@ -107,7 +99,7 @@ class Subscription < ActiveRecord::Base
     credit_card
   end
 
-  def self.get_gateway(coupon)
+  def self.get_gateway(label)
     ActiveMerchant::Billing::Base.mode = :test
     gateway = ActiveMerchant::Billing::AuthorizeNetGateway.new(
       # iwntbbnprn2
@@ -117,11 +109,15 @@ class Subscription < ActiveRecord::Base
       :test     => true
     )
     if Rails.env == :production or Rails.env == 'production'
-      if coupon
-        gateway = coupon.get_gateway
+      if label
+        gateway = label.get_gateway
         ActiveMerchant::Billing::Base.mode = :production
       end
     end
     gateway
+  end
+
+  def self.process_transaction(label, user, params)
+    errors = []
   end
 end

@@ -10,6 +10,14 @@ getCreditCardType = (accountNumber)->
     result = "americanexpress"
   return result
 
+addMessage = (title, desc)->
+  html = '<div class="alert alert-block alert-error"><button class="close" data-dismiss="alert" type="button">&times;</button><h4>'
+  html += title
+  html += '</h4>'
+  html += desc
+  html += '</div>'
+  $('#errors').append(html)
+
 examineCard = ()->
   name = $('#card_number').val()
   current_type = getCreditCardType(name)
@@ -17,19 +25,54 @@ examineCard = ()->
   $.each types, (i,type)->
     em = $('#'+type)
     if (current_type == type)
-      em.attr('src', 'cards/'+type+'.gif')
+      em.attr('src', '/assets/'+type+'.gif')
       em.addClass('activeCard')
     else
-      em.attr('src', 'cards/'+type+'-inactive.gif')
+      em.attr('src', '/assets/'+type+'-inactive.gif')
       em.removeClass('activeCard')
 
+formElement = (cond, title, desc, id)->
+  console.log(title, cond)
+  error = false
+  if cond == false
+    addMessage(title, desc)
+    error = true
+  error
+
+regexMatch = (id, regex)->
+  $('#'+id).val().match(regex) != null
+
+requiredElement = (id, name)->
+  error = formElement(regexMatch(id, /\S+/), name, name+" is required", name)
+  error
+
+formValidates = ()->
+  $('#errors').html('')
+  error = false
+  console.log($('#card_month').val(), $('#card_year').val())
+  error = formElement($.payment.validateCardNumber($('#card_number').val()), "Card number", "Card number is not valid", "card_number")
+  error = formElement($.payment.validateCardExpiry($('#card_month').val(), $('#card_year').val()), "Expiration date", "Card expiration is invalid", "card_month")
+  error = formElement($.payment.validateCardCVC($('#cvv').val()), "CVV", "CVV is invalid", 'cvv')
+  error = requiredElement('name', 'Name')
+  error = requiredElement('email', 'Email')
+  error = requiredElement('password', 'Password')
+  error = requiredElement('password_confirmation', 'Password Confirmation')
+  unless ($('#tos').is(':checked'))
+    addMessage("Terms of Service", "You must agree to the terms of service")
+    error = true
+  if error == true
+    return false
+  true
+
 $(document).ready ()->
+  examineCard()
   textbox = $('#card_number')
   textbox.keypress(examineCard)
   textbox.blur(examineCard)
   textbox.payment('formatCardNumber')
-  $('#checkout button').click (e)->
-    $('#checkout button').attr("disabled", "disabled")
-    if ($.payment.validateCardNumber(textbox.val()) == true)
-      $('#checkout').submit()
+  $('#cvv').payment('formatCardCVC')
+  $('#submit_button').click (e)->
+    if formValidates() == true
+      $('#submit_button').attr("disabled", "disabled")
+      $('form').submit()
     return true
