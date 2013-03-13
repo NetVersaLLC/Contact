@@ -336,7 +336,9 @@
   ],
   ['Ebusinesspage', 'ebusinesspages',
     [
-	['select', 'ebusinesspage_category']
+	     ['text', 'username'],
+       ['text', 'password'],
+       ['select', 'ebusinesspage_category']
     ],
       'Ebusinesspage'
   ],
