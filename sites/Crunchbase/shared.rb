@@ -16,8 +16,8 @@ def enter_captcha
 		captcha_code = solve_captcha
 		@browser.text_field( :id, 'recaptcha_response_field').set captcha_code
 		@browser.button(:name => 'commit').click
-
-		if not @browser.div( :id, 'errorExplanation').exists?
+		sleep(2)	
+		if not @browser.text.include? "Error with reCAPTCHA!"
 			capSolved = true
 		end
 	count+=1
@@ -102,4 +102,35 @@ def select_username(param)
       select_username(increament(param))
     end
   end
+end
+
+def solve_captcha_addbusiness
+  image = "#{ENV['USERPROFILE']}\\citation\\crunchbase_captcha.png"
+  obj = @browser.image( :xpath, '//*[@id="recaptcha_image"]/img' )
+  puts "CAPTCHA source: #{obj.src}"
+  puts "CAPTCHA width: #{obj.width}"
+  obj.save image
+  CAPTCHA.solve image, :manual
+end
+
+def enter_captcha_addbusiness
+	capSolved = false
+	count = 1
+	until capSolved or count > 5 do
+		captcha_code = solve_captcha_addbusiness
+
+		@browser.text_field( :id, 'recaptcha_response_field').set captcha_code
+		@browser.button(:name => 'commit').click
+		sleep(2)	
+		if not @browser.text.include? "Error with reCAPTCHA!"
+			capSolved = true
+		end
+	count+=1
+	end
+
+	if capSolved == true
+		true
+	else
+		throw("Captcha was not solved")
+	end
 end
