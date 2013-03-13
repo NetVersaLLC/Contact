@@ -328,7 +328,9 @@
   ],
   ['Ezlocal', 'ezlocals',
     [
-	['select', 'ezlocal_category']
+	     ['text', 'email'],
+       ['text', 'password'],
+       ['select', 'ezlocal_category']
     ],
       'Ezlocal'
   ],
@@ -359,6 +361,8 @@
   ],
   ['Digabusiness', 'digabusinesses',
     [
+      ['text', 'email'],
+      ['text', 'password'],
       ['select', 'digabusiness_category']
     ],
       'Digabusiness'

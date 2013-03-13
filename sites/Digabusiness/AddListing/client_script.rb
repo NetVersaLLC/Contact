@@ -1,3 +1,5 @@
+sign_in(data)
+
 @browser.goto('http://www.digabusiness.com/submit.php')
 
 @browser.radio( :id => 'LINK_TYPE_NORMAL').click
@@ -18,11 +20,13 @@ payments.each do |pay|
 end
 
 @browser.span( :id => 'toggleCategTree').click
-sleep(5)
+sleep(3)
 @browser.div( :title => data[ 'category1' ]).click
-sleep(5)
+sleep(3)
 @browser.div( :title => data[ 'category2' ]).click
-sleep(5)
+sleep(3)
 
 enter_captcha( data )
 
+Watir::Wait.until { @browser.text.include? "We got your submission!"}
+true
