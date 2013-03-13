@@ -12,8 +12,8 @@ def process_crunchbase_signup(profile)
 
   enter_captcha 
 
-  @browser.wait_until {@browser.h1(:class => 'h1_first', :text => 'Connect with Facebook').exists?}
-
+  RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => profile[ 'username' ], 'account[password]' => profile[ 'password' ], 'model' => 'Crunchbase'
+  Watir::Wait.until {@browser.text.include? 'Connect with Facebook' }
   if profile['use_facebook'] == true
     @browser.div(:id => "facebook_link_holder").img(:index => 0).click
   else
@@ -21,7 +21,8 @@ def process_crunchbase_signup(profile)
   end
 
 	puts 'Signup is Completed'
-	RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[username]' => profile[ 'username' ], 'account[password]' => profile[ 'password' ], 'model' => 'Crunchbase'
+	
 end
 goto_signup_page
 process_crunchbase_signup(data)
+true
