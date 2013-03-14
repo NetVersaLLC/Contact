@@ -1,7 +1,11 @@
 data = {}
-catty                       = Cornerstonesworld.where(:business_id => business.id).first
+data['username']		= business.cornerstonesworlds.first.username
+data['password']		= business.cornerstonesworlds.first.password
+data['email']			= business.bings.first.email
+
+catty                   = Cornerstonesworld.where(:business_id => business.id).first
 data[ 'business' ]		= business.business_name
-data[ 'category' ]  = catty.cornerstonesworld_category.name.gsub("\n", "")
+data[ 'category' ]  	= catty.cornerstonesworld_category.name.gsub("\n", "")
 data[ 'address' ]		= business.address + ' ' + business.address2
 data[ 'city' ]			= business.city
 data[ 'zip' ] 			= business.zip
@@ -20,7 +24,4 @@ data[ 'email' ]			= business.bings.first.email
 data[ 'name' ]			= business.contact_first_name
 data[ 'namelast' ]		= business.contact_last_name
 data[ 'gender' ]		= business.contact_gender
-data[ 'jobtitle' ]		= "Owner"
-data[ 'password' ]		= Yahoo.make_password
 data
-
