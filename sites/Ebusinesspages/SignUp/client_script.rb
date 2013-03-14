@@ -1,26 +1,20 @@
-@browser.goto( 'http://ebusinesspages.com/' )
-@browser.text_field( :name => 'co').set data['business']
-@browser.text_field( :name => 'loc').set data['citystate']
+@browser.goto('http://ebusinesspages.com/')
 
-@browser.link( :id => 'SearchMag').click
-Watir::Wait.until { @browser.div( :class=> 'SearchResults' ).exists? }
+@browser.link(:text => 'Register').click
 
-if @browser.text.include? "No results found, please try again with less specific terms."
-  
-  businessFound = [:unlisted]
-else
+@browser.text_field(:name => 'UserName').set data['username']
+@browser.text_field(:name => 'Password').set data['password']
+@browser.text_field(:name => 'FirstName').set data['fname']
+@browser.text_field(:name => 'LastName').set data['lname']
+@browser.text_field(:name => 'Email').set data['email']
 
-if @browser.link( :text => data['business']).exists?
-@browser.link( :text => data['business']).click
-Watir::Wait.until { @browser.div( :id=> 'ShowCompany' ).exists? }
-  if @browser.link( :id => 'bVerifyButton').exists?
- 
-      businessFound = [:listed, :unclaimed]
-    else
-      businessFound = [:listed, :claimed]
-    end  
-  
-  else
-    businessFound = [:unlisted]
-  end
-end
+@browser.button(:name => 'RegisterButton').click
+
+RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[username]' => data['username'], 'account[password]' => data['password'], 'model' => 'Ebusinesspage'
+
+Watir::Wait.until { @browser.link(:text => 'Log Out') }
+	if @chained
+		self.start("Ebusinesspages/AddListing")
+	end
+	true
+
