@@ -6,3 +6,15 @@ def sign_in(data)
 	@browser.button(:value => 'Log in').click
 
 end
+
+
+def search_for_business( data )
+	@browser.goto( 'https://foursquare.com/search' )
+
+	@browser.text_field(:id, 'q').set data['name']
+	@browser.text_field(:id, "near").set data['city']+', '+data['state']
+	@browser.button( :value, "Search").click
+	
+	
+
+end

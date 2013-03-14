@@ -29,12 +29,24 @@ end
 
 # Main Steps
 # Launch url
-url = 'http://www.businessdb.com'
-@browser.goto(url)
+url = "http://social.businessdb.com/?q="+data['businessfixed']+"&c=United States of America&r="+data['state']
+@browser.goto(URI.escape(url))
 
-if search_business(data)
-  puts "Business Already Exist"
-else
+if @browser.text.include? "Excuse me sir, but R2-D2 says something is not right here."
   add_listing(data)
+else
+businesslisted = false
+  @browser.ul(:class => 'social-list').lis.each do |item|
+    if item.span(:class => 'social-companyName').text == data['business']
+      businesslisted = true
+    end
+  end
+
+  if businesslisted == true
+    puts "Business already listed"
+  else
+    add_listing(data)
+  end
+
 end
 

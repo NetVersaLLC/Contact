@@ -9,21 +9,7 @@ def sign_in( data )
 
 end
 
-def search_for_business( data )
-	@browser.goto( 'https://foursquare.com/search' )
 
-	@browser.text_field(:id, 'q').set data['name']
-	@browser.text_field(:id, "near").set data['city']+', '+data['state']
-	@browser.button( :value, "Search").click
-	
-	if @browser.link( :text, "#{data['name']}").exists?
-		@business_url = @browser.link( :text, "#{data['name']}").href
-		claim_listing( data )
-	else
-		add_listing( data )
-	end
-
-end
 
 def claim_listing( data )
 @browser.goto(@business_url)
@@ -67,6 +53,10 @@ end
 sign_in( data )
 search_for_business( data )
 
-
-
+if @browser.link( :text, "#{data['name']}").exists?
+	@business_url = @browser.link( :text, "#{data['name']}").href
+	claim_listing( data )
+else
+	add_listing( data )
+end
 
