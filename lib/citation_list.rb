@@ -115,7 +115,8 @@
   ['Foursquare', 'foursquares',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'foursquare_category']
     ],
       'foursquare'
   ],

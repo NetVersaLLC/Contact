@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130313212915) do
+ActiveRecord::Schema.define(:version => 20130314190052) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -520,6 +520,16 @@ ActiveRecord::Schema.define(:version => 20130313212915) do
 
   add_index "findstorenearus", ["business_id"], :name => "index_findstorenearus_on_business_id"
 
+  create_table "foursquare_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "foursquare_categories", ["name"], :name => "index_foursquare_categories_on_name"
+  add_index "foursquare_categories", ["parent_id"], :name => "index_foursquare_categories_on_parent_id"
+
   create_table "foursquares", :force => true do |t|
     t.integer  "business_id"
     t.string   "email"
@@ -527,8 +537,9 @@ ActiveRecord::Schema.define(:version => 20130313212915) do
     t.string   "status"
     t.boolean  "facebook_signin"
     t.datetime "force_update"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.integer  "foursquare_category_id"
   end
 
   add_index "foursquares", ["business_id"], :name => "index_foursquares_on_business_id"
@@ -600,6 +611,7 @@ ActiveRecord::Schema.define(:version => 20130313212915) do
     t.integer  "ibegin_category_id"
     t.integer  "insider_page_category_id"
     t.integer  "cornerstonesworld_category_id"
+    t.integer  "foursquare_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
