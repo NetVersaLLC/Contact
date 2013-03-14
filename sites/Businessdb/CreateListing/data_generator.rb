@@ -9,6 +9,7 @@ data[ 'city' ] = business.city
 data[ 'state' ] = business.state
 data[ 'zip' ] = business.zip
 data[ 'business' ] = business.business_name
+data[ 'businessfixed' ] = data['business']
 data[ 'business_category' ] = business.category1
 data['location'] = data[ 'business' ] +', '+ data[ 'city' ]
 data['country'] = 'United States of America'
