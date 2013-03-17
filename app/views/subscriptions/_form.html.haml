@@ -8,7 +8,7 @@
     %tr
       %td Package Price
       %td 
-        = "$%.02f" % (@business.subscription.package.price.to_i / 100.0)
+        = "$%02d" % (@business.subscription.package.price.to_i)
     %tr
       %td Started
       %td
@@ -23,7 +23,7 @@
     - @f = f
     %h3
     %p
-      One-time Setup #{@package.show_initial_fee} + #{@package.show_monthly_fee}  recurring
+      One-time Setup $#{@package.price} + $#{@package.monthly_fee}  recurring
       Get listed in 45+ of the top online directories and start growing your online presence today.
     .offset3.span8
       %section{:id => 'section-packages'}

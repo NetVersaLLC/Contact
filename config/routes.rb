@@ -3,7 +3,7 @@ Contact::Application.routes.draw do
   get    '/payloads/:id(.:format)', :controller => :payloads, :action => :index
   get    '/packages/:id(.:format)', :controller => :packages, :action => :index
   delete '/packages/:id(.:format)', :controller => :packages, :action => :destroy
-  post   '/packages/:id(.:format)',     :controller => :packages, :action => :create
+  post   '/packages/:id(.:format)', :controller => :packages, :action => :create
   resources :google_categories
 
   devise_for :users,
@@ -13,6 +13,7 @@ Contact::Application.routes.draw do
   ActiveAdmin.routes(self)
 
   resources :booboos
+  resources :subscriptions
   resources :pings
   resources :businesses
   get     '/report(.:format)', :controller => :businesses, :action => :report
@@ -59,11 +60,11 @@ Contact::Application.routes.draw do
   get     '/scan/sites/:id(.:format)', :controller => :scan, :action => :site
   get     '/scan/status/:id(.:format)', :controller => :scan, :action => :status
 
-  get '/images/:id(.:format)', :action => 'index', :controller => 'images'
-  post '/images(.:format)', :action=>"create", :controller=>"images"
-  delete '/images/:id(.:format)',:action=>"destroy", :controller=>"images"
-  delete '/images/:id/all(.:format)',:action=>"destroy_all", :controller=>"images"
-  put '/images/:id(.:format)', :action=>"update", :controller=>"images"
+  get     '/images/:id(.:format)', :action => 'index', :controller => 'images'
+  post    '/images(.:format)', :action=>"create", :controller=>"images"
+  delete  '/images/:id(.:format)',:action=>"destroy", :controller=>"images"
+  delete  '/images/:id/all(.:format)',:action=>"destroy_all", :controller=>"images"
+  put     '/images/:id(.:format)', :action=>"update", :controller=>"images"
 
   root :to => redirect("/pages/make_redirect")
 end

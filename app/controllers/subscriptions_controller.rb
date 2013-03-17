@@ -82,7 +82,7 @@ class SubscriptionsController < ApplicationController
           business                 = Business.new
           business.user_id         = current_user.id
           business.subscription_id = subscription.id
-          business.label_id         = current_label.id
+          business.label_id        = current_label.id
           business.save     :validate => false
           redirect_to edit_business_path(business)
         else
