@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130314190052) do
+ActiveRecord::Schema.define(:version => 20130314233600) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -45,8 +45,8 @@ ActiveRecord::Schema.define(:version => 20130314190052) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
   create_table "admin_users", :force => true do |t|
-    t.string   "email",                  :default => "",    :null => false
-    t.string   "encrypted_password",     :default => "",    :null => false
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -56,7 +56,6 @@ ActiveRecord::Schema.define(:version => 20130314190052) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.integer  "label_id"
-    t.boolean  "admin",                  :default => false
   end
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
@@ -476,9 +475,9 @@ ActiveRecord::Schema.define(:version => 20130314190052) do
     t.integer  "business_id"
     t.datetime "force_update"
     t.text     "secrets"
+    t.integer  "ezlocal_category_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
-    t.integer  "ezlocal_category_id"
     t.string   "email"
   end
 
@@ -566,17 +565,6 @@ ActiveRecord::Schema.define(:version => 20130314190052) do
 
   add_index "getfavs", ["business_id"], :name => "index_getfavs_on_business_id"
 
-  create_table "gomylocals", :force => true do |t|
-    t.integer  "business_id"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.text     "username"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
-  add_index "gomylocals", ["business_id"], :name => "index_gomylocals_on_business_id"
-
   create_table "google_categories", :force => true do |t|
     t.string   "name"
     t.string   "slug"
@@ -601,7 +589,6 @@ ActiveRecord::Schema.define(:version => 20130314190052) do
     t.integer  "digabusiness_category_id"
     t.integer  "supermedia_category_id"
     t.integer  "expertfocus_category_id"
-    t.integer  "cornerstoneworld_category_id"
     t.integer  "angies_list_category_id"
     t.integer  "localizedbiz_category_id"
     t.integer  "kudzu_category_id"
@@ -729,15 +716,6 @@ ActiveRecord::Schema.define(:version => 20130314190052) do
   end
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
-
-  create_table "insiderpages", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "email"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
 
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
@@ -1102,6 +1080,17 @@ ActiveRecord::Schema.define(:version => 20130314190052) do
     t.integer  "monthly_fee"
     t.integer  "label_id"
   end
+
+  create_table "payments", :force => true do |t|
+    t.string   "status"
+    t.integer  "amount"
+    t.string   "transaction_number"
+    t.integer  "business_id"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  add_index "payments", ["business_id"], :name => "index_payments_on_business_id"
 
   create_table "primeplace_categories", :force => true do |t|
     t.integer  "parent_id"
@@ -1565,7 +1554,6 @@ ActiveRecord::Schema.define(:version => 20130314190052) do
     t.datetime "updated_at",          :null => false
     t.integer  "zippro_category2_id"
     t.integer  "zippro_category_id"
-    t.integer  "form_id"
   end
 
   add_index "zippros", ["business_id"], :name => "index_zippros_on_business_id"
