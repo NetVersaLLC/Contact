@@ -66,5 +66,7 @@ Contact::Application.routes.draw do
   delete  '/images/:id/all(.:format)',:action=>"destroy_all", :controller=>"images"
   put     '/images/:id(.:format)', :action=>"update", :controller=>"images"
 
+  get '/resellers', :controller => :pages, :action => :resellers
+
   root :to => redirect("/pages/make_redirect")
 end

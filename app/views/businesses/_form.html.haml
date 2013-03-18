@@ -1,12 +1,11 @@
 #zip_search_form
-  = button_tag "Close", :id => 'close_zip_search_form'
   %form{:class => 'well form form-horizontal', :id => 'zipform'}
     .control-group
       %label.control-label{ :for => :zip } Search by Zip
       .controls
         .input-append
           = text_field_tag :zip
-          %button{:id => "zipsearch"} Search
+          %button.btn{:id => "zipsearch"} Search
     .control-group
       %label.control-label{ :for => :state } State
       .controls
@@ -20,7 +19,7 @@
       .controls
         .input-append
           = text_field_tag :company_name
-          %input{:id => :search, :value => "Search", :type => 'button' }/
+          %input.btn{:id => :search, :value => "Search", :type => 'button' }/
   #business_results
 
 = semantic_form_for @business, :validate => true, :html => {:multipart => true, :class => 'form-horizontal' }  do |f|

@@ -4,7 +4,6 @@ class Package < ActiveRecord::Base
   attr_accessible :description, :name, :price, :short_description, :monthly_fee
   has_many :package_payloads
   has_many :subscriptions
-  belongs_to :labels
 
   validates :monthly_fee,
     :numericality => { :greater_than => 0 },
@@ -24,17 +23,17 @@ class Package < ActiveRecord::Base
   end
 
   def apply_coupon(coupon)
-    self.original_price = price
+    self.original_price = self.price
     if coupon
-      price   = (price * (1.0 - (coupon.percentage_off / 100.0))).to_i
+      self.price   = (self.price * (1.0 - (coupon.percentage_off / 100.0))).to_i
       # NOTE: If coupon is 100% off then no subscription cost.
       if coupon.percentage_off == 100
         self.monthly_fee = 0
       end
-      self.saved = self.original_price - price
+      self.saved = self.original_price - self.price
     else
       self.saved = 0
-      self.original_price = price
+      self.original_price = self.price
     end
   end
 end

@@ -8,7 +8,7 @@ class ModifySubscription < ActiveRecord::Migration
     remove_column :subscriptions, :zip
     remove_column :subscriptions, :authorizenet_code
     remove_column :subscriptions, :coupon_id
-    remove_column :subscriptions, :initial_fee
+   # remove_column :subscriptions, :initial_fee
     remove_column :subscriptions, :transaction_code
     remove_column :subscriptions, :package_name
     remove_column :subscriptions, :total
