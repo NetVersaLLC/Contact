@@ -430,6 +430,13 @@
       ['text', 'password']
     ],
       'Businessdb'
+  ],
+  ['Gomylocal', 'gomylocals',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Gomylocal'
   ]
 ]
 

@@ -1,5 +1,5 @@
 @browser.goto( 'https://www.gomylocal.com/add_listings.php?action=register&option=4' )
-puts(data['password'])
+puts(data['category1'])
 @browser.text_field( :name => 'user_name').set data['username']
 @browser.text_field( :name => 'password').set data['password']
 @browser.text_field( :name => 'confirm_password').set data['password']
@@ -32,6 +32,7 @@ enter_captcha( data )
 if @browser.text.include? "Congratulations your listing is now activate."
 	RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[password]' => data['password'], 'account[username]' => data['username'], 'model' => 'Gomylocal'
 true	
+
 end
 
 
