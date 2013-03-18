@@ -4,7 +4,6 @@ gem 'rails', '3.2.12'
 gem 'mysql2'
 
 group :development do
-  gem 'guard-rspec'
   gem 'capistrano'
   gem 'rvm-capistrano'
   gem 'rb-fsevent'
@@ -25,7 +24,8 @@ group :production do
 end
 
 group :test do
-  gem 'cucumber-rails', :require => false
+  gem 'cucumber'
+  gem 'cucumber-rails'
   gem 'page-object'
   gem 'rspec-expectations'
   gem 'watir-webdriver'
