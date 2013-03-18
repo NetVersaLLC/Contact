@@ -9,4 +9,7 @@ class PagesController < ApplicationController
       redirect_to '/users/sign_up'
     end
   end
+
+  def resellers
+  end
 end

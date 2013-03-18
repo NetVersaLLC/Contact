@@ -4,37 +4,65 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
   end
 
   def new
-    checkout_setup
+    @is_checkout_session = checkout_setup
     super
   end
 
   def create
     build_resource
-    checkout_setup
 
-    @name        = params[:name]
-    @card_number = params[:card_number]
-    @cvv         = params[:cvv]
-    @card_month  = params[:card_month]
-    @card_year   = params[:card_year]
-    @email       = params[:user][:email]
+    @is_checkout_session = checkout_setup
+    if @is_checkout_session == true
+      @name        = params[:creditcard][:name]
+      @card_number = params[:creditcard][:number]
+      @cvv         = params[:creditcard][:verification_value]
+      @card_month  = params[:creditcard][:month]
+      @card_year   = params[:creditcard][:year]
+      @email       = params[:user][:email]
+    end
 
+    @errors             = []
+    business            = Business.new
     ActiveRecord::Base.transaction do
-      @errors,@sub = Subscription.process_transaction(current_label, resource, params)
+      if @is_checkout_session == true
+        @transaction = TransactionEvent.build(params, @package, current_label)
+        if @transaction.process() == true
+          flash[:notice] = "Signed up"
+          business.subscription = @transaction.subscription
+          business.save :validate => false
+          @transaction.setup_business(business)
+        else
+          flash[:notice] = @transaction.message
+          @errors.push @transaction.message
+        end
+      end
       resource.label_id = current_label.id
       if resource.save and @errors.length == 0
+        if @is_checkout_session == true
+          business.user    = resource
+          business.user_id = resource.id
+          business.save :validate => false
+        end
         if resource.active_for_authentication?
           set_flash_message :notice, :signed_up if is_navigational_format?
           sign_up(resource_name, resource)
-          respond_with resource, :location => after_sign_up_path_for(resource)
+          if @is_checkout_session == true
+            redirect_to edit_business_path(business)
+          else
+            redirect_to '/resellers'
+          end
         else
           set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
           expire_session_data_after_sign_in!
-          respond_with resource, :location => after_inactive_sign_up_path_for(resource)
+          if @is_checkout_session == true
+            redirect_to edit_business_path(business)
+          else
+            redirect_to '/resellers'
+          end
         end
       else
         clean_up_passwords resource
-        redirect_to @sub.business
+        respond_with resource, :location => new_user_registration_path
       end
     end
   end
@@ -45,18 +73,19 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
   # end
   # private
   def checkout_setup
-    if params[:package_id].nil?
-      @package    = Package.first
-    else
+    if params[:package_id] != nil and params[:package_id].to_i > 0
       @package    = Package.find(params[:package_id])
+    else
+      return false
     end
     @coupon       = Coupon.where(:label_id => current_label.id, :code => params[:coupon]).first
     @subtotal     = @package.price
     @total        = @package.price
     @amount_total = @package.monthly_fee
     unless @coupon.nil?
-      @saved      = Package.apply_coupon(@package, @coupon)
+      @saved      = @package.apply_coupon(@coupon)
     end
+    return true
   end
 end
 

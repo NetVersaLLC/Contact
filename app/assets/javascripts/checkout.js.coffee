@@ -7,7 +7,7 @@ getCreditCardType = (accountNumber)->
   else if /^6/.test(accountNumber)
     result = "discover"
   else if /^3[47]/.test(accountNumber)
-    result = "americanexpress"
+    result = "american_express"
   return result
 
 addMessage = (title, desc)->
@@ -21,7 +21,7 @@ addMessage = (title, desc)->
 examineCard = ()->
   name = $('#card_number').val()
   current_type = getCreditCardType(name)
-  types = ['visa', 'mastercard', 'americanexpress', 'discover']
+  types = ['visa', 'mastercard', 'american_express', 'discover']
   $.each types, (i,type)->
     em = $('#'+type)
     if (current_type == type)
@@ -64,7 +64,7 @@ formValidates = ()->
     return false
   true
 
-$(document).ready ()->
+window.registerCheckoutHooks = ()->
   examineCard()
   textbox = $('#card_number')
   textbox.keypress(examineCard)

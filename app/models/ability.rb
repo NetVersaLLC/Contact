@@ -26,7 +26,7 @@ class Ability
       can :manage, Job, :business => { :label_id => user.label_id }
       can :manage, CompletedJob, :business => { :label_id => user.label_id }
       can :manage, FailedJob, :business => { :label_id => user.label_id }
-      can :manage, [Subscription,Transaction,Payment], :label_id => user.label_id
+      can :manage, [Subscription,TransactionEvent,Payment], :label_id => user.label_id
       can :manage, Payment, :label_id => user.label_id
     else
       can :manage, Business, :user_id => user.id
@@ -40,7 +40,7 @@ class Ability
           end
         end
       end
-      can :manage, [Subscription,Transaction,Payment], :business => { :user_id => user.id }
+      can :manage, [Subscription,TransactionEvent,Payment], :business => { :user_id => user.id }
       can :create, Booboo, :user_id => user.id
       can :manage, Job, :business => { :user_id => user.id }
       can :manage, CompletedJob, :business => { :user_id => user.id }
