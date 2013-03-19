@@ -48,7 +48,7 @@ class Ability
       can :manage, [CompletedJob, FailedJob], :business => { :user_id => user.id }
       can :manage, Account, :business => { :user_id => user.id }
       can :read,   Coupon
-      can :read,   Label
+      can [:read,:update], Label, :id => user.label_id
       can :read,   Location
       can :read,   Package
       can :read,   PackagePayload
