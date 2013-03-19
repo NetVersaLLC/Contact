@@ -80,7 +80,7 @@ def signup_generic( data )
         puts "#{@browser.span(:class,'errormsg').text}"
         end
     end
-    if @browser.text.include?("Now that you have a Google Account, create your Google profile")
+    if @browser.text.include?("Welcome!")
        puts "Initial Registration is successful"
     else
        puts "Initial Registration is not successful"
@@ -95,3 +95,4 @@ login (data)
 if @chained
   self.start("Google/CheckListing")
 end
+true
