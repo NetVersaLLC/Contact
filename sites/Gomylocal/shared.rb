@@ -32,3 +32,13 @@ def enter_captcha( data )
 end
 
 
+def sign_in(data)
+	@browser.goto("https://www.gomylocal.com/login.php")
+
+	@browser.text_field(:name => 't1').set data['username']
+	@browser.text_field(:name => 't2').set data['password']
+
+	@browser.button(:value => 'login').click
+	
+
+end
