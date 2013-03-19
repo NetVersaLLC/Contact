@@ -7,6 +7,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     @is_checkout_session = checkout_setup
     if current_label.credits < -99
       redirect_to '/try_again_later'
+      return
     end
     super
   end
