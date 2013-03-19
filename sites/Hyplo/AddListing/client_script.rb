@@ -10,7 +10,8 @@ puts(data['category'])
 @browser.select_list( :id => 'site_type_input').select data['category']
 @browser.text_field( :id => 'zip').set data['zip']
 
-@browser.button( :value => 'Save' ).click
+#@browser.button( :value => 'Save' ).click
+sleep(100)
 
 true
 
