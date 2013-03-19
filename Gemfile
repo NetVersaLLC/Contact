@@ -24,17 +24,15 @@ group :production do
 end
 
 group :test do
-  gem 'cucumber'
-  gem 'cucumber-rails'
   gem 'page-object'
-  gem 'rspec-expectations'
-  gem 'watir-webdriver'
   gem 'database_cleaner'
-  # gem "capybara-webkit"
-  # gem 'capybara-screenshot'
+  gem 'capybara'
+  gem 'capybara-screenshot'
+  gem 'minitest'
 end
 
 group :test, :development do
+  gem 'spinach-rails'
   gem 'awesome_print'
   gem 'factory_girl'
   gem "factory_girl_rails"
