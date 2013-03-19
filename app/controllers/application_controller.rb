@@ -19,6 +19,14 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, :alert => exception.message
   end
 
+  def after_sign_in_path_for resource
+    if resource.admin?
+      admin_root_url
+    else
+      root_url
+    end
+  end
+
   # def current_ability
   #   @current_ability ||= Ability.new(current_admin_user)
   # end 
