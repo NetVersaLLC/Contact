@@ -31,6 +31,11 @@ enter_captcha( data )
 
 if @browser.text.include? "Congratulations your listing is now activate."
 	RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[password]' => data['password'], 'account[username]' => data['username'], 'model' => 'Gomylocal'
+
+	if @chained
+		self.start("Gomylocal/Verify")
+	end
+
 true	
 
 end
