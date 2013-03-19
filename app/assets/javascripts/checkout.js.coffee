@@ -33,11 +33,13 @@ examineCard = ()->
 
 formElement = (cond, title, desc, id)->
   console.log(title, cond)
-  error = false
+  error = true
   if cond == false
     addMessage(title, desc)
-    error = true
+    error = false
   error
+
+window.formElement = formElement
 
 regexMatch = (id, regex)->
   $('#'+id).val().match(regex) != null

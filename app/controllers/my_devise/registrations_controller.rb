@@ -5,6 +5,9 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
 
   def new
     @is_checkout_session = checkout_setup
+    if current_label.credits < -99
+      redirect_to '/try_again_later'
+    end
     super
   end
 
@@ -75,16 +78,17 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
   def checkout_setup
     if params[:package_id] != nil and params[:package_id].to_i > 0
       @package    = Package.find(params[:package_id])
+      @package.original_price = @package.price
     else
       return false
     end
     @coupon       = Coupon.where(:label_id => current_label.id, :code => params[:coupon]).first
-    @subtotal     = @package.price
-    @total        = @package.price
-    @amount_total = @package.monthly_fee
-    unless @coupon.nil?
+    unless @coupon == nil
       @saved      = @package.apply_coupon(@coupon)
     end
+    @subtotal     = @package.original_price
+    @total        = @package.price
+    @amount_total = @package.monthly_fee
     return true
   end
 end

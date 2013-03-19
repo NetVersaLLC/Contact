@@ -10,6 +10,9 @@ class PagesController < ApplicationController
     end
   end
 
+  def try_again_later
+  end
+
   def resellers
   end
 end

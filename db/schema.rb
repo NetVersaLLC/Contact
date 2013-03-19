@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130318202116) do
+ActiveRecord::Schema.define(:version => 20130319135624) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -45,8 +45,8 @@ ActiveRecord::Schema.define(:version => 20130318202116) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
   create_table "admin_users", :force => true do |t|
-    t.string   "email",                  :default => "", :null => false
-    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "email",                  :default => "",    :null => false
+    t.string   "encrypted_password",     :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20130318202116) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.integer  "label_id"
+    t.boolean  "admin",                  :default => false
   end
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
@@ -243,7 +244,7 @@ ActiveRecord::Schema.define(:version => 20130318202116) do
     t.string   "category4"
     t.string   "category5"
     t.boolean  "categorized"
-    t.integer  "label_id",                  :default => 1
+    t.integer  "label_id"
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
@@ -326,6 +327,16 @@ ActiveRecord::Schema.define(:version => 20130318202116) do
   end
 
   add_index "cornerstonesworlds", ["business_id"], :name => "index_cornerstonesworlds_on_business_id"
+
+  create_table "cornerstoneworld_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "cornerstoneworld_categories", ["name"], :name => "index_cornerstoneworld_categories_on_name"
+  add_index "cornerstoneworld_categories", ["parent_id"], :name => "index_cornerstoneworld_categories_on_parent_id"
 
   create_table "coupons", :force => true do |t|
     t.string   "name"
@@ -475,9 +486,9 @@ ActiveRecord::Schema.define(:version => 20130318202116) do
     t.integer  "business_id"
     t.datetime "force_update"
     t.text     "secrets"
+    t.integer  "ezlocal_category_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
-    t.integer  "ezlocal_category_id"
     t.string   "email"
   end
 
@@ -609,6 +620,7 @@ ActiveRecord::Schema.define(:version => 20130318202116) do
     t.integer  "digabusiness_category_id"
     t.integer  "supermedia_category_id"
     t.integer  "expertfocus_category_id"
+    t.integer  "cornerstoneworld_category_id"
     t.integer  "angies_list_category_id"
     t.integer  "localizedbiz_category_id"
     t.integer  "kudzu_category_id"
@@ -738,15 +750,6 @@ ActiveRecord::Schema.define(:version => 20130318202116) do
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
 
-  create_table "insiderpages", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "email"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
     t.text     "secrets"
@@ -831,11 +834,14 @@ ActiveRecord::Schema.define(:version => 20130318202116) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.text     "custom_css"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",                                                             :null => false
+    t.datetime "updated_at",                                                             :null => false
     t.string   "login"
     t.string   "password"
     t.text     "footer"
+    t.integer  "parent_id"
+    t.integer  "credits",           :default => 0
+    t.string   "mail_from",         :default => "change_this@to_your_support_email.com"
   end
 
   add_index "labels", ["domain"], :name => "index_labels_on_domain"
@@ -1113,15 +1119,21 @@ ActiveRecord::Schema.define(:version => 20130318202116) do
 
   create_table "payments", :force => true do |t|
     t.string   "status"
+    t.string   "name"
     t.integer  "amount"
     t.string   "transaction_number"
     t.integer  "business_id"
+    t.integer  "label_id"
+    t.integer  "transaction_event_id"
+    t.string   "message"
+    t.text     "response"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
-    t.integer  "transaction_event_id"
   end
 
   add_index "payments", ["business_id"], :name => "index_payments_on_business_id"
+  add_index "payments", ["label_id"], :name => "index_payments_on_label_id"
+  add_index "payments", ["transaction_event_id"], :name => "index_payments_on_transaction_id"
 
   create_table "primeplace_categories", :force => true do |t|
     t.integer  "parent_id"
@@ -1394,9 +1406,9 @@ ActiveRecord::Schema.define(:version => 20130318202116) do
     t.text     "secrets"
     t.datetime "force_update"
     t.text     "username"
-    t.integer  "usbdn_category_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.integer  "usbdn_category_id"
   end
 
   add_index "usbdns", ["business_id"], :name => "index_usbdns_on_business_id"
@@ -1599,7 +1611,6 @@ ActiveRecord::Schema.define(:version => 20130318202116) do
     t.datetime "updated_at",          :null => false
     t.integer  "zippro_category2_id"
     t.integer  "zippro_category_id"
-    t.integer  "form_id"
   end
 
   add_index "zippros", ["business_id"], :name => "index_zippros_on_business_id"

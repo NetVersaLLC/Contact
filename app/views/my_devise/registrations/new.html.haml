@@ -104,8 +104,12 @@
   .row
     .span12
       %fieldset
-        %legend
-          Account Information
+        - if @is_checkout_session == true
+          %legend
+            Account Information
+        - else
+          %legend
+            Reseller Sign Up
         %label{:for => 'user[email]'} Email
         %input{:name => 'user[email]', :placeholder => "Email", :type => "text", :required => 'required', :id => 'email', :value => @email }/
         %span.help-block We won&#39;t spam you or share your address.

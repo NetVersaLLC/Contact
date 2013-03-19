@@ -10,6 +10,18 @@ class User < ActiveRecord::Base
   has_many   :businesses
   belongs_to :label
 
+  after_create :deduct_credit
+  def deduct_credit
+    label = Label.find(self.label_id)
+    label.credits = label.credits - 1
+    label.save!
+  end
+
+  after_create :send_welcome
+  def send_welcome
+    UserMailer.welcome_email(self).deliver
+  end
+
   TYPES = {
     :admin    => 46118,
     :reseller => 535311,
