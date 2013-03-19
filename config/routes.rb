@@ -67,6 +67,7 @@ Contact::Application.routes.draw do
   put     '/images/:id(.:format)', :action=>"update", :controller=>"images"
 
   get '/resellers', :controller => :pages, :action => :resellers
+  get '/try_again_later', :controller => :pages, :action => :try_again_later
 
   root :to => redirect("/pages/make_redirect")
 end
