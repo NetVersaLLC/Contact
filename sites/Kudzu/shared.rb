@@ -10,3 +10,15 @@
 #    end
 
 #end
+
+
+def sign_in(data)
+
+	@browser.goto("https://register.kudzu.com/login.do")		
+
+	@browser.text_field(:name => 'username').set data['username']
+	@browser.text_field(:name => 'password').set data['password']
+
+	@browser.button(:name => 'login').click
+
+end
