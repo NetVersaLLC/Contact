@@ -1,14 +1,10 @@
 data = {}
-seedString 			= rand( 1000 ).to_s()
-
+data['username']		= business.kudzus.first.username
+data['password']		= business.kudzus.first.password
 catty                       = Kudzu.where(:business_id => business.id).first
 data[ 'industry' ]          = catty.kudzu_category.parent.name.gsub("\n", "")
 data[ 'category' ]       = catty.kudzu_category.name.gsub("\n", "")
-data[ 'userName' ] 		= (business.contact_first_name + business.contact_last_name + seedString).to_s.gsub(/\s+/, '')
 data[ 'email' ]			= business.bings.first.email
-data[ 'pass' ]			= Kudzu.make_password
-data[ 'securityQuestion' ]	= 'City of Birth?'
-data[ 'answer' ] 		= Kudzu.make_secret_answer
 data[ 'prefix' ]		= business.contact_prefix
 data[ 'firstName' ]		= business.contact_first_name
 data[ 'lastName' ]		= business.contact_last_name

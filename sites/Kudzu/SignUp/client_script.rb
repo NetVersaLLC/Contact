@@ -69,12 +69,14 @@ data[ 'languagesSpoken' ].each { |item|
 @browser.button( :name, 'nextButton' ).click
 
 
+Watir::Wait::until{ @browser.text.include? "Choose the Correct Address" or @browser.text.include? "Pick the best place for your business"}
+
 # Confirm on Choose the Correct Address page
 if @browser.text.include? "Choose the Correct Address"
-Watir::Wait::until{ @browser.text.include? "Choose the Correct Address" }
 @browser.button( :name, 'nextButton' ).click
 end
 
+Watir::Wait::until{ @browser.text.include? "Pick the best place for your business"}
 
 # Select on Choose Category page
 @browser.select_list( :id, 'industry' ).select /#{data[ 'industry' ]}/
@@ -83,11 +85,14 @@ Watir::Wait.until{ @browser.select_list( :id, 'category' ).exists? }
 @browser.button( :name, 'nextButton' ).click
 
 
+Watir::Wait::until{ @browser.text.include? "Add Specialties" }
+@browser.button( :name, 'nextButton' ).click
+
+
 # On Add Specialties page
 # TODO: Steps 1, 2, 3, 4, but probably may vary (N of 4)
-until @browser.checkbox( :name, 'businessAgreement' ).exists? do
-  @browser.button( :name, 'nextButton' ).click
-end
+
+Watir::Wait::until{ @browser.text.include? "Preview Your Profile" }
 
 # On Preview Your Profile
 @browser.checkbox( :name, 'businessAgreement' ).click
@@ -101,3 +106,5 @@ RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}",
 if @chained
   self.start("Kudzu/Verify")
 end
+
+true
