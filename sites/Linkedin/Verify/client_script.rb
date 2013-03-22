@@ -6,3 +6,4 @@
 
 @browser.button( :id, 'btn-primary').click
 
+true
