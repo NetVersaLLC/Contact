@@ -437,6 +437,13 @@
       ['text', 'password']
     ],
       'Gomylocal'
+  ],
+  ['Linkedin', 'linkedins',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Linkedin'
   ]
 ]
 
