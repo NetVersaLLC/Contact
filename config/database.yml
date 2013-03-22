@@ -5,8 +5,9 @@ development:
   database: contact_development
   pool: 5
   username: root
-  password:
+  password: root
   host: localhost
+  socket: /Applications/MAMP/tmp/mysql/mysql.sock
 
 test: &test
   adapter: mysql2

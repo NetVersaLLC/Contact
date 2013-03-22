@@ -15,9 +15,5 @@ class CreateLabels < ActiveRecord::Migration
     add_index  :admin_users, :label_id
     add_column :users,       :label_id, :integer
     add_index  :users,       :label_id
-    Label.create do |c|
-      c.name   = 'TownCenter'
-      c.domain = 'towncenter.com'
-    end
   end
 end
