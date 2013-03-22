@@ -3,6 +3,6 @@ class CityController < ApplicationController
   respond_to    :js
   def index
     @zips = Location.where('state = ? AND city LIKE ?', params[:state], "#{params[:term]}%").order(:city).group(:city).limit(10)
-    respond_with(@zips)
+    render json: @city
   end
 end

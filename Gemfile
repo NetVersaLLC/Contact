@@ -28,11 +28,12 @@ group :test do
   gem 'database_cleaner'
   gem 'capybara'
   gem 'capybara-screenshot'
-  gem 'minitest'
+  gem 'rspec'
 end
 
 group :test, :development do
-  gem 'spinach-rails'
+  gem 'cucumber'
+  gem 'cucumber-rails'
   gem 'awesome_print'
   gem 'factory_girl'
   gem "factory_girl_rails"

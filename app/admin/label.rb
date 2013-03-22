@@ -6,6 +6,7 @@ ActiveAdmin.register Label do
     column :id
     column :name
     column :domain
+    default_actions
   end
 
   member_action :xyzzy, :method => :get do
