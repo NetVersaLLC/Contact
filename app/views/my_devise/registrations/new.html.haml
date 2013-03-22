@@ -67,6 +67,11 @@
                 Amount: $
             %input.tally.span1{:value => @amount_total, :name => 'amount_total', :type => "text", :disable => 'disabled' }/
             .add-on .00
+          - unless @coupon
+            .input-append
+              %label{:for => 'coupon'} Coupon or Offer Code
+              %input#coupon{:name => 'coupon', :placeholder => "Coupon", :type => "text", :value => (@coupon ? @coupon.code : '') }/
+              %input.btn.btn-info#addCoupon{:type => 'button', :value => 'Add'}
       .span5
         %fieldset
           %legend

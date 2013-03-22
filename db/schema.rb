@@ -961,6 +961,19 @@ ActiveRecord::Schema.define(:version => 20130319135624) do
 
   add_index "localpages", ["business_id"], :name => "index_localpages_on_business_id"
 
+  create_table "locations", :force => true do |t|
+    t.string   "zip",                                        :null => false
+    t.string   "city"
+    t.string   "county"
+    t.string   "state"
+    t.string   "country"
+    t.decimal  "latitude",   :precision => 15, :scale => 10
+    t.decimal  "longitude",  :precision => 15, :scale => 10
+    t.string   "metaphone"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "magicyellows", :force => true do |t|
     t.datetime "force_update"
     t.integer  "business_id"
@@ -1092,42 +1105,17 @@ ActiveRecord::Schema.define(:version => 20130319135624) do
     t.integer  "label_id"
   end
 
-  create_table "payload_categories", :force => true do |t|
-    t.string   "name"
-    t.integer  "position"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "payments", :force => true do |t|
     t.string   "status"
-    t.string   "name"
     t.integer  "amount"
     t.string   "transaction_number"
     t.integer  "business_id"
-    t.integer  "label_id"
-    t.integer  "transaction_id"
-    t.string   "message"
-    t.text     "response"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
     t.integer  "transaction_event_id"
   end
 
   add_index "payments", ["business_id"], :name => "index_payments_on_business_id"
-  add_index "payments", ["label_id"], :name => "index_payments_on_label_id"
-  add_index "payments", ["transaction_id"], :name => "index_payments_on_transaction_id"
-
-  create_table "pings", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "business_id"
-    t.string   "message"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "pings", ["business_id"], :name => "index_pings_on_business_id"
-  add_index "pings", ["user_id"], :name => "index_pings_on_user_id"
 
   create_table "primeplace_categories", :force => true do |t|
     t.integer  "parent_id"
