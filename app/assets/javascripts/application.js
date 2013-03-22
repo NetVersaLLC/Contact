@@ -9,5 +9,6 @@
 //= require jquery.fineuploader-3.3.0.min
 
 //= require jquery.payment
+//= require purl
 //= require checkout
 

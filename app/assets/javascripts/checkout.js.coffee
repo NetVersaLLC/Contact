@@ -68,6 +68,9 @@ formValidates = ()->
 
 window.registerCheckoutHooks = ()->
   examineCard()
+  $('#addCoupon').click ()->
+    url = $.url()
+    window.location.href='/users/sign_up?package_id='+url.param('package_id')+'&coupon='+$('#coupon').val()
   textbox = $('#card_number')
   textbox.keypress(examineCard)
   textbox.blur(examineCard)

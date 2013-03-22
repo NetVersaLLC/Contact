@@ -4,7 +4,7 @@ ActiveAdmin.register_page "Dashboard" do
 
   content :title => 'Dashboard' do
     panel "My Credits" do
-      h1(current_label.credits)
+      h1(current_user.label.credits)
       div "Purchase more credits by calling NetVersa"
     end
     panel "Sub-Resellers By Credits" do
