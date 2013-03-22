@@ -41,7 +41,10 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
         end
       end
       resource.label_id = current_label.id
-      if resource.save and @errors.length == 0
+      res_result = resource.save
+      err_result = @errors.length == 0
+      throw "What?"
+      if res_result and err_result
         if @is_checkout_session == true
           business.user    = resource
           business.user_id = resource.id
@@ -65,6 +68,11 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
           end
         end
       else
+        logger.info "Redirecing to: new_user_registration_path"
+        logger.info "Errors: #{@errors.to_json}"
+        logger.info "Resource: #{resource.inspect}"
+        logger.info "Resource: #{res_result.inspect}"
+        logger.info "Resource: #{err_result.inspect}"
         clean_up_passwords resource
         respond_with resource, :location => new_user_registration_path
       end
