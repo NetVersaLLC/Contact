@@ -1,0 +1,15 @@
+div.ajax-progress {
+  position: fixed;
+  display: none;
+  width: 70px;
+  height: 70px;
+  top: 50%;
+  left: 50%;
+  background-image: url('ajax-loading.gif');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: white;
+  -moz-border-radius:    10px;
+  -webkit-border-radius: 10px;
+  border-radius:         10px;
+}

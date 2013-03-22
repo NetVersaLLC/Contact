@@ -22,20 +22,35 @@
           %input.btn{:id => :search, :value => "Search", :type => 'button' }/
   #business_results
 
-= semantic_form_for @business, :validate => true, :html => {:multipart => true, :class => 'form-horizontal' }  do |f|
+= semantic_form_for @business, :url=>business_update_state_path(@business), :validate => true, :html => { :class => 'business-form.form-horizontal' }, :remote=>true  do |f|
   - @accounts = [] if @accounts.nil?
   = f.semantic_errors
   - @f = f
-  .span8
-    = render :partial => 'form/business_details'
-    = render :partial => 'form/payment_methods'
-    = render :partial => 'form/business_hours'
-    = render :partial => 'form/company_description'
-    =# render :partial => 'form/keywords'
-    =# render :partial => 'form/mail_settings'
-    =# render :partial => 'form/existing_account_logins'
-    = render :partial => 'form/categories'
-    = render :partial => 'form/logo'
+  .span10
+    .tabbable
+      %ul.nav.nav-tabs.form-tabs
+        %li.active
+          %a{"data-toggle" => "tab", :href => "#tab1"} Business Details
+        %li
+          %a{"data-toggle" => "tab", :href => "#tab2"} Payment Methods
+        %li
+          %a{"data-toggle" => "tab", :href => "#tab3"} Business Hours
+        %li
+          %a{"data-toggle" => "tab", :href => "#tab4"} Company Description
+        %li
+          %a{"data-toggle" => "tab", :href => "#tab5"} Categories
+      .tab-content
+        #tab1.tab-pane.active= render :partial => 'form/business_details'
+        #tab2.tab-pane= render :partial => 'form/payment_methods'
+        #tab3.tab-pane= render :partial => 'form/business_hours'
+        #tab4.tab-pane= render :partial => 'form/company_description'
+        #tab5.tab-pane= render :partial => 'form/categories'
     = render :partial => 'form/submit'
 %br/
 %br/
+:javascript
+  $(function(){
+    fn_business_ajax_form_init();
+  });
+
+
