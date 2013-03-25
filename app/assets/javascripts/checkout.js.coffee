@@ -59,8 +59,9 @@ formValidates = ()->
   errors.push formElement($.payment.validateCardCVC($('#cvv').val()), "CVV", "CVV is invalid", 'cvv')
   errors.push requiredElement('name', 'Name')
   errors.push requiredElement('email', 'Email')
-  errors.push requiredElement('password', 'Password')
-  errors.push requiredElement('password_confirmation', 'Password Confirmation')
+  if $('#password').length > 0
+    errors.push requiredElement('password', 'Password')
+    errors.push requiredElement('password_confirmation', 'Password Confirmation')
   unless ($('#tos').is(':checked'))
     addMessage("Terms of Service", "You must agree to the terms of service")
     errors.push false
