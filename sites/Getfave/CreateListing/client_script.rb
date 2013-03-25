@@ -2,7 +2,6 @@
 @url = 'https://www.getfave.com/login'
 @browser = Watir::Browser.new
 @browser.goto(@url)
-
 @browser.text_field( :id => 'session_email' ).set data[ 'email' ]
 @browser.text_field( :id => 'session_password' ).set data[ 'password' ]
 @browser.button(:value,'Log In').click
@@ -11,14 +10,16 @@
 @browser.text_field(:id, 'g-text-field').set data[ 'city' ] + ", " + data[ 'state' ]
 @browser.button(:value,'Pin').click
 #@browser.button(:value,'Pin').click
-@browser.goto("http://www.getfave.com/search?utf8=?&q=" + data[ 'bus_name_fixed' ])
-#Watir::Wait.until { @browser.div(:id,'results').exists? }
-sleep(5)
+sleep(2)
+queryurl = "https://www.getfave.com/search?utf8=%E2%9C%93&q=" + data[ 'bus_name_fixed' ]
+puts(queryurl)
+@browser.goto(queryurl)
+
+Watir::Wait.until { @browser.div(:id,'results').exists? }
 @results = @browser.div(:id,'results') 
 @result_msg = "We couldn't find any matches."
 @matching_result = @browser.div(:id,'business-results').span(:text,"#{data[ 'business' ] }")
-
-if @results.exist? && @results.text.include?(@result_msg) || @matching_result.exist? == false
+if @results.exists? && @results.text.include?(@result_msg) || @matching_result.exist? == false
 #Add business
 	@browser.span(:text,'Add your business to Fave').click
 	@browser.text_field( :id => 'business_name' ).set data[ 'business' ]
