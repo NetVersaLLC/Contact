@@ -90,6 +90,9 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     else
       return false
     end
+    if @package.label_id != current_label.id
+      throw "Not a valid label!"
+    end
     @coupon       = Coupon.where(:label_id => current_label.id, :code => params[:coupon]).first
     unless @coupon == nil
       @saved      = @package.apply_coupon(@coupon)
