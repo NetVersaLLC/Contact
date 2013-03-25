@@ -43,7 +43,6 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
       resource.label_id = current_label.id
       res_result = resource.save
       err_result = @errors.length == 0
-      throw "What?"
       if res_result and err_result
         if @is_checkout_session == true
           business.user    = resource
