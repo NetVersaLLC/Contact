@@ -11,6 +11,7 @@ Watir::Wait::until do
         false
     end
 end
+sleep(1)
 if @browser.text.include? "Sorry, there were no matches"
     @browser.a(:text => "Add your business to Yelp").click
     @browser.text_field(:id => 'biz_name').set data['name']
