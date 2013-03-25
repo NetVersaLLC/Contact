@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  attr_accessor :temppass
+  attr_accessible :callcenter
+
   validate :must_have_valid_access_level
 
   def must_have_valid_access_level

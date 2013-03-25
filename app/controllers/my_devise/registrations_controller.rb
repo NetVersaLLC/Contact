@@ -4,6 +4,11 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
   end
 
   def new
+    @callcenter = false
+    if params[:callcenter] == '1'
+      @callcenter = true
+    end
+    @password =  Devise.friendly_token.first(10)
     @is_checkout_session = checkout_setup
     if current_label.credits < -99
       redirect_to '/try_again_later'
@@ -13,7 +18,18 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
   end
 
   def create
+    @callcenter = false
+    @password   = nil
+    if params[:callcenter] == '1'
+      @password                           = params['user[password]']
+      @callcenter                         = true
+    end
     build_resource
+
+    if @callcenter == true
+      resource.callcenter = true
+      resource.temppass = @password
+    end
 
     @is_checkout_session = checkout_setup
     if @is_checkout_session == true
