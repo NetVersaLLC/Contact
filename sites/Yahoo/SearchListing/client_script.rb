@@ -9,6 +9,7 @@ nok.xpath("//div[@class='res']/div[@class='content']").each do |content|
         businessFound = [:listed, :claimed]
       end
       meta = {}
+      meta['name'] = h3.inner_text.strip
       content.xpath("./span[@class='phone']").each do |phone|
         meta['phone'] = phone.inner_text
       end

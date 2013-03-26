@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130325200625) do
+ActiveRecord::Schema.define(:version => 20130326145755) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -244,7 +244,7 @@ ActiveRecord::Schema.define(:version => 20130325200625) do
     t.string   "category4"
     t.string   "category5"
     t.boolean  "categorized"
-    t.integer  "label_id",                  :default => 1
+    t.integer  "label_id"
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
@@ -1124,17 +1124,16 @@ ActiveRecord::Schema.define(:version => 20130325200625) do
     t.string   "transaction_number"
     t.integer  "business_id"
     t.integer  "label_id"
-    t.integer  "transaction_id"
+    t.integer  "transaction_event_id"
     t.string   "message"
     t.text     "response"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
-    t.integer  "transaction_event_id"
   end
 
   add_index "payments", ["business_id"], :name => "index_payments_on_business_id"
   add_index "payments", ["label_id"], :name => "index_payments_on_label_id"
-  add_index "payments", ["transaction_id"], :name => "index_payments_on_transaction_id"
+  add_index "payments", ["transaction_event_id"], :name => "index_payments_on_transaction_id"
 
   create_table "primeplace_categories", :force => true do |t|
     t.integer  "parent_id"
@@ -1162,6 +1161,16 @@ ActiveRecord::Schema.define(:version => 20130325200625) do
     t.integer  "position"
     t.string   "name"
     t.text     "payload"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "searches", :force => true do |t|
+    t.string   "name"
+    t.string   "zip"
+    t.string   "address"
+    t.string   "phone"
+    t.string   "city"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
