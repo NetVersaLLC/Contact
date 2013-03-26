@@ -1,6 +1,9 @@
+require 'capistrano-db-tasks'
 require 'bundler/capistrano'
 require 'rvm/capistrano'
 set :rvm_type, :user
+# set :rails_env, "production"
+set :db_local_clean, true
 # set :rvm_type, :deploy
 # set :rvm_type, :system
 # set :rvm_bin_path, "/home/deploy/.rvm/bin"
