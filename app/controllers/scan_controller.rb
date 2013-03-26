@@ -26,6 +26,7 @@ class ScanController < ApplicationController
         res[:ran] = false
       end
     end
+    res[:site] = params[:id]
     render json: params[:callback] + '(' + res.to_json + ')'
   end
 end
