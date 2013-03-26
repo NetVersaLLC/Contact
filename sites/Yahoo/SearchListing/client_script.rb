@@ -1,17 +1,36 @@
-@browser.goto( 'http://local.yahoo.com/' )
+require 'nokogiri'
+require 'rest_client'
 
-@browser.text_field( :id => 'yls-p').when_present.focus
-@browser.text_field( :id => 'yls-p').set @data['business']
-@browser.text_field( :name => 'addr').set @data['citystate']
+@data = {
+  'business' => 'Luxury Living Direct',
+  'citystate' => 'Irvine, CA 92614',
+  'phone'     => '(877) 233-2228'
+}
 
-@browser.button( :xpath => '//*[@id="bd"]/form/fieldset/button').click
+html = RestClient.get "http://local.search.yahoo.com/search", { :params => { :p => @data['business'], :addr => @data['citystate'], :fr2 => 'sb-top', :type_param => '' } }
 
-businessFound = []
-puts(data['business'])
-
-if @browser.link( :text => /#{data['business']}/i).exists?
-businessFound = [:listed, :unclaimed]
-else
+nok = Nokogiri::HTML(html)
 businessFound = [:unlisted]
+nok.xpath("//div[@class='res']/div[@class='content']").each do |content|
+  content.xpath("./h3").each do |h3|
+    if @data['business'].strip == h3.inner_text.strip
+      businessFound = [:listed, :unclaimed]
+      content.xpath("./span[@class='merchant-ver']").each do |div|
+        businessFound = [:listed, :claimed]
+      end
+      meta = {}
+      content.xpath("./span[@class='phone']").each do |phone|
+        meta['phone'] = phone.inner_text
+      end
+      content.xpath("./div[@class='address']").each do |address|
+        address.xpath("./div").each do |div|
+          div.remove
+        end
+        meta['address'] = address.inner_text
+      end
+      businessFound.push meta
+    end
+  end
 end
+
 [true, businessFound]
