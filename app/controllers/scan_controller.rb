@@ -9,7 +9,7 @@ class ScanController < ApplicationController
       next unless File.exists? Rails.root.join('sites', site[0], 'SearchListing')
       resp.push site[0]
     end
-    resp = %w/Yahoo/ #%w/Bing Yelp Yahoo Ezlocal Justclicklocal Yellowassistance Ebusinesspages Citisquare ShopCity Zippro Yellowee Digabusiness Localizedbiz Showmelocal Expressbusinessdirectory/
+    resp = %w/Yahoo Bing Yelp/ #%w/Bing Yelp Yahoo Ezlocal Justclicklocal Yellowassistance Ebusinesspages Citisquare ShopCity Zippro Yellowee Digabusiness Localizedbiz Showmelocal Expressbusinessdirectory/
     render json: resp
   end
   def site
@@ -19,13 +19,13 @@ class ScanController < ApplicationController
     bid   = params[:business_id]
     if bid
       business = Business.find(bid)
-      count = CompletedJob.find_by_sql("select count(*) from completed_jobs where business_id=#{business.id} and name rlike '^#{model}/';")
+      count    = CompletedJob.find_by_sql("select count(*) from completed_jobs where business_id=#{business.id} and name rlike '^#{model}/';")
       if count[0] > 0
         res[:ran] = true
       else
         res[:ran] = false
       end
     end
-    render json: res
+    render json: params[:callback] + '(' + res.to_json + ')'
   end
 end
