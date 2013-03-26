@@ -1,14 +1,4 @@
-require 'nokogiri'
-require 'rest_client'
-
-@data = {
-  'business' => 'Luxury Living Direct',
-  'citystate' => 'Irvine, CA 92614',
-  'phone'     => '(877) 233-2228'
-}
-
 html = RestClient.get "http://local.search.yahoo.com/search", { :params => { :p => @data['business'], :addr => @data['citystate'], :fr2 => 'sb-top', :type_param => '' } }
-
 nok = Nokogiri::HTML(html)
 businessFound = [:unlisted]
 nok.xpath("//div[@class='res']/div[@class='content']").each do |content|
