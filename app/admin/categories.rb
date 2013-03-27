@@ -19,7 +19,6 @@ ActiveAdmin.register_page "Categories" do
           if row[0] == 'select'
             klass = row[1].classify.constantize
             next if klass == YahooCategory
-            category_name = ''
             if business.send(data[1]).count > 0
               site = business.send(data[1]).first
               if site
