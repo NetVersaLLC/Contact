@@ -7,6 +7,7 @@ def listing_already_exists2
   def not_found_text; @browser.text.include? 'NO MATCHES FOUND' end
 
   # if claim check is first and no results found it waits for 30 seconds and fails
+  sleep(1)
   Watir::Wait.until {not_found_text or claim_business_link.exists?}
 
   if not_found_text
