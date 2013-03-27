@@ -1,49 +1,27 @@
-@browser.goto('http://www.kudzu.com/')
+begin #If there are no listings found the site redirects the user to a 404 page. Since it returns 404 RestClient treates it as an exception. 
+html = RestClient.get "http://www.kudzu.com/controller.jsp?", { :params => { :N => "0", :searchVal => data['businessfixed'], :currentLocation => data['zip'], :searchType => 'keyword', :Ns => "P_PremiumPlacement", :distFilter => "10" } }
+page = Nokogiri::HTML(html)  
 
-@browser.text_field( :id => 'searchterms').set data['business']
-@browser.text_field( :id => 'currentLocation').set data['zip']
-@browser.button( :name => 'submit').click
-sleep(10)
-
-if @browser.text.include? "We're sorry, no results were found for"
+rescue RestClient::ResourceNotFound
   businessFound = [:unlisted]
-else
-  begin
-      @browser.link( :name => 'name', :text => /#{data['business']}/).exists?
-      @browser.link( :name => 'name', :text => /#{data['business']}/).click
-      
-      Watir::Wait.until { @browser.span( :text => 'Overview').exists? }
-      
-      if @browser.span( :text => 'Claim This Profile!').exists?
-          businessFound = [:listed,:unclaimed]
-      else
-          businessFound = [:listed,:claimed]
-      end
+  it404ed = true
+end
+
+if not it404ed
+page.css("a.results_recordname").each do |link|
   
-  rescue Timeout::Error
-    businessFound = [:listed,:claimed]
-  
+  if link.text == data['business']
+    thelink = "http://www.kudzu.com"+link.attribute("href")
+    subpage = Nokogiri::HTML(RestClient.get(thelink))
+    if subpage.xpath('//span[contains(text(), "Claim This Profile!")]')
+      businessFound = [:listed, :unclaimed]
+    else
+      businessFound = [:listed, :claimed]
+    end
+  break
   end
-
-
 end
-
-=begin
-url = "http://www.kudzu.com/controller.jsp?N=0&searchVal=#{data['businessfixed']}&currentLocation=#{data['zip']}&searchType=keyword&Ns=P_PremiumPlacement"
-puts(url)
-page = Nokogiri::HTML(RestClient.get(url))  
-firstItem = page.css("div.navRecordDiv")
-
-if firstItem.length == 0
-  businessFound = [:unlisted]
-else
-  theLink = firstItem.css("//table/tbody/tr/td[2]/div[1]/a")
-  puts(theLink['href'])
-  
-  
 end
-
-=end
 
 
 [true, businessFound]
