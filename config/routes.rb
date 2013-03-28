@@ -49,9 +49,9 @@ Contact::Application.routes.draw do
 
   get     '/contact-us', :controller => :pages, :action => :contact_us
 
-  get     '/bunnies(.:format)', :controller => :categories, :action => :index
-  get     '/bunnies/:id(.:format)', :controller => :categories, :action => :show
-  post    '/bunnies(.:format)', :controller => :categories, :action => :create
+  get     '/categories(.:format)', :controller => :categories, :action => :index
+  get     '/categories/:id(.:format)', :controller => :categories, :action => :show
+  post    '/categories(.:format)', :controller => :categories, :action => :create
 
   get     '/pages/make_redirect', :controller => :pages, :action => :make_redirect
 

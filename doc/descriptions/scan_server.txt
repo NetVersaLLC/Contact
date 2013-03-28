@@ -28,5 +28,11 @@ claimed/verified.
   c. claimed: The business is listed and claimed.
 4. Also the scan needs to return the business address, zip code and
 phone number listed on the site.
+5. The returned information needs to be incorporated into the scan form
+at:
+http://towncenter.com/scan.php
+and
+http://fastrank.net/scan.php
+
 
 
