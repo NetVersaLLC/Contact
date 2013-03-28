@@ -14,6 +14,7 @@ ActiveAdmin.register_page "Categories" do
       "Category: #{business.category1}"
     end
     form(:action => '/categories', :method => 'post', :id => 'categoryForm') do
+      form_authenticity_token
       Business.citation_list.each do |data|
         data[2].each do |row|
           if row[0] == 'select'
