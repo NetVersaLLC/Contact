@@ -1,0 +1,32 @@
+Scan Server
+
+We have a scan server at: ec2-75-101-218-52.compute-1.amazonaws.com
+The public address is: scan.netversa.com
+Which points to the load balancer for EC2 thus you can't ssh into it.
+
+Project Goals
+
+The scan system needs to be able to accept a business's name, phone
+number and zip code to perform a search across multiple local business
+directories. Some examples would be Yahoo Local, Bing Local, Google
+Places and Kudzu.
+
+A scan needs to be done in real-time. An example site that operates
+similarly is getlisted.org. It's worth checking out this system since
+this is essentially what we want.
+
+A scan of a single site needs to do the following:
+
+1. Perform a search on the site for the business based on name, phone
+number and/or zip.
+2. Check the search results for the business, looking for an exact match
+on the name.
+3. There are three states possible for a business in the listing.
+  a. unlisted: The business does not exist.
+  b. unclaimed: The business is in the listing but it hasn't been
+claimed/verified.
+  c. claimed: The business is listed and claimed.
+4. Also the scan needs to return the business address, zip code and
+phone number listed on the site.
+
+
