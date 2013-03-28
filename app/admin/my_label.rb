@@ -25,6 +25,12 @@ ActiveAdmin.register_page "My Label" do
               input(:id => 'label_domain', :type => 'text', 'name' => 'label[domain]', 'value' => labelObj.domain)
             end
             li(:class => 'string input optional stringish') do
+              label(:for => 'label_mail_from') do
+                'Mail From'
+              end
+              input(:id => 'label_mail_from', :type => 'text', 'name' => 'label[mail_from]', 'value' => labelObj.mail_from)
+            end
+            li(:class => 'string input optional stringish') do
               label(:for => 'label_login') do
                 'Authorize.net Login'
               end
