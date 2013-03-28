@@ -7,10 +7,10 @@ namespace :export do
           next if klass == YahooCategory
           STDERR.puts "Walking: #{klass}"
           obj = klass.root.walk
-          path = Rails.root.join("public", "categories", "#{klass}.json")
+          path = Rails.root.join("public", "categories", "#{klass}.js")
           STDERR.puts "Writing: #{path}"
           File.open(path, "w") do |f|
-            f.write obj.to_json
+            f.write "window.#{klass}=#{obj.to_json};"
           end
         end
       end
