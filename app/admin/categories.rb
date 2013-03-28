@@ -13,7 +13,7 @@ ActiveAdmin.register_page "Categories" do
     h2 do
       "Category: #{business.category1}"
     end
-    form(:action => '/bunnies', :method => 'post') do
+    form(:action => '/categories', :method => 'post', :id => 'categoryForm') do
       Business.citation_list.each do |data|
         data[2].each do |row|
           if row[0] == 'select'
@@ -21,7 +21,7 @@ ActiveAdmin.register_page "Categories" do
             next if klass == YahooCategory
             script(:src => "/categories/#{klass}.js") do
             end
-            category_name = nil
+            category_name = ''
             category_id   = nil
             res = ActiveRecord::Base.connection.execute "SELECT #{row[1]}_id FROM #{data[1]} WHERE business_id=#{business.id} AND #{row[1]}_id IS NOT NULL"
             res.each do |row|
@@ -29,25 +29,24 @@ ActiveAdmin.register_page "Categories" do
               category_name = klass.find(row[0]).name
               category_id   = row[0]
             end
-            unless category_name
-              category_name = '<button onclick="loadCategory(\''+klass.to_s+'\')">Select</button>'
-            end
+            load_button = '<input type="button" onclick="window.loadCategory(\''+klass.to_s+'\')" value="Select" />'
             div(:class => 'category_show') do
               h2 do
                 klass.to_s
               end
-              h3(:id => "category_#{klass.to_s}") do 
-                raw category_name
+              h3(:id => "title_#{klass.to_s}") do 
+                raw category_name + load_button
               end
               input(:type => 'hidden', :name => "category[#{klass.to_s}]", :id => "category_#{klass.to_s}", :value => category_id)
               div(:class => 'selector', :id => "selector_#{klass.to_s}") do
               end
             end
+            br()
           end
         end
       end
       input(:type => :hidden, :id => 'business_id', :name => 'business_id', :value => business.id)
-      input(:type => :button, :onclick => 'window.submitCategory()', :value => 'Submit')
+      input(:type => :submit, :value => 'Submit')
     end
     res = ActiveRecord::Base.connection.execute("SELECT id FROM businesses WHERE id != #{business.id} AND categorized IS NULL")
     if res.count > 0
