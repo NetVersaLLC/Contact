@@ -36,9 +36,9 @@ class CategoriesController < ApplicationController
       end
     end
     business.categorized = true
-    business.save
+    business.save :validate => false
     if business.errors.count > 0
-      flash[:notice] = business.errors
+      flash[:notice] = "Business profile is not complete!"
     else
       flash[:notice] = 'Saved'
     end

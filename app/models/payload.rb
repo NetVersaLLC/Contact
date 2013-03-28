@@ -46,8 +46,7 @@ class Payload
     @payload        = nil
     @data_generator = nil
 
-    STDERR.puts "Site: #{site}"
-    STDERR.puts "Payload: #{payload}"
+    STDERR.puts "Payload: #{site}/#{payload}"
     raise ArgumentError, "Site or payload cannot be nil" if site == nil or payload == nil
 
     sites = Rails.root.join('sites')
@@ -63,9 +62,8 @@ class Payload
       File.open(sites.join(@site_dir, 'shared.rb'), "r:utf-8") do |f|
         @shared= f.read
       end
-      STDERR.puts "Shared: #{@shared}"
     rescue Exception => e
-      STDERR.puts "Shared: #{e}"
+      # STDERR.puts "Shared: #{e}"
     end
 
     begin
@@ -76,7 +74,7 @@ class Payload
         end
       end
     rescue Exception => e
-      STDERR.puts "Data generator: #{e}"
+      # STDERR.puts "Data generator: #{e}"
     end
 
     begin
@@ -87,7 +85,7 @@ class Payload
         end
       end
     rescue Exception => e
-      STDERR.puts "Ready: #{e}"
+      # STDERR.puts "Ready: #{e}"
     end
 
     begin
@@ -99,7 +97,7 @@ class Payload
         end
       end
     rescue Exception => e
-      STDERR.puts "Payload: #{e}"
+      # STDERR.puts "Payload: #{e}"
     end
   end
 end
