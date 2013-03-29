@@ -1,57 +1,25 @@
-
-def listing_already_exists2
-
-  #@claim_business_link = @browser.div( :text , 'Claim' )
-  #@not_found_text = @browser.div( :class, 'LiveUI_Area_NoMatches' )
-  def claim_business_link; @browser.div( :text, 'Claim' ) end
-  def not_found_text; @browser.text.include? 'NO MATCHES FOUND' end
-
-  # if claim check is first and no results found it waits for 30 seconds and fails
-  sleep(1)
-  Watir::Wait.until {not_found_text or claim_business_link.exists?}
-
-  if not_found_text
-    puts 'No results found'
-    return false
-  elsif claim_business_link.exists?
-    puts 'Found business named ' + @browser.div( :class, 'LiveUI_Area_Business_Details' ).text
-    return true
-  else
-    raise StandardError.new( 'Invalid condition after business search!' )
+agent = Mechanize.new
+agent.verify_mode = OpenSSL::SSL::VERIFY_NONE
+agent.user_agent_alias = 'Mac Safari'
+page = agent.get("https://www.bingbusinessportal.com/Node:%5BApplication%5D%5C%5CStructure%5C%5CContent%5C%5CLiveLookups%5C%5CAddress%20Book%20Lookup.GetObjectListDataAsJSON?aDataTypeList=Asset%2CBusiness%2CAddress%2CCity%2CStateOrProvince%2CPostalCode%2CPhoneNumber%2CUniqueID%2CCountryOrRegion&aUse=LiveLookup&aCountSubNodes=Y&aSourceFilter=JSON%3A%5B%7B%22DataType%22%3A%22Business%22%2C%22Condition%22%3A%22Equal%20To%22%2C%22Value%22%3A%5B%7B%22Text%22%3A%22#{data['business']}%22%7D%5D%7D%2C%7B%22DataType%22%3A%22Address%22%2C%22Condition%22%3A%22Equal%20To%22%2C%22Value%22%3A%5B%7B%22Text%22%3A%22#{data['zip']}%22%7D%5D%7D%5D&aResultCount=500")
+businessFound = [:unlisted]
+meta = {}
+obj = JSON.parse(page.body)
+obj.each do |siness|
+  if siness['Business'] =~ /#{data['business']}/
+    claimed = RestClient.get "https://www.bingbusinessportal.com/Node:%5BApplication%5D%5C%5CStructure%5C%5CContent%5C%5CLiveLookups%5C%5CLocal%20Businesses.GetObjectListDataAsJSON?aDataTypeList=Ownership%20State&aUse=LiveLookup&aCountSubNodes=Y&aSourceFilter=JSON%3A%5B%7B%22DataType%22%3A%22YPID%22%2C%22Condition%22%3A%22Equal%20To%22%2C%22Value%22%3A%5B%7B%22Text%22%3A%22#{siness['UniqueID']}%22%7D%5D%7D%5D"
+    isclaimed = JSON.parse(claimed)
+    if isclaimed[0]
+      businessFound = [:listed, :claimed]
+    else
+      businessFound = [:listed, :unclaimed]
+    end
+    meta['name'] = siness['Business']
+    meta['address'] = siness['Address']
+    meta['phone'] = siness['PhoneNumber']
+    businessFound.push meta
+    break
   end
-  
-end
-
-
-def search_for_business2( business )
-
-  @browser.goto( 'http://www.bing.com/businessportal/' )
-  puts 'Search for the ' + business[ 'business' ] + ' business at ' + business[ 'city' ] + ' city'
-  @browser.link( :text , 'Get Started Now!' ).click
-
-  #sleep 4 # seems that div's are not loaded quickly simetimes
-  @browser.div( :class , 'LiveUI_Area_Find___Business' ).text_field( :class, 'LiveUI_Field_Input' ).when_present.click
-  @browser.div( :class , 'LiveUI_Area_Find___Business' ).text_field( :class, 'LiveUI_Field_Input' ).flash
-  @browser.div( :class , 'LiveUI_Area_Find___Business' ).text_field( :class, 'LiveUI_Field_Input' ).focus
-  @browser.div( :class , 'LiveUI_Area_Find___Business' ).text_field( :class, 'LiveUI_Field_Input' ).set business[ 'business' ]
-  @browser.div( :class , 'LiveUI_Area_Find___City' ).text_field( :class, 'LiveUI_Field_Input' ).click
-  @browser.div( :class , 'LiveUI_Area_Find___City' ).text_field( :class, 'LiveUI_Field_Input' ).set business[ 'city' ]
-  @browser.div( :class , 'LiveUI_Area_Find___State' ).text_field( :class, 'LiveUI_Field_Input' ).click
-  @browser.div( :class , 'LiveUI_Area_Find___State' ).text_field( :class, 'LiveUI_Field_Input' ).set business[ 'state_short' ]
-  @browser.div( :class , 'LiveUI_Area_Search_Button LiveUI_Short_Button_Medium' ).click
-  #sleep 4
-  
-end
-
-businessFound = []
-
-search_for_business2( data )
-result = listing_already_exists2()
-
-if result == true  
-  businessFound = [:listed,:unclaimed]  
-else
-  businessFound = [:unlisted]
 end
 
 [true, businessFound]
