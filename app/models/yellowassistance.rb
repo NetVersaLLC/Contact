@@ -1,8 +1,6 @@
 class Yellowassistance < ClientData
 	attr_accessible :username, :yellowassistance_category_id, :yellowassistance_category
 	virtual_attr_accessor :password
-	validates :password,
-            :presence => true
 belongs_to :yellowassistance_category
 
 def self.payment_methods(business)

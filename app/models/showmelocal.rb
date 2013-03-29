@@ -1,8 +1,6 @@
 class Showmelocal < ClientData
 	attr_accessible :username, :showmelocal_category_id
 	virtual_attr_accessor :password
-	validates :password,
-            :presence => true
 belongs_to :showmelocal_category
 
  def self.check_email(business)

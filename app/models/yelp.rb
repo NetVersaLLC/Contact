@@ -3,10 +3,8 @@ class Yelp < ClientData
   virtual_attr_accessor :password
   belongs_to            :yelp_category
   validates :email,
-            :presence => true,
+            :allow_blank => true,
             :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
-  validates :password,
-            :presence => true
 
   def self.check_email(business)
     @link = nil

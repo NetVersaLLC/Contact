@@ -2,10 +2,8 @@ class Foursquare < ClientData
   attr_accessible :email, :foursquare_category_id
   virtual_attr_accessor :password
   validates :email,
-            :presence => true,
+            :allow_blank => true,
             :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
-  validates :password,
-            :presence => true
 
 belongs_to :foursuare_category
 

@@ -1,9 +1,6 @@
 class Usbdn < ClientData
 	attr_accessible :username, :usbdn_category_id, :usbdn_category
 	virtual_attr_accessor :password
-	validates :password,
-            :presence => true
-
 belongs_to :usdbn_category
 
 def self.check_email(business)
