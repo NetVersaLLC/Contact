@@ -47,3 +47,6 @@ window.loadCategory = (model)->
       html += '<option value="'+em[1]+'">'+em[0]+'</option>'
   html += '</select><div class="nextCategory"></div>'
   $('#selector_'+model).html(html)
+
+$(document).ready ()->
+  $('#categoryForm').append('<input type="hidden" name="authenticity_token" value="'+$('meta[name="csrf-token"]').attr('content')+'" />')
