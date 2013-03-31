@@ -33,7 +33,9 @@ root.save_stages = ->
       
 
 window.g_idx = 0
+
 $ ->
+
   window.fn_deactivate_all_tabs = ->
     $(".tab-content *").prop "disabled", true
 
@@ -49,9 +51,6 @@ $ ->
       save_stages()
       false
 
-
-
-
   fn_deactivate_all_tabs()
   fn_activate_tab 0
 
@@ -63,7 +62,22 @@ $ ->
 
 
 
-
-
-
+  # http PUT the user's input value after user edit & moves to next input box
+  # 
+  # TODO needs to be fixed for non-existing businesses
+  # 
+  $(document).on 'change', '.business.formtastic input', (event) ->  
+    form_action = $('form.business').attr('action')
+    input_name  = $(@).attr('name')
+    input_value = $(@).attr('value')
+    data_hash = {}
+    data_hash[input_name] = input_value
+    
+    $.ajax
+      type: "PUT"
+      cache: false
+      url: form_action
+      data: data_hash
+      success: (data) -> 
+        # alert('data has been saved')
 

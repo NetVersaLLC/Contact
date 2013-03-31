@@ -50,7 +50,10 @@ class BusinessesController < ApplicationController
   end
 
   def save_state
-    #render :text=>params.inspect and return
+    # 
+    # TODO need to create business when user has not submitted form, 
+    #      IE executed the create action. 
+    # 
     @business = Business.find(params[:id])
     @business.attributes = params[:business]
     @business.save(:validate => false)
