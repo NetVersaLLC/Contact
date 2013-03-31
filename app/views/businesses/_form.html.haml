@@ -1,3 +1,8 @@
+:javascript
+  $(function(){
+    fn_business_ajax_form_init();
+  });
+
 #zip_search_form
   %form{:class => 'well form form-horizontal', :id => 'zipform'}
     .control-group
@@ -22,7 +27,8 @@
           %input.btn{:id => :search, :value => "Search", :type => 'button' }/
   #business_results
 
-= semantic_form_for @business, :url=>business_update_state_path(@business), :validate => true, :html => { :class => 'business-form.form-horizontal' }, :remote=>true  do |f|
+- form_url = @business.id.nil? ? '/businesses' : business_save_state_path(@business.id)
+= semantic_form_for @business, :url => form_url, :validate => true, :html => { :class => 'business-form.form-horizontal' }, :remote => true  do |f|
   - @accounts = [] if @accounts.nil?
   = f.semantic_errors
   - @f = f
@@ -46,11 +52,6 @@
         #tab4.tab-pane= render :partial => 'form/company_description'
         #tab5.tab-pane= render :partial => 'form/categories'
     = render :partial => 'form/submit'
-%br/
-%br/
-:javascript
-  $(function(){
-    fn_business_ajax_form_init();
-  });
+
 
 
