@@ -66,30 +66,14 @@ end
 def process_localdatabase_signin(profile, fblogin = false)
 	puts 'Signin to your Localdatabase.com account'
 
-  if fblogin === TRUE
-    click_facebook_login_button @browser, @browser.div(:class => 'blindbox')
-    process_login_with_facebook @browser, profile
-  else
     @browser.div(:class => 'blindbox').text_field(:name, "vb_login_username").set profile['username']
     @browser.div(:class => 'blindbox').text_field(:name, "vb_login_password").set profile['password']
 
-    if(profile['remember'] == true)
-      @browser.div(:class => 'blindbox').checkbox(:name, "cookieuser").set
-    else
-      @browser.div(:class => 'blindbox').checkbox(:name, "cookieuser").clear
-    end
-
-    begin
-      @browser.div(:class => 'blindbox').button(:text => 'Log In').click
-    rescue
-    end
-  end
-
-  begin
-    @browser.wait_until {@browser.text.include? 'Logout'}
-  rescue
-  end
-
+        @browser.div(:class => 'blindbox').button(:text => 'Log In').click
+  
+  
+    Watir::Wait.until {@browser.text.include? 'Logout'}
+  
 	puts 'Signin is Completed'
 end
 
@@ -125,22 +109,26 @@ def localdatabase_add_business business
   @browser.text_field(:name => 'addfax').set business['fax']
   @browser.text_field(:name => 'addweb').set business['website']
   @browser.text_field(:name => 'adddescription').set business['description']
-  @browser.select_list(:id => 'categoryselect').option(:text => business['category']).select
-  @browser.radio(:name => 'addsubscription', :value => business['mtype']).set
-
-  if !business['subcategories'].empty?
-    @browser.wait_until {@browser.table(:id => 'subcatlist').visible?}
+  
+  if business['category'] == "root"
+    @browser.select_list(:id => 'categoryselect').option(:text => business['subcategories']).select
+  else 
+    @browser.select_list(:id => 'categoryselect').option(:text => business['category']).select
+    sleep(1)
+    Watir::Wait.until {@browser.table(:id => 'subcatlist').visible?}
 
     cats = business['subcategories'].split(',')
     cats.each do |c|
-      @browser.table(:id => 'subcatlist').td(:text => ': ' + c).parent.td(:index => 0).checkbox(:index => 0).set
+      @browser.table(:id => 'subcatlist').td(:text => c).parent.td(:index => 0).checkbox(:index => 0).set
     end
   end
 
+  @browser.radio(:name => 'addsubscription', :value => business['mtype']).set
+
+
   @browser.button(:text => 'Save').click
-
-  @browser.wait_until {@browser.button(:text => 'Proceed To Payment').exists?}
-
-  sleep 3
+  puts("Complete")
+  Watir::Wait.until {@browser.text.include? 'Your business has been submitted and is under review by one of our staff. We will contact you shortly in regards to the status.'}
+true
 end
 
