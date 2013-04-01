@@ -11,7 +11,8 @@ data['phone']		 = business.local_phone
 data['fax']		 = business.fax_number
 data['website']		 = business.company_website
 data['description']	 = business.business_description
-data['category']	 = 'Aircraft'
-data['subcategories'] 	 = 'Painting- Service- & Repair,Parts & Equipment Retail'
+cata = Localdatabase.where(:business_id => business.id).first
+data['category']	 = cata.localdatabase_category.parent.name#'Aircraft'
+data['subcategories'] 	 = cata.localdatabase_category.name
 data['mtype']		 = '3'
 data

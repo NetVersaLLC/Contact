@@ -123,7 +123,8 @@
   ['Localdatabase', 'localdatabases',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'localdatabase_category']
     ],
       'localDatabase'
   ],
