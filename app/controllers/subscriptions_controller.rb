@@ -20,12 +20,13 @@ class SubscriptionsController < ApplicationController
   end
 
   def destroy
-    @sub = Business.find(params[:id]).subscription
+    business = Business.find(params[:id])
+    @sub = business.subscription
     if @sub.active == false
       flash[:alert] = "Subscription already cancelled."
     else
       if @sub.subscription_code
-        resp = ::AUTHORIZENETGATEWAY.cancel_recurring(@sub.subscription_code)
+        resp = @sub.label.gateway.cancel_recurring(@sub.subscription_code)
         if resp.success?
           @sub.active = false
           @sub.save!
