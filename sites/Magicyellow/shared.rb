@@ -1,7 +1,6 @@
 #Select payment opttion
 def card_type(payment)
-  @card_type = ""
-  payment = payment[ 'payment_option']
+  @card_type = ""  
   case 
     when payment == 'American Express'
       @card_type = 3
@@ -11,7 +10,7 @@ def card_type(payment)
       @card_type = 10
     when payment == 'PayPal'
       @card_type = 9
-    when payment == 'Cash'
+    when payment == 'Cash Only'
       @card_type = 11
     when payment == 'Diner\'s Club'
       @card_type = 8
@@ -45,4 +44,13 @@ def claim_business(data)
   else
     puts "Business is already claimed"
   end
+end
+
+
+def sign_in(data)
+  @browser.goto("http://www.magicyellow.com/login.cfm")
+  @browser.text_field(:id => 'login').set data['email']
+  @browser.text_field(:name => 'password').set data['password']
+  @browser.button(:value => 'Submit').click
+
 end
