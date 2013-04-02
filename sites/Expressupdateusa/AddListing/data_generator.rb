@@ -2,8 +2,8 @@ data = {}
 
     seed = rand( 1000 ).to_s()
 
-    data[ 'password' ] = business.bings.first.password
-    data[ 'business_email' ] = business.bings.first.email
+    data[ 'password' ] = business.expressupdateusas.first.password
+    data[ 'business_email' ] = business.expressupdateusas.first.email
 
     data[ 'business_name' ] = business.business_name
     data[ 'business_state' ] = business.state_name
@@ -15,7 +15,7 @@ data = {}
     data[ 'business_fax' ] = business.fax_number
     data[ 'business_tollfree' ] = business.toll_free_phone
 
-    data[ 'business_url' ] = business.company_website.gsub( "http://www.", "")
+    data[ 'business_url' ] = business.company_website.gsub( "www.", "").gsub("http://","")
     data[ 'business_ecommerce' ] = true #TODO
     data[ 'business_category' ] = business.category1 
     data[ 'business_products' ] = business.category1 + ', ' + business.category2 + ', ' + business.category3
@@ -26,10 +26,10 @@ data = {}
     data[ 'business_logourl' ] = data[ 'business_url' ] + '/logo.gif'
     data[ 'business_alternateurl' ] = data[ 'business_url' ]
     data[ 'business_couponurl' ] = data[ 'business_url' ] + '/coupons'
-    data[ 'business_twitterurl' ] = 'http://twitter.com/' #TODO
-    data[ 'business_facebookurl' ] = 'http://facebook.com/' #TODO
-    data[ 'business_youtubeurl' ] = 'http://youtube.com/' #TODO
-    data[ 'business_linkedinurl' ] = 'http://linkedin.com/' #TODO
+    #data[ 'business_twitterurl' ] = 'http://twitter.com/' #TODO
+    #data[ 'business_facebookurl' ] = 'http://facebook.com/' #TODO
+    #data[ 'business_youtubeurl' ] = 'http://youtube.com/' #TODO
+    #data[ 'business_linkedinurl' ] = 'http://linkedin.com/' #TODO
     # hours open values include: '' - not selected; 00:01, 00:15 .. 24:00 (HH:mm), 15 minutes step
     data[ 'business_mondayopen' ] = business.monday_open
     data[ 'business_mondayclose' ] = business.monday_close

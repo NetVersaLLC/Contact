@@ -7,4 +7,4 @@ else
   businessFound = [:listed, :unclaimed]
 end
 
-return true, businessFound
+[true, businessFound]
