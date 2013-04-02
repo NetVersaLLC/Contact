@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130401212032) do
+ActiveRecord::Schema.define(:version => 20130402174901) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -623,6 +623,7 @@ ActiveRecord::Schema.define(:version => 20130401212032) do
     t.integer  "foursquare_category_id"
     t.integer  "gomylocal_category_id"
     t.integer  "localdatabase_category_id"
+    t.integer  "localpages_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -978,11 +979,22 @@ ActiveRecord::Schema.define(:version => 20130401212032) do
     t.text     "secrets"
     t.datetime "force_update"
     t.text     "username"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.integer  "localpages_category_id"
   end
 
   add_index "localpages", ["business_id"], :name => "index_localpages_on_business_id"
+
+  create_table "localpages_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "localpages_categories", ["name"], :name => "index_localpages_categories_on_name"
+  add_index "localpages_categories", ["parent_id"], :name => "index_localpages_categories_on_parent_id"
 
   create_table "locations", :force => true do |t|
     t.string   "zip",                                        :null => false
