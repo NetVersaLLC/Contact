@@ -9,7 +9,7 @@ data['address']			= business.address
 data['address2']		= business.address2
 data['city']			= business.city
 data['state']			= business.state_name
-data['zip']			= business.zip
+data['zip']				= business.zip
 data['phone']			= business.local_phone
 data['website']			= business.company_website
 data

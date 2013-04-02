@@ -7,6 +7,6 @@ data[ 'phonetoll' ]		= business.toll_free_phone
 data[ 'website' ]		= business.company_website
 data[ 'hours' ]			= Localndex.get_hours(business)
 data[ 'payments' ]		= Localndex.payment_methods(business)
-data[ 'services' ]		= business.keyword1 + ' ' + business.keyword2 + ' ' + business.keyword3 + ' ' + business.keyword4 + ' ' + business.keyword5
+data[ 'services' ]		= business.category1 + ' ' + business.category2 + ' ' + business.category3 + ' ' + business.category4 + ' ' + business.category5
 data[ 'description' ]		= business.business_description
 data
