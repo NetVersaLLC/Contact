@@ -39,7 +39,8 @@
   ['Merchantcircle', 'merchantcircles',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'merchantcircle_category']
     ],
       'MerchantCircle'
   ],
