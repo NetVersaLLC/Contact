@@ -31,5 +31,7 @@ data[ 'satOpen' ]	= business.saturday_open
 data[ 'satClose' ]	= business.saturday_close
 data[ 'sunOpen' ]	= business.sunday_open
 data[ 'sunClose' ]	= business.sunday_close
+
+
 data
 
