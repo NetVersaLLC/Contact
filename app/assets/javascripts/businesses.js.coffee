@@ -41,6 +41,7 @@ root.save_stages = ->
       
 
 window.g_idx = 0
+
 $ ->
 
   window.fn_deactivate_all_tabs = ->
@@ -64,9 +65,6 @@ $ ->
     $('input[rel=popover]').popover
       trigger: 'hover'
     window.initMap()
-
-
-
 
   fn_deactivate_all_tabs()
   fn_activate_tab 0
