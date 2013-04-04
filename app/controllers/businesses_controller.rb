@@ -50,6 +50,13 @@ class BusinessesController < ApplicationController
   end
 
   def save_state
+<<<<<<< HEAD
+=======
+    # 
+    # TODO need to create business when user has not submitted form, 
+    #      IE executed the create action. 
+    # 
+>>>>>>> 05b806a0da720a88f5361c25c90b35fbadc366c7
     @business = Business.find(params[:id])
     @business.attributes = params[:business]
     @save_state_errors = {}
