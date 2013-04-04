@@ -57,6 +57,7 @@ refinerycms-*.gem
 
 # Mac
 .DS_Store
+tmp/restart.txt  # pow - this file is touched to restart the pow server, if you use it. 
 
 # Windows
 Thumbs.db
@@ -101,3 +102,4 @@ capybara-*html
 vendor/extensions/**/spec/dummy
 
 captchas/uploads
+

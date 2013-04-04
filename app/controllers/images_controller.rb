@@ -41,19 +41,28 @@ class ImagesController < ApplicationController
     @image.data         = QqFile.parse(params[:qqfile], request)
     @image.file_name    = @image.data.original_filename
     @image.business_id  = params[:business_id]
-    @success            = @image.save
-
+    
     @response = {}
-    Image.column_names.each do |col|
-      @response[col] = @image[col]
-    end
-    @response[:success] = @success
-    @response[:errors]  = @image.errors
-    @response[:thumb]   = @image.data.url(:thumb)
-    @response[:medium]  = @image.data.url(:medium)
-    respond_to do |format|
-      format.json { render :json => @response }
-    end
+    @response[:success] = false 
+
+    # qqfile will be nil if the file upload fails.  
+    if( (not params[:qqfile].nil?) && @image.save) 
+      Image.column_names.each do |col|
+        @response[col] = @image[col]
+      end
+      @response[:success] = true
+      @response[:errors]  = @image.errors
+      @response[:thumb]   = @image.data.url(:thumb)
+      @response[:medium]  = @image.data.url(:medium)
+      respond_to do |format|
+        format.json { render :json => @response }
+      end
+    else 
+      respond_to do |format| 
+        format.json { render :json => @response, :status => :bad_request }
+      end
+    end 
+
   end
 
   # PUT /images/1
