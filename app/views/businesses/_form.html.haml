@@ -4,30 +4,6 @@
     fn_business_ajax_form_init();
   });
 
-#zip_search_form
-  %form{:class => 'well form form-horizontal', :id => 'zipform'}
-    .control-group
-      %label.control-label{ :for => :zip } Search by Zip
-      .controls
-        .input-append
-          = text_field_tag :zip
-          %button.btn{:id => "zipsearch"} Search
-    .control-group
-      %label.control-label{ :for => :state } State
-      .controls
-        = select_tag :state, options_for_select(Carmen::states('US'), 'CA')
-    .control-group
-      %label.control-label{ :for => :city } City
-      .controls
-        = text_field_tag :city
-    .control-group
-      %label.control-label{ :for => :company_name } Company Name
-      .controls
-        .input-append
-          = text_field_tag :company_name
-          %input.btn{:id => :search, :value => "Search", :type => 'button' }/
-  #business_results
-
 - form_url = @business.id.nil? ? '/businesses' : business_update_state_path(@business.id)
 = semantic_form_for @business, :url => form_url, :validate => true, :html => { :class => 'business-form.form-horizontal' }, :remote => true  do |f|
   - @accounts = [] if @accounts.nil?
