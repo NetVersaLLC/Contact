@@ -50,14 +50,19 @@ class BusinessesController < ApplicationController
   end
 
   def save_state
-    #render :text=>params.inspect and return
     @business = Business.find(params[:id])
     @business.attributes = params[:business]
+    @save_state_errors = {}
+    unless @business.valid?
+      @business.errors.messages.each do |k,v|
+        @save_state_errors[k] = v if params[:business].has_key?(k)
+      end
+    end
     @business.save(:validate => false)
     @business.reload
-    render :action=>:edit, :layout=>nil and return
+    render :action=>:edit, :layout=>nil, :status=>@save_state_errors.empty? ? 200:210 and return
   end
-  
+
 
   # POST /businesses
   # POST /businesses.json

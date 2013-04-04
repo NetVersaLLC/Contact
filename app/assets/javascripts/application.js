@@ -11,3 +11,4 @@
 //= require jquery.payment
 //= require checkout
 
+//= require custom
