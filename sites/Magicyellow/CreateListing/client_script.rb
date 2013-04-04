@@ -42,14 +42,17 @@ def add_new_business(data)
   # Add payment_options
   payments = data['payment_option']
   payments.each do |payment|
-    @browser.checkbox(:value => card_type(payment).to_s).set
+    @browser.checkbox(:value => card_type(payment).to_s).click
   end
-  
   @browser.button(:value => 'Submit').click
   @success_msg = 'Congratulations, you have claimed your business and created a profile page.'
-	
   if @browser.text.include?(@success_msg)
     puts "Initial registration is Successful"
+
+  if @chained
+    self.start("Magicyellow/Verify")
+  end
+
 true
   else
     throw "Initial registration is not Successful"
@@ -57,7 +60,7 @@ true
 end
 
 #Main Steps
-
+@browser.goto("http://www.magicyellow.com/add-your-business.cfm")
 # Search for existing business by phone
 if search_by_phone(data)
   claim_business(data)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130402174901) do
+ActiveRecord::Schema.define(:version => 20130403220421) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -624,6 +624,8 @@ ActiveRecord::Schema.define(:version => 20130402174901) do
     t.integer  "gomylocal_category_id"
     t.integer  "localdatabase_category_id"
     t.integer  "localpages_category_id"
+    t.integer  "magicyellow_category_id"
+    t.integer  "merchantcircle_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -1009,12 +1011,24 @@ ActiveRecord::Schema.define(:version => 20130402174901) do
     t.datetime "updated_at"
   end
 
+  create_table "magicyellow_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "magicyellow_categories", ["name"], :name => "index_magicyellow_categories_on_name"
+  add_index "magicyellow_categories", ["parent_id"], :name => "index_magicyellow_categories_on_parent_id"
+
   create_table "magicyellows", :force => true do |t|
     t.datetime "force_update"
     t.integer  "business_id"
     t.string   "email"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
+    t.integer  "magicyellow_category_id"
+    t.text     "secrets"
   end
 
   add_index "magicyellows", ["business_id"], :name => "index_magicyellows_on_business_id"
@@ -1063,13 +1077,24 @@ ActiveRecord::Schema.define(:version => 20130402174901) do
 
   add_index "matchpoints", ["business_id"], :name => "index_matchpoints_on_business_id"
 
+  create_table "merchantcircle_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "merchantcircle_categories", ["name"], :name => "index_merchantcircle_categories_on_name"
+  add_index "merchantcircle_categories", ["parent_id"], :name => "index_merchantcircle_categories_on_parent_id"
+
   create_table "merchantcircles", :force => true do |t|
     t.datetime "force_update"
     t.text     "secrets"
     t.integer  "business_id"
     t.string   "email"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.integer  "merchantcircle_category_id"
   end
 
   add_index "merchantcircles", ["business_id"], :name => "index_merchantcircles_on_business_id"
