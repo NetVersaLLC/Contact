@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130403220421) do
+ActiveRecord::Schema.define(:version => 20130404175535) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -626,6 +626,7 @@ ActiveRecord::Schema.define(:version => 20130403220421) do
     t.integer  "localpages_category_id"
     t.integer  "magicyellow_category_id"
     t.integer  "merchantcircle_category_id"
+    t.integer  "mojopages_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -1104,11 +1105,22 @@ ActiveRecord::Schema.define(:version => 20130403220421) do
     t.text     "secrets"
     t.integer  "business_id"
     t.string   "email"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.integer  "mojopages_category_id"
   end
 
   add_index "mojopages", ["business_id"], :name => "index_mojopages_on_business_id"
+
+  create_table "mojopages_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "mojopages_categories", ["name"], :name => "index_mojopages_categories_on_name"
+  add_index "mojopages_categories", ["parent_id"], :name => "index_mojopages_categories_on_parent_id"
 
   create_table "mycitybusinesses", :force => true do |t|
     t.integer  "business_id"

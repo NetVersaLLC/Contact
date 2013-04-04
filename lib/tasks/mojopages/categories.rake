@@ -1,12 +1,12 @@
 require 'json'
 
-namespace :merchantcircle do
+namespace :mojopages do
   task :categories => :environment do
-	body = File.open(Rails.root.join("categories", "Merchantcircle", "categories.json"), 'r').read
+	body = File.open(Rails.root.join("categories", "Mojopages", "categories.json"), 'r').read
     categories = JSON.parse(body) 
  
 
-root = MerchantcircleCategory.create(:name => 'root')
+root = MojopagesCategory.create(:name => 'root')
  categories.each_pair do |k,v| 
     node = root.children.create(:name => k, :parent_id => root.id)  
     puts(k)
@@ -17,12 +17,8 @@ root = MerchantcircleCategory.create(:name => 'root')
         sub.each do |sub2|
             puts(" > > "+sub2)
             cat2 = cat.children.create(:name => sub2, :parent_id => cat.id)
-        end
+       end
     end
-
-
-
-
  end
 
 
