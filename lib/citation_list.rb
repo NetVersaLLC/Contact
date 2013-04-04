@@ -39,7 +39,8 @@
   ['Merchantcircle', 'merchantcircles',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'merchantcircle_category']
     ],
       'MerchantCircle'
   ],
@@ -314,17 +315,19 @@
     ],
       'Matchpoint'
   ],
-  ['Magicyellow', 'magicyellow',
+  ['Magicyellow', 'magicyellows',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'magicyellow_category']
     ],
       'Magicyellow'
   ],
   ['Localpages', 'localpages',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'localpages_category']
     ],
       'Localpages'
   ],
