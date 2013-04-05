@@ -3,5 +3,6 @@
     %ul.payment_methods
       - @business.payment_methods.each do |type|
         %li.payment_method
-          = @f.check_box "accepts_#{type}".to_sym
-          = type.capitalize
+          %label.checkbox
+            = @f.check_box "accepts_#{type}".to_sym
+            = type.capitalize
