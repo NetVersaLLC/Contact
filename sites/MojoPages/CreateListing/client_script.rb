@@ -32,8 +32,8 @@ RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}",
 	
 
 	#Wait until the Choose Category Screen loads
-	#Watir::Wait::until do @browser.text.include? 'Choose your business category' end
-	sleep(8)
+	sleep(2)
+	Watir::Wait::until do @browser.text.include? 'Choose your business category' end
 	#Enter the business' category
   puts(data['category'])
 	@browser.text_field( :name => 'category' ).set data[ 'category' ]
@@ -42,18 +42,13 @@ RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}",
 	#Wait until category ajax loads
 	#Watir::Wait::until do @browser.radio( :name => 'category' ).exists? or  @browser.text.include? 'No results found. Try a different keyword' end
 
-	
-
 	#does the category exist?
 	if @browser.text.include? 'No results found. Try a different keyword'
 		#Category doesn't exist and we need to use a different one to continue.
 		#raise StandardError.new( 'That category doesn\'t exist!' )
 		#manually enter a new category
-		
 		@browser.text_field( :name => 'category' ).set gets
 		#TODO possible automate a second try for category
-		
-
 		@browser.button( :value => 'Find Category').click
 		sleep 3
 
