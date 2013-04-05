@@ -40,7 +40,12 @@ module Business::Validations
     validates :geographic_areas,
       :presence => true
     validates :year_founded,
-      :presence => true
+      :presence => true, 
+      :numericality => { 
+        :only_integer => true, 
+        :greater_than_or_equal_to => 1000, 
+        :less_than_or_equal_to => proc { Date.current.year } 
+        }
     validates :company_website,
       :allow_blank => true,
       :format => { :with => /^https?\:\/\// }
