@@ -34,10 +34,11 @@ class ImagesController < ApplicationController
   # POST /images.json
   def create
     @image ||= Image.new(params[:image])
-    position            = Image.where(:business_id => params[:business_id]).maximum(:position) || 1
+    position            = Image.where(:business_id => params[:business_id]).maximum(:position) || 0
     position            = position + 1
     @image.position     = position
-    @image.display_name = position
+    @image.display_name = position # if this changes, see Image.reorder_positions 
+                                   # not very OOP, but dont know what else will break if I change it
     @image.data         = QqFile.parse(params[:qqfile], request)
     @image.file_name    = @image.data.original_filename
     @image.business_id  = params[:business_id]
@@ -84,6 +85,8 @@ class ImagesController < ApplicationController
   def destroy
     @image = Image.find(params[:id])
     @image.destroy
+
+    Image.reorder_positions( @image.business_id )    
 
     @response = {:status => :removed, :image_id => params[:id]}
     respond_to do |format|
