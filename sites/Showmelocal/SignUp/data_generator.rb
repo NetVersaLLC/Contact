@@ -1,7 +1,8 @@
 data = {}
+seed = rand(1000).to_s
 catty                       = Showmelocal.where(:business_id => business.id).first
 data[ 'business' ]		= business.business_name
-data[ 'category' ]          = catty.showmelocal_category.name.gsub("\n", "")
+data[ 'category' ]          = catty.showmelocal_category.name
 data[ 'type' ]		= business.category1
 data[ 'address' ]		= business.address
 data[ 'address2' ]		= business.address2
