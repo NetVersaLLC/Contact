@@ -1,8 +1,9 @@
 class Spotbusiness < ClientData
-  attr_accessible :business_id, :created_at, :email, :force_update, :secrets, :updated_at
+  attr_accessible :email
   virtual_attr_accessor :password
-  validates :password,
-  	:presence => true
+  belongs_to :spotbusiness_category
+
+
 
   def self.check_email(business)
     @link = nil

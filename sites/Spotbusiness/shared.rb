@@ -29,3 +29,12 @@ def enter_captcha
   throw("Captcha was not solved")
   end
 end
+
+
+def sign_in(data)
+  @browser.goto("http://spotabusiness.com/")
+  @browser.text_field(:id => 'mod_login_username').set data['username']
+  @browser.text_field(:id => 'mod_login_password').set data['password']
+  @browser.button(:value => 'Login').click
+  
+end
