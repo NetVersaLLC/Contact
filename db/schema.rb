@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130404175535) do
+ActiveRecord::Schema.define(:version => 20130408211548) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -627,6 +627,7 @@ ActiveRecord::Schema.define(:version => 20130404175535) do
     t.integer  "magicyellow_category_id"
     t.integer  "merchantcircle_category_id"
     t.integer  "mojopages_category_id"
+    t.integer  "spotbusiness_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -1316,13 +1317,24 @@ ActiveRecord::Schema.define(:version => 20130404175535) do
     t.datetime "updated_at",             :null => false
   end
 
+  create_table "spotbusiness_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "spotbusiness_categories", ["name"], :name => "index_spotbusiness_categories_on_name"
+  add_index "spotbusiness_categories", ["parent_id"], :name => "index_spotbusiness_categories_on_parent_id"
+
   create_table "spotbusinesses", :force => true do |t|
     t.datetime "force_update"
     t.text     "secrets"
     t.integer  "business_id"
     t.string   "email"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+    t.integer  "spotbusiness_category_id"
   end
 
   add_index "spotbusinesses", ["business_id"], :name => "index_spotbusinesses_on_business_id"

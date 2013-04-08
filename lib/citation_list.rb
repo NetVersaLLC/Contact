@@ -424,7 +424,8 @@
   ['Spotbusiness', 'spotbusinesses',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'spotbusiness_category']
     ],
       'Spotbusiness'
   ],
