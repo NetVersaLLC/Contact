@@ -11,6 +11,7 @@ Contact::Application.routes.draw do
       :registrations => 'my_devise/registrations',
     }
   ActiveAdmin.routes(self)
+  
 
   resources :booboos
   resources :subscriptions
