@@ -1,15 +1,14 @@
 data = {}
 catty                       = Shopinusa.where(:business_id => business.id).first
 
-
 data[ 'username' ]		= business.bings.first.email[0..14]
 data[ 'password' ]		= Yahoo.make_password
 data[ 'fname' ]			= business.contact_first_name
 data[ 'lname' ]			= business.contact_last_name
 data[ 'fullname' ]		= data[ 'fname' ] + ' ' + data[ 'lname' ]
 
-data[ 'category1' ]          = catty.shopinusa_category.parent.name.gsub("\n", "")
-data[ 'category2' ]           = catty.shopinusa_category.name.gsub("\n", "")
+data[ 'category1' ]          = catty.shopinusa_category.parent.name
+data[ 'category2' ]           = catty.shopinusa_category.name
 
 data[ 'category3' ]		= business.category3
 data[ 'state_name' ]		= business.state_name
