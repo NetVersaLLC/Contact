@@ -1,5 +1,5 @@
 class Shopinusa < ClientData
-  attr_accessible :shopinusa_category_id
+  #attr_accessible :shopinusa_category_id
   belongs_to :shopinusa_category
 
   def self.payment_methods(business)

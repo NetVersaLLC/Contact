@@ -1,3 +1,5 @@
+puts(data[ 'category2' ])
+
 @browser.goto( 'http://www.shopinusa.com/signup/' )
 
 @browser.text_field( :id => 'ctl00_MainContent_companyTitle').set data[ 'business' ]
@@ -27,7 +29,6 @@ enter_captcha( data )
 @browser.text_field( :id => 'ctl00_MainContent_productDataList_ctl03_productTextBox').set data[ 'category3' ]
 @browser.text_field( :id => 'ctl00_MainContent_productDataList_ctl04_productTextBox').set data[ 'category4' ]
 @browser.text_field( :id => 'ctl00_MainContent_productDataList_ctl05_productTextBox').set data[ 'category5' ]
-
 
 hours = data[ 'hours' ]
 hours.each_with_index do |hour,day|
@@ -78,6 +79,7 @@ hours.each_with_index do |hour,day|
 		if closeHour[0,1] == "0"
 			closeHour = closeHour[1,1]
 		end
+		
 
 		@browser.select_list( :id => "ctl00_MainContent_customBusinessHours_open#{theday}HourDropDownList").select openHour
 		@browser.select_list( :id => "ctl00_MainContent_customBusinessHours_open#{theday}MinDropDownList").select openMin
@@ -90,21 +92,38 @@ hours.each_with_index do |hour,day|
 		@browser.radio( :id => "ctl00_MainContent_customBusinessHours_open#{theday}RadioButtonList_#{openAMPM}").click
 		@browser.radio( :id => "ctl00_MainContent_customBusinessHours_close#{theday}RadioButtonList_#{closeAMPM}").click		
 	else
-		if @browser.checkbox( :id => "ctl00_MainContent_customBusinessHours_#{theday}CheckBox").set?
-			@browser.checkbox( :id => "ctl00_MainContent_customBusinessHours_#{theday}CheckBox").clear
-			sleep(3)
+		
+		if theday == "thu"
+			theday = "thur"
 		end
+
+			@browser.checkbox( :id => "ctl00_MainContent_customBusinessHours_#{theday}CheckBox").click
+			puts("clicked the checkbox")
+			sleep(3)		
 	end
+
 end
+
 
 payments = data['payments']
 payments.each do |payment|
 	@browser.checkbox( :id => "ctl00_MainContent_ctlPayment_paymentCheckBoxList_#{payment}").click
+
 end
 
 @browser.button( :id => 'ctl00_MainContent_submitButton').click
-sleep(8)
-@browser.goto('http://www.shopinusa.com/signup/Preview.aspx')
+sleep 3
+# JavaScript Error: "e is null"
+# The site has an unhandled javascript exception that causes selenium to freak out.
+# The bgin/rescue allows the script to finish, as a work around for now.
+begin
+	@browser.goto('http://www.shopinusa.com/signup/Preview.aspx')
+rescue Exception => e
+	puts(e)
+end
+
+
+Watir::Wait.until { @browser.text.include? "Congratulations! Your free listing has been successfully submitted for review." }
 
 true
 
