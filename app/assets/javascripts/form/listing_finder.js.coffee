@@ -1,8 +1,12 @@
 window.zipSearch = ()->
+  $('#zip_search_form .zipcode-error').hide();
   $.getJSON '/zip.js?term='+$('#zip').val(), (data)->
-    if data.city
-      $('#city').val data['city']
-      $('#state').val data['state']
+    unless data==null
+      if data.city
+        $('#city').val data['city']
+        $('#state').val data['state']
+    else
+      $('#zip_search_form .zipcode-error').show();
 
 window.selectPlace = (el)->
   $.getJSON '/places/show.js?reference='+$(el).attr('data-reference'), (data)->
