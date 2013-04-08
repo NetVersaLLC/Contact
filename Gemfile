@@ -64,7 +64,7 @@ gem 'detect_email_settings'
 gem 'deathbycaptcha'
 gem 'faker'
 gem 'cancan'
-gem 'activeadmin-cancan'
+#gem 'activeadmin-cancan'
 gem 'airbrake'
 gem "capistrano-db-tasks", require: false
 gem 'axlsx'

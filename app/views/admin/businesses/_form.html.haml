@@ -4,21 +4,25 @@
     = f.input :contact_first_name
     = f.input :contact_middle_name
     = f.input :contact_last_name
-    = f.input :phone
+    = f.input :local_phone
     = f.input :alternate_phone
-    = f.input :fax
+    = f.input :toll_free_phone
+    = f.input :mobile_phone
+    = f.input :alternate_phone
+    = f.input :fax_number
     = f.input :address
     = f.input :address2
     = f.input :city
     = f.input :state
     = f.input :zip
-    = f.input :website
-    = f.input :email
-  = f.inputs "Mail" do
-    = f.input :mail_host
-    = f.input :mail_port
-    = f.input :mail_username
-    = f.input :mail_password
+    = f.input :company_website
+    /= f.input :email
+    /= f.inputs "Mail" do
+    /  = f.input :mail_host
+    /  = f.input :mail_port
+    /  = f.input :mail_username
+    /  = f.input :mail_password
+
   = f.fields_for :yelps do |y|
     = y.inputs "Yelp Account" do
       = y.input :yelp_category_id, :as => :select, :collection => YelpCategory.list
