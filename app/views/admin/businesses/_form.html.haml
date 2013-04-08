@@ -1,6 +1,7 @@
 = semantic_nested_form_for [:admin, @business] do |f|
   = f.inputs "Business Details" do
-    = f.input :name, :label => 'Business Name'
+    = f.semantic_errors
+    = f.input :business_name, :label => 'Business Name'
     = f.input :contact_first_name
     = f.input :contact_middle_name
     = f.input :contact_last_name
@@ -16,6 +17,14 @@
     = f.input :state
     = f.input :zip
     = f.input :company_website
+    = f.input :category1
+    = f.input :category2
+    = f.input :category3
+    = f.input :contact_gender
+    = f.input :business_description
+    = f.input :geographic_areas
+    = f.input :year_founded
+    = f.input :contact_birthday
     /= f.input :email
     /= f.inputs "Mail" do
     /  = f.input :mail_host
