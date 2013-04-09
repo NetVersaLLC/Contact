@@ -5,7 +5,7 @@ ActiveAdmin.register Business do
 
   index do
     column :business_name do |v|
-      link_to(v.business_name, "/admin/client_manager?business_id=#{v.id}") + " " + link_to("Categories", "/admin/categories?business_id=#{v.id}")
+      link_to(v.business_name, "/admin/client_manager?business_id=#{v.id}") 
     end
     column :business_name do |v|
       v.id
@@ -14,6 +14,13 @@ ActiveAdmin.register Business do
       link_to v.company_website, v.company_website
     end
     column :client_checkin
+   
+    # This can be merged with an actions method (instead of default_actions) when 
+    # activeadmin upgraded to 0.6.0, released on 4/4/2013.   
+    column  do |v|
+      link_to("Categories", "/admin/categories?business_id=#{v.id}")
+    end 
+
     default_actions
   end
 
