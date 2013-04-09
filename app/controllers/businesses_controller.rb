@@ -50,20 +50,15 @@ class BusinessesController < ApplicationController
   end
 
   def save_state
-    business = Business.where(:user_id=>current_user.id, :status => 0).first
-    if business.nil?
-      business = Business.new(params[:business])
-      business.user = current_user
-      business.label = current_label
-    else
-      #business.update_attributes(params[:business])
-      business.attributes = params[:business]
-    end
-    if business.save(:validate => false)
-      render :text => "Data saved.".to_json
-    else
-      render :text => "Data not saved.".to_json
-    end
+    # 
+    # TODO need to create business when user has not submitted form, 
+    #      IE executed the create action. 
+    # 
+    @business = Business.find(params[:id])
+    @business.attributes = params[:business]
+    @business.save(:validate => false)
+    @business.reload
+    render :action=>:edit, :layout=>nil and return
   end
   
 

@@ -1,3 +1,8 @@
+/ :javascript
+/   $(function(){
+/     fn_business_ajax_form_init();
+/   });
+
 #zip_search_form
   %form{:class => 'well form form-horizontal', :id => 'zipform'}
     .control-group
@@ -22,20 +27,15 @@
           %input.btn{:id => :search, :value => "Search", :type => 'button' }/
   #business_results
 
-= semantic_form_for @business, :validate => true, :html => {:multipart => true, :class => 'form-horizontal' }  do |f|
+- form_url = @business.id.nil? ? '/businesses' : business_save_state_path(@business.id)
+
+= semantic_form_for @business, :url => form_url, :validate => true, :html => { :class => 'business-form.form-horizontal' }, :remote => true  do |f|
   - @accounts = [] if @accounts.nil?
   = f.semantic_errors
   - @f = f
-  .span8
-    = render :partial => 'form/business_details'
-    = render :partial => 'form/payment_methods'
-    = render :partial => 'form/business_hours'
-    = render :partial => 'form/company_description'
-    =# render :partial => 'form/keywords'
-    =# render :partial => 'form/mail_settings'
-    =# render :partial => 'form/existing_account_logins'
-    = render :partial => 'form/categories'
-    = render :partial => 'form/logo'
-    = render :partial => 'form/submit'
-%br/
-%br/
+  = render :partial => 'form/business_details'
+  = render :partial => 'form/payment_methods'
+  = render :partial => 'form/business_hours'
+  = render :partial => 'form/company_description'
+  = render :partial => 'form/categories'
+  = render :partial => 'form/submit'
