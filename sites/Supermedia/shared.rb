@@ -31,3 +31,15 @@ def enter_captcha( data )
 end
 
 
+def sign_in(data)
+	@browser.goto("http://www.supermedia.com/")
+	@browser.link(:text => 'CLIENT SIGN IN').click
+
+	Watir::Wait.until { @browser.text_field(:id => 'uname').exists? }
+
+	@browser.text_field(:id => 'uname').set data['email']
+	@browser.text_field(:id => 'password').set data['password']
+
+	@browser.td(:text => 'sign in').click
+
+end
