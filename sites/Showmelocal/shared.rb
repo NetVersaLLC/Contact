@@ -29,3 +29,9 @@ def enter_captcha( data )
 	end
 end
 
+def sign_in(data)
+	@browser.goto("https://www.showmelocal.com/login.aspx")
+	@browser.text_field(:id => '_ctl0_txtUserName').set data['email']
+	@browser.text_field(:id => '_ctl0_txtPassword').set data['password']
+	@browser.button(:name => '_ctl0:cmdLogin').click
+end
