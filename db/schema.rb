@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130408211548) do
+ActiveRecord::Schema.define(:version => 20130408235128) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -628,6 +628,7 @@ ActiveRecord::Schema.define(:version => 20130408211548) do
     t.integer  "merchantcircle_category_id"
     t.integer  "mojopages_category_id"
     t.integer  "spotbusiness_category_id"
+    t.integer  "staylocal_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -1339,13 +1340,24 @@ ActiveRecord::Schema.define(:version => 20130408211548) do
 
   add_index "spotbusinesses", ["business_id"], :name => "index_spotbusinesses_on_business_id"
 
+  create_table "staylocal_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "staylocal_categories", ["name"], :name => "index_staylocal_categories_on_name"
+  add_index "staylocal_categories", ["parent_id"], :name => "index_staylocal_categories_on_parent_id"
+
   create_table "staylocals", :force => true do |t|
     t.datetime "force_update"
     t.text     "secrets"
     t.integer  "business_id"
     t.string   "email"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.integer  "staylocal_category_id"
   end
 
   add_index "staylocals", ["business_id"], :name => "index_staylocals_on_business_id"
