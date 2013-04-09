@@ -359,9 +359,9 @@
     ],
       'Yippie'
   ],
-  ['Staylocal', 'staylocal',
+  ['Staylocal', 'staylocals',
     [
-      ['text', 'username'],
+      ['text', 'email'],
       ['text', 'password']
     ],
       'Staylocal'
