@@ -1,37 +1,26 @@
-  #Open Verification link & attach it to watir.
-url = data[ 'url' ]
-@browser.goto(url)
+sign_in(data)
+@browser.goto("https://www.thumbtack.com/welcome")
 
-if (@browser.text.include? 'Connect your Facebook account')
-	@browser.link(:text, 'Skip this step').click
-end
-if (@browser.text.include? 'Add pictures to your listing')
-	@browser.link(:text, 'Skip this step').click
-end
+@browser.text_field(:name => 'sav_business_name').when_present.set data ['business']
+  @browser.text_field(:name => 'phone_number').set data ['phone']
+  @browser.text_field(:name => 'website').set data ['website']
+  @browser.text_field(:name => 'sav_description').set data ['description']
+  @browser.text_field(:name => 'sav_title').set data ['title']
+  
+  
 
-  #Set Password
-  @browser.text_field(:name => 'usr_password').set data['password']
-  @browser.text_field(:name => 'usr_password_again').set data['password']
-  @browser.link(:text, /Save/).click
-  @browser.link(:text, /Continue/).click
+    @browser.text_field(:name => 'usa_address1').set data ['address']
+  
+  @browser.text_field(:name => 'usa_zip_code_id').set data ['zip']
+  @browser.checkbox(:value => 'tocustomer').set
+  @browser.link(:text,/List my services/).click
+  # Check for Error
+  if @browser.div(:class,'form-error').visible?
+    throw("Validation Fails : #{@browser.div(:class,'form-error').text}")
+  end
 
-if (@browser.text.include? 'Promote your listing')
-	@browser.link(:text, /Continue/).click
-end
+@browser.goto("http://www.thumbtack.com/profile/dashboard")
 
-@browser.link(:text, 'Skip this step').click
-  #Answer questions related to services
-#  @browser.text_field(:name => 'answer_9').when_present.set data['common_jobs']
-#  @browser.text_field(:name => 'answer_23').set data['recent_jobs']
-#  @browser.text_field(:name => 'answer_7').set data['advice_to_customer']
-#  @browser.link(:text, /Save/).click
-@browser.link(:text, 'Skip this step').click
-#@browser.text_field(:name => 'recipients').when_present.set data['recipients']
-@browser.link(:text, 'Skip this step').click
-#@browser.link(:text, /Send/).click
-#  @browser.text_field(:name => 'recipients').when_present.set data['recipients']
-  @browser.link(:text, /Save/).when_present.click
-  @browser.link(:text, /Continue/).when_present.click
+Watir::Wait.until { @browser.text.include? "What's new with your services?" } 
 
 true
-  

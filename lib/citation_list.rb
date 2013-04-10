@@ -449,6 +449,13 @@
       ['text', 'password']
     ],
       'Linkedin'
+  ],
+  ['Thumbtack', 'thumbtacks',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Thumbtack'
   ]
 ]
 
