@@ -139,7 +139,8 @@
   ['Tupalo', 'tupalos',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'tupalo_category']
     ],
       'Tupalo'
   ],

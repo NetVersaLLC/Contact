@@ -1,7 +1,7 @@
 class Tupalo < ClientData
   attr_accessible :username
   virtual_attr_accessor :password
-
+  belongs_to :tupalo_category
 
   def self.check_email(business)
     @password = nil
