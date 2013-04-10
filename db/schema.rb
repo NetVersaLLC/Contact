@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130408235128) do
+ActiveRecord::Schema.define(:version => 20130410203556) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -629,6 +629,7 @@ ActiveRecord::Schema.define(:version => 20130408235128) do
     t.integer  "mojopages_category_id"
     t.integer  "spotbusiness_category_id"
     t.integer  "staylocal_category_id"
+    t.integer  "tupalo_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -1457,13 +1458,24 @@ ActiveRecord::Schema.define(:version => 20130408235128) do
   add_index "transaction_events", ["payment_id"], :name => "index_transactions_on_payment_id"
   add_index "transaction_events", ["subscription_id"], :name => "index_transactions_on_subscription_id"
 
+  create_table "tupalo_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "tupalo_categories", ["name"], :name => "index_tupalo_categories_on_name"
+  add_index "tupalo_categories", ["parent_id"], :name => "index_tupalo_categories_on_parent_id"
+
   create_table "tupalos", :force => true do |t|
     t.integer  "business_id"
     t.text     "secrets"
     t.datetime "force_update"
     t.text     "username"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "tupalo_category_id"
   end
 
   create_table "tweets", :force => true do |t|
