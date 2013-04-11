@@ -1,10 +1,12 @@
+require 'cgi'
+
 def goto_sign_up
   puts 'Business is not found - Sign up for new account'
   @browser.goto( 'http://listings.local.yahoo.com/' )
   @browser.link( :text => 'Sign Up' ).click
 end
 
-def provide_business_info( business, is_existing )
+def provide_business_info( business )
   # Provide Your Business Information
   @browser.text_field( :id => 'cfirstname' ).set business[ 'first_name' ]
   @browser.text_field( :id => 'clastname' ).set business[ 'last_name' ]
@@ -13,9 +15,8 @@ def provide_business_info( business, is_existing )
 
   # Business Information
   @browser.text_field( :id => 'coEmail' ).set business[ 'business_email' ]
-  if is_existing then
-    # .. skip business name, address, phone and website as they are pre populated here
-  else
+ 
+ 
 
     # .. fill all the info because its blank
     @browser.text_field( :id => 'bizname' ).set business[ 'business_name' ]
@@ -26,40 +27,72 @@ def provide_business_info( business, is_existing )
     @browser.text_field( :id => 'addphone' ).set business[ 'business_phone' ]
     # TODO: add website @browser.text_field( :id => '?' ).set business[ 'business_website' ]
 
-    @browser.text_field( :id => 'acseccat1' ).set business[ 'business_categoty' ]
+    cats = CGI.unescapeHTML(business[ 'business_category' ])
+      cats = cats.split("")
+    cats.each do |cat|
+      @browser.text_field( :id => 'acseccat1' ).send_keys cat
+    end      
     sleep 5
     @browser.p( :class => 'autocomplete-row-margins' ).click
     #@browser.div( :id => 'add-category-row-1' ).click # add the category to test it
 
     @browser.button( :id => 'submitbtn' ).click
-    Watir::Wait::until do @browser.text.include? 'Optional Business Information' end
 
+    puts("before wait")
+    sleep(3)
+    Watir::Wait::until do @browser.text.include? 'Optional Business Information' end
+      puts("after wait")
+
+
+  # Optional Business Information
+  @browser.h3( :id => 'operationhours-collapsed' ).click
+  sleep(2)
+  @browser.radio(:id => 'hoo-detailed').click
+sleep(2)
+  hours = business['hours']
+
+  hours.each_pair do |thing, thang|
+
+    #puts(thing + " " + thang)
+
+    theday = thing[0..2]
+    if thang.to_s == "closed"
+      @browser.select_list(:id => theday+'0').select "Closed"
+      @browser.select_list(:id => theday+'1').select "Closed"
+    else
+
+        openHour = thang['open']
+        closeHour = thang['close']
+        if openHour[0,1] == "0"
+          openHour = openHour[1..-1]
+        end
+        if closeHour[0,1] == "0"
+          closeHour = closeHour[1..-1]
+        end     
+
+      @browser.select_list(:id => theday+'0').select openHour
+      @browser.select_list(:id => theday+'1').select closeHour
+
+    end
   end
+
 
   # Primary Category and details
   # @browser.text_field( :id => 'fax' ).set business[ 'fax_number' ]
-  if @browser.h3( :id => 'categoryextra-collapsed' ).exists?
-    @browser.h3( :id => 'categoryextra-collapsed' ).click
-  end
-  
-  # Consider setting these urls
-  if @browser.text_field( :id => 'ticketsurl' ).exists?
-    @browser.text_field( :id => 'ticketsurl' ).clear
-  end
-  if @browser.text_field( :id => 'guestlisturl' ).exists?
-    @browser.text_field( :id => 'guestlisturl' ).clear
-  end
+  sleep(2)
+  if @browser.h3( :id => 'otheroperationdetails-collapsed' ).exists?
+        @browser.h3( :id => 'otheroperationdetails-collapsed' ).click
 
-  # Optional Business Information
-  @browser.h3( :id => 'otheroperationdetails-collapsed' ).click
-  @browser.text_field( :id => 'established' ).set business[ 'year_established' ]
-  business[ 'payment_methods' ].each{ | method |
-    @browser.select_list( :id => 'payment' ).select method
-  }
-  @browser.text_field( :id => 'langserved' ).set business[ 'languages_served' ]
+    @browser.text_field(:id => "established").set business['founded']
+
+    business[ 'payment_methods' ].each{ | method |
+            @browser.select_list( :id => 'payment' ).select method
+    }
+
+  end
 end
 
-def preview_and_submit
+def preview_and_submit( business )
   puts 'Preview and close'
   @browser.button( :id => 'preview-bottom-btn' ).click
   sleep 10
@@ -68,9 +101,11 @@ def preview_and_submit
 
   # require "deathbycaptcha"
   puts 'Submit the business'
-  sleep 10 # TODO: wait instead
-  @browser.checkbox( :id => 'atc' ).click
-  @browser.button( :id => 'submitbtn' ).click
+sleep(2)
+retry_captcha2(business)
+sleep(2)
+
+Watir::Wait.until { @browser.text.include? 'Congratulations' }
 
   if @browser.text.include? 'Congratulations' # 'Pending Verification', 'Get a Verification Code'
     puts 'Congratulations, Yahoo! Local Listing Id: ' + @browser.label( :id => 'lc-listIdLabel' ).text
@@ -83,8 +118,8 @@ def main( business )
   sign_in(business)
 
   goto_sign_up
-  provide_business_info( business, existing_business )
-  preview_and_submit
+  provide_business_info( business )
+  preview_and_submit( business )
 end
 
 main(data)
