@@ -69,3 +69,4 @@ gem 'activeadmin-cancan'
 gem 'airbrake'
 gem "capistrano-db-tasks", require: false
 gem 'axlsx'
+gem 'newrelic_rpm'
