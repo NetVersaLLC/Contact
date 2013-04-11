@@ -4,13 +4,13 @@ Feature: Edit Business Form
   I want to edit a business.
 
   Background: 
-    Given I have signed in as a reseller 
-    And I am on the edit business page 
+    Given I have signed in as an owner
+    And I go to the edit business page 
 
   Scenario: Autocomplete City by Zipcode
-    When I enter "92626" in Search by Zip
+    When I enter a zip code to Searh by Zip
     And I select a different form element.
-    Then I should see "Costa Mesa" in City and "California" in State.
+    Then I should see its city and state
 
   Scenario: Get Business Results From Company Search
     Given: I have entered my city and state.
