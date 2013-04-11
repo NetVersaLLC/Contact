@@ -1,8 +1,10 @@
 window.zipSearch = ()->
   $.getJSON '/zip.js?term='+$('#zip').val(), (data)->
-    if data.city
+    if data # null check .city
       $('#city').val data['city']
       $('#state').val data['state']
+    else 
+      $('#city').val '' 
 
 window.selectPlace = (el)->
   $.getJSON '/places/show.js?reference='+$(el).attr('data-reference'), (data)->
