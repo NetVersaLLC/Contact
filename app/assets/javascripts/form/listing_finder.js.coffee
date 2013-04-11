@@ -1,12 +1,16 @@
-window.zipSearch = ()->
+window.zipSearch = (callback)->
   $('#zip_search_form .zipcode-error').hide();
+  _callback = callback
   $.getJSON '/zip.js?term='+$('#zip').val(), (data)->
     unless data==null
       if data.city
         $('#city').val data['city']
         $('#state').val data['state']
+        if(typeof(_callback)=="function")
+          _callback()
     else
       $('#zip_search_form .zipcode-error').show();
+
 
 window.selectPlace = (el)->
   $.getJSON '/places/show.js?reference='+$(el).attr('data-reference'), (data)->
@@ -50,7 +54,9 @@ $(document).ready ->
         success: ( data )->
           response( data )
 
-  $('#zipsearch').click window.zipSearch
+  $('#zipsearch').click ->
+    window.zipSearch ->
+      $('#search').trigger 'click'
 
   $('#zip').blur window.zipSearch
 
