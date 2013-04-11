@@ -3,9 +3,6 @@ class Yahoo < ClientData
   virtual_attr_accessor :password, :secret1, :secret2
   belongs_to            :yahoo_category
 
-  validates :email,
-            :allow_blank => true,
-            :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
 
   def self.make_password
     SecureRandom.urlsafe_base64(rand()*6 + 6)
@@ -48,4 +45,33 @@ class Yahoo < ClientData
     end
     @link
   end
+
+
+def self.get_hours(business)
+hours = {}
+days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
+  days.each do |day|
+    if business.send("#{day}_enabled".to_sym) == true
+      hours[ "#{day}" ] =
+          {
+            "open" => business.send("#{day}_open".to_sym).downcase.gsub("am"," a.m.").gsub("pm"," p.m."),
+            "close" => business.send("#{day}_close".to_sym).downcase.gsub("am"," a.m.").gsub("pm"," p.m.")
+          }
+        
+    else
+      hours[ "#{day}" ] = "closed"
+    end
+  end
+
+  return hours
+end 
+
+
+
+
+
+
+
+
+
 end

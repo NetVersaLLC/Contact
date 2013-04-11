@@ -26,4 +26,27 @@ def verify_be_email()
   @browser.button( :id => 'btnverifychannel' ).click
 end
 
-main( data )
+def verify_phone(data)
+
+  sign_in(data)
+  @browser.goto("http://smallbusiness.yahoo.com/dashboard/mybusinesses?brand=local")
+  @browser.link(:text => "Verify").when_present.click
+  sleep(2)
+  @browser.radio(:id => 'opt-phone').when_present.click
+  sleep(2)
+  @browser.button(:id => 'btn-phone').when_present.click
+
+  sleep(3)
+
+  code = PhoneVerify.ask_for_code 
+  @browser.text_field(:id => 'txtCaptcha').set code
+
+  @browser.button(:id => 'btnverifychannel').click
+
+  true
+
+end
+
+verify_phone(data)
+
+#main( data )

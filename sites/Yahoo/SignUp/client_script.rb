@@ -7,14 +7,14 @@ def sign_up_personal( business )
   @browser.link(:id => 'signUpBtn').click
   
   #select steps for new & old ui
-  if @browser.select_list( :id, 'secquestion' ).exist?
-    old_signup_ui(business)
-  else
+  #if @browser.select_list( :id, 'secquestion' ).exist?
+  #  old_signup_ui(business)
+  #else
     new_signup_ui(business)
-  end
+  #end
   
   # decode captcha code
-  retry_captcha(solve_captcha)
+  retry_captcha(business)
   
   puts 'Continue to Yahoo Local'
 
@@ -25,16 +25,16 @@ def sign_up_personal( business )
   end
   
   # .. waits long here
-  def homepage_checkbox; @browser.checkbox( :id => 'setHomepage' ) end
-  if homepage_checkbox.exists? then homepage_checkbox.clear end
+#  def homepage_checkbox; @browser.checkbox( :id => 'setHomepage' ) end
+#  if homepage_checkbox.exists? then homepage_checkbox.clear end
 
-  @browser.button( :id => 'ContinueBtn' ).click
+#@browser.button( :id => 'ContinueBtn' ).click
 
   RestClient.post "#{@host}/yahoo/save_email.json?auth_token=#{@key}&business_id=#{@bid}", :email => business['business_email'], :password => business['password'], :secret1 => business['secret_answer_1'], :secret2 => business['secret_answer_2']
 end
 
 def new_signup_ui(business)
-  @browser.text_field(  :id => 'firstname' ).set   business[ 'first_name' ]
+  @browser.text_field(  :id => 'firstname' ).when_present.set   business[ 'first_name' ]
   @browser.text_field(  :id => 'secondname' ).set  business[ 'last_name' ]
   # select suggested user id
   @browser.text_field( :id => 'yahooid' ).clear # shows suggestions list; [click, flash]
@@ -60,8 +60,10 @@ def new_signup_ui(business)
   @browser.select_list( :id => 'gender' ).select   business[ 'gender' ]
   @browser.select_list( :id => 'country' ).select  business[ 'country' ]
   @browser.select_list( :id => 'language' ).select business[ 'language' ]
-  @browser.select_list( :id => 'mobileCountryCode' ).select "#{business[ 'country_code' ]}"
-  @browser.text_field(:id => 'altemail').set data['alt_mail']
+  #@browser.select_list( :id => 'mobileCountryCode' ).select "#{business[ 'country_code' ]}"
+  @browser.text_field(:id => 'altemail').set business['alt_mail']
+  @browser.text_field(:id => 'postalcode').set business['zip']
+
   @browser.button(:id => 'IAgreeBtn').click
   
   if @browser.button( :id => 'VerifyCollectBtn' ).exist?
