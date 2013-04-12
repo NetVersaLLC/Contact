@@ -14,7 +14,7 @@
       - @business.images.each do |image|
         %li.span4{:id => "thumbnail#{image.id}"}
           .thumbnail
-            %img{'src' => image.url, :alt=>""}
+            %img{'src' => image.thumb, :alt=>""}
             %h3
               = image.position
               %button.btn.btn-info.remove_thumbnail{'data-image-id' => image.id}

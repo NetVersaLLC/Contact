@@ -1,7 +1,27 @@
-@url = 'https://www.thumbtack.com/welcome'
-  @browser = Watir::Browser.new
+@url = 'https://www.thumbtack.com/register'
   @browser.goto(@url)
-  @browser.text_field(:name => 'sav_business_name').set data ['business']
+  
+@browser.text_field(:id => 'usr_first_name').set data['first_name']
+@browser.text_field(:id => 'usr_last_name').set data['last_name']
+@browser.text_field(:id => 'usr_email').set data['email']
+@browser.text_field(:id => 'usr_password').set data['password']
+@browser.link(:text => /Join/i).click
+
+Watir::Wait.until { @browser.text.include? "Please verify your email address" }
+
+RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => data['email'], 'account[password]' => data['password'], 'model' => 'Thumbtack'
+
+if @chained
+  self.start("Thumbtack/Verify")
+end
+
+true
+
+
+
+=begin
+
+  @browser.text_field(:name => 'sav_business_name').when_present.set data ['business']
   @browser.text_field(:name => 'phone_number').set data ['phone']
   @browser.text_field(:name => 'website').set data ['website']
   @browser.text_field(:name => 'sav_description').set data ['description']
@@ -9,9 +29,6 @@
   @browser.text_field(:name => 'usa_address1').set data ['address']
   @browser.text_field(:name => 'usa_zip_code_id').set data ['zip']
   @browser.checkbox(:value => 'tocustomer').set
-  @browser.text_field(:name => 'usr_first_name').set data ['first_name']
-  @browser.text_field(:name => 'usr_last_name').set data ['last_name']
-  @browser.text_field(:name => 'usr_email').set data ['email']
   @browser.link(:text,/List my services/).click
 
   # Check for Error
@@ -55,3 +72,5 @@ sleep(2)
     throw("Initial Registration Unsuccessful")
   end
 #  @browser.close
+
+=end
