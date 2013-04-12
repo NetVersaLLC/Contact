@@ -16,6 +16,18 @@ class PlacesController < ApplicationController
     if params[:reference]
       @res = @client.lookup(params[:reference])
     end
+
+    ac = @res['result']['address_components']
+    if ac.length < 6 
+      @res['city'] = ac[0]['long_name']
+      @res['state'] = ac[1]['short_name']
+      @res['zip'] = ''
+    else 
+      @res['city'] = ac[2]['long_name']
+      @res['state'] = ac[3]['long_name']
+      @res['zip'] = ac[5]['long_name'] 
+    end 
+
     render json: @res
   end
 end
