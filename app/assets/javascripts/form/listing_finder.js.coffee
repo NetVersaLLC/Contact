@@ -22,9 +22,9 @@ window.selectPlace = (el)->
       if result['formatted_address']
         addr = result['formatted_address'].split(",")
         $('#business_address').val addr[0]
-        $('#business_city').val $('#city').val()
-        $('#business_state').val $('#state').val()
-        $('#business_zip').val $('#zip').val()
+        $('#business_city').val data['city'] #$('#city').val()
+        $('#business_state').val data['state'] #$('#state').val()
+        $('#business_zip').val data['zip'] # $('#zip').val()
       if result['url']
         $('#business_google_places_url').val result['url']
     $('#zip_search_form').dialog('close')

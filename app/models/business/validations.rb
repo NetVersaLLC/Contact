@@ -43,8 +43,8 @@ module Business::Validations
       :presence => true, 
       :numericality => { 
         :only_integer => true, 
-        :greater_than_or_equal_to => 1000, 
-        :less_than_or_equal_to => proc { Date.current.year } 
+        :greater_than => 1000, 
+        :less_than => proc { Date.current.year + 1 } 
         }
     validates :company_website,
       :allow_blank => true,
