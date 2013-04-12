@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130410203556) do
+ActiveRecord::Schema.define(:version => 20130412161947) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -630,6 +630,7 @@ ActiveRecord::Schema.define(:version => 20130410203556) do
     t.integer  "spotbusiness_category_id"
     t.integer  "staylocal_category_id"
     t.integer  "tupalo_category_id"
+    t.integer  "uscity_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -1524,11 +1525,23 @@ ActiveRecord::Schema.define(:version => 20130410203556) do
     t.text     "secrets"
     t.integer  "business_id"
     t.string   "email"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+    t.integer  "uscity_category_id"
+    t.text     "secret_answer"
   end
 
   add_index "uscities", ["business_id"], :name => "index_uscities_on_business_id"
+
+  create_table "uscity_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "uscity_categories", ["name"], :name => "index_uscity_categories_on_name"
+  add_index "uscity_categories", ["parent_id"], :name => "index_uscity_categories_on_parent_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",        :null => false

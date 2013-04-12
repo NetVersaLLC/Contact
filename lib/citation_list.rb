@@ -418,7 +418,9 @@
   ['Uscity', 'uscities',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['text', 'secret_answer'],
+      ['select', 'uscity_category']
     ],
       'Uscity'
   ],
