@@ -139,7 +139,8 @@
   ['Tupalo', 'tupalos',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'tupalo_category']
     ],
       'Tupalo'
   ],
@@ -449,6 +450,13 @@
       ['text', 'password']
     ],
       'Linkedin'
+  ],
+  ['Thumbtack', 'thumbtacks',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Thumbtack'
   ]
 ]
 

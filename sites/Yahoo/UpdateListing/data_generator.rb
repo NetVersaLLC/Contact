@@ -1,4 +1,6 @@
 data = {}
+data['email']   	 = business.yahoos.first.email
+data['password']	 = business.yahoos.first.password
 data[ 'first_name' ]        = business.contact_first_name
 data[ 'last_name' ]         = business.contact_last_name
 data[ 'gender' ]            = business.contact_gender
@@ -7,8 +9,6 @@ data[ 'day' ]               = business.birthday.day
 data[ 'year' ]              = business.birthday.year
 data[ 'country' ]           = 'United States'
 data[ 'language' ]          = 'English'
-data[ 'email' ]             = business.yahoos.first.email
-data[ 'password' ]          = business.yahoos.first.password
 data[ 'phone' ]             = business.local_phone
 data[ 'business_name' ]     = business.business_name
 data[ 'business_email' ]    = '' # business.contact_email
