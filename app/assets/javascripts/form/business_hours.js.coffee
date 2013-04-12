@@ -1,52 +1,47 @@
-window.toggleTimes = (obj) ->
-  if $(obj.target).is(':checked')
-    $('#business_open_by_appointment').attr('checked', false)
-    $('#business_open_by_appointment').attr('disabled', 'disabled')
-    $('#business_open_24_hours').attr('checked', false)
-    $('#business_open_24_hours').attr('disabled', 'disabled')
-    $.each ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'], (i,day)->
+window.resetTimes = (options = {} ) ->  
+  $.each ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'], (i,day)->
+    if day == "monday" and options.skip_monday == true 
+    else
       $('#business_'+day+'_enabled').attr('checked', false)
-      $('#business_'+day+'_enabled').attr('disabled', 'disabled')
-      $('#business_'+day+'_open').attr('disabled', 'disabled')
-      $('#business_'+day+'_close').attr('disabled', 'disabled')
-    $(obj.target).removeAttr('disabled')
-    $(obj.target).attr('checked', true)
-  else
-    $('#business_open_by_appointment').attr('checked', false)
-    $('#business_open_by_appointment').removeAttr('disabled')
-    $('#business_open_24_hours').attr('checked', false)
-    $('#business_open_24_hours').removeAttr('disabled')
-    $.each ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'], (i,day)->
-      $('#business_'+day+'_enabled').removeAttr('disabled')
-      $('#business_'+day+'_open').removeAttr('disabled')
-      $('#business_'+day+'_close').removeAttr('disabled')
+      $('#business_'+day+'_open').val("12:00AM")  #attr('disabled', 'disabled')
+      $('#business_'+day+'_close').val("12:00AM") #attr('disabled', 'disabled')
+
+window.copyFromMonday = (day_of_week) -> 
+  open  = $('#business_monday_open').val() 
+  close = $('#business_monday_close').val() 
+  $("#business_monday_enabled").attr('checked',true).change()
+  #$('#business_open_by_appointment').attr('checked', false)
+  #$('#business_open_24_hours').attr('checked', false)
+   
+  $("#business_#{day_of_week}_open").val(open) 
+  $("#business_#{day_of_week}_close").val(close) 
+  $("#business_#{day_of_week}_enabled").attr('checked',true) 
 
 $(document).ready ->
   $('.set_business_hours').click (e)->
     e.preventDefault()
-    tr    = e.target.parentNode.parentNode
-    open  = tr.childNodes[3].childNodes[1].value
-    close = tr.childNodes[5].childNodes[1].value
-    $('.timeitem').each (i,e)->
-      hasopen = $(e).attr('id').match(/open/)
-      if hasopen != null and hasopen.length > 0
-        $(e).val(open)
-      else
-        $(e).val(close)
+    window.copyFromMonday dow for dow in ['tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] 
+
   $('.set_weekday_hours').click (e)->
     e.preventDefault()
-    tr    = e.target.parentNode.parentNode
-    open  = tr.childNodes[3].childNodes[1].value
-    close = tr.childNodes[5].childNodes[1].value
-    $('.timeitem').each (i,e)->
-      if i < 10
-        hasopen = $(e).attr('id').match(/open/)
-        if hasopen != null and hasopen.length > 0
-          $(e).val(open)
-        else
-          $(e).val(close)
-  $('#business_open_24_hours').click window.toggleTimes
-  # $('#business_open_by_appointment').click window.toggleTimes
+    window.resetTimes( {skip_monday: true} ) 
+    window.copyFromMonday dow for dow in ['tuesday', 'wednesday', 'thursday', 'friday' ]
+
+  $('#business_open_24_hours').change (e)-> 
+    if this.checked 
+      $('#business_open_by_appointment').attr('checked', false)
+      window.resetTimes() 
+
+  $('#business_open_by_appointment').change (e)-> 
+    if this.checked 
+      $('#business_open_24_hours').attr('checked', false)
+      window.resetTimes()
+    
+  $.each ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'], (i,day)->
+    $("#business_#{day}_enabled").change (e)-> 
+      $('#business_open_by_appointment').attr('checked', false)
+      $('#business_open_24_hours').attr('checked', false)
+
   $('.timeitem').click (e)->
     wrapper = $(e.target).closest('.timerow')
     checkbox = wrapper.find('input:checkbox')
