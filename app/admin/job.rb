@@ -24,17 +24,26 @@ ActiveAdmin.register Job do
 
   collection_action :pending_jobs, :method => :get do
     @jobs = Job.where('business_id = ? AND status IN (0,1)', params[:business_id]).order(:position)
-    render json: @jobs
+    respond_to do |format|
+      format.html { render "results", layout: false }  
+      format.json { render json: @jobs }  
+    end 
   end
 
   collection_action :failed_jobs, :method => :get do
     @jobs = FailedJob.where('business_id = ?', params[:business_id]).order(:position)
-    render json: @jobs
+    respond_to do |format|
+      format.html { render "results", layout: false }  
+      format.json { render json: @jobs }  
+    end 
   end
 
   collection_action :completed_jobs, :method => :get do
     @jobs = CompletedJob.where('business_id = ?', params[:business_id]).order(:position)
-    render json: @jobs
+    respond_to do |format|
+      format.html { render "results", layout: false }  
+      format.json { render json: @jobs }  
+    end 
   end
 
   member_action :view_payload, :method => :get do
