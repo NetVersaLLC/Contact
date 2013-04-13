@@ -4,6 +4,10 @@
 = semantic_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-horizontal'}) do |f|
   = f.semantic_errors
   = f.inputs do
+    .control-group
+      %label 
+      .controls.text-error
+        = flash[:alert] 
     = f.input :email,    hint:"Enter your email address"
     = f.input :password, hint:"Enter password"
   -if devise_mapping.rememberable?
