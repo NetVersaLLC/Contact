@@ -1,0 +1,6 @@
+%ul.displayList
+  - @booboos.each do |booboo| 
+    %li.ui-state-default.ui-corner-all.view_booboo{ :data => { "booboo-id" => booboo.id }}
+      %span.ui-icon.ui-icon-alert.failure
+      = booboo.message
+
