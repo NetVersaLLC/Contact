@@ -11,10 +11,14 @@ Contact::Application.routes.draw do
       :registrations => 'my_devise/registrations',
     }
   ActiveAdmin.routes(self)
+  
 
   resources :booboos
   resources :subscriptions
   resources :pings
+
+
+  put    '/businesses/save_state/:id', :controller => :businesses, :action => :save_state, :as=>'business_update_state'
   resources :businesses
   get     '/report(.:format)', :controller => :businesses, :action => :report
 
