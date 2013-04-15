@@ -18,15 +18,9 @@ class PlacesController < ApplicationController
     end
 
     ac = @res['result']['address_components']
-    if ac.length < 6 
-      @res['city'] = ac[0]['long_name']
-      @res['state'] = ac[1]['short_name']
-      @res['zip'] = ''
-    else 
-      @res['city'] = ac[2]['long_name']
-      @res['state'] = ac[3]['long_name']
-      @res['zip'] = ac[5]['long_name'] 
-    end 
+    @res['city'] = ac.select{|s| s["types"].include?("locality")}.first["long_name"] || ''
+    @res['state'] = ac.select{|s| s["types"].include?("administrative_area_level_1")}.first["long_name"] || ''
+    @res['zip'] = ac.select{|s| s["types"].include?("postal_code")}.first["long_name"] || '' 
 
     render json: @res
   end
