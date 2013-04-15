@@ -30,6 +30,11 @@ window.selectPlace = (el)->
     $('#zip_search_form').dialog('close')
 
 $(document).ready ->
+  $('#zip').focus (e)-> 
+    $('#zip').val('') 
+    $('#city').val('') 
+    $('#state').val('') 
+
   $('#show_zip_form').click (e)->
     $('#zip_search_form').dialog
       width:  800
