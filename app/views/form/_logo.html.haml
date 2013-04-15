@@ -14,10 +14,10 @@
       - @business.images.each do |image|
         %li.span4{:id => "thumbnail#{image.id}"}
           .thumbnail
-            %img{'src' => image.thumb, :alt=>""}
+            = link_to image_tag(image.thumb), image.url, :title => image.position
             %h3
               = image.position
-              %button.btn.btn-info.remove_thumbnail{'data-image-id' => image.id}
-                Remove
+            %button.btn.btn-info.remove_thumbnail{'data-image-id' => image.id}
+              Remove
   :javascript
     window.business_id = #{@business.id};
