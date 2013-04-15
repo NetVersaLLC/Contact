@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130412161947) do
+ActiveRecord::Schema.define(:version => 20130415162159) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -1622,6 +1622,7 @@ ActiveRecord::Schema.define(:version => 20130412161947) do
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
     t.integer  "yellowassistance_category_id"
+    t.text     "secret_answer"
   end
 
   add_index "yellowassistances", ["business_id"], :name => "index_yellowassistances_on_business_id"

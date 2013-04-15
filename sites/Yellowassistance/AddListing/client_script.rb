@@ -1,3 +1,6 @@
+sign_in(data)
+sleep(3)
+
 @browser.goto('http://www.yellowassistance.com/frmBusinessUpdate.aspx')
 
 @browser.text_field( :id => 'txtPhoneSearch').set data['phone']
