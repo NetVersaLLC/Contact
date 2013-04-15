@@ -282,7 +282,8 @@
     [
       ['text', 'username'],
       ['text', 'password'],
-	  ['select', 'yellowassistance_category']
+	    ['select', 'yellowassistance_category'],
+      ['text', 'secret_answer']
     ],
       'Yellowassistance'
   ],
