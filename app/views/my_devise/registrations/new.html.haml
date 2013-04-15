@@ -8,7 +8,6 @@
               .alert.alert-error
                 %button.close{:type => "button", 'data-dismiss' => "alert"}
                   &times;
-                = field.capitalize
                 = message
         - if notice
           .alert
@@ -130,7 +129,7 @@
         %br
         %br
         %label.checkbox
-          %input#tos{:type => "checkbox", :name => 'tos' }/
+          =f.check_box :tos
           I agree to the
           %a{:href => '/terms'}
             Terms of Service
