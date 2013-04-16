@@ -1,13 +1,9 @@
 data = {}
-
-    seed = rand( 1000 ).to_s()
-
-    data[ 'password' ] = business.expressupdateusas.first.password
-    data[ 'business_email' ] = business.expressupdateusas.first.email
-
-    data[ 'business_name' ] = business.business_name
+data[ 'password' ] = business.expressupdateusas.first.password
+data[ 'business_email' ] = business.expressupdateusas.first.email
+   data[ 'business_name' ] = business.business_name
     data[ 'business_state' ] = business.state_name
-    data[ 'business_suite' ] = seed # <= 5 characters
+    data[ 'business_suite' ] = business.address2
     data[ 'business_city' ] = business.city
     data[ 'business_zip' ] = business.zip
     data[ 'business_address' ] =  business.address + ' '+business.address2#seed + ' main street'
@@ -26,17 +22,15 @@ data = {}
     data[ 'business_logourl' ] = data[ 'business_url' ] + '/logo.gif'
     data[ 'business_alternateurl' ] = data[ 'business_url' ]
     data[ 'business_couponurl' ] = data[ 'business_url' ] + '/coupons'
+
     data[ 'business_mondayopen' ] = business.monday_open
     data[ 'business_mondayclose' ] = business.monday_close
-    # TODO: specify rest of the days and closed state
     data[ 'business_saturdayopen' ] = business.saturday_open
     data[ 'business_saturdayclose' ] = business.saturday_close
     data[ 'business_sundayopen' ] = business.sunday_open
     data[ 'business_sundayclose' ] = business.sunday_close
     
     data[ 'payment_types' ] = Expressupdateusa.payment_methods(business)
-	    #[ :AmericanExpress, :DebitCard, :MasterCard, :Visa ]
-    #data[ 'other_information' ] = [ :Reservations, :FoodCourt, :ShuttleService, :ValidationOptions ]
 
     data[ 'personal_email' ]  = business.bings.first.email #'express' + seed + '@null.com' # l29572@rtrtr.com
     data[ 'personal_password' ]  = business.bings.first.password
