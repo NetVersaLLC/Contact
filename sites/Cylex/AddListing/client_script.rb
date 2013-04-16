@@ -1,4 +1,5 @@
 def search_result(data)
+
   @browser.text_field(:name => /companyname/).set data[ 'business' ]
   @browser.text_field(:name => /city/).set data[ 'city' ]
   @browser.text_field(:name => /website/).set data[ 'website' ]
@@ -13,28 +14,26 @@ def add_new_business(data)
   @browser.text_field(:name => /companypass2/).set data[ 'password' ]
   @browser.text_field(:name => /companystreet/).set data[ 'address' ]
   @browser.text_field(:name => /companycity/).set data[ 'city' ]
+  sleep(4)
+  @browser.link(:xpath => '//*[@id="ctl00_bodyadmin"]/ul[2]/li/a').when_present.click
   @browser.text_field(:name => /postnr/).set data[ 'zip' ]
-  @browser.select_list(:name => /state2/).select data[ 'state' ]
   @browser.text_field(:name => /companymail/).set data[ 'email' ]
   @browser.text_field(:name => /companyphone/).set data[ 'phone' ]
   @browser.checkbox(:name => /cbaccept/).set
 
   #Enter Captcha Code
   enter_captcha(data) 
-
   #Check for error
-  @error_msg = @browser.span(:class => 'message error no-margin')
-  if @error_msg.exist?
-    puts "Showing error message saying #{@error_msg.text}"
-  end
+  #@error_msg = @browser.span(:class => 'message error no-margin')
+  #if @error_msg.exist?
+  #  puts "Showing error message saying #{@error_msg.text}"
+  #end
 
   #Step 2
-  @browser.text_field(:name => /tb_keywords/).set data[ 'keywords' ]
+  @browser.text_field(:name => /tb_keywords/).when_present.set data[ 'keywords' ]
   @browser.text_field(:name => /tb_shortdesc/).set data[ 'business_description' ]
   @browser.button(:value => 'Save').click
-  if @error_msg.exist?
-    puts "Showing error message saying #{@error_msg.text}"
-  end
+
   
   #Check for confirmation
   @success_text ="Thank you very much for the registration of your company profile in our business directory."
@@ -42,6 +41,7 @@ def add_new_business(data)
   if @browser.span(:id => /registered_infotext/).text.include?(@success_text)
     puts "Initial Business registration is successful"
     RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[email]' => data[ 'username' ], 'account[password]' => data['password'], 'model' => 'Cylex'
+    return true
   else
     throw "Initial Business registration is Unsuccessful"
   end
@@ -111,6 +111,7 @@ end
 @browser.goto(@url)
 
 # Search for Business
+
 search_result(data)
 if search_company(data)
   claim_business(data)
