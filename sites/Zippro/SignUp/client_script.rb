@@ -1,5 +1,5 @@
 puts(data[ 'category1' ] + " < " + data['parent1'] + " < " + data['root1'] + " < " + data['root21'])
-puts(data[ 'category2' ] + " < " + data['parent2'] + " < " + data['root2'] + " < " + data['root22'])
+#puts(data[ 'category2' ] + " < " + data['parent2'] + " < " + data['root2'] + " < " + data['root22'])
 
 
 @browser.goto( "http://myaccount.zip.pro/find-business.php" )
@@ -41,6 +41,7 @@ sleep(1)
  
  
  #second category
+=begin
 sleep(2)
 @browser.link( :id => 'zpSecCatPop').click
  sleep(1) 
@@ -61,7 +62,7 @@ sub3 = @browser.link( :text => "#{data['category2']}")
 sub3.click
   @browser.link( :id => 'zpCatMoveRight').click
   @browser.button( :id => 'zpSaveCategory').click
- 
+=end
 
 
 
@@ -77,6 +78,8 @@ enter_captcha( data )
 @browser.text_field( :id => 'answer').set data[ 'secretAnswer' ]
 
 enter_captcha2( data )
+
+Watir::Wait.until { @browser.text.include? "Verify your email address" }
 
 if @browser.text.include? "Verify your email address"
 	RestClient.post "#{@host}/accounts.json?auth_token=#{@key}&business_id=#{@bid}", 'account[username]' => data['email'], 'account[password]' => data['password'], 'account[secret1]' => data['secretAnswer'], 'model' => 'Zippro'
