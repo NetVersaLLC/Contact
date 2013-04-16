@@ -10,6 +10,8 @@ class Business < ActiveRecord::Base
   has_attached_file :logo, :styles => { :thumb => "100x100>" }
   validates_attachment :logo,
     :size => { :in => 1..1500.kilobytes }
+  
+  validate :time_cannot_same
 
   has_many          :jobs, :order => "position"
   has_many          :failed_jobs, :order => "position"
@@ -70,4 +72,13 @@ class Business < ActiveRecord::Base
     self.user.label_id
   end
 
+  def time_cannot_same
+    errors.add(:monday_open,'') if self.monday_open == self.monday_close && self.open_24_hours == false
+    errors.add(:tuesday_open,'') if self.tuesday_open == self.tuesday_close && self.open_24_hours == false
+    errors.add(:wednesday_open,'') if self.wednesday_open == self.wednesday_close && self.open_24_hours == false
+    errors.add(:thursday_open,'') if self.thursday_open == self.thursday_close && self.open_24_hours == false
+    errors.add(:friday_open,'') if self.friday_open == self.friday_close && self.open_24_hours == false
+    errors.add(:saturday_open,'') if self.saturday_open == self.saturday_close && self.open_24_hours == false
+    errors.add(:sunday_open,'') if self.sunday_open == self.sunday_close && self.open_24_hours == false
+  end
 end
