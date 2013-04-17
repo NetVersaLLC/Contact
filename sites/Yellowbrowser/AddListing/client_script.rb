@@ -18,7 +18,7 @@
 @browser.text_field( :name => 'state').fire_event('onBlur')
 @browser.text_field( :name => 'zip').set data[ 'zip' ]
 @browser.text_field( :name => 'zip').fire_event('onBlur')
-@browser.text_field( :name => 'keyword').set data[ 'keywords' ]
+@browser.text_field( :name => 'keyword').set data[ 'category' ]
 @browser.text_field( :name => 'keyword').fire_event('onBlur')
 @browser.text_field( :name => 'url').set data[ 'website' ]
 @browser.text_field( :name => 'url').fire_event('onBlur')
