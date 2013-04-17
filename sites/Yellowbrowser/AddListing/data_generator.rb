@@ -16,22 +16,12 @@ data[ 'address' ]		= business.address
 data[ 'address2' ]		= business.address2
 data[ 'zip' ]			= business.zip
 data[ 'phone' ]			= business.local_phone
-data[ 'areacode' ]		= business.local_phone.split("-")[0]
-data[ 'exchange' ]		= business.local_phone.split("-")[1]
-data[ 'last4' ]			= business.local_phone.split("-")[2]
 data[ 'fax' ]			= business.fax_number
 data[ 'email' ]			= business.bings.first.email
 data[ 'website' ]		= business.company_website
 data[ 'hours' ]			= Getfav.consolidate_hours( business )
 data[ 'description' ]		= business.business_description
-data[ 'keywords' ]		= business.keyword1 + ", " + business.keyword2 + ", " + business.keyword3 + ", " + business.keyword4 + ", " + business.keyword5
-data[ 'keyword1' ]		= business.keyword1
-data[ 'keyword2' ]		= business.keyword2
-data[ 'keyword3' ]		= business.keyword3
-data[ 'keyword4' ]		= business.keyword4
-data[ 'keyword5' ]		= business.keyword5
-data[ 'tagline' ]		= business.category1 + " " + business.category2 + " " + business.category3
-data[ 'image' ]			= "C:\\1.jpg"
+data[ 'category' ]		= business.category1 + " " + business.category2 + " " + business.category3
 data
 
 
