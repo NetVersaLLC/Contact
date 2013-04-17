@@ -1,22 +1,10 @@
 Given /I have signed in as [a]n? (admin|reseller|employee|owner)/ do |role|
-  # work in progress.  Probably move these users to factory girl. 
-  label = Label.new(name: 'towncenter', login: 'login', password: 'pswd', domain: 'www.example.com')
-  label.logo_file_name = "nothing" 
-  label.save!
-
-  EMAIL = 'test@contact.dev' 
-  PASSWORD = '123456' 
-
-  u = User.new(email: EMAIL, password: PASSWORD) 
-  u.access_level = User.send role 
-  u.label = label
-  u.save! 
+  u = FactoryGirl.create(:user) 
 
   visit new_user_session_path 
-  fill_in 'user_email', with: EMAIL 
-  fill_in 'user_password', with: PASSWORD 
+  fill_in 'user_email', with: u.email
+  fill_in 'user_password', with: u.password
   click_button 'user_submit_action' 
-
 end 
 
 Given /I am on the edit business page/ do 
