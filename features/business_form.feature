@@ -5,11 +5,11 @@ Feature: Edit Business Form
 
   Background: 
     Given I have signed in as an owner
-    And I go to the edit business page 
+    And I am on the edit business page 
 
   Scenario: Autocomplete City by Zipcode
-    When I enter a zip code to Searh by Zip
-    And I select a different form element.
+    When I enter a zip code to Search by Zip
+    And I click search zip
     Then I should see its city and state
 
   Scenario: Get Business Results From Company Search
