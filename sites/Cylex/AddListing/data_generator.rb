@@ -16,3 +16,4 @@ data[ 'first_name' ] = 			business.contact_first_name
 data[ 'last_name' ] = 			business.contact_last_name
 data[ 'password' ] = 			Yahoo.make_password
 data[ 'reason_for_info_update'] = ''
+data
