@@ -2,7 +2,7 @@ window.openMap = ()->
   html = ''
   $('#map').html(html)
   address  = $('#business_address').val()
-  address2 = $('#business_address2').val()
+  address2 = $('#business_address2').val()  
   city     = $('#business_city').val()
   state    = $('#business_state').val()
   zip      = $('#business_zip').val()
@@ -11,7 +11,8 @@ window.openMap = ()->
     html = '<iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&source=s_q&hl=en&geocode=&q='+escape(address)+'&iwloc=A&output=embed&ie=UTF8"></iframe>'
     $('#map').html(html)
 
-$(document).ready ->
+window.initMap = () =>
+
   $('#business_contact_prefix').change (obj)->
     prefix = $(obj.target).val()
     if prefix == 'Mr.'

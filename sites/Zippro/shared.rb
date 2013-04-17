@@ -49,3 +49,12 @@ def enter_captcha2( data )
 	end
 end
 
+
+
+def sign_in(data)
+	@browser.goto("http://myaccount.zip.pro/login.php?type=bo")
+	@browser.text_field(:id => 'email').set data['email']
+	@browser.text_field(:id => 'password').set data['password']
+	@browser.button(:id => 'userLoginBtn').click
+
+end
