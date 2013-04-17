@@ -53,5 +53,6 @@ module Business::Validations
     validates :contact_birthday,
       :presence => true,
       :format => { :with => /^(0{0,1}[1-9]|1[012])\/(\d|[012]\d|3[01])\/(19|20\d\d)$/ } #/^\d\d\/\d\d\/\d\d\d\d$/ }
+ 
   end
 end
