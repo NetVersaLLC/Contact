@@ -1,9 +1,10 @@
 data = {}
 
 catty = Yellowassistance.where(:business_id => business.id).first
-data[ 'category1' ]          = catty.yellowassistance_category.name
-data[ 'category2' ]          = catty.yellowassistance_category.name
-
+data[ 'category1' ]          = catty.yellowassistance_category.name.gsub("\n", "")
+data[ 'category2' ]          = catty.yellowassistance_category.name.gsub("\n", "")
+data['email']		= business.bings.first.email
+data['password']	= business.yellowassistances.first.password
 data[ 'username' ]		= business.bings.first.email[0..14]
 data[ 'fname' ]			= business.contact_first_name
 data[ 'lname' ]			= business.contact_last_name
@@ -23,7 +24,6 @@ data[ 'areacode' ]		= business.local_phone.split("-")[0]
 data[ 'exchange' ]		= business.local_phone.split("-")[1]
 data[ 'last4' ]			= business.local_phone.split("-")[2]
 data[ 'fax' ]			= business.fax_number
-data[ 'email' ]			= business.bings.first.email
 data[ 'website' ]		= business.company_website
 data[ 'description' ]		= business.business_description
 data[ 'tagline' ]		= business.category1 + " " + business.category2 + " " + business.category3

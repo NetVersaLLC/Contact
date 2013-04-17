@@ -44,13 +44,13 @@ class Expressupdateusa < ClientData
    def self.payment_methods(business)
     methods = {}
     [
-      ["cash",      'CashOnly'],
-      ["checks",    'PersonalChecks'],
-      ["visa",      'Visa'],
-      ["mastercard",'Mastercard'],
-      ["amex",      'AmericanExpress'],
-      ["discover",  'Discover'],
-      ["diners",    'DinersClub']
+      ["cash",      'Enhanced_Cash'],
+      ["checks",    'Enhanced_Check'],
+      ["visa",      'Enhanced_Visa'],
+      ["mastercard",'Enhanced_MasterCard'],
+      ["amex",      'Enhanced_Amex'],
+      ["discover",  'Enhanced_Discover'],
+      ["diners",    'Enhanced_DinersClub']
     ].each do |row|
       methods[row[0]] = row[1]
     end
