@@ -12,11 +12,11 @@ def enter_captcha(data)
   capSolved = false
   count = 1
   until capSolved or count > 5 do
-    captcha_text = solve_captcha	
+    captcha_code = solve_captcha	
     @browser.text_field( :id, /step1_captchaTb/).set captcha_code
     @browser.button(:value => 'Next step').click
     sleep(5)
-    if not @browser.text.include? "Incorrect validation code,please try again"
+    if not @browser.text.include? "Incorrect validation code, please try again"
       capSolved = true
     end
     count+=1

@@ -7,13 +7,13 @@ sign_in(data)
 @browser.text_field( :name, 'phone_number').set data['phone']
 @browser.text_field( :name, 'address').set data['address']
 
-if @browser.alert.exists?
-@browser.alert.ok
-end
-
 @browser.text_field( :name, 'fax_number').set data['fax_number']
+
+Watir::Wait.until { @browser.alert.exists? }
+@browser.alert.ok
+
 @browser.text_field( :name, 'city_name').set data['city_name']
-@browser.text_field( :name, 'state').set data['state']
+@browser.select_list( :name, 'state').select data['state']
 @browser.text_field( :name, 'zip').set data['zip']
 @browser.text_field( :name, 'tollfree_number').set data['tollfree_number']
 @browser.text_field( :name, 'hours_open').set data['hours_open']

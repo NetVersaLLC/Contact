@@ -26,11 +26,6 @@ data = {}
     data[ 'business_logourl' ] = data[ 'business_url' ] + '/logo.gif'
     data[ 'business_alternateurl' ] = data[ 'business_url' ]
     data[ 'business_couponurl' ] = data[ 'business_url' ] + '/coupons'
-    #data[ 'business_twitterurl' ] = 'http://twitter.com/' #TODO
-    #data[ 'business_facebookurl' ] = 'http://facebook.com/' #TODO
-    #data[ 'business_youtubeurl' ] = 'http://youtube.com/' #TODO
-    #data[ 'business_linkedinurl' ] = 'http://linkedin.com/' #TODO
-    # hours open values include: '' - not selected; 00:01, 00:15 .. 24:00 (HH:mm), 15 minutes step
     data[ 'business_mondayopen' ] = business.monday_open
     data[ 'business_mondayclose' ] = business.monday_close
     # TODO: specify rest of the days and closed state
