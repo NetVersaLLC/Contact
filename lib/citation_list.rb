@@ -460,6 +460,14 @@
       ['text', 'password']
     ],
       'Thumbtack'
+  ],
+  ['Adsolutionsyp', 'adsolutionsyps',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['text', 'secret_answer']
+    ],
+      'Ad Solutions YP'
   ]
 ]
 
