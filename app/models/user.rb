@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
 
   after_create :deduct_credit
   def deduct_credit
-    label = Label.find(self.label_id)
+    label = Label.find_by_id(self.label_id)
     label.credits = label.credits - 1
     label.save!
   end

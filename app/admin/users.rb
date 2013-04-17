@@ -20,6 +20,21 @@ ActiveAdmin.register User do
     end
     f.buttons
   end
+  member_action :new, :method => :get do
+    @user = User.new
+  end
+  member_action :create, :method => :post do
+    @user = User.new(params[:user])
+    @user.label_id = current_label.id
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to admin_users_path, notice: 'Created your User profile.' }
+      else
+        logger.info @user.errors.inspect
+        format.html { render action: "new" }
+      end
+    end
+  end
   member_action :update, :method => :put do
     @user = User.find(params[:id])
     @user.password = params[:password]
