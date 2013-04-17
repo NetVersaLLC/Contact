@@ -1,5 +1,6 @@
 Given /I have signed in as [a]n? (admin|reseller|employee|owner)/ do |role|
-  label = Label.new(name: 'towncenter', login: 'login', password: 'pswd', domain: 'domain' )
+  # work in progress.  Probably move these users to factory girl. 
+  label = Label.new(name: 'towncenter', login: 'login', password: 'pswd', domain: 'www.example.com')
   label.logo_file_name = "nothing" 
   label.save!
 
@@ -14,7 +15,7 @@ Given /I have signed in as [a]n? (admin|reseller|employee|owner)/ do |role|
   visit new_user_session_path 
   fill_in 'user_email', with: EMAIL 
   fill_in 'user_password', with: PASSWORD 
-  click_button 'Sign In' 
+  click_button 'user_submit_action' 
 
 end 
 
@@ -26,14 +27,16 @@ Given /I enter a zip code to Search by Zip/ do
   fill_in 'Search by Zip', with: '92626' 
 end 
 
-And /I select a different form element/ do 
-  page.first("div").click() 
+And /I click search zip/ do 
+  find("#zipsearch").click
 end 
 
 And /I go to the edit business page/ do 
-  page.click_link "Edit Business" 
+  page.click_link "Edit This Business" 
 end 
 
 Then /I should see its city and state/ do 
-  pending("need to figure out a way to wait for the ajax to return.") 
+  pending 'cant get to work. shelfing for now' 
+  #assert_equal "Newport Beach", find_field("city").value
+  #page.should have_selector("state", selected: "CA") 
 end 

@@ -33,7 +33,7 @@ $(document).ready ->
   $('#zip').focus (e)-> 
     $('#zip').val('') 
     $('#city').val('') 
-    $('#state').val('') 
+    $('#state').val('CA') 
 
   $('#show_zip_form').click (e)->
     $('#zip_search_form').dialog
