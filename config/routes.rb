@@ -10,7 +10,6 @@ Contact::Application.routes.draw do
     :controllers  => {
       :registrations => 'my_devise/registrations',
     }
-  ActiveAdmin.routes(self)
   
 
   resources :booboos
@@ -74,4 +73,5 @@ Contact::Application.routes.draw do
   get '/try_again_later', :controller => :pages, :action => :try_again_later
 
   root :to => redirect("/pages/make_redirect")
+  ActiveAdmin.routes(self) # Moved to bottom to resovle Unitialized Dashborad error w activeadmin 0.6.0 
 end
