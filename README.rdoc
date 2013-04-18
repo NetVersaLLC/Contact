@@ -20,6 +20,14 @@ Exceptions can be thrown at any point in the code and they will be automatically
 
 So you want to set up the Citation system? Whether you are writing payloads or running jobs this is easy. You can test the payloads locally. Here is the process:
 
+= Git cloning the repo  
+This repository contains git submodules ([more info on submodules here](http://git-scm.com/book/en/Git-Tools-Submodules)). Therefore, after you ````git clone````, you'll need to  ````init````  and  ````update````  the git submodule. For example,  
+
+    git clone git@github.com:jjeffus/Contact.git
+    git submodule init
+    git submodule update
+    # the Contacts/sites folder should now look like, https://github.com/netversa/sites
+
 = Linux/Mac
 
 Install rvm and then install rubies for 1.8.7 and 1.9.X. The client runs under 1.8.7 and the server runs under 1.9. For the client (on 1.8.7) install the needed gem files with 'bundle install'. For the server you need to install:
