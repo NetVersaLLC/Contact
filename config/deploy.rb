@@ -103,6 +103,12 @@ namespace :thin do
   end
 end
 
+before "deploy:assets:precompile" do
+  run ["ln -nfs #{shared_path}/config/application.yml #{release_path}/config/application.yml",
+    "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml",
+      ].join(" && ")
+end
+
 task :after_update_code do
   %w{labels}.each do |share|
     run "ln -s #{shared_path}/#{share} #{release_path}/#{share}"
