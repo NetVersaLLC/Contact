@@ -18,7 +18,7 @@ set :git_enable_submodules, 1
 
 set :application, 'contact'
 set :scm        , :git
-set :repository , 'git@github.com:jjeffus/Contact.git'
+set :repository , 'git@github.com:NetVersaLLC/Contact.git'
 set :user       , 'deploy'
 set :use_sudo   , false
 set :ssh_options, {:forward_agent => true}
