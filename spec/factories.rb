@@ -20,4 +20,12 @@ FactoryGirl.define do
     access_level User.admin 
     label 
   end 
+
+  factory :location do 
+    zip 92626
+    city 'Costa Mesa' 
+    state 'CA'
+    latitude 0 
+    longitude 0 
+  end 
 end 
