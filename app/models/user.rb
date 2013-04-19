@@ -10,8 +10,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  has_one    :download
   has_many   :businesses
   belongs_to :label
+
+  scope :needs_to_download_client, where(:downloads => {:id => nil}).includes(:download)
 
   after_create :deduct_credit
   def deduct_credit
@@ -99,6 +102,7 @@ class User < ActiveRecord::Base
   end
 
   def business_scope
+    logger.info "BUSINESS SCOPE #{self.access_level}" 
     if self.admin?
       Business.where('id is not null')
     elsif self.reseller?

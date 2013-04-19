@@ -52,7 +52,7 @@ module Business::Validations
     # enforce m/d/yyyy, and mm/dd/yyyy.  mm 1-12, dd 1-31 
     validates :contact_birthday,
       :presence => true,
-      :format => { :with => /^(0{0,1}[1-9]|1[012])\/(\d|[012]\d|3[01])\/(19|20\d\d)$/ } #/^\d\d\/\d\d\/\d\d\d\d$/ }
+      :format => { :with => /^(0{0,1}[1-9]|1[012])\/(\d|[012]\d|3[01])\/((19|20)\d\d)$/ } #/^\d\d\/\d\d\/\d\d\d\d$/ }
  
   end
 end

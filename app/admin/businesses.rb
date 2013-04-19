@@ -4,7 +4,7 @@ ActiveAdmin.register Business do
   form :partial => 'form'
 
   index do
-    column :business_name do |v|
+    column :business_name, :sortable => :business_name do |v|
       link_to(v.business_name, "/admin/client_manager?business_id=#{v.id}") 
     end
     column "Business ID" do |v|
@@ -15,8 +15,7 @@ ActiveAdmin.register Business do
     end
     column :client_checkin
    
-    # This can be merged with an actions method (instead of default_actions) when 
-    # activeadmin upgraded to 0.6.0, released on 4/4/2013.   
+    #actions do |post| 
     column  do |v|
       link_to("Categories", "/admin/categories?business_id=#{v.id}")
     end 
@@ -25,8 +24,19 @@ ActiveAdmin.register Business do
   end
 
   controller do
+    def new 
+      @business = Business.new( params[:business] ) 
+      @business.user = current_user
+      if @business.save 
+        flash[:notice] = "Business created" 
+      else 
+        flash[:alert] = "The system failed to create your business." 
+      end 
+      redirect_to admin_businesses_path 
+    end 
+
     def show
-      @business = Business.find(params[:id])
+      @business = Business.accessible_by(current_user).find(params[:id])
       show! do |format|
         format.html { redirect_to edit_business_path(@business), :notice => 'Updated business' }
       end
