@@ -7,16 +7,25 @@ Feature: Edit Business Form
     Given I have signed in as an owner
     And I am on the edit business page 
 
-  Scenario: Autocomplete City by Zipcode
-    When I enter a zip code to Search by Zip
+@javascript
+  Scenario Outline: Autocomplete City by Zipcode
+    When I enter a "<zip code>" to Search by Zip
     And I click search zip
-    Then I should see its city and state
+    Then I should see its "<city>" and "<state>" 
 
+    Scenarios: valid zip codes 
+      | zip code | city       | state | 
+      | 92626    | Costa Mesa | CA    | 
+      #      | 12831    | Gansevoort | NY    | 
+      #| 02830    | Harrisville| RI    | 
+      #| 75080    | Richardson | TX    | 
+
+@javascript
   Scenario: Get Business Results From Company Search
-    Given: I have entered my city and state.
-    When: I enter "Kaiten" in Company Name.
-    And: I click "Search".
-    Then: I should see "Kaisen Kaiten".
+    Given I have entered my city and state
+    When I enter "Kaiten" in Company Name
+    And I click Company Name Search 
+    Then I should see "Kaisen Kaiten"
 
   Scenario: Populate Form From Business Results
     Given: I have performed an autocomplete search and have results.

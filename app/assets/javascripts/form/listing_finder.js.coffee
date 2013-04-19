@@ -1,7 +1,7 @@
 window.zipSearch = (callback)->
   $('#zip_search_form .zipcode-error').hide();
   _callback = callback
-  $.getJSON '/zip.js?term='+$('#zip').val(), (data)->
+  $.getJSON '/zip.js?term='+$('#zip').val(), (data, textStatus)->
     unless data==null
       if data.city
         $('#city').val data['city']
