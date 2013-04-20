@@ -18,11 +18,18 @@ class Business < ActiveRecord::Base
   belongs_to        :subscription
   has_many          :notifications
   has_many          :images
+  has_one           :transaction_event # transaction that occurred at sign up
 
   # Triggers
   after_create      :create_site_accounts
   after_create      :create_jobs
   after_initialize  :set_times
+
+  # search on activeadmin -> meta_search 
+  scope :redeemed_coupon_eq, lambda { |cid| joins(:transaction_event).
+    where(:transaction_events => { :coupon_id => cid })
+  }
+  search_methods :redeemed_coupon_eq
 
   # This loads the citation list in Business::CitationList and
   # then creates various data representations from it. This also
@@ -30,7 +37,6 @@ class Business < ActiveRecord::Base
   load_citation_list
 
   # NOTE:
-  # Inflector classify()s "crunchases" to Crunchbasis
   # so we need to manaully set "class_name"
   # This basically replaces
   # add_nested      :crunchbases

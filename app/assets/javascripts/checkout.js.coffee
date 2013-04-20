@@ -62,7 +62,7 @@ formValidates = ()->
   if $('#password').length > 0
     errors.push requiredElement('password', 'Password')
     errors.push requiredElement('password_confirmation', 'Password Confirmation')
-  unless ($('#tos').is(':checked'))
+  unless ($('#user_tos').is(':checked'))
     addMessage("Terms of Service", "You must agree to the terms of service")
     errors.push false
   console.log errors
