@@ -1,6 +1,10 @@
 ActiveAdmin.register Business do
   scope_to :current_user, :association_method => :business_scope
 
+  filter :redeemed_coupon, :label => "Coupon", 
+    :as => :select, :collection => proc { Coupon.where(:label_id => current_user.label.id)}
+  preserve_default_filters!
+
   form :partial => 'form'
 
   index do
@@ -13,6 +17,15 @@ ActiveAdmin.register Business do
     column :company_website do |v|
       link_to v.company_website, v.company_website
     end
+    column :parent do |v| 
+      v.user.label.name 
+    end 
+    column :coupon do |v| 
+      unless v.transaction_event.nil? || v.transaction_event.coupon.nil? 
+        v.transaction_event.coupon.name 
+      end 
+    end 
+
     column :client_checkin
    
     #actions do |post| 

@@ -28,6 +28,10 @@ class User < ActiveRecord::Base
     UserMailer.welcome_email(self).deliver
   end
 
+  def display_name # used by activeadmin drop down 
+    self.email
+  end 
+
   TYPES = {
     :admin    => 46118,
     :reseller => 535311,
@@ -102,9 +106,8 @@ class User < ActiveRecord::Base
   end
 
   def business_scope
-    logger.info "BUSINESS SCOPE #{self.access_level}" 
     if self.admin?
-      Business.where('id is not null')
+      Business.where('businesses.id is not null')
     elsif self.reseller?
       Business.where(:label_id => self.label_id)
     else
