@@ -477,6 +477,13 @@
       ['select', 'findthebest_category']
     ],
       'Find The Best'
+  ],
+  ['Patch', 'patches',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Patch'
   ]
 ]
 
