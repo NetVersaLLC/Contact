@@ -468,6 +468,14 @@
       ['text', 'secret_answer']
     ],
       'Ad Solutions YP'
+  ],
+  ['Findthebest', 'findthebests',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'findthebest_category']
+    ],
+      'Find The Best'
   ]
 ]
 
