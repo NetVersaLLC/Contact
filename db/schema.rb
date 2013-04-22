@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130419170509) do
+ActiveRecord::Schema.define(:version => 20130422123952) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -181,13 +181,24 @@ ActiveRecord::Schema.define(:version => 20130419170509) do
 
   add_index "businesscoms", ["business_id"], :name => "index_businesscoms_on_business_id"
 
+  create_table "businessdb_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "businessdb_categories", ["name"], :name => "index_businessdb_categories_on_name"
+  add_index "businessdb_categories", ["parent_id"], :name => "index_businessdb_categories_on_parent_id"
+
   create_table "businessdbs", :force => true do |t|
     t.datetime "force_update"
     t.text     "secrets"
     t.integer  "business_id"
     t.string   "email"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.integer  "businessdb_category_id"
   end
 
   add_index "businessdbs", ["business_id"], :name => "index_businessdbs_on_business_id"
@@ -674,6 +685,7 @@ ActiveRecord::Schema.define(:version => 20130419170509) do
     t.integer  "uscity_category_id"
     t.integer  "adsolutionsyp_category_id"
     t.integer  "findthebest_category_id"
+    t.integer  "businessdb_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
