@@ -436,7 +436,8 @@
   ['Businessdb', 'businessdbs',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'businessdb_category']
     ],
       'Businessdb'
   ],
