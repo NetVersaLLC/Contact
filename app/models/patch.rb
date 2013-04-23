@@ -1,6 +1,7 @@
 class Patch < ClientData 
   attr_accessible 		:email
   virtual_attr_accessor :password
+  belongs_to            :patch_category
 
 
   
