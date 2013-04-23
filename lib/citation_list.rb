@@ -490,6 +490,7 @@
     [
       ['text', 'email'],
       ['text', 'password'],
+      ['select', 'zipperpage_category'] 
     ],
       'Zipperpage'
   ]
