@@ -436,7 +436,8 @@
   ['Businessdb', 'businessdbs',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'businessdb_category']
     ],
       'Businessdb'
   ],
@@ -468,6 +469,21 @@
       ['text', 'secret_answer']
     ],
       'Ad Solutions YP'
+  ],
+  ['Findthebest', 'findthebests',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'findthebest_category']
+    ],
+      'Find The Best'
+  ],
+  ['Patch', 'patches',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Patch'
   ]
 ]
 
