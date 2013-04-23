@@ -25,7 +25,7 @@ FactoryGirl.define do
     zip 92626
     city 'Costa Mesa' 
     state 'CA'
-    latitude 0 
-    longitude 0 
+    latitude 33.680139
+    longitude -117.908452
   end 
 end 
