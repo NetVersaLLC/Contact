@@ -485,6 +485,13 @@
       ['select', 'patch_category']
     ],
       'Patch'
+  ],
+  ['Zipperpage', 'zipperpages',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+    ],
+      'Zipperpage'
   ]
 ]
 
