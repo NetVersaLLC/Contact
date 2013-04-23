@@ -481,7 +481,8 @@
   ['Patch', 'patches',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'patch_category']
     ],
       'Patch'
   ]
