@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130422185826) do
+ActiveRecord::Schema.define(:version => 20130423153756) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -1786,6 +1786,15 @@ ActiveRecord::Schema.define(:version => 20130422185826) do
     t.integer  "yippie_category_id"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+  end
+
+create_table "zipperpages", :force => true do |t|
+    t.integer "business_id"
+    t.string "email"
+    t.text "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "zippro_categories", :force => true do |t|
