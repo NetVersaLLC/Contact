@@ -1,4 +1,5 @@
 %section{:id => 'section-save'}
   = @f.actions do 
+    = submit_tag "Save Changes", :class => 'btn btn-large btn-primary'
     = link_to "Cancel Changes", businesses_path, :class => 'btn btn-danger' 
 :javascript
