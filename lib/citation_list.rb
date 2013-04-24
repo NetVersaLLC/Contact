@@ -493,6 +493,14 @@
       ['select', 'usyellowpages_category']
     ],
       'Usyellowpages'
+  ],
+  ['Zipperpage', 'zipperpages',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'zipperpage_category']
+    ],
+      'Zipperpage'
   ]
 ]
 
