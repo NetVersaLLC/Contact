@@ -8,12 +8,8 @@
               .alert.alert-error
                 %button.close{:type => "button", 'data-dismiss' => "alert"}
                   &times;
+                = field.to_s.humanize unless field == :tos
                 = message
-        - if notice
-          .alert
-            %button.close{:type => "button", 'data-dismiss' => "alert"}
-              &times;
-            = notice
         - if alert
           .alert.alert-error
             %button.close{:type => "button", 'data-dismiss' => "alert"}
@@ -28,7 +24,7 @@
   - if @is_checkout_session == true
     :javascript
       $(document).ready(function(){
-        window.registerCheckoutHooks();
+        //window.registerCheckoutHooks();
       });
     %input{:type => :hidden, :name => 'package_id', :value => @package.id}/
     .row
@@ -135,7 +131,8 @@
             Terms of Service
         %br
         - if @is_checkout_session == true
-          %button.btn.btn-large.btn-info#submit_button{:type => "button"} Place Order
+          /%button.btn.btn-large.btn-info#submit_button{:type => "button"} Place Order
+          %input.btn.btn-large.btn-info#submit_button{:type => "submit", :value=>'Place Order'}
         - else
           %button.btn.btn-large.btn-info#submit_button{:type => "submit"} Sign Up
   = render :partial => "devise/shared/links"
