@@ -486,13 +486,13 @@
     ],
       'Patch'
   ],
-  ['Zipperpage', 'zipperpages',
+  ['Usyellowpages', 'usyellowpages',
     [
       ['text', 'email'],
       ['text', 'password'],
-      ['select', 'zipperpage_category'] 
+      ['select', 'usyellowpages_category']
     ],
-      'Zipperpage'
+      'Usyellowpages'
   ]
 ]
 
