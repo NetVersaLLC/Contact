@@ -1,6 +1,6 @@
 module ApplicationHelper
   def current_label
-    label = Label.where(:domain => request.host).first
+    label = Label.where(:domain => host ).first
     unless label
       label = Label.first
     end
