@@ -56,6 +56,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
           @errors.push @transaction.message
         end
       end
+
       resource.label_id = current_label.id
       res_result = resource.save
       err_result = @errors.length == 0
@@ -89,7 +90,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
         logger.info "Resource: #{res_result.inspect}"
         logger.info "Resource: #{err_result.inspect}"
         clean_up_passwords resource
-        respond_with resource, :location => new_user_registration_path
+        render :action=>:new
       end
     end
   end
