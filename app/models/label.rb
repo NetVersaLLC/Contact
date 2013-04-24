@@ -38,4 +38,20 @@ class Label < ActiveRecord::Base
     end
     @gateway
   end
+
+  # transfer credits to a child 
+  def self.transfer( amount, from, to ) 
+    Label.transaction do 
+      to.reload(:lock => true) 
+      from.reload(:lock => true) 
+
+      raise ActiveRecord::Rollback, "Insufficient credits"  if from.credits < amount
+
+      from.credits -= amount 
+      to.credits += amount 
+      from.save! 
+      to.save!
+    end 
+  end 
+
 end

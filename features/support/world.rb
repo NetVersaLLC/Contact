@@ -1,8 +1,6 @@
-module Actors 
-  # default to owner 
-  # By settign an actor this way, then we can reuse steps by using the user method. 
-  # I am a reseller -> reseller 
-  # sign in with user.email/user.password 
+module ContactWorld
+  # Actors 
+  # 
   def user 
     @user ||= owner 
   end 
@@ -16,8 +14,12 @@ module Actors
   end 
 
   def reseller 
-    @user ||= Factory.create(:user, :access_level => User.reseller) 
+    @user ||= FactoryGirl.create(:user, :access_level => User.reseller) 
+  end 
+  
+  def white_label 
+    @white_label ||= FactoryGirl.create(:label)
   end 
 end 
 
-World(Actors) 
+World(ContactWorld) 
