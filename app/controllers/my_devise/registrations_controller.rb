@@ -40,6 +40,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
           @errors.push @transaction.message
         end
       end
+
       resource.label_id = current_label.id
       if resource.save and @errors.length == 0
         if @is_checkout_session == true
@@ -66,7 +67,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
         end
       else
         clean_up_passwords resource
-        respond_with resource, :location => new_user_registration_path
+        render :action=>:new
       end
     end
   end

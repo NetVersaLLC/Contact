@@ -8,6 +8,7 @@
               .alert.alert-error
                 %button.close{:type => "button", 'data-dismiss' => "alert"}
                   &times;
+                = field.to_s.humanize unless field == :tos
                 = message
         - if alert
           .alert.alert-error
