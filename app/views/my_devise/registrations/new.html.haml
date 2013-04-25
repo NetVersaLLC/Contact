@@ -85,11 +85,11 @@
               - Date::MONTHNAMES[1..12].each do |name|
                 - i += 1
                 - val = "%02d" % i
-                %option{:value => val}
+                %option{:value => val, :selected=> (params[:creditcard] && params[:creditcard][:month]==val) }
                   #{name} (#{val})
             %select#card_year.span2{:name => 'creditcard[year]'}
               - (Time.now.year .. Time.now.year+10).to_a.each do |year|
-                %option
+                %option{:selected=> (params[:creditcard] && params[:creditcard][:year]==year.to_s)}
                   = year
           %label{:for => 'creditcard[verification_value]'} Security code (3 on back, Amex: 4 on front)
           %input#cvv.span1{:placeholder => "CVV", :type => "text", :name => 'creditcard[verification_value]', :required => 'required', :pattern => '\S+', :value => @cvv }/

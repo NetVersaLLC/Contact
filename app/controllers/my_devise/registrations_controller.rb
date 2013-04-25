@@ -15,6 +15,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
   def create
     build_resource
 
+
     @is_checkout_session = checkout_setup
     if @is_checkout_session == true
       @name        = params[:creditcard][:name]
@@ -25,12 +26,19 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
       @email       = params[:user][:email]
     end
 
+    unless resource.valid?
+      clean_up_passwords resource
+      render :action=>:new and return
+    end
+
+
     @errors             = []
     business            = Business.new
     ActiveRecord::Base.transaction do
       if @is_checkout_session == true
         @transaction = TransactionEvent.build(params, @package, current_label)
-        if @transaction.process() == true
+        @transaction.process()
+        if @transaction.is_success?
           flash[:notice] = "Signed up"
           business.subscription = @transaction.subscription
           business.save :validate => false
@@ -42,7 +50,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
       end
 
       resource.label_id = current_label.id
-      if resource.save and @errors.length == 0
+      if @errors.length == 0 && resource.save
         if @is_checkout_session == true
           business.user    = resource
           business.user_id = resource.id
