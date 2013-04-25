@@ -34,19 +34,24 @@ class TransactionEvent < ActiveRecord::Base
   def process
     @creditcard = ActiveMerchant::Billing::CreditCard.new(@options[:creditcard])
     unless @creditcard.valid?
-      self.message = "Credit card is not valid"
+      message = "Credit card is not valid"
+      @creditcard.errors.select{|k,v| !v.empty? }.each { |k,v|
+        message = "#{message}<br>- #{k.humanize} : #{v.join}"
+      }
+      self.message = message.html_safe
       self.status  = :failure
       save
       return false
     end
     ActiveRecord::Base.transaction do
       @payment = Payment.build(self)
-      @payment.process()
+      payment_result = @payment.process()
       self.payment    = @payment
       self.payment_id = @payment.id
       if @payment.is_success?
         @sub = Subscription.build(self)
-        @sub.process()
+        subscription_result = @sub.process()
+        
         if @sub.is_success?
           self.subscription    = @sub
           self.subscription_id = @sub.id
@@ -54,7 +59,10 @@ class TransactionEvent < ActiveRecord::Base
           self.status          = :success
         else
           @payment.refund()
-          self.message           = @sub.message
+          self.message           = case subscription_result.params['code']
+            when "E00012"; "<strong>Subscription Error!</strong><br>An error occurred while processing subscription of payment. You have submitted a duplicate of Subscription. Please check your Credit card number and try again.".html_safe
+            else; @sub.message
+          end
           self.status            = @sub.status
           self.subscription      = @sub
           self.subscription_id   = @sub.id
