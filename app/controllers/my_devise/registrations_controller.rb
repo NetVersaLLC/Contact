@@ -4,6 +4,11 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
   end
 
   def new
+    @callcenter = false
+    if params[:callcenter] == '1'
+      @callcenter = true
+    end
+    @password =  Devise.friendly_token.first(10)
     @is_checkout_session = checkout_setup
     if current_label.credits < -99
       redirect_to '/try_again_later'
@@ -13,8 +18,18 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
   end
 
   def create
+    @callcenter = false
+    @password   = nil
+    if params[:callcenter] == '1'
+      @password                           = params['user[password]']
+      @callcenter                         = true
+    end
     build_resource
 
+    if @callcenter == true
+      resource.callcenter = true
+      resource.temppass = @password
+    end
 
     @is_checkout_session = checkout_setup
     if @is_checkout_session == true
@@ -74,6 +89,8 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
           end
         end
       else
+        logger.info "Redirecing to: new_user_registration_path"
+        logger.info "Errors: #{@errors.to_json}"
         clean_up_passwords resource
         render :action=>:new
       end
@@ -91,6 +108,9 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
       @package.original_price = @package.price
     else
       return false
+    end
+    if @package.label_id != current_label.id
+      throw "Not a valid label!"
     end
     @coupon       = Coupon.where(:label_id => current_label.id, :code => params[:coupon]).first
     unless @coupon == nil
