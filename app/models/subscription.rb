@@ -50,6 +50,7 @@ class Subscription < ActiveRecord::Base
         :last_name  => last_name
       }
     })
+    
     if response.success?
       STDERR.puts "Printing response:"
       STDERR.puts response.to_json
@@ -66,6 +67,7 @@ class Subscription < ActiveRecord::Base
       self.message           = response.message
       self.trans.subscription = self
       save!
+      return response
       return false
     end
   end
