@@ -10,7 +10,6 @@ Contact::Application.routes.draw do
     :controllers  => {
       :registrations => 'my_devise/registrations',
     }
-  
 
   resources :booboos
   resources :subscriptions

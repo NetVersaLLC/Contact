@@ -41,12 +41,19 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
       @email       = params[:user][:email]
     end
 
+    unless resource.valid?
+      clean_up_passwords resource
+      render :action=>:new and return
+    end
+
+
     @errors             = []
     business            = Business.new
     ActiveRecord::Base.transaction do
       if @is_checkout_session == true
         @transaction = TransactionEvent.build(params, @package, current_label)
-        if @transaction.process() == true
+        @transaction.process()
+        if @transaction.is_success?
           flash[:notice] = "Signed up"
           business.subscription = @transaction.subscription
           business.save :validate => false
@@ -56,10 +63,9 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
           @errors.push @transaction.message
         end
       end
+
       resource.label_id = current_label.id
-      res_result = resource.save
-      err_result = @errors.length == 0
-      if res_result and err_result
+      if @errors.length == 0 && resource.save
         if @is_checkout_session == true
           business.user    = resource
           business.user_id = resource.id
@@ -89,7 +95,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
         logger.info "Resource: #{res_result.inspect}"
         logger.info "Resource: #{err_result.inspect}"
         clean_up_passwords resource
-        respond_with resource, :location => new_user_registration_path
+        render :action=>:new
       end
     end
   end

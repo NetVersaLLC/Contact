@@ -707,6 +707,9 @@ ActiveRecord::Schema.define(:version => 20130425211546) do
     t.integer  "adsolutionsyp_category_id"
     t.integer  "findthebest_category_id"
     t.integer  "businessdb_category_id"
+    t.integer  "patch_category_id"
+    t.integer  "usyellowpages_category_id"
+    t.integer  "zipperpage_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -1257,13 +1260,24 @@ ActiveRecord::Schema.define(:version => 20130425211546) do
     t.integer  "label_id"
   end
 
+  create_table "patch_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "patch_categories", ["name"], :name => "index_patch_categories_on_name"
+  add_index "patch_categories", ["parent_id"], :name => "index_patch_categories_on_parent_id"
+
   create_table "patches", :force => true do |t|
     t.integer  "business_id"
     t.string   "email"
     t.text     "secrets"
     t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.integer  "patch_category_id"
   end
 
   create_table "payments", :force => true do |t|
@@ -1655,6 +1669,26 @@ ActiveRecord::Schema.define(:version => 20130425211546) do
   add_index "users", ["parent_id"], :name => "index_users_on_parent_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
+  create_table "usyellowpages", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+    t.integer  "usyellowpages_category_id"
+  end
+
+  create_table "usyellowpages_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "usyellowpages_categories", ["name"], :name => "index_usyellowpages_categories_on_name"
+  add_index "usyellowpages_categories", ["parent_id"], :name => "index_usyellowpages_categories_on_parent_id"
+
   create_table "yahoo_categories", :force => true do |t|
     t.integer  "rcatid"
     t.string   "catname"
@@ -1796,6 +1830,26 @@ ActiveRecord::Schema.define(:version => 20130425211546) do
     t.integer  "yippie_category_id"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+  end
+
+  create_table "zipperpage_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "zipperpage_categories", ["name"], :name => "index_zipperpage_categories_on_name"
+  add_index "zipperpage_categories", ["parent_id"], :name => "index_zipperpage_categories_on_parent_id"
+
+  create_table "zipperpages", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.integer  "zipperpage_category_id"
   end
 
   create_table "zippro_categories", :force => true do |t|
