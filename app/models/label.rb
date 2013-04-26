@@ -7,6 +7,11 @@ class Label < ActiveRecord::Base
   has_many :users
   has_many :coupons
   has_many :packages
+  has_many :credit_events 
+
+  def display_name # activeadmin 
+    name 
+  end 
 
   validates :login,
     :presence => true,
@@ -40,17 +45,31 @@ class Label < ActiveRecord::Base
   end
 
   # transfer credits to a child 
-  def self.transfer( amount, from, to ) 
+  def transfer_to( to, quantity, by ) 
+    quantity = quantity.to_i
+
     Label.transaction do 
       to.reload(:lock => true) 
-      from.reload(:lock => true) 
+      self.reload(:lock => true) 
 
-      raise ActiveRecord::Rollback, "Insufficient credits"  if from.credits < amount
+      raise ActiveRecord::Rollback, "Insufficient credits"  if self.credits < quantity
 
-      from.credits -= amount 
-      to.credits += amount 
-      from.save! 
+      self.credits -= quantity 
+      to.credits += quantity 
+      save! 
       to.save!
+
+      ce = CreditEvent.new( {quantity: -quantity, action: :transfer_to} ) 
+      ce.label = self; 
+      ce.other = to
+      ce.user = by
+      ce.save 
+      
+      ce = CreditEvent.new( {quantity: +quantity, action: :transfer_from} )
+      ce.label = to
+      ce.other = self
+      ce.user =  by 
+      ce.save 
     end 
   end 
 

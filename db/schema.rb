@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130422163317) do
+ActiveRecord::Schema.define(:version => 20130425211546) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -360,6 +360,16 @@ ActiveRecord::Schema.define(:version => 20130422163317) do
 
   add_index "cornerstonesworlds", ["business_id"], :name => "index_cornerstonesworlds_on_business_id"
 
+  create_table "cornerstoneworld_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "cornerstoneworld_categories", ["name"], :name => "index_cornerstoneworld_categories_on_name"
+  add_index "cornerstoneworld_categories", ["parent_id"], :name => "index_cornerstoneworld_categories_on_parent_id"
+
   create_table "coupons", :force => true do |t|
     t.string   "name"
     t.string   "code"
@@ -370,6 +380,16 @@ ActiveRecord::Schema.define(:version => 20130422163317) do
   end
 
   add_index "coupons", ["code"], :name => "index_coupons_on_code"
+
+  create_table "credit_events", :force => true do |t|
+    t.integer  "quantity",   :default => 0
+    t.string   "action",                    :null => false
+    t.integer  "other_id"
+    t.integer  "label_id",                  :null => false
+    t.integer  "user_id"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
 
   create_table "crunchbases", :force => true do |t|
     t.integer  "business_id"
@@ -508,9 +528,9 @@ ActiveRecord::Schema.define(:version => 20130422163317) do
     t.integer  "business_id"
     t.datetime "force_update"
     t.text     "secrets"
+    t.integer  "ezlocal_category_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
-    t.integer  "ezlocal_category_id"
     t.string   "email"
   end
 
@@ -1252,16 +1272,17 @@ ActiveRecord::Schema.define(:version => 20130422163317) do
     t.string   "transaction_number"
     t.integer  "business_id"
     t.integer  "label_id"
-    t.integer  "transaction_event_id"
+    t.integer  "transaction_id"
     t.string   "message"
     t.text     "response"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
+    t.integer  "transaction_event_id"
   end
 
   add_index "payments", ["business_id"], :name => "index_payments_on_business_id"
   add_index "payments", ["label_id"], :name => "index_payments_on_label_id"
-  add_index "payments", ["transaction_event_id"], :name => "index_payments_on_transaction_id"
+  add_index "payments", ["transaction_id"], :name => "index_payments_on_transaction_id"
 
   create_table "primeplace_categories", :force => true do |t|
     t.integer  "parent_id"
@@ -1577,9 +1598,9 @@ ActiveRecord::Schema.define(:version => 20130422163317) do
     t.text     "secrets"
     t.datetime "force_update"
     t.text     "username"
-    t.integer  "usbdn_category_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+    t.integer  "usbdn_category_id"
   end
 
   add_index "usbdns", ["business_id"], :name => "index_usbdns_on_business_id"
@@ -1796,7 +1817,6 @@ ActiveRecord::Schema.define(:version => 20130422163317) do
     t.datetime "updated_at",          :null => false
     t.integer  "zippro_category2_id"
     t.integer  "zippro_category_id"
-    t.integer  "form_id"
   end
 
   add_index "zippros", ["business_id"], :name => "index_zippros_on_business_id"
