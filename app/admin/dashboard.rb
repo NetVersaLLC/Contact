@@ -12,14 +12,10 @@ ActiveAdmin.register_page "Dashboard" do
         column :name
         column :credits
         column "Payment" do |obj|
-          link_to "Add Credits", '/purchase'
+          link_to "Add Credits", new_admin_credit_event_path( :other_id => obj.id ) 
         end
       end
     end
   end
 
-
-
-
 end
-
