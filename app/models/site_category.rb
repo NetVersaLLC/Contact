@@ -12,6 +12,20 @@ class SiteCategory < ActiveRecord::Base
     end
     present
   end
+
+
+  def walk
+    kids = []
+    self.children.each do |child|
+      kids.push child.walk
+    end
+    if kids.length > 0
+      arr = [self.name, self.id, kids]
+    else
+      arr = [self.name, self.id]
+    end
+  end
+
   def self.categories
     self.list_categories(self.root)
   end

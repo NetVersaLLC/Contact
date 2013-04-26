@@ -1,8 +1,6 @@
 class Yellowassistance < ClientData
-	attr_accessible :username, :yellowassistance_category_id, :yellowassistance_category
+	attr_accessible :username, :secret_answer, :yellowassistance_category_id, :yellowassistance_category
 	virtual_attr_accessor :password
-	validates :password,
-            :presence => true
 belongs_to :yellowassistance_category
 
 def self.payment_methods(business)
@@ -24,6 +22,29 @@ def self.payment_methods(business)
     end
     accepted
   end
+
+
+
+def self.check_email(business)
+    @link = nil
+    CheckMail.get_link(business) do |mail|
+      if mail.subject =~ /Welcome to Yellow Assistance.com!/i
+        mail.parts.map do |p|
+          if p.content_type =~ /text\/html/
+            nok = Nokogiri::HTML(p.decoded)
+            nok.xpath("//a").each do |tink|
+              if tink.attr('href') =~ /http:\/\/www.yellowassistance.com\/frmVerifyRegistration.aspx/i
+                @link = tink.attr('href')
+                puts(@link)
+              end
+            end
+          end
+        end
+      end  
+    end      
+    @link
+  end
+
 
 
 end

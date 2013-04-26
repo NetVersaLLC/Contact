@@ -16,6 +16,12 @@ class PlacesController < ApplicationController
     if params[:reference]
       @res = @client.lookup(params[:reference])
     end
+
+    ac = @res['result']['address_components']
+    @res['city'] = ac.select{|s| s["types"].include?("locality")}.first["long_name"] || ''
+    @res['state'] = ac.select{|s| s["types"].include?("administrative_area_level_1")}.first["long_name"] || ''
+    @res['zip'] = ac.select{|s| s["types"].include?("postal_code")}.first["long_name"] || '' 
+
     render json: @res
   end
 end

@@ -40,12 +40,19 @@ module Business::Validations
     validates :geographic_areas,
       :presence => true
     validates :year_founded,
-      :presence => true
+      :presence => true, 
+      :numericality => { 
+        :only_integer => true, 
+        :greater_than => 1000, 
+        :less_than => proc { Date.current.year + 1 } 
+        }
     validates :company_website,
       :allow_blank => true,
       :format => { :with => /^https?\:\/\// }
+    # enforce m/d/yyyy, and mm/dd/yyyy.  mm 1-12, dd 1-31 
     validates :contact_birthday,
       :presence => true,
-      :format => { :with => /^\d\d\/\d\d\/\d\d\d\d$/ }
+      :format => { :with => /^(0{0,1}[1-9]|1[012])\/(\d|[012]\d|3[01])\/((19|20)\d\d)$/ } #/^\d\d\/\d\d\/\d\d\d\d$/ }
+ 
   end
 end

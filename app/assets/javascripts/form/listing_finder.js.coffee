@@ -1,7 +1,7 @@
 window.zipSearch = (callback)->
   $('#zip_search_form .zipcode-error').hide();
   _callback = callback
-  $.getJSON '/zip.js?term='+$('#zip').val(), (data)->
+  $.getJSON '/zip.js?term='+$('#zip').val(), (data, textStatus)->
     unless data==null
       if data.city
         $('#city').val data['city']
@@ -10,7 +10,6 @@ window.zipSearch = (callback)->
           _callback()
     else
       $('#zip_search_form .zipcode-error').show();
-
 
 window.selectPlace = (el)->
   $.getJSON '/places/show.js?reference='+$(el).attr('data-reference'), (data)->
@@ -28,14 +27,19 @@ window.selectPlace = (el)->
       if result['formatted_address']
         addr = result['formatted_address'].split(",")
         $('#business_address').val addr[0]
-        $('#business_city').val $('#city').val()
-        $('#business_state').val $('#state').val()
-        $('#business_zip').val $('#zip').val()
+        $('#business_city').val data['city'] #$('#city').val()
+        $('#business_state').val data['state'] #$('#state').val()
+        $('#business_zip').val data['zip'] # $('#zip').val()
       if result['url']
         $('#business_google_places_url').val result['url']
     $('#zip_search_form').dialog('close')
 
 $(document).ready ->
+  $('#zip').focus (e)-> 
+    $('#zip').val('') 
+    $('#city').val('') 
+    $('#state').val('CA') 
+
   $('#show_zip_form').click (e)->
     $('#zip_search_form').dialog
       width:  800
@@ -56,14 +60,14 @@ $(document).ready ->
 
   $('#zipsearch').click ->
     window.zipSearch ->
-      $('#search').trigger 'click'
+      $('#company_search').trigger 'click'
 
   $('#zip').blur window.zipSearch
 
   $('#zipform button').click (event)->
     event.preventDefault()
 
-  $('#search').click ->
+  $('#company_search').click ->
     $('#business_results').html('<h3>Loading...</h3>')
     url = '/places.js?state='+escape($('#state').val())+'&'
     url += 'city='+escape($('#city').val())+'&'

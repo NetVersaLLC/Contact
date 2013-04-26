@@ -21,4 +21,20 @@ class Image < ActiveRecord::Base
   def thumb
     self.data.url(:thumb)
   end
+
+  # Because the display name is set from the position, we need to reorder to fill 
+  # in any gaps when an image is deleted.  
+  #
+  # without reorder (1,2,3,4) -> delete position 2 -> (1,3,4)  
+  # with reorder    (1,2,3,4) -> delete position 2 -> (1,2,3) 
+  #
+  def self.reorder_positions( business_id ) 
+    return if business_id.blank? 
+    
+    Image.where(:business_id => business_id).each_with_index do |i, idx| 
+      i.display_name = i.position = idx + 1 # zero based 
+      i.save
+    end 
+  end 
+
 end

@@ -1,38 +1,38 @@
-window.buildTable = (data) ->
-  html = '<ul class="displayList">'
-  $.each data, (i,e)->
-    color = 'info'
-    switch(e['status'])
-      when 0
-        color = 'ui-icon-mail-closed info'
-      when 1
-        color = 'ui-icon-mail-open warning'
-      when 4
-        color = 'ui-icon-circle-check success'
-      when 5
-        color = 'ui-icon-alert failure'
-    html += '<li class="ui-state-default ui-corner-all" data-job-id="'+e['id']+'">'
-    html += e['name']+' '
-    html += '<span title="'+e['status_message']+'"'
-    html += 'class="ui-icon '+color+'">'
-    html += '</span>'
-    html += '<span class="ui-icon ui-icon-trash delete_job" title="Delete Job"></span>'
-    html += '<span class="ui-icon ui-icon-script view_payload" title="View Payload"></span>'
-    html += '<span class="ui-icon ui-icon-tag view_meta" title="View Meta"></span>'
-    html += '<span class="ui-icon ui-icon-triangle-1-w rerun" title="Rerun Job"></span>'
-    html += '</li>'
-  html
+#window.buildTable = (data) ->
+#  html = '<ul class="displayList">'
+#  $.each data, (i,e)->
+#    color = 'info'
+#    switch(e['status'])
+#      when 0
+#        color = 'ui-icon-mail-closed info'
+#      when 1
+#        color = 'ui-icon-mail-open warning'
+#      when 4
+#        color = 'ui-icon-circle-check success'
+#      when 5
+#        color = 'ui-icon-alert failure'
+#    html += '<li class="ui-state-default ui-corner-all" data-job-id="'+e['id']+'">'
+#    html += e['name']+' '
+#    html += '<span title="'+e['status_message']+'"'
+#    html += 'class="ui-icon '+color+'">'
+#    html += '</span>'
+#    html += '<span class="ui-icon ui-icon-trash delete_job" title="Delete Job"></span>'
+#    html += '<span class="ui-icon ui-icon-script view_payload" title="View Payload"></span>'
+#    html += '<span class="ui-icon ui-icon-tag view_meta" title="View Meta"></span>'
+#    html += '<span class="ui-icon ui-icon-triangle-1-w rerun" title="Rerun Job"></span>'
+#    html += '</li>'
+#  html
 
-window.buildErrorTable = (data)->
-  console.log data
-  html = '<ul class="displayList">'
-  $.each data, (i,e)->
-    color = 'ui-icon-alert failure'
-    html += '<li class="ui-state-default ui-corner-all view_booboo" data-booboo-id="'+e['id']+'">'
-    html += e['message']+' '
-    html += '<span class="ui-icon '+color+'"></span>'
-    html += '</li>'
-  html
+#window.buildErrorTable = (data)->
+#  console.log data
+##  html = '<ul class="displayList">'
+#  $.each data, (i,e)->
+#    color = 'ui-icon-alert failure'
+#    html += '<li class="ui-state-default ui-corner-all view_booboo" data-booboo-id="'+e['id']+'">'
+#    html += e['message']+' '
+#    html += '<span class="ui-icon '+color+'"></span>'
+#    html += '</li>'
+#  html
 
 registerHooks = ()->
   $('.delete_job').click (e)->
@@ -72,23 +72,27 @@ registerHooks = ()->
 
 showPending = (panel)->
   window.current_tab = "jobs"
-  $.getJSON "/admin/jobs/pending_jobs.js?business_id=#{window.business_id}", (data)->
-    $(panel).html( window.buildTable(data) )
+  #$.getJSON "/admin/jobs/pending_jobs.js?business_id=#{window.business_id}", (data)->
+  $.get "/admin/jobs/pending_jobs?business_id=#{window.business_id}", (data)->
+    $(panel).html(data) # window.buildTable(data) )
     registerHooks()
 showFailed = (panel)->
   window.current_tab = "failed_jobs"
-  $.getJSON "/admin/jobs/failed_jobs.js?business_id=#{window.business_id}", (data)->
-    $(panel).html( window.buildTable(data) )
+  #$.getJSON "/admin/jobs/failed_jobs.js?business_id=#{window.business_id}", (data)->
+  $.get "/admin/jobs/failed_jobs?business_id=#{window.business_id}", (data)->
+    $(panel).html(data) # window.buildTable(data) )
     registerHooks()
 showCompleted = (panel)->
   window.current_tab = "completed_jobs"
-  $.getJSON "/admin/jobs/completed_jobs.js?business_id=#{window.business_id}", (data)->
-    $(panel).html( window.buildTable(data) )
+  #$.getJSON "/admin/jobs/completed_jobs.js?business_id=#{window.business_id}", (data)->
+  $.get "/admin/jobs/completed_jobs?business_id=#{window.business_id}", (data)->
+    $(panel).html(data) # window.buildTable(data) )
     registerHooks()
 showErrors = (panel)->
   window.current_tab = "booboos"
-  $.getJSON "/admin/booboos/list.js?business_id=#{window.business_id}", (data)->
-    $(panel).html( window.buildErrorTable(data) )
+  #$.getJSON "/admin/booboos/list.js?business_id=#{window.business_id}", (data)->
+  $.get "/admin/booboos/list?business_id=#{window.business_id}", (data)->
+    $(panel).html( data ) #window.buildErrorTable(data) )
     registerHooks()
 showClient = (panel)->
   window.current_tab = "ciients"

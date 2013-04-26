@@ -8,6 +8,38 @@
 
 // To customize the Active Admin interfaces, add your
 // styles here:
+#client_tabs {  
+  width: 920px; 
+
+  div { 
+    padding: 0; 
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+
+      .view_booboo:hover { 
+        cursor: pointer; 
+        background-color: #aaaaaa;
+      }
+
+      li { 
+        margin: 0; 
+        padding: 1px 0; 
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        span { 
+          margin-right: 4px;
+          float: left; 
+          display: block; 
+        }
+      }
+    }
+  }
+}
 
 #client_tabs_top li .ui-icon {
   float: left;
@@ -18,23 +50,6 @@
   list-style-type: none;
   margin: 0;
   padding: 0;
-}
-.displayList {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  width: 90%;
-}
-.displayList li {
-  margin: 0 3px 3px 3px;
-  padding: 0.4em;
-  padding-left: 1.5em;
-  font-size: 1.4em;
-  height: 18px;
-}
-.displayList li span {
-  float: left;
-  display: block;
 }
 
 $success: #9F9;

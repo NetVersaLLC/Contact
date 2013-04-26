@@ -116,6 +116,11 @@ class BusinessesController < ApplicationController
 
   def report
     @business = Business.find(params[:business_id])
+    if @business.business_name.nil?
+      flash[:notice] = "Error: Please fill out your business profile before you order a report."
+      redirect_to edit_business_path(@business)
+      return
+    end
     @file = @business.report
     name = @business.business_name.downcase.gsub(/[^A-Za-z0-9]/, '_')
     d = DateTime.now

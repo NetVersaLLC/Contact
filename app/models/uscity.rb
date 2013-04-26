@@ -1,9 +1,7 @@
 class Uscity < ClientData
-  attr_accessible :business_id, :created_at, :email, :force_update, :secrets, :updated_ati
+  attr_accessible :email, :secret_answer
   virtual_attr_accessor :password
-  validates :password,
-        :presence => true
-
+  belongs_to :uscity_category
 
   def self.make_secret_answer
     Faker::Name.first_name
@@ -12,19 +10,14 @@ class Uscity < ClientData
   def self.check_email(business)
     @link = nil
     CheckMail.get_link(business) do |mail|
-      if mail.subject =~ /sign up email/i
-        mail.parts.map do |p|
-          if p.content_type =~ /text\/html/
-            nok = Nokogiri::HTML(p.decoded)
-		nok.xpath("//a").each do |tink|
-			if tink.attr('href') =~ /http:\/\/uscity.net\/account\/thanks\//i
-            			@link = tink.attr('href')
-			end
-		end
-          end
-        end
+      if mail.subject =~ /sign up email/i			  
+        nok = Nokogiri::HTML(mail.body.decoded)
+        links = nok.css("a")
+        @link = links[0]["href"]        
       end
     end
     @link
   end
+
+
 end
