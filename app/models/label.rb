@@ -44,33 +44,5 @@ class Label < ActiveRecord::Base
     @gateway
   end
 
-  # transfer credits to a child 
-  def transfer_to( to, quantity, by ) 
-    quantity = quantity.to_i
-
-    Label.transaction do 
-      to.reload(:lock => true) 
-      self.reload(:lock => true) 
-
-      raise ActiveRecord::Rollback, "Insufficient credits"  if self.credits < quantity
-
-      self.credits -= quantity 
-      to.credits += quantity 
-      save! 
-      to.save!
-
-      ce = CreditEvent.new( {quantity: -quantity, action: :transfer_to} ) 
-      ce.label = self; 
-      ce.other = to
-      ce.user = by
-      ce.save 
-      
-      ce = CreditEvent.new( {quantity: +quantity, action: :transfer_from} )
-      ce.label = to
-      ce.other = self
-      ce.user =  by 
-      ce.save 
-    end 
-  end 
 
 end

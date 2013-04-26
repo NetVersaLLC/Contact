@@ -384,6 +384,7 @@ ActiveRecord::Schema.define(:version => 20130425211546) do
   create_table "credit_events", :force => true do |t|
     t.integer  "quantity",   :default => 0
     t.string   "action",                    :null => false
+    t.string   "note"
     t.integer  "other_id"
     t.integer  "label_id",                  :null => false
     t.integer  "user_id"

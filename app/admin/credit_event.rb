@@ -1,5 +1,4 @@
 ActiveAdmin.register CreditEvent do
-  menu false 
   scope_to :current_label
 
   index do 
@@ -10,6 +9,7 @@ ActiveAdmin.register CreditEvent do
       v.other.name 
     end 
     column :user
+    column :note
   end 
 
   form do |f|
@@ -34,8 +34,8 @@ ActiveAdmin.register CreditEvent do
     def create 
       other = Label.accessible_by(current_ability).find(params[:credit_event][:other_id]) 
       raise CanCan::AccessDenied  unless other.parent_id == current_label.id 
-      current_label.transfer_to( other, params[:credit_event][:quantity], current_user) 
 
+      CreditsProcessor.new( current_user, current_label).transfer( other, params[:credit_event]) 
       redirect_to admin_dashboard_path 
     end 
   end 

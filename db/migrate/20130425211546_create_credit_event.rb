@@ -3,6 +3,7 @@ class CreateCreditEvent < ActiveRecord::Migration
     create_table :credit_events do |t|  
       t.integer  :quantity, :default => 0
       t.string   :action, :null => false 
+      t.string   :note 
       t.integer  :other_id 
       
       t.references :label, :null => false 
