@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 
   after_create :deduct_credit
   def deduct_credit
-    CreditsProcessor(self,Label.find(self.label_id)).pay({quantity: 1, note: 'Created'}) 
+    CreditsProcessor.new(self,Label.find(self.label_id)).pay({quantity: 1, note: 'Created'}) 
  
     #label = Label.find(self.label_id)
     #label.credits = label.credits - 1
