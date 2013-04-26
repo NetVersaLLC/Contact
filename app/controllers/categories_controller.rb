@@ -12,33 +12,37 @@ class CategoriesController < ApplicationController
   end
   def create
     business = Business.find(params[:business_id])
-    params.each_key do |param|
-      if param =~ /category_((.*?)Category)/
+    params[:category].each do |pair|
+      logger.info "Checking: #{pair}"
+      if pair[1] != nil and pair[1].to_i > 0 and pair[0] =~ /((.*?)Category)/
         model    = $2.constantize
         category = $1.constantize
         inst = nil
         if business.send( model.table_name ).count > 0
           inst = business.send( model.table_name ).first
+          logger.info "Found instance"
         else
           inst = model.new
           inst.business_id = business.id
+          logger.info "Created instance"
         end
         model.column_names.each do |column|
           if column =~ /category_id/
-            inst.send("#{column}=", params[param])
-            logger.info "Setting: #{column} = #{params[param]}"
+            inst.send("#{column}=", pair[1])
+            logger.info "Setting: #{column} = #{pair[1]}"
           end
         end
         inst.save
       end
     end
     business.categorized = true
-    business.save
+    business.save :validate => false
     if business.errors.count > 0
-      render json: {:status => :error, :errors => business.errors}
+      flash[:notice] = "Business profile is not complete!"
     else
-      render json: {:status => :success}
+      flash[:notice] = 'Saved'
     end
+    redirect_to request.referer
   end
   def update
   end

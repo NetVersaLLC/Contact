@@ -91,6 +91,9 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
       else
         logger.info "Redirecing to: new_user_registration_path"
         logger.info "Errors: #{@errors.to_json}"
+        logger.info "Resource: #{resource.inspect}"
+        logger.info "Resource: #{res_result.inspect}"
+        logger.info "Resource: #{err_result.inspect}"
         clean_up_passwords resource
         render :action=>:new
       end

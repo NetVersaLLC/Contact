@@ -1,0 +1,11 @@
+%ul.displayList 
+  - colors = ["ui-icon-mail-closed info","ui-icon-mail-open warning",nil, nil, "ui-icon-circle-check success", "ui-icon-alert failure"]
+  - @jobs.each do |job| 
+    %li.ui-state-default.ui-corner-all{ :data => { "job-id" => job.id}} 
+      - color = colors[job.status] || "info" 
+      %span.ui-icon{:title => job.status_message, :class => color} 
+      %span.ui-icon.ui-icon-trash.delete_job{ :title=> "Delete Job"}
+      %span.ui-icon.ui-icon-script.view_payload{ :title => "View Payload"}
+      %span.ui-icon.ui-icon-tag.view_meta{ :title => "View Meta" } 
+      %span.ui-icon.ui-icon-triangle-1-w.rerun{ :title => "Rerun Job"} 
+      = job.name 

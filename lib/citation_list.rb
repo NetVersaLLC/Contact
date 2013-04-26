@@ -39,7 +39,8 @@
   ['Merchantcircle', 'merchantcircles',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'merchantcircle_category']
     ],
       'MerchantCircle'
   ],
@@ -123,7 +124,8 @@
   ['Localdatabase', 'localdatabases',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'localdatabase_category']
     ],
       'localDatabase'
   ],
@@ -137,7 +139,8 @@
   ['Tupalo', 'tupalos',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'tupalo_category']
     ],
       'Tupalo'
   ],
@@ -279,7 +282,8 @@
     [
       ['text', 'username'],
       ['text', 'password'],
-	  ['select', 'yellowassistance_category']
+	    ['select', 'yellowassistance_category'],
+      ['text', 'secret_answer']
     ],
       'Yellowassistance'
   ],
@@ -313,17 +317,19 @@
     ],
       'Matchpoint'
   ],
-  ['Magicyellow', 'magicyellow',
+  ['Magicyellow', 'magicyellows',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'magicyellow_category']
     ],
       'Magicyellow'
   ],
   ['Localpages', 'localpages',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'localpages_category']
     ],
       'Localpages'
   ],
@@ -355,9 +361,9 @@
     ],
       'Yippie'
   ],
-  ['Staylocal', 'staylocal',
+  ['Staylocal', 'staylocals',
     [
-      ['text', 'username'],
+      ['text', 'email'],
       ['text', 'password']
     ],
       'Staylocal'
@@ -413,21 +419,25 @@
   ['Uscity', 'uscities',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['text', 'secret_answer'],
+      ['select', 'uscity_category']
     ],
       'Uscity'
   ],
   ['Spotbusiness', 'spotbusinesses',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'spotbusiness_category']
     ],
       'Spotbusiness'
   ],
   ['Businessdb', 'businessdbs',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'businessdb_category']
     ],
       'Businessdb'
   ],
@@ -437,6 +447,60 @@
       ['text', 'password']
     ],
       'Gomylocal'
+  ],
+  ['Linkedin', 'linkedins',
+    [
+      ['text', 'username'],
+      ['text', 'password']
+    ],
+      'Linkedin'
+  ],
+  ['Thumbtack', 'thumbtacks',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Thumbtack'
+  ],
+  ['Adsolutionsyp', 'adsolutionsyps',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['text', 'secret_answer']
+    ],
+      'Ad Solutions YP'
+  ],
+  ['Findthebest', 'findthebests',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'findthebest_category']
+    ],
+      'Find The Best'
+  ],
+  ['Patch', 'patches',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'patch_category']
+    ],
+      'Patch'
+  ],
+  ['Usyellowpages', 'usyellowpages',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'usyellowpages_category']
+    ],
+      'Usyellowpages'
+  ],
+  ['Zipperpage', 'zipperpages',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'zipperpage_category']
+    ],
+      'Zipperpage'
   ]
 ]
 

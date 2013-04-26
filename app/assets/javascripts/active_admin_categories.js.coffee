@@ -1,35 +1,52 @@
-window.registerAdminCategoryBoxes = ()->
-  $('.admin_category_box').change (e)->
-    obj = $(e.target)
-    $.getJSON '/bunnies?model='+obj.attr('data-model')+'&id='+obj.val(), (data) ->
-      div = obj.next()
-      if data['count'] > 0
-        html = '<select data-model="'+obj.attr('data-model')+'" class="admin_category_box">'
-        $.each data['categories'], (i,e) ->
-          html += '<option value="'+e+'">'+i+'</option>'
-        html += '</select>'
-        html += '<div class="subs"></div>'
-        div.html(html)
-        window.registerAdminCategoryBoxes()
-    $('#category_'+obj.attr('data-model')).val( obj.val() )
-    $.getJSON '/bunnies/'+obj.val()+'.json?model='+obj.attr('data-model'), (data)->
-      $('#selected_'+data['model']).html( data['label'] )
+findTier = (arr, id)->
+  if parseInt(arr[1]) == parseInt(id)
+    return arr
+  if arr.length > 2
+    found = null
+    $.each arr[2], (i,e)->
+      retVal = findTier(e, id)
+      if retVal != null
+        found = retVal
+    if found != null
+      return found
+  return null
 
-window.submitCategory = ()->
-  params = {}
-  $('input').each (i,e)->
-    obj = $(e)
-    console.log(obj)
-    name = obj.attr('name')
-    if (name && name.substring(0, 9) == 'category_')
-      params[name] = obj.val()
-  $.post '/bunnies.json?business_id='+$('#business_id').val(),
-    params,
-    (data)->
-      if data['status'] == 'success'
-        $('#categorized').html('Categorized')
-      else
-        $('#categorized').html(data['errors'])
+setSelection = (model, tier)->
+  $('#title_'+model).html( tier[0] )
+  $('#category_'+model).val( tier[1] )
 
-$(document).ready ->
-  window.registerAdminCategoryBoxes()
+window.subCategory = (select)->
+  val   = $(select).val()
+  model = $(select).attr('data-model')
+  arr   = eval "window."+model
+  tier  = findTier(arr, val)
+  div   = $(select).next()
+  if tier.length < 3
+    setSelection(model, tier)
+    return
+  html = '<select class="aSelect" onchange="window.subCategory(this)" data-model="'+model+'">'
+  $.each tier[2], (i,e)->
+    html += '<option value="'+e[1]+'">'+e[0]+'</option>'
+  html += '</select><div class="nextCategory"></div>'
+  div.html(html)
+
+window.firstCategory = (select)->
+  model = $(select).attr('data-model')
+  arr   = eval "window."+model
+  setSelection(model, arr[2])
+  window.subCategory(select)
+
+window.loadCategory = (model)->
+  arr = eval "window."+model
+  $('#title_'+model).html('')
+  html = '<select class="topSelect" onchange="window.subCategory(this)" data-model="'+model+'">'
+  $.each arr, (j,e) ->
+    if j == 0
+      return
+    $.each e, (i, em)->
+      html += '<option value="'+em[1]+'">'+em[0]+'</option>'
+  html += '</select><div class="nextCategory"></div>'
+  $('#selector_'+model).html(html)
+
+$(document).ready ()->
+  $('#categoryForm').append('<input type="hidden" name="authenticity_token" value="'+$('meta[name="csrf-token"]').attr('content')+'" />')

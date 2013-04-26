@@ -1,7 +1,10 @@
 ActiveAdmin.register Booboo do
   collection_action :list, :method => :get do
     @booboos = Booboo.where('business_id = ?', params[:business_id]).order(:created_at)
-    render json: @booboos
+    respond_to do |format|
+      format.html { render "booboos", layout: false }  
+      format.json { render json: @booboos }  
+    end 
   end
   member_action :view, :method => :get do
     @booboo = Booboo.find(params[:id])

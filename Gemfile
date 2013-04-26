@@ -24,15 +24,16 @@ group :production do
 end
 
 group :test do
+  gem 'cucumber'
+  gem 'cucumber-rails'
   gem 'page-object'
   gem 'database_cleaner'
   gem 'capybara'
   gem 'capybara-screenshot'
-  gem 'minitest'
+  gem 'rspec'
 end
 
 group :test, :development do
-  gem 'spinach-rails'
   gem 'awesome_print'
   gem 'factory_girl'
   gem "factory_girl_rails"
@@ -56,7 +57,7 @@ gem 'nested_form',          git: 'git://github.com/ryanb/nested_form.git'
 gem 'formtastic-bootstrap', git: 'git://github.com/cgunther/formtastic-bootstrap.git', branch: 'bootstrap2-rails3-2-formtastic-2-1'
 gem 'paperclip'
 gem 'client_side_validations'
-gem 'carmen'
+gem 'carmen', '0.2.13'
 gem 'httparty'
 gem 'coderay'
 gem 'activemerchant', :require => 'active_merchant'
@@ -68,3 +69,4 @@ gem 'cancan'
 gem 'airbrake'
 gem "capistrano-db-tasks", require: false
 gem 'axlsx'
+gem 'newrelic_rpm'

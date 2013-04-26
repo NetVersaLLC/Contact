@@ -37,6 +37,7 @@ formElement = (cond, title, desc, id)->
   if cond == false
     addMessage(title, desc)
     error = false
+  console.log("formElment", cond, title, desc, id, error)
   error
 
 window.formElement = formElement
@@ -52,22 +53,31 @@ formValidates = ()->
   $('#errors').html('')
   error = false
   console.log($('#card_month').val(), $('#card_year').val())
-  error = formElement($.payment.validateCardNumber($('#card_number').val()), "Card number", "Card number is not valid", "card_number")
-  error = formElement($.payment.validateCardExpiry($('#card_month').val(), $('#card_year').val()), "Expiration date", "Card expiration is invalid", "card_month")
-  error = formElement($.payment.validateCardCVC($('#cvv').val()), "CVV", "CVV is invalid", 'cvv')
-  error = requiredElement('name', 'Name')
-  error = requiredElement('email', 'Email')
-  error = requiredElement('password', 'Password')
-  error = requiredElement('password_confirmation', 'Password Confirmation')
-  unless ($('#tos').is(':checked'))
+  errors = []
+  errors.push formElement($.payment.validateCardNumber($('#card_number').val()), "Card number", "Card number is not valid", "card_number")
+  errors.push formElement($.payment.validateCardExpiry($('#card_month').val(), $('#card_year').val()), "Expiration date", "Card expiration is invalid", "card_month")
+  errors.push formElement($.payment.validateCardCVC($('#cvv').val()), "CVV", "CVV is invalid", 'cvv')
+  errors.push requiredElement('name', 'Name')
+  errors.push requiredElement('email', 'Email')
+  if $('#password').length > 0
+    errors.push requiredElement('password', 'Password')
+    errors.push requiredElement('password_confirmation', 'Password Confirmation')
+  unless ($('#user_tos').is(':checked'))
     addMessage("Terms of Service", "You must agree to the terms of service")
-    error = true
-  if error == true
-    return false
-  true
+    errors.push false
+  console.log errors
+  validates = true
+  $.each errors, (i,e)->
+    console.log(e)
+    if e == false
+      validates = false
+  validates
 
 window.registerCheckoutHooks = ()->
   examineCard()
+  $('#addCoupon').click ()->
+    url = $.url()
+    window.location.href='/users/sign_up?package_id='+url.param('package_id')+'&coupon='+$('#coupon').val()
   textbox = $('#card_number')
   textbox.keypress(examineCard)
   textbox.blur(examineCard)
@@ -75,6 +85,9 @@ window.registerCheckoutHooks = ()->
   $('#cvv').payment('formatCardCVC')
   $('#submit_button').click (e)->
     if formValidates() == true
+      console.log("Form validates!")
       $('#submit_button').attr("disabled", "disabled")
       $('form').submit()
+    else
+      console.log("Form does not validate!")
     return true

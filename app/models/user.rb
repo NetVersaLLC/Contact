@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  attr_accessor :temppass
+  attr_accessible :callcenter
+
   validate :must_have_valid_access_level
 
   def must_have_valid_access_level
@@ -7,8 +10,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  has_one    :download
   has_many   :businesses
   belongs_to :label
+
+  scope :needs_to_download_client, where(:downloads => {:id => nil}).includes(:download)
 
   after_create :deduct_credit
   def deduct_credit
@@ -21,6 +27,10 @@ class User < ActiveRecord::Base
   def send_welcome
     UserMailer.welcome_email(self).deliver
   end
+
+  def display_name # used by activeadmin drop down 
+    self.email
+  end 
 
   TYPES = {
     :admin    => 46118,
@@ -97,7 +107,7 @@ class User < ActiveRecord::Base
 
   def business_scope
     if self.admin?
-      Business.where('id is not null')
+      Business.where('businesses.id is not null')
     elsif self.reseller?
       Business.where(:label_id => self.label_id)
     else

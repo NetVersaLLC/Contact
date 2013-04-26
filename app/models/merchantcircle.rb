@@ -1,9 +1,7 @@
 class Merchantcircle < ClientData
   attr_accessible :email
   virtual_attr_accessor :password
-  validates :email,
-            :allow_blank => true,
-            :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
+  belongs_to            :merchantcircle_category 
 
   def self.make_password
     SecureRandom.urlsafe_base64(rand()*6 + 6)
@@ -31,4 +29,32 @@ class Merchantcircle < ClientData
     STDERR.puts "Merchantcircle link: #{@link}"
     @link
   end
+
+
+
+ def self.payment_methods(business)
+    methods = {}
+    [
+      ["cash",      'CashOnly'],
+      ["checks",    'PersonalChecks'],
+      ["visa",      'Visa'],
+      ["mastercard",'Mastercard'],
+      ["amex",      'AmericanExpress'],
+      ["discover",  'Discover'],
+      ["paypal",    'Paypal']    
+    ].each do |row|
+      methods[row[0]] = row[1]
+    end
+    accepted = []
+    methods.each_key do |type|
+      if business.send("accepts_#{type}".to_sym) == true
+        accepted.push methods[type]
+      end
+    end
+    accepted
+  end
+
+
+
+
 end

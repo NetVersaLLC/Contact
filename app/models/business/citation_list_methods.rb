@@ -3,7 +3,7 @@ module Business::CitationListMethods
   included do
 
     def self.ensure_citation_list
-      @citation_list = eval File.read(Rails.root.join("lib", "citation_list.rb")) unless @citation_list
+      @citation_list = eval( File.read(Rails.root.join("lib", "citation_list.rb"))).sort unless @citation_list
     end
 
     def self.citation_list
