@@ -42,6 +42,7 @@ class Label < ActiveRecord::Base
       )
       ActiveMerchant::Billing::Base.mode = :production
     end
+    STDERR.puts "Got Gateway: #{@gateway.inspect}"
     @gateway
   end
 
