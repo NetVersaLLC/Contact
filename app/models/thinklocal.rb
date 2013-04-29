@@ -1,5 +1,5 @@
 class Thinklocal < ClientData 
-  attr_accessible :business_id, :email, :force_update, :secrets
+  attr_accessible :email
   virtual_attr_accessor :password
 
 def self.payment_methods(business)
