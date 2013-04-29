@@ -505,9 +505,17 @@
   ['Thinklocal', 'thinklocals',
     [
       ['text', 'email'],
-      ['text', 'password'],
+      ['text', 'password']
     ],
       'Thinklocal'
+  ],
+  ['Ziplocal', 'ziplocals',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'ziplocal_category']
+    ],
+      'Ziplocal'
   ]
 ]
 
