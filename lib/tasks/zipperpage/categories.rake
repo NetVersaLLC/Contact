@@ -6,7 +6,7 @@ body = File.open(Rails.root.join("categories", "zipperpage", "categories.json"),
 
     root = ZipperpageCategory.create(:name => 'root')
     categories.each do |k|
-        node = Zipperpage.create(:name => k, :parent_id => root.id)
+        node = root.children.create(:name => k, :parent_id => root.id)
         puts(k)
     end
     end
