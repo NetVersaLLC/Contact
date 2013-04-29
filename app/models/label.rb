@@ -1,5 +1,6 @@
 class Label < ActiveRecord::Base
   has_attached_file :logo, :styles => { :thumb => "200x200>" }
+  has_attached_file :favicon
   attr_accessible :name, :domain, :custom_css, :login, :password, :logo, :footer
   attr_accessible :mail_from
 
@@ -44,5 +45,11 @@ class Label < ActiveRecord::Base
     @gateway
   end
 
-
+  def favicon_url
+    if self.favicon.exists?
+      self.favicon.url
+    else
+      "/assets/favicon.ico"
+    end
+  end
 end
