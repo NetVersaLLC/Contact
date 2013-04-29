@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130429145459) do
+ActiveRecord::Schema.define(:version => 20130429164803) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -1513,6 +1513,15 @@ ActiveRecord::Schema.define(:version => 20130429145459) do
   end
 
   add_index "tasks", ["business_id"], :name => "index_tasks_on_business_id"
+
+  create_table "thinklocals", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
 
   create_table "thumbtacks", :force => true do |t|
     t.integer  "business_id"
