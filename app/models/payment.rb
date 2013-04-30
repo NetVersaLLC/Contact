@@ -27,7 +27,7 @@ class Payment < ActiveRecord::Base
     self.amount   = @transaction.price * 100
 
     if self.amount == 0
-      self.message            = "Free, no payment required."
+      self.message            = "Free checkout"
       self.status             = :success
       save
       self.trans.payment = self
