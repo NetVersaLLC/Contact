@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130425211546) do
+ActiveRecord::Schema.define(:version => 20130430100949) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -168,6 +168,15 @@ ActiveRecord::Schema.define(:version => 20130425211546) do
 
   add_index "booboos", ["business_id"], :name => "index_booboos_on_business_id"
   add_index "booboos", ["user_id"], :name => "index_booboos_on_user_id"
+
+  create_table "business_form_edits", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "business_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.text     "business_params"
+    t.string   "tab"
+  end
 
   create_table "businesscoms", :force => true do |t|
     t.datetime "force_update"

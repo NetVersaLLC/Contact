@@ -8,64 +8,52 @@
 #= require form/categories
 #= require form/uploader
 
-
-root = exports ? this
-root.save_stages = ->
-  $(".ajax-progress").show()
+###
+#
+# When a user clicks a tab, the form data is ajaxed 
+# to be saved and validated.  If errors are returned, 
+# then the current tab is redisplayed with the errors.  
+# If no errors were found, then they are allowed to move 
+# to the requested tab.  
+#
+# The form data (params) is saved in a separate model, 
+# and is used to populate the form if the user signs-out/back in. 
+#
+# When they are done, they click 'Save' button, which posts 
+# in the typical rails routing fashion.  
+#
+###
+save_changes = (event) -> 
+  window.new_tab = $(event.target).attr('href')
   $.ajax
     type: "POST"
-    cache: false
     dataType: "html"
-    url: $('form.business').attr('action'),
+    url: "/businesses/save_and_validate_change"
     data: $('form.business').serialize()
     success: (data, status, response) ->
-      $(".ajax-progress").hide()
-      if g_idx<4
-        $('form.business').replaceWith data
-        fn_deactivate_all_tabs()
-        $(".form-tabs li").removeClass "active"
-        $("div.tab-pane").removeClass "active"
-        if response.status == 210
-          fn_activate_tab g_idx
-          $(".form-tabs li:eq("+(g_idx)+")").addClass "active"
-          $("#tab"+(g_idx+1)).addClass "active"
-          $('body').animate({'scrollTop':$('.error:first').offset().top-100})
-        if response.status == 200
-          fn_activate_tab g_idx+1
-          $(".form-tabs li:eq("+(g_idx+1)+")").addClass "active"
-          $("#tab"+(g_idx+2)).addClass "active"
-          window.g_idx++
-      else
-        location.reload()
+      t = $('#current_tab').val()  
+      $(t + " > section").replaceWith( $(data).find('section') )
+      $(t + " > section input[rel=popover]").popover
+        trigger: 'hover' 
+        
+      window.initMap()        if t == "#tab1" 
+      window.businessHours    if t == "#tab3"
+      window.categories()     if t == "#tab4"
 
-      
+      if $(t + " .error").length == 0 
+        $('#current_tab').val(window.new_tab)
+        $("[href=#{window.new_tab}]").tab('show')
 
-window.g_idx = 0
+wire_up_tabs = -> 
+  $(".tabbable li > a").click (event) -> 
+    save_changes( event )
+  
+wire_up_submit = -> 
+  $("form.business").submit ->
+    $("#section-save .btn").attr('disabled','disabled')
+    $(".ajax-progress").show()
 
 $ ->
-
-  window.fn_deactivate_all_tabs = ->
-    $(".tab-content *").prop "disabled", true
-
-  window.fn_activate_tab = (idx) ->
-    $(".tab-content #tab" + (idx + 1) + " *").prop "disabled", false
-    setTimeout (->
-      $('form.business').enableClientSideValidations();
-    ), 300
-
-
-  window.fn_business_ajax_form_init = ->
-    $(".form-tabs li").click ->
-      window.g_idx = $(this).index()
-      fn_deactivate_all_tabs()
-      fn_activate_tab window.g_idx
-    $("form.business").unbind().submit ->
-      save_stages()
-      false
-    $('input[rel=popover]').popover
-      trigger: 'hover'
-    window.initMap()
-
-  fn_deactivate_all_tabs()
-  fn_activate_tab 0
-
+  wire_up_submit() 
+  wire_up_tabs() 
+  window.initMap()
