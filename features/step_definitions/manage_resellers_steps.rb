@@ -1,7 +1,3 @@
-CAPTURE_A_NUMBER = Transform /^\d+$/ do |number| 
-  number.to_i 
-end 
-
 Given /I am on the sign up page/ do 
   white_label
   visit new_user_registration_path

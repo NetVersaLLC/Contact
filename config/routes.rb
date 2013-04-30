@@ -15,8 +15,11 @@ Contact::Application.routes.draw do
   resources :subscriptions
   resources :pings
 
+  post    '/businesses/save_and_validate_change', 
+    :controller => :businesses, 
+    :action => :save_and_validate_change, 
+    :as=>'save_and_validate_change'
 
-  put    '/businesses/save_state/:id', :controller => :businesses, :action => :save_state, :as=>'business_update_state'
   resources :businesses
   get     '/report(.:format)', :controller => :businesses, :action => :report
 
