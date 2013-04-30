@@ -18,6 +18,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
   end
 
   def create
+    STDERR.puts "Ues running"
     @callcenter = false
     @password   = nil
     if params[:callcenter] == '1'
@@ -51,6 +52,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     business            = Business.new
     ActiveRecord::Base.transaction do
       if @is_checkout_session == true
+        STDERR.puts "Package: #{@package.inspect}"
         @transaction = TransactionEvent.build(params, @package, current_label)
         @transaction.process()
         if @transaction.is_success?
@@ -89,9 +91,9 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
           end
         end
       else
-        logger.info "Redirecing to: new_user_registration_path"
-        logger.info "Errors: #{@errors.to_json}"
-        logger.info "Resource: #{resource.inspect}"
+        STDERR.puts "Redirecing to: new_user_registration_path"
+        STDERR.puts "Errors: #{@errors.to_json}"
+        STDERR.puts "Resource: #{resource.inspect}"
         clean_up_passwords resource
         render :action=>:new
       end
@@ -120,6 +122,10 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     @subtotal     = @package.original_price
     @total        = @package.price
     @amount_total = @package.monthly_fee
+    STDERR.puts "Coupon: #{@coupon.inspect}"
+    STDERR.puts "Subtotal: #{@subtotal}"
+    STDERR.puts "Total: #{@total}"
+    STDERR.puts "Amount: #{@amount_total}"
     return true
   end
 end
