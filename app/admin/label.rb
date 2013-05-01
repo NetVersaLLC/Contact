@@ -49,8 +49,6 @@ ActiveAdmin.register Label do
   end
 
   member_action :plow, :method => :post do
-    #binding.pry
-    #pppppppppppp
     label = Label.find(params[:id])
     label.is_pdf = false if params[:is_pdf].blank?
     label.is_show_password = false if params[:is_show_password].blank?
