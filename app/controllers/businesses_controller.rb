@@ -57,7 +57,7 @@ class BusinessesController < ApplicationController
     @accounts = @business.nonexistent_accounts_array
   end
 
-  def save_and_validate_change
+  def save_and_validate
     edit = BusinessFormEdit.find_or_create_by_user_id( current_user.id )
     edit.business_params = params[:business] 
     @tab = edit.tab = params[:new_tab]
@@ -93,7 +93,7 @@ class BusinessesController < ApplicationController
 
     respond_to do |format|
       if @business.update_attributes(params[:business])
-        format.html { redirect_to @business, 'Business was successfully updated.' } 
+        format.html { redirect_to @business, :notice => 'Business was successfully updated.' } 
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

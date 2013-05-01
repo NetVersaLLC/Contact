@@ -28,7 +28,7 @@ save_changes = (event) ->
   $.ajax
     type: "POST"
     dataType: "html"
-    url: "/businesses/save_and_validate_change"
+    url: "/businesses/save_and_validate"
     data: $('form.business').serialize()
     success: (data, status, response) ->
       t = $('#current_tab').val()  
@@ -43,6 +43,8 @@ save_changes = (event) ->
       if $(t + " .error").length == 0 
         $('#current_tab').val(window.new_tab)
         $("[href=#{window.new_tab}]").tab('show')
+      else 
+        $('body').animate({'scrollTop':$('.error:first').offset().top-100})
 
 wire_up_tabs = -> 
   $(".tabbable li > a").click (event) -> 
