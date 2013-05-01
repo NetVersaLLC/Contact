@@ -6,7 +6,7 @@ ActiveAdmin.register CreditEvent do
     column :action 
     column :quantity 
     column :other do |v| 
-      v.other.name 
+      v.other.name unless v.other.nil?
     end 
     column :user
     column :note

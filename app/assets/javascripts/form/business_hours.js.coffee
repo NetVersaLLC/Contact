@@ -17,7 +17,7 @@ window.copyFromMonday = (day_of_week) ->
   $("#business_#{day_of_week}_close").val(close) 
   $("#business_#{day_of_week}_enabled").attr('checked',true) 
 
-$(document).ready ->
+window.businessHours = -> 
   $('.set_business_hours').click (e)->
     e.preventDefault()
     window.copyFromMonday dow for dow in ['tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] 
@@ -46,3 +46,7 @@ $(document).ready ->
     wrapper = $(e.target).closest('.timerow')
     checkbox = wrapper.find('input:checkbox')
     checkbox.attr('checked', true)
+
+$(document).ready ->
+  window.businessHours()
+
