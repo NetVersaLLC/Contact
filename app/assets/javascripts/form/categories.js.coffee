@@ -1,4 +1,4 @@
-$(document).ready ->
+window.categories = ->
   $('#business_category1').autocomplete
     source: (req, add)->
       $.getJSON "/google_categories/"+$('#business_category1').val(), req, (data)->
@@ -19,3 +19,6 @@ $(document).ready ->
     source: (req, add)->
       $.getJSON "/google_categories/"+$('#business_category5').val(), req, (data)->
         add(data)
+
+$(document).ready ->
+  window.categories() 
