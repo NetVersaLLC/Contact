@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'rails', '3.2.12'
 gem 'mysql2'
@@ -37,6 +37,7 @@ group :test, :development do
   gem 'awesome_print'
   gem 'factory_girl'
   gem "factory_girl_rails"
+  gem "pry"
 end
 
 gem 'nokogiri'
