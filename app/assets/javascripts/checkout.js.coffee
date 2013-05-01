@@ -83,11 +83,11 @@ window.registerCheckoutHooks = ()->
   textbox.blur(examineCard)
   textbox.payment('formatCardNumber')
   $('#cvv').payment('formatCardCVC')
-  $('#submit_button').click (e)->
-    if formValidates() == true
-      console.log("Form validates!")
-      $('#submit_button').attr("disabled", "disabled")
-      $('form').submit()
-    else
-      console.log("Form does not validate!")
-    return true
+  # $('#submit_button').click (e)->
+  #  if formValidates() == true
+  #    console.log("Form validates!")
+  #    $('#submit_button').attr("disabled", "disabled")
+  #    $('form').submit()
+  #  else
+  #    console.log("Form does not validate!")
+  #  return true

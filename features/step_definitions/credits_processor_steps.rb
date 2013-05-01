@@ -1,7 +1,3 @@
-CAPTURE_A_NUMBER = Transform /^\d+$/ do |number| 
-  number.to_i 
-end 
-
 Given /I have (#{CAPTURE_A_NUMBER}) credits/ do |credits|
   white_label.update_attribute( :credits, credits) 
 end 
