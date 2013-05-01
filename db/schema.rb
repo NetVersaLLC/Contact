@@ -296,6 +296,7 @@ ActiveRecord::Schema.define(:version => 20130517023646) do
     t.string   "category5"
     t.boolean  "categorized"
     t.integer  "label_id",                  :default => 1
+    t.datetime "born_at",                                    :null => false
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
@@ -944,6 +945,8 @@ ActiveRecord::Schema.define(:version => 20130517023646) do
     t.string   "favicon_content_type"
     t.integer  "favicon_file_size"
     t.datetime "favicon_updated_at"
+    t.boolean  "is_pdf"
+    t.boolean  "is_show_password",  :default => true
   end
 
   add_index "labels", ["domain"], :name => "index_labels_on_domain"
