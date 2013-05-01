@@ -14,7 +14,7 @@ GIT
     nested_form (0.3.2)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     actionmailer (3.2.12)
       actionpack (= 3.2.12)
@@ -213,7 +213,6 @@ GEM
       activerecord (~> 3.1)
       activesupport (~> 3.1)
       polyamorous (~> 0.5.0)
-    method_source (0.8.1)
     mime-types (1.23)
     money (5.1.1)
       i18n (~> 0.6.0)
@@ -244,10 +243,6 @@ GEM
     polyamorous (0.5.0)
       activerecord (~> 3.0)
     polyglot (0.3.3)
-    pry (0.9.12.2)
-      coderay (~> 1.0.5)
-      method_source (~> 0.8)
-      slop (~> 3.4)
     rabl (0.8.4)
       activesupport (>= 2.3.14)
     rack (1.4.5)
@@ -302,7 +297,6 @@ GEM
       multi_json (~> 1.0)
       rubyzip
       websocket (~> 1.0.4)
-    slop (3.4.5)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -385,7 +379,6 @@ DEPENDENCIES
   nokogiri
   page-object
   paperclip
-  pry
   rabl
   rails (= 3.2.12)
   rb-fsevent
