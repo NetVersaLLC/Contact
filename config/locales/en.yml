@@ -2,4 +2,85 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  formtastic: 
+    titles: 
+      business_details:      "Business Details"
+      company_description:   "Company Description"
+    labels: 
+      business: 
+        address:             "Address" 
+        address2:            "Address 2"
+        alternate_phone:     "Alternate Phone" 
+        business_description: "Business Description"
+        business_name:       "Business Name"
+        city:                "City"
+        company_website:     "Company Website" 
+        contact_birthday:    "Contact Birthday" 
+        contact_first_name:  "Contact First Name" 
+        contact_gender:      "Contact Gender" 
+        contact_middle_name: "Contact Middle Name" 
+        contact_last_name:   "Contact Last Name" 
+        contact_prefix:      "Contact Prefix" 
+        corporate_name:      "Corporate Name" 
+        fax_number:          "Fax Number"
+        geographic_areas:    "Geographic Areas" 
+        local_phone:         "Local Phone"
+        mobile_appears:      "Should Mobile Number Appear on Listings?" 
+        mobile_phone:        "Mobile Phone" 
+        professional_associations: "Professional Associations" 
+        toll_free_phone:     "Toll-Free Phone" 
+        year_founded:        "Year Founded" 
+        zip:                 "Zip"
+    hints: 
+      business: 
+        alternate_phone:     "Format: 555-555-1212" 
+        fax_number:          "Format: 555-555-1212"
+        local_phone:         "Format: 555-555-1212"
+        mobile_phone:        "Format: 555-555-1212"
+        toll_free_phone:     "Format: 8XX-555-1212"
+    placeholders: 
+      business: 
+        address:             "Business Address" 
+        address2:            "Address Line 2"
+        alternate_phone:     "Alternate Phone" 
+        business_description: "Business Description"
+        business_name:       "The name of the business."
+        city:                "City" 
+        company_website:     "Company Website"
+        contact_birthday:    "Contact Birthday" 
+        contact_first_name:  "Contact First Name"
+        contact_middle_name: "Contact Middle Name" 
+        contact_last_name:   "Contact Last Name" 
+        corporate_name:      "DBA/Corporate Name"
+        local_phone:         "Primary Local Phone"
+        professional_associations: "Professional Associations and Memberships"
+        toll_free_phone:     "Toll-Free Phone" 
+        year_founded:        "Year Founded" 
+        zip:                 "Business Zip"
+
+  popovers: 
+    business: 
+      address:
+        content:  "This address will be used in all online directory listings, including your website."
+        title:    "Primary Business Address"
+      local_phone:
+        content:  "This number will be used in all online directory listings, including your website."
+        title:    "Primary Local Phone Number" 
+      contact_birthday: 
+        content:  "Many sites require a birthday to sign up, this is to help recover passwords and verify your identity." 
+        title:    "Contact Birthday" 
+      contact_first_name: 
+        content:  "The first name of the person that LLH should speak to regarding your account."
+        title:    "Main Contact Person"
+      contact_middle_name: 
+        content:  "The middle name of the person that LLH should speak to regarding your account."
+        title:    "Main Contact Person"
+      contact_last_name: 
+        content:  "The last name of the person that LLH should speak to regarding your account."
+        title:    "Main Contact Person"
+      mobile_phone: 
+        content:   "If you check the box below, we will display your your mobile number in online directories.  If not, only LLH will use it to contact you."
+        title:     "Mobile Number"
+      toll_free_phone:
+        content:  "It is not recommended to use a toll free number in your listings, however if you have one, please provide it."
+        title:    "Toll Free Number"
