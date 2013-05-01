@@ -24,7 +24,7 @@
   - if @is_checkout_session == true
     :javascript
       $(document).ready(function(){
-        //window.registerCheckoutHooks();
+        window.registerCheckoutHooks();
       });
     %input{:type => :hidden, :name => 'package_id', :value => @package.id}/
     .row
@@ -67,6 +67,8 @@
               %label{:for => 'coupon'} Coupon or Offer Code
               %input#coupon{:name => 'coupon', :placeholder => "Coupon", :type => "text", :value => (@coupon ? @coupon.code : '') }/
               %input.btn.btn-info#addCoupon{:type => 'button', :value => 'Add'}
+          - else
+            %input#coupon{:name => 'coupon', :type => "hidden", :value => (@coupon ? @coupon.code : '') }/
       .span5
         %fieldset
           %legend

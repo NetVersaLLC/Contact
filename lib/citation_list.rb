@@ -501,6 +501,21 @@
       ['select', 'zipperpage_category']
     ],
       'Zipperpage'
+  ],
+  ['Thinklocal', 'thinklocals',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Thinklocal'
+  ],
+  ['Ziplocal', 'ziplocals',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'ziplocal_category']
+    ],
+      'Ziplocal'
   ]
 ]
 
