@@ -3,7 +3,9 @@ class ZipController < ApplicationController
   respond_to :js
   def index
    #@city = Location.where(:zip => params[:term]).last
-   @city = Location.city_and_state_from_address( params[:term] ) 
+   @city = Location.city_and_state_from_zip( params[:term] ) 
+   logger.info "R=#{@city.inspect}"
+
    render json: @city
   end
 end
