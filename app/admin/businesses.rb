@@ -2,6 +2,12 @@ ActiveAdmin.register Business do
   scope_to :current_user, :association_method => :business_scope
   actions :all, :except => [:new] 
 
+<<<<<<< HEAD
+=======
+  config.clear_action_items!
+  actions :all, :except => :new
+
+>>>>>>> remove business button, chnage sign in to login in application layout and fis business view/detail
   filter :redeemed_coupon, :label => "Coupon",
          :as => :select, :collection => proc { Coupon.where(:label_id => current_user.label.id) }
   preserve_default_filters!
@@ -18,7 +24,13 @@ ActiveAdmin.register Business do
     column :company_website do |v|
       link_to v.company_website, v.company_website
     end
+<<<<<<< HEAD
 
+=======
+    column :parent do |v|
+      v.user.label.name
+    end
+>>>>>>> remove business button, chnage sign in to login in application layout and fis business view/detail
     column :coupon do |v|
       unless v.transaction_event.nil? || v.transaction_event.coupon.nil?
         v.transaction_event.coupon.name
@@ -48,14 +60,6 @@ ActiveAdmin.register Business do
   end
 
   controller do
-
-    def show
-      @business = Business.accessible_by(current_user).find(params[:id])
-      show! do |format|
-        format.html { redirect_to edit_business_path(@business), :notice => 'Updated business' }
-      end
-    end
-
     def destroy
       @business = Business.find(params[:id])
       if @business.destroy
@@ -65,6 +69,20 @@ ActiveAdmin.register Business do
       end
     end
 
+    def new
+      @business = Business.new(params[:business])
+      @business.user = current_user
+      if @business.save
+        flash[:notice] = "Business created"
+      else
+        flash[:alert] = "The system failed to create your business."
+      end
+      redirect_to admin_businesses_path
+    end
+
+    def show
+      @business = Business.find(params[:id])
+    end
   end
 
   member_action :client_info, :method => :get do

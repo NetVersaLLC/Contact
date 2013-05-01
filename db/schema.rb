@@ -296,7 +296,6 @@ ActiveRecord::Schema.define(:version => 20130517023646) do
     t.string   "category5"
     t.boolean  "categorized"
     t.integer  "label_id",                  :default => 1
-    t.datetime "born_at",                                    :null => false
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
