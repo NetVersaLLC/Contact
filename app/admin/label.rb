@@ -29,7 +29,6 @@ ActiveAdmin.register Label do
   end 
 
   form do |f|
-<<<<<<< HEAD
     label = Label.find(params[:id])
     f.inputs do
     f.input :name
@@ -41,20 +40,7 @@ ActiveAdmin.register Label do
     f.input :password , :input_html => { :value => label.password } ,:as => :string
     f.input :footer # text area
     f.input :mail_from
-=======
-    f.inputs do 
-      #f.input :parent # mass assigment not allowed 
-      f.input :name 
-      f.input :domain 
-      f.input :logo, :as => :file 
-      f.input :custom_css # text area 
-      f.input :login 
-      f.input :password 
-      f.input :footer # text area 
-      #f.input :credits # mass asignment notn allowed.  
-      f.input :mail_from
->>>>>>> 38e68a0deb0888b047ac27c5045f44411614da87
-    end 
+    end
 
     f.actions 
   end 
