@@ -71,6 +71,11 @@ class Business < ActiveRecord::Base
   attr_accessible :yippies_attributes
   accepts_nested_attributes_for :yippies, :allow_destroy => true
 
+  #Fix for the Usyellowpages model trying to change it to Usyellowpage.
+  has_many :usyellowpages, :dependent => :destroy, :class_name => "Usyellowpages"
+  attr_accessible :usyellowpages_attributes
+  accepts_nested_attributes_for :usyellowpages, :allow_destroy => true
+
 
   def label_id
     self.user.label_id

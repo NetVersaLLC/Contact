@@ -60,14 +60,14 @@ $(document).ready ->
 
   $('#zipsearch').click ->
     window.zipSearch ->
-      $('#search').trigger 'click'
+      $('#company_search').trigger 'click'
 
   $('#zip').blur window.zipSearch
 
   $('#zipform button').click (event)->
     event.preventDefault()
 
-  $('#search').click ->
+  $('#company_search').click ->
     $('#business_results').html('<h3>Loading...</h3>')
     url = '/places.js?state='+escape($('#state').val())+'&'
     url += 'city='+escape($('#city').val())+'&'
