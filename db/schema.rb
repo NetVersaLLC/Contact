@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130429211004) do
+ActiveRecord::Schema.define(:version => 20130501094858) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -277,7 +277,6 @@ ActiveRecord::Schema.define(:version => 20130429211004) do
     t.string   "category5"
     t.boolean  "categorized"
     t.integer  "label_id",                  :default => 1
-    t.datetime "born_at",                                    :null => false
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
@@ -920,14 +919,14 @@ ActiveRecord::Schema.define(:version => 20130429211004) do
     t.string   "password"
     t.text     "footer"
     t.integer  "parent_id"
-    t.boolean  "is_pdf"
-    t.boolean  "is_show_password",  :default => true
     t.integer  "credits",              :default => 0
     t.string   "mail_from",            :default => "change_this@to_your_support_email.com"
     t.string   "favicon_file_name"
     t.string   "favicon_content_type"
     t.integer  "favicon_file_size"
     t.datetime "favicon_updated_at"
+    t.boolean  "is_pdf"
+    t.boolean  "is_show_password",     :default => true
   end
 
   add_index "labels", ["domain"], :name => "index_labels_on_domain"
