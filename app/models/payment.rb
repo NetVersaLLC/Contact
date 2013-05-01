@@ -25,6 +25,15 @@ class Payment < ActiveRecord::Base
   def process
     copy_values
     self.amount   = @transaction.price * 100
+
+    if self.amount == 0
+      self.message            = "Free checkout"
+      self.status             = :success
+      save
+      self.trans.payment = self
+      return true
+    end
+
     response = self.label.gateway.purchase(self.amount, @transaction.creditcard)
 
     if response.success?
@@ -35,7 +44,10 @@ class Payment < ActiveRecord::Base
       self.trans.payment = self
       return true
     else
-      self.message            = response.message
+      self.message            = case response.params['response_reason_code']
+        when '78'; 'The card code is invalid. Please check your Security code.'
+        else; response.message
+      end
       self.status             = :failure
       save
       self.trans.payment = self

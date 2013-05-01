@@ -481,9 +481,41 @@
   ['Patch', 'patches',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'patch_category']
     ],
       'Patch'
+  ],
+  ['Usyellowpages', 'usyellowpages',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'usyellowpages_category']
+    ],
+      'Usyellowpages'
+  ],
+  ['Zipperpage', 'zipperpages',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'zipperpage_category']
+    ],
+      'Zipperpage'
+  ],
+  ['Thinklocal', 'thinklocals',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Thinklocal'
+  ],
+  ['Ziplocal', 'ziplocals',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'ziplocal_category']
+    ],
+      'Ziplocal'
   ]
 ]
 

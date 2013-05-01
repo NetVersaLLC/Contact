@@ -1,12 +1,18 @@
 class Label < ActiveRecord::Base
   has_attached_file :logo, :styles => { :thumb => "200x200>" }
   attr_accessible :name, :domain, :custom_css, :login, :password, :logo, :footer,:is_pdf ,:is_show_password
+  has_attached_file :favicon
   attr_accessible :mail_from
 
   acts_as_tree :order => :name
   has_many :users
   has_many :coupons
   has_many :packages
+  has_many :credit_events 
+
+  def display_name # activeadmin 
+    name 
+  end 
 
   validates :login,
     :presence => true,
@@ -36,6 +42,15 @@ class Label < ActiveRecord::Base
       )
       ActiveMerchant::Billing::Base.mode = :production
     end
+    STDERR.puts "Got Gateway: #{@gateway.inspect}"
     @gateway
+  end
+
+  def favicon_url
+    if self.favicon.exists?
+      self.favicon.url
+    else
+      "/assets/favicon.ico"
+    end
   end
 end

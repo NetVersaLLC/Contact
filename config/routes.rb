@@ -10,7 +10,6 @@ Contact::Application.routes.draw do
     :controllers  => {
       :registrations => 'my_devise/registrations',
     }
-  
 
   resources :booboos
   resources :subscriptions
@@ -62,6 +61,8 @@ Contact::Application.routes.draw do
   get     '/scan/sites(.:format)', :controller => :scan, :action => :sites
   get     '/scan/sites/:id(.:format)', :controller => :scan, :action => :site
   get     '/scan/status/:id(.:format)', :controller => :scan, :action => :status
+
+  get     '/test/exception', :controller => :test, :action => :exception
 
   get     '/images/:id(.:format)', :action => 'index', :controller => 'images'
   post    '/images(.:format)', :action=>"create", :controller=>"images"

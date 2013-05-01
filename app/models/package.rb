@@ -1,7 +1,8 @@
 class Package < ActiveRecord::Base
+  include ApplicationHelper
   attr_accessor :original_price, :saved
   attr_accessible :original_price, :saved
-  attr_accessible :description, :name, :price, :short_description, :monthly_fee
+  attr_accessible :description, :name, :price, :short_description, :monthly_fee, :label_id
   has_many :package_payloads
   has_many :subscriptions
 

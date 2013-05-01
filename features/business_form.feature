@@ -3,29 +3,25 @@ Feature: Edit Business Form
   As a signed in user.
   I want to edit a business.
 
-  Background: 
-    Given I have signed in as an owner
-    And I am on the edit business page 
-
 @javascript
-  Scenario Outline: Autocomplete City by Zipcode
-    When I enter a "<zip code>" to Search by Zip
-    And I click search zip
-    Then I should see its "<city>" and "<state>" 
+  Scenario: Autocomplete City by Zipcode
+    Given I have signed in as an owner 
+    When I search with "92626"
+    Then I should see "Costa Mesa" and "CA"
 
-    Scenarios: valid zip codes 
-      | zip code | city       | state | 
-      | 92626    | Costa Mesa | CA    | 
+    #Scenarios: valid zip codes 
+    # | zip code | city       | state | 
+    #  | 92626    | Costa Mesa | CA    | 
       #      | 12831    | Gansevoort | NY    | 
       #| 02830    | Harrisville| RI    | 
       #| 75080    | Richardson | TX    | 
 
 @javascript
   Scenario: Get Business Results From Company Search
-    Given I have entered my city and state
-    When I enter "Kaiten" in Company Name
-    And I click Company Name Search 
-    Then I should see "Kaisen Kaiten"
+    Given I have signed in as an owner 
+    And I have entered my city and state
+    When I search for a company like "Kaiten"
+    Then I should see a company named "Kaisen Kaiten"
 
   Scenario: Populate Form From Business Results
     Given: I have performed an autocomplete search and have results.
@@ -35,10 +31,11 @@ Feature: Edit Business Form
     And: I should see "3855 S Bristol St" in Address.
 
   Scenario: View Business Details
-    When: I first arrive on the page.
-    Then: I should see "Step 1: Business Details".
-    And: I should see "Business Name"
-    And: I should see "Local Phone"
+    Given I have signed in as an owner 
+    When I first arrive on the page.
+    Then I should see "Business Details"
+    And I should see "Business name*"
+    And I should see "Local Phone"
 
   Scenario: Entering Bad Data
     When: I enter "777-777-777" into the "Local Phone" field.
