@@ -31,17 +31,14 @@ ActiveAdmin.register Label do
   form do |f|
     label = Label.find(params[:id])
     f.inputs do
-    #f.input :parent # mass assigment not allowed
-    f.input :name 
+    f.input :name
     f.input :domain 
     f.input :logo, :as => :file 
     
     f.input :custom_css # text area 
     f.input :login 
-    #f.input :password , :input_html => { :value => Label.find_by_id(request.url.split('labels/')[1].split('/')[0].to_i).password } ,:as => :string
     f.input :password , :input_html => { :value => label.password } ,:as => :string
     f.input :footer # text area
-    #f.input :credits # mass asignment notn allowed.  
     f.input :mail_from
     end 
 
@@ -53,8 +50,6 @@ ActiveAdmin.register Label do
   end
 
   member_action :plow, :method => :post do
-    #binding.pry
-    #pppppppppppp
     label = Label.find(params[:id])
     label.is_pdf = false if params[:is_pdf].blank?
     label.is_show_password = false if params[:is_show_password].blank?
