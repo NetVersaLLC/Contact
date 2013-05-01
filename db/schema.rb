@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130425211546) do
+ActiveRecord::Schema.define(:version => 20130429211004) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -710,6 +710,7 @@ ActiveRecord::Schema.define(:version => 20130425211546) do
     t.integer  "patch_category_id"
     t.integer  "usyellowpages_category_id"
     t.integer  "zipperpage_category_id"
+    t.integer  "ziplocal_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -828,15 +829,6 @@ ActiveRecord::Schema.define(:version => 20130425211546) do
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
 
-  create_table "insiderpages", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "email"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
     t.text     "secrets"
@@ -921,14 +913,18 @@ ActiveRecord::Schema.define(:version => 20130425211546) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.text     "custom_css"
-    t.datetime "created_at",                                                             :null => false
-    t.datetime "updated_at",                                                             :null => false
+    t.datetime "created_at",                                                                :null => false
+    t.datetime "updated_at",                                                                :null => false
     t.string   "login"
     t.string   "password"
     t.text     "footer"
     t.integer  "parent_id"
-    t.integer  "credits",           :default => 0
-    t.string   "mail_from",         :default => "change_this@to_your_support_email.com"
+    t.integer  "credits",              :default => 0
+    t.string   "mail_from",            :default => "change_this@to_your_support_email.com"
+    t.string   "favicon_file_name"
+    t.string   "favicon_content_type"
+    t.integer  "favicon_file_size"
+    t.datetime "favicon_updated_at"
   end
 
   add_index "labels", ["domain"], :name => "index_labels_on_domain"
@@ -1488,8 +1484,9 @@ ActiveRecord::Schema.define(:version => 20130425211546) do
     t.text     "secrets"
     t.datetime "force_update"
     t.text     "username"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+    t.integer  "supermedia_category_id"
   end
 
   add_index "supermedia", ["business_id"], :name => "index_supermedia_on_business_id"
@@ -1523,6 +1520,15 @@ ActiveRecord::Schema.define(:version => 20130425211546) do
   end
 
   add_index "tasks", ["business_id"], :name => "index_tasks_on_business_id"
+
+  create_table "thinklocals", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "thumbtacks", :force => true do |t|
     t.integer  "business_id"
@@ -1830,6 +1836,26 @@ ActiveRecord::Schema.define(:version => 20130425211546) do
     t.integer  "yippie_category_id"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+  end
+
+  create_table "ziplocal_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "ziplocal_categories", ["name"], :name => "index_ziplocal_categories_on_name"
+  add_index "ziplocal_categories", ["parent_id"], :name => "index_ziplocal_categories_on_parent_id"
+
+  create_table "ziplocals", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.integer  "ziplocal_category_id"
   end
 
   create_table "zipperpage_categories", :force => true do |t|
