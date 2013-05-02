@@ -55,7 +55,15 @@ wire_up_submit = ->
     $("#section-save .btn").attr('disabled','disabled')
     $(".ajax-progress").show()
 
+wire_up_cancel = -> 
+  $("#section-save .cancel").click -> 
+    href = this.href
+    $.post '/businesses/cancel_change', () -> 
+      window.location = href 
+    return false
+
 $ ->
   wire_up_submit() 
+  wire_up_cancel()
   wire_up_tabs() 
   window.initMap()
