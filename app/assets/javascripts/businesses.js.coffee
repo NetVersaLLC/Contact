@@ -62,8 +62,20 @@ wire_up_cancel = ->
       window.location = href 
     return false
 
+# only for the business.show view 
+delay_task_sync_button = -> 
+  if window.location.search.indexOf("delay=true") > 0 
+    $("form.new_task > input[type='submit']").attr('disabled','disabled') 
+    window.enable_sync_button = ->
+      $("form.new_task > input[type='submit']").removeAttr('disabled')
+    window.setTimeout window.enable_sync_button, 60 * 1000
+
+
 $ ->
   wire_up_submit() 
   wire_up_cancel()
   wire_up_tabs() 
   window.initMap()
+  #business.show 
+  delay_task_sync_button() 
+
