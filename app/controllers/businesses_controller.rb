@@ -51,6 +51,7 @@ class BusinessesController < ApplicationController
     business_form_edit = BusinessFormEdit.find_or_create_by_user_id( current_user.id )
     if @business.id == business_form_edit.business_id 
       @business.attributes = business_form_edit.business_params
+      flash[:notice] = 'Unsaved changes have been found.  Please save or cancel them. ' 
     end
     business_form_edit.update_attributes( {:business_id => @business.id, :business_params => nil, :user_id => current_user.id}) 
     
@@ -68,8 +69,12 @@ class BusinessesController < ApplicationController
 
     @tab = params[:current_tab]
     render  'validate', :layout=>false
-    return
   end
+
+  def cancel_change
+    BusinessFormEdit.where(:user_id => current_user.id).delete_all
+    render :nothing => true
+  end 
 
 
   # POST /businesses
@@ -80,6 +85,7 @@ class BusinessesController < ApplicationController
     @business.label_id = current_label.id
 
     if @business.save 
+      BusinessFormEdit.where(:user_id => current_user.id).delete_all
       format.html { redirect_to @business, 'Created your business profile.' } 
     else 
       format.html { render action: "new" }  
@@ -93,6 +99,8 @@ class BusinessesController < ApplicationController
 
     respond_to do |format|
       if @business.update_attributes(params[:business])
+        BusinessFormEdit.where(:user_id => current_user.id).delete_all
+
         format.html { redirect_to @business, :notice => 'Business was successfully updated.' } 
         format.json { head :no_content }
       else

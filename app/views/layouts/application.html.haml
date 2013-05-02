@@ -27,4 +27,11 @@
             = link_to('Edit Profile', edit_user_registration_path ) 
           - else
             = link_to('Sign In', new_user_session_path)
+      .row 
+        .span6 
+          - if flash[:notice] 
+            .alert.alert-info= flash[:notice] 
+          - if flash[:error] 
+            .alert.alert-error= flash[:error] 
+        .span6 
       = yield
