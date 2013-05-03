@@ -35,9 +35,9 @@ save_changes = (event) ->
       $(t + " > section").replaceWith( $(data).find('section') )
       $(t + " > section input[rel=popover]").popover
         trigger: 'hover' 
-        
+      console.log t
       window.initMap()        if t == "#tab1" 
-      window.businessHours    if t == "#tab3"
+      window.businessHours()  if t == "#tab3"
       window.categories()     if t == "#tab4"
 
       if $(t + " .error").length == 0 
