@@ -15,8 +15,18 @@ Contact::Application.routes.draw do
   resources :subscriptions
   resources :pings
 
+  post    '/businesses/save_and_validate', 
+    :controller => :businesses, 
+    :action => :save_and_validate, 
+    :as=>'save_and_validate'
+  put    '/businesses/save_and_validate', 
+    :controller => :businesses, 
+    :action => :save_and_validate, 
+    :as=>'save_and_validate'
+  post    '/businesses/cancel_change', 
+    :controller => :businesses, 
+    :action => :cancel_change
 
-  put    '/businesses/save_state/:id', :controller => :businesses, :action => :save_state, :as=>'business_update_state'
   resources :businesses
   get     '/report(.:format)', :controller => :businesses, :action => :report
 
@@ -61,6 +71,8 @@ Contact::Application.routes.draw do
   get     '/scan/sites(.:format)', :controller => :scan, :action => :sites
   get     '/scan/sites/:id(.:format)', :controller => :scan, :action => :site
   get     '/scan/status/:id(.:format)', :controller => :scan, :action => :status
+
+  get     '/test/exception', :controller => :test, :action => :exception
 
   get     '/images/:id(.:format)', :action => 'index', :controller => 'images'
   post    '/images(.:format)', :action=>"create", :controller=>"images"

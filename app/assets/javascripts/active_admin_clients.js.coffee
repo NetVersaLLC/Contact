@@ -48,6 +48,7 @@ registerHooks = ()->
     window.job_id = $(e.target).parent().attr('data-job-id')
     console.log window.job_id
     $.get '/admin/jobs/'+window.job_id+'/view_meta.js', { table: window.current_tab }, (data)->
+      $('#view_meta').dialog({autoOpen: false}) 
       $('#view_meta').html(data)
       $('#view_meta').dialog( "open" )
   $('.view_booboo').click (e)->
@@ -131,7 +132,6 @@ window.startPayloads = () ->
   # Setup Payload Categories
   window.payloadListAction = window.clientPayloadListAction
   $.getJSON '/admin/jobs/payloads_categories_list.js', (data)->
-    console.log(data)
     html = '<select id="payload_categories_select" onchange="window.loadPayloads();">'
     $.each data, (i,e)->
       html += '<option value="'+e+'">'+e+'</option>'
@@ -152,30 +152,27 @@ window.startPayloads = () ->
       window.reloadView = () ->
         func( ui.panel )
       func( ui.panel )
-
   # Setup the reload button
   window.reloadView = () ->
     showPending( $('#client_tabs-1' ) )
   $('#reloadButton').click ->
     window.reloadView()
   window.reloadView()
-
   # Respond to panel clicks
   $('#delete_job').dialog
     autoOpen: false,
     show: "blind",
     hide: "explode"
     buttons:
-      Ok: ()->
+      "Ok": ->
         $.ajax
           url: '/admin/jobs/'+window.job_id+'/delete_job.js',
           type: 'DELETE',
           success: ( response ) ->
             $('#delete_job').dialog( "close" )
             window.reloadView()
-      Cancel: ()->
+      "Cancel": ()->
         $( this ).dialog( "close" )
-
   $('#view_payload').dialog
     autoOpen: false,
     show: "blind",

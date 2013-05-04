@@ -3,3 +3,4 @@ Formtastic::Helpers::FormHelper.builder = FormtasticBootstrap::FormBuilder
 # Defaults to :sentence, valid options are :sentence, :list, :first and :none
 # story 47195909.  Changed from sentence to first error 
 Formtastic::FormBuilder.inline_errors = :first
+Formtastic::FormBuilder.i18n_lookups_by_default = true

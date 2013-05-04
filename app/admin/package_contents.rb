@@ -16,26 +16,27 @@ ActiveAdmin.register_page "Package Contents" do
       end
     end
     pac = current_user.packages.first
-    table(:id => 'package_content_table') do
-      PackagePayload.where(:package_id => pac.id).each do |obj|
-        tr do
-          td(:class => 'payload_name') do 
-            "#{obj.site}/#{obj.payload}"
-          end
-          td(:class => 'payload_delete', 'data-package-id' => obj.id) do
-            "Delete"
-          end
-        end
-      end
+    table(:id => 'package_content_table', :class => 'index_table index') do
+    # gets loaded up via ajax
+    #  PackagePayload.where(:package_id => pac.id).order("site asc").each do |obj|
+    #    tr do
+    #      td(:class => 'payload_name') do 
+    #        "#{obj.site}/#{obj.payload}"
+    #      end
+    #      td(:class => 'payload_delete', 'data-package-id' => obj.id) do
+    #        "Delete"
+    #      end
+    #    end
+    #  end
     end
     div(:id => 'assign_payload', :style => 'display: none') do
       h2 "Assign payload?"
       para "Are you sure you want to assign payload to package?"
     end
-    # script do
-    #  "window.business_id = #{params[:business_id]};" +
+     script do
+      "window.business_id = #{params[:business_id]};" 
     #  "$(document).ready(function() { window.startPayloads(); });"
-    # end
+     end
   end
 
   action_item do
