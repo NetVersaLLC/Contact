@@ -33,15 +33,20 @@ class TransactionEvent < ActiveRecord::Base
 
   def process
     @creditcard = ActiveMerchant::Billing::CreditCard.new(@options[:creditcard])
-    unless @creditcard.valid?
-      message = "Credit card is not valid"
-      @creditcard.errors.select{|k,v| !v.empty? }.each { |k,v|
-        message = "#{message}<br>- #{k.humanize} : #{v.join}"
-      }
-      self.message = message.html_safe
-      self.status  = :failure
-      save
-      return false
+    if self.monthly_fee == 0 and self.price == 0
+      # Skip the next bit, not sure a clearer way to put this
+    else
+      STDERR.puts "Self: #{self.monthly_fee}: #{self.price}"
+      unless @creditcard.valid?
+        message = "Credit card is not valid"
+        @creditcard.errors.select{|k,v| !v.empty? }.each { |k,v|
+          message = "#{message}<br>- #{k.humanize} : #{v.join}"
+        }
+        self.message = message.html_safe
+        self.status  = :failure
+        save
+        return false
+      end
     end
     ActiveRecord::Base.transaction do
       @payment = Payment.build(self)

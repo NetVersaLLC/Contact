@@ -27,17 +27,16 @@ ActiveAdmin.register Label do
 
   form do |f|
     f.inputs do 
-    #f.input :parent # mass assigment not allowed 
-    f.input :name 
-    f.input :domain 
-    f.input :logo, :as => :file 
-    
-    f.input :custom_css # text area 
-    f.input :login 
-    f.input :password 
-    f.input :footer # text area 
-    #f.input :credits # mass asignment notn allowed.  
-    f.input :mail_from
+      #f.input :parent # mass assigment not allowed 
+      f.input :name 
+      f.input :domain 
+      f.input :logo, :as => :file 
+      f.input :custom_css # text area 
+      f.input :login 
+      f.input :password 
+      f.input :footer # text area 
+      #f.input :credits # mass asignment notn allowed.  
+      f.input :mail_from
     end 
 
     f.actions 

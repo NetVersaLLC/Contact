@@ -5,7 +5,8 @@ class AngiesList < ClientData
             :allow_blank => true,
             :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
  belongs_to            :angies_list_category
+  
   def self.make_password
-    SecureRandom.urlsafe_base64(rand()*6 + 6)
+    SecureRandom.urlsafe_base64(rand()*6 + 8).gsub("_","").gsub("-","")
   end
 end

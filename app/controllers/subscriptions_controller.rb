@@ -35,8 +35,9 @@ class SubscriptionsController < ApplicationController
           flash[:alert] = "Error: #{resp.message}"
         end
       else # For coupons
-        @sub.active = false
-        @sub.save!
+        #@sub.active = false
+        #@sub.save!
+        @sub.update_attribute(:active, :false) 
         flash[:alert] = "Subscription cancelled."
       end
     end

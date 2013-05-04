@@ -1,17 +1,13 @@
 namespace :yahoo do
   task :categories => :environment do
-    File.open(Rails.root.join("categories", "yahoo", "final_list.txt"), 'r').each do |line|
-      rcatid, catname, subcatid, subcatname, subprofcontact, synonyms = *line.split("\t")
-      subprofcontact = subprofcontact == 'Y' ? true : false
-      STDERR.puts "Adding: #{catname} -> #{subcatname}"
-      YahooCategory.create do |y|
-        y.rcatid         = rcatid
-        y.catname        = catname
-        y.subcatid       = subcatid
-        y.subcatname     = subcatname
-        y.subprofcontact = subprofcontact
-        y.synonyms       = synonyms
-      end
+  body = File.open(Rails.root.join("categories", "yahoo", "categories.json"), 'r').read
+    categories = JSON.parse(body) 
+    categories = categories.sort
+    root = YahooCategory.create(:name => 'root')
+    categories.each do |k| 
+        node = root.children.create(:name => k, :parent_id => root.id)  
+        puts(k)
     end
-  end
-end
+
+ end
+end 
