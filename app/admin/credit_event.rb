@@ -6,7 +6,7 @@ ActiveAdmin.register CreditEvent do
     column :action 
     column :quantity 
     column :other do |v| 
-      v.other.name 
+      v.try(:other).try(:name)
     end 
     column :user
     column :note
@@ -24,10 +24,10 @@ ActiveAdmin.register CreditEvent do
 
   controller do 
     def new 
-      @credit_event = CreditEvent.new 
+      @credit_event = CreditEvent.new
       @credit_event.other = Label.find(params[:other_id])
 
-      raise CanCan::AccessDenied  unless @credit_event.other.parent_id == current_label.id 
+      raise CanCan::AccessDenied  unless @credit_event.other.parent_id == current_label.id
     end 
 
     # create the transfer 
