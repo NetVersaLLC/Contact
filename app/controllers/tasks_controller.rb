@@ -10,6 +10,7 @@ class TasksController < ApplicationController
     else
       flash[:notice] = "Error: #{@task.errors}"
     end
-    redirect_to request.referer
+    redirect_to request.referer + "?delay=true"
   end
+
 end
