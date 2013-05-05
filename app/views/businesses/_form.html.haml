@@ -1,37 +1,34 @@
-= render :partial => 'form/search_form' unless request.xhr?
-:javascript
-  $(function(){
-    fn_business_ajax_form_init();
-  });
-
-- form_url = @business.id.nil? ? '/businesses' : business_update_state_path(@business.id)
-= semantic_form_for @business, :url => form_url, :validate => true, :html => { :class => 'business-form.form-horizontal' }, :remote => true  do |f|
-  - @accounts = [] if @accounts.nil?
-  - if request.xhr?
-    .hidden.save_state_errors= @save_state_errors unless @save_state_errors.empty?
-  - else
-    = f.semantic_errors
-  - @f = f
-  .span10
-    .tabbable
-      %ul.nav.nav-tabs.form-tabs
-        %li.active
-          %a{"data-toggle" => "tab", :href => "#tab1"} Business Details
-        %li
-          %a{"data-toggle" => "tab", :href => "#tab2"} Payment Methods
-        %li
-          %a{"data-toggle" => "tab", :href => "#tab3"} Business Hours
-        %li
-          %a{"data-toggle" => "tab", :href => "#tab4"} Company Description
-        %li
-          %a{"data-toggle" => "tab", :href => "#tab5"} Categories
-      .tab-content
-        #tab1.tab-pane.active= render :partial => 'form/business_details'
-        #tab2.tab-pane= render :partial => 'form/payment_methods'
-        #tab3.tab-pane= render :partial => 'form/business_hours'
-        #tab4.tab-pane= render :partial => 'form/company_description'
-        #tab5.tab-pane= render :partial => 'form/categories'
-    = render :partial => 'form/submit'
-
-
-
+.row
+  .span12
+    = render :partial => 'form/search_form' unless request.xhr?
+.row
+  .span12
+    -# form_url = @business.id.nil? ? '/businesses' : business_update_state_path(@business.id)
+    -# semantic_form_for @business, :url => form_url, :validate => true, :html => { :class => 'business-form.form-horizontal' }, :remote => true  do |f|
+    = semantic_form_for @business, :validate => true, :html => { :class => 'business-form.form-horizontal' } do |f|
+      = hidden_field_tag 'current_tab', @tab ||= "#tab1"
+      - @accounts = [] if @accounts.nil?
+      = f.semantic_errors
+      - @f = f
+      .tabbable
+        %ul.nav.nav-tabs
+          %li.active
+            %a{:href => "#tab1"} Step 1: Business Details
+          %li
+            %a{:href => "#tab2"} Step 2: Payment Methods
+          %li
+            %a{:href => "#tab3"} Step 3: Business Hours
+          %li
+            %a{:href => "#tab4"} Step 4: Select Categories
+          %li
+            %a{:href => "#tab5"} Step 5: Manage Images
+          %li
+            %a{:href => "#tab6"} Company Description
+        .tab-content
+          #tab1.tab-pane.active= render :partial => 'form/business_details'
+          #tab2.tab-pane= render :partial => 'form/payment_methods'
+          #tab3.tab-pane= render :partial => 'form/business_hours'
+          #tab4.tab-pane= render :partial => 'form/categories'
+          #tab5.tab-pane= render :partial => 'form/logo'
+          #tab6.tab-pane= render :partial => 'form/company_description'
+      = render :partial => 'form/submit'

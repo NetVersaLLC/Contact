@@ -27,6 +27,12 @@ class BusinessesController < ApplicationController
   def new
     @business = Business.new
     @accounts = @business.nonexistent_accounts_array
+    @tab = "#tab1"
+    business_form_edit = BusinessFormEdit.find_or_create_by_user_id( current_user.id )
+    if business_form_edit.business_id.nil? 
+      @business.attributes = business_form_edit.business_params
+    end
+    business_form_edit.update_attributes({business_id: nil, user_id: current_user.id}) 
 
     respond_to do |format|
       format.html # new.html.erb
@@ -41,31 +47,34 @@ class BusinessesController < ApplicationController
       redirect_to root_path
       return
     end
-    @accounts = @business.nonexistent_accounts_array
-    if @business == nil
-      redirect_to new_business_path()
-    elsif @business.user_id != current_user.id
-      redirect_to '/'
+
+    business_form_edit = BusinessFormEdit.find_or_create_by_user_id( current_user.id )
+    if @business.id == business_form_edit.business_id 
+      @business.attributes = business_form_edit.business_params
+      flash[:notice] = 'Unsaved changes have been found.  Please save or cancel them. ' 
     end
+    business_form_edit.update_attributes( {:business_id => @business.id, :business_params => nil, :user_id => current_user.id}) 
+    
+    @accounts = @business.nonexistent_accounts_array
   end
 
-  def save_state
-    # 
-    # TODO need to create business when user has not submitted form, 
-    #      IE executed the create action. 
-    # 
-    @business = Business.find(params[:id])
-    @business.attributes = params[:business]
-    @save_state_errors = {}
-    unless @business.valid?
-      @business.errors.messages.each do |k,v|
-        @save_state_errors[k] = v if params[:business].has_key?(k)
-      end
-    end
-    @business.save(:validate => false)
-    @business.reload
-    render :action=>:edit, :layout=>nil, :status=>@save_state_errors.empty? ? 200:210 and return
+  def save_and_validate
+    edit = BusinessFormEdit.find_or_create_by_user_id( current_user.id )
+    edit.business_params = params[:business] 
+    @tab = edit.tab = params[:new_tab]
+    edit.save
+
+    @business = Business.new(params[:business] ) 
+    @business.valid? 
+
+    @tab = params[:current_tab]
+    render  'validate', :layout=>false
   end
+
+  def cancel_change
+    BusinessFormEdit.where(:user_id => current_user.id).delete_all
+    render :nothing => true
+  end 
 
 
   # POST /businesses
@@ -74,14 +83,13 @@ class BusinessesController < ApplicationController
     @business = Business.new(params[:business])
     @business.user_id = current_user.id
     @business.label_id = current_label.id
-    respond_to do |format|
-      if @business.save
-        format.html { redirect_to @business, notice: 'Created your business profile.' }
-      else
-        logger.info @business.errors.inspect
-        format.html { render action: "new" }
-      end
-    end
+
+    if @business.save 
+      BusinessFormEdit.where(:user_id => current_user.id).delete_all
+      format.html { redirect_to @business, 'Created your business profile.' } 
+    else 
+      format.html { render action: "new" }  
+    end 
   end
 
   # PUT /businesses/1
@@ -91,7 +99,9 @@ class BusinessesController < ApplicationController
 
     respond_to do |format|
       if @business.update_attributes(params[:business])
-        format.html { redirect_to '/businesses', notice: 'Business was successfully updated.' }
+        BusinessFormEdit.where(:user_id => current_user.id).delete_all
+
+        format.html { redirect_to @business, :notice => 'Business was successfully updated.' } 
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
