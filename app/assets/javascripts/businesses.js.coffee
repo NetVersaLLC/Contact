@@ -35,9 +35,9 @@ save_changes = (event) ->
       $(t + " > section").replaceWith( $(data).find('section') )
       $(t + " > section input[rel=popover]").popover
         trigger: 'hover' 
-        
+      console.log t
       window.initMap()        if t == "#tab1" 
-      window.businessHours    if t == "#tab3"
+      window.businessHours()  if t == "#tab3"
       window.categories()     if t == "#tab4"
 
       if $(t + " .error").length == 0 
@@ -55,7 +55,27 @@ wire_up_submit = ->
     $("#section-save .btn").attr('disabled','disabled')
     $(".ajax-progress").show()
 
+wire_up_cancel = -> 
+  $("#section-save .cancel").click -> 
+    href = this.href
+    $.post '/businesses/cancel_change', () -> 
+      window.location = href 
+    return false
+
+# only for the business.show view 
+delay_task_sync_button = -> 
+  if window.location.search.indexOf("delay=true") > 0 
+    $("form.new_task > input[type='submit']").attr('disabled','disabled') 
+    window.enable_sync_button = ->
+      $("form.new_task > input[type='submit']").removeAttr('disabled')
+    window.setTimeout window.enable_sync_button, 60 * 1000
+
+
 $ ->
   wire_up_submit() 
+  wire_up_cancel()
   wire_up_tabs() 
   window.initMap()
+  #business.show 
+  delay_task_sync_button() 
+

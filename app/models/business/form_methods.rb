@@ -38,7 +38,7 @@ module Business::FormMethods
     end
 
     def self.geographic_areas_list
-      list = ['Worldwide', 'Unknown']
+      list = ['Worldwide', 'Nationwide', 'Unknown']
       number = 10
       1.upto(9) do
         list.push "Within #{number} Miles"

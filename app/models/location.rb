@@ -12,22 +12,23 @@ class Location < ActiveRecord::Base
 
     request  = "http://maps.googleapis.com/maps/api/geocode/json?address=#{search_zip}&sensor=false"
     response = HTTParty.get(request) 
-    if response["status"] == "OK" 
-      address = {}
 
-      response["results"].each do |result|
-        ac = result["address_components"]
-        zip = ac.select{ |a| a['types'].include?("postal_code") }.first
-        next if zip.nil? 
+    return nil unless response["status"] == "OK" 
 
-        address["zip"] = zip["short_nane"] 
-        city = ac.select{ |a| a['types'].include?("locality")}.first
-        city = ac.select{ |a| a['types'].include?("sublocality")}.first if city.nil? 
-        city = city["short_name"] 
+    address = nil
+    response["results"].each do |result|
+      ac = result["address_components"]
+      country = ac.select{ |a| a['types'].include?("country") }.first
+      next if country.nil? || country['short_name'] != "US" 
 
-        address["city"] = city
-        address["state"] = ac.select{ |a| a['types'].include?("administrative_area_level_1")}[0]["short_name"] 
-      end 
+      address={}
+      address["zip"] = ac.select{ |a| a['types'].include?("postal_code") }.first["short_name"]
+      city = ac.select{ |a| a['types'].include?("locality")}.first
+      city = ac.select{ |a| a['types'].include?("sublocality")}.first if city.nil? 
+      city = city["short_name"] 
+
+      address["city"] = city
+      address["state"] = ac.select{ |a| a['types'].include?("administrative_area_level_1")}[0]["short_name"] 
     end 
     address if defined? address
   end 
