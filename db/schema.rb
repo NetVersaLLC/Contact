@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130430100949) do
+ActiveRecord::Schema.define(:version => 20130503212234) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -1704,16 +1704,32 @@ ActiveRecord::Schema.define(:version => 20130430100949) do
   add_index "usyellowpages_categories", ["name"], :name => "index_usyellowpages_categories_on_name"
   add_index "usyellowpages_categories", ["parent_id"], :name => "index_usyellowpages_categories_on_parent_id"
 
-  create_table "yahoo_categories", :force => true do |t|
-    t.integer  "rcatid"
-    t.string   "catname"
-    t.integer  "subcatid"
-    t.string   "subcatname"
-    t.boolean  "subprofcontact"
-    t.string   "synonyms"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+  create_table "vitelity_numbers", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "ratecenter"
+    t.string   "state"
+    t.string   "did"
+    t.string   "forwards_to"
+    t.string   "address"
+    t.string   "suite"
+    t.string   "zip"
+    t.boolean  "active"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
+
+  add_index "vitelity_numbers", ["business_id"], :name => "index_vitelity_numbers_on_business_id"
+  add_index "vitelity_numbers", ["state"], :name => "index_vitelity_numbers_on_state"
+
+  create_table "yahoo_categories", :force => true do |t|
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "parent_id"
+    t.string   "name"
+  end
+
+  add_index "yahoo_categories", ["name"], :name => "index_yahoo_categories_on_name"
+  add_index "yahoo_categories", ["parent_id"], :name => "index_yahoo_categories_on_parent_id"
 
   create_table "yahoos", :force => true do |t|
     t.integer  "business_id"
