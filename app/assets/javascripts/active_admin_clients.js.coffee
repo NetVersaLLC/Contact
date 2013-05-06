@@ -158,7 +158,6 @@ window.startPayloads = () ->
   $('#reloadButton').click ->
     window.reloadView()
   window.reloadView()
-  console.log "I'm alive" 
   # Respond to panel clicks
   $('#delete_job').dialog
     autoOpen: false,
@@ -174,7 +173,6 @@ window.startPayloads = () ->
             window.reloadView()
       "Cancel": ()->
         $( this ).dialog( "close" )
-  console.log "here?"
   $('#view_payload').dialog
     autoOpen: false,
     show: "blind",

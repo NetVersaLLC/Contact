@@ -23,6 +23,9 @@ Contact::Application.routes.draw do
     :controller => :businesses, 
     :action => :save_and_validate, 
     :as=>'save_and_validate'
+  post    '/businesses/cancel_change', 
+    :controller => :businesses, 
+    :action => :cancel_change
 
   resources :businesses
   get     '/report(.:format)', :controller => :businesses, :action => :report

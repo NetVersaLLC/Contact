@@ -105,14 +105,14 @@
     ],
       'Yahoo'
   ],
-  ['Yelp', 'yelps',
-    [
-      ['text', 'email'],
-      ['text', 'password'],
-      ['select', 'yelp_category']
-    ],
-      'Yelp'
-  ],
+ # ['Yelp', 'yelps',
+ #   [
+ #     ['text', 'email'],
+ #     ['text', 'password'],
+ #     ['select', 'yelp_category']
+ #   ],
+ #     'Yelp'
+ # ],
   ['Foursquare', 'foursquares',
     [
       ['text', 'email'],
@@ -319,7 +319,7 @@
   ],
   ['Magicyellow', 'magicyellows',
     [
-      ['text', 'username'],
+      ['text', 'email'],
       ['text', 'password'],
       ['select', 'magicyellow_category']
     ],

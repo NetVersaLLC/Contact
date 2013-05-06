@@ -6,7 +6,7 @@
     -# form_url = @business.id.nil? ? '/businesses' : business_update_state_path(@business.id)
     -# semantic_form_for @business, :url => form_url, :validate => true, :html => { :class => 'business-form.form-horizontal' }, :remote => true  do |f|
     = semantic_form_for @business, :validate => true, :html => { :class => 'business-form.form-horizontal' } do |f|
-      = hidden_field_tag 'current_tab', @tab 
+      = hidden_field_tag 'current_tab', @tab ||= "#tab1"
       - @accounts = [] if @accounts.nil?
       = f.semantic_errors
       - @f = f
@@ -29,6 +29,6 @@
           #tab2.tab-pane= render :partial => 'form/payment_methods'
           #tab3.tab-pane= render :partial => 'form/business_hours'
           #tab4.tab-pane= render :partial => 'form/categories'
-          #tab5.tab-pane= render :partial => 'form/images'
+          #tab5.tab-pane= render :partial => 'form/logo'
           #tab6.tab-pane= render :partial => 'form/company_description'
       = render :partial => 'form/submit'

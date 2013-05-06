@@ -1,7 +1,7 @@
 class PackagesController < ApplicationController
   def index
     if current_user.reseller?
-      @packages = Package.find(params[:id]).package_payloads
+      @packages = Package.find(params[:id]).package_payloads.order("site asc")
       render json: @packages
     else
       error = {:error => :access_denied}
