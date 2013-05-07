@@ -3,7 +3,7 @@
 require 'rubygems'
 require 'awesome_print'
 require 'faker'
-require 'yelpster'
+#require 'yelpster'
 require './config/environment'
 require './account_creator/utility'
 require './account_creator/vitelity.rb'
