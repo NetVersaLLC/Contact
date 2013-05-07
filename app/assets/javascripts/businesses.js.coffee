@@ -25,6 +25,12 @@
 #
 ###
 save_changes = (event) -> 
+  current_tab = $("#current_tab").val().substr(1)
+
+  if $("##{current_tab} .error").length > 0 
+    scrollToFirstError()
+    return event.preventDefault()
+  
   window.new_tab = $(event.target).attr('href')
   $.ajax
     type: "POST"
@@ -36,8 +42,8 @@ save_changes = (event) ->
       $(t + " > section").replaceWith( $(data).find('section') )
       $(t + " > section input[rel=popover]").popover
         trigger: 'hover' 
-      console.log t
 
+      console.log "post done"
       window.initMap()             if t == "#tab1" 
       window.businessHours()       if t == "#tab3"
       window.categories()          if t == "#tab4"
@@ -47,9 +53,11 @@ save_changes = (event) ->
         $('#current_tab').val(window.new_tab)
         $("[href=#{window.new_tab}]").tab('show')
       else 
-        $('body').animate({'scrollTop':$('.error:first').offset().top-100})
+        scrollToFirstError()
 
-wire_up_tabs = -> 
+      $('form.business').enableClientSideValidations()
+
+wire_up_tabs = () -> 
   $(".tabbable li > a").click (event) -> 
     save_changes( event )
   
@@ -64,6 +72,9 @@ wire_up_cancel = ->
     $.post '/businesses/cancel_change', () -> 
       window.location = href 
     return false
+
+scrollToFirstError = () -> 
+  $('html,body').animate({'scrollTop':$('.error:first').offset().top-100})
 
 # only for the business.show view 
 delay_task_sync_button = -> 
