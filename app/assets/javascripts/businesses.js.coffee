@@ -7,6 +7,7 @@
 #= require form/business_hours
 #= require form/categories
 #= require form/uploader
+#= require form/company_description
 
 ###
 #
@@ -36,9 +37,11 @@ save_changes = (event) ->
       $(t + " > section input[rel=popover]").popover
         trigger: 'hover' 
       console.log t
-      window.initMap()        if t == "#tab1" 
-      window.businessHours()  if t == "#tab3"
-      window.categories()     if t == "#tab4"
+
+      window.initMap()             if t == "#tab1" 
+      window.businessHours()       if t == "#tab3"
+      window.categories()          if t == "#tab4"
+      window.company_description() if t == "#tab6"
 
       if $(t + " .error").length == 0 
         $('#current_tab').val(window.new_tab)
@@ -78,4 +81,6 @@ $ ->
   window.initMap()
   #business.show 
   delay_task_sync_button() 
+  window.company_description()
+
 

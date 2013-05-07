@@ -23,3 +23,4 @@ window.initMap = () =>
   $('#mapit').click (event)->
     event.preventDefault()
   $('#business_contact_birthday').datepicker()
+
