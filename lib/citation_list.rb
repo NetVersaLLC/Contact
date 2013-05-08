@@ -105,7 +105,7 @@
     ],
       'Yahoo'
   ],
-  ['Yelp', 'yelps',
+ ['Yelp', 'yelps',
     [
       ['text', 'email'],
       ['text', 'password'],
@@ -319,7 +319,7 @@
   ],
   ['Magicyellow', 'magicyellows',
     [
-      ['text', 'username'],
+      ['text', 'email'],
       ['text', 'password'],
       ['select', 'magicyellow_category']
     ],
