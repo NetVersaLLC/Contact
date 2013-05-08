@@ -48,7 +48,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     end
 
     @errors             = []
-    business            = Business.new
+    #business            = Business.new
     ActiveRecord::Base.transaction do
       if @is_checkout_session == true
         STDERR.puts "Package: #{@package.inspect}"
@@ -56,9 +56,15 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
         @transaction.process()
         if @transaction.is_success?
           flash[:notice] = "Signed up"
-          business.subscription = @transaction.subscription
-          business.save :validate => false
-          @transaction.setup_business(business)
+
+          # This seems like the easiest and secure way of doing this 
+          # wihtout doing something funny with a model 
+          session[:subscription] = @transaction.subscription.id 
+
+          #do this stuff in the business controller 
+          #business.subscription = @transaction.subscription
+          #business.save :validate => false
+          #@transaction.setup_business(business)
         else
           flash[:notice] = @transaction.message
           @errors.push @transaction.message
@@ -67,16 +73,16 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
 
       resource.label_id = current_label.id
       if @errors.length == 0 && resource.save
-        if @is_checkout_session == true
-          business.user    = resource
-          business.user_id = resource.id
-          business.save :validate => false
-        end
+        #if @is_checkout_session == true
+          #business.user    = resource
+          #business.user_id = resource.id
+          #business.save :validate => false
+        #end
         if resource.active_for_authentication?
           set_flash_message :notice, :signed_up if is_navigational_format?
           sign_up(resource_name, resource)
           if @is_checkout_session == true
-            redirect_to edit_business_path(business)
+            redirect_to new_business_path #edit_business_path(business)
           else
             redirect_to '/resellers'
           end
