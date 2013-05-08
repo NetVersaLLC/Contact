@@ -31,6 +31,7 @@ group :test do
   gem 'capybara'
   gem 'capybara-screenshot'
   gem 'rspec-rails'
+  gem 'zeus'
 end
 
 group :test, :development do
