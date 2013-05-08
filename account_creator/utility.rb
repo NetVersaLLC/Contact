@@ -5,7 +5,7 @@ require 'sdbm'
 require 'date'
 require 'yaml'
 require 'awesome_print'
-require './account_creator/vitelity'
+require 'vitelity'
 
 module Utility
 
