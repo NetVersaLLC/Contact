@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130503212234) do
+ActiveRecord::Schema.define(:version => 20130508192901) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -176,6 +176,7 @@ ActiveRecord::Schema.define(:version => 20130503212234) do
     t.datetime "updated_at",      :null => false
     t.text     "business_params"
     t.string   "tab"
+    t.integer  "subscription_id"
   end
 
   create_table "businesscoms", :force => true do |t|
@@ -837,6 +838,15 @@ ActiveRecord::Schema.define(:version => 20130503212234) do
   end
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
+
+  create_table "insiderpages", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
