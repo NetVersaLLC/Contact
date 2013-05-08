@@ -53,6 +53,8 @@ module Business::CitationListMethods
     def create_site_accounts
       Business.sub_models.each do |klass| 
         y = klass.new
+        STDERR.puts "Model: #{klass}"
+        STDERR.puts "Instance: #{y.inspect}"
         y.business_id = self.id
         y.save
       end
