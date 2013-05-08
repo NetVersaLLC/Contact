@@ -24,7 +24,6 @@ group :production do
 end
 
 group :test do
-  gem 'cucumber'
   gem 'cucumber-rails'
   gem 'page-object'
   gem 'database_cleaner'
@@ -36,8 +35,7 @@ end
 
 group :test, :development do
   gem 'awesome_print'
-  gem 'factory_girl'
-  gem "factory_girl_rails"
+  gem 'factory_girl_rails'
 end
 
 gem 'nokogiri'

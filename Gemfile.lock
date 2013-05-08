@@ -360,7 +360,6 @@ DEPENDENCIES
   client_side_validations
   coderay
   coffee-rails (~> 3.2.1)
-  cucumber
   cucumber-rails
   daemons
   database_cleaner
@@ -368,7 +367,6 @@ DEPENDENCIES
   detect_email_settings
   devise
   eventmachine
-  factory_girl
   factory_girl_rails
   faker
   formtastic (~> 2.1.1)
