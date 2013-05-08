@@ -7,15 +7,15 @@ class Staylocal < ClientData
   def self.check_email(business)
     @password = nil
     CheckMail.get_link(business) do |mail|
-      if mail.subject =~ /Account details for (.*) at Stay Local!/i        
-			@password = mail.body.decoded.scan(/password: (.*)\S+/)            
+      if mail.subject =~ /Account details for (.*) at Stay Local!/i
+      puts(mail.body.decoded)        
+			@password = mail.body.decoded.scan(/password: (.*)\s/)            
+      puts(@password)
       end
     end
     STDERR.puts "Staylocal password: "+@password.to_s
-    return @password
+    return @password[0]
   end
-
-
 
 
 end

@@ -105,14 +105,14 @@
     ],
       'Yahoo'
   ],
- # ['Yelp', 'yelps',
- #   [
- #     ['text', 'email'],
- #     ['text', 'password'],
- #     ['select', 'yelp_category']
- #   ],
- #     'Yelp'
- # ],
+ ['Yelp', 'yelps',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'yelp_category']
+    ],
+      'Yelp'
+  ],
   ['Foursquare', 'foursquares',
     [
       ['text', 'email'],

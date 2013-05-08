@@ -32,10 +32,10 @@ window.businessHours = ->
       $('#business_open_by_appointment').attr('checked', false)
       window.resetTimes() 
 
-  $('#business_open_by_appointment').change (e)-> 
-    if this.checked 
-      $('#business_open_24_hours').attr('checked', false)
-      window.resetTimes()
+  #$('#business_open_by_appointment').change (e)-> 
+  #  if this.checked 
+  #    $('#business_open_24_hours').attr('checked', false)
+  #    window.resetTimes()
     
   $.each ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'], (i,day)->
     $("#business_#{day}_enabled").change (e)-> 
