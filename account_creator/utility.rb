@@ -50,7 +50,7 @@ module Utility
   end
 
   def self.get_address( number )
-    # ywsid = 'IRRAQuDAiFqFCPGrPzyA3Q'
+    # We must run this here to prevent the clash on the Yelp class
     JSON.parse( `./account_creator/get_business.rb "#{number['ratecenter']}" "#{number['state']}"`)
   end
 
