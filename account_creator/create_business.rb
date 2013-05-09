@@ -1,15 +1,22 @@
 #!/usr/bin/env ruby
+# encoding: UTF-8
 
 require 'rubygems'
 require 'awesome_print'
 require 'faker'
-#require 'yelpster'
 require './config/environment'
 require './account_creator/utility'
 
 ##
 ## Create User
 ##
+
+forwards_to = ARGV.shift
+if forwards_to.nil?
+  puts "Usage: ./account_creator/create_business.rb <forwarding phone>"
+  puts "Example: ./account_creator/create_business.rb 5735292536"
+  exit
+end
 
 ActiveRecord::Base.transaction do
 
@@ -293,7 +300,7 @@ VitelityNumber.create do |n|
     n.address = business_hash['address']
     n.suite = "Suite 101"
     n.zip = business_hash['zip']
-    n.forwards_to  = "5735292536"
+    n.forwards_to  = forwards_to
     n.active = true
 end
 

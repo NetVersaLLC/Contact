@@ -45,9 +45,9 @@ save_changes = (event) ->
 
       console.log "post done"
       window.initMap()             if t == "#tab1" 
+      window.categories()          if t == "#tab2"
       window.businessHours()       if t == "#tab3"
-      window.categories()          if t == "#tab4"
-      window.company_description() if t == "#tab6"
+      window.company_description() if t == "#tab2"
 
       if $(t + " .error").length == 0 
         $('#current_tab').val(window.new_tab)
