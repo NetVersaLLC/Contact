@@ -12,23 +12,35 @@
       - @f = f
       .tabbable
         %ul.nav.nav-tabs
-          %li.active
-            %a{:href => "#tab1"} Step 1: Business Details
-          %li
-            %a{:href => "#tab2"} Step 2: Payment Methods
-          %li
-            %a{:href => "#tab3"} Step 3: Business Hours
-          %li
-            %a{:href => "#tab4"} Step 4: Select Categories
-          %li
-            %a{:href => "#tab5"} Step 5: Manage Images
-          %li
-            %a{:href => "#tab6"} Company Description
+          - if @tab == '#tab1'
+            %li.active
+              %a{:href => "#tab1"} Step 1: Business Details
+          - else
+            %li
+              %a{:href => "#tab1"} Step 1: Business Details
+          - if @tab == '#tab2'
+            %li.active
+              %a{:href => "#tab2"} Step 2: Hours and Payment
+          - else
+            %li
+              %a{:href => "#tab2"} Step 2: Hours and Payment
+          - if @tab == '#tab3'
+            %li.active
+              %a{:href => "#tab3"} Step 3: Manage Images
+          - else
+            %li
+              %a{:href => "#tab3"} Step 3: Manage Images
+          - if @tab == '#tab4'
+            %li.active
+              %a{:href => "#tab4"} Step 4: Company Description
+          - else
+            %li
+              %a{:href => "#tab4"} Step 4: Company Description
         .tab-content
           #tab1.tab-pane.active= render :partial => 'form/business_details'
-          #tab2.tab-pane= render :partial => 'form/payment_methods'
-          #tab3.tab-pane= render :partial => 'form/business_hours'
-          #tab4.tab-pane= render :partial => 'form/categories'
-          #tab5.tab-pane= render :partial => 'form/logo'
-          #tab6.tab-pane= render :partial => 'form/company_description'
+          #tab2.tab-pane= render :partial => 'form/hours_and_payment'
+          #tab3.tab-pane= render :partial => 'form/logo'
+          #tab4.tab-pane= render :partial => 'form/company_description'
+        :javascript
+          $("##{@tab}").tab('show')
       = render :partial => 'form/submit'

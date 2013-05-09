@@ -18,9 +18,6 @@ ActiveAdmin.register Business do
     column :company_website do |v|
       link_to v.company_website, v.company_website
     end
-    column :parent do |v| 
-      v.user.label.name 
-    end 
     column :coupon do |v| 
       unless v.transaction_event.nil? || v.transaction_event.coupon.nil? 
         v.transaction_event.coupon.name 

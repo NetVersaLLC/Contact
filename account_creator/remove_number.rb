@@ -2,7 +2,7 @@
 # encoding: utf-8
 
 require './config/environment'
-require './account_creator/vitelity'
+require 'vitelity'
 
 v = Vitelity.new('netv_jon', 'hotfiya6!')
 

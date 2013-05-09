@@ -5,7 +5,7 @@ require 'json'
 require 'pp'
 
 
-data = JSON.parse( File.open("data.js").read )
+data = JSON.parse( File.open("vitelity_docs.js").read )
 
 commands = {}
 data.each_key do |key|
