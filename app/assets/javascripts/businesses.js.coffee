@@ -57,12 +57,15 @@ bind_events_on_current_tab = () ->
   $('form.business').enableClientSideValidations()
 
   window.initMap()             if t == "#tab1" 
-  window.businessHours()       if t == "#tab3"
+  window.businessHours()       if t == "#tab2"
   window.categories()          if t == "#tab4"
-  window.company_description() if t == "#tab6"
+  window.company_description() if t == "#tab4"
 
 current_tab_id = () -> 
   $("#current_tab").val() 
+
+tab_count = () -> 
+  $(".nav-tabs > li").length
 
 current_tab_has_errors = () -> 
   console.log current_tab_id()
@@ -71,17 +74,17 @@ current_tab_has_errors = () ->
 show_tab = ( tab_id ) -> 
   $("a[href='#{tab_id}']").tab('show')
 
-  # next tab button 
-  next_tab_index = Number(tab_id.charAt(4)) + 1
-  if next_tab_index > 6
-    $("input[type='submit']").show() 
-    $("#next_tab").hide() 
-  else 
-    $("#next_tab").attr("href","#tab" + next_tab_index)
-    $("input[type='submit']").hide() 
-    $("#next_tab").show() 
-  console.log tab_id
-  console.log next_tab_index
+  if $("#next_tab").length > 0 
+    next_tab_index = Number(tab_id.charAt(4)) + 1
+    if next_tab_index > tab_count() 
+      $("input[type='submit']").show() 
+      $("#next_tab").hide() 
+    else 
+      $("#next_tab").attr("href","#tab" + next_tab_index)
+      $("input[type='submit']").hide() 
+      $("#next_tab").show() 
+    console.log tab_id
+    console.log next_tab_index
  
 wire_up_tabs = () -> 
   $(".tabbable li > a, #next_tab").click (event) -> 
