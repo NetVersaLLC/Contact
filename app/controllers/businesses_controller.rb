@@ -105,7 +105,10 @@ class BusinessesController < ApplicationController
       BusinessFormEdit.where(:user_id => current_user.id).delete_all
       redirect_to business_url(@business), :notice => 'Congratulations! Your business profile has been created!' 
     else 
-      format.html { render action: "new" }  
+      if params[:current_tab] and params[:current_tab] =~ /tab(\d+)/
+        @tab = '#tab' + ($1.to_i + 1).to_s
+      end
+      render action: "new"
     end 
   end
 
