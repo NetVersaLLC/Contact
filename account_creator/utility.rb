@@ -1,11 +1,12 @@
 #!/usr/bin/env ruby
+# encoding: UTF-8
 
 require 'rubygems'
 require 'sdbm'
 require 'date'
 require 'yaml'
 require 'awesome_print'
-require './account_creator/vitelity'
+require 'vitelity'
 
 module Utility
 
@@ -50,31 +51,12 @@ module Utility
   end
 
   def self.get_address( number )
-    # ywsid = 'IRRAQuDAiFqFCPGrPzyA3Q'
-    client = Yelp::Client.new
-    request = Yelp::V2::Search::Request::Location.new(
-     :term    => 'cable provider',
-     :city => number['ratecenter'],
-     :state => number['state'],
-     :location => "#{number['ratecenter']}, #{number['state']}",
-     :consumer_key => 'guxExEGc6q_CGmo8Xv44Bg',
-     :consumer_secret => 'oxYRwyMK7jL2zVrMUjINlVti914',
-     :token => '-neQfJo0y6Ie_mHaR_jq7UfiC2SHZPXN',
-     :token_secret => '-8ruinaW1nedbv7fxTJ3d7NAihE'
-    )
-    response = client.search(request)
-    # response = YAML::load_file('request.yml')
-    f = File.open("request.yml", 'w')
-    YAML::dump(response, f)
-    business_hash = {}
-    response['businesses'].each do |business|
-      business_hash['address'] = response["businesses"][0]['location']["address"].join(" ")
-      business_hash['city']    = response["businesses"][0]['location']["city"]
-      business_hash['state']   = response["businesses"][0]['location']["state_code"]
-      business_hash['zip']     = response["businesses"][0]['location']["postal_code"]
-      break
+    # We must run this here to prevent the clash on the Yelp class
+    res = nil
+    Bundler.with_clean_env do
+      res = `bash --login -c './account_creator/get_business.rb "#{number['ratecenter']}" "#{number['state']}"'`
     end
-    business_hash
+    JSON.parse( res )
   end
 
   def self.company_faker

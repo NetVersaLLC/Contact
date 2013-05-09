@@ -47,7 +47,6 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
       render :action=>:new and return
     end
 
-
     @errors             = []
     #business            = Business.new
     ActiveRecord::Base.transaction do

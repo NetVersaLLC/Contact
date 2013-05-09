@@ -1,16 +1,22 @@
 #!/usr/bin/env ruby
+# encoding: UTF-8
 
 require 'rubygems'
 require 'awesome_print'
 require 'faker'
-#require 'yelpster'
 require './config/environment'
 require './account_creator/utility'
-require './account_creator/vitelity.rb'
 
 ##
 ## Create User
 ##
+
+forwards_to = ARGV.shift
+if forwards_to.nil?
+  puts "Usage: ./account_creator/create_business.rb <forwarding phone>"
+  puts "Example: ./account_creator/create_business.rb 5735292536"
+  exit
+end
 
 ActiveRecord::Base.transaction do
 
@@ -126,6 +132,155 @@ business.subscription_id = sub.id
 
 business.save!
 
+## Now set categories
+model = AngiesList.where(:business_id => business.id).first
+model.angies_list_category_id = 656
+model.save!
+
+model = Bing.where(:business_id => business.id).first
+model.bing_category_id = 2778
+model.save!
+
+model = Businessdb.where(:business_id => business.id).first
+model.businessdb_category_id = 217
+model.save!
+
+model = Citisquare.where(:business_id => business.id).first
+model.citisquare_category_id = 90
+model.save!
+
+model = Cornerstonesworld.where(:business_id => business.id).first
+model.cornerstonesworld_category_id = 34
+model.save!
+
+model = Digabusiness.where(:business_id => business.id).first
+model.digabusiness_category_id = 128
+model.save!
+
+model = Ebusinesspage.where(:business_id => business.id).first
+model.ebusinesspage_category_id = 87
+model.save!
+
+model = Ezlocal.where(:business_id => business.id).first
+model.ezlocal_category_id = 3099
+model.save!
+
+model = Findthebest.where(:business_id => business.id).first
+model.findthebest_category_id = 25
+model.save!
+
+model = Foursquare.where(:business_id => business.id).first
+model.foursquare_category_id = 326
+model.save!
+
+model = Ibegin.where(:business_id => business.id).first
+model.ibegin_category_id = 1289
+model.save!
+
+model = Kudzu.where(:business_id => business.id).first
+model.kudzu_category_id = 113
+model.save!
+
+model = Localcensus.where(:business_id => business.id).first
+model.localcensus_category_id = 19
+model.save!
+
+model = Localdatabase.where(:business_id => business.id).first
+model.localdatabase_category_id = 834
+model.save!
+
+model = Localizedbiz.where(:business_id => business.id).first
+model.localizedbiz_category_id = 30
+model.save!
+
+model = Localpages.where(:business_id => business.id).first
+model.localpages_category_id = 1005
+model.save!
+
+model = Magicyellow.where(:business_id => business.id).first
+model.magicyellow_category_id = 1911
+model.save!
+
+model = Merchantcircle.where(:business_id => business.id).first
+model.merchantcircle_category_id = 208
+model.save!
+
+model = Patch.where(:business_id => business.id).first
+model.patch_category_id = 165
+model.save!
+
+model = Primeplace.where(:business_id => business.id).first
+model.primeplace_category_id = 87
+model.save!
+
+model = Shopcity.where(:business_id => business.id).first
+model.shopcity_category_id = 485
+model.save!
+
+model = Shopinusa.where(:business_id => business.id).first
+model.shopinusa_category_id = 582
+model.save!
+
+model = Showmelocal.where(:business_id => business.id).first
+model.showmelocal_category_id = 9
+model.save!
+
+model = Snoopitnow.where(:business_id => business.id).first
+model.snoopitnow_category_id = 170
+model.save!
+
+model = Spotbusiness.where(:business_id => business.id).first
+model.spotbusiness_category_id = 4
+model.save!
+
+model = Tupalo.where(:business_id => business.id).first
+model.tupalo_category_id = 149
+model.save!
+
+model = Usbdn.where(:business_id => business.id).first
+model.usbdn_category_id = 365
+model.save!
+
+model = Uscity.where(:business_id => business.id).first
+model.uscity_category_id = 1264
+model.save!
+
+model = Usyellowpages.where(:business_id => business.id).first
+model.usyellowpages_category_id = 3813
+model.save!
+
+model = Yellowassistance.where(:business_id => business.id).first
+model.yellowassistance_category_id = 2479
+model.save!
+
+model = Yellowee.where(:business_id => business.id).first
+model.yellowee_category_id = 311
+model.save!
+
+model = Yellowise.where(:business_id => business.id).first
+model.yellowise_category_id = 734
+model.save!
+
+model = Yelp.where(:business_id => business.id).first
+model.yelp_category_id = 317
+model.save!
+
+model = Yippie.where(:business_id => business.id).first
+model.yippie_category_id = 1433
+model.save!
+
+model = Ziplocal.where(:business_id => business.id).first
+model.ziplocal_category_id = 467
+model.save!
+
+model = Zipperpage.where(:business_id => business.id).first
+model.zipperpage_category_id = 430
+model.save!
+
+model = Zippro.where(:business_id => business.id).first
+model.zippro_category_id = 134
+model.save!
+
 STDERR.puts "*" * 78
 STDERR.puts "Generated new user: #{user.email}"
 STDERR.puts "          password: #{password}"
@@ -145,10 +300,12 @@ VitelityNumber.create do |n|
     n.address = business_hash['address']
     n.suite = "Suite 101"
     n.zip = business_hash['zip']
-    n.forwards_to  = "5735292536"
+    n.forwards_to  = forwards_to
     n.active = true
 end
 
 Utility.order_number( number['number'] )
 
 end
+
+
