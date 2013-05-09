@@ -12,35 +12,18 @@
       - @f = f
       .tabbable
         %ul.nav.nav-tabs
-          - if @tab == '#tab1'
-            %li.active
-              %a{:href => "#tab1"} Step 1: Business Details
-          - else
-            %li
-              %a{:href => "#tab1"} Step 1: Business Details
-          - if @tab == '#tab2'
-            %li.active
-              %a{:href => "#tab2"} Step 2: Hours and Payment
-          - else
-            %li
-              %a{:href => "#tab2"} Step 2: Hours and Payment
-          - if @tab == '#tab3'
-            %li.active
-              %a{:href => "#tab3"} Step 3: Manage Images
-          - else
-            %li
-              %a{:href => "#tab3"} Step 3: Manage Images
-          - if @tab == '#tab4'
-            %li.active
-              %a{:href => "#tab4"} Step 4: Company Description
-          - else
-            %li
-              %a{:href => "#tab4"} Step 4: Company Description
+          %li.active
+            %a{:href => "#tab1"} Step 1: Business Details
+          %li
+            %a{:href => "#tab2"} Step 2: Hours and Payment
+          %li
+            %a{:href => "#tab3"} Step 3: Manage Images
+          %li
+            %a{:href => "#tab4"} Step 4: Company Description
         .tab-content
+          -# this content is also in validate.html.erb until we can dry it out. 
           #tab1.tab-pane.active= render :partial => 'form/business_details'
           #tab2.tab-pane= render :partial => 'form/hours_and_payment'
           #tab3.tab-pane= render :partial => 'form/logo'
           #tab4.tab-pane= render :partial => 'form/company_description'
-        :javascript
-          $("##{@tab}").tab('show')
       = render :partial => 'form/submit'
