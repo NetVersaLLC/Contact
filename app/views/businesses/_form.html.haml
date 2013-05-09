@@ -15,20 +15,17 @@
           %li.active
             %a{:href => "#tab1"} Step 1: Business Details
           %li
-            %a{:href => "#tab2"} Step 2: Payment Methods
+            %a{:href => "#tab2"} Step 2: Company Description
           %li
-            %a{:href => "#tab3"} Step 3: Business Hours
+            %a{:href => "#tab3"} Step 3: Hours and Payment
           %li
-            %a{:href => "#tab4"} Step 4: Select Categories
+            %a{:href => "#tab4"} Step 4: Manage Images
           %li
-            %a{:href => "#tab5"} Step 5: Manage Images
-          %li
-            %a{:href => "#tab6"} Company Description
+            %a{:href => "#tab5"} Step 5: Download Client
         .tab-content
           #tab1.tab-pane.active= render :partial => 'form/business_details'
-          #tab2.tab-pane= render :partial => 'form/payment_methods'
-          #tab3.tab-pane= render :partial => 'form/business_hours'
-          #tab4.tab-pane= render :partial => 'form/categories'
-          #tab5.tab-pane= render :partial => 'form/logo'
-          #tab6.tab-pane= render :partial => 'form/company_description'
+          #tab2.tab-pane= render :partial => 'form/company_description'
+          #tab3.tab-pane= render :partial => 'form/hours_and_payment'
+          #tab4.tab-pane= render :partial => 'form/logo'
+          #tab5.tab-pane= render :partial => 'form/download_client'
       = render :partial => 'form/submit'

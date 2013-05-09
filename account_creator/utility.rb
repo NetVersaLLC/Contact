@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: UTF-8
 
 require 'rubygems'
 require 'sdbm'
@@ -51,7 +52,11 @@ module Utility
 
   def self.get_address( number )
     # We must run this here to prevent the clash on the Yelp class
-    JSON.parse( `./account_creator/get_business.rb "#{number['ratecenter']}" "#{number['state']}"`)
+    res = nil
+    Bundler.with_clean_env do
+      res = `bash --login -c './account_creator/get_business.rb "#{number['ratecenter']}" "#{number['state']}"'`
+    end
+    JSON.parse( res )
   end
 
   def self.company_faker
