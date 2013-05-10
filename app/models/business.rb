@@ -7,27 +7,28 @@ class Business < ActiveRecord::Base
   include Business::MiscMethods
 
   # Associations
-  has_attached_file :logo, :styles => { :thumb => "100x100>" }
+  has_attached_file :logo, :styles => {:thumb => "100x100>"}
   validates_attachment :logo,
-    :size => { :in => 1..1500.kilobytes }
+                       :size => {:in => 1..1500.kilobytes}
 
-  has_many          :jobs, :order => "position"
-  has_many          :failed_jobs, :order => "position"
-  has_many          :completed_jobs, :order => "position"
-  belongs_to        :user
-  belongs_to        :subscription
-  has_many          :notifications
-  has_many          :images
-  has_one           :transaction_event # transaction that occurred at sign up
+  has_many :jobs, :order => "position"
+  has_many :failed_jobs, :order => "position"
+  has_many :completed_jobs, :order => "position"
+  belongs_to :user
+  belongs_to :subscription
+  has_many :notifications  #belongs_to not there in notification.rb
+  has_many :images         #belongs_to not there in image.rb
+  has_one :transaction_event # transaction that occurred at sign up  #belongs
 
   # Triggers
-  after_create      :create_site_accounts
-  after_create      :create_jobs
-  after_initialize  :set_times
+  after_create :create_site_accounts
+  after_create :create_jobs
+  after_initialize :set_times
+  before_destroy :delete_all_associated_records
 
   # search on activeadmin -> meta_search 
   scope :redeemed_coupon_eq, lambda { |cid| joins(:transaction_event).
-    where(:transaction_events => { :coupon_id => cid })
+      where(:transaction_events => {:coupon_id => cid})
   }
   search_methods :redeemed_coupon_eq
 
@@ -79,6 +80,38 @@ class Business < ActiveRecord::Base
 
   def label_id
     self.user.label_id
+  end
+
+  private
+
+  def delete_all_associated_records
+    jobs = self.jobs
+    completed_jobs = self.completed_jobs
+    failed_jobs = self.failed_jobs
+    notifications = self.notifications
+    images = self.images
+    self.transaction_event.destroy unless self.transaction_event.blank?
+
+    jobs.each do |job|
+      job.destroy
+    end unless jobs.blank?
+
+    completed_jobs.each do |completed_job|
+      completed_job.destroy
+    end unless completed_jobs.blank?
+
+    failed_jobs.each do |failed_job|
+      failed_job.destroy
+    end unless failed_jobs.blank?
+
+    notifications.each do |notification|
+      notification.destroy
+    end unless notifications.blank?
+
+    images.each do |image|
+      image.destroy
+    end unless images.blank?
+
   end
 
 end

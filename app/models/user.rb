@@ -10,36 +10,40 @@ class User < ActiveRecord::Base
     end
   end
 
-  has_one    :download
-  has_many   :businesses
+  has_one :download
+  has_many :businesses
   belongs_to :label
 
   scope :needs_to_download_client, where(:downloads => {:id => nil}).includes(:download)
 
+  #callbacks
   after_create :deduct_credit
+  before_destroy :delete_all_associated_records
+
   def deduct_credit
-    CreditsProcessor.new(self,Label.find(self.label_id)).pay({quantity: 1, note: 'Created'}) 
- 
+    CreditsProcessor.new(self, Label.find(self.label_id)).pay({quantity: 1, note: 'Created'})
+
     #label = Label.find(self.label_id)
     #label.credits = label.credits - 1
     #label.save!
   end
 
   after_create :send_welcome
+
   def send_welcome
     UserMailer.welcome_email(self).deliver
   end
 
   def display_name # used by activeadmin drop down 
     self.email
-  end 
+  end
 
   TYPES = {
-    :admin    => 46118,
-    :reseller => 535311,
-    :manager  => 1146463,
-    :employee => 31161073,
-    :owner    => 116390000
+      :admin => 46118,
+      :reseller => 535311,
+      :manager => 1146463,
+      :employee => 31161073,
+      :owner => 116390000
   }
 
   devise :database_authenticatable, :registerable,
@@ -47,22 +51,26 @@ class User < ActiveRecord::Base
          :validatable, :token_authenticatable
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :authentication_token, :tos
-  validates :tos, :acceptance => {:message=>"You must agree to the Terms of Service."}, :on=>:create
+  validates :tos, :acceptance => {:message => "You must agree to the Terms of Service."}, :on => :create
 
-  before_save  :ensure_authentication_token
+  before_save :ensure_authentication_token
 
   def self.admin
     TYPES[:admin]
   end
+
   def self.reseller
     TYPES[:reseller]
   end
+
   def self.manager
     TYPES[:manager]
   end
+
   def self.employee
     TYPES[:employee]
   end
+
   def self.owner
     TYPES[:owner]
   end
@@ -70,15 +78,19 @@ class User < ActiveRecord::Base
   def admin?
     self.access_level == User.admin
   end
+
   def reseller?
     self.access_level <= User.reseller
   end
+
   def manager?
     self.access_level <= User.manager
   end
+
   def employee?
     self.access_level <= User.employee
   end
+
   def owner?
     self.access_level <= User.owner
   end
@@ -133,6 +145,16 @@ class User < ActiveRecord::Base
     else
       User.where(:user_id => self.id)
     end
+  end
+
+  private
+
+  def delete_all_associated_records
+    self.download.destroy unless self.download.blank?
+    businesses_records = self.businesses
+    businesses_records.each do |business|
+      business.destroy
+    end unless businesses_records.blank?
   end
 
 end
