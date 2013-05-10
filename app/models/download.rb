@@ -1,6 +1,8 @@
 require 'zip/zip'
 
 class Download < ActiveRecord::Base
+  belongs_to :user 
+
   def make_setup(business_id)
     c='abcdefghijklmnopqrstuvwxyz'
     setup = ''

@@ -1,5 +1,6 @@
 class YelpCategory < SiteCategory
-  acts_as_tree :order => :name
-  belongs_to :google_category
-  has_many :yelp
+	attr_accessible :name, :parent_id  
+	acts_as_tree :order => :name
+	belongs_to :google_category
+	has_many :yelps
 end

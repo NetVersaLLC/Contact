@@ -33,6 +33,16 @@ class Subscription < ActiveRecord::Base
   def process
     copy_values
     self.monthly_fee = @transaction.monthly_fee * 100
+
+    if self.monthly_fee == 0
+      self.active            = true
+      self.status            = :success
+      self.message           = "Free subscription!"
+      save!
+      self.trans.subscription = self
+      return true
+    end
+
     names            = self.trans.options[:creditcard][:name].split(/\s+/)
     first_name       = names.shift
     last_name        = names.join(" ")
@@ -50,6 +60,7 @@ class Subscription < ActiveRecord::Base
         :last_name  => last_name
       }
     })
+    
     if response.success?
       STDERR.puts "Printing response:"
       STDERR.puts response.to_json

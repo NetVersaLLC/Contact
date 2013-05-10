@@ -8,12 +8,8 @@
               .alert.alert-error
                 %button.close{:type => "button", 'data-dismiss' => "alert"}
                   &times;
+                = field.to_s.humanize unless field == :tos
                 = message
-        - if notice
-          .alert
-            %button.close{:type => "button", 'data-dismiss' => "alert"}
-              &times;
-            = notice
         - if alert
           .alert.alert-error
             %button.close{:type => "button", 'data-dismiss' => "alert"}
@@ -41,7 +37,7 @@
             .add-on
               .span2.total
                 Sub-Total: $
-            %input.tally.span1{:value => @subtotal, :name => 'subtotal', :type => "text", :disable => 'disabled' }/
+            %input.tally.span1{:value => @subtotal, :name => 'subtotal', :type => "text", :disabled => 'disabled' }/
             .add-on .00
           - unless @saved.nil?
             %br
@@ -49,7 +45,7 @@
               .add-on
                 .span2.total
                   Coupon: $
-              %input.tally.span1{:value => @saved, :name => 'coupon_total', :type => "text", :disable => 'disabled' }/
+              %input.tally.span1{:value => @saved, :name => 'coupon_total', :type => "text", :disabled => 'disabled' }/
               .add-on .00
               .add-on #{@coupon.code}
           %br
@@ -57,20 +53,22 @@
             .add-on
               .span2.total.bold
                 Total: $
-            %input.tally.span1{:value => @total, :name => 'total', :type => "text", :disable => 'disabled' }/
+            %input.tally.span1{:value => @total, :name => 'total', :type => "text", :disabled => 'disabled' }/
             .add-on.bold .00
           %label{:for => 'subscription'} Monthly Subscription
           .input-prepend.input-append
             .add-on
               .span2.total.bold
                 Amount: $
-            %input.tally.span1{:value => @amount_total, :name => 'amount_total', :type => "text", :disable => 'disabled' }/
+            %input.tally.span1{:value => @amount_total, :name => 'amount_total', :type => "text", :disabled => 'disabled' }/
             .add-on .00
           - unless @coupon
             .input-append
               %label{:for => 'coupon'} Coupon or Offer Code
               %input#coupon{:name => 'coupon', :placeholder => "Coupon", :type => "text", :value => (@coupon ? @coupon.code : '') }/
               %input.btn.btn-info#addCoupon{:type => 'button', :value => 'Add'}
+          - else
+            %input#coupon{:name => 'coupon', :type => "hidden", :value => (@coupon ? @coupon.code : '') }/
       .span5
         %fieldset
           %legend
@@ -94,11 +92,11 @@
               - Date::MONTHNAMES[1..12].each do |name|
                 - i += 1
                 - val = "%02d" % i
-                %option{:value => val}
+                %option{:value => val, :selected=> (params[:creditcard] && params[:creditcard][:month]==val) }
                   #{name} (#{val})
             %select#card_year.span2{:name => 'creditcard[year]'}
               - (Time.now.year .. Time.now.year+10).to_a.each do |year|
-                %option
+                %option{:selected=> (params[:creditcard] && params[:creditcard][:year]==year.to_s)}
                   = year
           %label{:for => 'creditcard[verification_value]'} Security code (3 on back, Amex: 4 on front)
           %input#cvv.span1{:placeholder => "CVV", :type => "text", :name => 'creditcard[verification_value]', :required => 'required', :pattern => '\S+', :value => @cvv }/
@@ -135,7 +133,8 @@
             Terms of Service
         %br
         - if @is_checkout_session == true
-          %button.btn.btn-large.btn-info#submit_button{:type => "button"} Place Order
+          /%button.btn.btn-large.btn-info#submit_button{:type => "button"} Place Order
+          %input.btn.btn-large.btn-info#submit_button{:type => "submit", :value=>'Place Order'}
         - else
           %button.btn.btn-large.btn-info#submit_button{:type => "submit"} Sign Up
   = render :partial => "devise/shared/links"

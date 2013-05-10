@@ -62,7 +62,7 @@ formValidates = ()->
   if $('#password').length > 0
     errors.push requiredElement('password', 'Password')
     errors.push requiredElement('password_confirmation', 'Password Confirmation')
-  unless ($('#tos').is(':checked'))
+  unless ($('#user_tos').is(':checked'))
     addMessage("Terms of Service", "You must agree to the terms of service")
     errors.push false
   console.log errors
@@ -83,11 +83,11 @@ window.registerCheckoutHooks = ()->
   textbox.blur(examineCard)
   textbox.payment('formatCardNumber')
   $('#cvv').payment('formatCardCVC')
-  $('#submit_button').click (e)->
-    if formValidates() == true
-      console.log("Form validates!")
-      $('#submit_button').attr("disabled", "disabled")
-      $('form').submit()
-    else
-      console.log("Form does not validate!")
-    return true
+  # $('#submit_button').click (e)->
+  #  if formValidates() == true
+  #    console.log("Form validates!")
+  #    $('#submit_button').attr("disabled", "disabled")
+  #    $('form').submit()
+  #  else
+  #    console.log("Form does not validate!")
+  #  return true

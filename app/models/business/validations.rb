@@ -5,6 +5,8 @@ module Business::Validations
       /^\d\d\d-\d\d\d-\d\d\d\d$/
     end
 
+    validate :time_cannot_same
+
     validates :category1,
       :presence => true
     validates :category2,
@@ -44,7 +46,7 @@ module Business::Validations
       :numericality => { 
         :only_integer => true, 
         :greater_than => 1000, 
-        :less_than => proc { Date.current.year + 1 } 
+        :less_than => Date.current.year + 1 
         }
     validates :company_website,
       :allow_blank => true,
@@ -52,7 +54,16 @@ module Business::Validations
     # enforce m/d/yyyy, and mm/dd/yyyy.  mm 1-12, dd 1-31 
     validates :contact_birthday,
       :presence => true,
-      :format => { :with => /^(0{0,1}[1-9]|1[012])\/(\d|[012]\d|3[01])\/(19|20\d\d)$/ } #/^\d\d\/\d\d\/\d\d\d\d$/ }
- 
+      :format => { :with => /^(0{0,1}[1-9]|1[012])\/(\d|[012]\d|3[01])\/((19|20)\d\d)$/ } #/^\d\d\/\d\d\/\d\d\d\d$/ }
+
+    def time_cannot_same
+      errors.add(:monday_open,'') if self.monday_open == self.monday_close && self.open_24_hours == false
+      errors.add(:tuesday_open,'') if self.tuesday_open == self.tuesday_close && self.open_24_hours == false
+      errors.add(:wednesday_open,'') if self.wednesday_open == self.wednesday_close && self.open_24_hours == false
+      errors.add(:thursday_open,'') if self.thursday_open == self.thursday_close && self.open_24_hours == false
+      errors.add(:friday_open,'') if self.friday_open == self.friday_close && self.open_24_hours == false
+      errors.add(:saturday_open,'') if self.saturday_open == self.saturday_close && self.open_24_hours == false
+      errors.add(:sunday_open,'') if self.sunday_open == self.sunday_close && self.open_24_hours == false
+    end
   end
 end

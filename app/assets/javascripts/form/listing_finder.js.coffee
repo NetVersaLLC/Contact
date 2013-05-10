@@ -1,7 +1,7 @@
 window.zipSearch = (callback)->
   $('#zip_search_form .zipcode-error').hide();
   _callback = callback
-  $.getJSON '/zip.js?term='+$('#zip').val(), (data)->
+  $.getJSON '/zip.js?term='+$('#zip').val(), (data, textStatus)->
     unless data==null
       if data.city
         $('#city').val data['city']
@@ -10,6 +10,7 @@ window.zipSearch = (callback)->
           _callback()
     else
       $('#zip_search_form .zipcode-error').show();
+      $('#business_results').empty()
 
 window.selectPlace = (el)->
   $.getJSON '/places/show.js?reference='+$(el).attr('data-reference'), (data)->
@@ -32,7 +33,7 @@ window.selectPlace = (el)->
         $('#business_zip').val data['zip'] # $('#zip').val()
       if result['url']
         $('#business_google_places_url').val result['url']
-    $('#zip_search_form').dialog('close')
+    #$('#zip_search_form').dialog('close')
 
 $(document).ready ->
   $('#zip').focus (e)-> 
@@ -41,9 +42,10 @@ $(document).ready ->
     $('#state').val('CA') 
 
   $('#show_zip_form').click (e)->
-    $('#zip_search_form').dialog
-      width:  800
-      height: 500
+    # not a dialog anymore
+    #$('#zip_search_form').dialog
+    #  width:  800
+    #  height: 500
   $('#city').autocomplete
     minLength: 3,
     delay:     600,
@@ -60,14 +62,14 @@ $(document).ready ->
 
   $('#zipsearch').click ->
     window.zipSearch ->
-      $('#search').trigger 'click'
+      $('#company_search').trigger 'click'
 
   $('#zip').blur window.zipSearch
 
   $('#zipform button').click (event)->
     event.preventDefault()
 
-  $('#search').click ->
+  $('#company_search').click ->
     $('#business_results').html('<h3>Loading...</h3>')
     url = '/places.js?state='+escape($('#state').val())+'&'
     url += 'city='+escape($('#city').val())+'&'
@@ -87,5 +89,5 @@ $(document).ready ->
         $('#business_results').html(html)
 
 $(document).ready ()->
-  $('#close_zip_search_form').click ->
-    $('#zip_search_form').dialog('close')
+#  $('#close_zip_search_form').click ->
+#    $('#zip_search_form').dialog('close')

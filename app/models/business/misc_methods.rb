@@ -37,14 +37,27 @@ module Business::MiscMethods
       accounts = p.workbook.add_worksheet(:name => "Accounts")
       Business.citation_list.each do |site|
         STDERR.puts "Site: #{site[0]}"
+        logger.debug site.inspect
         if self.respond_to?(site[1]) and self.send(site[1]).count > 0
           self.send(site[1]).each do |thing|
             row = [site[3]]
+
+            username = thing.username if thing.respond_to?('username') 
+            username ||= thing.email if thing.respond_to?('email') 
+            username ||= 'submitted' 
+            password = thing.password if thing.respond_to?('password') 
+            password ||= '' 
+            row.push username
+            row.push password 
+
             site[2].each do |name|
+              next if %w(email username password).include?(name[1])
+
               if name[0] == 'text'
                 row.push thing.send(name[1])
               end
             end
+            logger.debug row.inspect 
             accounts.add_row row
           end
         else
@@ -65,6 +78,8 @@ module Business::MiscMethods
         setup += c[rand() * 26]
       end
       tmp      = Rails.root.join('tmp', "#{setup}.xlsx")
+      # for iWork numbers 
+      p.use_shared_strings = true
       p.serialize(tmp)
       tmp
     end
