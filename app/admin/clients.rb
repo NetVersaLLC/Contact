@@ -34,6 +34,10 @@ ActiveAdmin.register_page "Client Manager" do
       "window.payloadListAction = window.clientPayloadListAction;\n"+
       "$(document).ready(function() { window.startPayloads(); });"
     end
+    div(:id => 'client_info') do
+      @business_info = Business.find(params[:business_id])
+      h3 @business_info.business_name + '/' + @business_info.address + '/' + @business_info.local_phone
+    end
     div(:id => 'client_tabs') do
       ul(:id => 'client_tabs_top') do
         li span(:class => 'ui-icon ui-icon-carat-2-n-s') + link_to("Pending",     "#client_tabs-1")
