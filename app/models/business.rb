@@ -86,12 +86,6 @@ class Business < ActiveRecord::Base
     self.user.label_id
   end
 
-  def create_site_accounts
-    user_id = self.user.id
-    business_id = self.id
-    Business.async.create_site_accounts_ex user_id, business_id
-  end
-
   private
 
   def self.create_site_accounts_ex(user_id, business_id)
