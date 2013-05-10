@@ -4,10 +4,15 @@ require 'pp'
 require './config/environment.rb'
 
 business_id = ARGV.shift
-payload     = ARGV.shift
+name    = ARGV.shift
 
 b = Business.find(business_id)
-
-if File.exists? payload
-  Job.inject(b.id, File.open(payload, "r").read, 'Ping')
+payload = Payload.start(name)
+if payload == nil
+  puts "Not found!"
+  exit
 end
+
+@job = Job.inject(business_id, payload.payload, payload.data_generator, payload.ready)
+@job.name = name
+@job.save

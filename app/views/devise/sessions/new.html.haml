@@ -1,13 +1,19 @@
 %h3.page-title
-  Sign in
-
+  Login
 = semantic_form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-horizontal'}) do |f|
   = f.semantic_errors
   = f.inputs do
     .control-group
       %label 
-      .controls.text-error
-        = flash[:alert] 
+      .controls
+        - if params[:failure_reason] == :not_found_in_database 
+          = "Account not registered. "
+          = link_to "Sign up here!", new_user_registration_path
+        -elsif params[:failure_reason] == :invalid 
+          = "Account registered. "
+          = link_to "Forgot your password?", new_user_password_path
+        -else 
+          = flash[:alert] 
     = f.input :email,    hint:"Enter your email address"
     = f.input :password, hint:"Enter password"
   -if devise_mapping.rememberable?

@@ -15,11 +15,7 @@
       = current_label.custom_css
     /[if lt IE 9]
       <script src="/assets/html5shiv.js"></script>
-    %link{:href => "/assets/apple-touch-icon-144-precomposed.png", :rel => "apple-touch-icon-precomposed", :sizes => "144x144"}/
-    %link{:href => "/assets/apple-touch-icon-114-precomposed.png", :rel => "apple-touch-icon-precomposed", :sizes => "114x114"}/
-    %link{:href => "/assets/apple-touch-icon-72-precomposed.png", :rel => "apple-touch-icon-precomposed", :sizes => "72x72"}/
-    %link{:href => "/assets/apple-touch-icon-57-precomposed.png", :rel => "apple-touch-icon-precomposed"}/
-    %link{:href => "/assets/favicon.png", :rel => "shortcut icon"}/
+    %link{:rel => "icon", :type => "image/ico", :href => current_label.favicon_url}/
   %body
     .ajax-progress
     .container
@@ -28,6 +24,21 @@
         .span2
           - if user_signed_in?
             = link_to('Sign Out', destroy_user_session_path, :method => :delete)
+            = link_to('Edit Profile', edit_user_registration_path ) 
           - else
             = link_to('Sign In', new_user_session_path)
+      .row 
+        .span6 
+          - if flash[:notice] 
+            .alert.alert-info= flash[:notice] 
+          - if flash[:error] 
+            .alert.alert-error= flash[:error] 
+        .span6 
       = yield
+    %a{:href => "http://clicky.com/100593955", :title => "Real Time Web Analytics"}
+      %img{:alt => "Real Time Web Analytics", :border => "0", :src => "//static.getclicky.com/media/links/badge.gif"}/
+    %script{:src => "//static.getclicky.com/js", :type => "text/javascript"}
+    :javascript
+      try{ clicky.init(100593955); }catch(e){}%noscript
+    %p
+      %img{:alt => "Clicky", :height => "1", :src => "//in.getclicky.com/100593955ns.gif", :width => "1"}/

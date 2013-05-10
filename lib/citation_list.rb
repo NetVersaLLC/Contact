@@ -105,7 +105,7 @@
     ],
       'Yahoo'
   ],
-  ['Yelp', 'yelps',
+ ['Yelp', 'yelps',
     [
       ['text', 'email'],
       ['text', 'password'],
@@ -319,7 +319,7 @@
   ],
   ['Magicyellow', 'magicyellows',
     [
-      ['text', 'username'],
+      ['text', 'email'],
       ['text', 'password'],
       ['select', 'magicyellow_category']
     ],
@@ -436,7 +436,8 @@
   ['Businessdb', 'businessdbs',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'businessdb_category']
     ],
       'Businessdb'
   ],
@@ -468,6 +469,53 @@
       ['text', 'secret_answer']
     ],
       'Ad Solutions YP'
+  ],
+  ['Findthebest', 'findthebests',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'findthebest_category']
+    ],
+      'Find The Best'
+  ],
+  ['Patch', 'patches',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'patch_category']
+    ],
+      'Patch'
+  ],
+  ['Usyellowpages', 'usyellowpages',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'usyellowpages_category']
+    ],
+      'Usyellowpages'
+  ],
+  ['Zipperpage', 'zipperpages',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'zipperpage_category']
+    ],
+      'Zipperpage'
+  ],
+  ['Thinklocal', 'thinklocals',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Thinklocal'
+  ],
+  ['Ziplocal', 'ziplocals',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'ziplocal_category']
+    ],
+      'Ziplocal'
   ]
 ]
 

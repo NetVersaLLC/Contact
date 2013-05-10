@@ -1,6 +1,7 @@
 class YahooCategory < ActiveRecord::Base
-  attr_accessible :subcatname, :catname
+  attr_accessible :name, :parent_id
   belongs_to      :google_category
+  acts_as_tree :order => :name
   has_many        :yahoos
   def self.categories
     cats = {}
