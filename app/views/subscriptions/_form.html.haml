@@ -4,15 +4,15 @@
     %tr
       %td Package Name
       %td
-        = @business.subscription.package.name
+        = @package.name
     %tr
       %td Package Price
       %td 
-        = "$%02d" % (@business.subscription.package.price.to_i)
+        = "$%02d" % (@package.monthly_fee)
     %tr
       %td Started
       %td
-        = @business.subscription.created_at.to_date.to_s
+        = @subscription.created_at.strftime("%Y-%m-%d")
     %tr
       %td Billing Type
       %td Monthly
