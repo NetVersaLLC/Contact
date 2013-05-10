@@ -1,5 +1,4 @@
 FactoryGirl.define do 
-
   factory :label do 
     name "towncenter" 
     login "login" 
@@ -23,4 +22,5 @@ FactoryGirl.define do
     latitude 33.680139
     longitude -117.908452
   end 
+  
 end 
