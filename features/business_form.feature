@@ -3,32 +3,34 @@ Feature: Edit Business Form
   As a signed in user.
   I want to edit a business.
 
-@javascript
-  Scenario: Autocomplete City by Zipcode
+@javascript @search
+  Scenario Outline: Autocomplete City by Zipcode
     Given I have signed in as an owner 
-    When I search with "92626"
-    Then I should see "Costa Mesa" and "CA"
+    And I go to the edit business page
+    When I search with "<zip code>"
+    Then I should see "<city>" and "<state>"
 
-    #Scenarios: valid zip codes 
-    # | zip code | city       | state | 
-    #  | 92626    | Costa Mesa | CA    | 
-      #      | 12831    | Gansevoort | NY    | 
-      #| 02830    | Harrisville| RI    | 
-      #| 75080    | Richardson | TX    | 
+    Examples: valid zip codes 
+     | zip code | city       | state | 
+     | 92626    | Costa Mesa | CA    | 
+     | 12831    | Gansevoort | NY    | 
+     | 75080    | Richardson | TX    | 
 
-@javascript
+@javascript @search 
   Scenario: Get Business Results From Company Search
     Given I have signed in as an owner 
-    And I have entered my city and state
-    When I search for a company like "Kaiten"
+    And I go to the edit business page
+    When I have entered my city and state
+    And  I search for a company like "Kaiten"
     Then I should see a company named "Kaisen Kaiten"
 
+@javascript @search @selectsearch
   Scenario: Populate Form From Business Results
-    Given: I have performed an autocomplete search and have results.
-    When: I click "Select" next to "Kaisen Kaiten".
-    Then: I should see "Kaisen Kaiten" in Business Name.
-    And: I should see "714-444-2161" in Local Phone.
-    And: I should see "3855 S Bristol St" in Address.
+    Given I have performed an autocomplete search and have results.
+    When I click "Select" next to "Kaisen Kaiten".
+    Then I should see "Kaisen Kaiten" in "Business Name"
+    And I should see "714-444-2161" in "Local Phone"
+    And I should see "3855 S Bristol St" in "Address"
 
   Scenario: View Business Details
     Given I have signed in as an owner 
@@ -37,9 +39,10 @@ Feature: Edit Business Form
     And I should see "Business Name"
     And I should see "Local Phone"
 
-@javascript
+@javascript @error
   Scenario: Entering Bad Data
     Given I have signed in as an owner 
+    And I go to the edit business page
     When I enter "777-777-777" into the "Local Phone" field.
     And I change to a different field.
     Then I should see error "is invalid" next to "Local Phone"

@@ -84,7 +84,7 @@ $(document).ready ->
           html += '<td><img src="'+e['icon']+'" /></td>'
           html += '<td>'+e['name']+'</td>'
           html += '<td>'+e['vicinity']+'</td>'
-          html += '<td><input type="button" value="Select" class="btn btn-success" data-reference="'+e['reference']+'" onclick="window.selectPlace(this);" /></td>'
+          html += '<td><input type="button" value="Select" class="btn btn-success" data-select-for="'+ e['name'] + '" data-reference="'+e['reference']+'" onclick="window.selectPlace(this);" /></td>'
           html += '</tr>'
         $('#business_results').html(html)
 

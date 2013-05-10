@@ -1,22 +1,43 @@
-Given /I have signed in as an owner/ do 
+def sign_in_as_a_business_owner 
   owner 
+  business
   sign_in # from sign_in_steps.rb 
 end 
-
-Given /I have entered my city and state/ do 
+def goto_business_form 
+  page.click_link "Edit This Business" 
+  page.has_text? 'Business Details' 
+end 
+def enter_my_city_and_state 
   location = FactoryGirl.create(:location) 
 
   fill_in 'city', with: location.city 
   page.find("#state").set( location.state ) 
 end 
 
+Given /I have signed in as an owner/ do 
+  sign_in_as_a_business_owner
+end 
+
+Given /I have entered my city and state/ do 
+  enter_my_city_and_state
+end 
+
+Given /I have performed an autocomplete search and have results/ do 
+  sign_in_as_a_business_owner
+  goto_business_form
+  enter_my_city_and_state
+  
+  fill_in 'company_name', with: 'Kaiten'
+  click_on('company_search')
+  find("td", :text => 'Kaisen Kaiten')
+end 
+
 And /I change to a different field/ do 
-  find('Search').click 
+  page.first(:css, 'input').click
 end 
 
 And /I go to the edit business page/ do 
-  page.click_link "Edit This Business" 
-  page.has_text? 'Business Details' 
+  goto_business_form
 end 
 
 And /I click Company Name Search/ do 
@@ -24,8 +45,16 @@ And /I click Company Name Search/ do
   find("#business_results") # wait for results 
 end 
 
+And /"([^"]*)" should be highlighted red/ do |field_name| 
+  page.should have_css("#business_" + field_name.parameterize.underscore + ".error") 
+end 
+
 When /I click on "([^"]*)"/ do |link| 
   click_link link 
+end 
+
+When /I click "Select" next to "([^"]*)"/ do |company_name| 
+  find("input[data-select-for='#{company_name}']").click
 end 
 
 When /I enter "([^"]*)" into the "([^"]*)" field/ do |data, field| 
@@ -39,35 +68,30 @@ end
 When /I search with "(\d{5})"/ do |zip|
   fill_in 'Search by Zip', :with => zip 
   find("#zipsearch").click
-  # because the html elements already exist for city and state, 
-  # there isnt a way to use find() 
-  # to wait until the ajax completes.  
-  sleep(1)
 end 
 
 When /I search for a company like "([^"]*)"/ do |company_name| 
   fill_in 'company_name', with: company_name 
-  #find("#company_search").click 
   click_on('company_search')
 end 
 
 Then /I should see a company named "([^"]*)"/ do |company_name| 
-  find("td", :text => company_name).text().should eq(company_name) 
+  find("td", :text => company_name)
+end 
+
+Then /I should see "([^"]*)" in "([^"]*)"$/ do |value, field_name|
+  page.has_field?("#business_" + field_name.parameterize.underscore, with: value) 
 end 
 
 Then /I should see "([^"]*)" and "(.{2})"$/ do |city, state|
+  page.has_field?("#city", with: city) 
   find_field("state").value.should eq(state)
-  find_field("city").value.should eq(city) 
 end 
 
 Then /I should see error "([^"]*)" next to "([^"]*)"$/ do |message, label| 
   find("div.error").should have_content(message) 
   find("div.error").should have_content(label)
   page.should have_css("div.error") 
-end 
-
-Then /"([^"]*)" should be highlighted red/ do |field| 
-  find("div.error").should have_content(label)
 end 
 
 Then /I should see "([^"]*)"$/ do |text| 

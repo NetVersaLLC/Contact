@@ -20,6 +20,10 @@ module ContactWorld
   def reseller 
     @user ||= FactoryGirl.create(:user, :access_level => User.reseller) 
   end 
+
+  def business 
+    @business ||= FactoryGirl.create(:business, :user => owner ) 
+  end 
   
   def white_label 
     @white_label ||= FactoryGirl.create(:label)
