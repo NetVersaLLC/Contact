@@ -1,4 +1,5 @@
 FactoryGirl.define do 
+  
   factory :label do 
     name "towncenter" 
     login "login" 
@@ -20,4 +21,5 @@ FactoryGirl.define do
     access_level User.admin 
     label 
   end 
+  
 end 
