@@ -1,7 +1,12 @@
 class Scan
   include HTTParty
+  digest_auth 'api', '13fc9e78f643ab9a2e11a4521479fdfe'
 
   base_uri ENV['SCAN_SERVER'] || 'scan.netversa.com'
+  
+  # the AWS beanstalk instance weston setup
+  # base_uri 'scan-mri-staging-2hpbtmyw2a.elasticbeanstalk.com'
+
   debug_output $stderr
 
   def initialize(site, business_name, zip)
@@ -16,7 +21,6 @@ class Scan
     @data['city']        = @location.city
     @data['county']      = @location.county
     @data['country']     = @location.country
-    @auth                = {:username => 'api', :password => '13fc9e78f643ab9a2e11a4521479fdfe'}
   end
 
   def run
@@ -24,8 +28,10 @@ class Scan
       business = @data
       @data = eval(@payload.data_generator)
     end
-    options = { :basic_auth => @auth, :query => {:payload => @payload.payload, :payload_data => @data } }
     STDERR.puts options.inspect
+    options = { :query => {:payload => @payload.payload, :payload_data => @data }, 
+      :headers => { 'content-length' => '0' }
+    }
     self.class.post('/jobs.json', options)
   end
 end
