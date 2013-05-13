@@ -116,7 +116,6 @@ delay_task_sync_button = ->
 
 $ ->
   show_tab( current_tab_id() )
-  bind_events_on_current_tab()
   wire_up_submit() 
   wire_up_cancel()
   wire_up_tabs() 
