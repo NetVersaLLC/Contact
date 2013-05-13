@@ -7,21 +7,32 @@ require 'faker'
 require './config/environment'
 require './account_creator/utility'
 
+
 ##
 ## Create User
 ##
 
-forwards_to = ARGV.shift
+##                                                   ##
+### DO NOT USE THIS FOR PHONE VERIFICATION PAYLOADS ###
+##                                                   ##
+
+forwards_to = ARGV[0]
 if forwards_to.nil?
-  puts "Usage: ./account_creator/create_business.rb <forwarding phone>"
-  puts "Example: ./account_creator/create_business.rb 5735292536"
+  puts "For phone enabled verifies use ./account_creator/create_business.rb instead."
+  puts "Usage: ./account_creator/create_business_np.rb <phone> <city> <state>"
+  puts "Example: ./account_creator/create_business_np.rb 1111111111 Olathe Kansas"
   exit
 end
 
 ActiveRecord::Base.transaction do
+number = ARGV[0]
+#number = ARGV[0]
+#Utility.get_number()
+numb = {}
 
-number = Utility.get_number
-address =  Utility.get_address( number )
+numb['ratecenter'] = ARGV[1]
+numb['state'] = ARGV[2]
+address =  Utility.get_address( numb )
 
 ap number
 ap address
@@ -290,9 +301,11 @@ STDERR.puts "*" * 78
 ap business_hash
 STDERR.puts "*" * 78
 
+=begin
 STDERR.puts "Ordering did: #{number['number']}"
 
 VitelityNumber.create do |n|
+
     n.business_id = business.id
     n.ratecenter = number['ratecenter']
     n.state = number['state']
@@ -305,7 +318,7 @@ VitelityNumber.create do |n|
 end
 
 Utility.order_number( number['number'] )
-
+=end
 end
 
 
