@@ -1,3 +1,11 @@
+%section{:id => 'section-payment-methods'}
+  = @f.inputs "Payment Methods", :class => 'inputs tab-pane', :id => 'section2' do
+    %ul.payment_methods
+      - @business.payment_methods.each do |type|
+        %li.payment_method
+          %label.checkbox
+            = @f.check_box "accepts_#{type}".to_sym
+            = type.capitalize
 %section{:id => 'section-business-hours'}
   = @f.inputs "Business Hours", :class => 'inputs tab-pane', :id => 'section3' do
     %table.table.table-condensed#timetable
@@ -8,11 +16,6 @@
           %td Close
           %td Set
       %tbody
-        - ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].each do |day|
-          - if @business.open_24_hours == false
-            - if @business.send("#{day}_close") == @business.send("#{day}_open")
-              %span.btime Please use open 24 hours Option in #{day.titleize}
-              - break
         - ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].each do |day|
           %tr.timerow
             %td
@@ -28,16 +31,13 @@
               - if day == 'monday'
                 = link_to "Everyday", "#", :class => 'set_business_hours btn btn-success'
                 = link_to "Weekdays", "#", :class => 'set_weekday_hours btn btn-info'
-        %tr{:class => "bnone"}
-          %td{:colspan => 4,:class => "pnone"}
-            %table{:id => "checklist"}
-              %tr.timerow
-                %td
-                  %label.checkbox
-                    = @f.check_box :open_24_hours
-                    Open 24 Hours
-              %tr.timerow
-                %td
-                  %label.checkbox
-                    = @f.check_box :open_by_appointment
-                    Open By Appointment
+        %tr.timerow
+          %td{:colspan => 3}
+            %label.checkbox
+              = @f.check_box :open_24_hours
+              Open 24 Hours
+        %tr.timerow
+          %td{:colspan => 3}
+            %label.checkbox
+              = @f.check_box :open_by_appointment
+              Open By Appointment
