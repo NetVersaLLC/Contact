@@ -23,14 +23,14 @@ class Bing < ClientData
 
   def self.make_payments(business)
     methods = {
-      'cash'       => 'Cash',
-      'checks'     => 'Checks',
-      'mastercard' => 'Mastercard',
-      'visa'       => 'Visa',
-      'discover'   => 'Discover',
-      'diners'     => "Diner's Club",
-      'amex'       => 'American Express',
-      'paypal'     => 'Paypal online'
+      'cash'       => 'AdditionalBusinessInfo_PaymentOptions_1__Selected',
+      'checks'     => 'AdditionalBusinessInfo_PaymentOptions_9__Selected',
+      'mastercard' => 'AdditionalBusinessInfo_PaymentOptions_18__Selected',
+      'visa'       => 'AdditionalBusinessInfo_PaymentOptions_20__Selected',
+      'discover'   => 'AdditionalBusinessInfo_PaymentOptions_14__Selected',
+      'diners'     => 'AdditionalBusinessInfo_PaymentOptions_2__Selected',
+      'amex'       => 'AdditionalBusinessInfo_PaymentOptions_0__Selected',
+      'paypal'     => 'AdditionalBusinessInfo_PaymentOptions_12__Selected'
     }
     accepted = []
     methods.each_key do |type|

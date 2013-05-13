@@ -25,14 +25,24 @@ class BusinessesController < ApplicationController
   # GET /businesses/new
   # GET /businesses/new.json
   def new
+    # make sure it exists
+   Subscription.find( session[:subscription] )
+
     @business = Business.new
     @accounts = @business.nonexistent_accounts_array
     @tab = "#tab1"
+
     business_form_edit = BusinessFormEdit.find_or_create_by_user_id( current_user.id )
+    
+    # A new business should not have an id value yet.  
     if business_form_edit.business_id.nil? 
       @business.attributes = business_form_edit.business_params
     end
-    business_form_edit.update_attributes({business_id: nil, user_id: current_user.id}) 
+
+    business_form_edit.update_attributes({
+      business_id: nil, 
+      user_id: current_user.id, 
+      subscription_id: session[:subscription] }) 
 
     respond_to do |format|
       format.html # new.html.erb
@@ -80,15 +90,27 @@ class BusinessesController < ApplicationController
   # POST /businesses
   # POST /businesses.json
   def create
+    bfe = BusinessFormEdit.find_by_user_id(current_user.id) 
+
+    sub = Subscription.find( bfe.subscription_id ) 
+
     @business = Business.new(params[:business])
     @business.user_id = current_user.id
     @business.label_id = current_label.id
+    @business.subscription = sub 
+    @tab = params[:current_tab]
+    
 
     if @business.save 
+      sub.transaction_event.setup_business(@business) 
+
       BusinessFormEdit.where(:user_id => current_user.id).delete_all
-      format.html { redirect_to @business, 'Created your business profile.' } 
+      redirect_to business_url(@business), :notice => 'Congratulations! Your business profile has been created!' 
     else 
-      format.html { render action: "new" }  
+      if params[:current_tab] and params[:current_tab] =~ /tab(\d+)/
+        @tab = '#tab' + ($1.to_i + 1).to_s
+      end
+      render "new"
     end 
   end
 

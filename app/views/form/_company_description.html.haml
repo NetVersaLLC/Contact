@@ -1,8 +1,15 @@
 %section{:id => 'section-company-description'}
   = @f.inputs :company_description, :class => 'inputs tab-pane', :id => 'section4' do 
     %p Your customers will likely have their first experience with your business. Your business description should be between 50 and 200 characters.
-    = @f.input :business_description
+    = @f.input :business_description, :hint => '0/200', :input_html => {:maxlength => 200}
     = @f.input :professional_associations
     = @f.input :geographic_areas,          :as => :select, :collection => Business.geographic_areas_list, :label => 'Geographic Area Serviced'
     = @f.input :year_founded,              :placeholder => 'Year Founded'
     = @f.input :company_website, :placeholder => 'Company Website', :hint => "Format: http://mycompany.com", :input_html => { 'data-content' => 'Your company website.', 'title' => 'Company Website',    :rel => 'popover' }
+  = @f.inputs "Categories", :class => 'inputs tab-pane', :id => 'section8' do
+    %p The next most important aspect of your business profile is the following categories. Select 3 categories, the first one is the primary category and is the most important. The next two are used on many sites but only as secondary or tertiary categories.
+    = @f.input :category1, :label => 'Category 1'
+    = @f.input :category2, :label => 'Category 2'
+    = @f.input :category3, :label => 'Category 3'
+    = @f.input :category4, :label => 'Category 4'
+    = @f.input :category5, :label => 'Category 5'
