@@ -69,3 +69,4 @@ gem 'cancan'
 gem 'airbrake'
 gem "capistrano-db-tasks", require: false
 gem 'axlsx'
+gem 'vitelity'

@@ -9,6 +9,11 @@
           %td Set
       %tbody
         - ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].each do |day|
+          - if @business.open_24_hours == false
+            - if @business.send("#{day}_close") == @business.send("#{day}_open")
+              %span.btime Please use open 24 hours Option in #{day.titleize}
+              - break
+        - ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].each do |day|
           %tr.timerow
             %td
               %label.checkbox
@@ -23,13 +28,16 @@
               - if day == 'monday'
                 = link_to "Everyday", "#", :class => 'set_business_hours btn btn-success'
                 = link_to "Weekdays", "#", :class => 'set_weekday_hours btn btn-info'
-        %tr.timerow
-          %td{:colspan => 3}
-            %label.checkbox
-              = @f.check_box :open_24_hours
-              Open 24 Hours
-        %tr.timerow
-          %td{:colspan => 3}
-            %label.checkbox
-              = @f.check_box :open_by_appointment
-              Open By Appointment
+        %tr{:class => "bnone"}
+          %td{:colspan => 4,:class => "pnone"}
+            %table{:id => "checklist"}
+              %tr.timerow
+                %td
+                  %label.checkbox
+                    = @f.check_box :open_24_hours
+                    Open 24 Hours
+              %tr.timerow
+                %td
+                  %label.checkbox
+                    = @f.check_box :open_by_appointment
+                    Open By Appointment

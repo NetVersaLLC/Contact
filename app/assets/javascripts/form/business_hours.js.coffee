@@ -6,6 +6,14 @@ window.resetTimes = (options = {} ) ->
       $('#business_'+day+'_open').val("12:00AM")  #attr('disabled', 'disabled')
       $('#business_'+day+'_close').val("12:00AM") #attr('disabled', 'disabled')
 
+window.setTimes = (options = {} ) ->
+  $.each ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'], (i,day)->
+    if day == "monday" and options.skip_monday == true
+    else
+      $('#business_'+day+'_enabled').attr('checked', true)
+      $('#business_'+day+'_open').val("8:00AM")  
+      $('#business_'+day+'_close').val("5:00PM") 
+
 window.copyFromMonday = (day_of_week) -> 
   open  = $('#business_monday_open').val() 
   close = $('#business_monday_close').val() 
@@ -27,15 +35,20 @@ window.businessHours = ->
     window.resetTimes( {skip_monday: true} ) 
     window.copyFromMonday dow for dow in ['tuesday', 'wednesday', 'thursday', 'friday' ]
 
-  $('#business_open_24_hours').change (e)-> 
+  $('#business_open_24_hours').change (e)->
     if this.checked 
       $('#business_open_by_appointment').attr('checked', false)
-      window.resetTimes() 
-
-  $('#business_open_by_appointment').change (e)-> 
-    if this.checked 
-      $('#business_open_24_hours').attr('checked', false)
       window.resetTimes()
+
+  $('#business_open_24_hours').change (e)->
+   if !this.checked
+     $('#business_open_24_hours').attr('checked', false)
+     window.setTimes()
+
+  #$('#business_open_by_appointment').change (e)-> 
+  #  if this.checked 
+  #    $('#business_open_24_hours').attr('checked', false)
+  #    window.resetTimes()
     
   $.each ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'], (i,day)->
     $("#business_#{day}_enabled").change (e)-> 
@@ -49,4 +62,10 @@ window.businessHours = ->
 
 $(document).ready ->
   window.businessHours()
-
+  $('[id*=checklist] input[type="checkbox"]').click ->
+    checkboxes =  $('[id*=checklist] input[type="checkbox"]')
+    if($(this).is(':checked'))
+      checkboxes.attr('checked', false)
+      $(this).attr('checked', 'checked')
+        
+   

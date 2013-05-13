@@ -1,17 +1,17 @@
-class Yelp < ClientData
-  attr_accessible       :email, :yelp_category_id
+class Yelp  < ClientData
+  attr_accessible :email
   virtual_attr_accessor :password
-  belongs_to            :yelp_category
-  validates :email,
-            :allow_blank => true,
-            :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
+  belongs_to :yelp_category
 
   def self.check_email(business)
     @link = nil
     CheckMail.get_link(business) do |mail|
-  	if mail.subject =~ /Verify Your Email Address/i
+  	if mail.subject =~ /Confirm Your Email Address/i
+      puts(mail.subject)
 		if mail.body.decoded =~ /(https:\/\/biz.yelp.com\/signup\/confirm\S+)/i
+      puts(mail.body.decoded)
 	          @link = $1
+            puts(@link)
 	        end
   	end
     end
