@@ -49,4 +49,10 @@ window.businessHours = ->
 
 $(document).ready ->
   window.businessHours()
-
+  $('[id*=checklist] input[type="checkbox"]').click ->
+    checkboxes =  $('[id*=checklist] input[type="checkbox"]')
+    if($(this).is(':checked'))
+      checkboxes.attr('checked', false)
+      $(this).attr('checked', 'checked')
+        
+   
