@@ -41,5 +41,14 @@ FactoryGirl.define do
     latitude 33.680139
     longitude -117.908452
   end 
-  
+
+  factory :package do 
+    price 299 
+    monthly_fee 19 
+    label 
+  end 
+  factory :coupon do 
+    percentage_off 100
+    label 
+  end 
 end 
