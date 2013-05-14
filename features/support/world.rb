@@ -24,6 +24,10 @@ module ContactWorld
   def business 
     @business ||= FactoryGirl.create(:business, :user => owner ) 
   end 
+
+  def package 
+    @package ||= FactoryGirl.create(:package, :label => white_label) 
+  end 
   
   def white_label 
     @white_label ||= FactoryGirl.create(:label)
