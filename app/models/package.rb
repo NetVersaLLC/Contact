@@ -5,6 +5,7 @@ class Package < ActiveRecord::Base
   attr_accessible :description, :name, :price, :short_description, :monthly_fee, :label_id
   has_many :package_payloads
   has_many :subscriptions
+  belongs_to :label
 
   validates :monthly_fee,
     :numericality => { :greater_than => 0 },
