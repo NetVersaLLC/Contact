@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130508192901) do
+ActiveRecord::Schema.define(:version => 20130514172546) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -45,8 +45,8 @@ ActiveRecord::Schema.define(:version => 20130508192901) do
   add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
   create_table "admin_users", :force => true do |t|
-    t.string   "email",                  :default => "",    :null => false
-    t.string   "encrypted_password",     :default => "",    :null => false
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -56,7 +56,6 @@ ActiveRecord::Schema.define(:version => 20130508192901) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.integer  "label_id"
-    t.boolean  "admin",                  :default => false
   end
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
@@ -369,16 +368,6 @@ ActiveRecord::Schema.define(:version => 20130508192901) do
   end
 
   add_index "cornerstonesworlds", ["business_id"], :name => "index_cornerstonesworlds_on_business_id"
-
-  create_table "cornerstoneworld_categories", :force => true do |t|
-    t.integer  "parent_id"
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "cornerstoneworld_categories", ["name"], :name => "index_cornerstoneworld_categories_on_name"
-  add_index "cornerstoneworld_categories", ["parent_id"], :name => "index_cornerstoneworld_categories_on_parent_id"
 
   create_table "coupons", :force => true do |t|
     t.string   "name"
@@ -693,7 +682,6 @@ ActiveRecord::Schema.define(:version => 20130508192901) do
     t.integer  "digabusiness_category_id"
     t.integer  "supermedia_category_id"
     t.integer  "expertfocus_category_id"
-    t.integer  "cornerstoneworld_category_id"
     t.integer  "angies_list_category_id"
     t.integer  "localizedbiz_category_id"
     t.integer  "kudzu_category_id"
@@ -1231,6 +1219,15 @@ ActiveRecord::Schema.define(:version => 20130508192901) do
 
   add_index "mydestinations", ["business_id"], :name => "index_mydestinations_on_business_id"
 
+  create_table "mywebyellows", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "notifications", :force => true do |t|
     t.integer  "business_id"
     t.string   "title"
@@ -1286,6 +1283,13 @@ ActiveRecord::Schema.define(:version => 20130508192901) do
     t.integer  "patch_category_id"
   end
 
+  create_table "payload_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "position"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "payments", :force => true do |t|
     t.string   "status"
     t.string   "name"
@@ -1304,6 +1308,17 @@ ActiveRecord::Schema.define(:version => 20130508192901) do
   add_index "payments", ["business_id"], :name => "index_payments_on_business_id"
   add_index "payments", ["label_id"], :name => "index_payments_on_label_id"
   add_index "payments", ["transaction_id"], :name => "index_payments_on_transaction_id"
+
+  create_table "pings", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "business_id"
+    t.string   "message"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "pings", ["business_id"], :name => "index_pings_on_business_id"
+  add_index "pings", ["user_id"], :name => "index_pings_on_user_id"
 
   create_table "primeplace_categories", :force => true do |t|
     t.integer  "parent_id"
@@ -1629,9 +1644,9 @@ ActiveRecord::Schema.define(:version => 20130508192901) do
     t.text     "secrets"
     t.datetime "force_update"
     t.text     "username"
+    t.integer  "usbdn_category_id"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
-    t.integer  "usbdn_category_id"
   end
 
   add_index "usbdns", ["business_id"], :name => "index_usbdns_on_business_id"
