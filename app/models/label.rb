@@ -1,7 +1,7 @@
 class Label < ActiveRecord::Base
   has_attached_file :logo, :styles => { :thumb => "200x200>" }
   has_attached_file :favicon
-  attr_accessible :name, :domain, :custom_css, :login, :password, :logo, :footer
+  attr_accessible :name, :domain, :custom_css, :login, :password, :logo, :footer, :favicon
   attr_accessible :mail_from
 
   acts_as_tree :order => :name
@@ -24,6 +24,8 @@ class Label < ActiveRecord::Base
     :presence => true
   validates :logo,
     :presence => true
+
+  validates_format_of :favicon_file_name, :with => %r{\.(ico|icon)$}i
 
   def gateway
     ActiveMerchant::Billing::Base.mode = :test
