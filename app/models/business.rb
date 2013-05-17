@@ -6,6 +6,9 @@ class Business < ActiveRecord::Base
   include Business::FormMethods
   include Business::MiscMethods
 
+  include Backburner::Performable
+  queue "business-manage"
+
   # Associations
   has_attached_file :logo, :styles => {:thumb => "100x100>"}
   validates_attachment :logo,
@@ -22,6 +25,7 @@ class Business < ActiveRecord::Base
 
   # Triggers
   after_create :create_site_accounts
+
   after_create :create_jobs
   after_initialize :set_times
   before_destroy :delete_all_associated_records
@@ -82,7 +86,27 @@ class Business < ActiveRecord::Base
     self.user.label_id
   end
 
+  def create_site_accounts
+    user_id = self.user.id
+    business_id = self.id
+    Business.async.create_site_accounts_ex user_id, business_id
+  end
+
   private
+
+  def self.create_site_accounts_ex(user_id, business_id)
+    backburner_process = BackburnerProcess.find_or_create_by_user_id_and_business_id(user_id, business_id)
+    backburner_process.update_attribute(:all_processes, Business.sub_models.map{|b|b.name}.join(' ') )
+
+    Business.sub_models.each do |klass|
+      y = klass.new
+      STDERR.puts "Model: #{klass}"
+      STDERR.puts "Instance: #{y.inspect}"
+      y.business_id = business_id
+      y.save
+      backburner_process.update_attribute(:processed, backburner_process.processed.to_s + " #{klass}")
+    end
+  end
 
   def delete_all_associated_records
     jobs = self.jobs

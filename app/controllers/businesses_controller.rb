@@ -1,4 +1,5 @@
 class BusinessesController < ApplicationController
+
   before_filter :authenticate_user!
 
   def index
@@ -26,7 +27,8 @@ class BusinessesController < ApplicationController
   # GET /businesses/new.json
   def new
     # make sure it exists
-   Subscription.find( session[:subscription] )
+
+    Subscription.find( session[:subscription] )
 
     @business = Business.new
     @accounts = @business.nonexistent_accounts_array

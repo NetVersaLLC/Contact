@@ -62,5 +62,14 @@ module Contact
     config.assets.version = '1.0'
 
     config.cache_store = :memory_store
+
+
+    Backburner.configure do |config|
+      config.beanstalk_url = "beanstalk://127.0.0.1"
+      config.tube_namespace = "backburner.worker.queue-contact"
+      config.on_error = lambda { |e| puts e.inspect }
+    end
+
+
   end
 end

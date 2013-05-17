@@ -50,16 +50,6 @@ module Business::CitationListMethods
       @site_models
     end
 
-    def create_site_accounts
-      Business.sub_models.each do |klass| 
-        y = klass.new
-        STDERR.puts "Model: #{klass}"
-        STDERR.puts "Instance: #{y.inspect}"
-        y.business_id = self.id
-        y.save
-      end
-    end
-
     def self.get_sub_model(str)
       Business.sub_models.each do |klass|
         STDERR.puts "Comparing #{str} <=> #{klass.class.to_s}"
