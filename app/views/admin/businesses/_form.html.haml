@@ -25,6 +25,8 @@
     = f.input :geographic_areas
     = f.input :year_founded
     = f.input :contact_birthday
+    = f.input :born_at,:as => :string, :input_html => {:class => "hasDatetimePicker"}
+    -#,:as => :string, :input_html => {:class => "hasDatetimePicker"}
     /= f.input :email
     /= f.inputs "Mail" do
     /  = f.input :mail_host

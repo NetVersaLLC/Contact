@@ -1,7 +1,7 @@
 class Label < ActiveRecord::Base
   has_attached_file :logo, :styles => { :thumb => "200x200>" }
+  attr_accessible :name, :domain, :custom_css, :login, :password, :logo, :footer,:is_pdf ,:is_show_password
   has_attached_file :favicon
-  attr_accessible :name, :domain, :custom_css, :login, :password, :logo, :footer
   attr_accessible :mail_from
 
   acts_as_tree :order => :name

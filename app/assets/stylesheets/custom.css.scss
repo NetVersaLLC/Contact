@@ -9,12 +9,26 @@ div.ajax-progress {
   background-position: center;
   background-repeat: no-repeat;
   background-color: white;
-  -moz-border-radius:    10px;
+  -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
-  border-radius:         10px;
+  border-radius: 10px;
 }
 
-.jquery_form_error_message{
+.jquery_form_error_message {
   display: block;
   margin-top: 3px;
 }
+
+.sign_In {
+  width: 100%;
+  float: left;
+  margin-left: 685px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  color: #808080;
+}
+
+.sign_In a{
+  color: #808080;
+}
+
