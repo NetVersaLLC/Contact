@@ -923,6 +923,8 @@ ActiveRecord::Schema.define(:version => 20130514172546) do
     t.string   "favicon_content_type"
     t.integer  "favicon_file_size"
     t.datetime "favicon_updated_at"
+    t.boolean  "is_pdf"
+    t.boolean  "is_show_password",     :default => true
   end
 
   add_index "labels", ["domain"], :name => "index_labels_on_domain"
