@@ -117,7 +117,7 @@ Then /I should see "([^"]*)" and "(.{2})"$/ do |city, state|
 end 
 
 Then /I should see error "([^"]*)" next to "([^"]*)"$/ do |message, label| 
-  find(".error-inline").should have_content(message) 
+  find("div.error").should have_content(message) 
   find("div.error").should have_content(label)
   page.should have_css("div.error") 
 end 
@@ -128,10 +128,6 @@ end
 
 Then /I should see "([^"]*)"$/ do |text| 
   page.should have_content(text, :visibile => true ) 
-end 
-
-Then /^I should see errors$/ do 
-  page.should have_css('div.error') 
 end 
 
 Then /I should still be on the "([^"]*)" tab/ do |tab| 
