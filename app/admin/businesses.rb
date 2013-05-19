@@ -2,12 +2,6 @@ ActiveAdmin.register Business do
   scope_to :current_user, :association_method => :business_scope
   actions :all, :except => [:new] 
 
-<<<<<<< HEAD
-=======
-  config.clear_action_items!
-  actions :all, :except => :new
-
->>>>>>> remove business button, chnage sign in to login in application layout and fis business view/detail
   filter :redeemed_coupon, :label => "Coupon",
          :as => :select, :collection => proc { Coupon.where(:label_id => current_user.label.id) }
   preserve_default_filters!
@@ -24,13 +18,6 @@ ActiveAdmin.register Business do
     column :company_website do |v|
       link_to v.company_website, v.company_website
     end
-<<<<<<< HEAD
-
-=======
-    column :parent do |v|
-      v.user.label.name
-    end
->>>>>>> remove business button, chnage sign in to login in application layout and fis business view/detail
     column :coupon do |v|
       unless v.transaction_event.nil? || v.transaction_event.coupon.nil?
         v.transaction_event.coupon.name

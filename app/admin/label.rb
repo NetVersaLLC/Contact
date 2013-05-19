@@ -31,15 +31,16 @@ ActiveAdmin.register Label do
   form do |f|
     label = Label.find(params[:id])
     f.inputs do
-      f.input :name 
+      f.input :name
       f.input :domain 
       f.input :logo, :as => :file 
+      
       f.input :custom_css # text area 
       f.input :login 
       f.input :password , :input_html => { :value => label.password } ,:as => :string
       f.input :footer # text area
       f.input :mail_from
-    end 
+    end
 
     f.actions 
   end 
