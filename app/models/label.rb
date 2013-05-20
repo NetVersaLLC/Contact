@@ -11,16 +11,27 @@ class Label < ActiveRecord::Base
   has_many :packages
   has_many :credit_events 
 
-  THEMES = %w{ amelia cerulean cosmo cyborg journal readable simplex slate spacelab spruce superhero united }
+  THEMES = %w{ ace amelia cerulean cosmo cyborg journal readable simplex slate spacelab spruce superhero united }
   
   def css_is_set?
     theme != nil && !theme.empty?
   end
 
-  def theme_css_file
-    "#{THEME_PATH}/#{theme}.min.css"
+  def theme_css_files
+    themes = case theme
+    when 'ace'
+      ['ace','ace-responsive','ace-skins'].map {|x| "<link rel='stylesheet' href='#{THEME_PATH}/ace/css/#{x}.min.css' />" }.join.html_safe
+    else
+      "<link rel='stylesheet' href='#{THEME_PATH}/#{theme}.min.css' />".html_safe
+    end
   end
 
+  def theme_js_files
+    themes = case theme
+    when 'ace'
+      ['ace','ace-elements'].map {|x| "<script src='#{THEME_PATH}/ace/js/#{x}.min.js'></script>" }.join.html_safe
+    end
+  end
 
   def display_name # activeadmin 
     name 
