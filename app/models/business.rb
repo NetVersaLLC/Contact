@@ -10,9 +10,6 @@ class Business < ActiveRecord::Base
   queue "business-manage"
 
   # Associations
-  has_attached_file :logo, :styles => {:thumb => "100x100>"}
-  validates_attachment :logo,
-                       :size => {:in => 1..1500.kilobytes}
 
   has_many :jobs, :order => "position"
   has_many :failed_jobs, :order => "position"
