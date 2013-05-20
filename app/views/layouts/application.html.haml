@@ -13,9 +13,12 @@
 
 
     -if signed_in? && current_label.css_is_set?
-      %link{:rel => :stylesheet, :href => current_label.theme_css_file }
+      = current_label.theme_css_files
     -else
       %link{:rel => :stylesheet, :href => "bootstrap.min.css" }
+
+    -if signed_in? && current_label.css_is_set?
+      = current_label.theme_js_files
 
     = csrf_meta_tags
     %style{:type => "text/css"}
