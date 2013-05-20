@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130508192901) do
+ActiveRecord::Schema.define(:version => 20130517023646) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -128,6 +128,15 @@ ActiveRecord::Schema.define(:version => 20130508192901) do
   end
 
   add_index "aols", ["username"], :name => "index_aols_on_username"
+
+  create_table "backburner_processes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "business_id"
+    t.text     "all_processes"
+    t.text     "processed"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "bing_categories", :force => true do |t|
     t.integer  "parent_id"
@@ -839,6 +848,15 @@ ActiveRecord::Schema.define(:version => 20130508192901) do
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
 
+  create_table "insiderpages", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
     t.text     "secrets"
@@ -935,6 +953,8 @@ ActiveRecord::Schema.define(:version => 20130508192901) do
     t.string   "favicon_content_type"
     t.integer  "favicon_file_size"
     t.datetime "favicon_updated_at"
+    t.boolean  "is_pdf"
+    t.boolean  "is_show_password",     :default => true
   end
 
   add_index "labels", ["domain"], :name => "index_labels_on_domain"
@@ -1231,6 +1251,15 @@ ActiveRecord::Schema.define(:version => 20130508192901) do
 
   add_index "mydestinations", ["business_id"], :name => "index_mydestinations_on_business_id"
 
+  create_table "mywebyellows", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "notifications", :force => true do |t|
     t.integer  "business_id"
     t.string   "title"
@@ -1286,6 +1315,13 @@ ActiveRecord::Schema.define(:version => 20130508192901) do
     t.integer  "patch_category_id"
   end
 
+  create_table "payload_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "position"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "payments", :force => true do |t|
     t.string   "status"
     t.string   "name"
@@ -1304,6 +1340,17 @@ ActiveRecord::Schema.define(:version => 20130508192901) do
   add_index "payments", ["business_id"], :name => "index_payments_on_business_id"
   add_index "payments", ["label_id"], :name => "index_payments_on_label_id"
   add_index "payments", ["transaction_id"], :name => "index_payments_on_transaction_id"
+
+  create_table "pings", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "business_id"
+    t.string   "message"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "pings", ["business_id"], :name => "index_pings_on_business_id"
+  add_index "pings", ["user_id"], :name => "index_pings_on_user_id"
 
   create_table "primeplace_categories", :force => true do |t|
     t.integer  "parent_id"

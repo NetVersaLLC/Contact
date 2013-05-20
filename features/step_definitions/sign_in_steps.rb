@@ -6,6 +6,25 @@ def sign_in
   click_button 'user_submit_action' 
 end 
 
+def sign_up
+  visit new_user_registration_path + "?package_id=#{package.id}" 
+
+  c = FactoryGirl.create(:coupon, :code => 'netversa', :name => 'netversa', :label => white_label) 
+  fill_in "coupon", with: c.name 
+  click_button 'Add' 
+
+  find('#new_user').should have_content('netversa') 
+
+  u = FactoryGirl.build(:user) 
+
+  fill_in 'email', with: u.email 
+  fill_in 'password', with: u.password 
+  fill_in 'password_confirmation', with: u.password 
+  check 'user_tos' 
+
+  click_button 'Place Order' 
+end 
+
 Given /I am a user/ do 
   user 
 end 
