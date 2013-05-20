@@ -20,9 +20,9 @@ ActiveAdmin.register_page "My Label" do
                 option ''
                 Label::THEMES.each do |t|
                   if t.downcase==labelObj.theme
-                    option t, :value=>t.downcase, :selected=>'selected'
+                    option t.humanize, :value=>t, :selected=>'selected'
                   else
-                    option t, :value=>t.downcase
+                    option t.humanize, :value=>t
                   end
                 end
               end

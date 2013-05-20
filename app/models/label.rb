@@ -11,14 +11,14 @@ class Label < ActiveRecord::Base
   has_many :packages
   has_many :credit_events 
 
-  THEMES = %w{ Amelia Cerulean Cosmo Cyborg Journal Readable Simplex Slate Spacelab Spruce Superhero United }
+  THEMES = %w{ amelia cerulean cosmo cyborg journal readable simplex slate spacelab spruce superhero united }
   
   def css_is_set?
-
+    theme != nil && !theme.empty?
   end
 
   def theme_css_file
-
+    "#{THEME_PATH}/#{theme}.min.css"
   end
 
 
