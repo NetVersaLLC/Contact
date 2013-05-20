@@ -12,6 +12,15 @@ class Label < ActiveRecord::Base
   has_many :credit_events 
 
   THEMES = %w{ Amelia Cerulean Cosmo Cyborg Journal Readable Simplex Slate Spacelab Spruce Superhero United }
+  
+  def css_is_set?
+
+  end
+
+  def theme_css_file
+
+  end
+
 
   def display_name # activeadmin 
     name 
