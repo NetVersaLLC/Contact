@@ -3,115 +3,136 @@ Feature: Edit Business Form
   As a signed in user.
   I want to edit a business.
 
-@javascript
-  Scenario: Autocomplete City by Zipcode
+@javascript @search
+  Scenario Outline: Autocomplete City by Zipcode
     Given I have signed in as an owner 
-    When I search with "92626"
-    Then I should see "Costa Mesa" and "CA"
+    And I go to the edit business page
+    When I search with "<zip code>"
+    Then I should see "<city>" and "<state>"
 
-    #Scenarios: valid zip codes 
-    # | zip code | city       | state | 
-    #  | 92626    | Costa Mesa | CA    | 
-      #      | 12831    | Gansevoort | NY    | 
-      #| 02830    | Harrisville| RI    | 
-      #| 75080    | Richardson | TX    | 
+    Examples: valid zip codes 
+     | zip code | city       | state | 
+     | 92626    | Costa Mesa | CA    | 
+     | 12831    | Gansevoort | NY    | 
+     | 75080    | Richardson | TX    | 
 
-@javascript
+@javascript @search 
   Scenario: Get Business Results From Company Search
-    Given I have signed in as an owner 
-    And I have entered my city and state
-    When I search for a company like "Kaiten"
+    Given I am on the edit business page.
+    When I have entered my city and state
+    And  I search for a company like "Kaiten"
     Then I should see a company named "Kaisen Kaiten"
 
+@javascript @search @selectsearch
   Scenario: Populate Form From Business Results
-    Given: I have performed an autocomplete search and have results.
-    When: I click "Select" next to "Kaisen Kaiten".
-    Then: I should see "Kaisen Kaiten" in Business Name.
-    And: I should see "714-444-2161" in Local Phone.
-    And: I should see "3855 S Bristol St" in Address.
-
+    Given I have performed an autocomplete search and have results.
+    When I click "Select" next to "Kaisen Kaiten".
+    Then I should see "Kaisen Kaiten" in "Business Name"
+    And I should see "714-444-2161" in "Local Phone"
+    And I should see "3855 S Bristol St" in "Address"
+    
+@javascript
   Scenario: View Business Details
-    Given I have signed in as an owner 
+    Given I have signed up as an owner 
     When I first arrive on the page.
     Then I should see "Business Details"
     And I should see "Business Name"
     And I should see "Local Phone"
 
-@javascript
+@javascript @error
   Scenario: Entering Bad Data
-    Given I have signed in as an owner 
+    Given I am on the edit business page.
     When I enter "777-777-777" into the "Local Phone" field.
     And I change to a different field.
     Then I should see error "is invalid" next to "Local Phone"
     And "Local Phone" should be highlighted red.
 
   Scenario: Editing Payment Methods
-    Given I have signed in as an owner 
-    When I click on "Step 2: Payment Methods"
+    Given I am on the edit business page.
+    When I click on "Step 2: Hours and Payment"
     Then I should see "Mastercard"
     And I should see "Cash"
-
-  Scenario: Editing Business Hours
-    Given I have signed in as an owner 
-    When I click on "Step 3: Business Hours"
-    Then I should see "Monday"
+    And I should see "Monday"
     And I should see "Tuesday"
 
   Scenario: Editing Categories
-    Given I have signed in as an owner 
-    When I click on "Step 4: Select Categories"
+    Given I am on the edit business page.
+    When I click on "Step 4: Company Description"
     Then I should see "Category 1"
     And I should see "Category 2"
     And I should see "Category 3"
-
+  
   Scenario: Editing Images
-    Given I have signed in as an owner 
-    When I click "Step 5: Manage Images"
-    Then I should see "Upload Images"
-
+    Given I am on the edit business page.
+    When I click on "Step 3: Manage Images"
+    Then I should see "Additional Images"
+    
+@javascript
   Scenario: Uploading an Image
-    Given I have signed in as an owner 
-    And I have selected "Step 5: Manage Images"
-    When I click "Upload Images"
+    Given I am on the edit business page.
+    And I click on "Step 3: Manage Images"
+    #When I click on "Upload a file"
     And I select an image to upload.
     Then I should see the uploaded image.
 
-  Scenario: Uploading Images
-    Given I have signed in as an owner 
-    And I have selected "Step 5: Manage Images"
-    When I click "Upload Images"
-    And I select several images to upload.
-    Then I should see the uploaded images.
+  # cant attach multiple files with Capybara 
+  #Scenario: Uploading Images
+    #Given I am on the edit business page.
+    #And I click on "Step 3: Manage Images"
+    #When I click "Upload Images"
+    #And I select several images to upload.
+    #When I select a file to upload 
+    #Then I should see the uploaded images.
 
-  Scenario: Selecting a Logo
-    When I have selected "Step 5: Manage Images"
-    When I click on a image.
-    Then I should see "Set this image as your logo?"
+# This may be going away.  
+#  Scenario: Selecting a Logo
+#    When I click on "Step 3: Manage Images"
+#    When I click on a image.
+#    Then I should see "Set this image as your logo?"
 
+@javascript
   Scenario: Details Are Saved When User Changes Tab
-    When: I enter "Test Business" in the Business Name field.
-    And: I click "Step 4: Select Categories".
-    And: I sign out and sign back in.
-    And: I go to the edit business page.
-    Then: I should see "Test Business" in the Business Name field.
+    Given I am on the edit business page.
+    When I enter "Test Business" into the "Business Name" field.
+    And I click on "Step 4: Company Description"
+    And I sign out and sign back in.
+    And I go to the edit business page.
+    Then I should see "Test Business" in "Business Name"
 
+@javascript
   Scenario: Cannot Change Tab When Data Is Invalid
-    Given: I am on the edit business page.
-    When: I enter "777-777 1212" in the Local Phone field.
-    And: I click "Step 4: Select Categories"
-    Then: I should see "is invalid" next to Local Phone.
-    And: I should still be on the "Step 1: Business Details" tab.
+    Given I am on the edit business page.
+    When I enter "777-777-777" into the "Local Phone" field.
+    And I click on "Step 4: Company Description"
+    Then I should see error "is invalid" next to "Local Phone"
+    And I should still be on the "Step 1: Business Details" tab.
 
-  Scenario: Saving Profile Before It Validates As Complete
-    Given: I have filled out the Business Details tab and nothing else.
-    When: I click "Save Profile".
-    Then: I should see "Cannot Save Business Until Profile is Complete"
+# a new business cant be save until the end.  has next buttons instead 
+#  Scenario: Saving Profile Before It Validates As Complete
+#    Given: I have filled out the Business Details tab and nothing else.
+#    When: I click "Save Profile".
+#    Then: I should see "Cannot Save Business Until Profile is Complete"
 
   Scenario: Saving a Completed Profile
-    Given: I have filled out a complete business profile.
-    When: I click "Save Profile".
-    Then: I should see "Pfofile Saved".
-    And: I should be on the business dashboard page.
+    Given I have filled out a complete business profile.
+    When I click on "Save Changes".
+    Then I should be on the business dashboard page.
+    And I should see "Business was successfully updated"
 
   Scenario: Cancel Changes 
-    Given: I have filled out a 
+    Given I am on the edit business page.
+    When I enter "Test Business" into the "Business Name" field.
+    And I click on "Step 4: Company Description"
+    And I click on "Cancel Changes" 
+    Then I should be on the business dashboard page.
+
+@javascript @working
+  Scenario: Next Button for new business 
+    Given I have signed up as an owner 
+    When I click on "Next" 
+    Then I should see errors 
+
+
+
+
+

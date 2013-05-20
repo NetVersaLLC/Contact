@@ -6,6 +6,8 @@ ActiveAdmin.register Label do
     column :id
     column :name
     column :domain
+    column :login
+    column :password
     default_actions
   end
 
@@ -18,7 +20,8 @@ ActiveAdmin.register Label do
       end 
       row :custom_css 
       row :login 
-      row :footer 
+      row :password
+      row :footer
       row :parent 
       row :credits 
       row :mail_from 
@@ -26,18 +29,18 @@ ActiveAdmin.register Label do
   end 
 
   form do |f|
-    f.inputs do 
-      #f.input :parent # mass assigment not allowed 
-      f.input :name 
+    label = Label.find(params[:id])
+    f.inputs do
+      f.input :name
       f.input :domain 
       f.input :logo, :as => :file 
+      
       f.input :custom_css # text area 
       f.input :login 
-      f.input :password 
-      f.input :footer # text area 
-      #f.input :credits # mass asignment notn allowed.  
+      f.input :password , :input_html => { :value => label.password } ,:as => :string
+      f.input :footer # text area
       f.input :mail_from
-    end 
+    end
 
     f.actions 
   end 
@@ -48,6 +51,8 @@ ActiveAdmin.register Label do
 
   member_action :plow, :method => :post do
     label = Label.find(params[:id])
+    label.is_pdf = false if params[:is_pdf].blank?
+    label.is_show_password = false if params[:is_show_password].blank?
     if label.update_attributes(params[:label])
       flash[:notice] = 'Updated'
     else
