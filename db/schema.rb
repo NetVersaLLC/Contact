@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130517023646) do
+ActiveRecord::Schema.define(:version => 20130519183116) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -848,15 +848,6 @@ ActiveRecord::Schema.define(:version => 20130517023646) do
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
 
-  create_table "insiderpages", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "email"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
     t.text     "secrets"
@@ -955,6 +946,7 @@ ActiveRecord::Schema.define(:version => 20130517023646) do
     t.datetime "favicon_updated_at"
     t.boolean  "is_pdf"
     t.boolean  "is_show_password",     :default => true
+    t.string   "theme"
   end
 
   add_index "labels", ["domain"], :name => "index_labels_on_domain"
