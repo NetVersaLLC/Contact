@@ -16,6 +16,5 @@ module Business::Attributes
     attr_accessible :keyword1, :keyword2, :keyword3, :keyword4, :keyword5
     attr_accessible :competitors, :most_like, :industry_leaders
     attr_accessible :fan_page_url
-    attr_accessible :logo
   end
 end
