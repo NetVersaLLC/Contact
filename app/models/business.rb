@@ -82,7 +82,7 @@ class Business < ActiveRecord::Base
     self.user.label_id
   end
 
-<<<<<<< HEAD
+
   private
 
   def delete_all_associated_records
