@@ -3,13 +3,15 @@ class Label < ActiveRecord::Base
   attr_accessible :name, :domain, :custom_css, :login, :password, :logo, :footer,:is_pdf ,:is_show_password
   has_attached_file :favicon
   attr_accessible :name, :domain, :custom_css, :login, :password, :logo, :footer,:is_pdf ,:is_show_password, :favicon
-  attr_accessible :mail_from
+  attr_accessible :mail_from, :theme
 
   acts_as_tree :order => :name
   has_many :users
   has_many :coupons
   has_many :packages
   has_many :credit_events 
+
+  THEMES = %w{ Amelia Cerulean Cosmo Cyborg Journal Readable Simplex Slate Spacelab Spruce Superhero United }
 
   def display_name # activeadmin 
     name 
