@@ -44,7 +44,6 @@ save_changes = (event) ->
       $('#current_tab').val(window.new_tab)
       show_tab( window.new_tab )
 
-
 bind_events_on_current_tab = () -> 
   t = current_tab_id()
   $(t + " > section input[rel=popover]").popover
@@ -57,14 +56,6 @@ bind_events_on_current_tab = () ->
   window.categories()          if t == "#tab4"
   window.company_description() if t == "#tab4"
 
-current_tab_id = () -> 
-  $("#current_tab").val() 
-
-current_tab_has_errors = () -> 
-  console.log current_tab_id()
-  $(current_tab_id() + " .error").length > 0 
-
- 
 wire_up_submit = -> 
   $("form.business").submit ->
     $("#section-save .btn").attr('disabled','disabled')
@@ -90,17 +81,21 @@ delay_task_sync_button = ->
 
 
 $ ->
+  traversal = if $("#new_business").length then 'never' else 'always'
+
   $('.pf-form').psteps( { 
-    traverse_titles: 'never', 
+    traverse_titles: traversal, 
     validate_use_error_msg: false,
     shrink_step_names: false, 
     steps_onload: () -> 
       cur_step = $(this)  
-      console.log "onload " + cur_step
     validation_rule: () -> 
       # some useful class items: step-visited step-active last-active 
       cur_step = $(this) 
-      console.log cur_step
+
+      # validate the form incase they hit 'next' without entering anything. 
+      form = $('form.business')
+      form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators ) 
 
       if cur_step.hasClass("step-visited") && cur_step.find(".error").length > 0 
         scrollToFirstError() if cur_step.hasClass("step-active") 
