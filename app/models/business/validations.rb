@@ -42,10 +42,10 @@ module Business::Validations
       :allow_blank => true,
       :format => { :with => phone_regex }
     validates :toll_free_phone,
-      :allow_blank => true,
+	  :allow_blank => true,
       :format => { :with => /^(?:888|877|866|855|844|833|822|800)-\d\d\d-\d\d\d\d$/ }
     validates :mobile_phone,
-      :allow_blank => true,
+      :presence => true,      
       :format => { :with => phone_regex }
     validates :fax_number,
       :allow_blank => true,
