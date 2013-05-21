@@ -1,4 +1,9 @@
-%section{:id => 'section-save'}
+%div 
+  %a.next-button.btn Next
+  %button.submit-button.btn Done
+  %a.back-button.btn Back
+/ 
+  %section{:id => 'section-save'}
   = @f.actions do 
     - if @business.new_record? 
       %a.btn.btn-large.btn-primary{:id => "next_tab", :href => "#tab2"} Next

@@ -15,6 +15,8 @@
       = current_label.custom_css
     /[if lt IE 9]
       <script src="/assets/html5shiv.js"></script>
+      
+      
     %link{:rel => "icon", :type => "image/ico", :href => current_label.favicon_url}/
   %body
     .ajax-progress
@@ -36,10 +38,4 @@
             .alert.alert-error= flash[:error] 
         .span6 
       = yield
-    %a{:href => "http://clicky.com/100593955", :title => "Real Time Web Analytics"}
-      %img{:alt => "Real Time Web Analytics", :border => "0", :src => "//static.getclicky.com/media/links/badge.gif"}/
-    %script{:src => "//static.getclicky.com/js", :type => "text/javascript"}
-    :javascript
-      try{ clicky.init(100593955); }catch(e){}%noscript
-    %p
-      %img{:alt => "Clicky", :height => "1", :src => "//in.getclicky.com/100593955ns.gif", :width => "1"}/
+
