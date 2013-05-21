@@ -37,6 +37,14 @@ module Business::FormMethods
       end
     end
 
+    def get_keywords
+      return self.keywords.split(",").map(&:lstrip).map(&:rstrip)
+    end
+
+    def get_brands
+      return self.brands.split(",").map(&:lstrip).map(&:rstrip)
+    end
+
     def self.geographic_areas_list
       list = ['Worldwide', 'Nationwide', 'Unknown']
       number = 10
