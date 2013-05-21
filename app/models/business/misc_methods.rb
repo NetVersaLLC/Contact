@@ -90,6 +90,7 @@ module Business::MiscMethods
 	pdf = Prawn::Document.new
 
 	pdf.text('Account Information')
+	pdf.text('------------------------------------------------------------')
 	Business.citation_list.each do |site|
         STDERR.puts "Site: #{site[0]}"
         logger.debug site.inspect
@@ -124,7 +125,9 @@ module Business::MiscMethods
 		end
 	end
 
+	pdf.start_new_page()
 	pdf.text('Completed Jobs Information')
+	pdf.text('------------------------------------------------------------')
 	ran = {}
 	CompletedJob.where(:business_id => self.id).each do |row|
 		ran[row.name.split("/")[0]] = 'Completed'
