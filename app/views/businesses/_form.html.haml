@@ -14,20 +14,32 @@
         .row-fluid 
           .span3 
             .step-title 
-              %span.step-order 1. 
-              %span.step-name Business Details
+              %span.step-order 1.
+              %span.step-name Contact Information
             .step-title 
               %span.step-order 2. 
-              %span.step-name Hours and Payment 
+              %span.step-name Business Details
             .step-title 
               %span.step-order 3. 
-              %span.step-name Manage Images 
+              %span.step-name Hours and Payment 
             .step-title 
               %span.step-order 4. 
-              %span.step-name Company Description 
+              %span.step-name Business Description 
+            .step-title 
+              %span.step-order 5. 
+              %span.step-name Manage Images 
+            .step-title 
+              %span.step-order 6.
+              %span.step-name Existing Accounts
+            .step-title 
+              %span.step-order 7
+              %span.step-name Download Client 
           .span9.well.clearfix
+            .step-content= render :partial => 'form/contact_information'
             .step-content= render :partial => 'form/business_details' 
             .step-content= render :partial => 'form/hours_and_payment' 
-            .step-content= render :partial => 'form/logo' 
             .step-content= render :partial => 'form/company_description' 
+            .step-content= render :partial => 'form/logo' 
+            .step-content= render :partial => 'form/logo' #'form/existing_account_logins' 
+            .step-content= render :partial => 'form/download_client'
             = render :partial => 'form/submit'

@@ -1,5 +1,5 @@
 %section{:id => 'section-business-details'}
-  = @f.inputs :class => 'inputs tab-pane', :id => 'section1' do
+  = @f.inputs :business_description, :class => 'inputs tab-pane', :id => 'section1' do
     = @f.input :business_name
     = @f.input :corporate_name
     = @f.input :contact_prefix,     :as => :select, :collection => Business.prefix_list

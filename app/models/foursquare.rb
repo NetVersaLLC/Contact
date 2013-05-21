@@ -5,7 +5,7 @@ class Foursquare < ClientData
             :allow_blank => true,
             :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
 
-belongs_to :foursuare_category
+belongs_to :foursquare_category
 
 def self.check_email(business)
     @link = nil
