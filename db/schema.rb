@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130520171147) do
+ActiveRecord::Schema.define(:version => 20130521172601) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -302,6 +302,18 @@ ActiveRecord::Schema.define(:version => 20130520171147) do
     t.string   "category5"
     t.boolean  "categorized"
     t.integer  "label_id",                  :default => 1
+    t.string   "keywords"
+    t.string   "status_message"
+    t.string   "services_offered"
+    t.boolean  "trade_license"
+    t.string   "trade_license_number"
+    t.string   "trade_license_locale"
+    t.string   "trade_license_authority"
+    t.string   "trade_license_expiration"
+    t.string   "trade_license_description"
+    t.string   "brands"
+    t.string   "tag_line"
+    t.text     "job_titles"
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
@@ -874,6 +886,15 @@ ActiveRecord::Schema.define(:version => 20130520171147) do
   end
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
+
+  create_table "insiderpages", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
