@@ -73,3 +73,4 @@ gem 'axlsx'
 gem 'vitelity'
 gem "backburner", "~> 0.3.4"
 gem 'daemons'
+gem 'prawn'
