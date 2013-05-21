@@ -7,6 +7,20 @@ module Business::Validations
 
     validate :time_cannot_same
 
+
+    validates :keywords,
+      :presence => true
+    validates :status_message,
+      :presence => true
+    validates :services_offered,
+      :presence => true
+    validates :brands,
+      :presence => true
+    validates :tag_line,
+      :presence => true
+    validates :job_titles,
+      :presence => true
+
     validates :category1,
       :presence => true
     validates :category2,
