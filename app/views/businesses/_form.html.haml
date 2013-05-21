@@ -10,20 +10,36 @@
       - @accounts = [] if @accounts.nil?
       = f.semantic_errors
       - @f = f
-      .tabbable
-        %ul.nav.nav-tabs
-          %li.active
-            %a{:href => "#tab1"} Step 1: Business Details
-          %li
-            %a{:href => "#tab2"} Step 2: Hours and Payment
-          %li
-            %a{:href => "#tab3"} Step 3: Manage Images
-          %li
-            %a{:href => "#tab4"} Step 4: Company Description
-        .tab-content
-          -# this content is also in validate.html.erb until we can dry it out. 
-          #tab1.tab-pane.active= render :partial => 'form/business_details'
-          #tab2.tab-pane= render :partial => 'form/hours_and_payment'
-          #tab3.tab-pane= render :partial => 'form/logo'
-          #tab4.tab-pane= render :partial => 'form/company_description'
-      = render :partial => 'form/submit'
+      #business_steps.pf-form 
+        .row-fluid 
+          .span3 
+            .step-title 
+              %span.step-order 1.
+              %span.step-name Contact Information
+            .step-title 
+              %span.step-order 2. 
+              %span.step-name Business Details
+            .step-title 
+              %span.step-order 3. 
+              %span.step-name Hours and Payment 
+            .step-title 
+              %span.step-order 4. 
+              %span.step-name Business Description 
+            .step-title 
+              %span.step-order 5. 
+              %span.step-name Manage Images 
+            .step-title 
+              %span.step-order 6.
+              %span.step-name Existing Accounts
+            .step-title 
+              %span.step-order 7
+              %span.step-name Download Client 
+          .span9.well.clearfix
+            .step-content= render :partial => 'form/contact_information'
+            .step-content= render :partial => 'form/business_details' 
+            .step-content= render :partial => 'form/hours_and_payment' 
+            .step-content= render :partial => 'form/company_description' 
+            .step-content= render :partial => 'form/logo' 
+            .step-content= render :partial => 'form/logo' #'form/existing_account_logins' 
+            .step-content= render :partial => 'form/download_client'
+            = render :partial => 'form/submit'
