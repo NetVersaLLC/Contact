@@ -1,5 +1,12 @@
 %section{:id => 'section-download-client'}
   %h3 Download Client Software
-  %p Use the button below to download the client software for this business. For best results this software should be installed on a system at the business location.
+  %p 
+    The client software should start downloading within seconds.  If it doesn't, 
+    %a#download_client{:href => "/downloads/#{@business.id}"} restart the download. 
+  %p For best results, this software should be installed on a system at the business location.
   .well
-    %a.btn.btn-warning.btn-large{:href => "/downloads/#{@business.id}"} Download Client
+    - if request.headers['HTTP_USER_AGENT'].downcase =~ /macintosh/ 
+      %h3 MAC OS/X IMAGE HERE 
+    - else 
+      %h3 WINDOWS IMAGE HERE 
+  /  %a.btn.btn-warning.btn-large{:href => "/downloads/#{@business.id}"} Download Client
