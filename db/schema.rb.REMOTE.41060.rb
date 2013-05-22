@@ -11,11 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20130519183116) do
-=======
 ActiveRecord::Schema.define(:version => 20130520171147) do
->>>>>>> 04c2002b5463bc6108e0c459986aa5fe4242ff50
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -979,7 +975,6 @@ ActiveRecord::Schema.define(:version => 20130520171147) do
     t.datetime "favicon_updated_at"
     t.boolean  "is_pdf"
     t.boolean  "is_show_password",     :default => true
-    t.string   "theme"
   end
 
   add_index "labels", ["domain"], :name => "index_labels_on_domain"
