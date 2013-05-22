@@ -1,7 +1,0 @@
-= semantic_form_for @business do |f| 
-  - @f = f 
-  = case @tab
-    - when "#tab1" then render :partial => 'form/business_details'
-    - when "#tab2" then render :partial => 'form/hours_and_payment'
-    - when "#tab3" then render :partial => 'form/logo'
-    - when "#tab4" then render :partial => 'form/company_description'
