@@ -1,7 +1,7 @@
 class ClientData < ActiveRecord::Base
   self.abstract_class = true
   belongs_to      :business
-  attr_accessible :force_update
+  attr_accessible :force_update, :do_not_sync
   serialize       :secrets, CerebusClient.new
   after_find      :deserialize_attributes
   before_save     :serialize_attributes

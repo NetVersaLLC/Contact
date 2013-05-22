@@ -44,7 +44,7 @@
     ],
       'MerchantCircle'
   ],
-  ['Manta', 'mantas',
+  ['Manta', 'manta',
     [
       ['text', 'email'],
       ['text', 'password']
@@ -376,7 +376,7 @@
     ],
       'Digabusiness'
   ],
-  ['Cylex', 'cylex',
+  ['Cylex', 'cylexes',
     [
       ['text', 'username'],
       ['text', 'password']

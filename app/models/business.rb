@@ -77,6 +77,10 @@ class Business < ActiveRecord::Base
   attr_accessible :usyellowpages_attributes
   accepts_nested_attributes_for :usyellowpages, :allow_destroy => true
 
+  has_many :manta, :dependent => :destroy, :class_name => "Manta"
+  attr_accessible :manta_attributes
+  accepts_nested_attributes_for :manta, :allow_destroy => true
+
 
   def label_id
     self.user.label_id
