@@ -6,6 +6,7 @@ FactoryGirl.define do
     contact_last_name 'McDonald' 
     contact_birthday '1/1/1900' 
     local_phone '617-555-1212' 
+    mobile_phone '617-555-1111'
     address  'Main Street' 
     city     'Somewhere' 
     state    'CA' 
