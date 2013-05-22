@@ -1,5 +1,7 @@
 Contact::Application.routes.draw do
 
+  mount UserImpersonate::Engine => "/impersonate", as: "impersonate_engine"
+
   get    '/payloads/:id(.:format)', :controller => :payloads, :action => :index
   get    '/packages/:id(.:format)', :controller => :packages, :action => :index
   delete '/packages/:id(.:format)', :controller => :packages, :action => :destroy
