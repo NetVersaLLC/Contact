@@ -84,6 +84,9 @@ Contact::Application.routes.draw do
   get '/resellers', :controller => :pages, :action => :resellers
   get '/try_again_later', :controller => :pages, :action => :try_again_later
 
+  get '/congratulations', :controller => :pages, :action => :congratulations
+  get '/begin-sync', :controller => :pages, :action => :begin_sync, :as=>'begin_sync'
+
   root :to => redirect("/pages/make_redirect")
   ActiveAdmin.routes(self) # Moved to bottom to resovle Unitialized Dashborad error w activeadmin 0.6.0 
 end
