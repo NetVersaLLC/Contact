@@ -3,4 +3,6 @@
     Editing #{@business.business_name}
   %br
   %br
-= render 'form'
+.row
+  .span12
+    = render :partial => 'form/business_tab' unless request.xhr?
