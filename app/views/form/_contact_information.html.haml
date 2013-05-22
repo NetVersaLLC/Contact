@@ -1,0 +1,10 @@
+%section{:id => 'section-contact-information'}
+  = @f.inputs "Contact Information", :class => 'inputs tab-pane', :id => 'section1' do
+    = @f.input :contact_prefix,     :as => :select, :collection => Business.prefix_list
+    = @f.input :contact_gender,     :as => :select, :collection => Business.gender_list
+    = @f.input :contact_first_name, :input_html => { 'data-content' => I18n.t('popovers.business.contact_first_name.content'),  'title' => I18n.t('popovers.business.contact_first_name.title'), :rel => 'popover' }
+    = @f.input :contact_middle_name, :input_html => { 'data-content' => I18n.t('popovers.business.contact_middle_name.content'),  'title' => I18n.t('popovers.business.contact_middle_name.title'), :rel => 'popover' }
+    = @f.input :contact_last_name, :input_html => { 'data-content' => I18n.t('popovers.business.contact_last_name.content'),  'title' => I18n.t('popovers.business.contact_last_name.title'), :rel => 'popover' }
+    = @f.input :contact_birthday,   :input_html => { 'data-content' => I18n.t('popovers.business.contact_birthday.content'), 'title' => I18n.t('popovers.business.contact_birthday.title'), :rel => 'popover' }
+    = @f.input :mobile_phone,       :input_html => { 'data-content' => I18n.t('popovers.business.mobile_phone.content'), 'title' => I18n.t('popovers.business.mobile_phone.title'),    :rel => 'popover' }
+    = @f.input :mobile_appears

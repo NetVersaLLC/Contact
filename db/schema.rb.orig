@@ -12,10 +12,14 @@
 # It's strongly recommended to check this file into your version control system.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20130519183116) do
 =======
 ActiveRecord::Schema.define(:version => 20130520171147) do
 >>>>>>> 04c2002b5463bc6108e0c459986aa5fe4242ff50
+=======
+ActiveRecord::Schema.define(:version => 20130521172601) do
+>>>>>>> master
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"

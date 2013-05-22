@@ -1,4 +1,6 @@
 First you need to be setup in Pivotal Tracker and Github.
+Please read about the git-pivotal gem here:
+https://github.com/trydionel/git-pivotal
 
 Install the gem:
 
@@ -30,8 +32,18 @@ git feature
 
 This will checkout the story from Pivotal and create a git branch for the
 story. When you're complete with the story, only after everything has
-been verified to be stable. You then run:
+been verified to be stable. You need to commit your code in the
+ordinary way.
+
+git commit -m "descriptiion of everything done in this commit" -a
+
+When the code has been commited then you can finish the story.
 
 git finish
 
-This will update the pivotal story and push the code.
+This will update the pivotal story, you then can push your code.
+
+The process is:
+
+git pull --rebase origin master
+git push origin master
