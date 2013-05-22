@@ -7,7 +7,7 @@
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
     %meta{:content => "", :name => "description"}/
     %meta{:content => "", :name => "author"}/
-    %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"}
+    %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"}    
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
@@ -36,10 +36,4 @@
             .alert.alert-error= flash[:error] 
         .span6 
       = yield
-    %a{:href => "http://clicky.com/100593955", :title => "Real Time Web Analytics"}
-      %img{:alt => "Real Time Web Analytics", :border => "0", :src => "//static.getclicky.com/media/links/badge.gif"}/
-    %script{:src => "//static.getclicky.com/js", :type => "text/javascript"}
-    :javascript
-      try{ clicky.init(100593955); }catch(e){}%noscript
-    %p
-      %img{:alt => "Clicky", :height => "1", :src => "//in.getclicky.com/100593955ns.gif", :width => "1"}/
+
