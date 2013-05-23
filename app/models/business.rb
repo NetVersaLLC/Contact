@@ -1,6 +1,6 @@
 class Business < ActiveRecord::Base
   include Business::Attributes
-  #  include Business::Validations
+  include Business::Validations
 
   include Business::CitationListMethods
   include Business::FormMethods
