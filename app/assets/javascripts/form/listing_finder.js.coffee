@@ -13,9 +13,11 @@ window.zipSearch = (callback)->
       $('#business_results').empty()
 
 window.selectPlace = (el)->
-  $('#zipform').hide("fast")
+  $('#zipform').hide()
+  $("#searchresult").hide()
+  $("#pagination").hide()
   $("#display_form").show()
-  
+ 
   $.getJSON '/places/show.js?reference='+$(el).attr('data-reference'), (data)->
     if data['status'] == 'OK'
       $('#business_results').html('')
