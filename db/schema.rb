@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130521172601) do
+ActiveRecord::Schema.define(:version => 20130523012817) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -887,15 +887,6 @@ ActiveRecord::Schema.define(:version => 20130521172601) do
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
 
-  create_table "insiderpages", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "email"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
     t.text     "secrets"
@@ -1498,6 +1489,19 @@ ActiveRecord::Schema.define(:version => 20130521172601) do
   end
 
   add_index "showmelocals", ["business_id"], :name => "index_showmelocals_on_business_id"
+
+  create_table "site_profiles", :force => true do |t|
+    t.string   "site"
+    t.string   "owner"
+    t.string   "founded"
+    t.string   "alexa_us_traffic_rank"
+    t.string   "page_rank"
+    t.string   "url"
+    t.string   "traffic_stats"
+    t.string   "notes"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
 
   create_table "snoopitnow_categories", :force => true do |t|
     t.integer  "parent_id"
