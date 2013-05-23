@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130523012817) do
+ActiveRecord::Schema.define(:version => 20130523164417) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -412,10 +412,12 @@ ActiveRecord::Schema.define(:version => 20130523012817) do
   create_table "coupons", :force => true do |t|
     t.string   "name"
     t.string   "code"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "percentage_off"
     t.integer  "label_id"
+    t.integer  "redeemed_count", :default => 0
+    t.integer  "allowed_upto",   :default => 0
   end
 
   add_index "coupons", ["code"], :name => "index_coupons_on_code"
@@ -886,6 +888,15 @@ ActiveRecord::Schema.define(:version => 20130523012817) do
   end
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
+
+  create_table "insiderpages", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
