@@ -108,7 +108,7 @@ class BusinessesController < ApplicationController
       sub.transaction_event.setup_business(@business) 
 
       BusinessFormEdit.where(:user_id => current_user.id).delete_all
-      redirect_to business_url(@business), :notice => 'Congratulations! Your business profile has been created!' 
+      redirect_to congratulations_path
     else 
       if params[:current_tab] and params[:current_tab] =~ /tab(\d+)/
         @tab = '#tab' + ($1.to_i + 1).to_s
