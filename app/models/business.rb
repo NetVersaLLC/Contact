@@ -10,9 +10,6 @@ class Business < ActiveRecord::Base
   queue "business-manage"
 
   # Associations
-  has_attached_file :logo, :styles => {:thumb => "100x100>"}
-  validates_attachment :logo,
-    :size => {:in => 1..1500.kilobytes}
 
   has_many :jobs, :order => "position"
   has_many :failed_jobs, :order => "position"
@@ -98,6 +95,12 @@ class Business < ActiveRecord::Base
         val.strip!
       end
     end
+  end
+
+  def create_site_accounts
+    user_id = self.user.id
+    business_id = self.id
+    Business.async.create_site_accounts_ex user_id, business_id
   end
 
   private

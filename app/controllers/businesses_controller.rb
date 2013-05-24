@@ -63,9 +63,12 @@ class BusinessesController < ApplicationController
       @business.attributes = business_form_edit.business_params
       flash[:notice] = 'Unsaved changes have been found.  Please save or cancel them. ' 
     end
+
     business_form_edit.update_attributes( {:business_id => @business.id, :business_params => nil, :user_id => current_user.id}) 
-    
     @accounts = @business.nonexistent_accounts_array
+
+    @site_accounts = Business.citation_list.map {|x| x[0..1]}
+    render :edit_accounts if params[:key]=='edit_accounts'
   end
 
   def save_and_validate

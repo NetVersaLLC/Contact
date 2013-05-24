@@ -10,6 +10,16 @@
     %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"}    
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
+
+
+    -if signed_in? && current_label.css_is_set?
+      = current_label.theme_css_files
+    -else
+      %link{:rel => :stylesheet, :href => "bootstrap.min.css" }
+
+    -if signed_in? && current_label.css_is_set?
+      = current_label.theme_js_files
+
     = csrf_meta_tags
     %style{:type => "text/css"}
       = current_label.custom_css
@@ -22,7 +32,7 @@
 
     .ajax-progress
     .container
-      .row
+      .row-fluid
         .span10
         .span2
           - if user_signed_in?
