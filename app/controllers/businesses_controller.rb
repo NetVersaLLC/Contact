@@ -148,20 +148,39 @@ class BusinessesController < ApplicationController
     end
   end
 
+
   def report
-    @business = Business.find(params[:business_id])
+	
+    @business = Business.find(params[:business_id].to_i)
     if @business.business_name.nil?
       flash[:notice] = "Error: Please fill out your business profile before you order a report."
       redirect_to edit_business_path(@business)
       return
     end
-    @file = @business.report
+
     name = @business.business_name.downcase.gsub(/[^A-Za-z0-9]/, '_')
     d = DateTime.now
-    name = d.strftime("#{name}_%m/%d/%Y.xlsx")
-    send_file(@file,
-              :type => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-              :disposition => "inline",
-              :filename => name)
+
+ 	
+   	format = params[:format] || params['format'] || :xlsx
+	case format.to_sym
+	when :xlsx
+			@file = @business.report_xlsx
+			@name = d.strftime("#{name}_%m/%d/%Y.xlsx")
+			@type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" 
+	when :pdf
+			@file = @business.report_pdf
+			@name = d.strftime("#{name}_%m/%d/%Y.pdf")
+			@type = "application/pdf" 
+	else	
+		render :text => 'This format is not supported.'
+		return
+	end
+
+	send_file(@file,
+		:type => @type,
+		:disposition => "inline",
+		:filename => @name)
   end
+
 end
