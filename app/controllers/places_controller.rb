@@ -7,7 +7,8 @@ class PlacesController < ApplicationController
     @res = {}
     if @city
       @res = @client.search(@city.latitude, @city.longitude, params[:company_name])
-    end
+      
+   end
     render json: @res
   end
   def show
