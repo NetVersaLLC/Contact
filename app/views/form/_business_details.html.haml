@@ -6,7 +6,7 @@
     = @f.input :alternate_phone
     = @f.input :toll_free_phone,    :input_html => { 'data-content' => I18n.t('popovers.business.toll_free_phone.content'), 'title' => I18n.t('popovers.business.toll_free_phone.title'),    :rel => 'popover' }
     = @f.input :fax_number
-    = @f.input :address,            :input_html => { 'data-content' => I18n.t('popovers.business.address.content'), 'title' => I18n.t('popovers.business.address.title'),    :rel => 'popover' }
+    = @f.input :address,            :input_html => { 'data-content' => I18n.t('popovers.business.address.content'), 'title' => I18n.t('popovers.business.address.title'),    :rel => 'popover' },    :wrapper_html=>{:class=>'input-append'}
     = @f.input :address2
     = @f.input :city
     = @f.input :state,              :as => :select, :collection => Carmen::states('US')

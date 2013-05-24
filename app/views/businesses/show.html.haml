@@ -8,6 +8,8 @@
   - else
     %sup
       = link_to 'Renew Your Subscription', edit_subscription_path(@business), :class => 'btn btn-info'
+  %sup
+    = link_to 'Edit Accounts', edit_business_path(@business, :key=>'edit_accounts'), :class => 'btn btn-info'
 
 %br/
 

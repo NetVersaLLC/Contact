@@ -18,4 +18,13 @@ class PagesController < ApplicationController
 
   def resellers
   end
+
+  def congratulations
+
+  end
+
+  def begin_sync
+    # the code to sync will come here ...
+    render :layout=>nil
+  end
 end
