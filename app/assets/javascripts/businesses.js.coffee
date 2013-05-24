@@ -116,3 +116,4 @@ $ ->
   window.initMap()
   delay_task_sync_button() 
   window.company_description()
+

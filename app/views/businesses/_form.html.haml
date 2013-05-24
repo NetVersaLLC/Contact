@@ -1,46 +1,11 @@
+
 .row
   .span12
     = render :partial => 'form/search_form' unless request.xhr?
-.row
+.row{:id => "display_form"}
   .span12
-    -# form_url = @business.id.nil? ? '/businesses' : business_update_state_path(@business.id)
-    -# semantic_form_for @business, :url => form_url, :validate => true, :html => { :class => 'business-form.form-horizontal' }, :remote => true  do |f|
-    = semantic_form_for @business, :validate => true, :html => { :class => 'business-form.form-horizontal' } do |f|
-      = hidden_field_tag 'current_tab', @tab ||= "#tab1"
-      - @accounts = [] if @accounts.nil?
-      = f.semantic_errors
-      - @f = f
-      #business_steps.pf-form 
-        .row-fluid 
-          .span3 
-            .step-title 
-              %span.step-order 1.
-              %span.step-name Contact Information
-            .step-title 
-              %span.step-order 2. 
-              %span.step-name Business Details
-            .step-title 
-              %span.step-order 3. 
-              %span.step-name Hours and Payment 
-            .step-title 
-              %span.step-order 4. 
-              %span.step-name Business Description 
-            .step-title 
-              %span.step-order 5. 
-              %span.step-name Manage Images 
-            .step-title 
-              %span.step-order 6.
-              %span.step-name Existing Accounts
-            .step-title 
-              %span.step-order 7
-              %span.step-name Download Client 
-          .span9.well.clearfix
-            .step-content= render :partial => 'form/contact_information'
-            .step-content= render :partial => 'form/business_details' 
-            .step-content= render :partial => 'form/hours_and_payment' 
-            .step-content= render :partial => 'form/company_description' 
-            .step-content= render :partial => 'form/logo' 
-            .step-content= render :partial => 'form/logo' #'form/existing_account_logins' 
-            .step-content= render :partial => 'form/download_client'
-            = render :partial => 'form/submit'
+    = render :partial => 'form/business_tab' unless request.xhr?
+
+   
+
 
