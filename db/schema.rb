@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130523235553) do
+ActiveRecord::Schema.define(:version => 20130524012447) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -1446,7 +1446,6 @@ ActiveRecord::Schema.define(:version => 20130523235553) do
     t.string  "status"
     t.string  "listed_phone"
     t.string  "listed_address"
-    t.string  "listed_zip"
     t.integer "request_time"
     t.text    "error_message"
   end

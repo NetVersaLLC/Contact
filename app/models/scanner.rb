@@ -39,7 +39,6 @@ class Scanner
     result = nil
     listed_phone = nil
     listed_address = nil
-    listed_zip = nil
     error_message = nil
     request_time = nil
 
@@ -51,7 +50,6 @@ class Scanner
       status         = result['status']
       listed_phone   = result['listed_phone']
       listed_address = result['listed_address']
-      listed_zip     = result['listed_zip']
     end
 
     Scan.create do |s|
@@ -70,7 +68,6 @@ class Scanner
       s.country        = @data['country']
       s.listed_phone   = listed_phone
       s.listed_address = listed_address
-      s.listed_zip     = listed_zip
       s.request_time   = request_time
       s.error_message  = error_message
     end
