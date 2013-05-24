@@ -48,7 +48,9 @@ class Label < ActiveRecord::Base
   validates :logo,
     :presence => true
 
-  validates_format_of :favicon_file_name, :with => %r{\.(ico|icon)$}i
+  validates_format_of :favicon_file_name,
+    :allow_blank => true,
+    :with => /.ico$/i
 
   def gateway
     ActiveMerchant::Billing::Base.mode = :test
