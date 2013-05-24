@@ -54,6 +54,10 @@ class User < ActiveRecord::Base
 
   before_save :ensure_authentication_token
 
+  def to_s 
+    email 
+  end 
+
   def self.admin
     TYPES[:admin]
   end

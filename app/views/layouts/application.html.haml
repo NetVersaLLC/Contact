@@ -17,23 +17,28 @@
       <script src="/assets/html5shiv.js"></script>
     %link{:rel => "icon", :type => "image/ico", :href => current_label.favicon_url}/
   %body
+    - if current_staff_user 
+      = render 'user_impersonate/header' 
+
     .ajax-progress
     .container
       .row
         .span10
-        .span2.sign_In
+        .span2
           - if user_signed_in?
             = link_to('Sign Out', destroy_user_session_path, :method => :delete)
-            = "|"
             = link_to('Edit Profile', edit_user_registration_path ) 
           - else
-            = link_to('Login', new_user_session_path)
+            = link_to('Sign In', new_user_session_path)
       .row 
-        .span6
+        .span6 
           - if flash[:notice] 
             .alert.alert-info= flash[:notice] 
           - if flash[:error] 
             .alert.alert-error= flash[:error] 
         .span6 
-      = yield
+      = yield 
+    .footer 
+      .container 
+        %p Copyright &copy; 2013 TownCenter, All Rights Reserved.
 
