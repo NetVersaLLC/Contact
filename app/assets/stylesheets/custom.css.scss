@@ -32,3 +32,59 @@ div.ajax-progress {
   color: #808080;
 }
 
+header.navbar { 
+  .navbar-inner { 
+    background-image: url('/assets/header-bg.png');
+    height: 52px;
+  }
+}
+body > .container { margin-top: 30px; }  
+
+.citation-info-row {
+  $base-color: #00c2e6; 
+  height: 176px; 
+  background-image: url('/assets/blue-gradient.png');
+  margin-top: 20px; 
+
+ .citation-info {
+    float: left; 
+    background-image: url('/assets/blue-box-gradient.png');
+    height: 176px;
+    width: 195px; 
+    color: white; 
+    margin-right: 20px; 
+
+    h1 { font-size: 60px; }
+ }
+} 
+.business-info-row {
+  font-family: arial; 
+   background-image: url('/assets/blend.png'); 
+   padding: 20px; 
+   
+   .business-info
+   {
+     background: white; 
+     height: 268px;
+     box-shadow: 2px 2px 3px rgba(0,0,0, 0.18);
+     padding: 0 40px 0 40px; 
+
+     address { 
+       color: #656565; 
+       padding-top: 40px; 
+       line-height: 21px;
+
+       strong { color: #4c4c4c; font-size: 23px; } 
+     } 
+
+   }
+   .business-info .pending 
+   {
+     padding: 50px 0 0 0; 
+     text-align: center; 
+     h3 { color: #00c2e6; font-size:28px; }
+     h1 { padding-top: 30px; font-size: 87px; color: #be1212; font-weight: bold; }
+   }  
+
+ }
+

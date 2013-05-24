@@ -1,3 +1,63 @@
+.container 
+  .row
+    .span6 
+      = image_tag("towncenter_logo.png") 
+    .span6 
+      .navbar
+        %ul.nav.pull-right
+          %li= link_to 'Billing',  edit_subscription_path(@business), :class => 'btn btn-info'
+          %li= link_to('Edit Business Profile', edit_user_registration_path ) 
+
+.citation-info-row
+  .container 
+    .row 
+      .span9
+        .citation-info
+          %h1.center 70 
+          %span.center ACTIVE LISTINGS 
+        .citation-info
+          %h1.center 70 
+          %span.center ACTIVE LISTINGS 
+        .citation-info
+          %h1.center 70 
+          %span.center ACTIVE LISTINGS 
+      .span3
+        = form_for Task.new do
+          %input{:type => :hidden, :value => @business.id, :name => 'business_id'}
+          %input{:type => :submit, :value => 'Start Sync', :class => 'btn btn-info btn-xlarge'}
+
+.business-info-row
+  .container
+    .row
+      .span6
+        .business-info
+          %address
+            %strong= @business.corporate_name
+            %br
+            = @business.address 
+            %br
+            - unless @business.address2.blank? 
+              = @business.address2
+              %br
+            = "#{@business.city}, #{@business.state} #{@business.zip}" 
+            %br
+            = @business.local_phone 
+            %br 
+            %a{:href => "'mailto:#{@business.user.email}"}=@business.user.email
+            %br
+          = link_to 'Edit This Business', edit_business_path(@business), :class => 'btn btn-info'
+        .business-button 
+          %a.btn.btn-warning.btn-large{:href => "/downloads/#{@business.id}"} Download Software
+
+      .span6
+        .business-info
+          .pending
+            %h3 Items Pending Action 
+            %h1.counter= @job_count
+        .business-button 
+          %a.btn.btn-warning.btn-large{:href => "/report.xlsx?business_id=#{@business.id}"} View Report
+
+
 %h3.page-title
   = @business.business_name
   %sup
