@@ -51,6 +51,8 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     #business            = Business.new
     ActiveRecord::Base.transaction do
       if @is_checkout_session == true
+        Coupon.redeem @package, params[:coupon] 
+
         STDERR.puts "Package: #{@package.inspect}"
         @transaction = TransactionEvent.build(params, @package, current_label)
         @transaction.process()
@@ -120,7 +122,8 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     if @package.label_id != current_label.id
       throw "Not a valid label!"
     end
-    @coupon       = Coupon.where(:label_id => current_label.id, :code => params[:coupon]).first
+    #@coupon       = Coupon.where(:label_id => current_label.id, :code => params[:coupon]).first
+    @coupon        = Coupon.get_available_for( @package, params[:coupon] ).first
     unless @coupon == nil
       @saved      = @package.apply_coupon(@coupon)
     end
