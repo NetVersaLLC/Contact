@@ -25,12 +25,6 @@
 #
 ###
 save_changes = (event) -> 
-
-  if current_tab_has_errors() 
-    scrollToFirstError()
-    return event.preventDefault()
-  
-  window.new_tab = $(event.target).attr('href')
   $.ajax
     type: "POST"
     dataType: "html"
@@ -43,10 +37,7 @@ save_changes = (event) ->
 
       if current_tab_has_errors() 
         scrollToFirstError()
-        return 
-
-      $('#current_tab').val(window.new_tab)
-      show_tab( window.new_tab )
+        return 'error'
 
 
 bind_events_on_current_tab = () -> 
@@ -61,35 +52,6 @@ bind_events_on_current_tab = () ->
   window.categories()          if t == "#tab4"
   window.company_description() if t == "#tab4"
 
-current_tab_id = () -> 
-  $("#current_tab").val() 
-
-tab_count = () -> 
-  $(".nav-tabs > li").length
-
-current_tab_has_errors = () -> 
-  console.log current_tab_id()
-  $(current_tab_id() + " .error").length > 0 
-
-show_tab = ( tab_id ) -> 
-  $("a[href='#{tab_id}']").tab('show')
-
-  if $("#next_tab").length > 0 
-    next_tab_index = Number(tab_id.charAt(4)) + 1
-    if next_tab_index > tab_count() 
-      $("input[type='submit']").show() 
-      $("#next_tab").hide() 
-    else 
-      $("#next_tab").attr("href","#tab" + next_tab_index)
-      $("input[type='submit']").hide() 
-      $("#next_tab").show() 
-    console.log tab_id
-    console.log next_tab_index
- 
-wire_up_tabs = () -> 
-  $(".tabbable li > a, #next_tab").click (event) -> 
-    save_changes( event )
-  
 wire_up_submit = -> 
   $("form.business").submit ->
     $("#section-save .btn").attr('disabled','disabled')
@@ -114,15 +76,44 @@ delay_task_sync_button = ->
     window.setTimeout window.enable_sync_button, 60 * 1000
 
 
+auto_download_client_software = -> 
+  download = -> window.location = document.getElementById('download_client').href 
+  window.setTimeout download, 2000
+
+
 $ ->
-  show_tab( current_tab_id() )
-  wire_up_submit() 
-  wire_up_cancel()
-  wire_up_tabs() 
+  traversal = if $("#new_business").length then 'never' else 'always'
+
+  $('.pf-form').psteps( { 
+    traverse_titles: traversal, 
+    validate_use_error_msg: false,
+    shrink_step_names: false, 
+    steps_onload: () -> 
+      cur_step = $(this)  
+
+      auto_download_client_software() if cur_step.hasClass('pstep7') 
+
+    validation_rule: () -> 
+      # some useful class items: step-visited step-active last-active 
+      cur_step = $(this) 
+
+      # this validates the form in case they hit 'next' without entering anything. 
+      form = $('form.business')
+      form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators ) 
+
+      if cur_step.hasClass("step-visited") && cur_step.find(".error").length > 0 
+        scrollToFirstError() if cur_step.hasClass("step-active") 
+        return 'error' 
+
+      #if active then save changes via ajax 
+
+      return cur_step.hasClass("step-visited") 
+  } ) 
+
+  #wire_up_submit() 
+  #wire_up_cancel()
+  #wire_up_tabs() 
   window.initMap()
-  #business.show 
   delay_task_sync_button() 
   window.company_description()
-  
-
 

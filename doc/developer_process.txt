@@ -1,4 +1,6 @@
 First you need to be setup in Pivotal Tracker and Github.
+Please read about the git-pivotal gem here:
+https://github.com/trydionel/git-pivotal
 
 Install the gem:
 
@@ -18,11 +20,17 @@ https://www.pivotaltracker.com/accounts
 Click on "Profile" and then the key is at the bottom under "API Token".
 An example one will look like this: de2650b948c9e842f4e3685def823009
 
-Next setup your git environment with the following:
-git config --global pivotal.api-token de2650b948c9e842f4e3685def823009
-git config --global pivotal.full-name "Your Name"
+Next setup your git environment go into the repo and execute the following.
+NOTE: You must change these values to the ones that are appropriate.
+
+api_token=de2650b948c9e842f4e3685def823009
+your_name="Developer Person"
+project_id=650173
+
+git config --global pivotal.api-token $api_token
+git config --global pivotal.full-name $your_name
 git config --global pivotal.only-mine true
-git config -f .git/config pivotal.project-id 650173
+git config -f .git/config pivotal.project-id $project_id
 
 Now to begin your next coding story you use the command:
 
@@ -30,8 +38,32 @@ git feature
 
 This will checkout the story from Pivotal and create a git branch for the
 story. When you're complete with the story, only after everything has
-been verified to be stable. You then run:
+been verified to be stable. You need to commit your code in the
+ordinary way.
+
+git commit -m "descriptiion of everything done in this commit" -a
+
+When the code has been commited then you can finish the story.
 
 git finish
 
-This will update the pivotal story and push the code.
+This will update the pivotal story, Next you need to push the code.
+
+The process is:
+
+git pull --rebase origin master
+git push origin master
+
+Please open the pivotal story and add a comment. It's a
+good idea to take a screencast demonstrating the feature if it's
+appropriate to the story. Also, please include a link to the
+commit in master. An example comment is:
+
+** BEGIN EXAMPLE **
+I have completed this story.
+Screencast URL: http://screencast.com/t/BFE6ss5Mx
+Source URL: https://github.com/NetVersaLLC/Contact/commit/a9e2418a0e17e5f439a4eba2651d2f1cb3537e1d
+** END EXAMPLE **
+
+After you have completed this comment please mark the story as
+"Delivered" in Pivotal.
