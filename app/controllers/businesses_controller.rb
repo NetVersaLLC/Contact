@@ -43,6 +43,7 @@ class BusinessesController < ApplicationController
       business_id: nil, 
       user_id: current_user.id, 
       subscription_id: session[:subscription] }) 
+    @site_accounts = Business.citation_list.map {|x| x[0..1]}
 
     respond_to do |format|
       format.html # new.html.erb
@@ -68,7 +69,6 @@ class BusinessesController < ApplicationController
     @accounts = @business.nonexistent_accounts_array
 
     @site_accounts = Business.citation_list.map {|x| x[0..1]}
-    render :edit_accounts if params[:key]=='edit_accounts'
   end
 
   def save_and_validate
