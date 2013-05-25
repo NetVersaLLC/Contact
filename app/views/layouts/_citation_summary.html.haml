@@ -1,0 +1,18 @@
+- cache ['citation_summary', @business] do 
+  .citation-info-row
+    .container 
+      .row 
+        .span9
+          .citation-info
+            %h1= Business.citation_list.length
+            %span ACTIVE LISTINGS 
+          .citation-info
+            %h1= @business.sites.length
+            %span SYNCRONIZED
+          .citation-info
+            %h1= @business.nonexistent_accounts.length 
+            %span UNSYNCRONIZED
+        .span3
+          = form_for Task.new do
+            %input{:type => :hidden, :value => @business.id, :name => 'business_id'}
+            %input{:type => :image, :value => 'Sync Now', :src => '/assets/sync_button.png', :class => 'sync' }

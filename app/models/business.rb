@@ -103,6 +103,7 @@ class Business < ActiveRecord::Base
       y.save
       backburner_process.update_attribute(:processed, backburner_process.processed.to_s + " #{klass}")
     end
+    Business.find(business_id).touch  # expire cache fragments
   end
 
   def delete_all_associated_records
