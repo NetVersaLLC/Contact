@@ -20,7 +20,7 @@
     - if current_staff_user 
       = render 'user_impersonate/header' 
 
-    %header.navbar.navbar-fixed-top 
+    %header.navbar
       .navbar-inner 
         .container 
           - if user_signed_in?
@@ -28,15 +28,15 @@
               %li 
                 %a{:href => '#'}
                   Welcome 
-                  %strong Username! 
+                  %strong= "#{current_user.email}!"
             %ul.nav.pull-right
               %li= link_to('SIGN OUT', destroy_user_session_path, :method => :delete)
           - else 
             %ul.nav.pull-right
               %li= link_to('Sign In', new_user_session_path)
 
-          
     .ajax-progress
+
     .container
       .row 
         .span6 
@@ -45,7 +45,16 @@
           - if flash[:error] 
             .alert.alert-error= flash[:error] 
         .span6 
-    = yield 
-    .footer 
-      .container 
-        %p Copyright &copy; 2013 TownCenter, All Rights Reserved.
+    - if user_signed_in?       
+      = render 'layouts/business_options'
+      = render 'layouts/citation_summary' 
+
+    .content{ :class => user_signed_in? ? 'signed_in' : '' } 
+      .container
+        = yield 
+
+    %footer 
+      %span
+        Copyright &copy; 2013 
+        %strong TownCenter,
+        All Rights Reserved.
