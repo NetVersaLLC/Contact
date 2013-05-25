@@ -103,4 +103,3 @@ capybara-*html
 vendor/extensions/**/spec/dummy
 
 captchas/uploads
-

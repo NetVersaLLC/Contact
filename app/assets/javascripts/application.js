@@ -2,6 +2,7 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require rails.validations
+//= require easypaginate
 //= require bootstrap.min
 //= require businesses
 //= require jquery.fineuploader-3.3.0.min
@@ -11,3 +12,4 @@
 //= require checkout
 
 //= require custom
+
