@@ -11,11 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20130519183116) do
-=======
-ActiveRecord::Schema.define(:version => 20130520171147) do
->>>>>>> 04c2002b5463bc6108e0c459986aa5fe4242ff50
+ActiveRecord::Schema.define(:version => 20130524012447) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -416,10 +412,12 @@ ActiveRecord::Schema.define(:version => 20130520171147) do
   create_table "coupons", :force => true do |t|
     t.string   "name"
     t.string   "code"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "percentage_off"
     t.integer  "label_id"
+    t.integer  "redeemed_count", :default => 0
+    t.integer  "allowed_upto",   :default => 0
   end
 
   add_index "coupons", ["code"], :name => "index_coupons_on_code"
@@ -1418,6 +1416,22 @@ ActiveRecord::Schema.define(:version => 20130520171147) do
 
   add_index "primeplaces", ["business_id"], :name => "index_primeplaces_on_business_id"
 
+  create_table "reports", :force => true do |t|
+    t.string   "name"
+    t.string   "site"
+    t.string   "business"
+    t.string   "phone"
+    t.string   "zip"
+    t.string   "status"
+    t.datetime "started_at"
+    t.datetime "completed_at"
+    t.integer  "business_id"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "reports", ["business_id"], :name => "index_reports_on_business_id"
+
   create_table "rookies", :force => true do |t|
     t.integer  "position"
     t.string   "name"
@@ -1425,6 +1439,31 @@ ActiveRecord::Schema.define(:version => 20130520171147) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "scans", :force => true do |t|
+    t.integer "report_id"
+    t.string  "site"
+    t.string  "business"
+    t.string  "phone"
+    t.string  "zip"
+    t.string  "latitude"
+    t.string  "longitude"
+    t.string  "state"
+    t.string  "state_short"
+    t.string  "city"
+    t.string  "county"
+    t.string  "country"
+    t.string  "status"
+    t.string  "listed_phone"
+    t.string  "listed_address"
+    t.integer "request_time"
+    t.text    "error_message"
+  end
+
+  add_index "scans", ["business"], :name => "index_scans_on_business"
+  add_index "scans", ["phone"], :name => "index_scans_on_phone"
+  add_index "scans", ["site"], :name => "index_scans_on_site"
+  add_index "scans", ["zip"], :name => "index_scans_on_zip"
 
   create_table "searches", :force => true do |t|
     t.string   "name"
@@ -1503,6 +1542,19 @@ ActiveRecord::Schema.define(:version => 20130520171147) do
   end
 
   add_index "showmelocals", ["business_id"], :name => "index_showmelocals_on_business_id"
+
+  create_table "site_profiles", :force => true do |t|
+    t.string   "site"
+    t.string   "owner"
+    t.string   "founded"
+    t.string   "alexa_us_traffic_rank"
+    t.string   "page_rank"
+    t.string   "url"
+    t.string   "traffic_stats"
+    t.string   "notes"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+  end
 
   create_table "snoopitnow_categories", :force => true do |t|
     t.integer  "parent_id"

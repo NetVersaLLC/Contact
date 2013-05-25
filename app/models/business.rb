@@ -21,10 +21,13 @@ class Business < ActiveRecord::Base
   has_one :transaction_event # transaction that occurred at sign up  #belongs
 
   # Triggers
-  after_create      :create_site_accounts, :unless => Proc.new { |o| Rails.env == 'test'}
+  #after_create      :create_site_accounts, :unless => Proc.new { |o| Rails.env == 'test'}
   after_create      :create_jobs, :unless => Proc.new { |o| Rails.env == 'test'}
   after_initialize  :set_times
   before_destroy :delete_all_associated_records
+  before_save :strip_blanks
+  
+  
 
   # search on activeadmin -> meta_search 
   scope :redeemed_coupon_eq, lambda { |cid| joins(:transaction_event).
@@ -84,6 +87,14 @@ class Business < ActiveRecord::Base
 
   def label_id
     self.user.label_id
+  end
+  
+  def strip_blanks
+    self.attributes.each do |key,val|
+      if val.class == String
+        val.strip!
+      end
+    end
   end
 
   def create_site_accounts

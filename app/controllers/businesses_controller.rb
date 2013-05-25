@@ -26,8 +26,6 @@ class BusinessesController < ApplicationController
   # GET /businesses/new
   # GET /businesses/new.json
   def new
-    # make sure it exists
-
     Subscription.find( session[:subscription] )
 
     @business = Business.new
@@ -45,6 +43,7 @@ class BusinessesController < ApplicationController
       business_id: nil, 
       user_id: current_user.id, 
       subscription_id: session[:subscription] }) 
+    @site_accounts = Business.citation_list.map {|x| x[0..1]}
 
     respond_to do |format|
       format.html # new.html.erb
@@ -70,7 +69,6 @@ class BusinessesController < ApplicationController
     @accounts = @business.nonexistent_accounts_array
 
     @site_accounts = Business.citation_list.map {|x| x[0..1]}
-    render :edit_accounts if params[:key]=='edit_accounts'
   end
 
   def save_and_validate
@@ -110,7 +108,7 @@ class BusinessesController < ApplicationController
       sub.transaction_event.setup_business(@business) 
 
       BusinessFormEdit.where(:user_id => current_user.id).delete_all
-      redirect_to business_url(@business), :notice => 'Congratulations! Your business profile has been created!' 
+      redirect_to congratulations_path
     else 
       if params[:current_tab] and params[:current_tab] =~ /tab(\d+)/
         @tab = '#tab' + ($1.to_i + 1).to_s
@@ -153,7 +151,6 @@ class BusinessesController < ApplicationController
 
 
   def report
-	
     @business = Business.find(params[:business_id].to_i)
     if @business.business_name.nil?
       flash[:notice] = "Error: Please fill out your business profile before you order a report."
@@ -163,27 +160,24 @@ class BusinessesController < ApplicationController
 
     name = @business.business_name.downcase.gsub(/[^A-Za-z0-9]/, '_')
     d = DateTime.now
-
- 	
    	format = params[:format] || params['format'] || :xlsx
-	case format.to_sym
-	when :xlsx
+    case format.to_sym
+    when :xlsx
 			@file = @business.report_xlsx
 			@name = d.strftime("#{name}_%m/%d/%Y.xlsx")
 			@type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" 
-	when :pdf
+    when :pdf
 			@file = @business.report_pdf
 			@name = d.strftime("#{name}_%m/%d/%Y.pdf")
 			@type = "application/pdf" 
-	else	
-		render :text => 'This format is not supported.'
-		return
-	end
-
-	send_file(@file,
-		:type => @type,
-		:disposition => "inline",
-		:filename => @name)
+    else	
+      render :text => 'This format is not supported.'
+      return
+    end
+    send_file(@file,
+              :type => @type,
+              :disposition => "inline",
+              :filename => @name)
   end
 
 end
