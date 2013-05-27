@@ -20,7 +20,9 @@ ActiveAdmin.register Business do
     end
     if current_user.admin? 
       column :impersonate do |v| 
-        link_to 'Login', impersonate_engine.impersonate_user_path(v.user) #"/impersonate/user/205"
+        unless v.user.nil? 
+          link_to 'Login', impersonate_engine.impersonate_user_path(v.user) #"/impersonate/user/205"
+        end 
       end 
     end 
     column :coupon do |v|
