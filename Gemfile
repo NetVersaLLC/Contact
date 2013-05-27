@@ -43,6 +43,7 @@ end
 gem 'nokogiri'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'jquery-cookie-rails'
 gem 'devise'
 gem 'haml'
 gem 'haml-rails'

@@ -196,6 +196,10 @@ GEM
       has_scope (~> 0.5.0)
       responders (~> 0.9)
     journey (1.0.4)
+    jquery-cookie-rails (0.1.1)
+      jquery-rails (~> 2.0)
+      railties (>= 3.2.0, < 5.0)
+      thor (~> 0.14)
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -397,6 +401,7 @@ DEPENDENCIES
   haml
   haml-rails
   httparty
+  jquery-cookie-rails
   jquery-rails
   jquery-ui-rails
   meta_search
