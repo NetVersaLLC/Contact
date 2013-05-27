@@ -889,15 +889,6 @@ ActiveRecord::Schema.define(:version => 20130524012447) do
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
 
-  create_table "insiderpages", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "email"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
     t.text     "secrets"
@@ -1374,6 +1365,13 @@ ActiveRecord::Schema.define(:version => 20130524012447) do
     t.boolean  "do_not_sync",       :default => false
   end
 
+  create_table "payload_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "position"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "payments", :force => true do |t|
     t.string   "status"
     t.string   "name"
@@ -1392,6 +1390,17 @@ ActiveRecord::Schema.define(:version => 20130524012447) do
   add_index "payments", ["business_id"], :name => "index_payments_on_business_id"
   add_index "payments", ["label_id"], :name => "index_payments_on_label_id"
   add_index "payments", ["transaction_id"], :name => "index_payments_on_transaction_id"
+
+  create_table "pings", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "business_id"
+    t.string   "message"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "pings", ["business_id"], :name => "index_pings_on_business_id"
+  add_index "pings", ["user_id"], :name => "index_pings_on_user_id"
 
   create_table "primeplace_categories", :force => true do |t|
     t.integer  "parent_id"

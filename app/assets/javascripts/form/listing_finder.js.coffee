@@ -92,10 +92,13 @@ jQuery ($) ->
       $('ul#searchresult').easyPaginate();
 
   $('#skip_search').click ->
+
     $('#zipform').hide()
     $('#business_results').hide()
     $("#display_form").show()
-
+    
+    last_index = $.cookie('last_selected_tab_index')
+    window.selectTab(last_index) if last_index != null && last_index != ''
 
   
 

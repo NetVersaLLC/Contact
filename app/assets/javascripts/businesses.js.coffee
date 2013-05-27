@@ -57,6 +57,7 @@ wire_up_submit = ->
     $("#section-save .btn").attr('disabled','disabled')
     $(".ajax-progress").show()
 
+
 wire_up_cancel = -> 
   $("#section-save .cancel").click -> 
     href = this.href
@@ -80,16 +81,47 @@ auto_download_client_software = ->
   download = -> window.location = document.getElementById('download_client').href 
   window.setTimeout download, 2000
 
+window.selectTab = (idx) =>
+  $('.steps-transformed .step-title').addClass('disabled')
+  $('.steps-transformed .step-title:eq('+idx+')').removeClass('disabled btn-success')
+  $('.steps-transformed .step-content').hide()
+  
+  g_is_looping = true
+  $('.steps-transformed .step-title:lt('+(idx)+')').each ->
+    cur_step = $(this)
+    cur_step.addClass('btn step-visited btn-success last-active step-active disabled')
+    cur_step.prepend('<i class="icon-ok step-mark"></i>') if cur_step.find('.icon-ok').size()==0
+    cur_step.unbind().off()
+
+    return if !g_is_looping
+    form = $('form.business')
+    form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators ) 
+    if cur_step.hasClass("step-visited") && cur_step.find(".error").length > 0 
+      scrollToFirstError() if cur_step.hasClass("step-active") 
+      g_is_looping = false
+  
+  $('.steps-transformed .step-content:lt('+(idx)+')').each ->
+    cur_step = $(this)
+    cur_step.addClass('step-content step-visited last-active step-active step-loaded')
+    cur_step.hide()
+
+
+  
+  $('.back-button').trigger 'click'
+  $('.next-button').trigger 'click'
+    
+
 
 $ ->
   traversal = if $("#new_business").length then 'never' else 'always'
-
+  
   $('.pf-form').psteps( { 
     traverse_titles: traversal, 
     validate_use_error_msg: false,
     shrink_step_names: false, 
     steps_onload: () -> 
-      cur_step = $(this)  
+      cur_step = $(this)
+      $.cookie('last_selected_tab_index', cur_step.index() ) unless cur_step.index()==0
 
       auto_download_client_software() if cur_step.hasClass('pstep7') 
 
@@ -109,6 +141,11 @@ $ ->
 
       return cur_step.hasClass("step-visited") 
   } ) 
+
+  
+
+  #$('.next-button').click ->
+
 
   #wire_up_submit() 
   #wire_up_cancel()
