@@ -13,6 +13,21 @@ ActiveAdmin.register_page "My Label" do
           input(:name => "authenticity_token", :value => form_authenticity_token, :type => "hidden")
           ol do
             li(:class => 'string input optional stringish') do
+              label(:for => 'label_theme') do
+                'Theme'
+              end
+              select :id => 'label_theme', :type => 'text', 'name' => 'label[theme]' do
+                option ''
+                Label::THEMES.each do |t|
+                  if t.downcase==labelObj.theme
+                    option t.humanize, :value=>t, :selected=>'selected'
+                  else
+                    option t.humanize, :value=>t
+                  end
+                end
+              end
+            end
+            li(:class => 'string input optional stringish') do
               label(:for => 'label_name') do
                 'Name'
               end

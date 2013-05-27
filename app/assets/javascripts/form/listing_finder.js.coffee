@@ -13,6 +13,11 @@ window.zipSearch = (callback)->
       $('#business_results').empty()
 
 window.selectPlace = (el)->
+  $('#zipform').hide()
+  $("#searchresult").hide()
+  $("#pagination").hide()
+  $("#display_form").show()
+ 
   $.getJSON '/places/show.js?reference='+$(el).attr('data-reference'), (data)->
     if data['status'] == 'OK'
       $('#business_results').html('')
@@ -35,7 +40,9 @@ window.selectPlace = (el)->
         $('#business_google_places_url').val result['url']
     #$('#zip_search_form').dialog('close')
 
-$(document).ready ->
+
+
+jQuery ($) ->
   $('#zip').focus (e)-> 
     $('#zip').val('') 
     $('#city').val('') 
@@ -78,16 +85,22 @@ $(document).ready ->
       if data['status'] != 'OK'
         $('#business_results').html('<h3>No Results</h3>')
       else
-        html = '<table class="table table-bordered"><tbody>'
+        html = '<ul class="table" id="searchresult">'
         $.each data['results'], (i, e)->
-          html += '<tr>'
-          html += '<td><img src="'+e['icon']+'" /></td>'
-          html += '<td>'+e['name']+'</td>'
-          html += '<td>'+e['vicinity']+'</td>'
-          html += '<td><input type="button" value="Select" class="btn btn-success" data-select-for="'+ e['name'] + '" data-reference="'+e['reference']+'" onclick="window.selectPlace(this);" /></td>'
-          html += '</tr>'
-        $('#business_results').html(html)
+          html += '<li><div class="img"><img src="'+e['icon']+'" /></div><div class="details"> '+e['name']+'</div><div class="details1">'+ e['vicinity']+'</div>'+'<div class="button"><input type="button" value="Select" class="btn btn-success" data-select-for="'+ e['name'] + '" data-reference="'+e['reference']+'" onclick="window.selectPlace(this);" /></div></li>'
+      $('#business_results').html(html)
+      $('ul#searchresult').easyPaginate();
 
-$(document).ready ()->
-#  $('#close_zip_search_form').click ->
-#    $('#zip_search_form').dialog('close')
+  $('#skip_search').click ->
+    $('#zipform').hide()
+    $('#business_results').hide()
+    $("#display_form").show()
+
+
+  
+
+
+
+    
+ 
+ 
