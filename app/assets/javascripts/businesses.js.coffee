@@ -40,12 +40,18 @@ save_changes = (event) ->
         return 'error'
 
 create_business = (event) -> 
-  $.post "/businesses",
-    $('form.business').serialize(),
-    (data, status, response) -> 
+  $.ajax
+    type: "POST"
+    dataType: "text"
+    url: "/businesses"
+    data: $('form.business').serialize()
+    success: (data, status, response) -> 
       console.log data 
       $('#download_client').attr('href', "/downloads/#{data}") 
       auto_download_client_software() 
+    error: () -> 
+      # this shouldnt happen.  client side validations should handle this
+      alert('An error occurrend creating your business profile. Please correct data and resubmit') 
 
 wire_up_submit = -> 
   $("form.business").submit ->
