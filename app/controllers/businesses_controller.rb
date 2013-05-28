@@ -114,10 +114,10 @@ class BusinessesController < ApplicationController
       #redirect_to congratulations_path
     else 
       STDERR.puts @business.errors.inspect
-      if params[:current_tab] and params[:current_tab] =~ /tab(\d+)/
-        @tab = '#tab' + ($1.to_i + 1).to_s
-      end
-      render "new"
+      respond_to do |format| 
+        format.html { render "new" } 
+        format.json { render @business, :status => 400 } 
+      end 
     end 
   end
 
