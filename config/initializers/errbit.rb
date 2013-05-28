@@ -4,3 +4,9 @@ Airbrake.configure do |config|
   config.port    = 80
   config.secure  = config.port == 443
 end
+#Airbrake.configure do |config|
+#  config.api_key = '137c47d25745c236942489cda9e50b03'
+#  config.host    = 'localhost'
+#  config.port    = 3000
+#  config.secure  = config.port == 443
+#end

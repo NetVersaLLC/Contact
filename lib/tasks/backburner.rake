@@ -17,7 +17,7 @@ begin
       #Contact::Application.initialize!
       #Backburner.work('business-manage')
       #puts "Backburner.work('business-manage')"
-      puts User
+      #puts User
     end
   end
 
