@@ -11,6 +11,9 @@ class Business < ActiveRecord::Base
 
   # Associations
 
+  has_attached_file :logo, :styles => { :thumb => '100x100>', :medium => '240x240>' }
+ 
+
   has_many :jobs, :order => "position"
   has_many :failed_jobs, :order => "position"
   has_many :completed_jobs, :order => "position"
