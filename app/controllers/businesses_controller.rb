@@ -104,13 +104,16 @@ class BusinessesController < ApplicationController
     @business.subscription = sub 
     @tab = params[:current_tab]
     
-
     if @business.save 
       sub.transaction_event.setup_business(@business) 
 
       BusinessFormEdit.where(:user_id => current_user.id).delete_all
-      redirect_to congratulations_path
+      respond_to do |format| 
+        format.json { render :json => @business.id } 
+      end 
+      #redirect_to congratulations_path
     else 
+      STDERR.puts @business.errors.inspect
       if params[:current_tab] and params[:current_tab] =~ /tab(\d+)/
         @tab = '#tab' + ($1.to_i + 1).to_s
       end

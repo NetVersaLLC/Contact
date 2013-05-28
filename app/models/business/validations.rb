@@ -23,10 +23,10 @@ module Business::Validations
 
     validates :professional_associations,
       :presence => true
-    validates :logo,
-      :presence => true
-    validates :images,
-      :presence => true
+    #validates :logo,
+    #  :presence => true
+    #validates :images,
+    #  :presence => true
     validates :category1,
       :presence => true
     validates :category2,

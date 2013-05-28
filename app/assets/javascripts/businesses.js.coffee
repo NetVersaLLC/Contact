@@ -39,24 +39,18 @@ save_changes = (event) ->
         scrollToFirstError()
         return 'error'
 
-
-bind_events_on_current_tab = () -> 
-  t = current_tab_id()
-  $(t + " > section input[rel=popover]").popover
-    trigger: 'hover' 
-
-  $('form.business').enableClientSideValidations()
-
-  window.initMap()             if t == "#tab1" 
-  window.businessHours()       if t == "#tab2"
-  window.categories()          if t == "#tab4"
-  window.company_description() if t == "#tab4"
+create_business = (event) -> 
+  $.post "/businesses",
+    $('form.business').serialize(),
+    (data, status, response) -> 
+      console.log data 
+      $('#download_client').attr('href', "/downloads/#{data}") 
+      auto_download_client_software() 
 
 wire_up_submit = -> 
   $("form.business").submit ->
     $("#section-save .btn").attr('disabled','disabled')
     $(".ajax-progress").show()
-
 
 wire_up_cancel = -> 
   $("#section-save .cancel").click -> 
@@ -123,7 +117,7 @@ $ ->
       cur_step = $(this)
       $.cookie('last_selected_tab_index', cur_step.index() ) unless cur_step.index()==0
 
-      auto_download_client_software() if cur_step.hasClass('pstep7') 
+      create_business() if cur_step.hasClass('pstep7') 
 
     validation_rule: () -> 
       # some useful class items: step-visited step-active last-active 

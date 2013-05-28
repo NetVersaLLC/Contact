@@ -15,6 +15,8 @@ module Business::Attributes
     attr_accessible :other_social_links, :positive_review_links
     attr_accessible :keyword1, :keyword2, :keyword3, :keyword4, :keyword5
     attr_accessible :competitors, :most_like, :industry_leaders
-    attr_accessible :fan_page_url
+    attr_accessible :fan_page_url, :keywords, :status_message, :trade_license, :trade_license_number 
+    attr_accessible :trade_license_locale, :trade_license_authority, :trade_license_expiration 
+    attr_accessible :trade_license_description, :brands, :tag_line, :job_titles
   end
 end
