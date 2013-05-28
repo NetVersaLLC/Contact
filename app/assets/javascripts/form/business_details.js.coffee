@@ -48,11 +48,17 @@ refresh_image_list = ->
       else
         e.preventDefault()
         
-      
 
 add_image = (response) ->
-  html = '<li class="span4" id="thumbnail'+response['id']+'"><div class="thumbnail"><img src="'+response['medium']+'" alt=""><h3>'+response['display_name']+'</h3><button class="btn btn-info remove_thumbnail" data-image-id="'+response['id']+'">Remove</button></div></li>'
+  html = '<li class="span4" id="thumbnail'+response['id']+'" ><div class="thumbnail" id="imglogo"><img src="'+response['medium']+'" alt=""><h3>'+response['display_name']+'</h3><button class="btn btn-info remove_thumbnail" data-image-id="'+response['id']+'">Remove</button></div></li>'
   $('ul.thumbnails').append(html)
+
+
+$("li.span4").live "click",->
+  $(this).addClass('bordercolor').siblings().removeClass('bordercolor')
+  
+
+    
 
 delete_image = (e)->
   e.preventDefault()
