@@ -21,20 +21,38 @@ module Business::Validations
     validates :job_titles,
       :presence => true
 
+    validates :professional_associations,
+      :presence => true
+    validates :logo,
+      :presence => true
+    validates :images,
+      :presence => true
     validates :category1,
       :presence => true
     validates :category2,
       :presence => true
     validates :category3,
       :presence => true
+    validates :category4,
+      :presence => true
+    validates :category5,
+      :presence => true
     validates :business_name,
       :presence => true
-    validates :contact_gender,
+    validates :corporate_name,
       :presence => true
-    validates :contact_first_name,
+    validates :toll_free_phone,
       :presence => true
-    validates :contact_last_name,
+    validates :fax_number,
       :presence => true
+    validates :zip,
+      :presence => true
+    #validates :contact_gender,
+    #  :presence => true
+    #validates :contact_first_name,
+    #  :presence => true
+    #validates :contact_last_name,
+    #  :presence => true
     validates :local_phone,
       :presence => true,
       :format => { :with => phone_regex }
@@ -50,24 +68,24 @@ module Business::Validations
     validates :fax_number,
       :allow_blank => true,
       :format => { :with => phone_regex }
-    validates :address,
-      :presence => true
+    #validates :address,
+    #  :presence => true
     validates_length_of :business_description, :minimum => 50, :maximum => 200, :presence => true
     validates :geographic_areas,
       :presence => true
     validates :year_founded,
-      :presence => true, 
+      :allow_blank => true,
       :numericality => { 
         :only_integer => true, 
         :greater_than => 1000, 
         :less_than => Date.current.year + 1 
         }
     validates :company_website,
-      :allow_blank => true,
+      :presence => true,
       :format => { :with => /^https?\:\/\// }
     # enforce m/d/yyyy, and mm/dd/yyyy.  mm 1-12, dd 1-31 
     validates :contact_birthday,
-      :presence => true,
+      :allow_blank => true,
       :format => { :with => /^(0{0,1}[1-9]|1[012])\/(\d|[012]\d|3[01])\/((19|20)\d\d)$/ } #/^\d\d\/\d\d\/\d\d\d\d$/ }
 
     def time_cannot_same
