@@ -26,8 +26,9 @@ class BusinessesController < ApplicationController
   # GET /businesses/new
   # GET /businesses/new.json
   def new
-    Subscription.find( session[:subscription] )
+    # make sure it exists
 
+    #Subscription.find( session[:subscription] )
     @business = Business.new
     @accounts = @business.nonexistent_accounts_array
     @tab = "#tab1"
