@@ -34,10 +34,11 @@
     .container
       .row-fluid
         .span10
-        .span2
+        .span2{:id => "linking"}
           - if user_signed_in?
+            = link_to('Dashboard', businesses_path )
+            = link_to('Edit Profile', edit_user_registration_path )
             = link_to('Sign Out', destroy_user_session_path, :method => :delete)
-            = link_to('Edit Profile', edit_user_registration_path ) 
           - else
             = link_to('Sign In', new_user_session_path)
       .row 
