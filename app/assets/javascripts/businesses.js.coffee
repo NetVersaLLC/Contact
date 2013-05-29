@@ -16,7 +16,7 @@ create_business = (event) ->
   $.ajax
     type: "POST"
     dataType: "text"
-    url: "/businesses"
+    url: "/businesses.json"
     data: $('form.business').serialize()
     success: (data, status, response) -> 
       console.log data 

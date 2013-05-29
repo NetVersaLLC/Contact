@@ -2,6 +2,9 @@ class Image < ActiveRecord::Base
   has_attached_file :data, :styles => { :thumb => '100x100>', :medium => '240x240>' }
   attr_accessor :thumb, :medium, :url
 
+  belongs_to :business 
+  belongs_to :business_form_edit # this is usually temporary 
+
   def self.new_tmpfile
     name = SecureRandom.hex 16
     Rails.root.join('public/system/photos',

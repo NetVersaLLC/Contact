@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130528004625) do
+ActiveRecord::Schema.define(:version => 20130529140154) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -577,32 +577,12 @@ ActiveRecord::Schema.define(:version => 20130528004625) do
     t.integer  "business_id"
     t.datetime "force_update"
     t.text     "secrets"
+    t.integer  "ezlocal_category_id"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
-    t.integer  "ezlocal_category_id"
     t.string   "email"
     t.boolean  "do_not_sync",         :default => false
   end
-
-  create_table "facebook_categories", :force => true do |t|
-    t.integer  "parent_id"
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "facebook_categories", ["name"], :name => "index_facebook_categories_on_name"
-  add_index "facebook_categories", ["parent_id"], :name => "index_facebook_categories_on_parent_id"
-
-  create_table "facebook_profile_categories", :force => true do |t|
-    t.integer  "parent_id"
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "facebook_profile_categories", ["name"], :name => "index_facebook_profile_categories_on_name"
-  add_index "facebook_profile_categories", ["parent_id"], :name => "index_facebook_profile_categories_on_parent_id"
 
   create_table "facebooks", :force => true do |t|
     t.integer  "business_id"
@@ -610,12 +590,9 @@ ActiveRecord::Schema.define(:version => 20130528004625) do
     t.text     "secrets"
     t.string   "status"
     t.datetime "force_update"
-    t.datetime "created_at",                                      :null => false
-    t.datetime "updated_at",                                      :null => false
-    t.boolean  "do_not_sync",                  :default => false
-    t.text     "cookies"
-    t.integer  "facebook_profile_category_id"
-    t.integer  "facebook_category_id"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "do_not_sync",  :default => false
   end
 
   create_table "failed_jobs", :force => true do |t|
@@ -790,8 +767,6 @@ ActiveRecord::Schema.define(:version => 20130528004625) do
     t.integer  "usyellowpages_category_id"
     t.integer  "zipperpage_category_id"
     t.integer  "ziplocal_category_id"
-    t.integer  "facebook_profile_category_id"
-    t.integer  "facebook_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -882,8 +857,9 @@ ActiveRecord::Schema.define(:version => 20130528004625) do
     t.datetime "data_updated_at"
     t.integer  "width"
     t.integer  "height"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
+    t.integer  "business_form_edit_id"
   end
 
   add_index "images", ["business_id"], :name => "index_images_on_business_id"
@@ -1407,16 +1383,17 @@ ActiveRecord::Schema.define(:version => 20130528004625) do
     t.string   "transaction_number"
     t.integer  "business_id"
     t.integer  "label_id"
-    t.integer  "transaction_event_id"
+    t.integer  "transaction_id"
     t.string   "message"
     t.text     "response"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
+    t.integer  "transaction_event_id"
   end
 
   add_index "payments", ["business_id"], :name => "index_payments_on_business_id"
   add_index "payments", ["label_id"], :name => "index_payments_on_label_id"
-  add_index "payments", ["transaction_event_id"], :name => "index_payments_on_transaction_id"
+  add_index "payments", ["transaction_id"], :name => "index_payments_on_transaction_id"
 
   create_table "primeplace_categories", :force => true do |t|
     t.integer  "parent_id"
@@ -1808,9 +1785,9 @@ ActiveRecord::Schema.define(:version => 20130528004625) do
     t.text     "secrets"
     t.datetime "force_update"
     t.text     "username"
-    t.integer  "usbdn_category_id"
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
+    t.integer  "usbdn_category_id"
     t.boolean  "do_not_sync",       :default => false
   end
 
@@ -2115,7 +2092,6 @@ ActiveRecord::Schema.define(:version => 20130528004625) do
     t.datetime "updated_at",                             :null => false
     t.integer  "zippro_category2_id"
     t.integer  "zippro_category_id"
-    t.integer  "form_id"
     t.boolean  "do_not_sync",         :default => false
   end
 
