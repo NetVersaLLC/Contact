@@ -1,3 +1,6 @@
+require "capistrano/datadog"
+set :datadog_api_key, "5ec5700d94e95fe2faa3317982e2f937"
+
 load 'deploy'
 # Uncomment if you are using Rails' asset pipeline
     # load 'deploy/assets'
