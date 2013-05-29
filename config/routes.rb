@@ -73,7 +73,7 @@ Contact::Application.routes.draw do
 
   get     '/test/exception', :controller => :test, :action => :exception
 
-  get     '/images/:id(.:format)', :action => 'index', :controller => 'images'
+  get     '/images(.:format)', :action => 'index', :controller => 'images'
   post    '/images(.:format)', :action=>"create", :controller=>"images"
   delete  '/images/:id(.:format)',:action=>"destroy", :controller=>"images"
   delete  '/images/:id/all(.:format)',:action=>"destroy_all", :controller=>"images"

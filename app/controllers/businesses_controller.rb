@@ -32,14 +32,14 @@ class BusinessesController < ApplicationController
     @business = Business.new
     @accounts = @business.nonexistent_accounts_array
 
-    business_form_edit = BusinessFormEdit.find_or_create_by_user_id( current_user.id )
+    @business_form_edit = BusinessFormEdit.find_or_create_by_user_id( current_user.id )
     
     # A new business should not have an id value yet.  
-    if business_form_edit.business_id.nil? 
-      @business.attributes = business_form_edit.business_params
+    if @business_form_edit.business_id.nil? 
+      @business.attributes = @business_form_edit.business_params
     end
 
-    business_form_edit.update_attributes({
+    @business_form_edit.update_attributes({
       business_id: nil, 
       user_id: current_user.id, 
       subscription_id: session[:subscription] }) 
@@ -59,13 +59,13 @@ class BusinessesController < ApplicationController
       return
     end
 
-    business_form_edit = BusinessFormEdit.find_or_create_by_user_id( current_user.id )
-    if @business.id == business_form_edit.business_id 
-      @business.attributes = business_form_edit.business_params
+    @business_form_edit = BusinessFormEdit.find_or_create_by_user_id( current_user.id )
+    if @business.id == @business_form_edit.business_id 
+      @business.attributes = @business_form_edit.business_params
       flash[:notice] = 'Unsaved changes have been found.  Please save or cancel them. ' 
     end
 
-    business_form_edit.update_attributes( {:business_id => @business.id, :business_params => nil, :user_id => current_user.id}) 
+    @business_form_edit.update_attributes( {:business_id => @business.id, :business_params => nil, :user_id => current_user.id}) 
     @accounts = @business.nonexistent_accounts_array
 
     @site_accounts = Business.citation_list.map {|x| x[0..1]}
@@ -83,7 +83,6 @@ class BusinessesController < ApplicationController
     render :nothing => true
   end 
 
-
   # POST /businesses
   # POST /businesses.json
   def create
@@ -99,6 +98,7 @@ class BusinessesController < ApplicationController
     
     if @business.save 
       sub.transaction_event.setup_business(@business) 
+      Image.where(:business_form_edit_id => bfe.id).update_all( :business_id => @business.id ) 
 
       BusinessFormEdit.where(:user_id => current_user.id).delete_all
       respond_to do |format| 
@@ -109,7 +109,7 @@ class BusinessesController < ApplicationController
       STDERR.puts @business.errors.inspect
       respond_to do |format| 
         format.html { render "new" } 
-        format.json { render @business, :status => 400 } 
+        format.json { render :json => @business, :status => 400 } 
       end 
     end 
   end
