@@ -53,21 +53,20 @@ class Label < ActiveRecord::Base
     :with => /.ico$/i
 
   def gateway
-    ActiveMerchant::Billing::Base.mode = :test
     return @gateway if @gateway
-    @gateway = ActiveMerchant::Billing::AuthorizeNetGateway.new(
-      # iwntbbnprn2
-      #
-      :login    => "8e3UfTHKM9d2",
-      :password => "5B7t5V6S65m3WkdU",
-      :test     => true
-    )
     if Rails.env.to_sym == :production
       @gateway = ActiveMerchant::Billing::Base.gateway(:authorize_net).new(
         :login    => self.login,
         :password => self.password,
       )
       ActiveMerchant::Billing::Base.mode = :production
+    else
+      @gateway = ActiveMerchant::Billing::AuthorizeNetGateway.new(
+        :login    => "8e3UfTHKM9d2",
+        :password => "5B7t5V6S65m3WkdU",
+        :test     => true
+      )
+      ActiveMerchant::Billing::Base.mode = :test
     end
     STDERR.puts "Got Gateway: #{@gateway.inspect}"
     @gateway
