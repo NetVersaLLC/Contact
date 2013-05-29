@@ -76,3 +76,4 @@ gem "backburner", "~> 0.3.4"
 gem 'daemons'
 gem 'prawn'
 gem 'user_impersonate' 
+gem 'dogapi', ">=1.3.0"
