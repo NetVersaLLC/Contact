@@ -37,7 +37,10 @@ window.initMap = () =>
     refresh_image_list()
   refresh_image_list()
 
+
 refresh_image_list = ->
+  return false if window.business_id == '' # new business 
+
   $.getJSON "/images/" + window.business_id + ".json", (images) ->
     $("ul.thumbnails").children().remove()   # clean the slate
     add_image image for image in images      # add them back in
