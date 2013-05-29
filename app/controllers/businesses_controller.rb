@@ -31,7 +31,6 @@ class BusinessesController < ApplicationController
     #Subscription.find( session[:subscription] )
     @business = Business.new
     @accounts = @business.nonexistent_accounts_array
-    @tab = "#tab1"
 
     business_form_edit = BusinessFormEdit.find_or_create_by_user_id( current_user.id )
     
@@ -72,17 +71,11 @@ class BusinessesController < ApplicationController
     @site_accounts = Business.citation_list.map {|x| x[0..1]}
   end
 
-  def save_and_validate
+  def save_edits
     edit = BusinessFormEdit.find_or_create_by_user_id( current_user.id )
     edit.business_params = params[:business] 
-    @tab = edit.tab = params[:new_tab]
     edit.save
-
-    @business = Business.new(params[:business] ) 
-    @business.valid? 
-
-    @tab = params[:current_tab]
-    render  'validate', :layout=>false
+    render :nothing => true
   end
 
   def cancel_change

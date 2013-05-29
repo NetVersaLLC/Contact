@@ -9,35 +9,8 @@
 #= require form/uploader
 #= require form/company_description
 
-###
-#
-# When a user clicks a tab, the form data is ajaxed 
-# to be saved and validated.  If errors are returned, 
-# then the current tab is redisplayed with errors.  
-# If no errors were found, then they are allowed to move 
-# to the requested tab.  
-#
-# The form data (params) is saved in a separate model, 
-# and is used to populate the form if the user signs-out/back in. 
-#
-# When they are done, they click 'Save' button, which posts 
-# in the typical rails routing fashion.  
-#
-###
-save_changes = (event) -> 
-  $.ajax
-    type: "POST"
-    dataType: "html"
-    url: "/businesses/save_and_validate"
-    data: $('form.business').serialize()
-    success: (data, status, response) ->
-      $(current_tab_id() + " > section").replaceWith( $(data).find('section') )
-
-      bind_events_on_current_tab()
-
-      if current_tab_has_errors() 
-        scrollToFirstError()
-        return 'error'
+save_edits = () -> 
+  $.post "/businesses/save_edits", $('form.business').serialize()
 
 create_business = (event) -> 
   $.ajax
@@ -53,18 +26,6 @@ create_business = (event) ->
       # this shouldnt happen.  client side validations should handle this
       alert('An error occurrend creating your business profile. Please correct data and resubmit') 
 
-wire_up_submit = -> 
-  $("form.business").submit ->
-    $("#section-save .btn").attr('disabled','disabled')
-    $(".ajax-progress").show()
-
-wire_up_cancel = -> 
-  $("#section-save .cancel").click -> 
-    href = this.href
-    $.post '/businesses/cancel_change', () -> 
-      window.location = href 
-    return false
-
 scrollToFirstError = () -> 
   $('html,body').animate({'scrollTop':$('.error:first').offset().top-100})
 
@@ -75,7 +36,6 @@ delay_task_sync_button = ->
     window.enable_sync_button = ->
       $("form.new_task > input[type='submit']").removeAttr('disabled')
     window.setTimeout window.enable_sync_button, 60 * 1000
-
 
 auto_download_client_software = -> 
   download = -> window.location = document.getElementById('download_client').href 
@@ -104,8 +64,6 @@ window.selectTab = (idx) =>
     cur_step = $(this)
     cur_step.addClass('step-content step-visited last-active step-active step-loaded')
     cur_step.hide()
-
-
   
   $('.back-button').trigger 'click'
   $('.next-button').trigger 'click'
@@ -119,11 +77,15 @@ $ ->
     traverse_titles: traversal, 
     validate_use_error_msg: false,
     shrink_step_names: false, 
+    steps_show: () -> 
+      $('form.business').enableClientSideValidations() 
+
     steps_onload: () -> 
       cur_step = $(this)
       $.cookie('last_selected_tab_index', cur_step.index() ) unless cur_step.index()==0
 
-      create_business() if cur_step.hasClass('pstep7') 
+      create_business() if cur_step.hasClass('pstep7') and $("#new_business").length > 0
+      $('form.business').enableClientSideValidations() 
 
     validation_rule: () -> 
       # some useful class items: step-visited step-active last-active 
@@ -136,21 +98,14 @@ $ ->
       if cur_step.hasClass("step-visited") && cur_step.find(".error").length > 0 
         scrollToFirstError() if cur_step.hasClass("step-active") 
         return 'error' 
-
-      #if active then save changes via ajax 
+      
+      if cur_step.hasClass("step-active")
+        save_edits()
 
       return cur_step.hasClass("step-visited") 
   } ) 
 
   
-
-  #$('.next-button').click ->
-
-
-  #wire_up_submit() 
-  #wire_up_cancel()
-  #wire_up_tabs() 
   window.initMap()
   delay_task_sync_button() 
   window.company_description()
-

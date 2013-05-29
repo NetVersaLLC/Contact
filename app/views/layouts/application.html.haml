@@ -14,8 +14,8 @@
 
     -if signed_in? && current_label.css_is_set?
       = current_label.theme_css_files
-    -else
-      %link{:rel => :stylesheet, :href => "bootstrap.min.css" }
+    /-else # this is already included in application.css.  Plus, you need to prepend with /assets
+    /  %link{:rel => :stylesheet, :href => "bootstrap.min.css" }
 
     -if signed_in? && current_label.css_is_set?
       = current_label.theme_js_files

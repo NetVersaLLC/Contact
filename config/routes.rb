@@ -17,14 +17,10 @@ Contact::Application.routes.draw do
   resources :subscriptions
   resources :pings
 
-  post    '/businesses/save_and_validate', 
+  post    '/businesses/save_edits', 
     :controller => :businesses, 
-    :action => :save_and_validate, 
-    :as=>'save_and_validate'
-  put    '/businesses/save_and_validate', 
-    :controller => :businesses, 
-    :action => :save_and_validate, 
-    :as=>'save_and_validate'
+    :action => :save_edits, 
+    :as => 'save_edits'
   post    '/businesses/cancel_change', 
     :controller => :businesses, 
     :action => :cancel_change
