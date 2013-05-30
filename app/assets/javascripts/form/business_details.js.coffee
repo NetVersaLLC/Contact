@@ -47,19 +47,21 @@ refresh_image_list = ->
         delete_image(e)
       else
         e.preventDefault()
-        
 
 add_image = (response) ->
-  html = '<li class="span4" id="thumbnail'+response['id']+'" ><div class="thumbnail" id="imglogo"><img src="'+response['medium']+'" alt=""><h3>'+response['display_name']+'</h3><button class="btn btn-info remove_thumbnail" data-image-id="'+response['id']+'">Remove</button></div></li>'
+  html = '<li class="span4" id="thumbnail'+response['id']+'" onclick="window.setLogo(this.id,event)" ><div class="thumbnail" id="imglogo"><button class="btn btn-info" data-image-id="'+response['id']+'" id="setlogo">Set Logo</button><button class="btn btn-info remove_thumbnail" data-image-id="'+response['id']+'">x</button><img src="'+response['medium']+'" alt=""></div></li>'
   $('ul.thumbnails').append(html)
 
-
-$("li.span4").live "click",->
-  $(this).addClass('bordercolor').siblings().removeClass('bordercolor')
-  
-
-    
-
+window.setLogo = (id,e)->
+  img=confirm("Are you sure you want to set logo?")
+  if img==true
+    e.preventDefault()
+    $("#"+id).addClass('bordercolor').siblings().removeClass('bordercolor')
+   
+  else
+    $("li.span4").removeClass('bordercolor')
+    e.preventDefault()
+      
 delete_image = (e)->
   e.preventDefault()
   image_id = $(e.target).attr('data-image-id')
