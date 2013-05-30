@@ -25,6 +25,7 @@ add_image = (response) ->
   html = '<li class="span4" id="thumbnail'+response['id']+'"><div class="thumbnail"><img src="'+response['medium']+'" alt=""><h3>'+response['display_name']+'</h3><button class="btn btn-info remove_thumbnail" data-image-id="'+response['id']+'">Remove</button></div></li>'
   $('ul.thumbnails').append(html)
 
+
 $(document).ready ->
   params                = {}
   csrf_token            = $("meta[name=csrf-token]").attr("content")
