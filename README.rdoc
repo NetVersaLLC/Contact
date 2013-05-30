@@ -90,6 +90,14 @@ First you need to create the database with 'rake db:create' then migrate the sch
 mysql -u username -p contact_development < db/zips.sql;
 ```
 
+
+== Setup.exe download for business form 
+
+Once you have seeded your database, if you will be doing and development or testing with the business form, you will need the file that is downloaded when the form has been completed.  It looks for the setup.exe file in a folder for the 'label' object. 
+
+For the package id that you are going to use (i.e.  http://localhost:3000/user/sign_up?package_id=1), in rails console, note the value returned for Package.find(1).label.name. Then, in rails_root, create the folder [rails_root]/labels/[label name].   
+Then, copy [rails_root]/doc/setup.exe to the new folder.  
+
 == Workflow
 
 You start up the local rails app and go to http://localhost:3000/. Now click sign in then click sign up then fill out fake business info. Next get the authentication id
