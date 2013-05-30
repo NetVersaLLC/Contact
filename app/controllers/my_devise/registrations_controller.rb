@@ -19,17 +19,12 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
 
   def create
     STDERR.puts "Ues running"
-    # build user 
-    
-    # build subscription  
-    # build credit card 
-    # get payment 
-    # save everything 
-    # 
-    @callcenter = params[:callcenter] == 1 ? true : false
+    @callcenter = params[:callcenter] == '1' ? true : false
     build_resource
     resource.callcenter = @callcenter 
-    #resource.temppass = @password
+    if @callcenter == true 
+      resource.temppass = resource.password = resource.password_confirmation = Random.rand(899999) + 100000
+    end 
 
     unless resource.valid?
       clean_up_passwords resource
@@ -91,7 +86,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
           set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
           expire_session_data_after_sign_in!
           if @is_checkout_session == true
-            redirect_to edit_business_path(business)
+            redirect_to new_business_path #edit_business_path(business)
           else
             redirect_to '/resellers'
           end
