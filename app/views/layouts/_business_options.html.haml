@@ -1,9 +1,6 @@
 .container
   .row
     .span6 
-      = image_tag("towncenter_logo.png") 
+      = link_to( image_tag( current_label.logo.url() ), "http://#{current_label.domain}")
     .span1.offset3
       = link_to 'Billing',  '/subscriptions', :class => 'btn btn-info'
-    .span2
-      - unless @business.new_record? 
-        = link_to('Edit Business Profile', edit_business_path(@business), :class => 'muted' )
