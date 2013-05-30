@@ -40,7 +40,7 @@ class Subscription < ActiveRecord::Base
       self.message           = "Free subscription!"
       save!
       self.trans.subscription = self
-      return true
+      return nil
     end
 
     names            = self.trans.options[:creditcard][:name].split(/\s+/)
@@ -70,15 +70,14 @@ class Subscription < ActiveRecord::Base
       self.subscription_code = response.authorization
       save!
       self.trans.subscription = self
-      return true
     else
       self.active            = false
       self.status            = :failed
       self.message           = response.message
       self.trans.subscription = self
       save!
-      return false
     end
+    return response
   end
 
   def cancel
