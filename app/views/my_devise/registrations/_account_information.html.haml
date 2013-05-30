@@ -1,0 +1,33 @@
+%fieldset
+  - if @is_checkout_session == true
+    %legend
+      Account Information
+  - else
+    %legend
+      Reseller Sign Up
+  %label{:for => 'user[email]'} Email
+  %input{:name => 'user[email]', :placeholder => "Email", :type => "text", :required => 'required', :id => 'email', :value => @email }/
+  - unless @callcenter
+    %span.help-block We won&#39;t spam you or share your address.
+    %label{:for => 'user[password]'} Choose a Password
+    %input{:name => 'user[password]', :placeholder => "Password", :type => "password", :required => 'required', :id => 'password' }/
+    %label{:for => 'user[password_confirmation]'} Verify Password
+    %input{:name => 'user[password_confirmation]', :placeholder => "Password Confirmation", :type => "password", :required => 'required', :id => 'password_confirmation' }/
+  - else
+    %input{:name => 'user[password]', :type => "hidden", :value => 'passw0rd' }/
+    %input{:name => 'user[password_confirmation]', :type => "hidden", :value => 'passw0rd' }/
+    %input{:name => 'callcenter', :type => "hidden", :value => '1' }/
+  %br
+  %br
+  %label.checkbox
+    =f.check_box :tos
+    I agree to the
+    %a{:href => '/terms'}
+      Terms of Service
+  %br
+  - if @is_checkout_session == true
+    /%button.btn.btn-large.btn-info#submit_button{:type => "button"} Place Order
+    %input.btn.btn-large.btn-info#submit_button{:type => "submit", :value=>'Place Order'}
+  - else
+    %button.btn.btn-large.btn-info#submit_button{:type => "submit"} Sign Up
+

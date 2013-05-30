@@ -19,17 +19,21 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
 
   def create
     STDERR.puts "Ues running"
-    @callcenter = false
-    @password   = nil
-    if params[:callcenter] == '1'
-      @password                           = params['user[password]']
-      @callcenter                         = true
-    end
+    # build user 
+    
+    # build subscription  
+    # build credit card 
+    # get payment 
+    # save everything 
+    # 
+    @callcenter = params[:callcenter] == 1 ? true : false
     build_resource
+    resource.callcenter = @callcenter 
+    #resource.temppass = @password
 
-    if @callcenter == true
-      resource.callcenter = true
-      resource.temppass = @password
+    unless resource.valid?
+      clean_up_passwords resource
+      render :action=>:new and return
     end
 
     @is_checkout_session = checkout_setup
@@ -40,11 +44,6 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
       @card_month  = params[:creditcard][:month]
       @card_year   = params[:creditcard][:year]
       @email       = params[:user][:email]
-    end
-
-    unless resource.valid?
-      clean_up_passwords resource
-      render :action=>:new and return
     end
 
     @errors             = []
