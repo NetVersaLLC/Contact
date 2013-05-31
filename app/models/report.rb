@@ -3,7 +3,7 @@ class Report < ActiveRecord::Base
   has_many :scans
 
   def self.generate(business, zip, phone, package_id, ident)
-    site_list     = %w/Ibegin/
+    site_list     = %w/Ibegin Yelp Localcom/
     report = Report.create do |r|
       r.business   = business
       r.zip        = zip

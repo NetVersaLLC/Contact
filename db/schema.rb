@@ -1410,13 +1410,11 @@ ActiveRecord::Schema.define(:version => 20130531183334) do
   add_index "primeplaces", ["business_id"], :name => "index_primeplaces_on_business_id"
 
   create_table "reports", :force => true do |t|
-    t.string   "name"
     t.string   "site"
     t.string   "business"
     t.string   "phone"
     t.string   "zip"
     t.string   "status"
-    t.datetime "started_at"
     t.datetime "completed_at"
     t.integer  "business_id"
     t.datetime "created_at",   :null => false

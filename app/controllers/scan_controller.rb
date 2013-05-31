@@ -12,7 +12,12 @@ class ScanController < ApplicationController
     @result = {:status => :error, :message => "Report not found."}
     Report.where(:ident => params[:ident]).each do |report|
       if report.completed_at == nil
-        @result = {:status => :running, :message => "Report is still being generated."}
+        message = "Report is still being generated."
+        scan = report.scans.last
+        if scan
+          message = "Checking #{scan.site}..."
+        end
+        @result = {:status => :running, :message => message}
       else
         @result = {:status => :finished, :message => "Report is ready."}
       end
