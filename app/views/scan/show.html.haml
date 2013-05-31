@@ -1,0 +1,26 @@
+%h3 Scan Results
+
+%h4#name
+  = @report.business
+%h4#zip
+  = @report.zip
+%h4#zip
+  = @report.phone
+
+%br
+%br
+
+%table.table.table-striped
+  - @report.scans.each do |scan|
+    %tr
+      %td #{scan.site}
+      %td #{scan.status}
+      %td #{scan.listed_phone}
+      %td #{scan.listed_address}
+      %td #{scan.listed_url}
+
+%br
+%br
+
+%a.btn.btn-info.btn-large{:href => "/users/sign_up?package_id=#{@report.package_id}"}
+  Sign Up

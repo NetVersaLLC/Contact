@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130529140154) do
+ActiveRecord::Schema.define(:version => 20130531183334) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -890,15 +890,6 @@ ActiveRecord::Schema.define(:version => 20130529140154) do
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
 
-  create_table "insiderpages", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "email"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
     t.text     "secrets"
@@ -1430,9 +1421,12 @@ ActiveRecord::Schema.define(:version => 20130529140154) do
     t.integer  "business_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.string   "ident"
+    t.integer  "package_id"
   end
 
   add_index "reports", ["business_id"], :name => "index_reports_on_business_id"
+  add_index "reports", ["ident"], :name => "index_reports_on_ident"
 
   create_table "rookies", :force => true do |t|
     t.integer  "position"
@@ -1443,23 +1437,25 @@ ActiveRecord::Schema.define(:version => 20130529140154) do
   end
 
   create_table "scans", :force => true do |t|
-    t.integer "report_id"
-    t.string  "site"
-    t.string  "business"
-    t.string  "phone"
-    t.string  "zip"
-    t.string  "latitude"
-    t.string  "longitude"
-    t.string  "state"
-    t.string  "state_short"
-    t.string  "city"
-    t.string  "county"
-    t.string  "country"
-    t.string  "status"
-    t.string  "listed_phone"
-    t.string  "listed_address"
-    t.integer "request_time"
-    t.text    "error_message"
+    t.integer  "report_id"
+    t.string   "site"
+    t.string   "business"
+    t.string   "phone"
+    t.string   "zip"
+    t.string   "latitude"
+    t.string   "longitude"
+    t.string   "state"
+    t.string   "state_short"
+    t.string   "city"
+    t.string   "county"
+    t.string   "country"
+    t.string   "status"
+    t.string   "listed_phone"
+    t.string   "listed_address"
+    t.integer  "request_time"
+    t.text     "error_message"
+    t.string   "listed_url"
+    t.datetime "completed_at"
   end
 
   add_index "scans", ["business"], :name => "index_scans_on_business"
