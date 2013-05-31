@@ -26,12 +26,13 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
       resource.temppass = resource.password = resource.password_confirmation = Random.rand(899999) + 100000
     end 
 
+    @is_checkout_session = checkout_setup
+
     unless resource.valid?
       clean_up_passwords resource
       render :action=>:new and return
     end
 
-    @is_checkout_session = checkout_setup
     if @is_checkout_session == true
       @name        = params[:creditcard][:name]
       @card_number = params[:creditcard][:number]

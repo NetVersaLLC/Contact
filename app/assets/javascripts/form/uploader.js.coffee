@@ -33,6 +33,9 @@ $(document).ready ->
   params["business_id"] = window.business_id
   params["business_form_edit_id"] = window.business_form_edit_id
   console.log params["business_form_edit_id"] 
+  
+  refresh_image_list()
+
   # wire up existing images to delete button 
   $('.remove_thumbnail').click (e)->  
     delete_image(e)
