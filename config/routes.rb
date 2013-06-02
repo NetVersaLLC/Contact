@@ -24,6 +24,9 @@ Contact::Application.routes.draw do
   post    '/businesses/cancel_change', 
     :controller => :businesses, 
     :action => :cancel_change
+  post    '/businesses/:id',
+    :controller => :businesses, 
+    :action => :update
 
   resources :businesses
   get     '/report(.:format)', :controller => :businesses, :action => :report
