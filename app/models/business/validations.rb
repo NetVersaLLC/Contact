@@ -5,7 +5,7 @@ module Business::Validations
       /^\d\d\d-\d\d\d-\d\d\d\d$/
     end
 
-    validate :time_cannot_same
+    #validate :time_cannot_same
 
 
     validates :keywords,
