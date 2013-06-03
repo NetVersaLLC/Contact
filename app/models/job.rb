@@ -1,7 +1,7 @@
 class Job < JobBase
   belongs_to :business
 
-  attr_accessible :payload, :data_generator, :status
+  attr_accessible :payload, :data_generator, :status, :runtime
   attr_accessible :business_id, :name, :status_message, :returned, :waited_at, :position, :data
 
   validates :status,
@@ -41,7 +41,7 @@ class Job < JobBase
     if Task.where("business_id = #{business.id} AND started_at > DATE_SUB(NOW(), INTERVAL 1 DAY)").count == 0
       return nil
     end
-    @job = Job.where('business_id = ? AND status IN (0,1)', business.id).order(:position).first
+    @job = Job.where('business_id = ? AND status IN (0,1) AND runtime < NOW()', business.id).order(:position).first
     if @job != nil
       if @job.wait == true
         if @job.waited_at > Time.now - 1.hour
@@ -90,7 +90,7 @@ class Job < JobBase
     self.is_now(FailedJob)
   end
 
-  def self.inject(business_id,payload,data_generator,ready = nil)
+  def self.inject(business_id,payload,data_generator,ready = nil,runtime = Time.now)
     Job.create do |j|
       j.status         = TO_CODE[:new]
       j.status_message = 'Created'
@@ -98,6 +98,7 @@ class Job < JobBase
       j.payload        = payload
       j.data_generator = data_generator
       j.ready          = ready
+      j.runtime        = runtime
     end
   end
 

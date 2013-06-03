@@ -8,8 +8,20 @@
     %meta{:content => "", :name => "description"}/
     %meta{:content => "", :name => "author"}/
     %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"}
+    %link{:href => "//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css", :rel => "stylesheet"}
+    %link{:href => "//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css", :rel => "stylesheet"}
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
+
+
+    -if signed_in? && current_label.css_is_set?
+      = current_label.theme_css_files
+    /-else # this is already included in application.css.  Plus, you need to prepend with /assets
+    /  %link{:rel => :stylesheet, :href => "bootstrap.min.css" }
+
+    -if signed_in? && current_label.css_is_set?
+      = current_label.theme_js_files
+
     = csrf_meta_tags
     %style{:type => "text/css"}
       = current_label.custom_css
@@ -17,29 +29,44 @@
       <script src="/assets/html5shiv.js"></script>
     %link{:rel => "icon", :type => "image/ico", :href => current_label.favicon_url}/
   %body
-    .ajax-progress
-    .container
-      .row
-        .span10
-        .span2.sign_In
+    - if current_staff_user 
+      = render 'user_impersonate/header' 
+
+    %header.navbar
+      .navbar-inner 
+        .container 
           - if user_signed_in?
-            = link_to('Sign Out', destroy_user_session_path, :method => :delete)
-            = "|"
-            = link_to('Edit Profile', edit_user_registration_path ) 
-          - else
-            = link_to('Login', new_user_session_path)
+            %ul.nav 
+              %li 
+                %a{:href => '#'}
+                  Welcome 
+                  %strong= "#{current_user.email}!"
+            %ul.nav.pull-right
+              %li= link_to('Sign Out', destroy_user_session_path, :method => :delete)
+          - else 
+            %ul.nav.pull-right
+              %li= link_to('Sign In', new_user_session_path)
+
+    .ajax-progress
+
+    .container
       .row 
-        .span6
+        .span6 
           - if flash[:notice] 
             .alert.alert-info= flash[:notice] 
           - if flash[:error] 
             .alert.alert-error= flash[:error] 
         .span6 
-      = yield
-    %a{:href => "http://clicky.com/100593955", :title => "Real Time Web Analytics"}
-      %img{:alt => "Real Time Web Analytics", :border => "0", :src => "//static.getclicky.com/media/links/badge.gif"}/
-    %script{:src => "//static.getclicky.com/js", :type => "text/javascript"}
-    :javascript
-      try{ clicky.init(100593955); }catch(e){}%noscript
-    %p
-      %img{:alt => "Clicky", :height => "1", :src => "//in.getclicky.com/100593955ns.gif", :width => "1"}/
+    - if user_signed_in?
+      = render 'layouts/business_options'
+      = render 'layouts/citation_summary' 
+
+    .content{ :class => user_signed_in? ? 'signed_in' : '' } 
+      .container
+        = yield 
+
+    %footer 
+      %span
+        Copyright &copy; 2013 
+        %strong NetVersa, LLC.,
+        All Rights Reserved.

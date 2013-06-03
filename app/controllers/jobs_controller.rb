@@ -40,8 +40,14 @@ class JobsController < ApplicationController
       end
       return
     end
+     
+      if params[:delay]
+        runtime = Time.now + params[:delay].to_i*60
+      else
+        runtime = Time.now
+      end
 
-    @job = Job.inject(params[:business_id], payload.payload, payload.data_generator, payload.ready)
+    @job = Job.inject(params[:business_id], payload.payload, payload.data_generator, payload.ready, runtime)
     @job.name = params[:name]
     @job.save
 

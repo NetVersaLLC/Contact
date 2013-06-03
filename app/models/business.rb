@@ -10,9 +10,9 @@ class Business < ActiveRecord::Base
   queue "business-manage"
 
   # Associations
-  has_attached_file :logo, :styles => {:thumb => "100x100>"}
-  validates_attachment :logo,
-                       :size => {:in => 1..1500.kilobytes}
+
+  has_attached_file :logo, :styles => { :thumb => '100x100>', :medium => '240x240>' }
+ 
 
   has_many :jobs, :order => "position"
   has_many :failed_jobs, :order => "position"
@@ -28,6 +28,9 @@ class Business < ActiveRecord::Base
   after_create      :create_jobs, :unless => Proc.new { |o| Rails.env == 'test'}
   after_initialize  :set_times
   before_destroy :delete_all_associated_records
+  before_save :strip_blanks
+  
+  
 
   # search on activeadmin -> meta_search 
   scope :redeemed_coupon_eq, lambda { |cid| joins(:transaction_event).
@@ -88,6 +91,20 @@ class Business < ActiveRecord::Base
   def label_id
     self.user.label_id
   end
+  
+  def strip_blanks
+    self.attributes.each do |key,val|
+      if val.class == String
+        val.strip!
+      end
+    end
+  end
+
+  def create_site_accounts
+    user_id = self.user.id
+    business_id = self.id
+    Business.async.create_site_accounts_ex user_id, business_id
+  end
 
   private
 
@@ -103,6 +120,7 @@ class Business < ActiveRecord::Base
       y.save
       backburner_process.update_attribute(:processed, backburner_process.processed.to_s + " #{klass}")
     end
+    Business.find(business_id).touch  # expire cache fragments
   end
 
   def delete_all_associated_records

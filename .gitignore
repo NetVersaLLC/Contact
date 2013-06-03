@@ -19,6 +19,7 @@ public/system/
 .DS_Store
 .idea/
 
+/labels
 /categories/yahoo/cats/*.txt
 /categories/google/cats/*.js
 /reports
@@ -103,4 +104,3 @@ capybara-*html
 vendor/extensions/**/spec/dummy
 
 captchas/uploads
-

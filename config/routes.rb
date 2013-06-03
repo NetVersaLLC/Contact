@@ -1,5 +1,7 @@
 Contact::Application.routes.draw do
 
+  mount UserImpersonate::Engine => "/impersonate", as: "impersonate_engine"
+
   get    '/payloads/:id(.:format)', :controller => :payloads, :action => :index
   get    '/packages/:id(.:format)', :controller => :packages, :action => :index
   delete '/packages/:id(.:format)', :controller => :packages, :action => :destroy
@@ -15,17 +17,16 @@ Contact::Application.routes.draw do
   resources :subscriptions
   resources :pings
 
-  post    '/businesses/save_and_validate', 
+  post    '/businesses/save_edits', 
     :controller => :businesses, 
-    :action => :save_and_validate, 
-    :as=>'save_and_validate'
-  put    '/businesses/save_and_validate', 
-    :controller => :businesses, 
-    :action => :save_and_validate, 
-    :as=>'save_and_validate'
+    :action => :save_edits, 
+    :as => 'save_edits'
   post    '/businesses/cancel_change', 
     :controller => :businesses, 
     :action => :cancel_change
+  post    '/businesses/:id',
+    :controller => :businesses, 
+    :action => :update
 
   resources :businesses
   get     '/report(.:format)', :controller => :businesses, :action => :report
@@ -68,14 +69,13 @@ Contact::Application.routes.draw do
 
   get     '/pages/make_redirect', :controller => :pages, :action => :make_redirect
 
-  get     '/scan', :controller => :scan, :action => :index
-  get     '/scan/sites(.:format)', :controller => :scan, :action => :sites
-  get     '/scan/sites/:id(.:format)', :controller => :scan, :action => :site
-  get     '/scan/status/:id(.:format)', :controller => :scan, :action => :status
+  post    '/scanner/start', :controller => :scan, :action => :start
+  get     '/scanner/check(.:format)', :controller => :scan, :action => :check
+  get     '/scan/:id',      :controller => :scan, :action => :show
 
   get     '/test/exception', :controller => :test, :action => :exception
 
-  get     '/images/:id(.:format)', :action => 'index', :controller => 'images'
+  get     '/images(.:format)', :action => 'index', :controller => 'images'
   post    '/images(.:format)', :action=>"create", :controller=>"images"
   delete  '/images/:id(.:format)',:action=>"destroy", :controller=>"images"
   delete  '/images/:id/all(.:format)',:action=>"destroy_all", :controller=>"images"
@@ -83,6 +83,9 @@ Contact::Application.routes.draw do
 
   get '/resellers', :controller => :pages, :action => :resellers
   get '/try_again_later', :controller => :pages, :action => :try_again_later
+
+  get '/congratulations', :controller => :pages, :action => :congratulations
+  get '/begin-sync', :controller => :pages, :action => :begin_sync, :as=>'begin_sync'
 
   root :to => redirect("/pages/make_redirect")
   ActiveAdmin.routes(self) # Moved to bottom to resovle Unitialized Dashborad error w activeadmin 0.6.0 

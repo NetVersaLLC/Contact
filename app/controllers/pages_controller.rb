@@ -8,7 +8,8 @@ class PagesController < ApplicationController
     if user_signed_in?
       redirect_to '/businesses'
     else
-      redirect_to '/users/sign_up'
+      redirect_to '/users/sign_in'
+      
     end
   end
 
@@ -16,5 +17,14 @@ class PagesController < ApplicationController
   end
 
   def resellers
+  end
+
+  def congratulations
+
+  end
+
+  def begin_sync
+    # the code to sync will come here ...
+    render :layout=>nil
   end
 end
