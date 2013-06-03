@@ -25,7 +25,8 @@
                 %span.pf-label Do Not Sync
               %input.pf-field{:name => "username", :type => "checkbox" }/
               %br/
-              =f.submit 'Save', :class=>'btn btn-save btn-primary pull-right'
+              =#f.submit 'Save', :class=>'btn btn-save btn-primary pull-right'
+              =button_tag 'Save', :class=>'btn btn-save btn-primary pull-right'
               .clearfix
 
 :javascript

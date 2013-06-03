@@ -1,39 +1,31 @@
 class ScanController < ApplicationController
-  def index
-    @name = params[:name].strip
-    @zip  = params[:zip].strip
+  def start
+    @name        = params[:name].strip
+    @zip         = params[:zip].strip
+    @phone       = params[:phone].strip
+    @package_id  = params[:package_id]
+    @ident       = SecureRandom.uuid
+    @report      = Report.generate(@name,@zip,@phone,@package_id,@ident)
   end
-  def sites
-    resp = []
-    Business.citation_list.each do |site|
-      next unless File.exists? Rails.root.join('sites', site[0], 'SearchListing')
-      resp.push site[0]
-    end
-    resp = %w/Yahoo Citisquare Cornerstonesworld Kudzu/ #%w/Bing Yelp Yahoo Ezlocal Justclicklocal Yellowassistance Ebusinesspages Citisquare ShopCity Zippro Yellowee Digabusiness Localizedbiz Showmelocal Expressbusinessdirectory/
-    render json: resp
-  end
-  def site
-    @scan = Scan.new(params[:id], params[:name], params[:zip])
-    res   = @scan.run()
-    model = params[:id].constantize
-    bid   = params[:business_id]
-    Search.create do |s|
-      s.name    = params[:name]
-      s.zip     = params[:zip]
-      s.city    = params[:city]
-      s.address = params[:address]
-      s.phone   = params[:phone]
-    end
-    if bid
-      business = Business.find(bid)
-      count    = CompletedJob.find_by_sql("select count(*) from completed_jobs where business_id=#{business.id} and name rlike '^#{model}/';")
-      if count[0] > 0
-        res[:ran] = true
+
+  def check
+    @result = {:status => :error, :message => "Report not found."}
+    Report.where(:ident => params[:ident]).each do |report|
+      if report.completed_at == nil
+        message = "Report is still being generated."
+        scan = report.scans.last
+        if scan
+          message = "Checking #{scan.site}..."
+        end
+        @result = {:status => :running, :message => message}
       else
-        res[:ran] = false
+        @result = {:status => :finished, :message => "Report is ready."}
       end
     end
-    res[:site] = params[:id]
-    render json: params[:callback] + '(' + res.to_json + ')'
+    render :json => @result
+  end
+
+  def show
+    @report = Report.where(:ident => params[:id]).first
   end
 end

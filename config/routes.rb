@@ -24,6 +24,9 @@ Contact::Application.routes.draw do
   post    '/businesses/cancel_change', 
     :controller => :businesses, 
     :action => :cancel_change
+  post    '/businesses/:id',
+    :controller => :businesses, 
+    :action => :update
 
   resources :businesses
   get     '/report(.:format)', :controller => :businesses, :action => :report
@@ -66,10 +69,9 @@ Contact::Application.routes.draw do
 
   get     '/pages/make_redirect', :controller => :pages, :action => :make_redirect
 
-  get     '/scan', :controller => :scan, :action => :index
-  get     '/scan/sites(.:format)', :controller => :scan, :action => :sites
-  get     '/scan/sites/:id(.:format)', :controller => :scan, :action => :site
-  get     '/scan/status/:id(.:format)', :controller => :scan, :action => :status
+  post    '/scanner/start', :controller => :scan, :action => :start
+  get     '/scanner/check(.:format)', :controller => :scan, :action => :check
+  get     '/scan/:id',      :controller => :scan, :action => :show
 
   get     '/test/exception', :controller => :test, :action => :exception
 
