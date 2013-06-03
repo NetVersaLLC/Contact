@@ -1,4 +1,5 @@
-
+- content_for :summary do 
+  = render :partial => 'citation_summary'
 .row
   .span12
     = render :partial => 'form/search_form' unless request.xhr?
