@@ -46,7 +46,8 @@ class Subscription < ActiveRecord::Base
     names            = self.trans.options[:creditcard][:name].split(/\s+/)
     first_name       = names.shift
     last_name        = names.join(" ")
-    response = @gateway.recurring(@transaction.monthly_fee, @transaction.creditcard, {
+    #response = @gateway.recurring(@transaction.monthly_fee, @transaction.creditcard, {
+    response = @gateway.recurring(self.monthly_fee, @transaction.creditcard, {
       :interval => {
         :unit   => :months,
         :length => 1
