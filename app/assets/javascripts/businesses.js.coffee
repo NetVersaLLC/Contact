@@ -84,8 +84,8 @@ $ ->
       cur_step = $(this)
       $.cookie('last_selected_tab_index', cur_step.index() ) unless cur_step.index()==0
 
-      create_business() if cur_step.hasClass('pstep7') and $("#new_business").length > 0
       $('form.business').enableClientSideValidations() 
+      
 
     validation_rule: () -> 
       # some useful class items: step-visited step-active last-active 
@@ -101,6 +101,7 @@ $ ->
       
       if cur_step.hasClass("step-active")
         save_edits()
+        create_business() if cur_step.hasClass('pstep6') and $("#new_business").length > 0
 
       return cur_step.hasClass("step-visited") 
   } ) 
