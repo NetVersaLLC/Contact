@@ -10,6 +10,23 @@ delete_image = (e)->
       refresh_image_list()  # the delete action on the controller 
                             # will get the positions reordered, 
 
+set_logo = (e)->
+  e.preventDefault()
+  image_id = $(e.target).attr('data-image-id')
+  alert(image_id)
+  $('.thumbnails li').removeClass('active-block')
+  $("#thumbnail"+image_id).addClass('active-block')
+  $('#show-logo').html('<img src=' + $("#img"+image_id).attr('src') + ' />')
+  $(".set-logo"+image_id).css({ display: "none" })
+
+#  $.ajax
+#    type: "Put",
+#    url: "/images/"+image_id+".json",
+#    data: {_method: "put"},
+#    success: (data)->
+#      refresh_image_list()  # the delete action on the controller
+#                            # will get the positions reordered,
+
 # The numbering (display_name) is tied to the position, so on 
 # a delete, we need to get the reordered list to remove any 
 # resulting gaps 
@@ -19,11 +36,14 @@ refresh_image_list = ->
     add_image image for image in images      # add them back in 
     $('.remove_thumbnail').click (e)->       # wire up for deletion 
       delete_image(e)
+    $('.set-logo').click (e)->       # wire up for deletion
+      set_logo(e)
 
 # ugly looking helper to keep the html out of the way 
 add_image = (response) ->
-  html = '<li class="span4" id="thumbnail'+response['id']+'"><div class="thumbnail"><img src="'+response['medium']+'" alt=""><h3>'+response['display_name']+'</h3><button class="btn btn-info remove_thumbnail" data-image-id="'+response['id']+'">Remove</button></div></li>'
+  html = '<li class="span4" style="position: relative" id="thumbnail'+response['id']+'"><div class="thumbnail"><img id="img'+response['id']+'" src="'+response['medium']+'"  alt=""><h3>'+response['display_name']+'</h3><button class="btn btn-info remove_thumbnail" style="position: absolute; top: 4px; right: 2px;" data-image-id="'+response['id']+'">X</button><button class="btn btn-info set-logo" style="position: absolute; top: 4px; right: 40px;" data-image-id="'+response['id']+'">Set as Logo</button></div></li>'
   $('ul.thumbnails').append(html)
+
 
 
 $(document).ready ->
@@ -40,6 +60,9 @@ $(document).ready ->
   # wire up existing images to delete button 
   $('.remove_thumbnail').click (e)->  
     delete_image(e)
+
+  $('.set-logo').click (e)->
+    set_logo(e)
 
   $('#uploader').fineUploader(
     request:
