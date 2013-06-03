@@ -52,13 +52,16 @@ footer {  color: white; text-align: center; line-height: 52px; }
   box-shadow: 0px 2px 1px #0999ba;  
   }
 
-#business_options { background: none; 
-background-color: white;  } 
+.business_options { background: none; 
+  background-color: white; 
+  padding-bottom: 20px; 
+  }
+
 .citation-info-row {
   $base-color: #00c2e6; 
   height: 176px; 
   background-image: url('/assets/blue-gradient.png');
-  margin-top: 20px; 
+  margin-top: 10px; 
 
  .citation-info {
     float: left; 
