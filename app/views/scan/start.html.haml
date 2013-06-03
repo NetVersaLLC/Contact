@@ -1,0 +1,32 @@
+%h3 Scan in Progress
+
+%h4#name
+  = @name
+%h4#zip
+  = @zip
+%h4#zip
+  = @phone
+
+#sites
+  %h2 Scanning...
+  %p#message
+  %img{:src => '/assets/progress.gif'}
+
+:javascript
+  function checkProgress() {
+    $.getJSON('/scanner/check.json?ident=#{@report.ident}', function(data) {
+      if (data['status'] == 'error') {
+        $('#message').html(data['message']);
+      } else if (data['status'] == 'running') {
+        $('#message').html(data['message']);
+      } else if (data['status'] == 'finished') {
+        $('#message').html(data['message']);
+        window.location.replace("/scan/#{@report.ident}");
+      } else {
+        $('#message').html('Unknown error');
+      }
+    });
+  }
+  $(document).ready(function(){
+    var intervalID = window.setInterval(checkProgress, 5000);
+  });

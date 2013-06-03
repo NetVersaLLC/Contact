@@ -1,5 +1,21 @@
 %section{:id => 'section-download-client'}
   %h3 Download Client Software
-  %p Use the button below to download the client software for this business. For best results this software should be installed on a system at the business location.
+  %p 
+    The client software should start downloading within seconds.  If it doesn't, 
+    %a#download_client{:href => "/downloads/#{@business.id}"} restart the download. 
+  %p For best results, this software should be installed on a system at the business location.
+  - if request.headers['HTTP_USER_AGENT'].downcase =~ /macintosh/ 
+    .alert The client is not compatible with Apple computers.  But, if you were to install it on windows, this is how you would do it. 
   .well
-    %a.btn.btn-warning.btn-large{:href => "/downloads/#{@business.id}"} Download Client
+
+    - if request.headers['HTTP_USER_AGENT'].downcase =~ /chrome/ 
+      %h3 WINDOWS CHROME IMAGE HERE 
+    - elsif request.headers['HTTP_USER_AGENT'].downcase =~ /firefox/
+      %h3 WINDOWS FIREFOX IMAGE HERE 
+    - elsif request.headers['HTTP_USER_AGENT'].downcase =~ /msie/
+      %h3 WINDOWS INTERNET EXPLORER IMAGE HERE 
+    - else 
+      %p Your browser was not recognized.  When the down load completes, simply click 'Setup.exe' to install the client. 
+
+
+/  %a.btn.btn-warning.btn-large{:href => "/downloads/#{@business.id}"} Download Client

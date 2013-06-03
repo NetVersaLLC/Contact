@@ -1,43 +1,34 @@
-%h3.page-title
-  = @business.business_name
-  %sup
-    = link_to 'Edit This Business', edit_business_path(@business), :class => 'btn btn-info'
-  - if @business.subscription and @business.subscription.active?
-    %sup
-      = link_to 'Edit Your Subscription',  edit_subscription_path(@business), :class => 'btn btn-info'
-  - else
-    %sup
-      = link_to 'Renew Your Subscription', edit_subscription_path(@business), :class => 'btn btn-info'
+.business-summary
+  .row
+    .span6
+      .business-info
+        %address
+          %strong= @business.corporate_name
+          %br
+          = @business.address 
+          %br
+          - unless @business.address2.blank? 
+            = @business.address2
+            %br
+          = "#{@business.city}, #{@business.state} #{@business.zip}" 
+          %br
+          = @business.local_phone 
+          %br 
+          %a{:href => "'mailto:#{@business.user.email}"}=@business.user.email
+          %br
+        = link_to 'Edit This Business', edit_business_path(@business), :class => 'btn btn-info'
+      %a.business-button{:href => "/downloads/#{@business.id}"} 
+        =image_tag('icon-person.png')
+        Download Software
 
-%br/
-
-- if @business.notifications.count > 0
-  %h2 Pending Notifications
-  %table.table.table-bordered
-    %tbody
-      - @business.notifications.each do |note|
-        %tr
-          %td
-            %h3
-              = note.title
-            = note.body
-            = raw '&nbsp;'
-            - if note.url != nil
-              = link_to "Start", note.url, :class => 'btn btn-info'
-  %br/
-
-- if @job_count > 0
-  %h2 Citation Creation and Update Tasks
-  %p Click the button below to start the process that creates and updates your business listing.
-  %table.table.table-bordered
-    %tbody
-      %tr
-        %td
-          You have #{@job_count} pending citation jobs.
-        %td
-          = form_for Task.new do
-            %input{:type => :hidden, :value => @business.id, :name => 'business_id'}
-            %input{:type => :submit, :value => 'Start Sync', :class => 'btn btn-info btn-xlarge'}
+    .span6
+      .business-info
+        .pending
+          %h3 Items Pending Action 
+          %h1.counter= @job_count
+      %a.business-button{:href => "/report.xlsx?business_id=#{@business.id}"}
+        =image_tag('icon-report.png')
+        View Report
 
 -#  .span4
 -#    %h3 Social Update
@@ -45,15 +36,3 @@
 -#    %form.form-search.well
 -#      = text_field_tag :q, '', :placeholder => 'Send social media update.', :class => 'search-query input-medium'
 -#      %a{:class => "btn btn-success", :href => "#" } Update
-.row
-  .span4
-    %h3 Download Client Software
-    %p Use the button below to download the client software for this business. For best results this software should be installed on a system at the business location.
-    .well
-      %a.btn.btn-warning.btn-large{:href => "/downloads/#{@business.id}"} Download Client
-.row
-  .span4
-    %h3 Download Report
-    %p Use the button below to download a progress report.
-    .well
-      %a.btn.btn-warning.btn-large{:href => "/report.xlsx?business_id=#{@business.id}"} Download Report

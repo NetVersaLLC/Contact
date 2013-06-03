@@ -19,20 +19,20 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
 
   def create
     STDERR.puts "Ues running"
-    @callcenter = false
-    @password   = nil
-    if params[:callcenter] == '1'
-      @password                           = params['user[password]']
-      @callcenter                         = true
-    end
+    @callcenter = params[:callcenter] == '1' ? true : false
     build_resource
-
-    if @callcenter == true
-      resource.callcenter = true
-      resource.temppass = @password
-    end
+    resource.callcenter = @callcenter 
+    if @callcenter == true 
+      resource.temppass = resource.password = resource.password_confirmation = Random.rand(899999) + 100000
+    end 
 
     @is_checkout_session = checkout_setup
+
+    unless resource.valid?
+      clean_up_passwords resource
+      render :action=>:new and return
+    end
+
     if @is_checkout_session == true
       @name        = params[:creditcard][:name]
       @card_number = params[:creditcard][:number]
@@ -42,15 +42,12 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
       @email       = params[:user][:email]
     end
 
-    unless resource.valid?
-      clean_up_passwords resource
-      render :action=>:new and return
-    end
-
     @errors             = []
     #business            = Business.new
     ActiveRecord::Base.transaction do
       if @is_checkout_session == true
+        Coupon.redeem @package, params[:coupon] 
+
         STDERR.puts "Package: #{@package.inspect}"
         @transaction = TransactionEvent.build(params, @package, current_label)
         @transaction.process()
@@ -90,7 +87,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
           set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
           expire_session_data_after_sign_in!
           if @is_checkout_session == true
-            redirect_to edit_business_path(business)
+            redirect_to new_business_path #edit_business_path(business)
           else
             redirect_to '/resellers'
           end
@@ -120,7 +117,8 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     if @package.label_id != current_label.id
       throw "Not a valid label!"
     end
-    @coupon       = Coupon.where(:label_id => current_label.id, :code => params[:coupon]).first
+    #@coupon       = Coupon.where(:label_id => current_label.id, :code => params[:coupon]).first
+    @coupon        = Coupon.get_available_for( @package, params[:coupon] ).first
     unless @coupon == nil
       @saved      = @package.apply_coupon(@coupon)
     end

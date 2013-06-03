@@ -18,6 +18,13 @@ ActiveAdmin.register Business do
     column :company_website do |v|
       link_to v.company_website, v.company_website
     end
+    if current_user.admin? 
+      column :impersonate do |v| 
+        unless v.user.nil? 
+          link_to 'Login', impersonate_engine.impersonate_user_path(v.user) #"/impersonate/user/205"
+        end 
+      end 
+    end 
     column :coupon do |v|
       unless v.transaction_event.nil? || v.transaction_event.coupon.nil?
         v.transaction_event.coupon.name

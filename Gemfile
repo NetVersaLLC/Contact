@@ -43,6 +43,7 @@ end
 gem 'nokogiri'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'jquery-cookie-rails'
 gem 'devise'
 gem 'haml'
 gem 'haml-rails'
@@ -73,3 +74,6 @@ gem 'axlsx'
 gem 'vitelity'
 gem "backburner", "~> 0.3.4"
 gem 'daemons'
+gem 'prawn'
+gem 'user_impersonate' 
+gem 'dogapi', ">=1.3.0"

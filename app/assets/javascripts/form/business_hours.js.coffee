@@ -35,20 +35,18 @@ window.businessHours = ->
     window.resetTimes( {skip_monday: true} ) 
     window.copyFromMonday dow for dow in ['tuesday', 'wednesday', 'thursday', 'friday' ]
 
-  $('#business_open_24_hours').change (e)->
-    if this.checked 
+   $('#business_open_24_hours').change (e)->
+    if this.checked
       $('#business_open_by_appointment').attr('checked', false)
       window.resetTimes()
-
-  $('#business_open_24_hours').change (e)->
-   if !this.checked
-     $('#business_open_24_hours').attr('checked', false)
+    else
+     $('#business_open_by_appointment').attr('checked', false)
      window.setTimes()
 
-  #$('#business_open_by_appointment').change (e)-> 
-  #  if this.checked 
-  #    $('#business_open_24_hours').attr('checked', false)
-  #    window.resetTimes()
+  $('#business_open_by_appointment').change (e)->
+    if this.checked
+      $('#business_open_24_hours').attr('checked', false)
+      window.resetTimes()
     
   $.each ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'], (i,day)->
     $("#business_#{day}_enabled").change (e)-> 

@@ -1,14 +1,14 @@
 %section{:id => 'section-business-details'}
   = @f.inputs :business_description, :class => 'inputs tab-pane', :id => 'section1' do
     = @f.input :business_name
-    = @f.input :corporate_name
-    = @f.input :local_phone,        :input_html => { 'data-content' => I18n.t('popovers.business.local_phone.content'), 'title' => I18n.t('popovers.business.local_phone.title'),    :rel => 'popover' }
+    = @f.input :corporate_name, :label => "DBA/Corporate Name"
+    = @f.input :local_phone,  :label => "Main business phone", :hint => "Format: 201-555-55555",        :input_html => { 'data-content' => I18n.t('popovers.business.local_phone.content'), 'title' => I18n.t('popovers.business.local_phone.title'),    :rel => 'popover' }
     = @f.input :alternate_phone
-    = @f.input :toll_free_phone,    :input_html => { 'data-content' => I18n.t('popovers.business.toll_free_phone.content'), 'title' => I18n.t('popovers.business.toll_free_phone.title'),    :rel => 'popover' }
-    = @f.input :fax_number
+    = @f.input :toll_free_phone,     :hint => "Format: 8XX-555-5555",    :input_html => { 'data-content' => I18n.t('popovers.business.toll_free_phone.content'), 'title' => I18n.t('popovers.business.toll_free_phone.title'),    :rel => 'popover' }
+    = @f.input :fax_number,          :hint => "Format: 201-555-5555"
     = @f.input :address,            :input_html => { 'data-content' => I18n.t('popovers.business.address.content'), 'title' => I18n.t('popovers.business.address.title'),    :rel => 'popover' }
     = @f.input :address2
     = @f.input :city
     = @f.input :state,              :as => :select, :collection => Carmen::states('US')
-    = @f.input :zip
+    = @f.input :zip, :hint => "Example: 95014. Don't know your zip code find it #{ link_to "here"}".html_safe
     #map

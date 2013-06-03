@@ -90,11 +90,21 @@ First you need to create the database with 'rake db:create' then migrate the sch
 mysql -u username -p contact_development < db/zips.sql;
 ```
 
+
+== Setup.exe download for business form 
+
+Once you have seeded your database, if you will be doing and development or testing with the business form, you will need the file that is downloaded when the form has been completed.  It looks for the setup.exe file in a folder for the 'label' object. 
+
+For the package id that you are going to use (i.e.  http://localhost:3000/user/sign_up?package_id=1), in rails console, note the value returned for Package.find(1).label.name. Then, in rails_root, create the folder [rails_root]/labels/[label name].   
+Then, copy [rails_root]/doc/setup.exe to the new folder.  
+
 == Workflow
 
-You start up the local rails app and go to http://localhost:3000/. Now click sign in then click sign up then fill out fake business info. Next get the authentication id for the user from the table.
+You start up the local rails app and go to http://localhost:3000/. Now click sign in then click sign up then fill out fake business info. Next get the authentication id
+for the user from the table.
 
-To do this you can run 'rails console' then call User.first.authentication_token to get the authentication token. Next you need the business id, you can get this with 'Business.first.id'. It will be "1" if you have just installed a new system.
+To do this you can run 'rails console' then call User.first.authentication_token to get the authentication token. Next you need the business id, you can get this with
+'Business.first.id'. It will be "1" if you have just installed a new system.
 
 Take these two values now you can cd to Citation and run:
 
@@ -102,7 +112,11 @@ Take these two values now you can cd to Citation and run:
 ./citationCheck.rb <authentication token> <business id>
 ```
 
-This will then check for jobs and it should print "None". Now go to the admin interface to create a Payload. Admin interface http://localhost:3000/admin. The default username is 'admin@example.com' and the password is 'password'. First create some PayloadCategories from the menu at the top and next you can create a Payload using the menu at the top. This is the code that gets executed on the client side. Ok, now that the payload has been created you can assign a job so you go to the "Business" menu and find the business. Click on the business name to load the interface for managing jobs. Select a payload category from the list on the right.  Assign payloads by clicking the name in the list.
+This will then check for jobs and it should print "None". Now go to the admin interface to create a Payload. Admin interface http://localhost:3000/admin. The default
+username is 'admin@example.com' and the password is 'password'. First create some PayloadCategories from the menu at the top and next you can create a Payload using the
+menu at the top. This is the code that gets executed on the client side. Ok, now that the payload has been created you can assign a job so you go to the "Business" menu and
+find the business. Click on the business name to load the interface for managing jobs. Select a payload category from the list on the right.  Assign payloads by clicking
+the name in the list.
 
 You should be able to re-run the command:
 
@@ -110,7 +124,8 @@ You should be able to re-run the command:
 ./citationCheck.rb <authentication token> <business id>
 ```
 
-This time it should execute the job. You can create a payload that has the content "puts 'it is working'" and assign it as a job to test it. Now you can start running, debugging and testing jobs.
+This time it should execute the job. You can create a payload that has the content "puts 'it is working'" and assign it as a job to test it. Now you can start running,
+debugging and testing jobs.
 
 == Testing
 

@@ -14,7 +14,7 @@ delete_image = (e)->
 # a delete, we need to get the reordered list to remove any 
 # resulting gaps 
 refresh_image_list = -> 
-  $.getJSON "/images/" + window.business_id + ".json", (images) ->
+  $.getJSON "/images.json?business_id=#{window.business_id}&business_form_edit_id=#{window.business_form_edit_id}", (images) ->
     $("ul.thumbnails").children().remove()   # clean the slate 
     add_image image for image in images      # add them back in 
     $('.remove_thumbnail').click (e)->       # wire up for deletion 
@@ -31,6 +31,10 @@ $(document).ready ->
   csrf_param            = $("meta[name=csrf-param]").attr("content")
   params[csrf_param]    = encodeURI(csrf_token)
   params["business_id"] = window.business_id
+  params["business_form_edit_id"] = window.business_form_edit_id
+  console.log params["business_form_edit_id"] 
+  
+  refresh_image_list()
 
   # wire up existing images to delete button 
   $('.remove_thumbnail').click (e)->  

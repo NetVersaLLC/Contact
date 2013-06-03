@@ -13,6 +13,21 @@ ActiveAdmin.register_page "My Label" do
           input(:name => "authenticity_token", :value => form_authenticity_token, :type => "hidden")
           ol do
             li(:class => 'string input optional stringish') do
+              label(:for => 'label_theme') do
+                'Theme'
+              end
+              select :id => 'label_theme', :type => 'text', 'name' => 'label[theme]' do
+                option ''
+                Label::THEMES.each do |t|
+                  if t.downcase==labelObj.theme
+                    option t.humanize, :value=>t, :selected=>'selected'
+                  else
+                    option t.humanize, :value=>t
+                  end
+                end
+              end
+            end
+            li(:class => 'string input optional stringish') do
               label(:for => 'label_name') do
                 'Name'
               end
@@ -109,23 +124,23 @@ ActiveAdmin.register_page "My Label" do
               end
             end
 
-            li(:class => 'string input optional stringish') do
-              label(:for => 'label_logo') do
-                'Password show/hide reseller'
-              end
-              label(:for => 'label_password', :class => "checkbox toggle candy", :style => "width:37%;") do
-                if labelObj.is_show_password?
-                  input(:id => 'label_is_show_password', :checked => 'checked', :type => 'checkbox', 'name' => 'label[is_show_password]')
-                else
-                  input(:id => 'label_is_show_password', :type => 'checkbox', 'name' => 'label[is_show_password]')
-                end
-                para('') do
-                  span "show"
-                  span "hide"
-                end
-                a(:class => "slide-button")
-              end
-            end
+            #li(:class => 'string input optional stringish') do
+            #  label(:for => 'label_logo') do
+            #    'Password show/hide reseller'
+            #  end
+            #  label(:for => 'label_password', :class => "checkbox toggle candy", :style => "width:37%;") do
+            #    if labelObj.is_show_password?
+            #      input(:id => 'label_is_show_password', :checked => 'checked', :type => 'checkbox', 'name' => 'label[is_show_password]')
+            #    else
+            #      input(:id => 'label_is_show_password', :type => 'checkbox', 'name' => 'label[is_show_password]')
+            #    end
+            #    para('') do
+            #      span "show"
+            #      span "hide"
+            #    end
+            #    a(:class => "slide-button")
+            #  end
+            #end
 
           end
 
