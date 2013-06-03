@@ -13,19 +13,18 @@ delete_image = (e)->
 set_logo = (e)->
   e.preventDefault()
   image_id = $(e.target).attr('data-image-id')
-  alert(image_id)
   $('.thumbnails li').removeClass('active-block')
   $("#thumbnail"+image_id).addClass('active-block')
+  $('#show-logo').html($("#img"+image_id).attr('src'))
   $('#show-logo').html('<img src=' + $("#img"+image_id).attr('src') + ' />')
   $(".set-logo"+image_id).css({ display: "none" })
-
-#  $.ajax
-#    type: "Put",
-#    url: "/images/"+image_id+".json",
-#    data: {_method: "put"},
-#    success: (data)->
-#      refresh_image_list()  # the delete action on the controller
-#                            # will get the positions reordered,
+  $.ajax
+    type: "POST",
+    url: "/images/"+image_id+".json",
+    data: {_method: "show"},
+    success: (data)->
+      refresh_image_list()  # the delete action on the controller
+                            # will get the positions reordered,
 
 # The numbering (display_name) is tied to the position, so on 
 # a delete, we need to get the reordered list to remove any 
