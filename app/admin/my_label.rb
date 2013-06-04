@@ -77,16 +77,18 @@ ActiveAdmin.register_page "My Label" do
                 labelObj.footer
               end
             end
-            if labelObj.logo
-              li(:class => 'input optional') do
-                image_tag(labelObj.logo.url(:thumb))
-              end
-            end
+         
             li(:class => 'string input optional stringish') do
               label(:for => 'label_logo') do
                 'Logo'
               end
               input(:id => 'label_logo', :type => 'file', 'name' => 'label[logo]')
+            end
+            li(:class => 'string input optional stringish') do
+              label(:for => 'label_favicon') do
+                'Logo'
+              end
+              input(:id => 'label_favicon', :type => 'file', 'name' => 'label[favicon]')
             end
             li(:class => 'string input optional stringish', :style => "margin-bottom: 30px;") do
               label(:for => 'label_logo') do
