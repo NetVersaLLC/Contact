@@ -46,6 +46,8 @@ header .navbar-inner .container { width: 940px; }
 
 footer {  color: white; text-align: center; line-height: 52px; }  
 
+.sync[disabled] { display: none; }  
+
 .sync {
   margin-top: 70px; 
   border-radius: 23px 23px 23px 23px; 
