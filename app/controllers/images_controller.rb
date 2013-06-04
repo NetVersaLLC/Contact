@@ -111,4 +111,17 @@ class ImagesController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  def set_logo
+    @image = Image.find_by_id(params[:id])
+    Image.where(:business_form_edit_id => @image.business_form_edit_id).update_all(:is_logo => false)
+    respond_to do |format|
+      if @image.update_attributes(:is_logo => true)
+        format.json { head :ok }
+      else
+        format.json { render json: @image.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 end
