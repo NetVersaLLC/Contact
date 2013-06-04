@@ -48,10 +48,6 @@ class BusinessesController < ApplicationController
       @business.attributes = @business_form_edit.business_params
     end
 
-    @business_form_edit.update_attributes({
-      business_id: nil, 
-      user_id: current_user.id, 
-      subscription_id: session[:subscription] }) 
     @site_accounts = Business.citation_list.map {|x| x[0..1]}
 
     respond_to do |format|
