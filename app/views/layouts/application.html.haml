@@ -59,7 +59,7 @@
         .span6 
     - if user_signed_in?
       = render 'layouts/business_options'
-      = render 'layouts/citation_summary' 
+      = yield :summary #render 'layouts/citation_summary' 
 
     .content{ :class => user_signed_in? ? 'signed_in' : '' } 
       .container
