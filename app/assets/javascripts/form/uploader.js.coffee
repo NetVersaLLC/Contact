@@ -19,9 +19,9 @@ set_logo = (e)->
   $('#show-logo').html('<img src=' + $("#img"+image_id).attr('src') + ' />')
   $(".set-logo"+image_id).css({ display: "none" })
   $.ajax
-    type: "POST",
-    url: "/images/"+image_id+".json",
-    data: {_method: "show"},
+    type: "PUT",
+    url: "/images/set_logo/"+image_id,
+    data: {_method: "set_logo", id: image_id},
     success: (data)->
       refresh_image_list()  # the delete action on the controller
                             # will get the positions reordered,
@@ -31,9 +31,9 @@ set_logo = (e)->
 # resulting gaps 
 refresh_image_list = -> 
   $.getJSON "/images.json?business_id=#{window.business_id}&business_form_edit_id=#{window.business_form_edit_id}", (images) ->
-    $("ul.thumbnails").children().remove()   # clean the slate 
-    add_image image for image in images      # add them back in 
-    $('.remove_thumbnail').click (e)->       # wire up for deletion 
+    $("ul.thumbnails").children().remove()   # clean the slate
+    add_image image for image in images      # add them back in
+    $('.remove_thumbnail').click (e)->       # wire up for deletion
       delete_image(e)
     $('.set-logo').click (e)->       # wire up for deletion
       set_logo(e)
@@ -52,7 +52,7 @@ $(document).ready ->
   params[csrf_param]    = encodeURI(csrf_token)
   params["business_id"] = window.business_id
   params["business_form_edit_id"] = window.business_form_edit_id
-  console.log params["business_form_edit_id"] 
+  console.log params["business_form_edit_id"]
   
   refresh_image_list()
 
