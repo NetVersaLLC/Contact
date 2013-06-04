@@ -34,10 +34,10 @@ scrollToFirstError = () ->
 # only for the business.show view 
 delay_task_sync_button = -> 
   if window.location.search.indexOf("delay=true") > 0 
-    $("form.new_task > input[type='submit']").attr('disabled','disabled') 
+    $("form.new_task > input[type='image']").attr('disabled','disabled') 
     window.enable_sync_button = ->
-      $("form.new_task > input[type='submit']").removeAttr('disabled')
-    window.setTimeout window.enable_sync_button, 60 * 1000
+      $("form.new_task > input[type='image']").removeAttr('disabled')
+    window.setTimeout window.enable_sync_button, 5 * 60 * 1000
 
 auto_download_client_software = -> 
   download = -> window.location = document.getElementById('download_client').href 
@@ -122,5 +122,5 @@ $ ->
 
   
   window.initMap()
-  delay_task_sync_button() 
+  #delay_task_sync_button() 
   window.company_description()
