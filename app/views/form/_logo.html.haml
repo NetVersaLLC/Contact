@@ -1,18 +1,10 @@
 %section{:id => 'logo-section'}
   #logo-display
+  %h3
+    Logo
   #show-logo
-    - if Image.find_by_business_form_edit_id(@business_form_edit.id)
-      - image = Image.where(:business_form_edit_id => @business_form_edit.id, :is_logo => true)
-      #logo_shown= image_tag image.first.medium
-  = @f.inputs "Logo", :class => 'inputs' do
-    #logo_uploader{:style => "display:none;"}
-      %h3{:style => "display:none;"} Logo Upload
-      = @f.input :logo, :style => "display:none;"
-    - unless @business.logo.url =~ /missing/
-      #logo_shown
-        %h3 Current image.
-        = link_to image_tag(@business.logo.url(:thumb)), @business.logo.url, :class => 'thumbnail', :title => 'Current Logo'
-
+    - image = @business.logo
+    #logo_shown= image_tag image.medium unless image.nil?
   %h3 Additional Images
   #uploader
   #thumbnails
