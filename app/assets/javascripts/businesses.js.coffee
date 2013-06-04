@@ -20,6 +20,7 @@ create_business = (event) ->
     data: $('form.business').serialize()
     success: (data, status, response) -> 
       console.log data 
+      window.business_id = data 
       $('#download_client').attr('href', "/downloads/#{data}") 
       auto_download_client_software() 
     error: () -> 
@@ -40,6 +41,18 @@ delay_task_sync_button = ->
 auto_download_client_software = -> 
   download = -> window.location = document.getElementById('download_client').href 
   window.setTimeout download, 2000
+  window.setTimeout has_client_checked_in, 15000
+
+has_client_checked_in = () ->
+  $.ajax
+    dataType: "text"
+    url: "/businesses/client_checked_in/#{window.business_id}"
+    success: (data, status, response) -> 
+      console.log data 
+      if data == 'yes' 
+        window.location = "/businesses/tada/#{window.business_id}"
+      else 
+        window.setTimeout has_client_checked_in, 10000
 
 window.selectTab = (idx) =>
   $('.steps-transformed .step-title').addClass('disabled')
