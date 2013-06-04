@@ -113,6 +113,7 @@ class ImagesController < ApplicationController
   end
 
   def set_logo
+    #if pa
     @image = Image.find_by_id(params[:id])
     Image.where(:business_form_edit_id => @image.business_form_edit_id).update_all(:is_logo => false)
     respond_to do |format|

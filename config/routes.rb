@@ -27,6 +27,14 @@ Contact::Application.routes.draw do
   post    '/businesses/:id',
     :controller => :businesses, 
     :action => :update
+  get    '/businesses/client_checked_in/:id', 
+    :controller => :businesses, 
+    :action => :client_checked_in,
+    :as => 'client_checked_in'
+  get    '/businesses/tada/:id', 
+    :controller => :businesses, 
+    :action => :tada,
+    :as => 'tada'
 
   resources :businesses
   get     '/report(.:format)', :controller => :businesses, :action => :report

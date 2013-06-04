@@ -23,6 +23,15 @@ class BusinessesController < ApplicationController
     @job_count = Job.where(:business_id => @business.id, :status => 0).count
   end
 
+  def tada
+    @business  = Business.find(params[:id])
+    if @business.user_id != current_user.id
+      redirect_to root_path
+      return
+    end
+  end 
+  
+
   # GET /businesses/new
   # GET /businesses/new.json
   def new
@@ -39,10 +48,6 @@ class BusinessesController < ApplicationController
       @business.attributes = @business_form_edit.business_params
     end
 
-    @business_form_edit.update_attributes({
-      business_id: nil, 
-      user_id: current_user.id, 
-      subscription_id: session[:subscription] }) 
     @site_accounts = Business.citation_list.map {|x| x[0..1]}
 
     respond_to do |format|
@@ -81,6 +86,12 @@ class BusinessesController < ApplicationController
   def cancel_change
     BusinessFormEdit.where(:user_id => current_user.id).delete_all
     render :nothing => true
+  end 
+
+  def client_checked_in 
+    b = Business.find(params[:id])
+    checked_in = b.client_checkin.nil? ? 'no':'yes'
+    render :json => checked_in
   end 
 
   # POST /businesses

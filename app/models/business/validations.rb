@@ -5,7 +5,7 @@ module Business::Validations
       /^\d\d\d-\d\d\d-\d\d\d\d$/
     end
 
-    validate :time_cannot_same
+    #validate :time_cannot_same
 
 
     validates :keywords,
@@ -41,19 +41,19 @@ module Business::Validations
       :presence => true
     validates :local_phone,
       :presence => true,
-      :format => { :with => phone_regex }
+      :format => { :with => phone_regex, :message => 'Invalid format'}
     validates :alternate_phone,
       :allow_blank => true,
-      :format => { :with => phone_regex }
+      :format => { :with => phone_regex,:message => 'Invalid format' }
     validates :toll_free_phone,
 	  :allow_blank => true,
-      :format => { :with => /^(?:888|877|866|855|844|833|822|800)-\d\d\d-\d\d\d\d$/ }
+      :format => { :with => /^(?:888|877|866|855|844|833|822|800)-\d\d\d-\d\d\d\d$/, :message => 'Invalid format'}
     validates :mobile_phone,
       :presence => true,      
-      :format => { :with => phone_regex }
+      :format => { :with => phone_regex, :message => 'Invalid format' }
     validates :fax_number,
       :allow_blank => true,
-      :format => { :with => phone_regex }
+      :format => { :with => phone_regex, :message => 'Invalid format' }
     #validates :address,
     #  :presence => true
     validates_length_of :business_description, :minimum => 50, :maximum => 200, :presence => true
