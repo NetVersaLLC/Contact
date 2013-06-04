@@ -1,0 +1,46 @@
+%h3 Scan Results
+
+%h4#name
+  = @report.business
+%h4#zip
+  = @report.zip
+%h4#zip
+  = @report.phone
+
+%br
+%br
+
+%table.table.table-striped
+  %thead
+    %tr
+      %td Site
+      %td Status
+      %td Phone
+      %td Address
+      %td Link to Profile
+  %tbody
+    - @report.scans.each do |scan|
+      %tr
+        %td #{scan.site}
+        %td
+          - if scan.status == 'claimed'
+            %i.icon-ok-sign.icon-3x{:style => 'color: green'}
+          - elsif scan.status == 'listed'
+            %i.icon-minus-sign.icon-3x{:style => 'color: orange'}
+          - else
+            %i.icon-exclamation-sign.icon-3x{:style => 'color: red'}
+        %td #{scan.listed_phone}
+        %td #{scan.listed_address}
+        %td
+          %a.btn.btn-large.btn-primary{:href => scan.listed_url}
+            %i.icon-link
+            Link
+
+%br
+%br
+
+%a.btn.btn-info.btn-large{:href => "/users/sign_up?package_id=#{@report.package_id}"}
+  Fix These Errors
+
+%br
+%br

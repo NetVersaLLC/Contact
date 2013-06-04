@@ -1,5 +1,5 @@
 class Twitter < ClientData
-  attr_accessible :username
+  attr_accessible :username, :twitter_page
   virtual_attr_accessor :password
 
 

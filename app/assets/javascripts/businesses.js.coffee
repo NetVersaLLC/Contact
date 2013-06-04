@@ -20,6 +20,7 @@ create_business = (event) ->
     data: $('form.business').serialize()
     success: (data, status, response) -> 
       console.log data 
+      window.business_id = data 
       $('#download_client').attr('href', "/downloads/#{data}") 
       auto_download_client_software() 
     error: () -> 
@@ -40,6 +41,18 @@ delay_task_sync_button = ->
 auto_download_client_software = -> 
   download = -> window.location = document.getElementById('download_client').href 
   window.setTimeout download, 2000
+  window.setTimeout has_client_checked_in, 15000
+
+has_client_checked_in = () ->
+  $.ajax
+    dataType: "text"
+    url: "/businesses/client_checked_in/#{window.business_id}"
+    success: (data, status, response) -> 
+      console.log data 
+      if data == 'yes' 
+        window.location = "/businesses/tada/#{window.business_id}"
+      else 
+        window.setTimeout has_client_checked_in, 10000
 
 window.selectTab = (idx) =>
   $('.steps-transformed .step-title').addClass('disabled')
@@ -84,8 +97,8 @@ $ ->
       cur_step = $(this)
       $.cookie('last_selected_tab_index', cur_step.index() ) unless cur_step.index()==0
 
-      create_business() if cur_step.hasClass('pstep7') and $("#new_business").length > 0
       $('form.business').enableClientSideValidations() 
+      
 
     validation_rule: () -> 
       # some useful class items: step-visited step-active last-active 
@@ -101,6 +114,7 @@ $ ->
       
       if cur_step.hasClass("step-active")
         save_edits()
+        create_business() if cur_step.hasClass('pstep6') and $("#new_business").length > 0
 
       return cur_step.hasClass("step-visited") 
   } ) 

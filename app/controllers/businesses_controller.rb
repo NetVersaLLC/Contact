@@ -23,6 +23,15 @@ class BusinessesController < ApplicationController
     @job_count = Job.where(:business_id => @business.id, :status => 0).count
   end
 
+  def tada
+    @business  = Business.find(params[:id])
+    if @business.user_id != current_user.id
+      redirect_to root_path
+      return
+    end
+  end 
+  
+
   # GET /businesses/new
   # GET /businesses/new.json
   def new
@@ -81,6 +90,12 @@ class BusinessesController < ApplicationController
   def cancel_change
     BusinessFormEdit.where(:user_id => current_user.id).delete_all
     render :nothing => true
+  end 
+
+  def client_checked_in 
+    b = Business.find(params[:id])
+    checked_in = b.client_checkin.nil? ? 'no':'yes'
+    render :json => checked_in
   end 
 
   # POST /businesses
