@@ -1,7 +1,7 @@
 class Label < ActiveRecord::Base
   has_attached_file :logo, :styles => { :thumb => "200x200>" }
   attr_accessible :name, :domain, :custom_css, :login, :password, :logo, :footer,:is_pdf ,:is_show_password
-  has_attached_file :favicon
+  has_attached_file :favicon, :styles => { :thumb => "200x200>" }
   attr_accessible :name, :domain, :custom_css, :login, :password, :logo, :footer,:is_pdf ,:is_show_password, :favicon
   attr_accessible :mail_from, :theme
 
@@ -47,10 +47,11 @@ class Label < ActiveRecord::Base
     :presence => true
   validates :logo,
     :presence => true
+ 
 
   validates_format_of :favicon_file_name,
     :allow_blank => true,
-    :with => /.ico$/i
+    :with => %r{\.(ico|jpg|jpeg|png)$}i
 
   def gateway
     return @gateway if @gateway
