@@ -115,7 +115,11 @@ class ImagesController < ApplicationController
   def set_logo
     #if pa
     @image = Image.find_by_id(params[:id])
-    Image.where(:business_form_edit_id => @image.business_form_edit_id).update_all(:is_logo => false)
+    if @image.business_id.nil?
+      Image.where(:business_form_edit_id => @image.business_form_edit_id).update_all(:is_logo => false)
+    else
+      Image.where(:business_id => @image.business_form_edit_id).update_all(:is_logo => false)
+    end
     respond_to do |format|
       if @image.update_attributes(:is_logo => true)
         format.json { head :ok }
