@@ -56,7 +56,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
 
           # This seems like the easiest and secure way of doing this 
           # wihtout doing something funny with a model 
-          session[:subscription] = @transaction.subscription.id 
+          #session[:subscription] = @transaction.subscription.id 
 
           #do this stuff in the business controller 
           #business.subscription = @transaction.subscription
@@ -78,6 +78,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
         if resource.active_for_authentication?
           set_flash_message :notice, :signed_up if is_navigational_format?
           sign_up(resource_name, resource)
+					BusinessFormEdit.create(subscription_id: @transaction.subscription.id, user_id: current_user.id)
           if @is_checkout_session == true
             redirect_to new_business_path #edit_business_path(business)
           else
