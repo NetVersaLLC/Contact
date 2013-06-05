@@ -1,7 +1,6 @@
 %div 
   - if @business.new_record? 
     %a.next-button.btn Next
-    %button.submit-button.btn Submit
     %a.back-button.btn Back
   - else 
     = submit_tag "Save Changes", :class => 'btn btn-primary save-changes'

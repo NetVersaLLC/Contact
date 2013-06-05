@@ -1,12 +1,11 @@
 .container.business_options
   .row
-    .span6 
+    .span12
       = link_to( image_tag( current_label.logo.url() ), "http://#{current_label.domain}")
-      = image_tag("towncenter_logo.png") 
-    .span1
-      = link_to 'Billing',  '/subscriptions', :class => 'btn btn-info'
-    .span2
-      = link_to('Dashboard', businesses_path, :class => 'btn btn-info' )
-    .span2
-      = link_to('Edit Business Profile', edit_business_path(@business), :class => 'btn btn-info',:style => "margin-left:-45px;" )
-
+    -if false 
+      .span1
+        = link_to 'Billing',  '/subscriptions', :class => 'btn btn-info'
+      .span2
+        = link_to('Dashboard', businesses_path, :class => 'btn btn-info' )
+      .span2
+        = link_to('Edit Business Profile', edit_business_path(@business), :class => 'btn btn-info',:style => "margin-left:-45px;" )
