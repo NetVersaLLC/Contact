@@ -18,7 +18,8 @@ create_business = (event) ->
     dataType: "text"
     url: "/businesses.json"
     data: $('form.business').serialize()
-    success: (data, status, response) -> 
+    success: (data, status, response) ->
+      $('a.back-button').hide() 
       console.log data 
       window.business_id = data 
       $('#download_client').attr('href', "/downloads/#{data}") 

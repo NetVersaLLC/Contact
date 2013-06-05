@@ -11,7 +11,7 @@ class Business < ActiveRecord::Base
 
   # Associations
 
-  has_attached_file :logo, :styles => { :thumb => '100x100>', :medium => '240x240>' }
+  #has_attached_file :logo, :styles => { :thumb => '100x100>', :medium => '240x240>' }
  
 
   has_many :jobs, :order => "position"
@@ -88,6 +88,9 @@ class Business < ActiveRecord::Base
   accepts_nested_attributes_for :manta, :allow_destroy => true
 
 
+  def logo
+      images.where(:is_logo=>true).first
+  end
   def label_id
     self.user.label_id
   end
