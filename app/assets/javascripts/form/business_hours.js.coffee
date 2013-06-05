@@ -52,7 +52,7 @@ window.businessHours = ->
     $("#business_#{day}_enabled").change (e)-> 
       $('#business_open_by_appointment').attr('checked', false)
       $('#business_open_24_hours').attr('checked', false)
-
+  
   $('.timeitem').click (e)->
     wrapper = $(e.target).closest('.timerow')
     checkbox = wrapper.find('input:checkbox')
@@ -65,5 +65,7 @@ $(document).ready ->
     if($(this).is(':checked'))
       checkboxes.attr('checked', false)
       $(this).attr('checked', 'checked')
+
+
         
    

@@ -17,7 +17,10 @@ ActiveAdmin.register Label do
       row :domain 
       row :image do 
         image_tag(label.logo.url(:thumb)) 
-      end 
+      end
+      row :image do
+        image_tag(label.favicon.url(:thumb))
+      end
       row :custom_css 
       row :login 
       row :password
@@ -34,7 +37,7 @@ ActiveAdmin.register Label do
       f.input :name
       f.input :domain 
       f.input :logo, :as => :file 
-      
+      f.input :favicon, :as => :file
       f.input :custom_css # text area 
       f.input :login 
       f.input :password , :input_html => { :value => label.password } ,:as => :string
