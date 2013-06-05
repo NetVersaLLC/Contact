@@ -46,10 +46,15 @@ class Scanner
       status         = 'error'
     else
       result         = response['result']
-      status         = result['status']
-      listed_phone   = result['listed_phone']
-      listed_address = result['listed_address']
-      listed_url     = result['listed_url']
+      if result
+        status         = result['status']
+        listed_phone   = result['listed_phone']
+        listed_address = result['listed_address']
+        listed_url     = result['listed_url']
+      else
+        error_message = 'Not supported'
+        status = 'error'
+      end
     end
 
     Scan.create do |s|
