@@ -33,8 +33,6 @@ class Scanner
     }
     response = self.class.post("/scan.json", options)
 
-    ap response
-
     status = nil
     result = nil
     listed_phone = nil
