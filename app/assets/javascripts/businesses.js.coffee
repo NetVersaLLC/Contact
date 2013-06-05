@@ -77,6 +77,7 @@ window.selectTab = (idx) =>
     cur_step = $(this)
     cur_step.addClass('step-content step-visited last-active step-active step-loaded')
     cur_step.hide()
+    scrollToFirstError() if cur_step.hasClass("step-active step-error")
   
   $('.back-button').trigger 'click'
   $('.next-button').trigger 'click'
@@ -89,7 +90,8 @@ $ ->
   $('.pf-form').psteps( { 
     traverse_titles: traversal, 
     validate_use_error_msg: false,
-    shrink_step_names: false, 
+    shrink_step_names: false,
+    
     steps_show: () -> 
       $('form.business').enableClientSideValidations() 
 
