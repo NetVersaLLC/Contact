@@ -12,6 +12,20 @@
 save_edits = () -> 
   $.post "/businesses/save_edits", $('form.business').serialize()
 
+validation_check = (event) ->
+  checked = $(".bussiness_hours_checkbox").is(':checked')
+  unless checked
+    alert "Please check at least one Business Hours."
+    event.preventDefault()
+    false
+
+validation_check_edit = (event) ->   
+  checked = $(".bussiness_hours_checkbox").is(':checked')  
+  unless checked
+    alert "Please check at least one Business Hours."    
+    event.preventDefault()    
+    false
+
 create_business = (event) -> 
   $.ajax
     type: "POST"
@@ -89,8 +103,12 @@ window.selectTab = (idx) =>
 
 $ ->
   last_index = $.cookie('last_selected_tab_index')
+
+  $('.next-button').click ->
+
   $('.steps-transformed .step-title:lt('+(last_index)+')').each ->
     cur_step = $(this)
+    
     cur_step.addClass('btn step-visited btn-success last-active step-active disabled')
     cur_step.prepend('<i class="icon-ok step-mark"></i>') if cur_step.find('.icon-ok').size()==0
     cur_step.unbind().off()
@@ -109,7 +127,7 @@ $ ->
 
       $('form.business').enableClientSideValidations() 
       
-
+    
     validation_rule: () -> 
       # some useful class items: step-visited step-active last-active 
       cur_step = $(this) 
@@ -117,12 +135,14 @@ $ ->
       # this validates the form in case they hit 'next' without entering anything. 
       form = $('form.business')
       form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators ) 
-
+      
       if cur_step.hasClass("step-visited") && cur_step.find(".error").length > 0 
         scrollToFirstError() if cur_step.hasClass("step-active") 
         return 'error' 
       
       if cur_step.hasClass("step-active")
+        validation_check() if cur_step.hasClass('pstep3') and $("#new_business").length > 0
+        validation_check_edit() if cur_step.hasClass('pstep3') and $("#edit_business_#{window.business_id}").length == 1
         save_edits()
         create_business() if cur_step.hasClass('pstep6') and $("#new_business").length > 0
 
