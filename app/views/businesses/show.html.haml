@@ -28,7 +28,7 @@
         .pending
           %h3 Items Pending Action 
           %h1.counter= @job_count
-      %a.business-button{:href => "/report.xlsx?business_id=#{@business.id}"}
+      %a.business-button{:href => "/report.pdf?business_id=#{@business.id}"}
         =image_tag('icon-report.png')
         View Report
 

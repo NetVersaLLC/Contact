@@ -58,7 +58,7 @@ module Business::Validations
     validates :geographic_areas,
       :presence => true
     validates :year_founded,
-      :allow_blank => true,
+      :presence => true,
       :numericality => { 
         :only_integer => true, 
         :greater_than => 1000, 
