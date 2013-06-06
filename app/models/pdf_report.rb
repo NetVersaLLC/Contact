@@ -13,7 +13,7 @@ class PdfReport
       top_y_position = cursor
 
       bounding_box( [0, cursor], :width => 200, :height => 100) do
-        image(logo, :fit => [200,100])
+        image(logo, :fit => [200,100]) if File.exist?(logo)
  #       stroke_bounds
       end
 
