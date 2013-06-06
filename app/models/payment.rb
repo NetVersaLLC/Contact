@@ -1,6 +1,6 @@
 class Payment < ActiveRecord::Base
   attr_accessor :trans
-  attr_accessible :amount, :business_id, :label_id, :status, :transaction_number
+  attr_accessible :amount, :business_id, :label_id, :status, :transaction_number, :message, :transaction_event_id
   belongs_to :transaction_event
   belongs_to :label
   belongs_to :business

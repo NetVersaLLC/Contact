@@ -2,7 +2,7 @@ class Subscription < ActiveRecord::Base
   include ActiveModel::Validations
 
   attr_accessor :trans
-  attr_accessible :package_id, :monthly_fee
+  attr_accessible :package_id, :monthly_fee, :active, :label_id, :business_id, :message, :status, :transaction_event_id
   has_many   :businesses
   belongs_to :package
   belongs_to :business

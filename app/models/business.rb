@@ -13,7 +13,7 @@ class Business < ActiveRecord::Base
 
   #has_attached_file :logo, :styles => { :thumb => '100x100>', :medium => '240x240>' }
  
-
+  attr_accessible :user_id, :subscription_id, :captcha_solves, :label_id, :job_titles
   has_many :jobs, :order => "position"
   has_many :failed_jobs, :order => "position"
   has_many :completed_jobs, :order => "position"

@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessor :temppass
-  attr_accessible :callcenter
+  attr_accessible :callcenter, :label_id, :access_level
 
   validate :must_have_valid_access_level
 

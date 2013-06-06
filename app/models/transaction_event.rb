@@ -1,6 +1,6 @@
 class TransactionEvent < ActiveRecord::Base
   attr_accessor   :options, :creditcard, :mypackage
-  attr_accessible :business_id, :label_id, :coupon_id, :payment_id, :package_id, :status, :subscription_id
+  attr_accessible :business_id, :label_id, :coupon_id, :payment_id, :package_id, :status, :subscription_id, :message
   belongs_to :label
   belongs_to :business
   belongs_to :coupon
