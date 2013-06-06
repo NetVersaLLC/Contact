@@ -28,7 +28,7 @@ window.initMap = () =>
   csrf_param            = $("meta[name=csrf-param]").attr("content")
   params[csrf_param]    = encodeURI(csrf_token)
   params["business_id"] = window.business_id
-  $('#uploader').fineUploader(
+  ###  $('#uploader').fineUploader(
     request:
       endpoint: '/images'
       params: params
@@ -36,8 +36,8 @@ window.initMap = () =>
     return unless response['success']
     refresh_image_list()
   refresh_image_list()
-
-
+  ###
+###
 refresh_image_list = ->
   return false if window.business_id == '' # new business 
 
@@ -75,4 +75,4 @@ delete_image = (e)->
     success: (data)->
       refresh_image_list()  # the delete action on the controller
                             # will get the positions reordered, 
-
+###
