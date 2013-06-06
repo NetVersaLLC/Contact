@@ -7,5 +7,10 @@
     = @f.input :contact_last_name, :input_html => { 'data-content' => I18n.t('popovers.business.contact_last_name.content'),  'title' => I18n.t('popovers.business.contact_last_name.title'), :rel => 'popover' }
     = @f.input :contact_birthday,   :label => "Contact Date of Birth",:input_html => { 'data-content' => I18n.t('popovers.business.contact_birthday.content'), 'title' => I18n.t('popovers.business.contact_birthday.title'), :rel => 'popover' }
     = @f.input :mobile_phone,       :label => "Mobile Phone Number"      ,:hint => "Format: 201-555-5555",       :input_html => { 'data-content' => I18n.t('popovers.business.mobile_phone.content'), 'title' => I18n.t('popovers.business.mobile_phone.title'),    :rel => 'popover' }
-    .mobile-appears-alignment
-      = @f.input :mobile_appears, :as => :select, :collection => [["Yes", 1], ["No", 0]], :checked => false
+    = @f.label  :mobile_appears, "Should Mobile Number Appear on Listings?"
+    = @f.radio_button :mobile_appears,  "1",:label => "yes"
+    .radio-button-yes-wrapper
+      = @f.label :mobile_appears, "Yes"
+    = @f.radio_button :mobile_appears,"0",:label => "no", :checked => true
+    .radio-button-no-wrapper
+      = @f.label :mobile_appears, "No"
