@@ -45,6 +45,7 @@ has_client_checked_in = () ->
 
 
 window.selectTab = (idx) =>
+  return
   $('.steps-transformed .step-title').addClass('disabled')
   $('.steps-transformed .step-title:eq('+idx+')').removeClass('disabled btn-success')
   $('.steps-transformed .step-content').hide()
@@ -84,43 +85,34 @@ $ ->
     traverse_titles: 'always',
     validate_use_error_msg: false,
     shrink_step_names: false,
-    
+    validate_next_step: true, 
+    ignore_errors_on_next: true,
+
     steps_show: () -> 
       cur_step = $(this) 
       console.log "show #{cur_step.index()}"
-      window.showing = cur_step.index()
-      $('form.business').enableClientSideValidations() 
+      console.log cur_step.attr('class')
+
+      save_edits()
+
       if cur_step.index() == 6 
         auto_download_client_software()
-
-    steps_onload: () -> 
-      cur_step = $(this)
-      console.log "onload #{cur_step.index()}" 
-      $.cookie('last_selected_tab_index', cur_step.index() ) unless cur_step.index()==0
-
-      $('form.business').enableClientSideValidations() 
 
     validation_rule: () -> 
       # some useful class items: step-visited step-active last-active 
       cur_step = $(this) 
       console.log "validation #{cur_step.index()}" 
-      console.log cur_step
+      console.log cur_step.attr('class')
 
-      # this validates the form in case they hit 'next' without entering anything. 
-      if cur_step.index() != window.showing 
+      if cur_step.index() == 0 
         form = $('form.business')
+        form.enableClientSideValidations() 
         form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators ) 
 
-      if cur_step.hasClass("step-visited") && cur_step.find(".error").length > 0 
-        scrollToFirstError() if cur_step.hasClass("step-active") 
-        return 'error' 
+      #if cur_step.hasClass("step-active") && cur_step.find(".error").length > 0 
+      #  scrollToFirstError() if cur_step.hasClass("step-active") 
 
-      if cur_step.find(".error").length > 0 
-        return 'error'
-      
-      if cur_step.hasClass("step-active")
-        save_edits()
-
+      return 'error' if cur_step.find(".error").length > 0 
       return cur_step.hasClass("step-visited") 
   } ) 
 

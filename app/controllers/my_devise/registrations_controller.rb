@@ -52,6 +52,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
       end 
       business.user = resource 
       business.label_id = current_label.id
+      business.is_client_downloaded = false
 
       if @is_checkout_session == true
         Coupon.redeem @package, params[:coupon] 
