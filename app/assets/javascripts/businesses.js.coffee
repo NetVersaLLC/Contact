@@ -10,37 +10,9 @@
 #= require form/company_description
 
 save_edits = () -> 
-  $.post "/businesses/save_edits", $('form.business').serialize()
-
-validation_check = (event) ->
-  checked = $(".bussiness_hours_checkbox").is(':checked')
-  unless checked
-    alert "Please check at least one Business Hours."
-    event.preventDefault()
-    false
-
-validation_check_edit = (event) ->   
-  checked = $(".bussiness_hours_checkbox").is(':checked')  
-  unless checked
-    alert "Please check at least one Business Hours."    
-    event.preventDefault()    
-    false
-
-create_business = (event) -> 
-  $.ajax
-    type: "POST"
-    dataType: "text"
-    url: "/businesses.json"
-    data: $('form.business').serialize()
-    success: (data, status, response) ->
-      $('a.back-button').hide() 
-      console.log data 
-      window.business_id = data 
-      $('#download_client').attr('href', "/downloads/#{data}") 
-      auto_download_client_software() 
-    error: () -> 
-      # this shouldnt happen.  client side validations should handle this
-      alert('An error occurrend creating your business profile. Please correct data and resubmit') 
+  action = $('form.business').attr('action') + '.json' 
+  $.post action, 
+    $('form.business').serialize(),
 
 scrollToFirstError = () -> 
   $('html,body').animate({'scrollTop':$('.error:first').offset().top-100})
@@ -72,6 +44,7 @@ has_client_checked_in = () ->
 
 
 window.selectTab = (idx) =>
+  return
   $('.steps-transformed .step-title').addClass('disabled')
   $('.steps-transformed .step-title:eq('+idx+')').removeClass('disabled btn-success')
   $('.steps-transformed .step-content').hide()
@@ -98,8 +71,6 @@ window.selectTab = (idx) =>
   
   $('.back-button').trigger 'click'
   $('.next-button').trigger 'click'
-    
-
 
 $ ->
   last_index = $.cookie('last_selected_tab_index')
@@ -117,35 +88,34 @@ $ ->
     traverse_titles: 'always',
     validate_use_error_msg: false,
     shrink_step_names: false,
-    
+    validate_next_step: true, 
+    ignore_errors_on_next: true,
+
     steps_show: () -> 
-      $('form.business').enableClientSideValidations() 
+      cur_step = $(this) 
+      console.log "show #{cur_step.index()}"
+      console.log cur_step.attr('class')
 
-    steps_onload: () -> 
-      cur_step = $(this)
-      $.cookie('last_selected_tab_index', cur_step.index() ) unless cur_step.index()==0
+      save_edits()
 
-      $('form.business').enableClientSideValidations() 
-      
-    
+      if cur_step.index() == 6 
+        auto_download_client_software()
+
     validation_rule: () -> 
       # some useful class items: step-visited step-active last-active 
       cur_step = $(this) 
+      console.log "validation #{cur_step.index()}" 
+      console.log cur_step.attr('class')
 
-      # this validates the form in case they hit 'next' without entering anything. 
-      form = $('form.business')
-      form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators ) 
-      
-      if cur_step.hasClass("step-visited") && cur_step.find(".error").length > 0 
-        scrollToFirstError() if cur_step.hasClass("step-active") 
-        return 'error' 
-      
-      if cur_step.hasClass("step-active")
-        validation_check() if cur_step.hasClass('pstep3') and $("#new_business").length > 0
-        validation_check_edit() if cur_step.hasClass('pstep3') and $("#edit_business_#{window.business_id}").length == 1
-        save_edits()
-        create_business() if cur_step.hasClass('pstep6') and $("#new_business").length > 0
+      if cur_step.index() == 0 
+        form = $('form.business')
+        form.enableClientSideValidations() 
+        form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators ) 
 
+      #if cur_step.hasClass("step-active") && cur_step.find(".error").length > 0 
+      #  scrollToFirstError() if cur_step.hasClass("step-active") 
+
+      return 'error' if cur_step.find(".error").length > 0 
       return cur_step.hasClass("step-visited") 
   } ) 
 
