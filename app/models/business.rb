@@ -30,8 +30,6 @@ class Business < ActiveRecord::Base
   after_initialize  :set_times
   before_destroy :delete_all_associated_records
   before_save :strip_blanks
-  
-  
 
   # search on activeadmin -> meta_search 
   scope :redeemed_coupon_eq, lambda { |cid| joins(:transaction_event).

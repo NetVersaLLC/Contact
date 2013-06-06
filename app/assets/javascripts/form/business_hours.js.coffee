@@ -66,6 +66,4 @@ $(document).ready ->
       checkboxes.attr('checked', false)
       $(this).attr('checked', 'checked')
 
-
         
-   
