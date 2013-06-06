@@ -33,7 +33,7 @@
       = f.input :alternate_phone,    :placeholder => "Alternate Phone",     :hint => "Format: 555-555-1212"
       = f.input :toll_free_phone,    :placeholder => "Toll-Free Phone",     :hint => "Format: 8XX-555-55555", :input_html => { 'data-content' => 'It is not recommended to use a toll free number in your listings, however if you have one, please provide it.', 'title' => 'Toll Free Number', :rel => 'popover' }
       = f.input :mobile_phone,       :placeholder => "Mobile Phone",        :label => "Mobile Phone Number"      ,:hint => "Format: 201-555-55555", :input_html => { 'data-content' => 'If you check the box below, we will display your your mobile number in online directories.  If not, only LLH will use it to contact you.', 'title' => 'Mobile Number', :rel => 'popover' }
-      = f.input :mobile_appears,     :label       => "Should Mobile Number Appear on Listings?"
+      = f.input :mobile_appears,     :label       => "Should Mobile Number Appear on Listings?", :as => :radio, :collection => [["Yes", 1], ["No", 0]], :checked => 0
       = f.input :fax_number,         :placeholder => "Fax Number",          :hint => "Format: 201-555-55555"
       = f.input :address,            :placeholder => "Business Address",    :input_html => { 'data-content' => 'This address will be used in all online directory listings, including your website.', 'title' => 'Primary Business Address', :rel => 'popover' }
       = f.input :address2,           :placeholder => "Address Line 2"
