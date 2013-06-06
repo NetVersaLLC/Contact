@@ -19,6 +19,7 @@ class Business < ActiveRecord::Base
   has_many :completed_jobs, :order => "position"
   belongs_to :user
   belongs_to :subscription
+  belongs_to :label
   has_many :notifications  #belongs_to not there in notification.rb
   has_many :images         #belongs_to not there in image.rb
   has_one :transaction_event # transaction that occurred at sign up  #belongs
