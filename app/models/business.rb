@@ -12,7 +12,7 @@ class Business < ActiveRecord::Base
   # Associations
 
   has_attached_file :logo, :styles => { :thumb => '100x100>', :medium => '240x240>' }
- 
+
 
   has_many :jobs, :order => "position"
   has_many :failed_jobs, :order => "position"
@@ -29,10 +29,10 @@ class Business < ActiveRecord::Base
   after_initialize  :set_times
   before_destroy :delete_all_associated_records
   before_save :strip_blanks
-  
-  
 
-  # search on activeadmin -> meta_search 
+
+
+  # search on activeadmin -> meta_search
   scope :redeemed_coupon_eq, lambda { |cid| joins(:transaction_event).
       where(:transaction_events => {:coupon_id => cid})
   }
@@ -91,7 +91,7 @@ class Business < ActiveRecord::Base
   def label_id
     self.user.label_id
   end
-  
+
   def strip_blanks
     self.attributes.each do |key,val|
       if val.class == String
