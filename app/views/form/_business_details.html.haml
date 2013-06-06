@@ -10,5 +10,5 @@
     = @f.input :address2
     = @f.input :city
     = @f.input :state,              :as => :select, :collection => Carmen::states('US')
-    = @f.input :zip, :hint => "Example: 95014. Don't know your zip code find it #{ link_to "here"}".html_safe
+    = @f.input :zip, :hint => "Example: 95014. Don't know your zip code find it #{ link_to "here", "https://tools.usps.com/go/ZipLookupAction!input.action",:target => "_blank"}".html_safe
     #map
