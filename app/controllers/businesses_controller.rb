@@ -175,7 +175,8 @@ class BusinessesController < ApplicationController
 			@name = d.strftime("#{name}_%m/%d/%Y.xlsx")
 			@type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" 
     when :pdf
-			@file = @business.report_pdf
+#			@file = @business.report_pdf
+      @file = PdfReport.generate_pdf(@business)
 			@name = d.strftime("#{name}_%m/%d/%Y.pdf")
 			@type = "application/pdf" 
     else	
