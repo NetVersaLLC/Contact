@@ -73,7 +73,7 @@ class BusinessesController < ApplicationController
     @business_form_edit.update_attributes( {:business_id => @business.id, :business_params => nil, :user_id => current_user.id}) 
     @accounts = @business.nonexistent_accounts_array
 
-    @site_accounts = Business.citation_list.map {|x| x[0..1]}
+    @site_accounts = Business.citation_list
   end
 
   def save_edits
