@@ -4,11 +4,8 @@ class ImagesController < ApplicationController
   # GET /images.json
   def index
     bid = params[:business_id] 
-    bfe_id = params[:business_form_edit_id]
 
-    @images = Image.where(:business_id => bid).order(:position) unless bid.blank? 
-    @images ||= Image.where(:business_form_edit_id => bfe_id).order(:position) unless bfe_id.blank? 
-
+    @images = Image.where(:business_id => bid).order(:position) 
     @images.each do |img|
       img[:medium] = img.data.url(:medium)
     end
@@ -47,9 +44,6 @@ class ImagesController < ApplicationController
     @image.data         = QqFile.parse(params[:qqfile], request)
     @image.file_name    = @image.data.original_filename
     @image.business_id  = params[:business_id]
-    
-    bfe = BusinessFormEdit.where( :user_id => current_user.id ).first
-    @image.business_form_edit_id = bfe.id unless bfe.nil? 
     
     @response = {}
     @response[:success] = false 
@@ -115,11 +109,8 @@ class ImagesController < ApplicationController
   def set_logo
     #if pa
     @image = Image.find_by_id(params[:id])
-    if @image.business_id.nil?
-      Image.where(:business_form_edit_id => @image.business_form_edit_id).update_all(:is_logo => false)
-    else
-      Image.where(:business_id => @image.business_id).update_all(:is_logo => false)
-    end
+    Image.where(:business_id => @image.business_id).update_all(:is_logo => false)
+
     respond_to do |format|
       if @image.update_attributes(:is_logo => true)
         format.json { head :ok }

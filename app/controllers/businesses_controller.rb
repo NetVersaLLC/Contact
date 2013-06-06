@@ -7,7 +7,12 @@ class BusinessesController < ApplicationController
     if @businesses.count == 0
       redirect_to new_business_path()
     elsif @businesses.count == 1
-      redirect_to business_path(@businesses.first)
+      b = @businesses.first 
+      if b.is_client_downloaded
+        redirect_to business_path(b) 
+      else 
+        redirect_to edit_business_path(b)
+      end 
     end
   end
 
@@ -41,13 +46,6 @@ class BusinessesController < ApplicationController
     @business = Business.new
     @accounts = @business.nonexistent_accounts_array
 
-    @business_form_edit = BusinessFormEdit.find_or_create_by_user_id( current_user.id )
-    
-    # A new business should not have an id value yet.  
-    if @business_form_edit.business_id.nil? 
-      @business.attributes = @business_form_edit.business_params
-    end
-
     @site_accounts = Business.citation_list.map {|x| x[0..1]}
 
     respond_to do |format|
@@ -64,29 +62,14 @@ class BusinessesController < ApplicationController
       return
     end
 
-    @business_form_edit = BusinessFormEdit.find_or_create_by_user_id( current_user.id )
-    if @business.id == @business_form_edit.business_id 
-      @business.attributes = @business_form_edit.business_params
-      flash[:notice] = 'Unsaved changes have been found.  Please save or cancel them. ' 
-    end
-
-    @business_form_edit.update_attributes( {:business_id => @business.id, :business_params => nil, :user_id => current_user.id}) 
     @accounts = @business.nonexistent_accounts_array
-
     @site_accounts = Business.citation_list.map {|x| x[0..1]}
+    respond_to do |format|
+      format.html { render @business.is_client_downloaded ? 'edit' : 'new' } 
+      format.json { render json: @business }
+    end
   end
 
-  def save_edits
-    edit = BusinessFormEdit.find_or_create_by_user_id( current_user.id )
-    edit.business_params = params[:business] 
-    edit.save
-    render :nothing => true
-  end
-
-  def cancel_change
-    BusinessFormEdit.where(:user_id => current_user.id).delete_all
-    render :nothing => true
-  end 
 
   def client_checked_in 
     b = Business.find(params[:id])
@@ -97,21 +80,14 @@ class BusinessesController < ApplicationController
   # POST /businesses
   # POST /businesses.json
   def create
-    bfe = BusinessFormEdit.find_by_user_id(current_user.id) 
-
-    sub = Subscription.find( bfe.subscription_id ) 
-
     @business = Business.new(params[:business])
     @business.user_id = current_user.id
     @business.label_id = current_label.id
     @business.subscription = sub 
-    @tab = params[:current_tab]
     
     if @business.save 
       sub.transaction_event.setup_business(@business) 
-      Image.where(:business_form_edit_id => bfe.id).update_all( :business_id => @business.id ) 
 
-      BusinessFormEdit.where(:user_id => current_user.id).delete_all
       respond_to do |format| 
         format.json { render :json => @business.id } 
       end 
@@ -131,12 +107,16 @@ class BusinessesController < ApplicationController
     @business = Business.find(params[:id])
 
     respond_to do |format|
-      if @business.update_attributes(params[:business])
-        BusinessFormEdit.where(:user_id => current_user.id).delete_all
+      @business.attributes = params[:business] 
 
+      #if @business.update_attributes(params[:business])
+      if @business.save( :validate =>  !request.xhr?)
         format.html { redirect_to @business, :notice => 'Business was successfully updated.' } 
         format.json { head :no_content }
       else
+        @accounts = @business.nonexistent_accounts_array
+        @site_accounts = Business.citation_list.map {|x| x[0..1]}
+
         format.html { render action: "edit" }
         format.json { render json: @business.errors, status: :unprocessable_entity }
       end
