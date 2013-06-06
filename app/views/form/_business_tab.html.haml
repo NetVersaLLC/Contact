@@ -23,7 +23,7 @@
         .step-title
           %span.step-order 6.
           %span.step-name Existing Accounts
-        - if @business.new_record?
+        - unless @business.is_client_downloaded
           .step-title
             %span.step-order 7
             %span.step-name Download Client
@@ -34,6 +34,6 @@
         .step-content= render :partial => 'form/company_description'
         .step-content= render :partial => 'form/logo'
         .step-content= render :partial => 'form/edit_accounts'
-        -if @business.new_record?
+        -unless @business.is_client_downloaded
           .step-content= render :partial => 'form/download_client'
         = render :partial => 'form/submit', :locals => { :f => f }

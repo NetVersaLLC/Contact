@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130604062237) do
+ActiveRecord::Schema.define(:version => 20130606013437) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -289,8 +289,8 @@ ActiveRecord::Schema.define(:version => 20130604062237) do
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
     t.datetime "client_checkin"
     t.string   "category1"
     t.string   "category2"
@@ -314,6 +314,7 @@ ActiveRecord::Schema.define(:version => 20130604062237) do
     t.string   "brands"
     t.string   "tag_line"
     t.text     "job_titles"
+    t.boolean  "is_client_downloaded",      :default => false
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"

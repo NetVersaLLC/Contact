@@ -17,13 +17,6 @@ Contact::Application.routes.draw do
   resources :subscriptions
   resources :pings
 
-  post    '/businesses/save_edits', 
-    :controller => :businesses, 
-    :action => :save_edits, 
-    :as => 'save_edits'
-  post    '/businesses/cancel_change', 
-    :controller => :businesses, 
-    :action => :cancel_change
   post    '/businesses/:id',
     :controller => :businesses, 
     :action => :update
