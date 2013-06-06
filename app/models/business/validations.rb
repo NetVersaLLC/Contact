@@ -84,7 +84,7 @@ module Business::Validations
       errors.add(:sunday_open,'') if self.sunday_open == self.sunday_close && self.open_24_hours == false
     end
     def validate_mobile_appears
-      errors.add(:mobile_appears,'aaaaaaaaaaa') if self.mobile_appears.nil?
+      errors.add(:mobile_appears,'Error Message') if self.mobile_appears.nil?
     end
   end
 end
