@@ -33,6 +33,9 @@ module Business::Validations
       :presence => true
     validates :contact_gender,
       :presence => true
+    validates :mobile_appears,
+              :presence => true
+    validate :validate_mobile_appears
     validates :contact_first_name,
       :presence => true
     validates :contact_last_name,
@@ -77,6 +80,9 @@ module Business::Validations
       errors.add(:friday_open,'') if self.friday_open == self.friday_close && self.open_24_hours == false
       errors.add(:saturday_open,'') if self.saturday_open == self.saturday_close && self.open_24_hours == false
       errors.add(:sunday_open,'') if self.sunday_open == self.sunday_close && self.open_24_hours == false
+    end
+    def validate_mobile_appears
+      errors.add(:mobile_appears,'Error Message') if self.mobile_appears.nil?
     end
   end
 end
