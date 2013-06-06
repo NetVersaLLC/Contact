@@ -1,6 +1,0 @@
-*.o
-vers.c
-ct/_*
-beanstalkd
-beanstalkd-*.tar.gz
-NEWS.md

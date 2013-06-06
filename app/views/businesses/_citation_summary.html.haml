@@ -13,6 +13,11 @@
             %h1= @business.nonexistent_accounts.length 
             %span UNSYNCRONIZED
         .span3
-          = form_for Task.new do
-            %input{:type => :hidden, :value => @business.id, :name => 'business_id'}
-            %input{:type => :image, :value => 'Sync Now', :src => '/assets/sync_button.png', :class => 'sync' }
+          -if params[:delay] 
+            %br
+            %br
+            %h3 Syncing...
+          -else 
+            = form_for Task.new do
+              %input{:type => :hidden, :value => @business.id, :name => 'business_id'}
+              %input{:type => :image, :value => 'Sync Now', :src => '/assets/sync_button.png', :class => 'sync' }
