@@ -46,7 +46,7 @@ class Scanner
       status         = 'error'
     else
       result         = response['result']
-      if result
+      if result.is_a? Hash
         status         = result['status']
         listed_phone   = result['listed_phone']
         listed_address = result['listed_address']
