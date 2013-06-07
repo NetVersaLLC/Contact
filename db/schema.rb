@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130606013437) do
+ActiveRecord::Schema.define(:version => 20130607003945) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -241,7 +241,7 @@ ActiveRecord::Schema.define(:version => 20130606013437) do
     t.string   "alternate_phone"
     t.string   "toll_free_phone"
     t.string   "mobile_phone"
-    t.boolean  "mobile_appears"
+    t.boolean  "mobile_appears",            :default => false
     t.string   "fax_number"
     t.string   "address"
     t.string   "address2"
