@@ -80,18 +80,27 @@ window.registerCheckoutHooks = ()->
     form = $('form#new_user').get(0)
     form.action = form.action + '?has_coupon='+( $('#coupon').val()!='' )
     form.submit()
-  #  window.location.href='/users/sign_up?package_id='+url.param('package_id')+'&coupon='+$('#coupon').val()
+    window.location.href='/users/sign_up?package_id='+url.param('package_id')+'&coupon='+$('#coupon').val()
+#    html = '<button class="btn btn-info remove_thumbnail" style="position: absolute; top: 4px; right: 2px;" data-image-id="'+response['id']+'">X</button>'
+#    $('.billing-system-close-button').append(html)
 
   textbox = $('#card_number')
   textbox.keypress(examineCard)
   textbox.blur(examineCard)
   textbox.payment('formatCardNumber')
   $('#cvv').payment('formatCardCVC')
-  # $('#submit_button').click (e)->
-  #  if formValidates() == true
-  #    console.log("Form validates!")
-  #    $('#submit_button').attr("disabled", "disabled")
-  #    $('form').submit()
-  #  else
-  #    console.log("Form does not validate!")
-  #  return true
+
+
+#  $('#submit_button').click (e)->
+#    if formValidates() == true
+#      console.log("Form validates!")
+#      $('#submit_button').attr("disabled", "disabled")
+#      $('form').submit()
+#    else
+#      console.log("Form does not validate!")
+#    return true
+  $(".billing-system-close-button").click (e) ->
+    $(".remove-coupon").remove()
+    $(".cross-button").remove()
+    $(".coupon-code").remove()
+
