@@ -15,16 +15,14 @@
     .add-on .00
   - unless @saved.nil?
     %br
-    .input-prepend.input-append{:style => "float:left"}
-      .add-on{:style => "float:left"}
+    .input-prepend.input-append
+      .add-on
         .span2.total
           Coupon: $
-      %input.tally.span1{:value => @saved, :name => 'coupon_total', :type => "text", :disabled => 'disabled', :style => "float: left;" }/
-      .add-on{:style => "float:left"} .00
-      .coupon-code{:style => "float:left"}
-        .add-on #{@coupon.code}
-      .cross-button{:style => "float:left"}
-        .add-on= link_to 'X', '#', :remote => 'true',:class => 'billing-system-close-button'
+      %input.tally.span1{:value => @saved, :name => 'coupon_total', :type => "text", :disabled => 'disabled'}/
+      .add-on .00
+      .coupon-code.add-on #{@coupon.code}
+      .cross-button.add-on= link_to 'X', '#', :remote => 'true',:class => 'billing-system-close-button'
 
   %br
   .input-prepend.input-append
