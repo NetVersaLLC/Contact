@@ -1,9 +1,9 @@
 %div 
-  - if @business.new_record? 
+  - if @business.is_client_downloaded
+    = submit_tag "Save Changes", :class => 'btn btn-primary save-changes'
     %a.next-button.btn Next
     %a.back-button.btn Back
   - else 
-    = submit_tag "Save Changes", :class => 'btn btn-primary save-changes'
     %a.next-button.btn Next
     %a.back-button.btn Back
 -#

@@ -26,15 +26,17 @@ class PdfReport
       move_down 20
       text('Site Account Information', :size => 14, :style => :bold) 
    
-      table(account_table_data, :header => true) do        
+      table(account_table_data, :header => true, :row_colors => ['FAF9F5','FFFFCC']) do        
         row(0).font_style = :bold
+        row(0).background_color = 'A6A6A6'
       end 
 
       start_new_page()
       text('Completed Jobs Information', :size => 14, :style => :bold) 
 
-      table(complete_table_data, :header => true) do        
+      table(complete_table_data, :header => true, :row_colors => ['FAF9F5','FFFFCC']) do        
         row(0).font_style = :bold
+        row(0).background_color = 'A6A6A6'
       end 
 
       #create tmp file name
