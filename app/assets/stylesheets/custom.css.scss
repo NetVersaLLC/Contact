@@ -135,4 +135,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fbb450', end
    }
 
  }
+#section-download-client
+{
+  .thumbnails { border-bottom: thick dotted #aaa } 
+  .thumbnail { 
+    border: none; 
+    box-shadow: none; 
+  }
 
+}
