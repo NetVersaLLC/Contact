@@ -13,7 +13,7 @@ delete_image = (e)->
 set_logo = (e)->
   e.preventDefault()
   image_id = $(e.target).attr('data-image-id')
-  $('.thumbnails li').removeClass('active-block')
+  $('#logo-section .thumbnails li').removeClass('active-block')
   $("#thumbnail"+image_id).addClass('active-block')
   $('#show-logo').html($("#img"+image_id).attr('src'))
   $('#show-logo').html('<img src=' + $("#img"+image_id).attr('src') + ' />')
@@ -31,7 +31,7 @@ set_logo = (e)->
 # resulting gaps 
 refresh_image_list = -> 
   $.getJSON "/images.json?business_id=#{window.business_id}", (images) ->
-    $("ul.thumbnails").children().remove()   # clean the slate
+    $("#logo-section ul.thumbnails").children().remove()   # clean the slate
     add_image image for image in images      # add them back in
     $('.remove_thumbnail').click (e)->       # wire up for deletion
       delete_image(e)
