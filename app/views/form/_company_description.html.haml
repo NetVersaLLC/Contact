@@ -1,27 +1,27 @@
 %section{:id => 'section-company-description'}
   = @f.inputs :company_description, :class => 'inputs tab-pane', :id => 'section4' do 
     %p Your customers will likely have their first experience with your business. Your business description should be between 50 and 200 characters.
-    = @f.input :business_description, :hint => '0/200', :input_html => {:maxlength => 200}
-    = @f.input :keywords
-    = @f.input :status_message
-    = @f.input :services_offered
-    = @f.input :trade_license
-    = @f.input :trade_license_number
-    = @f.input :trade_license_locale
-    = @f.input :trade_license_authority
-    = @f.input :trade_license_expiration
-    = @f.input :trade_license_description
-    = @f.input :brands
-    = @f.input :tag_line
-    = @f.input :job_titles
-    = @f.input :professional_associations, :hint => "Example: American Dental Association"
-    = @f.input :geographic_areas,          :as => :select, :collection => Business.geographic_areas_list, :label => 'Geographic Area Serviced'
-    = @f.input :year_founded,              :placeholder => 'Year Founded'
-    = @f.input :company_website, :placeholder => 'Company Website', :hint => "Format: http://mycompany.com", :input_html => { 'data-content' => 'Your company website.', 'title' => 'Company Website',    :rel => 'popover' }
+    = @f.input :business_description, :hint => '0/200', :input_html => { 'data-content' => I18n.t('popovers.business.business_description.content'), 'title' => I18n.t('popovers.business.business_description.title'),    :rel => 'popover', :maxlength => 200 }
+    = @f.input :keywords, :input_html => { 'data-content' => I18n.t('popovers.business.keywords.content'), 'title' => I18n.t('popovers.business.keywords.title'), :rel => 'popover' }
+    = @f.input :status_message, :input_html => { 'data-content' => I18n.t('popovers.business.status_message.content'), 'title' => I18n.t('popovers.business.status_message.title'), :rel => 'popover' }
+    = @f.input :services_offered, :input_html => { 'data-content' => I18n.t('popovers.business.services_offered.content'), 'title' => I18n.t('popovers.business.services_offered.title'), :rel => 'popover' }
+    = @f.input :trade_license, :input_html => { 'data-content' => I18n.t('popovers.business.trade_license.content'), 'title' => I18n.t('popovers.business.trade_license.title'), :rel => 'popover' }
+    = @f.input :trade_license_number, :input_html => { 'data-content' => I18n.t('popovers.business.trade_license_number.content'), 'title' => I18n.t('popovers.business.trade_license_number.title'), :rel => 'popover' }
+    = @f.input :trade_license_locale, :input_html => { 'data-content' => I18n.t('popovers.business.trade_license_locale.content'), 'title' => I18n.t('popovers.business.trade_license_locale.title'), :rel => 'popover' }
+    = @f.input :trade_license_authority, :input_html => { 'data-content' => I18n.t('popovers.business.trade_license_authority.content'), 'title' => I18n.t('popovers.business.trade_license_authority.title'), :rel => 'popover' }
+    = @f.input :trade_license_expiration, :input_html => { 'data-content' => I18n.t('popovers.business.trade_license_expiration.content'), 'title' => I18n.t('popovers.business.trade_license_expiration.title'), :rel => 'popover' }
+    = @f.input :trade_license_description, :input_html => { 'data-content' => I18n.t('popovers.business.trade_license_description.content'), 'title' => I18n.t('popovers.business.trade_license_description.title'), :rel => 'popover' }
+    = @f.input :brands, :input_html => { 'data-content' => I18n.t('popovers.business.brands.content'), 'title' => I18n.t('popovers.business.brands.title'), :rel => 'popover' }
+    = @f.input :tag_line, :input_html => { 'data-content' => I18n.t('popovers.business.tag_line.content'), 'title' => I18n.t('popovers.tag_line.keywords.title'), :rel => 'popover' }
+    = @f.input :job_titles, :input_html => { 'data-content' => I18n.t('popovers.business.job_titles.content'), 'title' => I18n.t('popovers.business.job_titles.title'), :rel => 'popover' }
+    = @f.input :professional_associations, :hint => "Example: American Dental Association", :input_html => { 'data-content' => I18n.t('popovers.business.professional_associations.content'), 'title' => I18n.t('popovers.business.professional_associations.title'), :rel => 'popover' }
+    = @f.input :geographic_areas,          :as => :select, :collection => Business.geographic_areas_list, :label => 'Geographic Area Serviced', :input_html => { 'data-content' => I18n.t('popovers.business.geographic_areas.content'), 'title' => I18n.t('popovers.business.geographic_areas.title'), :rel => 'popover' }
+    = @f.input :year_founded,              :placeholder => 'Year Founded', :input_html => { 'data-content' => I18n.t('popovers.business.year_founded.content'), 'title' => I18n.t('popovers.business.year_founded.title'), :rel => 'popover' }
+    = @f.input :company_website, :placeholder => 'Company Website', :hint => "Format: http://mycompany.com"
   = @f.inputs "Categories", :class => 'inputs tab-pane', :id => 'section8' do
     %p The next most important aspect of your business profile is the following categories. Select 3 categories, the first one is the primary category and is the most important. The next two are used on many sites but only as secondary or tertiary categories.
-    = @f.input :category1, :label => 'Category 1',  :hint => "Examples: Dentist, Wedding Photographer, Tahi Restaurant"
-    = @f.input :category2, :label => 'Category 2',  :hint => "Examples: Dentist, Wedding Photographer, Tahi Restaurant"
-    = @f.input :category3, :label => 'Category 3',  :hint => "Examples: Dentist, Wedding Photographer, Tahi Restaurant"
-    = @f.input :category4, :label => 'Category 4',  :hint => "Examples: Dentist, Wedding Photographer, Tahi Restaurant"
-    = @f.input :category5, :label => 'Category 5',  :hint => "Examples: Dentist, Wedding Photographer, Tahi Restaurant"
+    = @f.input :category1, :label => 'Category 1',  :hint => "Examples: Dentist, Wedding Photographer, Tahi Restaurant", :input_html => { 'data-content' => I18n.t('popovers.business.category.content'), 'title' => I18n.t('popovers.business.category.title'), :rel => 'popover' }
+    = @f.input :category2, :label => 'Category 2',  :hint => "Examples: Dentist, Wedding Photographer, Tahi Restaurant", :input_html => { 'data-content' => I18n.t('popovers.business.category.content'), 'title' => I18n.t('popovers.business.category.title'), :rel => 'popover' }
+    = @f.input :category3, :label => 'Category 3',  :hint => "Examples: Dentist, Wedding Photographer, Tahi Restaurant", :input_html => { 'data-content' => I18n.t('popovers.business.category.content'), 'title' => I18n.t('popovers.business.category.title'), :rel => 'popover' }
+    = @f.input :category4, :label => 'Category 4',  :hint => "Examples: Dentist, Wedding Photographer, Tahi Restaurant", :input_html => { 'data-content' => I18n.t('popovers.business.category.content'), 'title' => I18n.t('popovers.business.category.title'), :rel => 'popover' }
+    = @f.input :category5, :label => 'Category 5',  :hint => "Examples: Dentist, Wedding Photographer, Tahi Restaurant", :input_html => { 'data-content' => I18n.t('popovers.business.category.content'), 'title' => I18n.t('popovers.business.category.title'), :rel => 'popover' }
