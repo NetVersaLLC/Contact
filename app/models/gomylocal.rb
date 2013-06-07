@@ -7,7 +7,7 @@ class Gomylocal < ClientData
  def self.check_email(business)
     @link = nil
     CheckMail.get_link(business) do |mail|
-  		if mail.subject =~ /#{business.business_name} - Gomylocal/
+  		if mail.subject =~ / - Gomylocal/
 			nok = Nokogiri::HTML(mail.body.decoded)
 			@link = nok.xpath("//a").attr('href')
   		end
