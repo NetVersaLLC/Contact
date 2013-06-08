@@ -100,58 +100,60 @@ en:
         content:   "Add your fax number so that customers can send your business a fax. Example: 201-555-5555"
         title:     "Fax Number"
       zip: 
-        content:   "Example: 95014. Don't know your zip code find it here.  (here being a link to zip code look up)"
+        content:   "Example: 95014. Don't know your zip code find it <a href='https://tools.usps.com/go/ZipLookupAction!input.action' target='_blank'>here</a>" 
         title:     "Zip Code" 
       business_description: 
         content:   "Providing a short description helps customers find out more about your business than just the name.  Best practice is between 170-200 Characters"
         title:     "Business description"
       keywords: 
         content:   "Keywords can be highly relevant, give you a much better chance of ranking well, and often convert well too. That means more visibility for your business for your business keywords.  Keywords are separated by commas ,"
-        title:     "keywords"
+        title:     "Keywords"
       status_message: 
         content:   "Business status messages are such messages that are related to the business in any form. These messages might be useful to introduce your business to the public or can be used for any such purpose. "
-        title:     "status message"
+        title:     "Status message"
       services_offered: 
         content:   "This is non physical goods that your business provides.  Examples:Dry Cleaning, Accounting and Butlers.  Services offered are separated by commas ,"
-        title:     "services offered"
+        title:     "Services offered"
       trade_license: 
         content:   "Some businesses require trade licenses to operate.  Does your company have a trade license?"
-        title:     "trade license"
+        title:     "Trade license"
       trade_license_number: 
         content:   "A unique TIN (Trade License Identification Number) is allotted for each License holder."
-        title:     "trade license number"
+        title:     "Trade license number"
       trade_license_locale: 
         content:   "The physical location, address or geographic coordinates that describe the facility location.  Examples: National, State"
-        title:     "trade license locale"
+        title:     "Trade license locale"
       trade_license_authority: 
         content:   "Licensing authority is an authority that grants licenses.  The authority that has jurisdiction over either a geographical region, such as the coast of a country, or vessels plying their trade within its boundaries.  Examples: Coast Guard or Department of Transportation."
-        title:     "trade license authority"
+        title:     "Trade license authority"
       trade_license_expiration: 
         content:   "The date when your business trade license expires."
-        title:     "trade license expiration"
+        title:     "Trade license expiration"
       trade_license_description: 
         content:   "A short description of the trade you provide and certification you have passed.  Examples:Plumbing Contractor, Carpentry Contractor and Certified Arborist Credential"
-        title:     "trade license description"
+        title:     "Trade license description"
       brands: 
         content:   "Brands that your business carries for purchase.  Examples:Nike, Microsoft, Pepsi.  Brands are separated by commas ,"
-        title:     "brands"
+        title:     "Brands"
       tag_line: 
         content:   "Define your product or company in as few words as possible.  Tagline tells the consumers ideally how they hopefully will feel about your brand.  Examples:Just Do It, The Ultimate Driving Machine.  "
-        title:     "tag line"
+        title:     "Tag line"
       job_titles: 
         content:   "Job titles are used by employers to categorize positions in their organization.  Examples:CEO, Programmer and Editorial Manager.  Job Titles are separated by commas ,"
-        title:     "job titles"
+        title:     "Job titles"
       professional_associations: 
         content:   "Any organization you company is part of in your particular professional field.  Examples:Association for Computing Machinery, Institute of Mechanical Engineers and Society for Protective Coatings."
-        title:     "professional associations"
+        title:     "Professional associations"
       geographic_areas: 
         content:   "The area in which your company operates and serves."
-        title:     "geographic areas"
+        title:     "Geographic areas"
       year_founded: 
         content:   "The year your company was formed."
-        title:     "year founded"
+        title:     "Year founded"
       category: 
         content:   "Categories describe what your business is, not what it does or what it sells.  Examples: Dentist, Wedding Photographer, Tahi Restaurant"
         title:     "Category"                                                                                                                                        
-                        
+      logo: 
+        logo_content: "Your company logo helps clients identify your business.  Logo help potential clients identify with your companies brand."
+        additional_logo_content:   "Add 1-9 Images of your business or your business products.  Adding images can help with your business ranking and helping a potential client to visually identify with your company."
 
