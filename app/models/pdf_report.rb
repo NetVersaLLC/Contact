@@ -86,14 +86,16 @@ private
               row[1] = username.to_s
               row[2] = password.to_s 
 
+              other_fields = []
               site[2].each do |name|
                 next if %w(email username password).include?(name[1])
 
                 if name[0] == 'text'
-                  row[3] = thing.send(name[1]).to_s
+                  other_fields.push thing.send(name[1]).to_s
                 end
               end
-            
+              row[3] = other_fields.join(',')
+
               data.push row
             end
  		      else
