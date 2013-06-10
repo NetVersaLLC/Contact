@@ -4,6 +4,9 @@ module Business::Validations
     def self.phone_regex
       /^\d\d\d-\d\d\d-\d\d\d\d$/
     end
+    def self.zip_regex
+      /^\d{3,12}$/
+    end
 
     
     validates :keywords,
@@ -30,7 +33,8 @@ module Business::Validations
     validates :corporate_name,
       :presence => true
     validates :zip,
-      :presence => true
+      :presence => true,
+      :format => { :with => zip_regex, :message => 'Invalid format'}
     validates :contact_gender,
       :presence => true
     validates :contact_first_name,
