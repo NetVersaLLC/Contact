@@ -20,6 +20,10 @@ class CreditCardProcessor
     STDERR.puts "Got Gateway: #{@gateway.inspect}"
   end 
 
+  #
+  #
+  #
+  #
   def charge( amount ) 
     if amount == 0 
       return Payment.create( :message => "Free checkout", :status => :success ) 
@@ -40,8 +44,12 @@ class CreditCardProcessor
     end
   end 
 
-  def refund( payment, card_number )
-    response =  @gateway.refund(payment.amount, payment.transaction_number, {:card_number => card_number } )
+  #
+  #
+  #
+  #
+  def refund( payment )
+    response =  @gateway.refund(payment.amount, payment.transaction_number, {:card_number => @creditcard.number } )
 
     logger.info "Refund response:"
     logger.info response.inspect
@@ -56,6 +64,10 @@ class CreditCardProcessor
     payment
   end 
 
+  #
+  #
+  #
+  #
   def monthly_recurring_charge( monthly_fee )
 
     names            = @credit_card.name.split(/\s+/)
@@ -76,6 +88,8 @@ class CreditCardProcessor
         :last_name  => last_name
       }
     })
+
+
    
     subscription = Subscription.new 
     if response.success?
@@ -86,9 +100,14 @@ class CreditCardProcessor
       subscription.message           = "Purchase complete!"
       subscription.subscription_code = response.authorization
     else
+      m = 
+        case response.params['code']
+          when "E00012"; "<strong>Subscription Error!</strong><br>An error occurred while processing subscription of payment. You have submitted a duplicate of Subscription. Please check your Credit card number and try again.".html_safe
+          else; response.message
+        end
       subscription.active            = false
       subscription.status            = :failed
-      subscription.message           = response.message
+      subscription.message           = m
     end
     subscription.save!
     subscription 
