@@ -86,68 +86,6 @@ module Business::MiscMethods
 
   end
 
-  def report_pdf
-	pdf = Prawn::Document.new
 
-	pdf.text('Account Information')
-	pdf.text('------------------------------------------------------------')
-	Business.citation_list.each do |site|
-        STDERR.puts "Site: #{site[0]}"
-        logger.debug site.inspect
-		if self.respond_to?(site[1]) and self.send(site[1]).count > 0
-
-		  self.send(site[1]).each do |thing|
-            row = [site[3]]
-
-            username = thing.username if thing.respond_to?('username') 
-            username ||= thing.email if thing.respond_to?('email') 
-            username ||= 'submitted' 
-            password = thing.password if thing.respond_to?('password') 
-            password ||= '' 
-            row.push username
-            row.push password 
-
-            site[2].each do |name|
-              next if %w(email username password).include?(name[1])
-
-              if name[0] == 'text'
-                row.push thing.send(name[1])
-              end
-            end
-            logger.debug row.inspect 
-
-			line = row.join(', ')
-			pdf.text(line)
-          end
-
-		else
-          STDERR.puts "Nothing for: #{site[1]}"
-		end
-	end
-
-	pdf.start_new_page()
-	pdf.text('Completed Jobs Information')
-	pdf.text('------------------------------------------------------------')
-	ran = {}
-	CompletedJob.where(:business_id => self.id).each do |row|
-		ran[row.name.split("/")[0]] = 'Completed'
-	end
-
-	ran.each_key do |site|
-		pdf.text(site + ', Completed')
-	end
-
-	c='abcdefghijklmnopqrstuvwxyz'
-	setup = ''
-	1.upto(10) do |i|
-		setup += c[rand() * 26]
-	end
-	tmp  = Rails.root.join('tmp', "#{setup}.pdf")
-
-	pdf.render_file tmp
-	
-	return tmp
-
-  end
 
 end
