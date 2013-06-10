@@ -83,6 +83,7 @@ window.registerCheckoutHooks = ()->
     window.location.href='/users/sign_up?package_id='+url.param('package_id')+'&coupon='+$('#coupon').val()
 #    html = '<button class="btn btn-info remove_thumbnail" style="position: absolute; top: 4px; right: 2px;" data-image-id="'+response['id']+'">X</button>'
 #    $('.billing-system-close-button').append(html)
+    $('#coupon-show').remove()
 
   textbox = $('#card_number')
   textbox.keypress(examineCard)
@@ -100,6 +101,7 @@ window.registerCheckoutHooks = ()->
 #      console.log("Form does not validate!")
 #    return true
   $(".billing-system-close-button").click (e) ->
+    $('#coupon-show').show()
     $(".remove-coupon").remove()
     $(".cross-button").remove()
     $(".coupon-code").remove()
