@@ -95,3 +95,4 @@ window.registerCheckoutHooks = ()->
   #  else
   #    console.log("Form does not validate!")
   #  return true
+
