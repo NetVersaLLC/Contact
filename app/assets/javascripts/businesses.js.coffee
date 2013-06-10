@@ -224,22 +224,3 @@ $ ->
     else
       $(this).css "border-color","#CCCCCC"
 
-  $('#user_email').blur ->
-    unless $.trim(@value).length && validateEmail(@value)
-      $(this).css "border-color","red"
-    else
-      $(this).css "border-color","#CCCCCC"
-
-  validateEmail = (email) ->
-    filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/
-    if filter.test(email)
-      return true
-    else
-      return false
-
-  $('#user_password').blur ->
-    unless $.trim(@value).length 
-      $(this).css "border-color","red"
-    else
-      $(this).css "border-color","#CCCCCC"
-    
