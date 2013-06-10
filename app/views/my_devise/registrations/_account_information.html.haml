@@ -5,13 +5,13 @@
   - else
     %legend
       Reseller Sign Up
-  %label{:for => 'user[email]'} Email
-  %input{:name => 'user[email]', :placeholder => "Email", :type => "text", :required => 'required', :id => 'email', :value => @email }/
+  %label{:for => 'user[email]'} Email*
+  %input{:name => 'user[email]', :placeholder => "Email", :type => "text", :required => 'required', :id => 'email', :value => @email, :pattern => '[^@]+@[^@]+\.[a-zA-Z]{2,6}'}/
   - unless @callcenter
     %span.help-block We won&#39;t spam you or share your address.
-    %label{:for => 'user[password]'} Choose a Password
+    %label{:for => 'user[password]'} Choose a Password*
     %input{:name => 'user[password]', :placeholder => "Password", :type => "password", :required => 'required', :id => 'password' }/
-    %label{:for => 'user[password_confirmation]'} Verify Password
+    %label{:for => 'user[password_confirmation]'} Verify Password*
     %input{:name => 'user[password_confirmation]', :placeholder => "Password Confirmation", :type => "password", :required => 'required', :id => 'password_confirmation' }/
   - else
     %input{:name => 'user[password]', :type => "hidden", :value => 'passw0rd' }/

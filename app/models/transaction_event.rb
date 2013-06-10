@@ -33,6 +33,9 @@ class TransactionEvent < ActiveRecord::Base
 
   def process
     @creditcard = ActiveMerchant::Billing::CreditCard.new(@options[:creditcard])
+    name = @options[:creditcard][:name].split(" ")
+    @creditcard.first_name =  name[0]
+    @creditcard.last_name = name[1]
     if self.monthly_fee == 0 and self.price == 0
       # Skip the next bit, not sure a clearer way to put this
     else
@@ -40,7 +43,11 @@ class TransactionEvent < ActiveRecord::Base
       unless @creditcard.valid?
         message = "Credit card is not valid"
         @creditcard.errors.select{|k,v| !v.empty? }.each { |k,v|
-          message = "#{message}<br>- #{k.humanize} : #{v.join}"
+          if k.eql?("first_name") or k.eql?("last_name")
+            message = "- Name: can not be empty"
+          else
+            message = "#{message}<br>- #{k.humanize} : #{v.join}"
+          end
         }
         self.message = message.html_safe
         self.status  = :failure
@@ -95,6 +102,7 @@ class TransactionEvent < ActiveRecord::Base
     @payment.save
     return true
   end
+  
 
   def is_success?
     self.status == :success
