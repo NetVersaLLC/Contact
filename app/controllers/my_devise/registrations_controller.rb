@@ -43,16 +43,16 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     end
 
     @errors             = []
-    business            = Business.new
+    #business            = Business.new
     ActiveRecord::Base.transaction do
       resource.label_id = current_label.id
       unless resource.save 
         clean_up_passwords resource
         render :action=>:new
       end 
-      business.user = resource 
-      business.label_id = current_label.id
-      business.is_client_downloaded = false
+      #business.user = resource 
+      #business.label_id = current_label.id
+      #business.is_client_downloaded = false
 
       if @is_checkout_session == true
         Coupon.redeem @package, params[:coupon] 
@@ -63,9 +63,9 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
         if @transaction.is_success?
           flash[:notice] = "Signed up"
 
-          business.subscription = @transaction.subscription
-          business.save :validate => false
-          @transaction.setup_business(business)
+          #business.subscription = @transaction.subscription
+          #business.save :validate => false
+          #@transaction.setup_business(business)
         else
           flash[:notice] = @transaction.message
           @errors.push @transaction.message
@@ -73,29 +73,25 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
       end
 
       if @errors.length == 0 
-        business.save :validate => false
-        #if @is_checkout_session == true
-        #  business.user    = resource
-        #  business.user_id = resource.id
-        #  business.save :validate => false
-        #end
         if resource.active_for_authentication?
           set_flash_message :notice, :signed_up if is_navigational_format?
           sign_up(resource_name, resource)
-
-          if @is_checkout_session == true
-            redirect_to edit_business_path(business)
-          else
-            redirect_to '/resellers'
-          end
         else
           set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
           expire_session_data_after_sign_in!
-          if @is_checkout_session == true
-            redirect_to edit_business_path(business)
-          else
-            redirect_to '/resellers'
-          end
+        end
+        
+        if @is_checkout_session == true
+          business = Business.new 
+          business.subscription = @transaction.subscription
+          business.user    = resource
+          business.user_id = resource.id
+          business.save :validate => false
+
+          @transaction.setup_business(business)
+          redirect_to edit_business_path(business)
+        else
+          redirect_to '/resellers'
         end
       else
         STDERR.puts "Redirecing to: new_user_registration_path"
