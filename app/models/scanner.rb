@@ -31,7 +31,15 @@ class Scanner
       :query => {:payload_data => @data.to_json, :site => @site},
       :headers => { 'content-length' => '0' }
     }
-    response = self.class.post("/scan.json", options)
+    begin
+      response = self.class.post("/scan.json", options)
+    rescue
+      error_message = 'Failed'
+      status = 'error'
+      response = {
+        'error' => 'Failed'
+      }
+    end
 
     status = nil
     result = nil
