@@ -132,5 +132,12 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     STDERR.puts "Amount: #{@amount_total}"
     return true
   end
+
+  def process_coupon 
+    checkout_setup
+
+    render :partial => "billing_summary_fields", :layout => false 
+  end 
+
 end
 

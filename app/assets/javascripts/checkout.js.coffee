@@ -73,9 +73,28 @@ formValidates = ()->
       validates = false
   validates
 
+process_coupon = () -> 
+  url = '/users/sign_up/process_coupon' + location.search + '&coupon=' + $('#coupon').val()
+  $('fieldset.billing_summary').load url, () ->
+    $('#addCoupon').click () -> 
+      process_coupon()
+    $('#removeCoupon').click ()->
+      reset_coupon()
+    return false 
+
+reset_coupon = () -> 
+  url = '/users/sign_up/process_coupon' + location.search 
+  $('fieldset.billing_summary').load url, () ->
+    $('#addCoupon').click () -> 
+      process_coupon()
+
 window.registerCheckoutHooks = ()->
   examineCard()
   $('#addCoupon').click ()->
+    process_coupon()
+    return false 
+
+    ### 
     url = $.url()
     form = $('form#new_user').get(0)
     form.action = form.action + '?has_coupon='+( $('#coupon').val()!='' )
@@ -85,7 +104,7 @@ window.registerCheckoutHooks = ()->
     $('#coupon-discount').remove()
     $('#coupon-rest-total').remove()
     $('#amount-reset').remove()
-
+    ###
   textbox = $('#card_number')
   textbox.keypress(examineCard)
   textbox.blur(examineCard)
@@ -101,6 +120,7 @@ window.registerCheckoutHooks = ()->
 #    else
 #      console.log("Form does not validate!")
 #    return true
+###
   $(".billing-system-close-button").click (e) ->
     $('#amount-reset').show()
     $('#amount-show').remove()
@@ -114,3 +134,4 @@ window.registerCheckoutHooks = ()->
     $(".coupon-code").remove()
     url = $.url()
     window.location.href='/users/sign_up?package_id='+url.param('package_id')
+    ###

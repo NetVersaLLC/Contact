@@ -11,7 +11,11 @@ Contact::Application.routes.draw do
   devise_for :users,
     :controllers  => {
       :registrations => 'my_devise/registrations',
+  
     }
+  devise_scope :user do 
+      get '/users/sign_up/process_coupon', :to => 'my_devise/registrations#process_coupon' 
+  end 
 
   resources :booboos
   resources :subscriptions
