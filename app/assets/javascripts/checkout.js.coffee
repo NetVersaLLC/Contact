@@ -106,7 +106,7 @@ window.registerCheckoutHooks = ()->
     $('#amount-show').remove()
     $('#coupon-rest-total').show()
     $('#coupon-total').remove()
-    $('#coupon-discount').show()
+    $('#coupon-discount').remove()
     $('#coupon-price').remove()
     $('#coupon-show').show()
     $(".remove-coupon").remove()
