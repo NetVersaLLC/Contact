@@ -120,4 +120,14 @@ class ImagesController < ApplicationController
     end
   end
 
+  def get_logo
+    @image = Image.where(:business_id => params[:business_id], :is_logo => true).first
+    respond_to do |format|
+      if @image
+        format.json { render json: nil }
+      else
+        format.json { render json: @image }
+      end
+    end
+  end
 end
