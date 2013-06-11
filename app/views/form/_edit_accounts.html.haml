@@ -1,6 +1,8 @@
 .site-accounts
+  .site-combo
+    = select_tag "account_id", options_for_select(@site_accounts.collect {|r| [r.first, r.first]})
   - @site_accounts.each do |account|
-    .site-account{:style=>"width: 300px; display: none; "}
+    .site-account{:style=>"width: 300px; display: none; ", :id => account.first}
       =semantic_form_for :account, :url=>'/accounts', :method=>:create do |f|
         %input{:type=>:hidden, :name=>'model', :value=>account.first}
         %input{:type=>:hidden, :name=>'business_id', :value=>@business.id}
@@ -16,11 +18,26 @@
           .span12
             .well
               %label
-                %span.pf-label Username
-              %input.pf-field{:name => "account[username]", :type => "text", :placeholder => 'Username', :value => "", :readonly => true }/
+                %span.pf-label
+                  - if account[2][0][1] == 'email'
+                    - valid_fld = 'Email'
+                  - else
+                    - valid_fld = 'Username'
+                  = valid_fld  
+                                    
+              %input.pf-field{:name => "account["+valid_fld.downcase+"]", :type => "text", :placeholder => valid_fld, :value => "", :readonly => true }/
               %label
                 %span.pf-label Password
               %input.pf-field{:name => "account[password]", :type => "password", :placeholder => 'Password' }/
+              - if account[2][2]
+                - valid_fld1 = account[2][2][1] == "secret_answer" ? "Secret answer" : "Category"
+                %label
+                  %span.pf-label= valid_fld1 
+                - if account[2][2][0] == 'text'
+                  %input.pf-field{:name => "account["+account[2][2][1]+"]", :type => "text", :placeholder => valid_fld1 }/
+                - elsif account[2][2][0] == 'select'
+                  = select_tag "account[category]", options_for_select(account[2][2][1].capitalize.camelize.constantize.all.collect {|r| [r.name, r.id]})
+              
               %label
                 %span.pf-label Do Not Sync
               %input.pf-field{:name => "username", :type => "checkbox" }/
@@ -35,14 +52,25 @@
     var _this=$('.site-account:visible'), _prev=$('.site-account:visible').prev();
     if(_this.index()==0)return;
     _this.fadeOut(1, function(){
+       $('#account_id').val(_prev.attr('id'));
       _prev.show();
     });
+  });
+  
+  $('#account_id').change(function() {
+    
+    var _this=$('.site-account:visible'), _prev=$('#'+this.value);
+    if(_this.index()==0)return;
+    _this.fadeOut(1, function(){
+      _prev.show();
+    });    
   });
 
   $('.site-account .btn-next').on('click', function(){
     var _this=$('.site-account:visible'), _next=$('.site-account:visible').next();
     if(_this.index()==$('.site-account').size()-1)return;
     _this.fadeOut(1, function(){
+       $('#account_id').val(_next.attr('id'));
       _next.show();
     });
   });
