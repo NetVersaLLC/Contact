@@ -18,6 +18,7 @@
             %br
             %h3 Syncing...
           -else 
-            = form_for Task.new do
-              %input{:type => :hidden, :value => @business.id, :name => 'business_id'}
-              %input{:type => :image, :value => 'Sync Now', :src => '/assets/sync_button.png', :class => 'sync' }
+            - if @business.is_client_downloaded
+              = form_for Task.new do
+                %input{:type => :hidden, :value => @business.id, :name => 'business_id'}
+                %input{:type => :image, :value => 'Sync Now', :src => '/assets/sync_button.png', :class => 'sync' }
