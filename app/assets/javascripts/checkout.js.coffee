@@ -73,25 +73,65 @@ formValidates = ()->
       validates = false
   validates
 
+process_coupon = () -> 
+  url = '/users/sign_up/process_coupon?package_id=' + $('#package_id').val() + '&coupon=' + $('#coupon').val()
+  $('fieldset.billing_summary').load url, () ->
+    $('#addCoupon').click () -> 
+      process_coupon()
+    $('#removeCoupon').click ()->
+      reset_coupon()
+    return false 
+
+reset_coupon = () -> 
+  url = '/users/sign_up/process_coupon' + location.search 
+  $('fieldset.billing_summary').load url, () ->
+    $('#addCoupon').click () -> 
+      process_coupon()
+
 window.registerCheckoutHooks = ()->
   examineCard()
   $('#addCoupon').click ()->
+    process_coupon()
+    return false 
+
+    ### 
     url = $.url()
     form = $('form#new_user').get(0)
     form.action = form.action + '?has_coupon='+( $('#coupon').val()!='' )
     form.submit()
-  #  window.location.href='/users/sign_up?package_id='+url.param('package_id')+'&coupon='+$('#coupon').val()
-
+    window.location.href='/users/sign_up?package_id='+url.param('package_id')+'&coupon='+$('#coupon').val()
+    $('#coupon-show').remove()
+    $('#coupon-discount').remove()
+    $('#coupon-rest-total').remove()
+    $('#amount-reset').remove()
+    ###
   textbox = $('#card_number')
   textbox.keypress(examineCard)
   textbox.blur(examineCard)
   textbox.payment('formatCardNumber')
   $('#cvv').payment('formatCardCVC')
-  # $('#submit_button').click (e)->
-  #  if formValidates() == true
-  #    console.log("Form validates!")
-  #    $('#submit_button').attr("disabled", "disabled")
-  #    $('form').submit()
-  #  else
-  #    console.log("Form does not validate!")
-  #  return true
+
+
+#  $('#submit_button').click (e)->
+#    if formValidates() == true
+#      console.log("Form validates!")
+#      $('#submit_button').attr("disabled", "disabled")
+#      $('form').submit()
+#    else
+#      console.log("Form does not validate!")
+#    return true
+###
+  $(".billing-system-close-button").click (e) ->
+    $('#amount-reset').show()
+    $('#amount-show').remove()
+    $('#coupon-rest-total').show()
+    $('#coupon-total').remove()
+    $('#coupon-discount').remove()
+    $('#coupon-price').remove()
+    $('#coupon-show').show()
+    $(".remove-coupon").remove()
+    $(".cross-button").remove()
+    $(".coupon-code").remove()
+    url = $.url()
+    window.location.href='/users/sign_up?package_id='+url.param('package_id')
+    ###
