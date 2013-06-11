@@ -5,7 +5,7 @@
   = f.inputs do
     .control-group
       %label 
-      .controls
+      .controls{:style => "color: red;"}
         - if params[:failure_reason] == :not_found_in_database 
           = "Account not registered. "
           = link_to "Sign up here!", new_user_registration_path
