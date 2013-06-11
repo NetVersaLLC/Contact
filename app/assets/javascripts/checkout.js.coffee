@@ -112,4 +112,5 @@ window.registerCheckoutHooks = ()->
     $(".remove-coupon").remove()
     $(".cross-button").remove()
     $(".coupon-code").remove()
-
+    url = $.url()
+    window.location.href='/users/sign_up?package_id='+url.param('package_id')
