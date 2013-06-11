@@ -1,0 +1,42 @@
+%fieldset.billing_summary
+  %legend
+    Billing Summary
+  %label{:for => 'package'} Initial Fee
+  .input-prepend.input-append
+    .add-on
+      .span2.total
+        Sub-Total: $
+    %input.tally.span1{:value => @subtotal, :name => 'subtotal', :type => "text", :disabled => 'disabled' }/
+    .add-on .00
+  - unless @saved.nil?
+    %br
+    .input-prepend.input-append
+      .add-on
+        .span2.total
+          Coupon: $
+      %input.tally.span1{:value => @saved, :name => 'coupon_total', :type => "text", :disabled => 'disabled' }/
+      .add-on .00
+      .add-on #{@coupon.code}
+      - if @coupon
+        %a#removeCoupon.add-on X
+  %br
+  .input-prepend.input-append
+    .add-on
+      .span2.total.bold
+        Total: $
+    %input.tally.span1{:value => @total, :name => 'total', :type => "text", :disabled => 'disabled' }/
+    .add-on.bold .00
+  %label{:for => 'subscription'} Monthly Subscription
+  .input-prepend.input-append
+    .add-on
+      .span2.total.bold
+        Amount: $
+    %input.tally.span1{:value => @amount_total, :name => 'amount_total', :type => "text", :disabled => 'disabled' }/
+    .add-on .00
+  - unless @coupon
+    .input-append
+      %label{:for => 'coupon'} Coupon or Offer Code
+      %input#coupon{:name => 'coupon', :placeholder => "Coupon", :type => "text", :value => (@coupon ? @coupon.code : '') }/
+      %button.btn.btn-info#addCoupon{:type => 'button'} Add
+  - else
+    %input#coupon{:name => 'coupon', :type => "hidden", :value => (@coupon ? @coupon.code : '') }/
