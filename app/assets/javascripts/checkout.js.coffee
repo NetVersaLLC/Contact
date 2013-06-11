@@ -74,7 +74,7 @@ formValidates = ()->
   validates
 
 process_coupon = () -> 
-  url = '/users/sign_up/process_coupon' + location.search + '&coupon=' + $('#coupon').val()
+  url = '/users/sign_up/process_coupon?package_id=' + $('#package_id').val() + '&coupon=' + $('#coupon').val()
   $('fieldset.billing_summary').load url, () ->
     $('#addCoupon').click () -> 
       process_coupon()
