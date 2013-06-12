@@ -1,5 +1,4 @@
-
-delete_image = (e)-> 
+delete_image = (e)->
   e.preventDefault()
   image_id = $(e.target).attr('data-image-id')
   $.ajax
