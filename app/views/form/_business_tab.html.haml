@@ -28,6 +28,9 @@
             %span.step-order 7
             %span.step-name Download Client
       .span9.well.clearfix
+        .star_required
+          %span(style="color:red;")= "*"
+          = t("star_fields_are_required")
         .step-content= render :partial => 'form/contact_information'
         .step-content= render :partial => 'form/business_details'
         .step-content= render :partial => 'form/hours_and_payment'
