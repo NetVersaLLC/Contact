@@ -56,6 +56,7 @@
    
   $poped.each(function() {
   var $this = $(this);
+  $this.unbind('click');
   $this.on('focus',function() {
   var popover = $this.data('popover');
   var shown = popover && popover.tip().is(':visible');
@@ -63,11 +64,5 @@
   $poped.popover('hide');
   setTimeout(function(){$this.popover('show');}, 500);
   });
-  $this.on('click',function() {
-  var popover = $this.data('popover');
-  var shown = popover && popover.tip().is(':visible');
-  if(shown) return;
-  });
-  });
-  $(".btn").on('click',function() {$poped.popover('hide');});
-    
+
+  $(".btn, .next-button").on('click',function() {$poped.popover('hide');});
