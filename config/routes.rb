@@ -11,7 +11,11 @@ Contact::Application.routes.draw do
   devise_for :users,
     :controllers  => {
       :registrations => 'my_devise/registrations',
+  
     }
+  devise_scope :user do 
+      get '/users/sign_up/process_coupon', :to => 'my_devise/registrations#process_coupon' 
+  end 
 
   resources :booboos
   resources :subscriptions
@@ -82,6 +86,7 @@ Contact::Application.routes.draw do
   delete  '/images/:id/all(.:format)',:action=>"destroy_all", :controller=>"images"
   put     '/images/:id(.:format)', :action=>"update", :controller=>"images"
   put     '/images/set_logo/:id(.:format)', :action=>"set_logo", :controller=>"images"
+  get     '/images/get_logo/:business_id(.:format)', :action=>"get_logo", :controller=>"images"
 
   get '/resellers', :controller => :pages, :action => :resellers
   get '/try_again_later', :controller => :pages, :action => :try_again_later
