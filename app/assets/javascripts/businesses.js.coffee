@@ -243,5 +243,3 @@ $ ->
     else
       $(this).css "border-color","#CCCCCC"
     
-
-  
