@@ -2,6 +2,7 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  star_fields_are_required: "Fields are required"
   formtastic: 
     titles: 
       business_details:      "Business Details"
