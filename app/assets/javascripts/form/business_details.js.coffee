@@ -14,6 +14,7 @@ window.openMap = ()->
 window.initMap = () =>
   $('#business_contact_prefix').change (obj)->
     prefix = $(obj.target).val()
+    $('#business_contact_gender_input').removeClass('error');
     if prefix == 'Mr.'
       $('#business_contact_gender').val('Male')
     else if prefix == 'Mrs.' or prefix == 'Miss.' or prefix == 'Ms.'
@@ -21,7 +22,7 @@ window.initMap = () =>
   $('#business_address').after('<button class="btn btn-info" onclick="window.openMap();" id="mapit">Map</button>')
   $('#mapit').click (event)->
     event.preventDefault()
-  $('#business_contact_birthday').datepicker()
+  $('#business_contact_birthday').datepicker({maxDate: '0'})
 
   params                = {}
   csrf_token            = $("meta[name=csrf-token]").attr("content")
