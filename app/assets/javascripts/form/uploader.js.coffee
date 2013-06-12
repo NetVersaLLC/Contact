@@ -1,5 +1,4 @@
-
-delete_image = (e)-> 
+delete_image = (e)->
   e.preventDefault()
   image_id = $(e.target).attr('data-image-id')
   $.ajax
@@ -13,7 +12,7 @@ delete_image = (e)->
 set_logo = (e)->
   e.preventDefault()
   image_id = $(e.target).attr('data-image-id')
-  $('.thumbnails li').removeClass('active-block')
+  $('#logo-section .thumbnails li').removeClass('active-block')
   $("#thumbnail"+image_id).addClass('active-block')
   $('#show-logo').html($("#img"+image_id).attr('src'))
   $('#show-logo').html('<img src=' + $("#img"+image_id).attr('src') + ' />')
@@ -31,7 +30,7 @@ set_logo = (e)->
 # resulting gaps 
 refresh_image_list = -> 
   $.getJSON "/images.json?business_id=#{window.business_id}", (images) ->
-    $("ul.thumbnails").children().remove()   # clean the slate
+    $("#logo-section ul.thumbnails").children().remove()   # clean the slate
     add_image image for image in images      # add them back in
     $('.remove_thumbnail').click (e)->       # wire up for deletion
       delete_image(e)
@@ -41,7 +40,7 @@ refresh_image_list = ->
 # ugly looking helper to keep the html out of the way 
 add_image = (response) ->
   html = '<li class="span4" style="position: relative" id="thumbnail'+response['id']+'"><div class="thumbnail"><img id="img'+response['id']+'" src="'+response['medium']+'"  alt=""><h3>'+response['display_name']+'</h3><button class="btn btn-info remove_thumbnail" style="position: absolute; top: 4px; right: 2px;" data-image-id="'+response['id']+'">X</button><button class="btn btn-info set-logo" style="position: absolute; top: 4px; right: 40px;" data-image-id="'+response['id']+'">Set as Logo</button></div></li>'
-  $('ul.thumbnails').append(html)
+  $('#logo-section ul.thumbnails').append(html)
 
 
 
