@@ -11,7 +11,7 @@
         .step-title
           %span.step-order 2.
           %span.step-name Business Details
-        .step-title
+        .step-title#hrs_payment
           %span.step-order 3.
           %span.step-name Hours and Payment
         .step-title
@@ -65,6 +65,4 @@
   setTimeout(function(){$this.popover('show');}, 500);
   });
 
-  });
   $(".btn, .next-button").on('click',function() {$poped.popover('hide');});
-    
