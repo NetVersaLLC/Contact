@@ -67,7 +67,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
           #business.save :validate => false
           #@transaction.setup_business(business)
         else
-          flash[:notice] = @transaction.message
+          #flash[:notice] = @transaction.message
           @errors.push @transaction.message
         end
       end
@@ -87,7 +87,6 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
           business.user    = resource
           business.user_id = resource.id
           business.save :validate => false
-
           @transaction.setup_business(business)
           redirect_to edit_business_path(business)
         else

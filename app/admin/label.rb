@@ -18,7 +18,7 @@ ActiveAdmin.register Label do
       row :image do 
         image_tag(label.logo.url(:thumb)) 
       end
-      row :image do
+      row :favicon_image do
         image_tag(label.favicon.url(:thumb))
       end
       row :custom_css 
