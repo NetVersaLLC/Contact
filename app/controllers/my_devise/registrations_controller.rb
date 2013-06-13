@@ -46,10 +46,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     #business            = Business.new
     ActiveRecord::Base.transaction do
       resource.label_id = current_label.id
-      unless resource.save 
-        clean_up_passwords resource
-        render :action=>:new
-      end 
+
       #business.user = resource 
       #business.label_id = current_label.id
       #business.is_client_downloaded = false
@@ -73,6 +70,10 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
       end
 
       if @errors.length == 0 
+	      unless resource.save 
+	        clean_up_passwords resource
+	        render :action=>:new
+	      end
         if resource.active_for_authentication?
           set_flash_message :notice, :signed_up if is_navigational_format?
           sign_up(resource_name, resource)
