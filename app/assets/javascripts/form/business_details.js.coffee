@@ -12,6 +12,11 @@ window.openMap = ()->
     $('#map').html(html)
 
 window.initMap = () =>
+  $('#business_contact_gender').change (obj)->
+    if $('#business_contact_gender').val() == ''
+      $('#business_contact_gender_input').addClass('error');
+    else
+      $('#business_contact_gender_input').removeClass('error');    
   $('#business_contact_prefix').change (obj)->
     prefix = $(obj.target).val()
     $('#business_contact_gender_input').removeClass('error');
