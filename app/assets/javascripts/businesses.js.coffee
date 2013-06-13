@@ -10,9 +10,48 @@
 #= require form/company_description
 
 save_edits = () -> 
+
+  $.post "/businesses/save_edits", $('form.business').serialize()
+
+validation_check = (cur_step,event) ->
+  checked = $(".bussiness_hours_checkbox").is(':checked')
+  unless checked
+    $('#hrs_payment').addClass('btn-danger').removeClass('btn-success')
+    $('#hrs_payment .step-mark').addClass('icon-remove').removeClass('icon-ok')
+    alert "Please check at least one Business Hours."
+    event.preventDefault()
+      
+      
+
+validation_check_edit = (cur_step,event) ->
+  checked = $(".bussiness_hours_checkbox").is(':checked')  
+  unless checked
+    $('#hrs_payment').addClass('btn-danger').removeClass('btn-success')
+    $('#hrs_payment .step-mark').addClass('icon-remove').removeClass('icon-ok')
+    alert "Please check at least one Business Hours."
+    event.preventDefault()    
+    false
+
+create_business = (event) -> 
+  $.ajax
+    type: "POST"
+    dataType: "text"
+    url: "/businesses.json"
+    data: $('form.business').serialize()
+    success: (data, status, response) ->
+      $('a.back-button').hide() 
+      console.log data 
+      window.business_id = data 
+      $('#download_client').attr('href', "/downloads/#{data}") 
+      auto_download_client_software() 
+    error: () -> 
+      # this shouldnt happen.  client side validations should handle this
+      alert('An error occurrend creating your business profile. Please correct data and resubmit') 
+
   action = $('form.business').attr('action') + '.json' 
   $.post action, 
     $('form.business').serialize(),
+
 
 scrollToFirstError = () -> 
   $('html,body').animate({'scrollTop':$('.error:first').offset().top-100})
@@ -74,12 +113,18 @@ window.selectTab = (idx) =>
 
 $ ->
   last_index = $.cookie('last_selected_tab_index')
-
-  $('.next-button').click ->
+  
+  $('#next-validation').bind 'click', ->
+    $('.steps-transformed .step-title:lt('+(last_index)+')').each ->
+      if $("#new_business").length > 0
+        cur_step = $(this)
+        validation_check(cur_step)
+      else if $("#edit_business_#{window.business_id}").length == 1
+        cur_step = $(this)
+        validation_check_edit(cur_step)
 
   $('.steps-transformed .step-title:lt('+(last_index)+')').each ->
     cur_step = $(this)
-    
     cur_step.addClass('btn step-visited btn-success last-active step-active disabled')
     cur_step.prepend('<i class="icon-ok step-mark"></i>') if cur_step.find('.icon-ok').size()==0
     cur_step.unbind().off()
@@ -96,10 +141,18 @@ $ ->
       console.log "show #{cur_step.index()}"
       console.log cur_step.attr('class')
 
+
+    steps_onload: () -> 
+      cur_step = $(this)
+      $.cookie('last_selected_tab_index', cur_step.index() ) unless cur_step.index()==0
+      $('form.business').enableClientSideValidations() 
+      
+
       save_edits()
 
       if cur_step.index() == 6 
         auto_download_client_software()
+
 
     validation_rule: () -> 
       # some useful class items: step-visited step-active last-active 
@@ -112,8 +165,19 @@ $ ->
         form.enableClientSideValidations() 
         form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators ) 
 
-      #if cur_step.hasClass("step-active") && cur_step.find(".error").length > 0 
-      #  scrollToFirstError() if cur_step.hasClass("step-active") 
+
+      # this validates the form in case they hit 'next' without entering anything. 
+      form = $('form.business')
+      form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators ) 
+      
+      if cur_step.hasClass("step-visited") && cur_step.find(".error").length > 0 
+        scrollToFirstError() if cur_step.hasClass("step-active") 
+        return 'error' 
+      
+      if cur_step.hasClass("step-active")
+        save_edits()
+        create_business() if cur_step.hasClass('pstep6') and $("#new_business").length > 0
+
 
       return 'error' if cur_step.find(".error").length > 0 
       return cur_step.hasClass("step-visited") 
@@ -123,3 +187,40 @@ $ ->
   window.initMap()
   #delay_task_sync_button() 
   window.company_description()
+
+  $('#email').blur ->
+    unless $.trim(@value).length
+      $(this).css "border-color","red"
+    else
+      $(this).css "border-color","#CCCCCC"
+
+  $('#password').blur ->
+    unless $.trim(@value).length
+      $(this).css "border-color","red"
+    else
+      $(this).css "border-color","#CCCCCC"
+
+  $('#password_confirmation').blur ->
+    unless $.trim(@value).length
+      $(this).css "border-color","red"
+    else
+      $(this).css "border-color","#CCCCCC"
+
+  $('#name').blur ->
+    unless $.trim(@value).length
+      $(this).css "border-color","red"
+    else
+      $(this).css "border-color","#CCCCCC"
+
+  $('#card_number').blur ->
+    unless $.trim(@value).length
+      $(this).css "border-color","red"
+    else
+      $(this).css "border-color","#CCCCCC"
+
+  $('#cvv').blur ->
+    unless $.trim(@value).length
+      $(this).css "border-color","red"
+    else
+      $(this).css "border-color","#CCCCCC"
+
