@@ -144,10 +144,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fbb450', end
   }
 
 }
+
 abbr[title] {
   color: red;
   font-size: 20px;
   margin-left: 5px;
+  border-bottom: medium none;
 }
 
 .star_required {
@@ -160,3 +162,4 @@ abbr[title] {
 }
 .star_required span{color:red;font-size: 20px;}
   
+.site-combo {margin-left:40px;float:left;}

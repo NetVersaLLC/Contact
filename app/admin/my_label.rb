@@ -86,7 +86,9 @@ ActiveAdmin.register_page "My Label" do
             end
             li(:class => 'string input optional stringish') do
               label(:for => 'label_favicon') do
-                'Favicon'
+
+                'Favicon Logo'
+
               end
               input(:id => 'label_favicon', :type => 'file', 'name' => 'label[favicon]')
             end
