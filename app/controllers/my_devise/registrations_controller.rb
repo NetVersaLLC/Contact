@@ -51,20 +51,14 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
       end 
 
       if @is_checkout_session == true
-        credit_card_processor = CreditCardProcessor.new(current_user.label, params[:creditcard] ) 
+        credit_card_processor = CreditCardProcessor.new(current_label, params[:creditcard] ) 
         business_processor = BusinessProcessor.new( credit_card_processor ) 
         
-        @transaction_event = 
-          business_processor.create_a_business(current_user, @package, params[:coupon])
+        @transaction = 
+          business_processor.create_a_business(resource, @package, params[:coupon])
 
-        @transaction = TransactionEvent.build(params, @package, current_label)
-        @transaction.process()
         if @transaction.is_success?
           flash[:notice] = "Signed up"
-
-          #business.subscription = @transaction.subscription
-          #business.save :validate => false
-          #@transaction.setup_business(business)
         else
           flash[:notice] = @transaction.message
           @errors.push @transaction.message
@@ -81,14 +75,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
         end
         
         if @is_checkout_session == true
-          business = Business.new 
-          business.subscription = @transaction.subscription
-          business.user    = resource
-          business.user_id = resource.id
-          business.save :validate => false
-
-          @transaction.setup_business(business)
-          redirect_to edit_business_path(business)
+          redirect_to edit_business_path(@transaction.business)
         else
           redirect_to '/resellers'
         end

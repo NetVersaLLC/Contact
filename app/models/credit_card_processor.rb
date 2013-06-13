@@ -1,6 +1,7 @@
 class CreditCardProcessor
 
   def initialize( label, card_hash )
+    @label = label
     @creditcard = ActiveMerchant::Billing::CreditCard.new(card_hash) 
 
     if Rails.env.to_sym == :production
@@ -20,28 +21,52 @@ class CreditCardProcessor
     STDERR.puts "Got Gateway: #{@gateway.inspect}"
   end 
 
+  def is_credit_card_valid? 
+    @creditcard.valid?
+  end 
+  def credit_card_errors 
+    return "" if is_credit_card_valid? 
+
+    message = "Credit card is not valid"
+    @creditcard.errors.select{|k,v| !v.empty? }.each { |k,v|
+    message = "#{message}<br>- #{k.humanize} : #{v.join}"
+    }
+    message.html_safe
+  end 
+
   #
   #
   #
   #
   def charge( amount ) 
-    if amount == 0 
-      return Payment.create( :message => "Free checkout", :status => :success ) 
-    end 
+    payment = Payment.new 
+    payment.amount = amount
+    payment.label = @label
 
-    response = @gateway.purchase( amount, @credit_card ) 
-    if response.success?
-      Payment.create( :message => response.message, 
-                      :transaction_number => response.params['transaction_id'], 
-                      :status => :success ) 
-    else
-      m = case response.params['response_reason_code']
-        when '78'; 'The card code is invalid. Please check your Security code.'
-        else; response.message
+    if !self.is_credit_card_valid? 
+      payment.message = self.credit_card_errors 
+      payment.status = :failure
+    elsif amount == 0 
+      payment.message = "Free checkout"
+      payment.status = :success
+    elsif
+      response = @gateway.purchase( amount, @creditcard ) 
+      #payment.response = response 
+      if response.success?
+        payment.message = response.message
+        payment.transaction_number = response.params['transaction_id']
+        payment.status = :success 
+      else
+        m = case response.params['response_reason_code']
+          when '78'; 'The card code is invalid. Please check your Security code.'
+          else; response.message
+        end
+        payment.message = m 
+        payment.status  = :failure
       end
-
-      Payment.create( :message => m, :status  => :failure ) 
-    end
+    end 
+    payment.save 
+    payment
   end 
 
   #
@@ -53,8 +78,6 @@ class CreditCardProcessor
                                 payment.transaction_number, 
                                 {:card_number => @creditcard.number } )
 
-    logger.info "Refund response:"
-    logger.info response.inspect
     if response.success?
       payment.status = :refunded
     else
@@ -71,12 +94,20 @@ class CreditCardProcessor
   #
   #
   def monthly_recurring_charge( monthly_fee )
+    if !self.is_credit_card_valid? 
+      return Subscription.create( :message => self.credit_card_errors, 
+                                 :status => :failure, 
+                                 monthly_fee: monthly_fee)
+    end 
+    if monthly_fee == 0
+      return Subscription.create( :message => "Free checkout", :status => :success, monthly_fee: monthly_fee)
+    end 
 
-    names            = @credit_card.name.split(/\s+/)
+    names            = @creditcard.name.split(/\s+/)
     first_name       = names.shift
     last_name        = names.join(" ")
 
-    response = @gateway.recurring( monthly_fee, @credit_card, {
+    response = @gateway.recurring( monthly_fee, @creditcard, {
       :interval => {
         :unit   => :months,
         :length => 1
@@ -91,12 +122,9 @@ class CreditCardProcessor
       }
     })
 
-
-   
     subscription = Subscription.new 
+    subscription.monthly_fee = monthly_fee
     if response.success?
-      STDERR.puts "Printing response:"
-      STDERR.puts response.to_json
       subscription.active            = true
       subscription.status            = :success
       subscription.message           = "Purchase complete!"
@@ -111,12 +139,11 @@ class CreditCardProcessor
       subscription.status            = :failed
       subscription.message           = m
     end
-    subscription.save!
+    subscription.save validate: false; 
     subscription 
   end 
 
   def cancel_recurring( subscription ) 
-
     response = @gateway.cancel_recurring(subscription.subscription_code)
     if response.success?
       subscription.active  = false
