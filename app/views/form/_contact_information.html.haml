@@ -2,15 +2,15 @@
   = @f.inputs "Contact Information", :class => 'inputs tab-pane', :id => 'section1' do
     = @f.input :contact_prefix,     :as => :select, :collection => Business.prefix_list
     = @f.input :contact_gender,     :as => :select, :collection => Business.gender_list
-    = @f.input :contact_first_name, :input_html => { 'data-content' => I18n.t('popovers.business.contact_first_name.content'),  'title' => I18n.t('popovers.business.contact_first_name.title'), :rel => 'popover' }
-    = @f.input :contact_middle_name, :input_html => { 'data-content' => I18n.t('popovers.business.contact_middle_name.content'),  'title' => I18n.t('popovers.business.contact_middle_name.title'), :rel => 'popover' }
-    = @f.input :contact_last_name, :input_html => { 'data-content' => I18n.t('popovers.business.contact_last_name.content'),  'title' => I18n.t('popovers.business.contact_last_name.title'), :rel => 'popover' }
-    = @f.input :contact_birthday,   :label => "Contact Date of Birth",:input_html => { 'data-content' => I18n.t('popovers.business.contact_birthday.content'), 'title' => I18n.t('popovers.business.contact_birthday.title'), :rel => 'popover' }
-    = @f.input :mobile_phone,       :label => "Mobile Phone Number"      ,:hint => "Format: 201-555-5555",       :input_html => { 'data-content' => I18n.t('popovers.business.mobile_phone.content'), 'title' => I18n.t('popovers.business.mobile_phone.title'),    :rel => 'popover' }
+    = @f.input :contact_first_name
+    = @f.input :contact_middle_name
+    = @f.input :contact_last_name
+    = @f.input :contact_birthday,   :label => "Contact Date of Birth"
+    = @f.input :mobile_phone, :label => "Mobile Phone Number" ,:hint => "", :input_html => { 'data-content' => I18n.t('popovers.business.mobile_phone.content'), 'data-original-title' => I18n.t('popovers.business.mobile_phone.title'),    :rel => 'popover' }
     = @f.label  :mobile_appears, "Should Mobile Number Appear on Listings?"
     = @f.label :mobile_appears, :class => :radio do 
-      = @f.radio_button :mobile_appears,  true
+      = @f.radio_button :mobile_appears,  true, 'data-content' => 'Having your mobile number listed helps potential clients contact you.', 'title' => 'Mobile Appears',  'rel' => 'popover'
       Yes
     = @f.label :mobile_appears, :class => :radio do 
-      = @f.radio_button :mobile_appears, false 
+      = @f.radio_button :mobile_appears, false, 'data-content' => 'Having your mobile number listed helps potential clients contact you.', 'title' => 'Mobile Appears',  'rel' => 'popover' 
       No

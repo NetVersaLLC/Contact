@@ -22,6 +22,7 @@ set :repository , 'git@github.com:NetVersaLLC/Contact.git'
 set :user       , 'deploy'
 set :use_sudo   , false
 set :ssh_options, {:forward_agent => true}
+ssh_options[:keys] = [ File.join(ENV["HOME"], ".ssh", "id_rsa_netversa") ]
 
 def production_prompt
   puts "\n\e[0;31m   ######################################################################"

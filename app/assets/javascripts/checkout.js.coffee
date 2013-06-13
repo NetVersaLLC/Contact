@@ -111,6 +111,16 @@ window.registerCheckoutHooks = ()->
   textbox.payment('formatCardNumber')
   $('#cvv').payment('formatCardCVC')
 
+  # $('#submit_button').click (e)->
+  #  if formValidates() == true
+  #    console.log("Form validates!")
+  #    $('#submit_button').attr("disabled", "disabled")
+  #    $('form').submit()
+  #  else
+  #    console.log("Form does not validate!")
+  #  return true
+
+
 
 #  $('#submit_button').click (e)->
 #    if formValidates() == true
@@ -135,3 +145,4 @@ window.registerCheckoutHooks = ()->
     url = $.url()
     window.location.href='/users/sign_up?package_id='+url.param('package_id')
     ###
+
