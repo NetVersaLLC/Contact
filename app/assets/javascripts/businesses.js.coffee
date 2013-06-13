@@ -10,8 +10,9 @@
 #= require form/company_description
 
 save_edits = () -> 
-
-  $.post "/businesses/save_edits", $('form.business').serialize()
+  action = $('form.business').attr('action') + '.json' 
+  $.post action, 
+    $('form.business').serialize(),
 
 validation_check = (cur_step,event) ->
   checked = $(".bussiness_hours_checkbox").is(':checked')

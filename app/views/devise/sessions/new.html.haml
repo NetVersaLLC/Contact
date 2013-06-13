@@ -5,14 +5,16 @@
   = f.inputs do
     .control-group
       %label 
-      .controls
-        - if params[:failure_reason] == :not_found_in_database 
+      - if params[:failure_reason] == :not_found_in_database 
+        .controls.alert.alert-error.span4
           = "Account not registered. "
           = link_to "Sign up here!", new_user_registration_path
-        -elsif params[:failure_reason] == :invalid 
+      -elsif params[:failure_reason] == :invalid 
+        .controls.alert.alert-error.span4
           = "Account registered. "
           = link_to "Forgot your password?", new_user_password_path
-        -else 
+      -else 
+        .controls.alert.alert-error.span4
           = flash[:alert] 
     = f.input :email,    hint:"Enter your email address"
     = f.input :password, hint:"Enter password"
