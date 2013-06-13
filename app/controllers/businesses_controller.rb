@@ -46,7 +46,7 @@ class BusinessesController < ApplicationController
     @business = Business.new
     @accounts = @business.nonexistent_accounts_array
 
-    @site_accounts = Business.citation_list.map {|x| x[0..1]}
+    @site_accounts = Business.citation_list #.map {|x| x[0..1]}
 
     respond_to do |format|
       format.html # new.html.erb
@@ -63,7 +63,7 @@ class BusinessesController < ApplicationController
     end
 
     @accounts = @business.nonexistent_accounts_array
-    @site_accounts = Business.citation_list.map {|x| x[0..1]}
+    @site_accounts = Business.citation_list #.map {|x| x[0..1]}
     respond_to do |format|
       format.html { render @business.is_client_downloaded ? 'edit' : 'new' } 
       format.json { render json: @business }
@@ -115,7 +115,7 @@ class BusinessesController < ApplicationController
         format.json { head :no_content }
       else
         @accounts = @business.nonexistent_accounts_array
-        @site_accounts = Business.citation_list.map {|x| x[0..1]}
+        @site_accounts = Business.citation_list #.map {|x| x[0..1]}
 
         format.html { render action: "edit" }
         format.json { render json: @business.errors, status: :unprocessable_entity }
