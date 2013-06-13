@@ -2,6 +2,8 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  client_downloaded_notice: "You can not Sync until you have downloaded and installed the client."
+  business_valid_notice: "You can not sync because some invalid data was detected. Please Edit this Business to make corrections."
   formtastic: 
     titles: 
       business_details:      "Business Details"

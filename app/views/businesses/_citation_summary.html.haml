@@ -18,7 +18,11 @@
             %br
             %h3 Syncing...
           -else 
-            - if @business.is_client_downloaded and @business.valid?
+            - if !@business.valid?
+              %p(style="margin-top:60px;")= t("business_valid_notice")
+            - elsif !@business.is_client_downloaded
+              %p(style="margin-top:70px;")= t("client_downloaded_notice")
+            - else  
               = form_for Task.new do
                 %input{:type => :hidden, :value => @business.id, :name => 'business_id'}
                 %input{:type => :image, :value => 'Sync Now', :src => '/assets/sync_button.png', :class => 'sync' }
