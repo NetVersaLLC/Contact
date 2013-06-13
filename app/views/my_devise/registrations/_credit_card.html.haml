@@ -9,7 +9,7 @@
     = image_tag 'visa-inactive.gif', :id => 'visa'
     = image_tag 'american_express-inactive.gif', :id => 'american_express'
     = image_tag 'discover-inactive.gif', :id => 'discover'
-    %input#creditcard_type{:name => 'creditcard[type]', :type => 'hidden', :value => ''}
+    %input#creditcard_type{:name => 'creditcard[brand]', :type => 'hidden', :value => ''}
   %label{:for => 'creditcard[number]'} Card number
   %input#card_number{:name => 'creditcard[number]', :placeholder => "Card Number", :type => "text", :required => 'required', :value => @card_number}/
   %label{:for => 'creditcard[month]'} Expiration date

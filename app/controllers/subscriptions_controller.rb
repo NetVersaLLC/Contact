@@ -16,8 +16,28 @@ class SubscriptionsController < ApplicationController
     @package = @subscription.package
     if @subscription == nil
       @subscription = Subscription.new
+      @package = current_label.packages.first
     end
   end
+
+  def update 
+    # set up a subscription
+    subscription = Subscription.find( params[:id] ) 
+    package = Package.find(params[:package_id]) 
+
+    ccp = CreditCardProcessor.new(current_label, params[:creditcard]) 
+    bp = BusinessProcessor.new ccp 
+    
+    transaction_event = bp.update_a_business( current_user, package, subscription.business )
+
+    if transaction_event.status == :success
+      flash[:notice] = 'Subscription updated' 
+      redirect_to business_path transaction_event.business
+    else 
+      flash[:alert] = "Subscription failed. #{transaction_event.message}"
+      render 'edit' 
+    end 
+  end 
 
   def destroy
     business = Business.find(params[:id])
@@ -25,20 +45,12 @@ class SubscriptionsController < ApplicationController
     if @sub.active == false
       flash[:alert] = "Subscription already cancelled."
     else
-      if @sub.subscription_code
-        resp = @sub.label.gateway.cancel_recurring(@sub.subscription_code)
-        if resp.success?
-          @sub.active = false
-          @sub.save!
-          flash[:alert] = "Subscription cancelled."
-        else
-          flash[:alert] = "Error: #{resp.message}"
-        end
-      else # For coupons
-        #@sub.active = false
-        #@sub.save!
-        @sub.update_attribute(:active, :false) 
+      ccp = CreditCardProcessor.new(current_label, nil ) 
+      @sub = ccp.cancel_recurring(@sub)
+      if @sub.status == :cancelled 
         flash[:alert] = "Subscription cancelled."
+      else
+        flash[:alert] = "Error: #{@sub.message}"
       end
     end
     redirect_to businesses_path

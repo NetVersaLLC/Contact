@@ -2,7 +2,7 @@ class CreditCardProcessor
 
   def initialize( label, card_hash )
     @label = label
-    @creditcard = ActiveMerchant::Billing::CreditCard.new(card_hash) 
+    @creditcard = ActiveMerchant::Billing::CreditCard.new(card_hash) if card_hash
 
     if Rails.env.to_sym == :production
       @gateway = ActiveMerchant::Billing::Base.gateway(:authorize_net).new(
@@ -143,8 +143,17 @@ class CreditCardProcessor
     subscription 
   end 
 
+
+  #
+  #
+  #
   def cancel_recurring( subscription ) 
     response = @gateway.cancel_recurring(subscription.subscription_code)
+    if subscription.subscription_code.blank? 
+      subscription.update_attributes({status: :cancelled, active: :false} )
+      return subscription 
+    end 
+
     if response.success?
       subscription.active  = false
       subscription.status  = :cancelled
