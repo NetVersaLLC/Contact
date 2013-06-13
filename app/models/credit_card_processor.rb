@@ -49,7 +49,9 @@ class CreditCardProcessor
   #
   #
   def refund( payment )
-    response =  @gateway.refund(payment.amount, payment.transaction_number, {:card_number => @creditcard.number } )
+    response =  @gateway.refund(payment.amount, 
+                                payment.transaction_number, 
+                                {:card_number => @creditcard.number } )
 
     logger.info "Refund response:"
     logger.info response.inspect
