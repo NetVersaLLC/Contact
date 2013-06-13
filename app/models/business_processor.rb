@@ -4,11 +4,22 @@ class BusinessProcessor
     @credit_card_processor = credit_card_processor 
   end 
 
+  def update_a_business( user, package, business )
+    get_the_money user, package, business, nil 
+  end 
+
 
   def create_a_business( user, package, coupon_code )
 
     coupon = Coupon.where(:label_id => user.label_id, :code => coupon_code ).first
     package.apply_coupon( coupon ) 
+
+    get_the_money user, package, nil, coupon 
+
+  end 
+
+  private 
+  def get_the_money( user, package, business, coupon )
 
     transaction_event = TransactionEvent.new 
     transaction_event.package = package 
@@ -50,10 +61,14 @@ class BusinessProcessor
     end 
 
     # create the business
-    business = Business.new 
-    business.subscription = subscription 
-    business.user = user 
-    business.save :validate => false 
+    if business.nil? 
+      business = Business.new 
+      business.subscription = subscription 
+      business.user = user 
+      business.save :validate => false 
+    else 
+      business.update_column( :subscription_id, subscription.id) 
+    end 
 
     transaction_event.business = business 
     transaction_event.save 
