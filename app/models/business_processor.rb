@@ -20,13 +20,15 @@ class BusinessProcessor
     transaction_event.saved = package.saved
 
     # get business payment 
-    # TODO transaction event     
     payment = @credit_card_processor.charge( package.price * 100 ) 
+    transaction_event.payment = payment
 
-    if payment.status == :success 
-
-    else 
-
+    unless payment.status == :success do
+      transaction_event.message  = payment.message
+      transaction_event.status   = payment.status
+      transaction_event.payment  = payment
+      transaction_event.save
+      return transaction_event
     end 
 
     # set up a subscription
@@ -42,6 +44,8 @@ class BusinessProcessor
       transaction_event.status  = subscription.status 
 
       @credit_card_processor.refund( payment )
+      transaction_event.save 
+      return transaction_event
     end 
 
     # create the business
@@ -64,7 +68,7 @@ class BusinessProcessor
     subscription.transaction_event = transaction_event 
     subscription.save
 
-    business 
+    transaction_event
   end 
 
 end 

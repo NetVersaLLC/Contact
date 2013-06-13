@@ -43,21 +43,20 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     end
 
     @errors             = []
-    #business            = Business.new
     ActiveRecord::Base.transaction do
       resource.label_id = current_label.id
       unless resource.save 
         clean_up_passwords resource
         render :action=>:new
       end 
-      #business.user = resource 
-      #business.label_id = current_label.id
-      #business.is_client_downloaded = false
 
       if @is_checkout_session == true
-        Coupon.redeem @package, params[:coupon] 
+        credit_card_processor = CreditCardProcessor.new(current_user.label, params[:creditcard] ) 
+        business_processor = BusinessProcessor.new( credit_card_processor ) 
+        
+        @transaction_event = 
+          business_processor.create_a_business(current_user, @package, params[:coupon])
 
-        STDERR.puts "Package: #{@package.inspect}"
         @transaction = TransactionEvent.build(params, @package, current_label)
         @transaction.process()
         if @transaction.is_success?
