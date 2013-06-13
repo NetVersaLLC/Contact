@@ -7,7 +7,7 @@ class BusinessProcessor
 
   def create_a_business( user, package, coupon_code )
 
-    coupon = Coupon.where(:label_id => user.label.id, :code => coupon_code )
+    coupon = Coupon.where(:label_id => user.label_id, :code => coupon_code ).first
     package.apply_coupon( coupon ) 
 
     transaction_event = TransactionEvent.new 
@@ -22,8 +22,7 @@ class BusinessProcessor
     # get business payment 
     payment = @credit_card_processor.charge( package.price * 100 ) 
     transaction_event.payment = payment
-
-    unless payment.status == :success do
+    unless payment.status == :success 
       transaction_event.message  = payment.message
       transaction_event.status   = payment.status
       transaction_event.payment  = payment
@@ -32,9 +31,11 @@ class BusinessProcessor
     end 
 
     # set up a subscription
-    subscription  = @credit_card_processor.monthly_recurring_charge(  ) 
+    subscription  = @credit_card_processor.monthly_recurring_charge(package.monthly_fee * 100 )
+    subscription.package = package
+    subscription.label_id = user.label_id
 
-    transacton_event.subscription = subscription  
+    transaction_event.subscription = subscription  
 
     if subscription.status == :success 
       transaction_event.message = "Purchase complete" 

@@ -1,6 +1,6 @@
 class BusinessObserver < ActiveRecord::Observer 
   def after_create(business) 
-    unless Rails.env == 'test' do 
+    unless Rails.env == 'test' 
       business.create_site_accounts() 
       business.create_jobs() 
     end 

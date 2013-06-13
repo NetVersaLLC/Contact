@@ -1,0 +1,24 @@
+yum groupinstall "Development Tools"
+
+wget http://nginx.org/packages/centos/6/noarch/RPMS/nginx-release-centos-6-0.el6.ngx.noarch.rpm
+
+rpm -ivh nginx-release-centos-6-0.el6.ngx.noarch.rpm
+
+yum install nginx 
+
+yum install readline-devel zlib-devel libyaml-devel libffi-devel openssl-devel libxml2-devel libxslt-devel
+
+
+wget http://pyyaml.org/download/libyaml/yaml-0.1.4.tar.gz
+tar xzvf yaml-0.1.4.tar.gz
+cd yaml-0.1.4
+./configure --prefix=/usr/local
+make
+make install
+
+
+ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p429.tar.gz
+tar xzvf ruby-1.9.3-p429.tar.gz
+
+
+gem install rails -v 3.2.13 --no-rdoc --no-ri
