@@ -225,3 +225,6 @@ $ ->
     else
       $(this).css "border-color","#CCCCCC"
 
+  $('#client_checked_in').click ->
+    $('.progressImg').show()
+    has_client_checked_in()

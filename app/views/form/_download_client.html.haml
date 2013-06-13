@@ -39,5 +39,10 @@
         %h5 3. Follow the Setup Instruction
         %p Click Next to complete the setup. 
 
-
-/  %a.btn.btn-warning.btn-large{:href => "/downloads/#{@business.id}"} Download Client
+  
+  %span(class="progressImg")
+    = image_tag("processing.gif")
+  %span(class="doneLnk")  
+    %a.btn.btn-warning.btn-large{:href => "#wait", :id => "client_checked_in"} I'm Done
+    
+  
