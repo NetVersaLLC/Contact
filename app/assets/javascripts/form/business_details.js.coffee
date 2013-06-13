@@ -22,7 +22,7 @@ window.initMap = () =>
   $('#business_address').after('<button class="btn btn-info" onclick="window.openMap();" id="mapit">Map</button>')
   $('#mapit').click (event)->
     event.preventDefault()
-  $('#business_contact_birthday').datepicker({maxDate: '0'})
+  $('#business_contact_birthday').datepicker({maxDate: '0', changeYear: true,yearRange: '1920:' + new Date().getFullYear()})
 
   params                = {}
   csrf_token            = $("meta[name=csrf-token]").attr("content")
