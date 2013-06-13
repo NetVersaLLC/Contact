@@ -47,31 +47,30 @@ class Label < ActiveRecord::Base
     :presence => true
   validates :logo,
     :presence => true
- 
 
   validates_format_of :favicon_file_name,
     :allow_blank => true,
     :with => %r{\.(ico|jpg|jpeg|png)$}i
 
-  def gateway
-    return @gateway if @gateway
-    if Rails.env.to_sym == :production
-      @gateway = ActiveMerchant::Billing::Base.gateway(:authorize_net).new(
-        :login    => self.login,
-        :password => self.password,
-      )
-      ActiveMerchant::Billing::Base.mode = :production
-    else
-      @gateway = ActiveMerchant::Billing::AuthorizeNetGateway.new(
-        :login    => "8e3UfTHKM9d2",
-        :password => "5B7t5V6S65m3WkdU",
-        :test     => true
-      )
-      ActiveMerchant::Billing::Base.mode = :test
-    end
-    STDERR.puts "Got Gateway: #{@gateway.inspect}"
-    @gateway
-  end
+#  def gateway
+#    return @gateway if @gateway
+#    if Rails.env.to_sym == :production
+#      @gateway = ActiveMerchant::Billing::Base.gateway(:authorize_net).new(
+#        :login    => self.login,
+#        :password => self.password,
+#      )
+#      ActiveMerchant::Billing::Base.mode = :production
+#    else
+#      @gateway = ActiveMerchant::Billing::AuthorizeNetGateway.new(
+#        :login    => "8e3UfTHKM9d2",
+#        :password => "5B7t5V6S65m3WkdU",
+#        :test     => true
+#      )
+#      ActiveMerchant::Billing::Base.mode = :test
+#    end
+#    STDERR.puts "Got Gateway: #{@gateway.inspect}"
+#    @gateway
+#  end
 
   def favicon_url
     if self.favicon.exists?
