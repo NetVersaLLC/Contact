@@ -9,8 +9,11 @@ window.zipSearch = (callback)->
         if(typeof(_callback)=="function")
           _callback()
     else
-      $('#zip_search_form .zipcode-error').show();
-      $('#business_results').empty()
+      if $('#zip').val() == ""
+        $('#business_results').empty()
+      else
+        $('#zip_search_form .zipcode-error').show();
+        $('#business_results').empty()
 
 window.selectPlace = (el)->
   $('#zipform').hide()

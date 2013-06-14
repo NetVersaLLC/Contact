@@ -10,10 +10,18 @@ module Business::CitationListMethods
       @citation_list
     end
 
-    def self.site_accounts_by_key
+    def self.site_accounts_by_key # use table name as key
       hash = {}
       self.citation_list.each do |site|
         hash[ site[1] ] = site
+      end
+      hash
+    end
+
+    def self.site_accounts_by_key2 # use class name as key
+      hash = {}
+      self.citation_list.each do |site|
+        hash[ site[0] ] = site
       end
       hash
     end

@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
 
   validate :must_have_valid_access_level
 
+  
   def must_have_valid_access_level
     unless TYPES.has_value? access_level
       errors.add(:access_level, "is not a valid access level")
