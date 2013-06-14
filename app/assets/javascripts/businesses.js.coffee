@@ -137,21 +137,18 @@ $ ->
     validate_next_step: true, 
     ignore_errors_on_next: true,
 
-    steps_show: () -> 
+    ###steps_show: () -> 
       cur_step = $(this) 
       console.log "show #{cur_step.index()}"
       console.log cur_step.attr('class')
-
+    ###
 
     steps_onload: () -> 
       cur_step = $(this)
       $.cookie('last_selected_tab_index', cur_step.index() ) unless cur_step.index()==0
       $('form.business').enableClientSideValidations() 
       
-
-      save_edits()
-
-      if cur_step.index() == 6 
+      if cur_step.index() == 7 
         auto_download_client_software()
 
 

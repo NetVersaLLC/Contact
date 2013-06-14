@@ -43,12 +43,12 @@ class CreditCardProcessor
     payment.amount = amount
     payment.label = @label
 
-    if !self.is_credit_card_valid? 
-      payment.message = self.credit_card_errors 
-      payment.status = :failure
-    elsif amount == 0 
+    if amount == 0 
       payment.message = "Free checkout"
       payment.status = :success
+    elsif !self.is_credit_card_valid? 
+      payment.message = self.credit_card_errors 
+      payment.status = :failure
     elsif
       response = @gateway.purchase( amount, @creditcard ) 
       #payment.response = response 
@@ -94,13 +94,13 @@ class CreditCardProcessor
   #
   #
   def monthly_recurring_charge( monthly_fee )
+    if monthly_fee == 0
+      return Subscription.create( :message => "Free checkout", :status => :success, monthly_fee: monthly_fee)
+    end 
     if !self.is_credit_card_valid? 
       return Subscription.create( :message => self.credit_card_errors, 
                                  :status => :failure, 
                                  monthly_fee: monthly_fee)
-    end 
-    if monthly_fee == 0
-      return Subscription.create( :message => "Free checkout", :status => :success, monthly_fee: monthly_fee)
     end 
 
     names            = @creditcard.name.split(/\s+/)
