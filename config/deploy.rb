@@ -8,8 +8,8 @@ set :db_local_clean, true
 # set :rvm_type, :system
 # set :rvm_bin_path, "/home/deploy/.rvm/bin"
 
-set :user, 'deploy'
-set :deploy_to, '/home/deploy/contact'
+set :user, 'ubuntu'
+set :deploy_to, '/home/ubuntu/contact'
 set :keep_releases, 5
 set :default_shell, "bash -l"
 set :rvm_ruby_string, '1.9.3'
@@ -55,7 +55,7 @@ task :staging do
   staging_prompt
   set  :rails_env ,'staging'
   set  :branch    ,'staging'
-  set  :host      ,'staging.netversa.com'
+  set  :host      ,'ec2-54-226-43-220.compute-1.amazonaws.com'
   role :app       ,host
   role :web       ,host
   role :db        ,host, :primary => true
