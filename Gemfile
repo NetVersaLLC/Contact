@@ -20,7 +20,7 @@ end
 group :production do
   gem 'therubyracer'
   gem 'eventmachine'
-  gem 'thin'
+  gem 'unicorn'
 end
 
 group :test do

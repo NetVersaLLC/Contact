@@ -8,7 +8,6 @@ set :db_local_clean, true
 # set :rvm_type, :system
 # set :rvm_bin_path, "/home/deploy/.rvm/bin"
 
-set :user, 'ubuntu'
 set :deploy_to, '/home/ubuntu/contact'
 set :keep_releases, 5
 set :default_shell, "bash -l"
@@ -19,7 +18,7 @@ set :git_enable_submodules, 1
 set :application, 'contact'
 set :scm        , :git
 set :repository , 'git@github.com:NetVersaLLC/Contact.git'
-set :user       , 'deploy'
+set :user       , 'ubuntu'
 set :use_sudo   , false
 set :ssh_options, {:forward_agent => true}
 
@@ -53,7 +52,7 @@ end
 
 task :staging do
   staging_prompt
-  set  :rails_env ,'staging'
+  set  :rails_env ,'production'
   set  :branch    ,'staging'
   set  :host      ,'ec2-54-226-43-220.compute-1.amazonaws.com'
   role :app       ,host
@@ -105,8 +104,9 @@ end
 
 after "deploy:finalize_update" do
   run ["ln -nfs #{shared_path}/config/application.yml #{release_path}/config/application.yml",
-    "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml",
-      ].join(" && ")
+       "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml",
+       "ln -nfs #{shared_path}/config/unicorn.rb #{release_path}/config/unicorn.rb"
+  ].join(" && ")
 end
 
 task :after_update_code do
