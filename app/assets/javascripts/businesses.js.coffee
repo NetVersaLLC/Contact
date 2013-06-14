@@ -227,4 +227,5 @@ $ ->
 
   $('#client_checked_in').click ->
     $('.progressImg').show()
+    $(this).addClass('disabled')
     has_client_checked_in()
