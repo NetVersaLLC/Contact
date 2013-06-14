@@ -13,7 +13,7 @@
         .controls.alert.alert-error.span4
           = "Account registered. "
           = link_to "Forgot your password?", new_user_password_path
-      -else 
+      -elsif alert 
         .controls.alert.alert-error.span4
           = flash[:alert] 
     = f.input :email,    hint:"Enter your email address"
