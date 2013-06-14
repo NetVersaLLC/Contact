@@ -54,13 +54,14 @@ formValidates = ()->
   error = false
   console.log($('#card_month').val(), $('#card_year').val())
   errors = []
-  if $('#card_number').val() == ""
-    errors.push formElement($.payment.validateCardNumber($('#card_number').val()), "Card number", "Please Enter a Valid Card number", "card_number")
-  else
-    errors.push formElement($.payment.validateCardNumber($('#card_number').val()), "Card number", "Card number is not valid", "card_number")
-  errors.push formElement($.payment.validateCardExpiry($('#card_month').val(), $('#card_year').val()), "Expiration date", "Card expiration is invalid", "card_month")
-  errors.push formElement($.payment.validateCardCVC($('#cvv').val()), "CVV", "CVV is invalid", 'cvv')
-  errors.push requiredElement('name', 'Name')
+  if $("[name='amount_total']").val() != '0' 
+    if $('#card_number').val() == ""
+      errors.push formElement($.payment.validateCardNumber($('#card_number').val()), "Card number", "Please Enter a Valid Card number", "card_number")
+    else
+      errors.push formElement($.payment.validateCardNumber($('#card_number').val()), "Card number", "Card number is not valid", "card_number")
+    errors.push formElement($.payment.validateCardExpiry($('#card_month').val(), $('#card_year').val()), "Expiration date", "Card expiration is invalid", "card_month")
+    errors.push formElement($.payment.validateCardCVC($('#cvv').val()), "CVV", "CVV is invalid", 'cvv')
+    errors.push requiredElement('name', 'Name')
   errors.push requiredElement('email', 'Email')
   if $('#password').length > 0
     errors.push requiredElement('password', 'Password')
