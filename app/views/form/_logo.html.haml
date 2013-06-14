@@ -16,8 +16,6 @@
           = image.id
           .thumbnail
             = link_to image_tag(image.thumb), image.url, :title => image.position
-            %h3
-              = image.position
             %button.btn.btn-info.remove_thumbnail{'data-image-id' => image.id}
               Remove
   :javascript
