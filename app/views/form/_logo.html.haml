@@ -2,10 +2,12 @@
   #logo-display
   %h3
     Logo
+  %p= I18n.t('popovers.business.logo.logo_content')  
   #show-logo
     - image = @business.logo
     #logo_shown= image_tag image.medium unless image.nil?
   %h3 Additional Images
+  %p= I18n.t('popovers.business.logo.additional_logo_content')
   #uploader
   #thumbnails
     %ul.thumbnails
@@ -14,8 +16,6 @@
           = image.id
           .thumbnail
             = link_to image_tag(image.thumb), image.url, :title => image.position
-            %h3
-              = image.position
             %button.btn.btn-info.remove_thumbnail{'data-image-id' => image.id}
               Remove
   :javascript

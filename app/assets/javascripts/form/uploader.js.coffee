@@ -1,5 +1,4 @@
-
-delete_image = (e)-> 
+delete_image = (e)->
   e.preventDefault()
   image_id = $(e.target).attr('data-image-id')
   $.ajax
@@ -40,7 +39,7 @@ refresh_image_list = ->
 
 # ugly looking helper to keep the html out of the way 
 add_image = (response) ->
-  html = '<li class="span4" style="position: relative" id="thumbnail'+response['id']+'"><div class="thumbnail"><img id="img'+response['id']+'" src="'+response['medium']+'"  alt=""><h3>'+response['display_name']+'</h3><button class="btn btn-info remove_thumbnail" style="position: absolute; top: 4px; right: 2px;" data-image-id="'+response['id']+'">X</button><button class="btn btn-info set-logo" style="position: absolute; top: 4px; right: 40px;" data-image-id="'+response['id']+'">Set as Logo</button></div></li>'
+  html = '<li class="span4" style="position: relative" id="thumbnail'+response['id']+'"><div class="thumbnail"><img id="img'+response['id']+'" src="'+response['medium']+'"  alt=""><button class="btn btn-info remove_thumbnail" style="position: absolute; top: 4px; right: 2px;" data-image-id="'+response['id']+'">X</button><button class="btn btn-info set-logo" style="position: absolute; top: 4px; right: 40px;" data-image-id="'+response['id']+'">Set as Logo</button></div></li>'
   $('#logo-section ul.thumbnails').append(html)
 
 
