@@ -27,7 +27,7 @@
       .business-info
         .pending
           %h3 
-            %a(href="#myModal" role="button" data-toggle="modal" data-remote="#{business_notifications_path(@business)}")
+            %a(href="#myModal" role="button" data-toggle="modal" data-remote="#{business_notifications_path(@business)}"  )
               Items Pending Action 
           %h1.counter= @business.notifications.count #@job_count
       %a.business-button{:href => "/report.pdf?business_id=#{@business.id}"}
@@ -35,13 +35,10 @@
         View Report
 
       .modal.hide.fade#myModal{ tabindex: "-1", role: "dialog", 'aria-labelledby'=> "myModalLabel", 'aria-hidden'=> "true", data: {backdrop: 'true' } } 
-        .modal-header
+        .modal-header.notification-modal-header
           %button.close{ type:"button", data: {dismiss:"modal"}, 'aria-hidden' => "true"}× 
-          <h3 id="myModalLabel">To Do List</h3>
         .modal-body
           %p One fine body
-        .modal-footer
-          %button.btn{ data: {dismiss:"modal"}, 'aria-hidden' => "true"} Close
 
 -#  .span4
 -#    %h3 Social Update

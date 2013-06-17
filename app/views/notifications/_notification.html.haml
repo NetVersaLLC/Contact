@@ -1,2 +1,6 @@
-%li
-  =link_to notification_path notification
+%dt
+  - if notification.url.blank? 
+    = notification.title 
+  -else 
+    =link_to notification.title, notification.url 
+%dd= notification.body
