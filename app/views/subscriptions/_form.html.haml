@@ -21,6 +21,7 @@
       %td Billing Type
       %td Monthly
   = link_to 'Cancel Subscription', subscription_path(@business), :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-info'
+  = link_to 'Edit Subscription', edit_subscription_path(@business.subscription), :class => 'btn btn-info'
 - else
   = semantic_form_for @subscription, :html => {:multipart => true, :class => 'form-horizontal' }  do |f|
     = f.semantic_errors
