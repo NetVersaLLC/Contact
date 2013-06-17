@@ -1,5 +1,8 @@
+.notification-modal-title-row
+  %h3 To Do List
 -if @notifications.length == 0 
   %p You do not have any tasks to complete. 
 -else 
-  %ul.unstyled
+  %p Please complete these steps immediately to ensure maximum exposure for your business:
+  %dl
     = render @notifications
