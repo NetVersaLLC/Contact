@@ -48,6 +48,19 @@ regexMatch = (id, regex)->
 requiredElement = (id, name)->
   error = formElement(regexMatch(id, /\S+/), name, name+" is required", name)
   error
+check_fields =()->
+  if $('#card_number').val() == ""
+    $('#card_number').focus()
+  if $('#cvv').val() == ""
+    $('#cvv').focus()
+  if $('#email').val() == ""
+    $('#email').focus()
+  if $('#name').val() == ""
+    $('#name').focus()
+  if $('#password').val() == ""
+    $('#password').focus()
+  if $('#password_confirmation').val() == ""
+    $('#password_confirmation').focus()
 
 formValidates = ()->
   $('#errors').html('')
@@ -116,6 +129,7 @@ window.registerCheckoutHooks = ()->
   $('#cvv').payment('formatCardCVC')
 
   $('#submit_button').click (e)->
+    check_fields()
     if formValidates() == true
       return true
     else
