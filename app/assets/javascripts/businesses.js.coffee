@@ -21,16 +21,16 @@ validation_check = (cur_step,event) ->
     $('#hrs_payment .step-mark').addClass('icon-remove').removeClass('icon-ok')
     alert "Please check at least one Business Hours."
     event.preventDefault()
-      
-      
+
+
 
 validation_check_edit = (cur_step,event) ->
-  checked = $(".bussiness_hours_checkbox").is(':checked')  
+  checked = $(".bussiness_hours_checkbox").is(':checked')
   unless checked
     $('#hrs_payment').addClass('btn-danger').removeClass('btn-success')
     $('#hrs_payment .step-mark').addClass('icon-remove').removeClass('icon-ok')
     alert "Please check at least one Business Hours."
-    event.preventDefault()    
+    event.preventDefault()
     false
 
 create_business = (event) -> 
