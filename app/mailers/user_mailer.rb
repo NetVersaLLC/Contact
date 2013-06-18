@@ -3,7 +3,7 @@ class UserMailer < ActionMailer::Base
 
   def welcome_email(user)
     @user = user
-    @url  = "http://#{user.label.domain}/users/sign_in"
+    @url  = "https://#{user.label.domain}/users/sign_in"
     if user.callcenter == true
       @password = user.temppass
     end
