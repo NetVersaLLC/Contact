@@ -19,7 +19,8 @@
           %a{:href => "'mailto:#{@business.user.email}"}=@business.user.email
           %br
         = link_to 'Edit This Business', edit_business_path(@business), :class => 'btn btn-info'
-      %a.business-button{:href => "/downloads/#{@business.id}"} 
+        = link_to 'Edit Subscription', edit_subscription_path(@business.id), :class => 'btn btn-info'
+      %a.business-button{:href => "/downloads/#{@business.id}"}
         =image_tag('icon-person.png')
         Download Software
 
