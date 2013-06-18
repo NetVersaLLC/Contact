@@ -43,26 +43,22 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     end
 
     @errors             = []
-    #business            = Business.new
     ActiveRecord::Base.transaction do
       resource.label_id = current_label.id
-
-      #business.user = resource 
-      #business.label_id = current_label.id
-      #business.is_client_downloaded = false
+      unless resource.save 
+        clean_up_passwords resource
+        render :action=>:new
+      end 
 
       if @is_checkout_session == true
-        Coupon.redeem @package, params[:coupon] 
+        credit_card_processor = CreditCardProcessor.new(current_label, params[:creditcard] ) 
+        business_processor = BusinessProcessor.new( credit_card_processor ) 
+        
+        @transaction = 
+          business_processor.create_a_business(resource, @package, params[:coupon])
 
-        STDERR.puts "Package: #{@package.inspect}"
-        @transaction = TransactionEvent.build(params, @package, current_label)
-        @transaction.process()
         if @transaction.is_success?
           flash[:notice] = "Signed up"
-
-          #business.subscription = @transaction.subscription
-          #business.save :validate => false
-          #@transaction.setup_business(business)
         else
           #flash[:notice] = @transaction.message
           @errors.push @transaction.message
@@ -83,13 +79,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
         end
         
         if @is_checkout_session == true
-          business = Business.new 
-          business.subscription = @transaction.subscription
-          business.user    = resource
-          business.user_id = resource.id
-          business.save :validate => false
-          @transaction.setup_business(business)
-          redirect_to edit_business_path(business)
+          redirect_to edit_business_path(@transaction.business)
         else
           redirect_to '/resellers'
         end

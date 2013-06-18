@@ -8,8 +8,7 @@ set :db_local_clean, true
 # set :rvm_type, :system
 # set :rvm_bin_path, "/home/deploy/.rvm/bin"
 
-set :user, 'deploy'
-set :deploy_to, '/home/deploy/contact'
+set :deploy_to, '/home/ubuntu/contact'
 set :keep_releases, 5
 set :default_shell, "bash -l"
 set :rvm_ruby_string, '1.9.3'
@@ -19,10 +18,9 @@ set :git_enable_submodules, 1
 set :application, 'contact'
 set :scm        , :git
 set :repository , 'git@github.com:NetVersaLLC/Contact.git'
-set :user       , 'deploy'
+set :user       , 'ubuntu'
 set :use_sudo   , false
 set :ssh_options, {:forward_agent => true}
-ssh_options[:keys] = [ File.join(ENV["HOME"], ".ssh", "id_rsa_netversa") ]
 
 def production_prompt
   puts "\n\e[0;31m   ######################################################################"
@@ -46,7 +44,7 @@ task :production do
   production_prompt
   set  :rails_env ,'production'
   set  :branch    ,'production'
-  set  :host      ,'franklin.netversa.com'
+  set  :host      ,'ec2-23-22-146-4.compute-1.amazonaws.com'
   role :app       ,host
   role :web       ,host
   role :db        ,host, :primary => true
@@ -56,7 +54,7 @@ task :staging do
   staging_prompt
   set  :rails_env ,'staging'
   set  :branch    ,'staging'
-  set  :host      ,'staging.netversa.com'
+  set  :host      ,'ec2-54-226-43-220.compute-1.amazonaws.com'
   role :app       ,host
   role :web       ,host
   role :db        ,host, :primary => true

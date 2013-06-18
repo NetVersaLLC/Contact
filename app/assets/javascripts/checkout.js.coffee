@@ -48,16 +48,33 @@ regexMatch = (id, regex)->
 requiredElement = (id, name)->
   error = formElement(regexMatch(id, /\S+/), name, name+" is required", name)
   error
+check_fields =()->
+  if $('#card_number').val() == ""
+    $('#card_number').focus()
+  if $('#cvv').val() == ""
+    $('#cvv').focus()
+  if $('#email').val() == ""
+    $('#email').focus()
+  if $('#name').val() == ""
+    $('#name').focus()
+  if $('#password').val() == ""
+    $('#password').focus()
+  if $('#password_confirmation').val() == ""
+    $('#password_confirmation').focus()
 
 formValidates = ()->
   $('#errors').html('')
   error = false
   console.log($('#card_month').val(), $('#card_year').val())
   errors = []
-  errors.push formElement($.payment.validateCardNumber($('#card_number').val()), "Card number", "Card number is not valid", "card_number")
-  errors.push formElement($.payment.validateCardExpiry($('#card_month').val(), $('#card_year').val()), "Expiration date", "Card expiration is invalid", "card_month")
-  errors.push formElement($.payment.validateCardCVC($('#cvv').val()), "CVV", "CVV is invalid", 'cvv')
-  errors.push requiredElement('name', 'Name')
+  if $("[name='amount_total']").val() != '0' 
+    if $('#card_number').val() == ""
+      errors.push formElement($.payment.validateCardNumber($('#card_number').val()), "Card number", "Please Enter a Valid Card number", "card_number")
+    else
+      errors.push formElement($.payment.validateCardNumber($('#card_number').val()), "Card number", "Card number is not valid", "card_number")
+    errors.push formElement($.payment.validateCardExpiry($('#card_month').val(), $('#card_year').val()), "Expiration date", "Card expiration is invalid", "card_month")
+    errors.push formElement($.payment.validateCardCVC($('#cvv').val()), "CVV", "CVV is invalid", 'cvv')
+    errors.push requiredElement('name', 'Name')
   errors.push requiredElement('email', 'Email')
   if $('#password').length > 0
     errors.push requiredElement('password', 'Password')
@@ -111,14 +128,12 @@ window.registerCheckoutHooks = ()->
   textbox.payment('formatCardNumber')
   $('#cvv').payment('formatCardCVC')
 
-  # $('#submit_button').click (e)->
-  #  if formValidates() == true
-  #    console.log("Form validates!")
-  #    $('#submit_button').attr("disabled", "disabled")
-  #    $('form').submit()
-  #  else
-  #    console.log("Form does not validate!")
-  #  return true
+  $('#submit_button').click (e)->
+    check_fields()
+    if formValidates() == true
+      return true
+    else
+      return false
 
 
 

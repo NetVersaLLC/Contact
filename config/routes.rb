@@ -33,7 +33,9 @@ Contact::Application.routes.draw do
     :action => :tada,
     :as => 'tada'
 
-  resources :businesses
+  resources :businesses do 
+    resources :notifications 
+  end 
   get     '/report(.:format)', :controller => :businesses, :action => :report
 
   resources :results
