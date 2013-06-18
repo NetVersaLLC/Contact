@@ -63,4 +63,9 @@ FactoryGirl.define do
     package_id 1
     monthly_fee 20
   end
+
+  factory :transaction_event do
+    :label_id 2
+    :package_id 5
+  end
 end 
