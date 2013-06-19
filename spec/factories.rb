@@ -65,7 +65,7 @@ FactoryGirl.define do
   end
 
   factory :transaction_event do
-    :label_id 2
-    :package_id 5
+    label_id 2
+    package_id 5
   end
 end 

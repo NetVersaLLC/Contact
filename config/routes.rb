@@ -33,8 +33,11 @@ Contact::Application.routes.draw do
     :action => :tada,
     :as => 'tada'
 
+  resources :notifications 
+
   resources :businesses do 
-    resources :notifications 
+    resources :codes
+    resources :notifications
   end 
   get     '/report(.:format)', :controller => :businesses, :action => :report
 
