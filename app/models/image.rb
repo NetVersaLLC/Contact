@@ -1,7 +1,7 @@
 class Image < ActiveRecord::Base
   has_attached_file :data, :styles => { :thumb => '100x100>', :medium => '240x240>' }
   attr_accessor :thumb, :medium, :url
-
+  validates_attachment :data, :content_type => { :content_type => /^image\/(png|gif|jpeg)/ }
   belongs_to :business 
   belongs_to :business_form_edit # this is usually temporary 
 
