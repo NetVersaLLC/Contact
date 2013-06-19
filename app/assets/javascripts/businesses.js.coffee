@@ -135,7 +135,7 @@ $ ->
     validate_use_error_msg: false,
     shrink_step_names: false,
     validate_next_step: true, 
-    ignore_errors_on_next: true,
+    ignore_errors_on_next: false,
 
     ###steps_show: () -> 
       cur_step = $(this) 
