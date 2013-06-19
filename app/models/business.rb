@@ -16,6 +16,7 @@ class Business < ActiveRecord::Base
   has_many :jobs, :order => "position"
   has_many :failed_jobs, :order => "position"
   has_many :completed_jobs, :order => "position"
+  has_many :codes
   belongs_to :user
   belongs_to :subscription
   belongs_to :label
