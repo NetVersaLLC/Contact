@@ -223,6 +223,5 @@ $ ->
       $(this).css "border-color","#CCCCCC"
 
   $('#client_checked_in').click ->
-    $('.progressImg').show()
-    $(this).addClass('disabled')
+    $('.doneImg').css "visibility","visible"
     has_client_checked_in()

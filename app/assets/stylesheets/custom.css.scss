@@ -163,6 +163,5 @@ abbr[title] {
 .star_required span{color:red;font-size: 20px;}
   
 .site-combo {margin-left:40px;float:left;}
-.doneLnk {float: left;margin-left: 645px;margin-top: -6px;position: absolute;}
-.progressImg {float: left;display:none;margin-left: 610px;margin-top: 5px;position: absolute;}
-.doneLnk a.disabled {opacity: 0.5;pointer-events: none;cursor: default;}
+.doneProcess {margin-top: -6px;text-align: right;width: 90%;float:left;}
+.doneImg{visibility:hidden;}

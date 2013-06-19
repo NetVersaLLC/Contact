@@ -39,10 +39,10 @@
         %h5 3. Follow the Setup Instruction
         %p Click Next to complete the setup. 
 
-  
-  %span(class="progressImg")
-    = image_tag("processing.gif")
-  %span(class="doneLnk")  
-    %a.btn.btn-warning.btn-large{:id => "client_checked_in"} I'm Done
+  %div(class="doneProcess")
+    %div(class="doneLnk")  
+      %span(class="doneImg")
+        = image_tag("processing.gif")    
+      %a.btn.btn-warning.btn-large{:id => "client_checked_in"} I'm Done
     
   
