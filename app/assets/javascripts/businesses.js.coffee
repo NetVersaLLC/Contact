@@ -158,14 +158,9 @@ $ ->
       console.log "validation #{cur_step.index()}" 
       console.log cur_step.attr('class')
 
-      if cur_step.index() == 0 
-        form = $('form.business')
-        form.enableClientSideValidations() 
-        form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators ) 
-
-
       # this validates the form in case they hit 'next' without entering anything. 
       form = $('form.business')
+      form.enableClientSideValidations()
       form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators ) 
       
       if cur_step.hasClass("step-visited") && cur_step.find(".error").length > 0 
