@@ -1,11 +1,11 @@
 %div 
   - if @business.is_client_downloaded
     = submit_tag "Save Changes", :class => 'btn btn-primary save-changes'
-    %a.next-button.btn Next
-    %a.back-button.btn Back
+    %a.next-button.btn.btn-large.btn-primary Next
+    %a.back-button.btn.btn-large.btn-primary Back
   - else 
-    %a.next-button.btn Next
-    %a.back-button.btn Back
+    %a.next-button.btn.btn-large.btn-primary Next
+    %a.back-button.btn.btn-large.btn-primary Back
 -#
   %section{:id => 'section-save'}
   = @f.actions do
