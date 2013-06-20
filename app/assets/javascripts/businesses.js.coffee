@@ -88,7 +88,6 @@ window.selectTab = (idx) =>
   $('.steps-transformed .step-title').addClass('disabled')
   $('.steps-transformed .step-title:eq('+idx+')').removeClass('disabled btn-success')
   $('.steps-transformed .step-content').hide()
-  
   g_is_looping = true
   $('.steps-transformed .step-title:lt('+(idx)+')').each ->
     cur_step = $(this)
@@ -164,14 +163,14 @@ $ ->
         form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators ) 
 
 
-      # this validates the form in case they hit 'next' without entering anything. 
+      # this validates the form in case they hit 'next' without entering anything.
       form = $('form.business')
       form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators ) 
       
       if cur_step.hasClass("step-visited") && cur_step.find(".error").length > 0 
         scrollToFirstError() if cur_step.hasClass("step-active") 
         return 'error' 
-      
+      form.resetClientSideValidations()
       if cur_step.hasClass("step-active")
         save_edits()
         create_business() if cur_step.hasClass('pstep6') and $("#new_business").length > 0
