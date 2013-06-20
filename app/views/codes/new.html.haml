@@ -15,8 +15,11 @@
           You will need to answer this number immediately after you click 
           %strong "Start Call"
           so be sure you phone is nearby and available. 
-      %button.btn{type: 'button'} Start Call
-    #code-step-2{:style => 'visibility: hidden'} 
+      %form{id: 'phone_verification_job_data'} 
+        =hidden_field_tag :business_id, @code.business_id 
+        =hidden_field_tag :name, "#{@code.site_name.capitalize}/Verify"
+        %button.btn{id: 'start_call', type: 'button'} Start Call
+    #code-step-2{:style => 'display: none;'}
       .code-box 
         %h3 Call incoming!
         %p You should receive a call within 5-10 minues. When you receive the call enter the code provided on the call in the box below.  If the call does not come or you are not able to answer then this page will automatically be returned to the dashboard and you can retry phone verification again.
@@ -25,8 +28,8 @@
         %h3 Calling #{@code.business.local_phone}
         %p Wait for the call, please enter the code in the box below. 
 
-
-      %form.form-inline
-        =text_field_tag :code 
-        =button_tag 'Verify', :type => 'button', :class => 'btn' 
+      = form_for [:business, @code], :html => { class: 'form-inline'} do |f|
+        =f.text_field :code 
+        =f.hidden_field :site_name 
+        =f.button "Verify", :class=>'btn' 
 
