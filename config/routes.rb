@@ -36,9 +36,11 @@ Contact::Application.routes.draw do
   resources :notifications 
 
   resources :businesses do 
-    resources :codes
+    resources :codes 
     resources :notifications
   end 
+  get     '/codes/:business_id/:site_name(.:format)', :action=>"site_code", :controller=>"codes" 
+
   get     '/report(.:format)', :controller => :businesses, :action => :report
 
   resources :results
