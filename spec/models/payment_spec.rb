@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Payment do}
+describe Payment do
 	it { should have_many :transaction_events}
 	it { should belong_to :label }
 	it { should belong_to :business }
