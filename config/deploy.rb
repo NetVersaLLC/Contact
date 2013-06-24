@@ -54,7 +54,7 @@ task :staging do
   staging_prompt
   set  :rails_env ,'production'
   set  :branch    ,'staging'
-  set  :host      ,'ec2-54-226-43-220.compute-1.amazonaws.com'
+  set  :host      ,'ec2-174-129-121-33.compute-1.amazonaws.com'
   role :app       ,host
   role :web       ,host
   role :db        ,host, :primary => true
