@@ -59,7 +59,7 @@ describe Business do
 		it { should validate_presence_of(:year_founded) }
 	end
 
-	describe "Unvalidated Attributes" do
+	describe "Attributes Without Validation" do
 
 		its(:crunchbases_attributes) 		{ should be_present }
 		its(:listwns_attributes) 				{ should be_present }
@@ -174,5 +174,4 @@ describe Business do
 		it { should respond_to(:strip_blanks) }
 		it { should respond_to(:time_cannot_be_same) }
 	end
-
 end
