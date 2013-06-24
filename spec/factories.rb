@@ -48,8 +48,24 @@ FactoryGirl.define do
     monthly_fee 19 
     label 
   end 
+
   factory :coupon do 
     percentage_off 100
     label 
   end 
+
+  factory :payment do
+    label_id 1
+  end
+
+  factory :subscription do
+    label_id 5
+    package_id 1
+    monthly_fee 20
+  end
+
+  factory :transaction_event do
+    label_id 2
+    package_id 5
+  end
 end 

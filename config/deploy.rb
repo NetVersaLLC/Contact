@@ -44,7 +44,7 @@ task :production do
   production_prompt
   set  :rails_env ,'production'
   set  :branch    ,'production'
-  set  :host      ,'franklin.netversa.com'
+  set  :host      ,'ec2-23-22-146-4.compute-1.amazonaws.com'
   role :app       ,host
   role :web       ,host
   role :db        ,host, :primary => true

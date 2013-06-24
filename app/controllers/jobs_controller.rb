@@ -39,7 +39,7 @@ class JobsController < ApplicationController
         format.json { render json: {:error => 'Not Found'}, status: :not_found}
       end
       return
-    end
+    end    
      
       if params[:delay]
         runtime = Time.now + params[:delay].to_i*60

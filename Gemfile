@@ -77,4 +77,5 @@ gem 'daemons'
 gem 'prawn'
 gem 'user_impersonate' 
 gem 'dogapi', ">=1.3.0"
-gem 'redcarpet' 
+gem 'redcarpet'
+gem 'unicorn'

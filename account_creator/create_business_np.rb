@@ -80,6 +80,7 @@ business.contact_prefix = 'Miss.'
 business.contact_first_name = Faker::Name.first_name
 business.contact_last_name = Faker::Name.last_name
 business.local_phone = "555-555-1212"
+business.mobile_phone = business.local_phone
 
 business_hash = address
 
@@ -129,7 +130,7 @@ business.accepts_bitcoin = false
 business.business_description = "If you’ve ever been a cable customer you’ve probably had the dissatisfaction of seeing you rates go up again and again. Check us out, you wont be dissapointed."
 
 business.year_founded = Utility.generate_random_year
-business.contact_birthday = Utility.generate_birthday
+business.contact_birthday = "09/21/1975"#Utility.generate_birthday
 business.category1 = "Cable Company"
 business.category2 = "Telecommunications Contractor"
 business.category3 = "Telecommunications Service Provider"
@@ -137,6 +138,20 @@ business.category4 = "Internet Service Provider"
 business.category5 = "Telecommunications Equipment Supplier"
 business.categorized = true
 business.geographic_areas = 'Within 100 Miles'
+
+business.keywords = "Cable, Telecommunications, Service, Provider, Internet"
+business.status_message = "We're a Cable Company. Come on down and buy some Cable."
+business.services_offered = "Cable, Internet, Television"
+business.trade_license = 1
+business.trade_license_number = "19285434"
+business.trade_license_locale = business.contact_first_name
+business.trade_license_authority = Faker::Name.first_name
+business.trade_license_expiration = "09-30-2025"
+business.trade_license_description = "Telecommunications Provider Lisence"
+business.brands = "Television Cable, Internet Service, Phone Provider"
+business.tag_line = "Cable, Internet, Phone"
+business.job_titles = "Cable Company"
+business.toll_free_phone = "1:800-456-6445"
 
 business.user_id = user.id
 business.subscription_id = sub.id
