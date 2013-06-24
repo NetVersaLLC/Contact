@@ -15,21 +15,21 @@ describe Subscription do
 		subscription.should be_valid
 	end
 
-	describe '#label_id'
+	describe '#label_id' do
 		it 'is required' do
 			subscription.label_id = nil
 			subscription.should have(1).error_on(:label_id)
 		end
 	end
 
-	describe '#package_id'
+	describe '#package_id' do
 	  it 'is required' do
 	  	subscription.package_id = nil
 	  	subscription.should have(1).error_on(:package_id)
 	  end
 	end
 
-	describe '#monthly_fee'
+	describe '#monthly_fee' do
 		it 'is required' do
 			subscription.monthly_fee = nil
 			subscription.should have(1).error_on(:monthly_fee)

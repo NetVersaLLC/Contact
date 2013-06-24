@@ -12,10 +12,11 @@ describe Payment do
 		payment.should be_valid
 	end
 
-	describe '#label_id'
+	describe '#label_id' do
 	  it 'is required' do
 	  	payment.label_id = nil
 	  	article.should have(1).error_on(:label_id)
 	  end
 	end
+
 end
