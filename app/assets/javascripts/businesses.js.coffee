@@ -113,6 +113,10 @@ window.selectTab = (idx) =>
   $('.next-button').trigger 'click'
 
 $ ->
+
+  $('#edit-accounts').hide().load "/businesses/#{window.business_id}/accounts/all/edit", (evt) -> 
+    $(this).removeClass('loading-accounts') 
+
   last_index = $.cookie('last_selected_tab_index')
   
   $('#next-validation').bind 'click', ->
@@ -137,11 +141,17 @@ $ ->
     validate_next_step: true, 
     ignore_errors_on_next: true,
 
-    ###steps_show: () -> 
+    steps_show: () -> 
       cur_step = $(this) 
       console.log "show #{cur_step.index()}"
       console.log cur_step.attr('class')
-    ###
+      
+      if cur_step.index() == 6 
+        $('#edit-accounts').show() 
+      else 
+        $('#edit-accounts').hide()
+
+    
 
     steps_onload: () -> 
       cur_step = $(this)
