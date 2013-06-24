@@ -24,14 +24,14 @@ describe TransactionEvent do
 		end
 	end
 
-	describe '#label_id'
+	describe '#label_id' do
 		it 'is required' do
 			transaction.label_id = nil
 			transaction_event.should have(1).error on(:label_id)
 		end
 	end
 
-	describe '#package_id'
+	describe '#package_id' do
 		it 'is required' do
 			transaction.package_id = nil
 			transaction_event.should have(1).error on(:package_id)
