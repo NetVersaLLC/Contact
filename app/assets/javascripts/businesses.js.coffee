@@ -151,6 +151,14 @@ $ ->
       if cur_step.index() == 7 
         auto_download_client_software()
 
+      if cur_step.index() == 1
+        $('#business_mobile_phone').blur ->
+          unless $.trim(@value).length
+            if $('#business_mobile_phone_input').find('span').hasClass('error-inline')
+              $('#business_mobile_phone_input').find('span').html('<span class="error-inline help-inline">can\'t be blank</span>')
+          else
+            if $('#business_mobile_phone_input').find('span').hasClass('error-inline')
+              $('#business_mobile_phone_input').find('span').html('<span class="error-inline help-inline">Invalid format</span>')
 
     validation_rule: () -> 
       # some useful class items: step-visited step-active last-active 
