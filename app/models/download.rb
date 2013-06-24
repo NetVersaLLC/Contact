@@ -9,6 +9,7 @@ class Download < ActiveRecord::Base
     1.upto(10) do |i|
       setup += c[rand() * 26]
     end
+    setup
   end
 
   def make_setup(business_id)

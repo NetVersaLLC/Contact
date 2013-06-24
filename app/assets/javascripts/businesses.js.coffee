@@ -146,8 +146,8 @@ $ ->
     steps_onload: () -> 
       cur_step = $(this)
       $.cookie('last_selected_tab_index', cur_step.index() ) unless cur_step.index()==0
+      # $(ClientSideValidations.selectors.forms).validate()
       $('form.business').enableClientSideValidations()
-      $('form.business').resetClientSideValidations()
       if cur_step.index() == 7 
         auto_download_client_software()
 
@@ -160,33 +160,32 @@ $ ->
             if $('#business_mobile_phone_input').find('span').hasClass('error-inline')
               $('#business_mobile_phone_input').find('span').html('<span class="error-inline help-inline">Invalid format</span>')
 
-    validation_rule: () -> 
-      # some useful class items: step-visited step-active last-active 
-      cur_step = $(this) 
-      console.log "validation #{cur_step.index()}" 
+    validation_rule: () ->
+      # some useful class items: step-visited step-active last-active
+      cur_step = $(this)
+      console.log "validation #{cur_step.index()}"
       console.log cur_step.attr('class')
 
-      if cur_step.index() == 0 
+      if cur_step.index() == 0
         form = $('form.business')
-        form.enableClientSideValidations() 
-        form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators ) 
+        form.enableClientSideValidations()
+        form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators )
 
+      # this validates the form in case they hit 'next' without entering anything.
+      if $("#new_business").length == 0
+        form = $('form.business')
+        form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators )
 
-      # this validates the form in case they hit 'next' without entering anything. 
-      form = $('form.business')
-      form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators ) 
-      
       if cur_step.hasClass("step-visited") && cur_step.find(".error").length > 0 
-        scrollToFirstError() if cur_step.hasClass("step-active") 
+        scrollToFirstError() if cur_step.hasClass("step-active")
         return 'error' 
-      
+
       if cur_step.hasClass("step-active")
         save_edits()
         create_business() if cur_step.hasClass('pstep6') and $("#new_business").length > 0
 
-
-      return 'error' if cur_step.find(".error").length > 0 
-      return cur_step.hasClass("step-visited") 
+      return 'error' if cur_step.find(".error").length > 0
+      return cur_step.hasClass("step-visited")
   } ) 
 
   
