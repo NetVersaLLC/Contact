@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+  include Backburner::Performable
+  queue "user-jobs"  # defaults to 'user'
+  queue_priority 500 # most urgent priority is 0
+
   attr_accessor :temppass
   attr_accessible :callcenter
 
@@ -28,10 +32,10 @@ class User < ActiveRecord::Base
     #label.save!
   end
 
-  after_create :send_welcome
+#  after_create :send_welcome
 
-  def send_welcome
-    UserMailer.welcome_email(self).deliver
+  def self.send_welcome(user)
+    UserMailer.welcome_email(user).deliver
   end
 
   def display_name # used by activeadmin drop down 

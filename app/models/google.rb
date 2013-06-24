@@ -1,14 +1,7 @@
 class Google < ClientData
-  attr_accessible       :email
+  attr_accessible       :email,:cookies
   virtual_attr_accessor :password
   belongs_to            :google_category
-
-  validates :email,
-            :presence => true,
-            :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
-  validates :password,
-            :presence => true,
-            :format => { :with => /^\w\w\w\w\w\w\w\w+$/i }
 
   def self.make_password
     SecureRandom.urlsafe_base64(rand()*6 + 8)

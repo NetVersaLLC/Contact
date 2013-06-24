@@ -33,7 +33,15 @@ Contact::Application.routes.draw do
     :action => :tada,
     :as => 'tada'
 
-  resources :businesses
+  resources :notifications 
+
+  resources :businesses do 
+    resources :codes, :only => [:new, :create] 
+    resources :notifications
+  end 
+  get     '/codes/:business_id/:site_name(.:format)', :action=>"site_code", :controller=>"codes" 
+  post    '/codes/:business_id/:site_name(.:format)', :action=>"create",    :controller=>"codes" 
+
   get     '/report(.:format)', :controller => :businesses, :action => :report
 
   resources :results
