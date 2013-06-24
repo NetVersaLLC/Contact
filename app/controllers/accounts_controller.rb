@@ -17,4 +17,26 @@ class AccountsController < ApplicationController
 		end
 		render json: {'status' => 'success'}
 	end
+
+  def edit 
+		business = Business.find( params[:business_id] )
+		if current_user.nil? or business.user_id != current_user.id
+			redirect_to '/', :status => 403
+		else
+      @accounts = []
+      Business.sub_models.each do |model| 
+        obj = model.where(:business_id => business.id).first
+        unless obj
+          obj = model.new
+          obj.business_id = @business.id
+        end
+        @accounts << obj
+      end 
+		end
+		render "edit", layout: :none; 
+  end 
+
+  def update 
+
+  end 
 end

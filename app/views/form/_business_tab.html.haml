@@ -36,11 +36,12 @@
         .step-content= render :partial => 'form/hours_and_payment'
         .step-content= render :partial => 'form/company_description'
         .step-content= render :partial => 'form/logo'
-        .step-content= render :partial => 'form/edit_accounts'
+        .step-content= #render :partial => 'form/edit_accounts'
         -unless @business.is_client_downloaded
           .step-content= render :partial => 'form/download_client'
         = render :partial => 'form/submit', :locals => { :f => f }
-        
+#edit-accounts        
+
 :javascript
   var $poped = $("#business_business_mobile_appears_true, #business_business_mobile_appears_false, #business_mobile_appears_true, #business_alternate_phone, #business_mobile_phone, #business_business_name, #business_corporate_name, #business_local_phone, #business_toll_free_phone, #business_fax_number, #business_zip, #business_business_description, #business_keywords, #business_status_message, #business_services_offered, #business_trade_license, #business_trade_license_number, #business_trade_license_locale, #business_trade_license_authority, #business_trade_license_expiration, #business_trade_license_description, #business_brands, #business_tag_line, #business_job_titles, #business_professional_associations, #business_geographic_areas, #business_year_founded, #business_company_website, #business_category1, #business_category2, #business_category3, #business_category4")
   $poped.popover({html: true});
