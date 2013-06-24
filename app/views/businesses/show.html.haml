@@ -19,18 +19,26 @@
           %a{:href => "'mailto:#{@business.user.email}"}=@business.user.email
           %br
         = link_to 'Edit This Business', edit_business_path(@business), :class => 'btn btn-info'
-      %a.business-button{:href => "/downloads/#{@business.id}"} 
+        = link_to 'Edit Subscription', edit_subscription_path(@business), :class => 'btn btn-info'
+      %a.business-button{:href => "/downloads/#{@business.id}"}
         =image_tag('icon-person.png')
         Download Software
 
     .span6
       .business-info
         .pending
-          %h3 Items Pending Action 
-          %h1.counter= @job_count
+          %h3 
+            %a(href="#myModal" role="button" data-toggle="modal" data-remote="#{business_notifications_path(@business)}"  )
+              Items Pending Action 
+          %h1.counter= @business.notifications.count #@job_count
       %a.business-button{:href => "/report.pdf?business_id=#{@business.id}"}
         =image_tag('icon-report.png')
         View Report
+
+      .modal.hide.fade#myModal{ tabindex: "-1", role: "dialog", 'aria-labelledby'=> "myModalLabel", 'aria-hidden'=> "true", data: {backdrop: 'true' } } 
+        .modal-header.notification-modal-header
+          %button.close{ type:"button", data: {dismiss:"modal"}, 'aria-hidden' => "true"}× 
+        .modal-body
 
 -#  .span4
 -#    %h3 Social Update

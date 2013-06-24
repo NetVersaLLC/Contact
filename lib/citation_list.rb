@@ -91,7 +91,9 @@
   ['Google', 'googles',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'google_category'],
+      ['text', 'cookies']
     ],
       'Google'
   ],
@@ -516,6 +518,16 @@
       ['select', 'ziplocal_category']
     ],
       'Ziplocal'
+  ], 
+  ['Facebook', 'facebooks',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'facebook_category'],
+      ['select', 'facebook_profile_category']
+
+    ],
+      'Facebook'
   ]
 ]
 

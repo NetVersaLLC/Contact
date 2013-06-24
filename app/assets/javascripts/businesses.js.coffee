@@ -146,8 +146,8 @@ $ ->
     steps_onload: () -> 
       cur_step = $(this)
       $.cookie('last_selected_tab_index', cur_step.index() ) unless cur_step.index()==0
-      $('form.business').enableClientSideValidations() 
-      
+      $('form.business').enableClientSideValidations()
+      $('form.business').resetClientSideValidations()
       if cur_step.index() == 7 
         auto_download_client_software()
 
