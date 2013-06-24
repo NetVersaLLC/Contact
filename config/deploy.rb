@@ -52,9 +52,9 @@ end
 
 task :staging do
   staging_prompt
-  set  :rails_env ,'staging'
+  set  :rails_env ,'production'
   set  :branch    ,'staging'
-  set  :host      ,'ec2-54-226-43-220.compute-1.amazonaws.com'
+  set  :host      ,'ec2-174-129-121-33.compute-1.amazonaws.com'
   role :app       ,host
   role :web       ,host
   role :db        ,host, :primary => true
@@ -104,8 +104,9 @@ end
 
 after "deploy:finalize_update" do
   run ["ln -nfs #{shared_path}/config/application.yml #{release_path}/config/application.yml",
-    "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml",
-      ].join(" && ")
+       "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml",
+       "ln -nfs #{shared_path}/config/unicorn.rb #{release_path}/config/unicorn.rb"
+  ].join(" && ")
 end
 
 task :after_update_code do
