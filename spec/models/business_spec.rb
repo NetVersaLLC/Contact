@@ -60,6 +60,7 @@ describe Business do
 	end
 
 	describe "Unvalidated Attributes" do
+
 		its(:crunchbases_attributes) 		{ should be_present }
 		its(:listwns_attributes) 				{ should be_present }
 		its(:supermedia_attributes) 		{ should be_present }
@@ -151,6 +152,7 @@ describe Business do
 	end
 
 	describe "Respond to" do
+
 		it { should respond_to(:birthday) }
 		it { should respond_to(:checkin) }
 		it { should respond_to(:complete_failed_job_hash) }		
@@ -172,4 +174,5 @@ describe Business do
 		it { should respond_to(:strip_blanks) }
 		it { should respond_to(:time_cannot_be_same) }
 	end
+
 end
