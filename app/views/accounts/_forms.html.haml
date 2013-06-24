@@ -1,0 +1,93 @@
+.site-accounts
+  .site-combo
+    = select_tag "account_id", options_for_select(@accounts.collect {|r| [r.name, r.name]})
+  - @accounts.each do |account|
+    .site-account{:style=>"width: 300px; display: none; ", :id => account.first}
+      =semantic_form_for account do |f|
+        %input{:type=>:hidden, :name=>'model', :value=>account.class}
+        %input{:type=>:hidden, :name=>'business_id', :value=>@business.id}
+        .row-fluid
+          .span2
+            %a.btn.btn-prev{:href => '#'}
+              %i.icon-arrow-left
+          .span8.site-name{:style=>"text-align: center;"}=account.name
+          .span2
+            %a.btn.btn-next.pull-right{:href => '#'}
+              %i.icon-arrow-right
+        .row-fluid
+          .span12
+            .well
+              %label
+                %span.pf-label
+                  - if account[2][0][1] == 'email'
+                    - valid_fld = 'Email'
+                  - else
+                    - valid_fld = 'Username'
+                  = valid_fld  
+                                    
+              %input.pf-field{:name => "account["+valid_fld.downcase+"]", :type => "text", :placeholder => valid_fld, :value => "", :readonly => true }/
+              %label
+                %span.pf-label Password
+              %input.pf-field{:name => "account[password]", :type => "password", :placeholder => 'Password' }/
+              - if account[2][2]
+                - valid_fld1 = account[2][2][1] == "secret_answer" ? "Secret answer" : "Category"
+                %label
+                  %span.pf-label= valid_fld1 
+                - if account[2][2][0] == 'text'
+                  %input.pf-field{:name => "account["+account[2][2][1]+"]", :type => "text", :placeholder => valid_fld1 }/
+                - elsif account[2][2][0] == 'select'
+                  = select_tag "account[#{account[1].singularize}_category_id]", options_for_select(account[2][2][1].capitalize.camelize.constantize.all.collect {|r| [r.name, r.id]})
+              
+              %label
+                %span.pf-label Do Not Sync
+              %input.pf-field{:name => "username", :type => "checkbox" }/
+              %br/
+              =#f.submit 'Save', :class=>'btn btn-save btn-primary pull-right'
+              =button_tag 'Save', :class=>'btn btn-save btn-primary pull-right'
+              .clearfix
+
+:javascript
+  $('.site-accounts .site-account:first').show();
+  $('.site-account .btn-prev').on('click', function(){
+    var _this=$('.site-account:visible'), _prev=$('.site-account:visible').prev();
+    if(_this.index()==0)return;
+    _this.fadeOut(1, function(){
+       $('#account_id').val(_prev.attr('id'));
+      _prev.show();
+    });
+  });
+  
+  $('#account_id').change(function() {
+    
+    var _this=$('.site-account:visible'), _prev=$('#'+this.value);
+    if(_this.index()==0)return;
+    _this.fadeOut(1, function(){
+      _prev.show();
+    });    
+  });
+
+  $('.site-account .btn-next').on('click', function(){
+    var _this=$('.site-account:visible'), _next=$('.site-account:visible').next();
+    if(_this.index()==$('.site-account').size()-1)return;
+    _this.fadeOut(1, function(){
+       $('#account_id').val(_next.attr('id'));
+      _next.show();
+    });
+  });
+
+  $('.site-account form').submit(function(){
+    var _this = this;
+    $('.btn-save', _this).prop('disabled', true);
+    $(".ajax-progress").show();
+    $.ajax({ 
+      data: $(this).serialize(),
+      url: this.action,
+      type: 'post',
+      success: function(res){
+        $(".ajax-progress").hide();
+        $('.btn-save', _this).prop('disabled', false);
+      }
+    });
+    return false;
+  });
+
