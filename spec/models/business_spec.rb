@@ -62,93 +62,93 @@ describe Business do
 	describe "Attributes Without Validation" do
 
 		its(:crunchbases_attributes) 		{ should be_present }
-		its(:listwns_attributes) 				{ should be_present }
+		its(:listwns_attributes) 		{ should be_present }
 		its(:supermedia_attributes) 		{ should be_present }
 		its(:localpages_attributes) 		{ should be_present }
 		its(:localcensus_attributes) 		{ should be_present }
-		its(:yippies_attributes) 				{ should be_present }
-		its(:usyellowpages_attributes) 	{ should be_present }
-		its(:manta_attributes) 					{ should be_present }
+		its(:yippies_attributes) 		{ should be_present }
+		its(:usyellowpages_attributes) 		{ should be_present }
+		its(:manta_attributes) 			{ should be_present }
 
-		its(:duns_number) 							{ should be_present }  
-		its(:sic_code) 									{ should be_present }  
-		its(:contact_prefix) 						{ should be_present }  
-		its(:contact_middle_name) 			{ should be_present }  
+		its(:duns_number) 			{ should be_present }  
+		its(:sic_code) 				{ should be_present }  
+		its(:contact_prefix) 			{ should be_present }  
+		its(:contact_middle_name) 		{ should be_present }  
 
-		its(:mobile_appears) 						{ should be_present }  
-		its(:address) 									{ should be_present }  
-		its(:address2) 									{ should be_present }  
-		its(:city) 											{ should be_present }  
-		its(:state) 										{ should be_present }  
-		its(:open_24_hours) 						{ should be_present }  
-		its(:open_by_appointment) 			{ should be_present }
+		its(:mobile_appears) 			{ should be_present }  
+		its(:address) 				{ should be_present }  
+		its(:address2) 				{ should be_present }  
+		its(:city) 				{ should be_present }  
+		its(:state) 				{ should be_present }  
+		its(:open_24_hours) 			{ should be_present }  
+		its(:open_by_appointment) 		{ should be_present }
 
-		its(:monday_enabled) 						{ should be_present }  
-		its(:tuesday_enabled) 					{ should be_present }  
-		its(:wednesday_enabled) 				{ should be_present }  
-		its(:thursday_enabled) 					{ should be_present }  
-		its(:friday_enabled) 						{ should be_present }  
-		its(:saturday_enabled) 					{ should be_present }  
-		its(:sunday_enabled) 						{ should be_present }  
+		its(:monday_enabled) 			{ should be_present }  
+		its(:tuesday_enabled) 			{ should be_present }  
+		its(:wednesday_enabled) 		{ should be_present }  
+		its(:thursday_enabled) 			{ should be_present }  
+		its(:friday_enabled) 			{ should be_present }  
+		its(:saturday_enabled) 			{ should be_present }  
+		its(:sunday_enabled) 			{ should be_present }  
 
-		its(:monday_open) 							{ should be_present }  
-		its(:monday_close) 							{ should be_present }  
-		its(:tuesday_open) 							{ should be_present }  
-		its(:tuesday_close) 						{ should be_present }  
-		its(:wednesday_open) 						{ should be_present }  
-		its(:wednesday_close) 					{ should be_present }  
-		its(:thursday_open) 						{ should be_present }  
-		its(:thursday_close) 						{ should be_present }  
-		its(:friday_open) 							{ should be_present }  
-		its(:friday_close) 							{ should be_present }  
-		its(:saturday_open) 						{ should be_present }  
-		its(:saturday_close)						{ should be_present }  
-		its(:sunday_open) 							{ should be_present }  
-		its(:sunday_close) 							{ should be_present }  
+		its(:monday_open) 			{ should be_present }  
+		its(:monday_close) 			{ should be_present }  
+		its(:tuesday_open) 			{ should be_present }  
+		its(:tuesday_close) 			{ should be_present }  
+		its(:wednesday_open) 			{ should be_present }  
+		its(:wednesday_close) 			{ should be_present }  
+		its(:thursday_open) 			{ should be_present }  
+		its(:thursday_close) 			{ should be_present }  
+		its(:friday_open) 			{ should be_present }  
+		its(:friday_close) 			{ should be_present }  
+		its(:saturday_open) 			{ should be_present }  
+		its(:saturday_close)			{ should be_present }  
+		its(:sunday_open) 			{ should be_present }  
+		its(:sunday_close) 			{ should be_present }  
 
-		its(:accepts_cash) 							{ should be_present }  
-		its(:accepts_checks) 						{ should be_present }  
-		its(:accepts_mastercard) 				{ should be_present }  
-		its(:accepts_visa) 							{ should be_present }  
-		its(:accepts_discover) 					{ should be_present }  
-		its(:accepts_diners) 						{ should be_present }  
-		its(:accepts_amex) 							{ should be_present }  
-		its(:accepts_paypal) 						{ should be_present }  
-		its(:accepts_bitcoin) 					{ should be_present }  
+		its(:accepts_cash) 			{ should be_present }  
+		its(:accepts_checks) 			{ should be_present }  
+		its(:accepts_mastercard) 		{ should be_present }  
+		its(:accepts_visa) 			{ should be_present }  
+		its(:accepts_discover) 			{ should be_present }  
+		its(:accepts_diners) 			{ should be_present }  
+		its(:accepts_amex) 			{ should be_present }  
+		its(:accepts_paypal) 			{ should be_present }  
+		its(:accepts_bitcoin) 			{ should be_present }  
  
- 		its(:status_message) 						{ should be_present }  
-		its(:languages) 								{ should be_present }    
-		its(:incentive_offers) 					{ should be_present }   
-		its(:category4) 								{ should be_present }  
-		its(:category5) 								{ should be_present }  
+ 		its(:status_message) 			{ should be_present }  
+		its(:languages) 			{ should be_present }    
+		its(:incentive_offers) 			{ should be_present }   
+		its(:category4) 			{ should be_present }  
+		its(:category5) 			{ should be_present }  
 
-		its(:company_website) 					{ should be_present }  
-		its(:other_social_links) 				{ should be_present }  
+		its(:company_website) 			{ should be_present }  
+		its(:other_social_links) 		{ should be_present }  
 		its(:positive_review_links) 		{ should be_present }
-		its(:links_to_photos) 					{ should be_present }  
-		its(:links_to_videos) 					{ should be_present } 
-		its(:fan_page_url) 							{ should be_present }  
+		its(:links_to_photos) 			{ should be_present }  
+		its(:links_to_videos) 			{ should be_present } 
+		its(:fan_page_url) 			{ should be_present }  
 
-		its(:specialies) 								{ should be_present }  
-		its(:professional_associations) { should be_present }  
-		its(:competitors) 							{ should be_present }  
-		its(:most_like) 								{ should be_present }  
-		its(:industry_leaders)					{ should be_present }  
+		its(:specialies) 			{ should be_present }  
+		its(:professional_associations) 	{ should be_present }  
+		its(:competitors) 			{ should be_present }  
+		its(:most_like) 			{ should be_present }  
+		its(:industry_leaders)			{ should be_present }  
 
-		its(:keyword1) 									{ should be_present }  
-		its(:keyword2) 									{ should be_present }  
-		its(:keyword3) 									{ should be_present }  
-		its(:keyword4) 									{ should be_present }  
-		its(:keyword5) 									{ should be_present }  
-
-		its(:trade_license) 						{ should be_present }  
-		its(:trade_license_number) 			{ should be_present }  
-		its(:trade_license_locale) 			{ should be_present }  
-		its(:trade_license_authority) 	{ should be_present }  
-		its(:trade_license_expiration)	{ should be_present }  
-		its(:trade_license_description) { should be_present }  
+		its(:keyword1) 				{ should be_present }  
+		its(:keyword2) 				{ should be_present }  
+		its(:keyword3) 				{ should be_present }  
+		its(:keyword4) 				{ should be_present }  
+		its(:keyword5) 				{ should be_present } 
+		
+		its(:trade_license) 			{ should be_present }  
+		its(:trade_license_number) 		{ should be_present }  
+		its(:trade_license_locale) 		{ should be_present }  
+		its(:trade_license_authority) 		{ should be_present }  
+		its(:trade_license_expiration)		{ should be_present }  
+		its(:trade_license_description) 	{ should be_present }  
   
-		its(:is_client_downloaded) 			{ should be_present }  
+		its(:is_client_downloaded) 		{ should be_present }  
 	end
 
 	describe "Respond to" do
