@@ -1,0 +1,85 @@
+.site-accounts
+  .site-combo
+    = select_tag "account_id", options_for_select(@accounts.collect {|r| [r.class.name, r.class.name]})
+  - @accounts.each do |account|
+    .site-account{:style=>"width: 300px; display: none; ", :id => account.class.name } 
+      - u = account.new_record? ? business_accounts_path(account.business, account) : business_account_path(account.business, account)
+      =semantic_form_for account, :url => u do |f|
+        = hidden_field_tag :model, account.class.name
+        =# f.hidden_field :business_id, value: f.object.business_id
+        .row-fluid
+          .span2
+            %a.btn.btn-prev{:href => '#'}
+              %i.icon-arrow-left
+          .span8.site-name{:style=>"text-align: center;"}=account.class.name
+          .span2
+            %a.btn.btn-next.pull-right{:href => '#'}
+              %i.icon-arrow-right
+        .row-fluid
+          .span12
+            .well
+              = f.inputs  do 
+                - if f.object.respond_to? :email
+                  =f.input :email, as: :email
+                - elsif f.object.respond_to? :username 
+                  =f.input :username, as: :string
+
+                - if f.object.respond_to? :password
+                  =f.input :password, as: :password 
+
+                - if f.object.respond_to? :secret_answer 
+                  =f.input :secret_answer 
+                - else 
+                  =# select_tag "account[#{account[1].singularize}_category_id]", options_for_select(account[2][2][1].capitalize.camelize.constantize.all.collect {|r| [r.name, r.id]})
+
+                = f.input :do_not_sync #, :as => :checkbox
+                %br/
+              = f.actions do 
+                =#f.submit 'Save', :class=>'btn btn-save btn-primary pull-right'
+                =button_tag 'Save', :class=>'btn btn-save btn-primary pull-right'
+
+:javascript
+  $('.site-accounts .site-account:first').show();
+  $('.site-account .btn-prev').on('click', function(){
+    var _this=$('.site-account:visible'), _prev=$('.site-account:visible').prev();
+    if(_this.index()==0)return;
+    _this.fadeOut(1, function(){
+       $('#account_id').val(_prev.attr('id'));
+      _prev.show();
+    });
+  });
+  
+  $('#account_id').change(function() {
+    
+    var _this=$('.site-account:visible'), _prev=$('#'+this.value);
+    if(_this.index()==0)return;
+    _this.fadeOut(1, function(){
+      _prev.show();
+    });    
+  });
+
+  $('.site-account .btn-next').on('click', function(){
+    var _this=$('.site-account:visible'), _next=$('.site-account:visible').next();
+    if(_this.index()==$('.site-account').size()-1)return;
+    _this.fadeOut(1, function(){
+       $('#account_id').val(_next.attr('id'));
+      _next.show();
+    });
+  });
+
+  $('.site-account form').submit(function(){
+    var _this = this;
+    $('.btn-save', _this).prop('disabled', true);
+    $(".ajax-progress").show();
+    $.ajax({ 
+      data: $(this).serialize(),
+      url: this.action,
+      type: 'post',
+      success: function(res){
+        $(".ajax-progress").hide();
+        $('.btn-save', _this).prop('disabled', false);
+      }
+    });
+    return false;
+  });
+
