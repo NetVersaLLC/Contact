@@ -20,7 +20,7 @@
           %tr.timerow
             %td
               %label.checkbox
-                = @f.check_box "#{day}_enabled".to_sym,:class => "bussiness_hours_checkbox"
+                = @f.check_box "#{day}_enabled".to_sym,:class => "bussiness_hours_checkbox", :checked => true
                 = day.capitalize
             %td
               = select_tag "business[#{day}_open]".to_sym, options_for_select(Business.list_times, @business.send("#{day}_open")), :class => 'timeitem'
