@@ -29,9 +29,6 @@
 
                 - if f.object.respond_to? :secret_answer 
                   =f.input :secret_answer 
-                - else 
-                  =# select_tag "account[#{account[1].singularize}_category_id]", options_for_select(account[2][2][1].capitalize.camelize.constantize.all.collect {|r| [r.name, r.id]})
-
                 = f.input :do_not_sync #, :as => :checkbox
                 %br/
               = f.actions do 
@@ -42,7 +39,7 @@
   $('.site-accounts .site-account:first').show();
   $('.site-account .btn-prev').on('click', function(){
     var _this=$('.site-account:visible'), _prev=$('.site-account:visible').prev();
-    if(_this.index()==0)return;
+    if(_this.index()==1)return;
     _this.fadeOut(1, function(){
        $('#account_id').val(_prev.attr('id'));
       _prev.show();
@@ -60,7 +57,7 @@
 
   $('.site-account .btn-next').on('click', function(){
     var _this=$('.site-account:visible'), _next=$('.site-account:visible').next();
-    if(_this.index()==$('.site-account').size()-1)return;
+    if(_this.index()==$('.site-account').size())return;
     _this.fadeOut(1, function(){
        $('#account_id').val(_next.attr('id'));
       _next.show();

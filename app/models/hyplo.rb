@@ -1,8 +1,8 @@
 class Hyplo < ClientData
 	attr_accessible :username, :hyplo_category_id
 	virtual_attr_accessor :password
-	validates :password,
-            :presence => true
+	#validates :password,
+  #          :presence => true
 belongs_to            :hyplo_category
 def self.check_email(business)
     @link = nil
