@@ -62,35 +62,6 @@ has_client_checked_in = () ->
       else
         window.setTimeout has_client_checked_in, 10000
 
-window.selectTab = (idx) =>
-  return
-  $('.steps-transformed .step-title').addClass('disabled')
-  $('.steps-transformed .step-title:eq('+idx+')').removeClass('disabled btn-success')
-  $('.steps-transformed .step-content').hide()
-
-  g_is_looping = true
-  $('.steps-transformed .step-title:lt('+(idx)+')').each ->
-    cur_step = $(this)
-    cur_step.addClass('btn step-visited btn-success last-active step-active disabled')
-    cur_step.prepend('<i class="icon-ok step-mark"></i>') if cur_step.find('.icon-ok').size()==0
-    cur_step.unbind().off()
-
-    return if !g_is_looping
-    form = $('form.business')
-    form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators )
-    if cur_step.hasClass("step-visited") && cur_step.find(".error").length > 0
-      scrollToFirstError() if cur_step.hasClass("step-active")
-      g_is_looping = false
-
-  $('.steps-transformed .step-content:lt('+(idx)+')').each ->
-    cur_step = $(this)
-    cur_step.addClass('step-content step-visited last-active step-active step-loaded')
-    cur_step.hide()
-    scrollToFirstError() if cur_step.hasClass("step-active step-error")
-
-  $('.back-button').trigger 'click'
-  $('.next-button').trigger 'click'
-
 $ ->
 
   $('#edit-accounts').hide().load "/businesses/#{window.business_id}/accounts/all/edit", (evt) ->
@@ -98,12 +69,12 @@ $ ->
 
   last_index = $.cookie('last_selected_tab_index')
 
-  $('.steps-transformed .step-title:lt('+(last_index)+')').each ->
+  ###  $('.steps-transformed .step-title:lt('+(last_index)+')').each ->
     cur_step = $(this)
     cur_step.addClass('btn step-visited btn-success last-active step-active disabled')
     cur_step.prepend('<i class="icon-ok step-mark"></i>') if cur_step.find('.icon-ok').size()==0
     cur_step.unbind().off()
-
+    ###
   $('.pf-form').psteps( {
     traverse_titles: 'always',
     validate_use_error_msg: false,
@@ -149,14 +120,18 @@ $ ->
         form.enableClientSideValidations()
         form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators )
 
-      if cur_step.index() == 3 && cur_step.hasClass('last-active')
-        $('#section-business-hours .alert-danger').remove() 
+      if cur_step.index() == 3 
+        if cur_step.hasClass('step-visited')
+          $('#section-business-hours .alert-danger').remove() 
 
-        if $(".bussiness_hours_checkbox").is(':checked')
-          return true
-        else 
-          $('#section-business-hours').prepend("<div class='alert alert-danger'>You must check at least one day.</div>") 
-          return 'error'
+          if $(".bussiness_hours_checkbox").is(':checked')
+            return true
+          else
+            $('#section-business-hours').prepend("<div class='alert alert-danger'>You must check at least one day.</div>") 
+            return 'error'
+        else  
+          if cur_step.hasClass('business-error') 
+            return 'error'
 
       # this validates the form in case they hit 'next' without entering anything.
       if window.is_client_downloaded == true
