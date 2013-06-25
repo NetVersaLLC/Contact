@@ -14,23 +14,6 @@ save_edits = () ->
   $.post action,
     $('form.business').serialize(),
 
-validation_check = (cur_step,event) ->
-  checked = $(".bussiness_hours_checkbox").is(':checked')
-  unless checked
-    $('#hrs_payment').addClass('btn-danger').removeClass('btn-success')
-    $('#hrs_payment .step-mark').addClass('icon-remove').removeClass('icon-ok')
-    alert "Please check at least one Business Hours."
-    event.preventDefault()
-
-validation_check_edit = (cur_step,event) ->
-  checked = $(".bussiness_hours_checkbox").is(':checked')
-  unless checked
-    $('#hrs_payment').addClass('btn-danger').removeClass('btn-success')
-    $('#hrs_payment .step-mark').addClass('icon-remove').removeClass('icon-ok')
-    alert "Please check at least one Business Hours."
-    event.preventDefault()
-    false
-
 create_business = (event) ->
   $.ajax
     type: "POST"
@@ -115,15 +98,6 @@ $ ->
 
   last_index = $.cookie('last_selected_tab_index')
 
-  $('#next-validation').bind 'click', ->
-    $('.steps-transformed .step-title:lt('+(last_index)+')').each ->
-      if $("#new_business").length > 0
-        cur_step = $(this)
-        validation_check(cur_step)
-      else if $("#edit_business_#{window.business_id}").length == 1
-        cur_step = $(this)
-        validation_check_edit(cur_step)
-
   $('.steps-transformed .step-title:lt('+(last_index)+')').each ->
     cur_step = $(this)
     cur_step.addClass('btn step-visited btn-success last-active step-active disabled')
@@ -174,6 +148,15 @@ $ ->
         form = $('form.business')
         form.enableClientSideValidations()
         form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators )
+
+      if cur_step.index() == 3 && cur_step.hasClass('last-active')
+        $('#section-business-hours .alert-danger').remove() 
+
+        if $(".bussiness_hours_checkbox").is(':checked')
+          return true
+        else 
+          $('#section-business-hours').prepend("<div class='alert alert-danger'>You must check at least one day.</div>") 
+          return 'error'
 
       # this validates the form in case they hit 'next' without entering anything.
       if window.is_client_downloaded == true
