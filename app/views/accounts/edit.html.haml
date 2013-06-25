@@ -27,7 +27,7 @@
                 - if f.object.respond_to? :password
                   =f.input :password, as: :password 
 
-                - if f.object.respond_to? :secret_answer 
+                -if false # if f.object.respond_to? :secret_answer 
                   =f.input :secret_answer 
                 = f.input :do_not_sync #, :as => :checkbox
                 %br/
