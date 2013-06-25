@@ -165,12 +165,12 @@ $ ->
 
       # this validates the form in case they hit 'next' without entering anything.
       form = $('form.business')
-      form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators ) 
-      
-      if cur_step.hasClass("step-visited") && cur_step.find(".error").length > 0 
+      form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators )
+
+      form.resetClientSideValidations()
+      if cur_step.hasClass("step-visited") && cur_step.find(".error").length > 0
         scrollToFirstError() if cur_step.hasClass("step-active") 
         return 'error' 
-      form.resetClientSideValidations()
       if cur_step.hasClass("step-active")
         save_edits()
         create_business() if cur_step.hasClass('pstep6') and $("#new_business").length > 0
