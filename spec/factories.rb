@@ -17,6 +17,7 @@ FactoryGirl.define do
     category1 'wine bar' 
     category2 'funhouse' 
     category3 'hamburgers' 
+    crunchbase_attributes 'crunchbase'
   end 
 
   factory :label do 
