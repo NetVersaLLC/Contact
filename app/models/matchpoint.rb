@@ -1,8 +1,8 @@
 class Matchpoint < ClientData
 	attr_accessible :username
 	virtual_attr_accessor :password
-	validates :password,
-            :presence => true
+#	validates :password,
+#            :presence => true
 belongs_to            :matchpoint_category
 
   def self.check_email(business)

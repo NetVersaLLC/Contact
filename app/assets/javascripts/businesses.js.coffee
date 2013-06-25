@@ -146,13 +146,15 @@ $ ->
       else 
         $('#edit-accounts').hide()
 
-    steps_onload: () ->
+      if cur_step.index() == 7 
+        auto_download_client_software()
+
+    steps_onload: () -> 
       cur_step = $(this)
       $.cookie('last_selected_tab_index', cur_step.index() ) unless cur_step.index()==0
       # $(ClientSideValidations.selectors.forms).validate()
       $('form.business').enableClientSideValidations()
-      if cur_step.index() == 7
-        auto_download_client_software()
+      
       if cur_step.index() == 1
         $('#business_mobile_phone').blur ->
           unless $.trim(@value).length

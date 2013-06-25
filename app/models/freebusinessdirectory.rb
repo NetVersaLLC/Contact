@@ -1,8 +1,8 @@
 class Freebusinessdirectory  < ClientData
 	attr_accessible :username
 	virtual_attr_accessor :password
-	validates :password,
-            :presence => true
+#	validates :password,
+#            :presence => true
 
   def self.check_email(business)
     @link = nil
