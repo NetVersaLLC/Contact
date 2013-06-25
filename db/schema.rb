@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130619204940) do
+ActiveRecord::Schema.define(:version => 20130625135020) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -250,36 +250,36 @@ ActiveRecord::Schema.define(:version => 20130619204940) do
     t.string   "zip"
     t.boolean  "open_24_hours"
     t.boolean  "open_by_appointment"
-    t.boolean  "monday_enabled"
-    t.boolean  "tuesday_enabled"
-    t.boolean  "wednesday_enabled"
-    t.boolean  "thursday_enabled"
-    t.boolean  "friday_enabled"
+    t.boolean  "monday_enabled",            :default => true
+    t.boolean  "tuesday_enabled",           :default => true
+    t.boolean  "wednesday_enabled",         :default => true
+    t.boolean  "thursday_enabled",          :default => true
+    t.boolean  "friday_enabled",            :default => true
     t.boolean  "saturday_enabled"
     t.boolean  "sunday_enabled"
-    t.string   "monday_open"
-    t.string   "monday_close"
-    t.string   "tuesday_open"
-    t.string   "tuesday_close"
-    t.string   "wednesday_open"
-    t.string   "wednesday_close"
-    t.string   "thursday_open"
-    t.string   "thursday_close"
-    t.string   "friday_open"
-    t.string   "friday_close"
+    t.string   "monday_open",               :default => "8:30AM"
+    t.string   "monday_close",              :default => "5:30PM"
+    t.string   "tuesday_open",              :default => "8:30AM"
+    t.string   "tuesday_close",             :default => "5:30PM"
+    t.string   "wednesday_open",            :default => "8:30AM"
+    t.string   "wednesday_close",           :default => "5:30PM"
+    t.string   "thursday_open",             :default => "8:30AM"
+    t.string   "thursday_close",            :default => "5:30PM"
+    t.string   "friday_open",               :default => "8:30AM"
+    t.string   "friday_close",              :default => "5:30PM"
     t.string   "saturday_open"
     t.string   "saturday_close"
     t.string   "sunday_open"
     t.string   "sunday_close"
-    t.boolean  "accepts_cash"
-    t.boolean  "accepts_checks"
-    t.boolean  "accepts_mastercard"
-    t.boolean  "accepts_visa"
-    t.boolean  "accepts_discover"
-    t.boolean  "accepts_diners"
-    t.boolean  "accepts_amex"
-    t.boolean  "accepts_paypal"
-    t.boolean  "accepts_bitcoin"
+    t.boolean  "accepts_cash",              :default => true
+    t.boolean  "accepts_checks",            :default => true
+    t.boolean  "accepts_mastercard",        :default => true
+    t.boolean  "accepts_visa",              :default => true
+    t.boolean  "accepts_discover",          :default => true
+    t.boolean  "accepts_diners",            :default => false
+    t.boolean  "accepts_amex",              :default => true
+    t.boolean  "accepts_paypal",            :default => false
+    t.boolean  "accepts_bitcoin",           :default => false
     t.text     "business_description"
     t.string   "professional_associations"
     t.string   "geographic_areas"
@@ -289,8 +289,8 @@ ActiveRecord::Schema.define(:version => 20130619204940) do
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
-    t.datetime "created_at",                                   :null => false
-    t.datetime "updated_at",                                   :null => false
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
     t.datetime "client_checkin"
     t.string   "category1"
     t.string   "category2"
@@ -818,6 +818,7 @@ ActiveRecord::Schema.define(:version => 20130619204940) do
     t.datetime "updated_at",                            :null => false
     t.integer  "google_category_id"
     t.boolean  "do_not_sync",        :default => false
+    t.text     "cookies"
   end
 
   add_index "googles", ["business_id"], :name => "index_googles_on_business_id"
@@ -923,6 +924,15 @@ ActiveRecord::Schema.define(:version => 20130619204940) do
   end
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
+
+  create_table "insiderpages", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
