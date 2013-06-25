@@ -6,6 +6,10 @@
       -if params[:delay] # came from tasks controller 
         %h1 Jobs are being processed!  
         %p This may take a few hours.  When we're finished, we'll email you a proof of submission report. 
+        %p.text-center
+          = link_to 'Take me to my dashboard', business_path(@business)
+          |
+          = link_to 'Sign Out', destroy_user_session_path, :method => :delete 
       -else 
         %h1 Congratulations!  
         %p You have successfully installed the client software. Click Sync Now above to sync your busines profile. 
