@@ -257,16 +257,16 @@ ActiveRecord::Schema.define(:version => 20130625135020) do
     t.boolean  "friday_enabled",            :default => true
     t.boolean  "saturday_enabled"
     t.boolean  "sunday_enabled"
-    t.string   "monday_open",               :default => "8:30AM"
-    t.string   "monday_close",              :default => "5:30PM"
-    t.string   "tuesday_open",              :default => "8:30AM"
-    t.string   "tuesday_close",             :default => "5:30PM"
-    t.string   "wednesday_open",            :default => "8:30AM"
-    t.string   "wednesday_close",           :default => "5:30PM"
-    t.string   "thursday_open",             :default => "8:30AM"
-    t.string   "thursday_close",            :default => "5:30PM"
-    t.string   "friday_open",               :default => "8:30AM"
-    t.string   "friday_close",              :default => "5:30PM"
+    t.string   "monday_open",               :default => "08:30AM"
+    t.string   "monday_close",              :default => "05:30PM"
+    t.string   "tuesday_open",              :default => "08:30AM"
+    t.string   "tuesday_close",             :default => "05:30PM"
+    t.string   "wednesday_open",            :default => "08:30AM"
+    t.string   "wednesday_close",           :default => "05:30PM"
+    t.string   "thursday_open",             :default => "08:30AM"
+    t.string   "thursday_close",            :default => "05:30PM"
+    t.string   "friday_open",               :default => "08:30AM"
+    t.string   "friday_close",              :default => "05:30PM"
     t.string   "saturday_open"
     t.string   "saturday_close"
     t.string   "sunday_open"
@@ -289,8 +289,8 @@ ActiveRecord::Schema.define(:version => 20130625135020) do
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
-    t.datetime "created_at",                                      :null => false
-    t.datetime "updated_at",                                      :null => false
+    t.datetime "created_at",                                       :null => false
+    t.datetime "updated_at",                                       :null => false
     t.datetime "client_checkin"
     t.string   "category1"
     t.string   "category2"
