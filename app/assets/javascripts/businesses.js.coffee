@@ -110,6 +110,7 @@ $ ->
               $('#business_mobile_phone_input').find('span').html('<span class="error-inline help-inline">Invalid format</span>')
 
     validation_rule: () ->
+      errors = 0
       # some useful class items: step-visited step-active last-active
       cur_step = $(this)
       console.log "validation #{cur_step.index()}"
@@ -123,15 +124,16 @@ $ ->
       if cur_step.index() == 3 
         if cur_step.hasClass('step-visited')
           $('#section-business-hours .alert-danger').remove() 
+          $('#section-payment-methods .alert-danger').remove() 
 
-          if $(".bussiness_hours_checkbox").is(':checked')
-            return true
-          else
+          unless $(".bussiness_hours_checkbox").is(':checked')
+            errors++
             $('#section-business-hours').prepend("<div class='alert alert-danger'>You must check at least one day.</div>") 
-            return 'error'
-        else  
-          if cur_step.hasClass('business-error') 
-            return 'error'
+          unless $('.payment_method input[type=checkbox]').is(':checked') 
+            errors++
+            $('#section-payment-methods').prepend("<div class='alert alert-danger'>You must check at least one payment method.</div>") 
+
+          return if errors then 'error' else true
 
       # this validates the form in case they hit 'next' without entering anything.
       if window.is_client_downloaded == true
