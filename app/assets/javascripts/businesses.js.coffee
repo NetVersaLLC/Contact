@@ -63,18 +63,13 @@ has_client_checked_in = () ->
         window.setTimeout has_client_checked_in, 10000
 
 $ ->
+  # existing accounts
+  $('#edit-accounts-area').load "/businesses/#{window.business_id}/accounts/all/edit"
 
-  $('#edit-accounts').hide().load "/businesses/#{window.business_id}/accounts/all/edit", (evt) ->
-    $(this).removeClass('loading-accounts')
-
+  $('form.business').enableClientSideValidations()
+  
   last_index = $.cookie('last_selected_tab_index')
 
-  ###  $('.steps-transformed .step-title:lt('+(last_index)+')').each ->
-    cur_step = $(this)
-    cur_step.addClass('btn step-visited btn-success last-active step-active disabled')
-    cur_step.prepend('<i class="icon-ok step-mark"></i>') if cur_step.find('.icon-ok').size()==0
-    cur_step.unbind().off()
-    ###
   $('.pf-form').psteps( {
     traverse_titles: 'always',
     validate_use_error_msg: false,
@@ -94,20 +89,13 @@ $ ->
       if cur_step.index() == 7 
         auto_download_client_software()
 
+      $('form.business').enableClientSideValidations()
+
     steps_onload: () -> 
       cur_step = $(this)
+      console.log "onload #{cur_step.index()}" 
       $.cookie('last_selected_tab_index', cur_step.index() ) unless cur_step.index()==0
-      # $(ClientSideValidations.selectors.forms).validate()
-      $('form.business').enableClientSideValidations()
       
-      if cur_step.index() == 1
-        $('#business_mobile_phone').blur ->
-          unless $.trim(@value).length
-            if $('#business_mobile_phone_input').find('span').hasClass('error-inline')
-              $('#business_mobile_phone_input').find('span').html('<span class="error-inline help-inline">can\'t be blank</span>')
-          else
-            if $('#business_mobile_phone_input').find('span').hasClass('error-inline')
-              $('#business_mobile_phone_input').find('span').html('<span class="error-inline help-inline">Invalid format</span>')
 
     validation_rule: () ->
       errors = 0
@@ -116,7 +104,7 @@ $ ->
       console.log "validation #{cur_step.index()}"
       console.log cur_step.attr('class')
 
-      if cur_step.index() == 0
+      if cur_step.index() == 1
         form = $('form.business')
         form.enableClientSideValidations()
         form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators )

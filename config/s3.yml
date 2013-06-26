@@ -1,0 +1,10 @@
+development: &development
+  bucket: netversa
+  access_key_id: AKIAJRZ6UXWN5H4UHV5Q
+  secret_access_key: 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
+
+test: 
+  <<: *development 
+
+production: 
+  <<: *development
