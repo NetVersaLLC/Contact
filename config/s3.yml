@@ -1,7 +1,7 @@
 development: &development
-  bucket: tpalm001
-  access_key_id: AKIAJAPFE2CWP4UGBKIQ 
-  secret_access_key: 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 
+  bucket: netversa
+  access_key_id: AKIAJRZ6UXWN5H4UHV5Q
+  secret_access_key: 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
 
 test: 
   <<: *development 
