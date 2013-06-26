@@ -7,7 +7,7 @@ describe Subscription do
 	it { should belong_to :business }
 	it { should belong_to :label }
 	it { should belong_to :package }
-	it { should belong_to :transaction_events }
+	it { should belong_to :transaction_event }
 
 	let(:subscription) { FactoryGirl.build(:subscription) }
 
@@ -36,7 +36,7 @@ describe Subscription do
 		end
 
     it 'has only numeric values' do
-   		subscription.monthly_fee = '20.00'
+   		subscription.monthly_fee = 'value'
    		subscription.should have(1).error_on(:monthly_fee)
    	end
   end
