@@ -1,0 +1,10 @@
+development: &development
+  bucket: tpalm001
+  access_key_id: AKIAJAPFE2CWP4UGBKIQ 
+  secret_access_key: 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 
+
+test: 
+  <<: *development 
+
+production: 
+  <<: *development
