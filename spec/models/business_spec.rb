@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe Business do
 	describe "Associations" do
+	  
 		it { should belong_to(:label) }
 		it { should belong_to(:subscription) }
 		it { should belong_to(:user) }
@@ -9,9 +10,9 @@ describe Business do
 		it { should have_one(:transaction_event) }
 
 		it { should have_many(:codes) }
-		it { should have_many(:completed_jobs).order('position DESC') }
-		it { should have_many(:failed_jobs).order('position DESC') }
-		it { should have_many(:jobs).order('position DESC') }
+		it { should have_many(:completed_jobs).order('position') }
+		it { should have_many(:failed_jobs).order('position') }
+		it { should have_many(:jobs).order('position') }
 		it { should have_many(:images) }
 		it { should have_many(:notifications) }
 
@@ -26,7 +27,7 @@ describe Business do
 	end
 
 	describe "Validation" do
-		let!(:business) { create(:business) }
+	  let(:business) { FactoryGirl.build(:business) }
 
 		it { should validate_presence_of(:brands) }
 		it { should validate_presence_of(:job_titles) }
@@ -40,7 +41,7 @@ describe Business do
 		it { should validate_presence_of(:category3) }
 
 		it { should validate_presence_of(:business_description) }
-		it { should ensure_length_of(:business_description).is_within(50..200) }
+		#it { should ensure_length_of(:business_description).is_within(50..200) }
 
 		it { should validate_presence_of(:business_name) }
 		it { should validate_presence_of(:corporate_name) }
@@ -61,98 +62,85 @@ describe Business do
 
 	describe "Attributes Without Validation" do
 
-		its(:crunchbases_attributes) 		{ should be_present }
-		its(:listwns_attributes) 		{ should be_present }
-		its(:supermedia_attributes) 		{ should be_present }
-		its(:localpages_attributes) 		{ should be_present }
-		its(:localcensus_attributes) 		{ should be_present }
-		its(:yippies_attributes) 		{ should be_present }
-		its(:usyellowpages_attributes) 		{ should be_present }
-		its(:manta_attributes) 			{ should be_present }
-
-		its(:duns_number) 			{ should be_present }  
-		its(:sic_code) 				{ should be_present }  
-		its(:contact_prefix) 			{ should be_present }  
-		its(:contact_middle_name) 		{ should be_present }  
-
-		its(:mobile_appears) 			{ should be_present }  
-		its(:address) 				{ should be_present }  
-		its(:address2) 				{ should be_present }  
-		its(:city) 				{ should be_present }  
-		its(:state) 				{ should be_present }  
-		its(:open_24_hours) 			{ should be_present }  
-		its(:open_by_appointment) 		{ should be_present }
-
-		its(:monday_enabled) 			{ should be_present }  
-		its(:tuesday_enabled) 			{ should be_present }  
-		its(:wednesday_enabled) 		{ should be_present }  
-		its(:thursday_enabled) 			{ should be_present }  
-		its(:friday_enabled) 			{ should be_present }  
-		its(:saturday_enabled) 			{ should be_present }  
-		its(:sunday_enabled) 			{ should be_present }  
-
-		its(:monday_open) 			{ should be_present }  
-		its(:monday_close) 			{ should be_present }  
-		its(:tuesday_open) 			{ should be_present }  
-		its(:tuesday_close) 			{ should be_present }  
-		its(:wednesday_open) 			{ should be_present }  
-		its(:wednesday_close) 			{ should be_present }  
-		its(:thursday_open) 			{ should be_present }  
-		its(:thursday_close) 			{ should be_present }  
-		its(:friday_open) 			{ should be_present }  
-		its(:friday_close) 			{ should be_present }  
-		its(:saturday_open) 			{ should be_present }  
-		its(:saturday_close)			{ should be_present }  
-		its(:sunday_open) 			{ should be_present }  
-		its(:sunday_close) 			{ should be_present }  
-
-		its(:accepts_cash) 			{ should be_present }  
-		its(:accepts_checks) 			{ should be_present }  
-		its(:accepts_mastercard) 		{ should be_present }  
-		its(:accepts_visa) 			{ should be_present }  
-		its(:accepts_discover) 			{ should be_present }  
-		its(:accepts_diners) 			{ should be_present }  
-		its(:accepts_amex) 			{ should be_present }  
-		its(:accepts_paypal) 			{ should be_present }  
-		its(:accepts_bitcoin) 			{ should be_present }  
+	it { should allow_mass_assignment_of :duns_number }  
+	it { should allow_mass_assignment_of :sic_code }  
+	it { should allow_mass_assignment_of :contact_prefix }   
+	it { should allow_mass_assignment_of :contact_middle_name }    
+	it { should allow_mass_assignment_of :alternate_phone }  
+	it { should allow_mass_assignment_of :mobile_appears }  
+	it { should allow_mass_assignment_of :address }  
+	it { should allow_mass_assignment_of :address2 }  
+	it { should allow_mass_assignment_of :city }  
+	it { should allow_mass_assignment_of :state }  
+	it { should allow_mass_assignment_of :open_24_hours }  
+	it { should allow_mass_assignment_of :open_by_appointment }  
+	it { should allow_mass_assignment_of :monday_enabled }  
+	it { should allow_mass_assignment_of :tuesday_enabled }  
+	it { should allow_mass_assignment_of :wednesday_enabled }  
+	it { should allow_mass_assignment_of :thursday_enabled }  
+	it { should allow_mass_assignment_of :friday_enabled }  
+	it { should allow_mass_assignment_of :saturday_enabled }  
+	it { should allow_mass_assignment_of :sunday_enabled }  
+	it { should allow_mass_assignment_of :monday_open }  
+	it { should allow_mass_assignment_of :monday_close }  
+	it { should allow_mass_assignment_of :tuesday_open }  
+	it { should allow_mass_assignment_of :tuesday_close }  
+	it { should allow_mass_assignment_of :wednesday_open }  
+	it { should allow_mass_assignment_of :wednesday_close }  
+	it { should allow_mass_assignment_of :thursday_open }  
+	it { should allow_mass_assignment_of :thursday_close }  
+	it { should allow_mass_assignment_of :friday_open }  
+	it { should allow_mass_assignment_of :friday_close }  
+	it { should allow_mass_assignment_of :saturday_open }  
+	it { should allow_mass_assignment_of :saturday_close }  
+	it { should allow_mass_assignment_of :sunday_open }  
+	it { should allow_mass_assignment_of :sunday_close }  
+	it { should allow_mass_assignment_of :accepts_cash }  
+	it { should allow_mass_assignment_of :accepts_checks }  
+	it { should allow_mass_assignment_of :accepts_mastercard }  
+	it { should allow_mass_assignment_of :accepts_visa }  
+	it { should allow_mass_assignment_of :accepts_discover }  
+	it { should allow_mass_assignment_of :accepts_diners }  
+	it { should allow_mass_assignment_of :accepts_amex }  
+	it { should allow_mass_assignment_of :accepts_paypal }  
+	it { should allow_mass_assignment_of :accepts_bitcoin }  
+	it { should allow_mass_assignment_of :business_description }  
+	it { should allow_mass_assignment_of :services_offered }  
+	it { should allow_mass_assignment_of :specialies }  
+	it { should allow_mass_assignment_of :professional_associations }  
+	it { should allow_mass_assignment_of :languages }  
+	it { should allow_mass_assignment_of :year_founded }  
+	it { should allow_mass_assignment_of :company_website }  
+	it { should allow_mass_assignment_of :incentive_offers }  
+	it { should allow_mass_assignment_of :links_to_photos }  
+	it { should allow_mass_assignment_of :links_to_videos }  
+	it { should allow_mass_assignment_of :category4 }  
+	it { should allow_mass_assignment_of :category5 }  
+	it { should allow_mass_assignment_of :other_social_links }  
+	it { should allow_mass_assignment_of :positive_review_links }  
+	it { should allow_mass_assignment_of :keyword1 }  
+	it { should allow_mass_assignment_of :keyword2 }  
+	it { should allow_mass_assignment_of :keyword3 }  
+	it { should allow_mass_assignment_of :keyword4 }  
+	it { should allow_mass_assignment_of :keyword5 }  
+	it { should allow_mass_assignment_of :competitors }  
+	it { should allow_mass_assignment_of :most_like }  
+	it { should allow_mass_assignment_of :industry_leaders }  
+	it { should allow_mass_assignment_of :fan_page_url }  
+	it { should allow_mass_assignment_of :status_message }  
+	it { should allow_mass_assignment_of :trade_license }  
+	it { should allow_mass_assignment_of :trade_license_number }  
+	it { should allow_mass_assignment_of :trade_license_locale }  
+	it { should allow_mass_assignment_of :trade_license_authority }  
+	it { should allow_mass_assignment_of :trade_license_expiration }  
+	it { should allow_mass_assignment_of :trade_license_description }  
+	it { should allow_mass_assignment_of :is_client_downloaded }  
  
- 		its(:status_message) 			{ should be_present }  
-		its(:languages) 			{ should be_present }    
-		its(:incentive_offers) 			{ should be_present }   
-		its(:category4) 			{ should be_present }  
-		its(:category5) 			{ should be_present }  
-
-		its(:company_website) 			{ should be_present }  
-		its(:other_social_links) 		{ should be_present }  
-		its(:positive_review_links) 		{ should be_present }
-		its(:links_to_photos) 			{ should be_present }  
-		its(:links_to_videos) 			{ should be_present } 
-		its(:fan_page_url) 			{ should be_present }  
-
-		its(:specialies) 			{ should be_present }  
-		its(:professional_associations) 	{ should be_present }  
-		its(:competitors) 			{ should be_present }  
-		its(:most_like) 			{ should be_present }  
-		its(:industry_leaders)			{ should be_present }  
-
-		its(:keyword1) 				{ should be_present }  
-		its(:keyword2) 				{ should be_present }  
-		its(:keyword3) 				{ should be_present }  
-		its(:keyword4) 				{ should be_present }  
-		its(:keyword5) 				{ should be_present } 
-		
-		its(:trade_license) 			{ should be_present }  
-		its(:trade_license_number) 		{ should be_present }  
-		its(:trade_license_locale) 		{ should be_present }  
-		its(:trade_license_authority) 		{ should be_present }  
-		its(:trade_license_expiration)		{ should be_present }  
-		its(:trade_license_description) 	{ should be_present }  
-  
-		its(:is_client_downloaded) 		{ should be_present }  
-	end
+end
 
 	describe "Respond to" do
-
+    let(:business) { FactoryGirl.build(:business) }
+    
 		it { should respond_to(:birthday) }
 		it { should respond_to(:checkin) }
 		it { should respond_to(:complete_failed_job_hash) }		

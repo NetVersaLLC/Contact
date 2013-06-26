@@ -15,7 +15,7 @@ describe Payment do
 	describe '#label_id' do
 	  it 'is required' do
 	  	payment.label_id = nil
-	  	article.should have(1).error_on(:label_id)
+	  	payment.should_not be_valid
 	  end
 	end
 
