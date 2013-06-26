@@ -1,5 +1,7 @@
 class Image < ActiveRecord::Base
-  has_attached_file :data, :styles => { :thumb => '100x100>', :medium => '240x240>' }
+  has_attached_file :data, 
+    :styles => { :thumb => '100x100>', :medium => '240x240>' } 
+
   attr_accessor :thumb, :medium, :url
 
   belongs_to :business 

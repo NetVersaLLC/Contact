@@ -39,4 +39,10 @@ Contact::Application.configure do
   config.assets.debug = true
 
   config.log_level = :debug
+
+  config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_credentials => Rails.root.join( "config", "s3.yml") 
+    }
+
 end
