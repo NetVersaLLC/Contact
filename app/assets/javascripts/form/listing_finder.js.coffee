@@ -20,6 +20,7 @@ window.selectPlace = (el)->
   $("#searchresult").hide()
   $("#pagination").hide()
   $("#display_form").show()
+  $('form.business').enableClientSideValidations()
  
   $.getJSON '/places/show.js?reference='+$(el).attr('data-reference'), (data)->
     if data['status'] == 'OK'

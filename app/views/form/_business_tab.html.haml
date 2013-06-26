@@ -38,11 +38,10 @@
         .step-content= render :partial => 'form/logo'
         /.step-content= render :partial => 'form/edit_accounts'
         .step-content#edit-accounts-area
+          %h4 Loading Accounts...
         -unless @business.is_client_downloaded
           .step-content= render :partial => 'form/download_client'
         = render :partial => 'form/submit', :locals => { :f => f }
-#edit-accounts.loading-accounts
-  Loading accounts. Please wait...
 
 :javascript
   window.is_client_downloaded = #{ @business.is_client_downloaded };
