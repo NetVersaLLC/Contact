@@ -80,6 +80,10 @@ GEM
       activesupport (>= 3.0.0)
     arel (3.0.2)
     awesome_print (1.1.0)
+    aws-sdk (1.11.3)
+      json (~> 1.4)
+      nokogiri (< 1.6.0)
+      uuidtools (~> 2.1)
     axlsx (1.3.6)
       htmlentities (~> 4.3.1)
       nokogiri (>= 1.4.1)
@@ -352,6 +356,7 @@ GEM
       raindrops (~> 0.7)
     user_impersonate (0.8.0)
       rails (~> 3.2.0)
+    uuidtools (2.1.4)
     vitelity (1.0.1)
       activesupport
       rest-client
@@ -377,6 +382,7 @@ DEPENDENCIES
   acts_as_tree
   airbrake
   awesome_print
+  aws-sdk (~> 1.11.3)
   axlsx
   backburner (~> 0.3.4)
   better_errors
