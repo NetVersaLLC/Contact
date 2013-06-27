@@ -42,7 +42,8 @@ Contact::Application.configure do
 
   config.paperclip_defaults = {
     :storage => :s3,
-    :s3_credentials => Rails.root.join( "config", "s3.yml") 
-    }
-
+    :s3_protocol => 'https',
+    :bucket => 'netversa',
+    :s3_credentials => Rails.root.join( "config", "s3.yml")
+  }
 end
