@@ -45,7 +45,7 @@ task :production do
   production_prompt
   set  :rails_env ,'production'
   set  :branch    ,'production'
-  set  :host      ,'ec2-23-22-146-4.compute-1.amazonaws.com'
+  set  :host      ,'ec2-23-22-146-4.compute-1.amazonaws.com' #'ec2-174-129-121-33.compute-1.amazonaws.com'
   role :app       ,host
   role :web       ,host
   role :db        ,host, :primary => true
@@ -55,7 +55,7 @@ task :staging do
   staging_prompt
   set  :rails_env ,'production'
   set  :branch    ,'staging'
-  set  :host      ,'ec2-174-129-121-33.compute-1.amazonaws.com'
+  set  :host      ,'staging.netversa.com'
   role :app       ,host
   role :web       ,host
   role :db        ,host, :primary => true
