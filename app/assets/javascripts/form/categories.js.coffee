@@ -10,6 +10,7 @@ window.categories = ->
       check_for_duplicates( event.currentTarget ) 
 
 check_for_duplicates = (inputElement) -> 
+  return if not inputElement.value?.length 
   existing = []
   $('.business-category').each () -> 
     if existing.indexOf( this.value ) >= 0 
