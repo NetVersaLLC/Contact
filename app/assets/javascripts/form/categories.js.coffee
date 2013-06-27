@@ -16,10 +16,11 @@ check_for_duplicates = (inputElement) ->
     if existing.indexOf( this.value ) >= 0 
       show_category_alert "You are not allowed to have duplicate category entries", inputElement 
       return false
-    existing.push this.value
+    existing.push this.value if this.value?.length
 
 
 show_category_alert = (message, inputElement) -> 
+  $(inputElement).closest('.control-group').addClass('error')
   $("#section8").prepend("<div class='alert alert-danger'>#{message}</div>") 
   inputElement.value = ""
   setTimeout( clear_category_alert, 5000) 
