@@ -81,6 +81,9 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
 
         User.send_welcome(resource) # It should be done as backburner process  as User.async.send_welcome(resource)
         if @is_checkout_session == true
+          if !@transaction.business.subscription.active || @transaction.business.subscription.active.nil?
+            Notification.add_activate_subscription @transaction.business
+          end 
           redirect_to edit_business_path(@transaction.business)
         else
           redirect_to '/resellers'

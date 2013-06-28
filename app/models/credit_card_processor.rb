@@ -95,7 +95,7 @@ class CreditCardProcessor
   #
   def monthly_recurring_charge( monthly_fee )
     if monthly_fee == 0
-      return Subscription.create( :message => "Free checkout", :status => :success, monthly_fee: monthly_fee)
+      return Subscription.create( :message => "Free checkout", :status => :success, monthly_fee: monthly_fee, :active => true )
     end 
     if !self.is_credit_card_valid? 
       return Subscription.create( :message => self.credit_card_errors, 

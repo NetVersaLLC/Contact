@@ -8,6 +8,11 @@ class BusinessesController < ApplicationController
       redirect_to new_business_path()
     elsif @businesses.count == 1
       b = @businesses.first 
+
+      if !b.subscription.active || b.subscriptioin.active.nil?
+        Notification.add_activate_subscription b
+      end 
+
       if b.is_client_downloaded
         redirect_to business_path(b) 
       else 
