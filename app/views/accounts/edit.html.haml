@@ -66,8 +66,8 @@
 
   $('.site-account form').submit(function(){
     var _this = this;
-    $('.btn-save', _this).prop('disabled', true);
     $(".ajax-progress").show();
+    $('.btn-save', _this).prop('disabled', true);
     $.ajax({ 
       data: $(this).serialize(),
       url: this.action,

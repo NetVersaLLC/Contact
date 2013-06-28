@@ -67,9 +67,9 @@ $ ->
   $('#edit-accounts-area').load "/businesses/#{window.business_id}/accounts/all/edit"
 
   $('form.business').enableClientSideValidations()
-  
-  last_index = $.cookie('last_selected_tab_index')
 
+  window.showing_tab= 0
+  
   $('.pf-form').psteps( {
     traverse_titles: 'always',
     validate_use_error_msg: false,
@@ -81,21 +81,17 @@ $ ->
       cur_step = $(this)
       console.log "show #{cur_step.index()}"
       console.log cur_step.attr('class')
-      if cur_step.index() == 6
-        $('#edit-accounts').show()
-      else 
-        $('#edit-accounts').hide()
+      window.showing_tab = cur_step.index() 
 
       if cur_step.index() == 7 
         auto_download_client_software()
 
-      $('form.business').enableClientSideValidations()
+      if cur_step.index() != 6 
+        $('form.business').enableClientSideValidations()
 
     steps_onload: () -> 
       cur_step = $(this)
       console.log "onload #{cur_step.index()}" 
-      $.cookie('last_selected_tab_index', cur_step.index() ) unless cur_step.index()==0
-      
 
     validation_rule: () ->
       errors = 0
@@ -104,7 +100,7 @@ $ ->
       console.log "validation #{cur_step.index()}"
       console.log cur_step.attr('class')
 
-      if cur_step.index() == 1
+      if cur_step.index() == 1 && window.showing_tab != 6 
         form = $('form.business')
         form.enableClientSideValidations()
         form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators )
