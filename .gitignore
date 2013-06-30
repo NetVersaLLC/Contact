@@ -104,3 +104,6 @@ capybara-*html
 vendor/extensions/**/spec/dummy
 
 captchas/uploads
+
+# Ignore Splatr.exe
+/labels/Splatr/Setup.exe
