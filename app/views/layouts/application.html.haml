@@ -38,7 +38,7 @@
           - if user_signed_in?
             %ul.nav 
               %li 
-                %a{:href => '#'}
+                = link_to edit_user_registration_path do 
                   Welcome 
                   %strong= "#{current_user.email}!"
             %ul.nav.pull-right
