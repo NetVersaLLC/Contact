@@ -15,8 +15,6 @@
           = "#{@business.city}, #{@business.state} #{@business.zip}" 
           %br
           = @business.local_phone 
-          %br 
-          %a{:href => "'mailto:#{@business.user.email}"}=@business.user.email
           %br
         = link_to 'Edit This Business', edit_business_path(@business), :class => 'btn btn-info'
         = link_to 'Edit Subscription', edit_subscription_path(@business), :class => 'btn btn-info'
