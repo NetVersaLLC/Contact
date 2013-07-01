@@ -1,7 +1,6 @@
 //= require dummy
 //= require jquery_ujs
 //= require jquery-ui
-//= require rails.validations
 //= require easypaginate
 //= require bootstrap.min
 //= require businesses
@@ -11,6 +10,8 @@
 //= require jquery.cookie
 //= require purl
 //= require checkout
+//= require rails.validations
 
 //= require custom
 //= require codes
+//
