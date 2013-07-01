@@ -44,7 +44,7 @@ class JobsController < ApplicationController
       if params[:delay]
         runtime = Time.now + params[:delay].to_i*60
       else
-        runtime = Time.now
+        runtime = Time.now - 5.hours
       end
 
     @job = Job.inject(params[:business_id], payload.payload, payload.data_generator, payload.ready, runtime)
