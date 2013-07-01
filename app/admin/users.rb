@@ -63,8 +63,8 @@ ActiveAdmin.register User do
   end
   member_action :update, :method => :put do
     @user = User.find(params[:id])
-    @user.password = params[:password]
-    @user.password_confirmation = params[:password]
+    @user.password = params[:user][:password]
+    @user.password_confirmation = params[:user][:password]
     @user.save
   end
 end
