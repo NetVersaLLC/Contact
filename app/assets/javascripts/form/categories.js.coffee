@@ -5,6 +5,12 @@ window.categories = ->
         add(data)
         $('form').resetClientSideValidations();
     change: (event, ui)-> 
+      target = event.currentTarget
+      console.log event.currentTarget
+      # these fields do not have to containg an entry (blank is ok)
+      if (target.id == 'business_category4' ||  target.id == 'business_category5') && not target.value?.length 
+        return
+
       if (ui.item == null)  # was not selected from the list 
         show_category_alert("You must select an item from the list.", event.currentTarget) 
       check_for_duplicates( event.currentTarget ) 
