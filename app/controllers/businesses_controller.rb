@@ -9,7 +9,7 @@ class BusinessesController < ApplicationController
     elsif @businesses.count == 1
       b = @businesses.first 
 
-      if !b.subscription.active || b.subscriptioin.active.nil?
+      if !b.subscription.active || b.subscription.active.nil?
         Notification.add_activate_subscription b
       end 
 
