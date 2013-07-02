@@ -11,6 +11,13 @@
       %label.control-label{ :for => :state } State
       .controls
         = select_tag :state, options_for_select(Carmen::states('US'), 'CA')
+    .span12.auto-fill
+      %h3{:style => "margin-bottom:-8px;"} Use Auto-Fill and Save Time
+      .auto-fill-text If your business is already listed in
+      %br
+      .auto-fill-text  Google Maps, you can search for it here
+      %br
+        to prepopulate parts of your profile
     .control-group
       %label.control-label{ :for => :city } City
       .controls
