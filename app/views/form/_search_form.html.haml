@@ -1,26 +1,32 @@
 #zip_search_form
   %form{:class => 'well form form-horizontal', :id => 'zipform'}
-    .control-group
-      %label.control-label{ :for => :zip } Search by Zip
-      .controls
-        .input-append
-          = text_field_tag :zip
-          %button.btn{:id => "zipsearch"} Search
-        .zipcode-error.alert-error{style:"display: none; position: absolute; font-size: 12px;text-indent: 5px; padding-right: 20px;"} The zip code is invalid.
-    .control-group
-      %label.control-label{ :for => :state } State
-      .controls
-        = select_tag :state, options_for_select(Carmen::states('US'), 'CA')
-    .control-group
-      %label.control-label{ :for => :city } City
-      .controls
-        = text_field_tag :city
-    .control-group
-      %label.control-label{ :for => :company_name } Company Name
-      .controls
-        .input-append
-          = text_field_tag :company_name
-          %button.btn{:id => :company_search, :type => 'button' } Search
-    .span{:class => "search_step",:style => "float:right;"}
-      %input.btn{:id => :skip_search, :value => "Skip this step", :type => 'button' }/
+    .span6
+      .control-group
+        %label.control-label{ :for => :zip } Search by Zip
+        .controls
+          .input-append
+            = text_field_tag :zip
+            %button.btn{:id => "zipsearch"} Search
+          .zipcode-error.alert-error{style:"display: none; position: absolute; font-size: 12px;text-indent: 5px; padding-right: 20px;"} The zip code is invalid.
+      .control-group
+        %label.control-label{ :for => :state } State
+        .controls
+          = select_tag :state, options_for_select(Carmen::states('US'), 'CA')
+      .control-group
+        %label.control-label{ :for => :city } City
+        .controls
+          = text_field_tag :city
+      .control-group
+        %label.control-label{ :for => :company_name } Company Name
+        .controls
+          .input-append
+            = text_field_tag :company_name
+            %button.btn{:id => :company_search, :type => 'button' } Search
+    .span4
+      %h3 Use Auto-Fill and Save Time
+      %p 
+        If your business is already listed in
+        Google Maps, you can search for it here
+        to prepopulate parts of your profile
+      %input.btn.btn-small{:id => :skip_search, :value => "Skip this step", :type => 'button' }/
 #business_results
