@@ -13,7 +13,7 @@ save_edits = () ->
   action = $('form.business').attr('action') + '.json'
   $.post action,
     $('form.business').serialize(),
-
+###
 create_business = (event) ->
   $.ajax
     type: "POST"
@@ -33,7 +33,7 @@ create_business = (event) ->
   action = $('form.business').attr('action') + '.json'
   $.post action,
     $('form.business').serialize(),
-
+###
 
 scrollToFirstError = () ->
   $('html,body').animate({'scrollTop':$('.error:first').offset().top-100})
@@ -130,7 +130,7 @@ $ ->
 
       if cur_step.hasClass("step-active")
         save_edits()
-        create_business() if cur_step.hasClass('pstep6') and $("#new_business").length > 0
+        #create_business() if cur_step.hasClass('pstep6') and $("#new_business").length > 0
 
       return 'error' if cur_step.find(".error").length > 0
       return cur_step.hasClass("step-visited")
