@@ -30,7 +30,8 @@ ActiveAdmin.register User do
     f.inputs "Edit User" do
       f.input :email
       f.input :authentication_token
-      f.input :password
+      f.input :password 
+      f.input :access_level, as: :select, :collection => Hash[User::TYPES.map{|k,v| [k.to_s.humanize, v]}] 
     end
     f.buttons
   end
@@ -63,8 +64,12 @@ ActiveAdmin.register User do
   end
   member_action :update, :method => :put do
     @user = User.find(params[:id])
-    @user.password = params[:user][:password]
-    @user.password_confirmation = params[:user][:password]
+    unless params[:user][:password].blank?
+      @user.password = params[:user][:password]
+      @user.password_confirmation = params[:user][:password]
+    end 
+    @user.access_level = params[:user][:access_level] 
     @user.save
+    redirect_to admin_users_path, :notice => "User updated."
   end
 end
