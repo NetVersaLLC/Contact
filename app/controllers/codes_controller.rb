@@ -24,9 +24,10 @@ class CodesController < ApplicationController
     @code.save 
 
     respond_to do |format| 
-      format.html 
+      format.html do
           flash[:notice] = 'Code saved!'
           redirect_to business_path(@code.business)
+      end
       format.json { render :nothing => true, :status => :created } 
     end 
   end 

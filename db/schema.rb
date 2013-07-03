@@ -800,6 +800,7 @@ ActiveRecord::Schema.define(:version => 20130628183335) do
     t.integer  "ziplocal_category_id"
     t.integer  "facebook_category_id"
     t.integer  "facebook_profile_category_id"
+    t.integer  "yellowtalk_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -924,15 +925,6 @@ ActiveRecord::Schema.define(:version => 20130628183335) do
   end
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
-
-  create_table "insiderpages", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "email"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
 
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
@@ -2025,6 +2017,26 @@ ActiveRecord::Schema.define(:version => 20130628183335) do
   end
 
   add_index "yellowises", ["business_id"], :name => "index_yellowises_on_business_id"
+
+  create_table "yellowtalk_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "yellowtalk_categories", ["name"], :name => "index_yellowtalk_categories_on_name"
+  add_index "yellowtalk_categories", ["parent_id"], :name => "index_yellowtalk_categories_on_parent_id"
+
+  create_table "yellowtalks", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.string   "username"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "yelp_categories", :force => true do |t|
     t.integer  "parent_id"
