@@ -88,8 +88,7 @@ $ ->
 
       if cur_step.index() == 1
         $('#business_contact_first_name').blur ->
-          unless $.trim(@value).length
-          else
+          if $.trim(@value).length
             $('form.business').resetClientSideValidations()
 
       if cur_step.index() != 6 
