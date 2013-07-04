@@ -23,6 +23,15 @@ module Business::MiscMethods
         job.save
       end
     end
+    def update_jobs
+      sub = self.subscription
+      PackagePayload.where(:package_id => sub.package_id).each do |obj|
+        payload  = Payload.new( obj.site, 'Update' )
+        job      = Job.inject(self.id, payload.payload, payload.data_generator, payload.ready)
+        job.name = "#{obj.site}/#{obj.payload}"
+        job.save
+      end
+    end
 
     def birthday
       if self.contact_birthday
