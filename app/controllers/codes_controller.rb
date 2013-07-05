@@ -32,6 +32,16 @@ class CodesController < ApplicationController
     end 
   end 
 
+  def destroy
+    @code = Code.where( :business_id => params[:business_id], :site_name => params[:site_name] ).first
+    if @code.nil? 
+      render :nothing => true, :status => :not_found
+    else 
+      @code.delete
+      render :json => @code
+    end 
+  end
+
   def site_code
     @code = Code.where( :business_id => params[:business_id], :site_name => params[:site_name] ).first
     if @code.nil? 
