@@ -1,4 +1,6 @@
 class CodesController < ApplicationController 
+  before_filter      :authenticate_user!
+  skip_before_filter :verify_authenticity_token
 
   def new 
     Code.delete_all(:business_id => params[:business_id], :site_name => params[:site_name]  ) 

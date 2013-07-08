@@ -1,6 +1,8 @@
 require 'qq_file'
 
 class ImagesController < ApplicationController
+  before_filter      :authenticate_user!
+  skip_before_filter :verify_authenticity_token
   # GET /images.json
   def index
     bid = params[:business_id] 
