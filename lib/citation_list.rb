@@ -168,13 +168,6 @@
     ],
       'Ibegin'
   ],
-  ['Findstorenearu', 'findstorenearus',
-    [
-      ['text', 'email'],
-      ['text', 'password']
-    ],
-      'Findstorenearu'
-  ],
   ['Justclicklocal', 'justclicklocals',
     [
       ['text', 'username'],
@@ -426,15 +419,7 @@
       ['select', 'uscity_category']
     ],
       'Uscity'
-  ],
-  ['Spotbusiness', 'spotbusinesses',
-    [
-      ['text', 'email'],
-      ['text', 'password'],
-      ['select', 'spotbusiness_category']
-    ],
-      'Spotbusiness'
-  ],
+  ],  
   ['Businessdb', 'businessdbs',
     [
       ['text', 'email'],
@@ -471,14 +456,6 @@
       ['text', 'secret_answer']
     ],
       'Ad Solutions YP'
-  ],
-  ['Findthebest', 'findthebests',
-    [
-      ['text', 'email'],
-      ['text', 'password'],
-      ['select', 'findthebest_category']
-    ],
-      'Find The Best'
   ],
   ['Patch', 'patches',
     [
