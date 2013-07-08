@@ -86,12 +86,10 @@ $ ->
       if cur_step.index() == 7 
         auto_download_client_software()
 
-      if cur_step.index() == 1
-        $('#business_contact_first_name').blur ->
-          if $.trim(@value).length
-            $('form.business').resetClientSideValidations()
+      if window.showing_tab == 1
+        $('#business_contact_gender').val('Male').change()
 
-      if cur_step.index() != 6 
+      if cur_step.index() != 6
         $('form.business').enableClientSideValidations()
 
     steps_onload: () -> 
