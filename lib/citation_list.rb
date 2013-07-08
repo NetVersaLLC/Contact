@@ -29,7 +29,7 @@
     ],
       'CitySquares'
   ],
-  ['Getfav', 'getfavs',
+  ['Getfave', 'getfavse',
     [
       ['text', 'email'],
       ['text', 'password']
