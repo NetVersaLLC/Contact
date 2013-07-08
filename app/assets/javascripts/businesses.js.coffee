@@ -69,7 +69,9 @@ $ ->
   $('form.business').enableClientSideValidations()
 
   window.showing_tab= 0
-  
+  step_click_count = 0
+  step_count = 0
+
   $('.pf-form').psteps( {
     traverse_titles: 'always',
     validate_use_error_msg: false,
@@ -105,9 +107,19 @@ $ ->
         form.enableClientSideValidations()
         form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators )
 
-      if cur_step.index() == 3 
+      if window.showing_tab == 2 && step_click_count == 0
         if cur_step.hasClass('step-visited')
-          $('#section-business-hours .alert-danger').remove() 
+          $('form.business').resetClientSideValidations()
+          step_click_count = step_click_count + 1
+
+      if window.showing_tab == 4 && step_count == 0
+        if cur_step.hasClass('step-visited')
+          $('form.business').resetClientSideValidations()
+          step_count = step_count + 1
+
+      if cur_step.index() == 3
+        if cur_step.hasClass('step-visited')
+          $('#section-business-hours .alert-danger').remove()
           $('#section-payment-methods .alert-danger').remove() 
 
           unless $(".bussiness_hours_checkbox").is(':checked')
