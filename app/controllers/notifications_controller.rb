@@ -6,4 +6,8 @@ class NotificationsController < ApplicationController
     render 'index', layout: false
   end 
 
+  def show 
+    @notificaiton = Notification.find(params[:id]) 
+  end 
+
 end

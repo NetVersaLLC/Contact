@@ -1,4 +1,6 @@
 class GoogleCategoriesController < ApplicationController
+  before_filter      :authenticate_user!
+  # skip_before_filter :verify_authenticity_token
   def show
     query       = params[:id]
     categories  = GoogleCategory.arel_table

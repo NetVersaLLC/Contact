@@ -1,13 +1,25 @@
 ActiveAdmin.register Label do
-  menu :if => proc{ current_user.admin? }
-  scope_to :current_user
+  menu :if => proc{ current_user.admin? || current_user.reseller? }
+  #scope_to :current_user
+
+  controller do
+    def scoped_collection
+      if current_user.admin? 
+        Label.unscoped #current_user.label
+      else 
+        current_user.label.children
+      end 
+    end 
+  end 
 
   index do
     column :id
     column :name
     column :domain
-    column :login
-    column :password
+    if current_user.admin?
+      column :login
+      column :password
+    end 
     default_actions
   end
 
@@ -22,8 +34,10 @@ ActiveAdmin.register Label do
         image_tag(label.favicon.url(:thumb))
       end
       row :custom_css 
-      row :login 
-      row :password
+      if current_user.admin?
+        row :login 
+        row :password
+      end 
       row :footer
       row :parent 
       row :credits 
@@ -32,15 +46,16 @@ ActiveAdmin.register Label do
   end 
 
   form do |f|
-    label = Label.find(params[:id])
     f.inputs do
       f.input :name
       f.input :domain 
       f.input :logo, :as => :file 
       f.input :favicon, :as => :file
       f.input :custom_css # text area 
-      f.input :login 
-      f.input :password , :input_html => { :value => label.password } ,:as => :string
+      if current_user.admin?
+        f.input :login 
+        f.input :password , :input_html => { :value => f.object.password } ,:as => :string
+      end 
       f.input :footer # text area
       f.input :mail_from
     end

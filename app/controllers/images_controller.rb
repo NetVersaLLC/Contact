@@ -1,6 +1,8 @@
 require 'qq_file'
 
 class ImagesController < ApplicationController
+  before_filter      :authenticate_user!
+  skip_before_filter :verify_authenticity_token
   # GET /images.json
   def index
     bid = params[:business_id] 
@@ -57,9 +59,7 @@ class ImagesController < ApplicationController
       @response[:errors]  = @image.errors
       @response[:thumb]   = @image.data.url(:thumb)
       @response[:medium]  = @image.data.url(:medium)
-      respond_to do |format|
-        format.json { render :json => @response }
-      end
+      render :json => @response, :content_type => 'text/html' # keep IE happy. 
     else 
       respond_to do |format| 
         format.json { render :json => @response, :status => :bad_request }

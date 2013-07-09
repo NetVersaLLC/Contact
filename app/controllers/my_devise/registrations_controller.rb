@@ -77,8 +77,13 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
           set_flash_message :notice, :"signed_up_but_#{resource.inactive_message}" if is_navigational_format?
           expire_session_data_after_sign_in!
         end
-        
+  
+
+        User.send_welcome(resource) # It should be done as backburner process  as User.async.send_welcome(resource)
         if @is_checkout_session == true
+          if !@transaction.business.subscription.active || @transaction.business.subscription.active.nil?
+            Notification.add_activate_subscription @transaction.business
+          end 
           redirect_to edit_business_path(@transaction.business)
         else
           redirect_to '/resellers'
@@ -88,6 +93,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
         STDERR.puts "Errors: #{@errors.to_json}"
         STDERR.puts "Resource: #{resource.inspect}"
         clean_up_passwords resource
+        resource.delete # should be resource.destroy
         render :action=>:new
       end
     end

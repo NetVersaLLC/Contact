@@ -8,7 +8,7 @@
       - if params[:failure_reason] == :not_found_in_database 
         .controls.alert.alert-error.span4
           = "Account not registered. "
-          = link_to "Sign up here!", new_user_registration_path
+          =# link_to "Sign up here!", new_user_registration_path
       -elsif params[:failure_reason] == :invalid 
         .controls.alert.alert-error.span4
           = "Account registered. "
@@ -19,7 +19,7 @@
     = f.input :email,    hint:"Enter your email address"
     = f.input :password, hint:"Enter password"
   -if devise_mapping.rememberable?
-    = f.input :remember_me, :as => :boolean
+    = f.input :remember_me, :as => :boolean, :class => 'span4'
   = f.actions do
     = f.action :submit, :as => :button, :label => 'Sign In', :button_html => {:class => "btn btn-primary"}
 

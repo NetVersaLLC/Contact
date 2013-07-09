@@ -15,11 +15,10 @@
           = "#{@business.city}, #{@business.state} #{@business.zip}" 
           %br
           = @business.local_phone 
-          %br 
-          %a{:href => "'mailto:#{@business.user.email}"}=@business.user.email
           %br
         = link_to 'Edit This Business', edit_business_path(@business), :class => 'btn btn-info'
-      %a.business-button{:href => "/downloads/#{@business.id}"} 
+        = link_to 'Edit Subscription', edit_subscription_path(@business), :class => 'btn btn-info'
+      %a.business-button{:href => "/downloads/#{@business.id}"}
         =image_tag('icon-person.png')
         Download Software
 
@@ -38,7 +37,6 @@
         .modal-header.notification-modal-header
           %button.close{ type:"button", data: {dismiss:"modal"}, 'aria-hidden' => "true"}× 
         .modal-body
-          %p One fine body
 
 -#  .span4
 -#    %h3 Social Update

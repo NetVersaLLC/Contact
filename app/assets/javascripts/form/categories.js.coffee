@@ -1,27 +1,38 @@
 window.categories = ->
-  $('#business_category1').autocomplete
+  $('.business-category').autocomplete
     source: (req, add)->
-      $.getJSON "/google_categories/"+$('#business_category1').val(), req, (data)->
+      $.getJSON "/google_categories/"+ req.term, (data)->
         add(data)
         $('form').resetClientSideValidations();
-  $('#business_category2').autocomplete
-    source: (req, add)->
-      $.getJSON "/google_categories/"+$('#business_category2').val(), req, (data)->
-        add(data)
-        $('form').resetClientSideValidations();
-  $('#business_category3').autocomplete
-    source: (req, add)->
-      $.getJSON "/google_categories/"+$('#business_category3').val(), req, (data)->
-        add(data)
-        $('form').resetClientSideValidations();
-  $('#business_category4').autocomplete
-    source: (req, add)->
-      $.getJSON "/google_categories/"+$('#business_category4').val(), req, (data)->
-        add(data)
-  $('#business_category5').autocomplete
-    source: (req, add)->
-      $.getJSON "/google_categories/"+$('#business_category5').val(), req, (data)->
-        add(data)
+    change: (event, ui)-> 
+      target = event.currentTarget
+      console.log event.currentTarget
+      # these fields do not have to containg an entry (blank is ok)
+      if (target.id == 'business_category4' ||  target.id == 'business_category5') && not target.value?.length 
+        return
+
+      if (ui.item == null)  # was not selected from the list 
+        show_category_alert("You must select an item from the list.", event.currentTarget) 
+      check_for_duplicates( event.currentTarget ) 
+
+check_for_duplicates = (inputElement) -> 
+  return if not inputElement.value?.length 
+  existing = []
+  $('.business-category').each () -> 
+    if existing.indexOf( this.value ) >= 0 
+      show_category_alert "You are not allowed to have duplicate category entries", inputElement 
+      return false
+    existing.push this.value if this.value?.length
+
+
+show_category_alert = (message, inputElement) -> 
+  $(inputElement).closest('.control-group').addClass('error')
+  $("#section8").prepend("<div class='alert alert-danger'>#{message}</div>") 
+  inputElement.value = ""
+  setTimeout( clear_category_alert, 5000) 
+
+clear_category_alert = -> 
+  $("#section8").find("div.alert-danger").remove() 
 
 $(document).ready ->
   window.categories()

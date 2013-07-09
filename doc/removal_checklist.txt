@@ -1,0 +1,10 @@
+Instructions to Add/Remove Members
+
+Execute in reverse order for removal:
+
+1. Add to Pivotal Tracker
+2. Add to GitHub
+3. Add to Jabber Chat
+4. Add to SSH authorized_keys for development servers
+5. Add to SSH authorized_keys for staging servers
+6. Add to SSH authorized_keys for production servers

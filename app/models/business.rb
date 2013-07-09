@@ -16,6 +16,7 @@ class Business < ActiveRecord::Base
   has_many :jobs, :order => "position"
   has_many :failed_jobs, :order => "position"
   has_many :completed_jobs, :order => "position"
+  has_many :codes
   belongs_to :user
   belongs_to :subscription
   belongs_to :label
@@ -84,6 +85,7 @@ class Business < ActiveRecord::Base
   def logo
       images.where(:is_logo=>true).first
   end
+
   def label_id
     self.user.label_id
   end
@@ -104,49 +106,48 @@ class Business < ActiveRecord::Base
 
   private
 
-  def self.create_site_accounts_ex(user_id, business_id)
-    backburner_process = BackburnerProcess.find_or_create_by_user_id_and_business_id(user_id, business_id)
-    backburner_process.update_attribute(:all_processes, Business.sub_models.map{|b|b.name}.join(' ') )
+    def self.create_site_accounts_ex(user_id, business_id)
+      backburner_process = BackburnerProcess.find_or_create_by_user_id_and_business_id(user_id, business_id)
+      backburner_process.update_attribute(:all_processes, Business.sub_models.map{|b|b.name}.join(' ') )
 
-    Business.sub_models.each do |klass|
-      y = klass.new
-      STDERR.puts "Model: #{klass}"
-      STDERR.puts "Instance: #{y.inspect}"
-      y.business_id = business_id
-      y.save
-      backburner_process.update_attribute(:processed, backburner_process.processed.to_s + " #{klass}")
+      Business.sub_models.each do |klass|
+        y = klass.new
+        STDERR.puts "Model: #{klass}"
+        STDERR.puts "Instance: #{y.inspect}"
+        y.business_id = business_id
+        y.save
+        backburner_process.update_attribute(:processed, backburner_process.processed.to_s + " #{klass}")
+      end
+      Business.find(business_id).touch  # expire cache fragments
     end
-    Business.find(business_id).touch  # expire cache fragments
-  end
 
-  def delete_all_associated_records
-    jobs = self.jobs
-    completed_jobs = self.completed_jobs
-    failed_jobs = self.failed_jobs
-    notifications = self.notifications
-    images = self.images
-    self.transaction_event.destroy unless self.transaction_event.blank?
+    def delete_all_associated_records
+      jobs = self.jobs
+      completed_jobs = self.completed_jobs
+      failed_jobs = self.failed_jobs
+      notifications = self.notifications
+      images = self.images
+      self.transaction_event.destroy unless self.transaction_event.blank?
 
-    jobs.each do |job|
-      job.destroy
-    end unless jobs.blank?
+      jobs.each do |job|
+        job.destroy
+      end unless jobs.blank?
 
-    completed_jobs.each do |completed_job|
-      completed_job.destroy
-    end unless completed_jobs.blank?
+      completed_jobs.each do |completed_job|
+        completed_job.destroy
+      end unless completed_jobs.blank?
 
-    failed_jobs.each do |failed_job|
-      failed_job.destroy
-    end unless failed_jobs.blank?
+      failed_jobs.each do |failed_job|
+        failed_job.destroy
+      end unless failed_jobs.blank?
 
-    notifications.each do |notification|
-      notification.destroy
-    end unless notifications.blank?
+      notifications.each do |notification|
+        notification.destroy
+      end unless notifications.blank?
 
-    images.each do |image|
-      image.destroy
-    end unless images.blank?
-
-  end
-
+      images.each do |image|
+        image.destroy
+      end unless images.blank?
+    end
+  # end private methods
 end

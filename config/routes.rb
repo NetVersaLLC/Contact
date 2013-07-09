@@ -33,9 +33,17 @@ Contact::Application.routes.draw do
     :action => :tada,
     :as => 'tada'
 
+  resources :notifications 
+
   resources :businesses do 
-    resources :notifications 
+    resources :codes, :only => [:new, :create] 
+    resources :accounts, :only => [:edit, :update, :create]
+    resources :notifications
   end 
+  get     '/codes/:business_id/:site_name(.:format)', :action=>"site_code", :controller=>"codes" 
+  post    '/codes/:business_id/:site_name(.:format)', :action=>"create",    :controller=>"codes" 
+  delete  '/codes/:business_id/:site_name(.:format)', :action=>"destroy",    :controller=>"codes" 
+
   get     '/report(.:format)', :controller => :businesses, :action => :report
 
   resources :results
@@ -52,6 +60,7 @@ Contact::Application.routes.draw do
   get     '/jobs/list(.:format)',:controller => :jobs,   :action => :list
 
   post    '/accounts(.:format)', :controller => :accounts,   :action => :create
+
   # Bing 
   get     '/bing_category(.:format)',  :controller => :bing,   :action => :bing_category
 

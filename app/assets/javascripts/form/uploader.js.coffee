@@ -63,6 +63,9 @@ $(document).ready ->
     set_logo(e)
 
   $('#uploader').fineUploader(
+    validation: 
+      allowedExtensions: ['jpg','gif','jpeg','png','bmp']
+
     request:
       endpoint: '/images'
       params: params

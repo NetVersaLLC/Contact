@@ -1,11 +1,11 @@
 class InsiderPage < ClientData
   attr_accessible :email, :insider_page_category_id
   virtual_attr_accessor :password
-  validates :email,
-            :presence => true,
-            :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
-  validates :password,
-            :presence => true
+#  validates :email,
+#            :presence => true,
+#            :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
+#  validates :password,
+#            :presence => true
 belongs_to :insider_page_category
 
   def self.check_email(business)

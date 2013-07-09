@@ -20,6 +20,7 @@ end
 group :production do
   gem 'therubyracer'
   gem 'eventmachine'
+  gem 'unicorn'
 end
 
 group :test do
@@ -39,6 +40,7 @@ group :test, :development do
   gem 'factory_girl_rails'
 end
 
+gem "aws-sdk", "~> 1.11.3"
 gem 'nokogiri'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'

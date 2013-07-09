@@ -1,4 +1,6 @@
 class SubscriptionsController < ApplicationController
+  before_filter      :authenticate_user!
+  # skip_before_filter :verify_authenticity_token
   def index
   end
 
@@ -29,13 +31,15 @@ class SubscriptionsController < ApplicationController
     bp = BusinessProcessor.new ccp 
     
     transaction_event = bp.update_a_business( current_user, package, subscription.business )
+    business = transaction_event.business
 
     if transaction_event.status == :success
       flash[:notice] = 'Subscription updated' 
-      redirect_to business_path transaction_event.business
+      business.notifications.activate_subscription.delete_all
+      redirect_to business_path business
     else 
       flash[:alert] = "Subscription failed. #{transaction_event.message}"
-      render 'edit' 
+      redirect_to edit_subscription_path subscription.business
     end 
   end 
 
@@ -48,6 +52,7 @@ class SubscriptionsController < ApplicationController
       ccp = CreditCardProcessor.new(current_label, nil ) 
       @sub = ccp.cancel_recurring(@sub)
       if @sub.status == :cancelled 
+        Notification.add_activate_subscription business 
         flash[:alert] = "Subscription cancelled."
       else
         flash[:alert] = "Error: #{@sub.message}"
