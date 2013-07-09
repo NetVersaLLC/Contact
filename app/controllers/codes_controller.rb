@@ -1,4 +1,6 @@
 class CodesController < ApplicationController 
+  before_filter      :authenticate_user!
+  skip_before_filter :verify_authenticity_token
 
   def new 
     Code.delete_all(:business_id => params[:business_id], :site_name => params[:site_name]  ) 
@@ -24,12 +26,23 @@ class CodesController < ApplicationController
     @code.save 
 
     respond_to do |format| 
-      format.html 
+      format.html do
           flash[:notice] = 'Code saved!'
           redirect_to business_path(@code.business)
+      end
       format.json { render :nothing => true, :status => :created } 
     end 
   end 
+
+  def destroy
+    @code = Code.where( :business_id => params[:business_id], :site_name => params[:site_name] ).first
+    if @code.nil? 
+      render :nothing => true, :status => :not_found
+    else 
+      @code.delete
+      render :json => @code
+    end 
+  end
 
   def site_code
     @code = Code.where( :business_id => params[:business_id], :site_name => params[:site_name] ).first

@@ -1,4 +1,6 @@
 class PackagesController < ApplicationController
+  before_filter      :authenticate_user!
+  # skip_before_filter :verify_authenticity_token
   def index
     if current_user.reseller?
       @packages = Package.find(params[:id]).package_payloads.order("site asc")

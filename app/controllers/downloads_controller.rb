@@ -1,4 +1,6 @@
 class DownloadsController < ApplicationController
+  before_filter      :authenticate_user!
+  # skip_before_filter :verify_authenticity_token
   def download
     @business = Business.find(params[:business_id])
     if current_user.nil? or @business.user_id != current_user.id

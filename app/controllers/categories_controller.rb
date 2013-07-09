@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  before_filter      :authenticate_user!
   def index
     klass      = params[:model].constantize
     category   = klass.find(params[:id])
