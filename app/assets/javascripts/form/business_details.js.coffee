@@ -21,9 +21,9 @@ window.initMap = () =>
     prefix = $(obj.target).val()
     $('#business_contact_gender_input').removeClass('error');
     if prefix == 'Mr.'
-      $('#business_contact_gender').val('Male')
+      $('#business_contact_gender').val('Male').change()
     else if prefix == 'Mrs.' or prefix == 'Miss.' or prefix == 'Ms.'
-      $('#business_contact_gender').val('Female')
+      $('#business_contact_gender').val('Female').change()
   $('#business_address').after('<button class="btn btn-info" onclick="window.openMap();" id="mapit">Map</button>')
   $('#mapit').click (event)->
     event.preventDefault()

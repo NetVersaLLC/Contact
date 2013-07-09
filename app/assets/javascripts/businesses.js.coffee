@@ -86,9 +86,6 @@ $ ->
       if cur_step.index() == 7 
         auto_download_client_software()
 
-      if window.showing_tab == 1
-        $('#business_contact_gender').val('Male').change()
-
       if cur_step.index() != 6
         $('form.business').enableClientSideValidations()
 
