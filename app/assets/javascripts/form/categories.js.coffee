@@ -6,7 +6,6 @@ window.categories = ->
         $('form').resetClientSideValidations();
     change: (event, ui)-> 
       target = event.currentTarget
-      console.log event.currentTarget
       # these fields do not have to containg an entry (blank is ok)
       if (target.id == 'business_category4' ||  target.id == 'business_category5') && not target.value?.length 
         return

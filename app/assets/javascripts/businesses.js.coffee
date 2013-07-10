@@ -13,27 +13,6 @@ save_edits = () ->
   action = $('form.business').attr('action') + '.json'
   $.post action,
     $('form.business').serialize(),
-###
-create_business = (event) ->
-  $.ajax
-    type: "POST"
-    dataType: "text"
-    url: "/businesses.json"
-    data: $('form.business').serialize()
-    success: (data, status, response) ->
-      $('a.back-button').hide()
-      console.log data
-      window.business_id = data
-      $('#download_client').attr('href', "/downloads/#{data}")
-      auto_download_client_software()
-    error: () -> 
-      # this shouldnt happen.  client side validations should handle this
-      alert('An error occurrend creating your business profile. Please correct data and resubmit')
-
-  action = $('form.business').attr('action') + '.json'
-  $.post action,
-    $('form.business').serialize(),
-###
 
 scrollToFirstError = () ->
   $('html,body').animate({'scrollTop':$('.error:first').offset().top-100})
@@ -63,6 +42,11 @@ has_client_checked_in = () ->
         window.setTimeout has_client_checked_in, 10000
 
 $ ->
+  $('.next-button, .back-button, .step-title').click (evt) -> 
+    form = $('form.business')
+    form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators )
+    save_edits()
+
   # existing accounts
   $('#edit-accounts-area').load "/businesses/#{window.business_id}/accounts/all/edit"
 
@@ -79,8 +63,8 @@ $ ->
 
     steps_show: () ->
       cur_step = $(this)
-      console.log "show #{cur_step.index()}"
-      console.log cur_step.attr('class')
+      #console.log "show #{cur_step.index()}"
+      #console.log cur_step.attr('class')
       window.showing_tab = cur_step.index() 
 
       if cur_step.index() == 7 
@@ -89,21 +73,12 @@ $ ->
       if cur_step.index() != 6
         $('form.business').enableClientSideValidations()
 
-    steps_onload: () -> 
-      cur_step = $(this)
-      console.log "onload #{cur_step.index()}" 
-
     validation_rule: () ->
       errors = 0
       # some useful class items: step-visited step-active last-active
       cur_step = $(this)
-      console.log "validation #{cur_step.index()}"
-      console.log cur_step.attr('class')
-
-      if cur_step.index() == 1 && window.showing_tab != 6 
-        form = $('form.business')
-        form.enableClientSideValidations()
-        form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators )
+      # console.log "validation #{cur_step.index()}"
+      #console.log cur_step.attr('class')
 
       if cur_step.index() == 3 
         if cur_step.hasClass('step-visited')
@@ -119,18 +94,9 @@ $ ->
 
           return if errors then 'error' else true
 
-      # this validates the form in case they hit 'next' without entering anything.
-      if window.is_client_downloaded == true
-        form = $('form.business')
-        form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators )
-
       if cur_step.hasClass("step-visited") && cur_step.find(".error").length > 0 
         scrollToFirstError() if cur_step.hasClass("step-active")
         return 'error' 
-
-      if cur_step.hasClass("step-active")
-        save_edits()
-        #create_business() if cur_step.hasClass('pstep6') and $("#new_business").length > 0
 
       return 'error' if cur_step.find(".error").length > 0
       return cur_step.hasClass("step-visited")

@@ -16,7 +16,8 @@ window.zipSearch = (callback)->
         $('#business_results').empty()
 
 window.selectPlace = (el)->
-  $('#zipform').hide()
+  #$('#zipform').hide()
+  $('#zip_search_form').hide()
   $("#searchresult").hide()
   $("#pagination").hide()
   $("#display_form").show()
@@ -97,7 +98,8 @@ jQuery ($) ->
 
   $('#skip_search').click ->
 
-    $('#zipform').hide()
+    #$('#zipform').hide()
+    $('#zip_search_form').hide()
     $('#business_results').hide()
     $("#display_form").show()
 
