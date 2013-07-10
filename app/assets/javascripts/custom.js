@@ -6,7 +6,7 @@ ClientSideValidations.formBuilders["FormtasticBootstrap::FormBuilder"] = {
       $parent.addClass('error');
       $('<span/>').addClass('error-inline help-inline').text(message).appendTo($parent);
     } else {
-      //element.parent().find('span.help-inline').text(message);
+      element.parent().siblings('span.help-inline').text(message);
     }
   },
   remove: function (element, settings) {
