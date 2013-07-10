@@ -6,7 +6,10 @@
   = f.inputs do
     = f.input :email, placeholder:"Your email address"
     %p You only need to enter a "New Password" and confirmation if you intend to change your password.
-    = f.input :password, placeholder:"New password"
+    = f.label :password, :class => "password-field"
+    .stars-display
+      %span(style="color: red")= "*"
+    = f.input :password, placeholder:"New password", label: false
     = f.input :password_confirmation, placeholder:"Confirm new password"
     = f.input :current_password, placeholder:"Current password"
   = f.actions do
