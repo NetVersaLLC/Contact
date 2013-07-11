@@ -73,6 +73,10 @@ $ ->
       if cur_step.index() != 6
         $('form.business').enableClientSideValidations()
 
+      if cur_step.index() == 1
+        $('#business_mobile_phone').blur ->
+          $('form.business').enableClientSideValidations()
+
     validation_rule: () ->
       errors = 0
       # some useful class items: step-visited step-active last-active
