@@ -58,7 +58,7 @@ module Business::Validations
       :format => { :with => phone_regex, :message => 'Invalid format' }
     #validates :address,
     #  :presence => true
-    validates_length_of :business_description, :minimum => 50, :maximum => 200, :presence => true
+    validates :business_description, :presence => true, :length => {:minimum => 50, :maximum => 200}
     validates :geographic_areas,
       :presence => true
     validates :year_founded,

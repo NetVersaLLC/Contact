@@ -10,4 +10,3 @@ window.company_description = () ->
     need = 50 - len
     message = if need > 0 then "Need #{need} characters." else "#{len} / #{max}" 
     $('#business_business_description_input_help').text(message)
-
