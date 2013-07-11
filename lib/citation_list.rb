@@ -65,13 +65,6 @@
     ],
       'Twitter'
   ],
-  ['Facebook', 'facebooks',
-    [
-      ['text', 'email'],
-      ['text', 'password']
-    ],
-      'Facebook'
-  ],
   ['YellowBot', 'yellow_bots',
     [
       ['text', 'email'],      
