@@ -30,7 +30,7 @@ module Business::Validations
       :presence => true
     validates :business_name,
       :presence => true
-    validates :corporate_name,
+    validates :corporate_name, :length => { :maximum => 50 },
       :presence => true
     validates :zip,
       :presence => true,

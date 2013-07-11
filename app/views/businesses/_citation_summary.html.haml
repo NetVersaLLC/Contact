@@ -4,7 +4,7 @@
       .row 
         .span9
           .citation-info
-            %h1= Business.citation_list.length
+            %h1= @business.subscription.package.package_payloads.count #Business.citation_list.length
             %span ACTIVE LISTINGS 
           .citation-info
             %h1= @business.sites.length
