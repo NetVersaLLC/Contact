@@ -26,10 +26,24 @@ module Business::CitationListMethods
       hash
     end
 
+    def package_payload_sites
+      return @package_payloads if @package_payloads 
+
+      package_sites = subscription.package.package_payloads.pluck(:site)
+      citation_sites = Business.citation_list.map{|s| s[0]}
+      @package_payloads = package_sites & citation_sites
+    end 
+
+    def package_payloads_include?(site) 
+      package_payload_sites.include?(site)
+    end 
+
     def nonexistent_accounts
       list = []
       Business.citation_list.each do |site|
-        list.push site if self.send(site[1]).count == 0
+        if package_payloads_include? site[0]
+          list.push site if self.send(site[1]).count == 0
+        end
       end
       list
     end
@@ -45,7 +59,9 @@ module Business::CitationListMethods
     def sites
       list = []
       Business.citation_list.each do |site|
-        list.push site if self.send(site[1]).count > 0
+        if package_payloads_include? site[0]
+          list.push site if self.send(site[1]).count > 0
+        end 
       end
       list
     end
