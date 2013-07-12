@@ -24,9 +24,10 @@ window.initMap = () =>
       $('#business_contact_gender').val('Male').change()
     else if prefix == 'Mrs.' or prefix == 'Miss.' or prefix == 'Ms.'
       $('#business_contact_gender').val('Female').change()
-  $('#business_address').after('<button class="btn btn-info" onclick="window.openMap();" id="mapit">Map</button>')
   $('#mapit').click (event)->
+    window.openMap()
     event.preventDefault()
+
   $('#business_contact_birthday').datepicker({maxDate: '0', changeYear: true,yearRange: '1920:' + new Date().getFullYear()})
 
   params                = {}

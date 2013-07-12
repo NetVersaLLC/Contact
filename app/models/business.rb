@@ -81,6 +81,10 @@ class Business < ActiveRecord::Base
   attr_accessible :manta_attributes
   accepts_nested_attributes_for :manta, :allow_destroy => true
 
+  has_many :getfaves, :dependent => :destroy, :class_name => "Getfave"
+  attr_accessible :getfave_attributes
+  accepts_nested_attributes_for :getfaves, :allow_destroy => true
+
 
   def logo
       images.where(:is_logo=>true).first

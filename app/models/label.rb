@@ -9,6 +9,7 @@ class Label < ActiveRecord::Base
   has_many :users
   has_many :coupons
   has_many :packages
+  has_many :package_payloads
   has_many :credit_events 
 
   THEMES = %w{ ace amelia cerulean cosmo cyborg journal readable simplex slate spacelab spruce superhero united }

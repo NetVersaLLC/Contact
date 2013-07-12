@@ -65,13 +65,6 @@
     ],
       'Twitter'
   ],
-  ['Facebook', 'facebooks',
-    [
-      ['text', 'email'],
-      ['text', 'password']
-    ],
-      'Facebook'
-  ],
   ['YellowBot', 'yellow_bots',
     [
       ['text', 'email'],      
@@ -119,7 +112,8 @@
     [
       ['text', 'email'],
       ['text', 'password'],
-      ['select', 'foursquare_category']
+      ['select', 'foursquare_category'],
+      ['text', 'foursquare_page']
     ],
       'foursquare'
   ],
