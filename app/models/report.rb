@@ -8,7 +8,7 @@ class Report < ActiveRecord::Base
   def self.perform(report_id)
     report = Report.find(report_id)
     # site_list     = %w/Google Bing Yahoo Yelp Citisquare Cornerstonesworld Discoverourtown Expressbusinessdirectory Getfave Ibegin Localizedbiz Yellowee Tupalo Justclicklocal Localpages Insiderpages/
-    site_list     = %w/Google Yahoo Yelp Cornerstonesworld Discoverourtown Expressbusinessdirectory Ibegin Localizedbiz Yellowee Tupalo Localpages/
+    site_list     = %w/Google Yahoo Yelp Cornerstonesworld Discoverourtown Expressbusinessdirectory Ibegin Localizedbiz Yellowee Tupalo Localpages Getfave Uscity Insiderpages Zippro Ebusinesspages Gomylocal Uscity Kudzu Snoopitnow/
     site_list.each do |site|
       report.site = site
       scan        = Scanner.new(report)
