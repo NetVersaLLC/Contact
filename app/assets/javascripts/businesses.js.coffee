@@ -35,7 +35,6 @@ has_client_checked_in = () ->
     dataType: "text"
     url: "/businesses/client_checked_in/#{window.business_id}"
     success: (data, status, response) ->
-      console.log data
       if data == 'yes'
         window.location = "/businesses/tada/#{window.business_id}"
       else
