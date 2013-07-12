@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130715200610) do
+ActiveRecord::Schema.define(:version => 20130715202254) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -1094,8 +1094,9 @@ ActiveRecord::Schema.define(:version => 20130715200610) do
     t.integer  "localeze_category_id"
     t.text     "secrets"
     t.datetime "force_update"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+    t.boolean  "do_not_sync",          :default => false
   end
 
   add_index "localezes", ["business_id"], :name => "index_localezes_on_business_id"
@@ -1794,6 +1795,12 @@ ActiveRecord::Schema.define(:version => 20130715200610) do
 
   add_index "uscity_categories", ["name"], :name => "index_uscity_categories_on_name"
   add_index "uscity_categories", ["parent_id"], :name => "index_uscity_categories_on_parent_id"
+
+  create_table "user_agents", :force => true do |t|
+    t.string   "agent"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",        :null => false
