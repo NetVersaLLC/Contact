@@ -59,6 +59,14 @@ class User < ActiveRecord::Base
 
   before_save :ensure_authentication_token
 
+  def self.send_reset_password_instructions(attributes={})
+    s = super(attributes)
+    if s.errors.any?
+      s.errors.add(:email, "not found") unless s.valid?
+    end
+    s
+  end
+
   def to_s 
     email 
   end 
