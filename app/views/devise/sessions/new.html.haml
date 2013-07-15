@@ -15,6 +15,9 @@
         - elsif params[:user][:password] == ""
           .controls.alert.alert-error.span4
             = "Password can't be blank."
+        - elsif !params[:user][:email].match(/\A[^@]+@([^@\.]+\.)+[^@\.]+\z/.to_s)
+          .controls.alert.alert-error.span4
+            = "Email is invalid."
         - elsif params[:failure_reason] == :not_found_in_database
           .controls.alert.alert-error.span4
             = "Account not registered. "
