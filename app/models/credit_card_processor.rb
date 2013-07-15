@@ -151,22 +151,21 @@ class CreditCardProcessor
   #
   #
   def cancel_recurring( subscription ) 
+    subscription.active  = false
+    subscription.status  = :cancelled
+    subscription.message = "Subscription cancelled."
+
     response = @gateway.cancel_recurring(subscription.subscription_code)
-    if subscription.subscription_code.blank? 
-      subscription.update_attributes({status: :cancelled, active: :false} )
-      return subscription 
+    unless subscription.subscription_code.blank? 
+      response = @gateway.cancel_recurring(subscription.subscription_code)
+
+      unless response.success?
+        subscription.message = response.message
+        subscription.status  = :failed_cancellation
+      end
     end 
 
-    if response.success?
-      subscription.active  = false
-      subscription.status  = :cancelled
-      subscription.message = "Subscription cancelled."
-    else
-      subscription.message = response.message
-      subscription.status  = :failed_cancellation
-    end
-
-    subscription.save!
+    subscription.save validate: false
     subscription 
   end 
 
