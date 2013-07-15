@@ -141,3 +141,13 @@ $ ->
     else
       $(this).css "border-color","#CCCCCC"
 
+  $('#user_submit_action').on "click" , (event) ->
+    event.preventDefault()
+    if $('#user_password').val() == ""
+      $('#user_password').parents(".control-group").addClass("error")
+      $('#user_password').focus()
+    if $('#user_email').val() == ""
+      $('#user_email').parents(".control-group").addClass("error")
+      $('#user_email').focus()
+    unless ($('#user_email').val() == "") and ($('#user_password').val() == "")
+      $(this).parents("form").submit()
