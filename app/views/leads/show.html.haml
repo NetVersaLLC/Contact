@@ -1,0 +1,9 @@
+%form{:action => 'http://reports.savilo.com/TownCenter/leads.php', :method => :post}
+  %input{:type => :text, :name => :phone, :value => '', :placeholder => 'Phone'}
+  %input{:type => :text, :name => :zip, :value => '', :placeholder => 'Zip'}
+  %input{:type => :text, :name => :business_name, :value => '', :placeholder => 'Business Name'}
+  %input.btn.btn-info.btn-large{:type => :submit, :value => 'Submit Scan'}
+
+%form{:action => '/leads', :method => :post}
+  = select_tag "business_id", options_for_select(@business_ids)
+  %input.btn.btn-info.btn-large{:type => :submit, :value => 'Submit Full Business'}

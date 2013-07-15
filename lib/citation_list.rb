@@ -499,6 +499,27 @@
 
     ],
       'Facebook'
+  ],
+  ['Mywebyellow', 'mywebyellows',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+    ],
+      'Mywebyellow'
+  ],
+  ['Hotfrog', 'hotfrogs',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+    ],
+      'Hotfrog'
+  ],
+  ['Localeze', 'localezes',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+    ],
+      'Localeze'
   ]
 ]
 

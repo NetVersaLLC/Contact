@@ -2,6 +2,11 @@ module Business::MiscMethods
   extend ActiveSupport::Concern
   included do
 
+    def post_to_leadtrac
+      lead = Lead.new(self)
+      lead.post
+    end
+
     def set_times
       ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].each do |day|
         self.send "#{day}_open=", '08:30AM' if self.send("#{day}_open") == nil
