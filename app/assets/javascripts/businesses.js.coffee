@@ -57,7 +57,7 @@ $ ->
     traverse_titles: 'always',
     validate_use_error_msg: false,
     shrink_step_names: false,
-    validate_next_step: true,
+    validate_next_step: false,
     ignore_errors_on_next: true,
 
     steps_show: () ->
@@ -76,8 +76,8 @@ $ ->
       errors = 0
       # some useful class items: step-visited step-active last-active
       cur_step = $(this)
-      # console.log "validation #{cur_step.index()}"
-      #console.log cur_step.attr('class')
+      console.log "validation #{cur_step.index()}"
+      console.log cur_step.attr('class')
 
       if cur_step.index() == 3 
         if cur_step.hasClass('step-visited')
