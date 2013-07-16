@@ -6,15 +6,9 @@
   = f.inputs do
     = f.input :email, placeholder:"Your email address"
     %p You only need to enter a "New Password" and confirmation if you intend to change your password.
-<<<<<<< HEAD
     = f.input :password, placeholder:"New password", :required => true
     = f.input :password_confirmation, placeholder:"Confirm new password", :required => true
-    = f.input :current_password, placeholder:"Current password"
-=======
-    = f.input :password, placeholder:"New password"
-    = f.input :password_confirmation, placeholder:"Confirm new password"
     = f.input :current_password, placeholder:"Current password", :required => true
->>>>>>> 52687737-currentpassword
   = f.actions do
     = f.action :submit, :as => :button, :label => 'Save', :button_html => {:class => "btn btn-primary"}
 
