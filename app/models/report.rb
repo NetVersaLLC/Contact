@@ -7,6 +7,9 @@ class Report < ActiveRecord::Base
 
   def perform
     # site_list     = %w/Google Bing Yahoo Yelp Citisquare Cornerstonesworld Discoverourtown Expressbusinessdirectory Getfave Ibegin Localizedbiz Yellowee Tupalo Justclicklocal Localpages Insiderpages/
+    uri = URI('http://reports.savilo.com/TownCenter/leads.php')
+    res = Net::HTTP.post_form(uri, {:phone => self.phone, :zip => self.zip, :business_name => self.name})
+
     site_list     = %w/Google Yahoo Yelp Cornerstonesworld Discoverourtown Expressbusinessdirectory Ibegin Localizedbiz Yellowee Tupalo Localpages Getfave Uscity Insiderpages Zippro Ebusinesspages Gomylocal Uscity Kudzu Snoopitnow/
     site_list.each do |site|
       self.site = site
