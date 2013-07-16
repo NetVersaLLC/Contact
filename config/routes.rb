@@ -40,7 +40,9 @@ Contact::Application.routes.draw do
     resources :accounts, :only => [:edit, :update, :create]
     resources :notifications
     resources :downloads, :only => [:show]
+    resources :subscriptions, :except => [:index, :show]
   end 
+
   get     '/codes/:business_id/:site_name(.:format)', :action=>"site_code", :controller=>"codes" 
   post    '/codes/:business_id/:site_name(.:format)', :action=>"create",    :controller=>"codes" 
   delete  '/codes/:business_id/:site_name(.:format)', :action=>"destroy",    :controller=>"codes" 
