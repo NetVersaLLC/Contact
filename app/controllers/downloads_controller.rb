@@ -20,4 +20,15 @@ class DownloadsController < ApplicationController
                 :filename => 'setup.exe')
     end
   end
+
+  def show 
+    @business = Business.find(params[:business_id])
+    download = params[:id] #will probably always be 'client' 
+
+    respond_to do |format| 
+      format.html 
+      #format.exe { send_download } 
+    end 
+
+  end 
 end

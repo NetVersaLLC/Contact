@@ -22,7 +22,7 @@
               %p(style="margin-top:60px;")= t("business_valid_notice")
             - elsif !@business.is_client_downloaded
               %p(style="margin-top:70px;")= t("client_downloaded_notice")
-              %a.btn.btn-warning{:href => "/downloads/#{@business.id}"}Download Client 
+              = link_to "Download Client", business_download_url(@business, "client"), :class => 'btn btn-warning'
             - else  
               = form_for Task.new do
                 %input{:type => :hidden, :value => @business.id, :name => 'business_id'}

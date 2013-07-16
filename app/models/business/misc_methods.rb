@@ -2,6 +2,11 @@ module Business::MiscMethods
   extend ActiveSupport::Concern
   included do
 
+    def post_to_leadtrac
+      lead = Lead.new(self)
+      lead.post
+    end
+
     def set_times
       ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'].each do |day|
         self.send "#{day}_open=", '08:30AM' if self.send("#{day}_open") == nil
@@ -17,6 +22,16 @@ module Business::MiscMethods
     def create_jobs
       sub = self.subscription
       PackagePayload.where(:package_id => sub.package_id).each do |obj|
+        thereport = Report.where(:business_id => self.id).first        
+        if not thereport == nil
+          thescan = Scan.where(:report_id => thereport.id).first
+          if not thescan == nil
+            if thescan.status == :claimed
+              next
+            end
+          end
+        end
+
         payload  = Payload.new( obj.site, obj.payload )
         job      = Job.inject(self.id, payload.payload, payload.data_generator, payload.ready)
         job.name = "#{obj.site}/#{obj.payload}"
