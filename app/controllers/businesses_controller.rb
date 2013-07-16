@@ -3,6 +3,7 @@ class BusinessesController < ApplicationController
   before_filter :authenticate_user!
 
   def index
+    flash.keep
     @businesses = Business.where(:user_id => current_user.id)
     if @businesses.count == 0
       redirect_to new_business_path()

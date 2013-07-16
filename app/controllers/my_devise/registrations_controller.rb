@@ -135,5 +135,9 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     render :partial => "billing_summary_fields", :layout => false 
   end 
 
+  def after_update_path_for(resource)
+    businesses_url
+  end
+
 end
 

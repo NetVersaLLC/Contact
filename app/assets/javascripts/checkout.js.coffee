@@ -73,7 +73,10 @@ formValidates = ()->
     else
       errors.push formElement($.payment.validateCardNumber($('#card_number').val()), "Card number", "Card number is not valid", "card_number")
     errors.push formElement($.payment.validateCardExpiry($('#card_month').val(), $('#card_year').val()), "Expiration date", "Card expiration is invalid", "card_month")
-    errors.push formElement($.payment.validateCardCVC($('#cvv').val()), "CVV", "CVV is invalid", 'cvv')
+    if $('#cvv').val() == ""
+      errors.push formElement($.payment.validateCardCVC($('#cvv').val()), "CVV", "CVV is required", 'cvv')
+    else
+      errors.push formElement($.payment.validateCardCVC($('#cvv').val()), "CVV", "CVV is invalid", 'cvv')
     errors.push requiredElement('name', 'Name')
   errors.push requiredElement('email', 'Email')
   if $('#password').length > 0
