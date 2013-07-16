@@ -3,9 +3,7 @@ class BusinessesController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    if URI.parse(request.referrer).path == "/users/edit"
-      flash[:notice] = "Your password has been successfully updated."
-    end
+    flash.keep
     @businesses = Business.where(:user_id => current_user.id)
     if @businesses.count == 0
       redirect_to new_business_path()
