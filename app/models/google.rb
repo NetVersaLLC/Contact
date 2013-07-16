@@ -1,6 +1,6 @@
 class Google < ClientData
   attr_accessible       :email,:cookies
-  virtual_attr_accessor :password
+  virtual_attr_accessor :password, :secret_answer
   belongs_to            :google_category
 
   def self.make_password
