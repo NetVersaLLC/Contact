@@ -65,6 +65,7 @@ $(document).ready ->
   $('#uploader').fineUploader(
     validation: 
       allowedExtensions: ['jpg','gif','jpeg','png','bmp']
+      itemLimit: 2
 
     request:
       endpoint: '/images'
