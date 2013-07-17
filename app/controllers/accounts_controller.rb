@@ -30,7 +30,9 @@ class AccountsController < ApplicationController
           obj = model.new
           obj.business = business
         end
-        @accounts << obj
+        if obj.respond_to?(:email) || obj.respond_to?(:username) || obj.respond_to?(:password)
+          @accounts << obj
+        end 
       end 
 		end
 		render "edit", layout: false 

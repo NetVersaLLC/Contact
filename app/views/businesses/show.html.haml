@@ -17,7 +17,7 @@
           = @business.local_phone 
           %br
         = link_to 'Edit This Business', edit_business_path(@business), :class => 'btn btn-info'
-        = link_to 'Edit Subscription', edit_subscription_path(@business), :class => 'btn btn-info'
+        = link_to 'Edit Subscription', edit_business_subscription_path(@business, @business.subscription), :class => 'btn btn-info'
       = link_to business_download_url(@business, "client"), :class => 'business-button' do 
         =image_tag('icon-person.png')
         Download Software
