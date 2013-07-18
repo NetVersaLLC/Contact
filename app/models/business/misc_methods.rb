@@ -22,6 +22,16 @@ module Business::MiscMethods
     def create_jobs
       sub = self.subscription
       PackagePayload.where(:package_id => sub.package_id).each do |obj|
+        thereport = Report.where(:business_id => self.id).first        
+        if not thereport == nil
+          thescan = Scan.where(:report_id => thereport.id).first
+          if not thescan == nil
+            if thescan.status == :claimed
+              next
+            end
+          end
+        end
+
         payload  = Payload.new( obj.site, obj.payload )
         job      = Job.inject(self.id, payload.payload, payload.data_generator, payload.ready)
         job.name = "#{obj.site}/#{obj.payload}"
@@ -79,9 +89,13 @@ module Business::MiscMethods
         end
         
         if self.respond_to?(site[1]) and self.send(site[1]).count > 0
+          previous_site_name = ""
           self.send(site[1]).each do |thing|
             row = ['','','','']
             row[0] = site[3].to_s
+            
+            next if previous_site_name == site[3].to_s
+            previous_site_name = site[3].to_s            
 
             username = thing.username if thing.respond_to?('username') 
             username ||= thing.email if thing.respond_to?('email') 

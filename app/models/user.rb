@@ -55,6 +55,8 @@ class User < ActiveRecord::Base
          :validatable, :token_authenticatable
 
   attr_accessible :email, :password, :password_confirmation, :remember_me, :authentication_token, :tos
+  validates :password, :presence => true
+  validates :password_confirmation, :presence => true
   validates :tos, :acceptance => {:message => "You must agree to the Terms of Service."}, :on => :create
 
   before_save :ensure_authentication_token

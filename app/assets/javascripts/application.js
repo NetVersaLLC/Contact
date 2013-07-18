@@ -6,7 +6,7 @@
 //= require businesses
 //= require jquery.fineuploader-3.3.0.min
 //= require jquery.payment
-//= require jquery.psteps
+//= require jquery.psteps.min
 //= require jquery.cookie
 //= require purl
 //= require checkout

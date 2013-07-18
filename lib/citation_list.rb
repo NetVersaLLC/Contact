@@ -513,13 +513,6 @@
       ['text', 'password'],
     ],
       'Hotfrog'
-  ],
-  ['Localeze', 'localezes',
-    [
-      ['text', 'email'],
-      ['text', 'password'],
-    ],
-      'Localeze'
   ]
 ]
 
