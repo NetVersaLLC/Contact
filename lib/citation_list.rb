@@ -500,9 +500,9 @@
     ],
       'Facebook'
   ],
-  ['Mywebyellow', 'mywebyellows',
+    ['Mywebyellow', 'mywebyellows',
     [
-      ['text', 'email'],
+      ['text', 'username'],
       ['text', 'password'],
     ],
       'Mywebyellow'
@@ -513,6 +513,13 @@
       ['text', 'password'],
     ],
       'Hotfrog'
+  ],
+  ['Localeze', 'localezes',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+    ],
+      'Localeze'
   ]
 ]
 
