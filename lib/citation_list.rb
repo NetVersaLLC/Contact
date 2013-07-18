@@ -147,7 +147,7 @@
     ],
       'MapQuest'
   ],
-  ['InsiderPage', 'insider_pages',
+  ['InsiderPage', 'insider_page',
     [
       ['text', 'email'],
       ['text', 'password']
@@ -514,12 +514,19 @@
     ],
       'Hotfrog'
   ],
-  ['Localeze', 'localezes',
+  ['Yellowtalk', 'yellowtalks',
     [
-      ['text', 'email'],
-      ['text', 'password'],
+      ['select', 'yellowtalk_category']
     ],
-      'Localeze'
+    'Yellowtalk'
+  ],
+  ['Mycitybusiness', 'mycitybusinesses',
+    [],
+    'Mycitybusiness'
+  ],
+  ['Yellowwiz', 'yellowwizes',
+    [],
+    'Yellowwiz'
   ]
 ]
 
