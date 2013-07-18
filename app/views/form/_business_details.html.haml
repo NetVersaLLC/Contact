@@ -1,14 +1,18 @@
 %section{:id => 'section-business-details'}
   = @f.inputs :business_description, :class => 'inputs tab-pane', :id => 'section1' do
-    = @f.input :business_name, :input_html => { 'data-content' => I18n.t('popovers.business.business_name.content'), 'data-original-title' => I18n.t('popovers.business.business_name.title'),    :rel => 'popover' }
-    = @f.input :corporate_name, :label => "DBA/Corporate Name", :input_html => { 'data-content' => I18n.t('popovers.business.dba_name.content'), 'data-original-title' => I18n.t('popovers.business.dba_name.title'),    :rel => 'popover' }
+    = @f.input :business_name, :input_html => { 'data-content' => I18n.t('popovers.business.business_name.content'), 'data-original-title' => I18n.t('popovers.business.business_name.title'),  :size =>'50',   :rel => 'popover' }
+    = @f.input :corporate_name, :label => "DBA/Corporate Name", :input_html => { 'data-content' => I18n.t('popovers.business.dba_name.content'), 'data-original-title' => I18n.t('popovers.business.dba_name.title'), :size =>'50',   :rel => 'popover' }
     = @f.input :local_phone,  :label => "Main business phone", :hint => "", :input_html => { 'data-content' => I18n.t('popovers.business.local_phone.content'), 'title' => I18n.t('popovers.business.local_phone.title'),    :rel => 'popover' }
     = @f.input :alternate_phone, :hint => "", :input_html => { 'data-content' => "Example: 555-555-1212", 'title' => "Alternate phone", :rel => 'popover' }
     = @f.input :toll_free_phone,     :hint => "", :input_html => { 'data-content' => I18n.t('popovers.business.toll_free_phone.content'), 'title' => I18n.t('popovers.business.toll_free_phone.title'), :rel => 'popover' }
     = @f.input :fax_number,          :hint => "",    :input_html => { 'data-content' => I18n.t('popovers.business.fax_number.content'), 'title' => I18n.t('popovers.business.fax_number.title'),    :rel => 'popover' }
-    = @f.input :address
-    = @f.input :address2
-    = @f.input :city
+    #business_address_input.string.control-group.optional.stringish
+      = @f.label :address, class: 'control-label'
+      .controls.input-append
+        = @f.text_field :address, placeholder: 'Business Address', size: 100
+        %button#mapit.btn.btn-info{:type => 'button'} Map
+    = @f.input :address2, size: 100
+    = @f.input :city, :size => 100
     = @f.input :state,              :as => :select, :collection => Carmen::states('US')
     = @f.input :zip, :hint => "", :input_html => { 'data-content' => I18n.t('popovers.business.zip.content'), 'title' => I18n.t('popovers.business.zip.title'),    :rel => 'popover' }
     #map

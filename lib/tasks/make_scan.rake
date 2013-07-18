@@ -1,6 +1,6 @@
 namespace :scan do
   task :report => :environment do
-    site_list     = %w/Ibegin/
+    site_list     = %w/Google/
     report = Report.create do |r|
       r.business = 'Dutch Built'
       r.zip      = '78734'

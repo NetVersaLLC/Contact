@@ -10,37 +10,66 @@
 %br
 %br
 
+:css
+  .siteButton {
+    text-align: left;
+    width: 200px;
+    font-size: 15pt;
+  }
+  .siteName {
+    width: 250px;
+    font-size: 15pt;
+  }
+  .siteAction {
+    width: 100%;
+    text-align: center;
+  }
+
 %table.table.table-striped
   %thead
     %tr
-      %td Site
       %td Status
+      %td Site
       %td Phone
       %td Address
       %td Link to Profile
   %tbody
     - @report.scans.each do |scan|
       %tr
-        %td #{scan.site}
         %td
           - if scan.status == 'claimed'
-            %i.icon-ok-sign.icon-3x{:style => 'color: green'}
+            %a.btn.btn-large.btn-success.siteButton{:href => "#", 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'data-original-title' => 'Your business is listed and claimed.', 'title' => nil}
+              %i.icon-ok-sign
+              Listed &amp; Claimed
           - elsif scan.status == 'listed'
-            %i.icon-minus-sign.icon-3x{:style => 'color: orange'}
+            %a.btn.btn-large.btn-warning.siteButton{:href => "#", 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'data-original-title' => 'Your business is listed, but not claimed.', 'title' => nil}
+              %i.icon-minus-sign
+              Listed
           - else
-            %i.icon-exclamation-sign.icon-3x{:style => 'color: red'}
+            %a.btn.btn-large.btn-danger.siteButton{:href => "#", 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'data-original-title' => 'Your business is not listed.', 'title' => nil}
+              %i.icon-exclamation-sign
+              Unlisted
+        %td
+          %a.btn.btn-large.siteName{:href => "##{scan.site}", 'data-toggle' => 'popover', 'data-content' => SiteProfile.get(scan.site), 'data-original-title' => scan.site_name}
+            #{scan.site_name}
         %td #{scan.listed_phone}
         %td #{scan.listed_address}
         %td
-          %a.btn.btn-large.btn-primary{:href => scan.listed_url}
-            %i.icon-link
-            Link
+          - if scan.listed_url and scan.listed_url != ''
+            %a.btn.btn-large.btn-primary{:href => scan.listed_url}
+              %i.icon-link
+              Link
 
 %br
 %br
 
-%a.btn.btn-info.btn-large{:href => "/users/sign_up?package_id=#{@report.package_id}"}
-  Fix These Errors
+.siteAction
+  %a.btn.btn-primary.btn-large{:href => "/users/sign_up?package_id=#{@report.package_id}"}
+    Fix These Errors
 
 %br
 %br
+
+:javascript
+  $('.siteButton').tooltip();
+  $('.siteName').popover({ trigger: 'hover', html: true });

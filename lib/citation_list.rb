@@ -29,7 +29,7 @@
     ],
       'CitySquares'
   ],
-  ['Getfav', 'getfavs',
+  ['Getfave', 'getfave',
     [
       ['text', 'email'],
       ['text', 'password']
@@ -64,13 +64,6 @@
       ['text', 'password']
     ],
       'Twitter'
-  ],
-  ['Facebook', 'facebooks',
-    [
-      ['text', 'email'],
-      ['text', 'password']
-    ],
-      'Facebook'
   ],
   ['YellowBot', 'yellow_bots',
     [
@@ -119,7 +112,8 @@
     [
       ['text', 'email'],
       ['text', 'password'],
-      ['select', 'foursquare_category']
+      ['select', 'foursquare_category'],
+      ['text', 'foursquare_page']
     ],
       'foursquare'
   ],
@@ -167,13 +161,6 @@
       ['select', 'ibegin_category']
     ],
       'Ibegin'
-  ],
-  ['Findstorenearu', 'findstorenearus',
-    [
-      ['text', 'email'],
-      ['text', 'password']
-    ],
-      'Findstorenearu'
   ],
   ['Justclicklocal', 'justclicklocals',
     [
@@ -426,15 +413,7 @@
       ['select', 'uscity_category']
     ],
       'Uscity'
-  ],
-  ['Spotbusiness', 'spotbusinesses',
-    [
-      ['text', 'email'],
-      ['text', 'password'],
-      ['select', 'spotbusiness_category']
-    ],
-      'Spotbusiness'
-  ],
+  ],  
   ['Businessdb', 'businessdbs',
     [
       ['text', 'email'],
@@ -471,14 +450,6 @@
       ['text', 'secret_answer']
     ],
       'Ad Solutions YP'
-  ],
-  ['Findthebest', 'findthebests',
-    [
-      ['text', 'email'],
-      ['text', 'password'],
-      ['select', 'findthebest_category']
-    ],
-      'Find The Best'
   ],
   ['Patch', 'patches',
     [
@@ -528,6 +499,27 @@
 
     ],
       'Facebook'
+  ],
+    ['Mywebyellow', 'mywebyellows',
+    [
+      ['text', 'username'],
+      ['text', 'password'],
+    ],
+      'Mywebyellow'
+  ],
+  ['Hotfrog', 'hotfrogs',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+    ],
+      'Hotfrog'
+  ],
+  ['Localeze', 'localezes',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+    ],
+      'Localeze'
   ]
 ]
 

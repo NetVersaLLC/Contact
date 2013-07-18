@@ -15,6 +15,9 @@ class JobsController < ApplicationController
     end
     @business.checkin()
 
+    if not @business.categorized == true
+      @job = {:status => 'no_categories'}
+    end
     @job = Job.pending(@business)
     logger.info "Job is: #{@job.inspect}"
     if @job == nil

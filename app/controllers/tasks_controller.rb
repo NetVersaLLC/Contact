@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  before_filter      :authenticate_user!
+  # skip_before_filter :verify_authenticity_token
   def create
     logger.info "Task"
     @task             = Task.new

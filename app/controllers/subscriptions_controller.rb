@@ -1,4 +1,6 @@
 class SubscriptionsController < ApplicationController
+  before_filter      :authenticate_user!
+  # skip_before_filter :verify_authenticity_token
   def index
   end
 
@@ -11,33 +13,36 @@ class SubscriptionsController < ApplicationController
   end
 
   def edit
-    @business = Business.find(params[:id])
+    @business = Business.find(params[:business_id])
     @subscription = @business.subscription
     @package = @subscription.package
     if @subscription == nil
       @subscription = Subscription.new
       @package = current_label.packages.first
     end
+    @creditcard = CreditCard.new
   end
 
   def update 
     # set up a subscription
-    subscription = Subscription.find( params[:id] ) 
-    package = Package.find(params[:package_id]) 
+    @business = Business.find(params[:business_id])
+    @subscription = Subscription.find( params[:id] ) 
+    @package = Package.find(params[:package_id]) 
+
+    @subscription.business = @business
 
     ccp = CreditCardProcessor.new(current_label, params[:creditcard]) 
     bp = BusinessProcessor.new ccp 
     
-    transaction_event = bp.update_a_business( current_user, package, subscription.business )
-    business = transaction_event.business
+    transaction_event = bp.update_a_business( current_user, @package, @business )
 
     if transaction_event.status == :success
       flash[:notice] = 'Subscription updated' 
-      business.notifications.activate_subscription.delete_all
-      redirect_to business_path business
+      @business.notifications.activate_subscription.delete_all
+      redirect_to business_path @business
     else 
-      flash[:alert] = "Subscription failed. #{transaction_event.message}"
-      redirect_to edit_subscription_path subscription.business
+      @error = "Subscription failed. #{transaction_event.message}"
+      render :edit
     end 
   end 
 

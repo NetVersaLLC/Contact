@@ -21,12 +21,13 @@ window.initMap = () =>
     prefix = $(obj.target).val()
     $('#business_contact_gender_input').removeClass('error');
     if prefix == 'Mr.'
-      $('#business_contact_gender').val('Male')
+      $('#business_contact_gender').val('Male').change()
     else if prefix == 'Mrs.' or prefix == 'Miss.' or prefix == 'Ms.'
-      $('#business_contact_gender').val('Female')
-  $('#business_address').after('<button class="btn btn-info" onclick="window.openMap();" id="mapit">Map</button>')
+      $('#business_contact_gender').val('Female').change()
   $('#mapit').click (event)->
+    window.openMap()
     event.preventDefault()
+
   $('#business_contact_birthday').datepicker({maxDate: '0', changeYear: true,yearRange: '1920:' + new Date().getFullYear()})
 
   params                = {}

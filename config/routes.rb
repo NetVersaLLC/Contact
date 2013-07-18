@@ -39,9 +39,13 @@ Contact::Application.routes.draw do
     resources :codes, :only => [:new, :create] 
     resources :accounts, :only => [:edit, :update, :create]
     resources :notifications
+    resources :downloads, :only => [:show]
+    resources :subscriptions, :except => [:index, :show]
   end 
+
   get     '/codes/:business_id/:site_name(.:format)', :action=>"site_code", :controller=>"codes" 
   post    '/codes/:business_id/:site_name(.:format)', :action=>"create",    :controller=>"codes" 
+  delete  '/codes/:business_id/:site_name(.:format)', :action=>"destroy",    :controller=>"codes" 
 
   get     '/report(.:format)', :controller => :businesses, :action => :report
 
@@ -103,6 +107,9 @@ Contact::Application.routes.draw do
 
   get '/congratulations', :controller => :pages, :action => :congratulations
   get '/begin-sync', :controller => :pages, :action => :begin_sync, :as=>'begin_sync'
+
+  get '/leads', :controller => :leads, :action => :show
+  post'/leads', :controller => :leads, :action => :create
 
   root :to => redirect("/pages/make_redirect")
   ActiveAdmin.routes(self) # Moved to bottom to resovle Unitialized Dashborad error w activeadmin 0.6.0 

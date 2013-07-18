@@ -1,6 +1,6 @@
-#zip_search_form
-  %form{:class => 'well form form-horizontal', :id => 'zipform'}
-    .span6
+.row#zip_search_form
+  .span7
+    %form{:class => 'well form form-horizontal', :id => 'zipform'}
       .control-group
         %label.control-label{ :for => :zip } Search by Zip
         .controls
@@ -22,11 +22,11 @@
           .input-append
             = text_field_tag :company_name
             %button.btn{:id => :company_search, :type => 'button' } Search
-    .span4
-      %h3 Use Auto-Fill and Save Time
-      %p 
-        If your business is already listed in
-        Google Maps, you can search for it here
-        to prepopulate parts of your profile
-      %input.btn.btn-small{:id => :skip_search, :value => "Skip this step", :type => 'button' }/
+  .span5
+    %h3 Use Auto-Fill and Save Time
+    %p 
+      If your business is already listed in
+      Google Maps, you can search for it here
+      to prepopulate parts of your profile
+    %input.btn.btn-small{:id => :skip_search, :value => "Skip this step", :type => 'button' }/
 #business_results

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130628183335) do
+ActiveRecord::Schema.define(:version => 20130715202254) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -366,6 +366,7 @@ ActiveRecord::Schema.define(:version => 20130628183335) do
     t.integer  "business_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.string   "next_job"
   end
 
   create_table "completed_jobs", :force => true do |t|
@@ -643,39 +644,6 @@ ActiveRecord::Schema.define(:version => 20130628183335) do
   add_index "failed_jobs", ["business_id"], :name => "index_failed_jobs_on_business_id"
   add_index "failed_jobs", ["status"], :name => "index_failed_jobs_on_status"
 
-  create_table "findstorenearus", :force => true do |t|
-    t.integer  "business_id"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.text     "email"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-    t.boolean  "do_not_sync",  :default => false
-  end
-
-  add_index "findstorenearus", ["business_id"], :name => "index_findstorenearus_on_business_id"
-
-  create_table "findthebest_categories", :force => true do |t|
-    t.integer  "parent_id"
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "findthebest_categories", ["name"], :name => "index_findthebest_categories_on_name"
-  add_index "findthebest_categories", ["parent_id"], :name => "index_findthebest_categories_on_parent_id"
-
-  create_table "findthebests", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "email"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.datetime "created_at",                                 :null => false
-    t.datetime "updated_at",                                 :null => false
-    t.integer  "findthebest_category_id"
-    t.boolean  "do_not_sync",             :default => false
-  end
-
   create_table "foursquare_categories", :force => true do |t|
     t.integer  "parent_id"
     t.string   "name"
@@ -713,7 +681,7 @@ ActiveRecord::Schema.define(:version => 20130628183335) do
 
   add_index "freebusinessdirectories", ["business_id"], :name => "index_freebusinessdirectories_on_business_id"
 
-  create_table "getfavs", :force => true do |t|
+  create_table "getfaves", :force => true do |t|
     t.datetime "force_update"
     t.text     "secrets"
     t.string   "email"
@@ -723,7 +691,7 @@ ActiveRecord::Schema.define(:version => 20130628183335) do
     t.boolean  "do_not_sync",  :default => false
   end
 
-  add_index "getfavs", ["business_id"], :name => "index_getfavs_on_business_id"
+  add_index "getfaves", ["business_id"], :name => "index_getfavs_on_business_id"
 
   create_table "gomylocal_categories", :force => true do |t|
     t.integer  "parent_id"
@@ -800,6 +768,7 @@ ActiveRecord::Schema.define(:version => 20130628183335) do
     t.integer  "ziplocal_category_id"
     t.integer  "facebook_category_id"
     t.integer  "facebook_profile_category_id"
+    t.integer  "yellowtalk_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -830,8 +799,9 @@ ActiveRecord::Schema.define(:version => 20130628183335) do
     t.string   "status"
     t.datetime "force_update"
     t.string   "listing_url"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "do_not_sync",  :default => false
   end
 
   add_index "hotfrogs", ["business_id"], :name => "index_hotfrogs_on_business_id"
@@ -924,15 +894,6 @@ ActiveRecord::Schema.define(:version => 20130628183335) do
   end
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
-
-  create_table "insiderpages", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "email"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
 
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
@@ -1133,8 +1094,9 @@ ActiveRecord::Schema.define(:version => 20130628183335) do
     t.integer  "localeze_category_id"
     t.text     "secrets"
     t.datetime "force_update"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
+    t.boolean  "do_not_sync",          :default => false
   end
 
   add_index "localezes", ["business_id"], :name => "index_localezes_on_business_id"
@@ -1351,8 +1313,9 @@ ActiveRecord::Schema.define(:version => 20130628183335) do
     t.string   "email"
     t.text     "secrets"
     t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "do_not_sync",  :default => false
   end
 
   create_table "notifications", :force => true do |t|
@@ -1613,29 +1576,6 @@ ActiveRecord::Schema.define(:version => 20130628183335) do
     t.boolean  "do_not_sync",            :default => false
   end
 
-  create_table "spotbusiness_categories", :force => true do |t|
-    t.integer  "parent_id"
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "spotbusiness_categories", ["name"], :name => "index_spotbusiness_categories_on_name"
-  add_index "spotbusiness_categories", ["parent_id"], :name => "index_spotbusiness_categories_on_parent_id"
-
-  create_table "spotbusinesses", :force => true do |t|
-    t.datetime "force_update"
-    t.text     "secrets"
-    t.integer  "business_id"
-    t.string   "email"
-    t.datetime "created_at",                                  :null => false
-    t.datetime "updated_at",                                  :null => false
-    t.integer  "spotbusiness_category_id"
-    t.boolean  "do_not_sync",              :default => false
-  end
-
-  add_index "spotbusinesses", ["business_id"], :name => "index_spotbusinesses_on_business_id"
-
   create_table "staylocal_categories", :force => true do |t|
     t.integer  "parent_id"
     t.string   "name"
@@ -1856,6 +1796,12 @@ ActiveRecord::Schema.define(:version => 20130628183335) do
   add_index "uscity_categories", ["name"], :name => "index_uscity_categories_on_name"
   add_index "uscity_categories", ["parent_id"], :name => "index_uscity_categories_on_parent_id"
 
+  create_table "user_agents", :force => true do |t|
+    t.string   "agent"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",        :null => false
     t.string   "encrypted_password",     :default => "",        :null => false
@@ -2025,6 +1971,26 @@ ActiveRecord::Schema.define(:version => 20130628183335) do
   end
 
   add_index "yellowises", ["business_id"], :name => "index_yellowises_on_business_id"
+
+  create_table "yellowtalk_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "yellowtalk_categories", ["name"], :name => "index_yellowtalk_categories_on_name"
+  add_index "yellowtalk_categories", ["parent_id"], :name => "index_yellowtalk_categories_on_parent_id"
+
+  create_table "yellowtalks", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.string   "username"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "yelp_categories", :force => true do |t|
     t.integer  "parent_id"

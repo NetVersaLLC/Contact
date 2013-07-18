@@ -6,7 +6,6 @@ window.categories = ->
         $('form').resetClientSideValidations();
     change: (event, ui)-> 
       target = event.currentTarget
-      console.log event.currentTarget
       # these fields do not have to containg an entry (blank is ok)
       if (target.id == 'business_category4' ||  target.id == 'business_category5') && not target.value?.length 
         return
@@ -26,7 +25,10 @@ check_for_duplicates = (inputElement) ->
 
 
 show_category_alert = (message, inputElement) -> 
-  $(inputElement).closest('.control-group').addClass('error')
+  console.log inputElement
+  required = ['business_category1','business_category2','business_category3']
+  if required.indexOf( inputElement.id ) >= 0
+    $(inputElement).closest('.control-group').addClass('error')
   $("#section8").prepend("<div class='alert alert-danger'>#{message}</div>") 
   inputElement.value = ""
   setTimeout( clear_category_alert, 5000) 

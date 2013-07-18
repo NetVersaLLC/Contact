@@ -1,4 +1,6 @@
 class DownloadsController < ApplicationController
+  before_filter      :authenticate_user!
+  # skip_before_filter :verify_authenticity_token
   def download
     @business = Business.find(params[:business_id])
     if current_user.nil? or @business.user_id != current_user.id
@@ -18,4 +20,15 @@ class DownloadsController < ApplicationController
                 :filename => 'setup.exe')
     end
   end
+
+  def show 
+    @business = Business.find(params[:business_id])
+    download = params[:id] #will probably always be 'client' 
+
+    respond_to do |format| 
+      format.html 
+      #format.exe { send_download } 
+    end 
+
+  end 
 end

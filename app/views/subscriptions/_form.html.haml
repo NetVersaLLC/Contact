@@ -22,7 +22,7 @@
       %td Monthly
   = link_to 'Cancel Subscription', subscription_path(@business), :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-info'
 - else
-  = semantic_form_for @subscription, :html => {:multipart => true, :class => 'form-horizontal' }  do |f|
+  = semantic_form_for [@business,@subscription], :class => 'form-horizontal'   do |f|
     = f.semantic_errors
     - @f = f
     %h3
@@ -32,27 +32,13 @@
     .offset3.span8
       %section{:id => 'section-packages'}
         %input#subscription_package_id{ :name => "package_id", :type => "hidden", :value => @package.id }
-          -# = @f.inputs "Packages", :class => 'inputs tab-pane', :id => 'section1' do
-          -# - Package.all.each do |package|
-          -#  .package
-          -#    %h3 #{package.name} #{package.total}
-          -#    %p #{package.short_description}
-          -#    .radio.control-group.required#subscription_package_id_input
-          -#      %label.control-label
-          -#        Package
-          -#        %abbr{:title => "required"} *
-          -#        .choices.controls
-          -#          %label.choice.radio{ :for => "subscription_package_id"}
-          -#            - if package.id == @subscription.package_id
-          -#              - @checked = 'checked'
-          -#            - else
-          -#              - @checked = ''
-          -# %input#subscription_package_id{ :name => "subscription[package_id]", :type => "radio", :value => package.id, :checked => @checked} Select
       %section{:id => 'section-billing'}
         %fieldset 
+          - if defined?(@error) && @error.present? 
+            .alert.alert-error!= @error
           Billing Information 
           %label{:for => 'creditcard[name]'} Name (as it appears on your card)
-          %input{:name => 'creditcard[name]', :placeholder => "Name", :type => "text", :required => 'required', :pattern => '\S+', :id => 'name', :value => @name }/
+          %input{:name => 'creditcard[name]', :placeholder => "Name", :type => "text", :required => true, :pattern => '\S+', :id => 'name', :value => @name }/
           .cards
             = image_tag 'mastercard-inactive.gif', :id => 'mastercard'
             = image_tag 'visa-inactive.gif', :id => 'visa'
@@ -60,7 +46,7 @@
             = image_tag 'discover-inactive.gif', :id => 'discover'
             %input#creditcard_type{:name => 'creditcard[brand]', :type => 'hidden', :value => ''}
           %label{:for => 'creditcard[number]'} Card number
-          %input#card_number{:name => 'creditcard[number]', :placeholder => "Card Number", :type => "text", :required => 'required', :value => @card_number}/
+          %input#card_number{:name => 'creditcard[number]', :placeholder => "Card Number", :type => "text", :required => true, :value => @card_number}/
           %label{:for => 'creditcard[month]'} Expiration date
           .input-append
             %select#card_month.span2{:name => 'creditcard[month]'}
