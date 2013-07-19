@@ -7,10 +7,10 @@
     = @f.input :contact_last_name
     = @f.input :contact_birthday,   :label => "Contact Date of Birth"
     = @f.input :mobile_phone, :label => "Mobile Phone Number" ,:hint => "", :input_html => { 'data-content' => I18n.t('popovers.business.mobile_phone.content'), 'data-original-title' => I18n.t('popovers.business.mobile_phone.title'),    :rel => 'popover' }
-    = @f.label  :mobile_appears, "Should Mobile Number Appear on Listings?"
-    = @f.label :mobile_appears, :class => :radio do 
+    = @f.label  :mobile_appears, "Should Mobile Number Appear on Listings?", :class => "cursor_default"
+    = @f.label :mobile_appears, :class => "radio cursor_default" do
       = @f.radio_button :mobile_appears,  true, 'data-content' => 'Having your mobile number listed helps potential clients contact you.', 'title' => 'Mobile Appears',  'rel' => 'popover'
       Yes
-    = @f.label :mobile_appears, :class => :radio do 
-      = @f.radio_button :mobile_appears, false, 'data-content' => 'Having your mobile number listed helps potential clients contact you.', 'title' => 'Mobile Appears',  'rel' => 'popover' 
+    = @f.label :mobile_appears, :class => "radio cursor_default" do
+      = @f.radio_button :mobile_appears, false, 'data-content' => 'Having your mobile number listed helps potential clients contact you.', 'title' => 'Mobile Appears',  'rel' => 'popover'
       No
