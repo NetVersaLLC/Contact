@@ -11,6 +11,7 @@
 //= require purl
 //= require checkout
 //= require rails.validations
+//= require rails.validations.custom
 
 //= require custom
 //= require codes

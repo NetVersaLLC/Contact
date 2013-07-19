@@ -8,6 +8,7 @@ en:
   errors: 
     messages: 
       blank: "Can not be blank" 
+      keyword_count: "only 10 allowed"
   formtastic: 
     titles: 
       business_details:      "Business Details"

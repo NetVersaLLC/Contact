@@ -10,7 +10,7 @@ module Business::Validations
 
     
     validates :keywords,
-      :presence => true
+      :presence => true, keyword_count: true
     validates :status_message,
       :presence => true
     validates :services_offered,
