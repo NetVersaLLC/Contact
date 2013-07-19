@@ -1,5 +1,10 @@
 ActiveAdmin.register Label do
   menu :if => proc{ current_user.admin? || current_user.reseller? }
+
+  filter :name
+  filter :domain
+  filter :mail_from
+
   #scope_to :current_user
 
   controller do
@@ -67,10 +72,10 @@ ActiveAdmin.register Label do
     @label = Label.find(params[:id])
   end
 
-  member_action :plow, :method => :post do
+  member_action :plow, :method => :put do
     label = Label.find(params[:id])
-    label.is_pdf = false if params[:is_pdf].blank?
-    label.is_show_password = false if params[:is_show_password].blank?
+    params[:label].delete(:password) if params[:label][:password].blank? 
+
     if label.update_attributes(params[:label])
       flash[:notice] = 'Updated'
     else

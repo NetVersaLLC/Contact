@@ -9,6 +9,7 @@ class Ability
       can :manage, Business, :user => { :label_id => user.label_id }
       can :manage, Coupon, :label_id => user.label_id
       can :manage, Label, :id => user.label_id
+      can :manage, Label, :parent_id => user.label_id
       can :read,   Location
       can :manage, PackagePayload, :package => { :label_id => user.label_id }
       can :manage, Package, :label_id => user.label_id
@@ -28,6 +29,9 @@ class Ability
       can :manage, FailedJob, :business => { :label_id => user.label_id }
       can :manage, [Subscription,TransactionEvent,Payment], :label_id => user.label_id
       can :manage, Payment, :label_id => user.label_id
+
+      can :read,   CreditEvent, :label_id => user.label_id 
+      can :read, ActiveAdmin::Page, :name => "Dashboard"
     else
       can :manage, Business, :user_id => user.id
       Business.citation_list.each do |site|

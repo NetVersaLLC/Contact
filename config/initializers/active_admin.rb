@@ -1,6 +1,6 @@
 ActiveAdmin.setup do |config|
   def authenticate_admin!
-    redirect_to new_user_session_path unless current_user.reseller?
+    redirect_to destroy_user_session_path unless current_user.reseller?
   end
 
   config.site_title = "Citation Admin"
@@ -110,6 +110,7 @@ ActiveAdmin.setup do |config|
   #
   # config.before_filter :do_something_awesome
   config.before_filter :check_admin_role
+  config.authorization_adapter = ActiveAdmin::CanCanAdapter
 
 
   # == Register Stylesheets & Javascripts

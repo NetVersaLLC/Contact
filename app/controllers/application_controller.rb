@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   def current_label
     label = Label.where(:domain => request.host).first
     unless label
-      label = Label.first
+      #label = Label.first
+      raise "a label to match the domain [#{request.host}] could not be found"
     end
     label
   end
@@ -20,7 +21,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for resource
-    if resource.admin?
+    if resource.admin? || resource.reseller?
       admin_root_url
     else
       root_url

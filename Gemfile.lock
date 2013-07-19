@@ -93,9 +93,6 @@ GEM
       dante (~> 0.1.5)
     bcrypt-ruby (3.0.1)
     beaneater (0.3.0)
-    better_errors (0.8.0)
-      coderay (>= 1.0.0)
-      erubis (>= 2.6.6)
     binding_of_caller (0.7.1)
       debug_inspector (>= 0.0.1)
     bourbon (3.1.6)
@@ -385,7 +382,6 @@ DEPENDENCIES
   aws-sdk (~> 1.11.3)
   axlsx
   backburner (~> 0.3.4)
-  better_errors
   binding_of_caller
   cancan
   capistrano
