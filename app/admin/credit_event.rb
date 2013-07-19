@@ -21,15 +21,7 @@ ActiveAdmin.register CreditEvent do
     column :note
   end 
 
-  form do |f|
-    f.inputs "Transfer to #{resource.other.name}" do
-      f.input :other_id, :as => :hidden, :value => resource.other.id
-      f.input :charge_amount, :label => "Amount to transfer"
-    end 
-    f.actions do 
-      f.action :submit, :label => "Transfer Funds"
-    end 
-  end 
+  form partial: "form"
 
   controller do 
 
