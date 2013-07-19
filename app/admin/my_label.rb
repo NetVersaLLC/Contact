@@ -9,12 +9,12 @@ ActiveAdmin.register_page "My Label" do
         f.input :name
         f.input :domain 
         f.input :mail_from
-        f.input :login 
-        f.input :password 
-        f.input :custom_css # text area 
-        f.input :footer # text area
         f.input :logo, :as => :file 
         f.input :favicon, :as => :file
+        #f.input :login 
+        #f.input :password 
+        f.input :custom_css # text area 
+        f.input :footer # text area
         f.input :is_pdf, :as => :radio, :collection => { "PDF" => true, "CSV" => false} 
         f.input :is_show_password, :as => :radio, :collection => { "Show" => true, "Hide" => false} 
       end
