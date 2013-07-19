@@ -1,5 +1,5 @@
 class Justclicklocal < ClientData
-	attr_accessible :username
+	attr_accessible :business_id, :email, :force_update, :secrets
 	virtual_attr_accessor :password
 #	validates :password,
 #            :presence => true

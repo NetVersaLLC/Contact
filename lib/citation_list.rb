@@ -147,7 +147,7 @@
     ],
       'MapQuest'
   ],
-  ['InsiderPage', 'insider_pages',
+  ['InsiderPage', 'insider_page',
     [
       ['text', 'email'],
       ['text', 'password']
@@ -500,9 +500,9 @@
     ],
       'Facebook'
   ],
-  ['Mywebyellow', 'mywebyellows',
+    ['Mywebyellow', 'mywebyellows',
     [
-      ['text', 'email'],
+      ['text', 'username'],
       ['text', 'password'],
     ],
       'Mywebyellow'
@@ -513,6 +513,20 @@
       ['text', 'password'],
     ],
       'Hotfrog'
+  ],
+  ['Yellowtalk', 'yellowtalks',
+    [
+      ['select', 'yellowtalk_category']
+    ],
+    'Yellowtalk'
+  ],
+  ['Mycitybusiness', 'mycitybusinesses',
+    [],
+    'Mycitybusiness'
+  ],
+  ['Yellowwiz', 'yellowwizes',
+    [],
+    'Yellowwiz'
   ]
 ]
 

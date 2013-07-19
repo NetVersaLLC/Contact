@@ -59,6 +59,7 @@ $ ->
     shrink_step_names: false,
     validate_next_step: false,
     ignore_errors_on_next: true,
+    validate_errors: false, 
 
     steps_show: () ->
       cur_step = $(this)

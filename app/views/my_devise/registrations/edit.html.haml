@@ -17,4 +17,4 @@
 
 %p Unhappy? #{ link_to "Cancel my account", registration_path(resource_name), :confirm => "Are you sure?", :method => :delete }
 
-= link_to "Back", :back, :class => 'btn'
+%button.btn(onclick="window.history.back()") Back

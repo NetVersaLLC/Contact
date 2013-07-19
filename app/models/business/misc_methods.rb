@@ -84,14 +84,19 @@ module Business::MiscMethods
         site = citation_site_hash[p.site]
 
         if site.nil?
+          next if p.site == "Utils"
           non_account_data.push [p.site, 'Name not on citation list']
           next
         end
         
         if self.respond_to?(site[1]) and self.send(site[1]).count > 0
+          previous_site_name = ""
           self.send(site[1]).each do |thing|
             row = ['','','','']
             row[0] = site[3].to_s
+            
+            next if previous_site_name == site[3].to_s
+            previous_site_name = site[3].to_s            
 
             username = thing.username if thing.respond_to?('username') 
             username ||= thing.email if thing.respond_to?('email') 

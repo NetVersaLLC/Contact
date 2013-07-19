@@ -15,11 +15,12 @@ class JobsController < ApplicationController
     end
     @business.checkin()
 
+    if not @business.categorized == true
+      @job = {:status => 'no_categories'}
+    end
     @job = Job.pending(@business)
     logger.info "Job is: #{@job.inspect}"
-    if not @business.categorized == true
-      @job = {:status => 'wait'}
-    elsif @job == nil
+    if @job == nil
       @job = {:status => 'wait'}
     else
       @job['payload_data'] = @job.get_job_data(@business, params)
