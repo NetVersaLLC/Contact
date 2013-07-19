@@ -42,6 +42,9 @@ ActiveAdmin.register Label do
       row :parent 
       row :credits 
       row :mail_from 
+      row :users do
+        label.users.collect { |user| "#{ user.role_is }: #{ user.email  }" }.to_sentence.html_safe
+      end
     end 
   end 
 

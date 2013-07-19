@@ -157,6 +157,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def role_is
+    User::TYPES.key(self.access_level).try(:to_s).try(:humanize)
+  end
+
   private
 
   def delete_all_associated_records
