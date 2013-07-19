@@ -1,4 +1,5 @@
 ActiveAdmin.register Booboo do
+  menu if: proc{ !current_user.reseller? }
   collection_action :list, :method => :get do
     @booboos = Booboo.where('business_id = ?', params[:business_id]).order(:created_at)
     respond_to do |format|

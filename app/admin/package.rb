@@ -1,4 +1,5 @@
 ActiveAdmin.register Package do
+  menu if: proc { !current_user.reseller? }
   scope_to :current_user
 
   controller do
