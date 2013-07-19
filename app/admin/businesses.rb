@@ -63,16 +63,16 @@ ActiveAdmin.register Business do
       end
     end
 
-    def new
-      @business = Business.new(params[:business])
-      @business.user = current_user
-      if @business.save
-        flash[:notice] = "Business created"
-      else
-        flash[:alert] = "The system failed to create your business."
-      end
-      redirect_to admin_businesses_path
-    end
+    #def new
+    #  @business = Business.new(params[:business])
+    #  @business.user = current_user
+    #  if @business.save
+    #    flash[:notice] = "Business created"
+    #  else
+    #    flash[:alert] = "The system failed to create your business."
+    #  end
+    #  redirect_to admin_businesses_path
+    #end
 
     def show
       @business = Business.find(params[:id])
