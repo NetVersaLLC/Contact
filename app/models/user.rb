@@ -157,6 +157,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def is_reseller?
+    User::TYPES.key(self.access_level).try(:to_s) == "reseller"
+  end
+
   private
 
   def delete_all_associated_records

@@ -1,4 +1,4 @@
 ActiveAdmin.register SiteProfile do
-  menu if: proc { !current_user.reseller? }
+  menu if: proc { !current_user.is_reseller? }
   
 end

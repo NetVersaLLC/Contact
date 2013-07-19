@@ -1,5 +1,5 @@
 ActiveAdmin.register_page "Package Contents" do
-  menu :label => 'Package Contents', if: proc { !current_user.reseller? }
+  menu :label => 'Package Contents', if: proc { !current_user.is_reseller? }
 
   sidebar :payloads do
     div({:id => 'payload_list'}) do

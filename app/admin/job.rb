@@ -1,5 +1,5 @@
 ActiveAdmin.register Job do
-  menu if: proc { !current_user.reseller? }
+  menu if: proc { !current_user.is_reseller? }
   scope_to :current_user, :association_method => :job_scope
   index do
     column :business_id
