@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130715202254) do
+ActiveRecord::Schema.define(:version => 20130718005609) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -769,6 +769,7 @@ ActiveRecord::Schema.define(:version => 20130715202254) do
     t.integer  "facebook_category_id"
     t.integer  "facebook_profile_category_id"
     t.integer  "yellowtalk_category_id"
+    t.integer  "yellowwiz_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -945,6 +946,7 @@ ActiveRecord::Schema.define(:version => 20130715202254) do
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
     t.boolean  "do_not_sync",  :default => false
+    t.string   "email"
   end
 
   add_index "justclicklocals", ["business_id"], :name => "index_justclicklocals_on_business_id"
@@ -1315,6 +1317,7 @@ ActiveRecord::Schema.define(:version => 20130715202254) do
     t.datetime "force_update"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
+    t.string   "username"
     t.boolean  "do_not_sync",  :default => false
   end
 
@@ -1983,6 +1986,26 @@ ActiveRecord::Schema.define(:version => 20130715202254) do
   add_index "yellowtalk_categories", ["parent_id"], :name => "index_yellowtalk_categories_on_parent_id"
 
   create_table "yellowtalks", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.string   "username"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "yellowwiz_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "yellowwiz_categories", ["name"], :name => "index_yellowwiz_categories_on_name"
+  add_index "yellowwiz_categories", ["parent_id"], :name => "index_yellowwiz_categories_on_parent_id"
+
+  create_table "yellowwizs", :force => true do |t|
     t.integer  "business_id"
     t.string   "email"
     t.string   "username"

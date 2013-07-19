@@ -1,5 +1,5 @@
 ActiveAdmin.register_page "My Label" do
-  menu :label => 'My Label', :if => proc { current_user.reseller? }
+  menu :label => 'My Label', parent: "Labels",  :if => proc { current_user.reseller? }
 
   content do
     div(:id => 'main_content') do
