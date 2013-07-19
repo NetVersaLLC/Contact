@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130715202254) do
+ActiveRecord::Schema.define(:version => 20130719132730) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -433,14 +433,18 @@ ActiveRecord::Schema.define(:version => 20130715202254) do
   add_index "coupons", ["code"], :name => "index_coupons_on_code"
 
   create_table "credit_events", :force => true do |t|
-    t.integer  "quantity",   :default => 0
-    t.string   "action",                    :null => false
+    t.integer  "quantity",                                             :default => 0
+    t.string   "action",                                                                :null => false
     t.string   "note"
     t.integer  "other_id"
-    t.integer  "label_id",                  :null => false
+    t.integer  "label_id",                                                              :null => false
     t.integer  "user_id"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at",                                                            :null => false
+    t.datetime "updated_at",                                                            :null => false
+    t.decimal  "charge_amount",          :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "post_available_balance", :precision => 8, :scale => 2, :default => 0.0
+    t.integer  "transaction_event_id"
+    t.string   "status"
   end
 
   create_table "crunchbases", :force => true do |t|
@@ -895,6 +899,15 @@ ActiveRecord::Schema.define(:version => 20130715202254) do
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
 
+  create_table "insiderpages", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
     t.text     "secrets"
@@ -982,21 +995,25 @@ ActiveRecord::Schema.define(:version => 20130715202254) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.text     "custom_css"
-    t.datetime "created_at",                                                                :null => false
-    t.datetime "updated_at",                                                                :null => false
+    t.datetime "created_at",                                                                                                   :null => false
+    t.datetime "updated_at",                                                                                                   :null => false
     t.string   "login"
     t.string   "password"
     t.text     "footer"
     t.integer  "parent_id"
-    t.integer  "credits",              :default => 0
-    t.string   "mail_from",            :default => "change_this@to_your_support_email.com"
+    t.integer  "credits",                                                 :default => 0
+    t.string   "mail_from",                                               :default => "change_this@to_your_support_email.com"
     t.string   "favicon_file_name"
     t.string   "favicon_content_type"
     t.integer  "favicon_file_size"
     t.datetime "favicon_updated_at"
     t.boolean  "is_pdf"
-    t.boolean  "is_show_password",     :default => true
+    t.boolean  "is_show_password",                                        :default => true
     t.string   "theme"
+    t.decimal  "available_balance",         :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "package_signup_rate",       :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "package_subscription_rate", :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "credit_limit",              :precision => 8, :scale => 2, :default => 0.0
   end
 
   add_index "labels", ["domain"], :name => "index_labels_on_domain"

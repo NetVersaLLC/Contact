@@ -1,5 +1,14 @@
 ActiveAdmin.register User do
   scope_to :current_user, :association_method => :user_scope
+
+  filter :label 
+  filter :email 
+  filter :access_level,  as: :select, :collection => Hash[User::TYPES.map{|k,v| [k.to_s.humanize, v]}] 
+  filter :created_at 
+  filter :updated_at
+  filter :callcenter
+  filter :last_sign_in_at
+
   index do
     column :email
     column :sign_in_count

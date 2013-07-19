@@ -11,6 +11,7 @@ class Label < ActiveRecord::Base
   has_many :packages
   has_many :package_payloads
   has_many :credit_events 
+  has_many :transaction_events
 
   THEMES = %w{ ace amelia cerulean cosmo cyborg journal readable simplex slate spacelab spruce superhero united }
   
@@ -39,10 +40,10 @@ class Label < ActiveRecord::Base
   end 
 
   validates :login,
-    :presence => true,
+    #:presence => true,             # resellers cant create a label if validating presence
     :format => { :with => /\S*/ }
   validates :password,
-    :presence => true,
+    #:presence => true,
     :format => { :with => /\S*/ }
   validates :domain,
     :presence => true
