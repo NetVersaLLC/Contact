@@ -22,15 +22,7 @@ class User < ActiveRecord::Base
   scope :needs_to_download_client, where(:downloads => {:id => nil}).includes(:download)
 
   #callbacks
-  after_create :deduct_credit
   before_destroy :delete_all_associated_records
-
-  def deduct_credit
-    CreditsProcessor.new(self, Label.find(self.label_id)).pay({quantity: 1, note: 'Created'})
-    #label = Label.find(self.label_id)
-    #label.credits = label.credits - 1
-    #label.save!
-  end
 
 #  after_create :send_welcome
 

@@ -1,5 +1,11 @@
 ActiveAdmin.register Label do
   menu :if => proc{ current_user.admin? || current_user.reseller? }
+
+  filter :parent
+  filter :name
+  filter :domain
+  filter :mail_from
+
   #scope_to :current_user
 
   controller do
@@ -16,10 +22,17 @@ ActiveAdmin.register Label do
     column :id
     column :name
     column :domain
-    if current_user.admin?
-      column :login
-      column :password
+    column :mail_from
+    column "Balance", :sortable=>:available_balance do |label|
+      number_to_currency(label.available_balance)
+    end
+    column :credit_limit, :sortable=>:credit_limit do |label| 
+      number_to_currency(label.credit_limit) 
     end 
+    #if current_user.admin?
+    #  column :login
+     # column :password
+    #end 
     default_actions
   end
 
@@ -27,11 +40,16 @@ ActiveAdmin.register Label do
     attributes_table do 
       row :name 
       row :domain 
-      row :image do 
-        image_tag(label.logo.url(:thumb)) 
-      end
+      row :mail_from 
+      row("Available Balance"){ number_to_currency(label.available_balance) } 
+      row("Credit Limit"){number_to_currency(label.credit_limit)}
+      row("Credit Limit Held by Sub Lables"){ number_to_currency( label.credit_held_by_children) }
+      row("Funds Available"){number_to_currency(label.funds_available)}
       row :favicon_image do
         image_tag(label.favicon.url(:thumb))
+      end
+      row :image do 
+        image_tag(label.logo.url(:thumb)) 
       end
       row :custom_css 
       if current_user.admin?
@@ -41,7 +59,6 @@ ActiveAdmin.register Label do
       row :footer
       row :parent 
       row :credits 
-      row :mail_from 
     end 
   end 
 
@@ -49,15 +66,16 @@ ActiveAdmin.register Label do
     f.inputs do
       f.input :name
       f.input :domain 
-      f.input :logo, :as => :file 
+      f.input :mail_from
+      f.input :credit_limit
       f.input :favicon, :as => :file
-      f.input :custom_css # text area 
+      f.input :logo, :as => :file 
       if current_user.admin?
         f.input :login 
         f.input :password , :input_html => { :value => f.object.password } ,:as => :string
       end 
+      f.input :custom_css # text area 
       f.input :footer # text area
-      f.input :mail_from
     end
 
     f.actions 
@@ -67,10 +85,10 @@ ActiveAdmin.register Label do
     @label = Label.find(params[:id])
   end
 
-  member_action :plow, :method => :post do
+  member_action :plow, :method => :put do
     label = Label.find(params[:id])
-    label.is_pdf = false if params[:is_pdf].blank?
-    label.is_show_password = false if params[:is_show_password].blank?
+    params[:label].delete(:password) if params[:label][:password].blank? 
+
     if label.update_attributes(params[:label])
       flash[:notice] = 'Updated'
     else

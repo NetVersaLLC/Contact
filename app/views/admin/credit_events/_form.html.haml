@@ -1,0 +1,15 @@
+=form_for [:admin, @credit_event] do |f| 
+  %fieldset.inputs 
+    %legend
+      %span Transfer to #{@credit_event.other.name}
+      =f.hidden_field :other_id
+    %ol
+      %li.number.input.optional.numeric.stringish
+        =f.label :charge_amount, "Amount to transfer"
+        =f.text_field :charge_amount
+  %fieldset.actions
+    %ol
+      %li.action.input_action
+        =f.submit "Transfer Funds"
+
+

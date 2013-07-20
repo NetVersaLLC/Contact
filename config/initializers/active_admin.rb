@@ -1,6 +1,6 @@
 ActiveAdmin.setup do |config|
   def authenticate_admin!
-    redirect_to new_user_session_path unless current_user.reseller?
+    redirect_to destroy_user_session_path unless current_user.reseller?
   end
 
   config.site_title = "Citation Admin"
@@ -110,6 +110,7 @@ ActiveAdmin.setup do |config|
   #
   # config.before_filter :do_something_awesome
   config.before_filter :check_admin_role
+  config.authorization_adapter = ActiveAdmin::CanCanAdapter
 
 
   # == Register Stylesheets & Javascripts
@@ -120,7 +121,6 @@ ActiveAdmin.setup do |config|
   #
   # To load a stylesheet:
   #   config.register_stylesheet 'my_stylesheet.css'
-     config.register_stylesheet 'style.css.sass'
   #
   # You can provide an options hash for more control, which is passed along to stylesheet_link_tag():
   #   config.register_stylesheet 'my_print_stylesheet.css', :media => :print
