@@ -20,7 +20,7 @@ ActiveAdmin.register_page "Categories" do
         data[2].each do |row|
           if row[0] == 'select'
             klass = row[1].classify.constantize
-            #next if klass == YahooCategory
+            next if klass == GoogleCategory
             script(:src => "/categories/#{klass}.js") do
             end
             category_name = ''
