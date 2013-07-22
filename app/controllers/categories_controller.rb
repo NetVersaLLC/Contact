@@ -16,8 +16,13 @@ class CategoriesController < ApplicationController
     params[:category].each do |pair|
       logger.info "Checking: #{pair}"
       if pair[1] != nil and pair[1].to_i > 0 and pair[0] =~ /((.*?)Category)/
-        model    = $2.constantize
+        if $2 == "FacebookProfile"
+          model = "Facebook".constantize
+        else
+          model    = $2.constantize
+        end
         category = $1.constantize
+
         inst = nil
         if business.send( model.table_name ).count > 0
           inst = business.send( model.table_name ).first
