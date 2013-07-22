@@ -11,7 +11,7 @@ window.categories = ->
         return
 
       if (ui.item == null)  # was not selected from the list 
-        show_category_alert("You must select an item from the list.", event.currentTarget) 
+        show_category_alert("You must select an item from the list.", event.currentTarget)
       check_for_duplicates( event.currentTarget ) 
 
 check_for_duplicates = (inputElement) -> 
@@ -30,8 +30,8 @@ show_category_alert = (message, inputElement) ->
   if required.indexOf( inputElement.id ) >= 0
     $(inputElement).closest('.control-group').addClass('error')
   $("#section8").prepend("<div class='alert alert-danger'>#{message}</div>") 
-  inputElement.value = ""
-  setTimeout( clear_category_alert, 5000) 
+#  inputElement.value = ""
+  setTimeout( clear_category_alert, 5000)
 
 clear_category_alert = -> 
   $("#section8").find("div.alert-danger").remove() 
