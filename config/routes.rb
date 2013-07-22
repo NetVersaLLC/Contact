@@ -6,6 +6,7 @@ Contact::Application.routes.draw do
   get    '/packages/:id(.:format)', :controller => :packages, :action => :index
   delete '/packages/:id(.:format)', :controller => :packages, :action => :destroy
   post   '/packages/:id(.:format)', :controller => :packages, :action => :create
+  post   '/packages/:id/reorder(.:format)', :controller => :packages, :action => :reorder
   resources :google_categories
 
   devise_for :users,

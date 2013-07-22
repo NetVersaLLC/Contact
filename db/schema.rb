@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130722185719) do
+ActiveRecord::Schema.define(:version => 20130722200856) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -364,9 +364,9 @@ ActiveRecord::Schema.define(:version => 20130722185719) do
     t.string   "code"
     t.string   "site_name"
     t.integer  "business_id"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
-    t.string   "next_job",    :default => "Verify"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "next_job"
   end
 
   create_table "completed_jobs", :force => true do |t|
@@ -591,9 +591,9 @@ ActiveRecord::Schema.define(:version => 20130722185719) do
     t.integer  "business_id"
     t.datetime "force_update"
     t.text     "secrets"
+    t.integer  "ezlocal_category_id"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
-    t.integer  "ezlocal_category_id"
     t.string   "email"
     t.boolean  "do_not_sync",         :default => false
   end
@@ -627,9 +627,8 @@ ActiveRecord::Schema.define(:version => 20130722185719) do
     t.datetime "created_at",                                      :null => false
     t.datetime "updated_at",                                      :null => false
     t.boolean  "do_not_sync",                  :default => false
-    t.text     "cookies"
-    t.integer  "facebook_profile_category_id"
     t.integer  "facebook_category_id"
+    t.integer  "facebook_profile_category_id"
   end
 
   create_table "failed_jobs", :force => true do |t|
@@ -648,18 +647,6 @@ ActiveRecord::Schema.define(:version => 20130722185719) do
 
   add_index "failed_jobs", ["business_id"], :name => "index_failed_jobs_on_business_id"
   add_index "failed_jobs", ["status"], :name => "index_failed_jobs_on_status"
-
-  create_table "female_fname", :force => true do |t|
-    t.text     "first",                    :null => false
-    t.integer  "zip",   :default => 10016, :null => false
-    t.datetime "dtime",                    :null => false
-  end
-
-  create_table "female_lname", :force => true do |t|
-    t.text     "last",                     :null => false
-    t.integer  "zip",   :default => 10016, :null => false
-    t.datetime "dtime",                    :null => false
-  end
 
   create_table "foursquare_categories", :force => true do |t|
     t.integer  "parent_id"
@@ -784,8 +771,8 @@ ActiveRecord::Schema.define(:version => 20130722185719) do
     t.integer  "usyellowpages_category_id"
     t.integer  "zipperpage_category_id"
     t.integer  "ziplocal_category_id"
-    t.integer  "facebook_profile_category_id"
     t.integer  "facebook_category_id"
+    t.integer  "facebook_profile_category_id"
     t.integer  "yellowtalk_category_id"
     t.integer  "yellowwiz_category_id"
   end
@@ -806,6 +793,7 @@ ActiveRecord::Schema.define(:version => 20130722185719) do
     t.datetime "updated_at",                            :null => false
     t.integer  "google_category_id"
     t.boolean  "do_not_sync",        :default => false
+    t.text     "cookies"
   end
 
   add_index "googles", ["business_id"], :name => "index_googles_on_business_id"
@@ -817,9 +805,9 @@ ActiveRecord::Schema.define(:version => 20130722185719) do
     t.string   "status"
     t.datetime "force_update"
     t.string   "listing_url"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.boolean  "do_not_sync"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "do_not_sync",  :default => false
   end
 
   add_index "hotfrogs", ["business_id"], :name => "index_hotfrogs_on_business_id"
@@ -1368,8 +1356,9 @@ ActiveRecord::Schema.define(:version => 20130722185719) do
     t.string   "site"
     t.string   "payload"
     t.string   "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.integer  "queue_insert_order", :default => 0
   end
 
   add_index "package_payloads", ["package_id"], :name => "index_packages_payloads_on_package_id"
@@ -1415,16 +1404,17 @@ ActiveRecord::Schema.define(:version => 20130722185719) do
     t.string   "transaction_number"
     t.integer  "business_id"
     t.integer  "label_id"
-    t.integer  "transaction_event_id"
+    t.integer  "transaction_id"
     t.string   "message"
     t.text     "response"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
+    t.integer  "transaction_event_id"
   end
 
   add_index "payments", ["business_id"], :name => "index_payments_on_business_id"
   add_index "payments", ["label_id"], :name => "index_payments_on_label_id"
-  add_index "payments", ["transaction_event_id"], :name => "index_payments_on_transaction_id"
+  add_index "payments", ["transaction_id"], :name => "index_payments_on_transaction_id"
 
   create_table "primeplace_categories", :force => true do |t|
     t.integer  "parent_id"
@@ -1797,9 +1787,9 @@ ActiveRecord::Schema.define(:version => 20130722185719) do
     t.text     "secrets"
     t.datetime "force_update"
     t.text     "username"
-    t.integer  "usbdn_category_id"
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
+    t.integer  "usbdn_category_id"
     t.boolean  "do_not_sync",       :default => false
   end
 
@@ -2151,7 +2141,6 @@ ActiveRecord::Schema.define(:version => 20130722185719) do
     t.datetime "updated_at",                             :null => false
     t.integer  "zippro_category2_id"
     t.integer  "zippro_category_id"
-    t.integer  "form_id"
     t.boolean  "do_not_sync",         :default => false
   end
 
