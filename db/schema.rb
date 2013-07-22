@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130722185719) do
+ActiveRecord::Schema.define(:version => 20130722211916) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -2021,9 +2021,10 @@ ActiveRecord::Schema.define(:version => 20130722185719) do
     t.string   "username"
     t.text     "secrets"
     t.datetime "force_update"
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.integer  "yellowtalk_category_id"
+    t.boolean  "do_not_sync",            :default => false
   end
 
   create_table "yellowwiz_categories", :force => true do |t|
@@ -2042,8 +2043,9 @@ ActiveRecord::Schema.define(:version => 20130722185719) do
     t.string   "username"
     t.text     "secrets"
     t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "do_not_sync",  :default => false
   end
 
   create_table "yelp_categories", :force => true do |t|
