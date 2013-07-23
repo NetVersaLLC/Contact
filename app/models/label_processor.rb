@@ -118,6 +118,7 @@ class LabelProcessor
       business = Business.new 
       business.subscription = subscription 
       business.user = user 
+      business.label = @label
       business.save :validate => false 
     else 
       business.update_column( :subscription_id, subscription.id) 
