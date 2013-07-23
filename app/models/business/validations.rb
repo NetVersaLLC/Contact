@@ -14,7 +14,7 @@ module Business::Validations
     validates :status_message,
       :presence => true
     validates :services_offered,
-      :presence => true
+      :presence => true, keyword_count: true
     validates :brands,
       :presence => true
     validates :tag_line,
