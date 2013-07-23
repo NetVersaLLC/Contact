@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130722211916) do
+ActiveRecord::Schema.define(:version => 20130723205442) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -422,12 +422,16 @@ ActiveRecord::Schema.define(:version => 20130722211916) do
   create_table "coupons", :force => true do |t|
     t.string   "name"
     t.string   "code"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.integer  "percentage_off"
+    t.datetime "created_at",                                       :null => false
+    t.datetime "updated_at",                                       :null => false
+    t.integer  "percentage_off_monthly"
     t.integer  "label_id"
-    t.integer  "redeemed_count", :default => 0
-    t.integer  "allowed_upto",   :default => 0
+    t.integer  "redeemed_count",         :default => 0
+    t.integer  "allowed_upto",           :default => 0
+    t.integer  "percentage_off_signup",  :default => 0
+    t.integer  "dollars_off_monthly",    :default => 0
+    t.integer  "dollars_off_signup",     :default => 0
+    t.string   "use_discount",           :default => "percentage"
   end
 
   add_index "coupons", ["code"], :name => "index_coupons_on_code"
