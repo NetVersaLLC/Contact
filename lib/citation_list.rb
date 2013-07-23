@@ -523,7 +523,7 @@
     [],
     'Mycitybusiness'
   ],
-  ['Yellowwiz', 'yellowwizes',
+  ['Yellowwiz', 'yellowwiz',
     [],
     'Yellowwiz'
   ]
