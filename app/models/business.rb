@@ -85,6 +85,9 @@ class Business < ActiveRecord::Base
   attr_accessible :getfave_attributes
   accepts_nested_attributes_for :getfaves, :allow_destroy => true
 
+  has_many :yellowwiz, :dependent => :destroy, :class_name => "Yellowwiz"
+  attr_accessible :yellowwiz_attributes
+  accepts_nested_attributes_for :yellowwiz, :allow_destroy => true
 
   def logo
       images.where(:is_logo=>true).first
