@@ -494,8 +494,7 @@
     [
       ['text', 'email'],
       ['text', 'password'],
-      ['select', 'facebook_category'],
-      ['select', 'facebook_profile_category']
+      ['select', 'facebook_category']
 
     ],
       'Facebook'
