@@ -425,7 +425,8 @@
   ['Gomylocal', 'gomylocals',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'gomylocal_category']
     ],
       'Gomylocal'
   ],
