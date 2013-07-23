@@ -2,7 +2,7 @@ class Label < ActiveRecord::Base
   has_attached_file :logo, :styles => { :thumb => "200x200>" }
   has_attached_file :favicon, :styles => { :thumb => "200x200>" }
   attr_accessible :name, :domain, :custom_css, :login, :password, :logo, :footer,:is_pdf ,:is_show_password, :favicon
-  attr_accessible :mail_from, :theme, :credit_limit
+  attr_accessible :mail_from, :theme, :credit_limit, :package_signup_rate, :package_subscription_rate
 
   acts_as_tree :order => :name
   has_many :users
