@@ -17,6 +17,8 @@
  *= require businesses
  *= require style
  *= require fineuploader-3.3.0
+ *= require_directory ./plugins
+ *= require colorbox-rails
  *= require custom
  *= require codes
 */

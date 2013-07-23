@@ -11,6 +11,8 @@
 //= require purl
 //= require checkout
 //= require rails.validations
+//= require_directory ./plugins
+//= require colorbox-rails
 
 //= require custom
 //= require codes

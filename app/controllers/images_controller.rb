@@ -29,6 +29,10 @@ class ImagesController < ApplicationController
     render json: @res
   end
 
+  def show
+    @image = Image.find params[:id] 
+  end
+
   # DELETE /images/1/all.json
   def destroy_all
     Image.where(:business_id => params[:id]).delete_all
@@ -76,6 +80,7 @@ class ImagesController < ApplicationController
     respond_to do |format|
       if @image.update_attributes(params[:image])
         format.json { head :ok }
+        format.js
       else
         format.json { render json: @image.errors, status: :unprocessable_entity }
       end

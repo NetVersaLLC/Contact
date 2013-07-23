@@ -97,6 +97,7 @@ Contact::Application.routes.draw do
   get     '/images(.:format)', :action => 'index', :controller => 'images'
   post    '/images(.:format)', :action=>"create", :controller=>"images"
   delete  '/images/:id(.:format)',:action=>"destroy", :controller=>"images"
+  get  '/images/:id(.:format)',:action=>"show", :controller=>"images"
   delete  '/images/:id/all(.:format)',:action=>"destroy_all", :controller=>"images"
   put     '/images/:id(.:format)', :action=>"update", :controller=>"images"
   put     '/images/set_logo/:id(.:format)', :action=>"set_logo", :controller=>"images"

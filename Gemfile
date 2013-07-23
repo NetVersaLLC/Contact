@@ -80,3 +80,4 @@ gem 'user_impersonate'
 gem 'dogapi', ">=1.3.0"
 gem 'redcarpet'
 gem 'unicorn'
+gem 'colorbox-rails', '~> 0.0.16'
