@@ -41,6 +41,8 @@ ActiveAdmin.register Label do
       row :name 
       row :domain 
       row :mail_from 
+      row("package_signup_rate")       { number_to_currency(label.package_signup_rate) } 
+      row("package_subscription_rate") { number_to_currency(label.package_subscription_rate) } 
       row("Available Balance"){ number_to_currency(label.available_balance) } 
       row("Credit Limit"){number_to_currency(label.credit_limit)}
       row("Credit Limit Held by Sub Lables"){ number_to_currency( label.credit_held_by_children) }
@@ -51,14 +53,15 @@ ActiveAdmin.register Label do
       row :image do 
         image_tag(label.logo.url(:thumb)) 
       end
-      row :custom_css 
       if current_user.admin?
         row :login 
         row :password
       end 
-      row :footer
       row :parent 
-      row :credits 
+      row("Users"){label.users.where( 'access_level <= ?', User.reseller ).collect { |user| "#{ user.email  } (#{ user.role_is })" 
+}.to_sentence.html_safe}
+      row :custom_css 
+      row :footer
     end 
   end 
 
@@ -67,6 +70,8 @@ ActiveAdmin.register Label do
       f.input :name
       f.input :domain 
       f.input :mail_from
+      f.input :package_signup_rate
+      f.input :package_subscription_rate
       f.input :credit_limit
       f.input :favicon, :as => :file
       f.input :logo, :as => :file 
