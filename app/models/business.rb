@@ -110,6 +110,34 @@ class Business < ActiveRecord::Base
     business_id = self.id
     Business.async.create_site_accounts_ex user_id, business_id
   end
+  def delete_all_associated_records
+    jobs = self.jobs
+    completed_jobs = self.completed_jobs
+    failed_jobs = self.failed_jobs
+    notifications = self.notifications
+    images = self.images
+    self.transaction_event.destroy unless self.transaction_event.blank?
+
+    jobs.each do |job|
+      job.destroy
+    end unless jobs.blank?
+
+    completed_jobs.each do |completed_job|
+      completed_job.destroy
+    end unless completed_jobs.blank?
+
+    failed_jobs.each do |failed_job|
+      failed_job.destroy
+    end unless failed_jobs.blank?
+
+    notifications.each do |notification|
+      notification.destroy
+    end unless notifications.blank?
+
+    images.each do |image|
+      image.destroy
+    end unless images.blank?
+  end
 
   private
 
@@ -131,33 +159,5 @@ class Business < ActiveRecord::Base
       Business.find(business_id).touch  # expire cache fragments
     end
 
-    def delete_all_associated_records
-      jobs = self.jobs
-      completed_jobs = self.completed_jobs
-      failed_jobs = self.failed_jobs
-      notifications = self.notifications
-      images = self.images
-      self.transaction_event.destroy unless self.transaction_event.blank?
-
-      jobs.each do |job|
-        job.destroy
-      end unless jobs.blank?
-
-      completed_jobs.each do |completed_job|
-        completed_job.destroy
-      end unless completed_jobs.blank?
-
-      failed_jobs.each do |failed_job|
-        failed_job.destroy
-      end unless failed_jobs.blank?
-
-      notifications.each do |notification|
-        notification.destroy
-      end unless notifications.blank?
-
-      images.each do |image|
-        image.destroy
-      end unless images.blank?
-    end
   # end private methods
 end
