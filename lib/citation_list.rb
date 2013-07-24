@@ -164,7 +164,7 @@
   ],
   ['Justclicklocal', 'justclicklocals',
     [
-      ['text', 'username'],
+      ['text', 'email'],
       ['text', 'password']
     ],
       'Justclicklocal'
