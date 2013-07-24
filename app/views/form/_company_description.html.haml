@@ -1,7 +1,7 @@
 %section{:id => 'section-company-description'}
   = @f.inputs :company_description, :class => 'inputs tab-pane', :id => 'section4' do 
     %p Your customers will likely have their first experience with your business. Your business description should be between 50 and 200 characters.
-    = @f.input :business_description, :input_html => { 'data-content' => I18n.t('popovers.business.business_description.content'), 'title' => I18n.t('popovers.business.business_description.title'),    :rel => 'popover', input_html: { :maxlength => 200 }}
+    = @f.input :business_description, :input_html => { 'data-content' => I18n.t('popovers.business.business_description.content'), 'title' => I18n.t('popovers.business.business_description.title'),    :rel => 'popover', :maxlength => 200 }
     #business_business_description_input_help
     %br
     = @f.input :keywords, :input_html => { 'data-content' => I18n.t('popovers.business.keywords.content'), 'title' => I18n.t('popovers.business.keywords.title'), :rel => 'popover' }
