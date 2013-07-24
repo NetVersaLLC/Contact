@@ -34,10 +34,10 @@
         %tr.timerow
           %td{:colspan => 3}
             %label.checkbox
-              = @f.check_box :open_24_hours
+              = @f.check_box :open_24_hours, class: "bussiness_hours_checkbox"
               Open 24 Hours
         %tr.timerow
           %td{:colspan => 3}
             %label.checkbox
-              = @f.check_box :open_by_appointment
+              = @f.check_box :open_by_appointment, class: "bussiness_hours_checkbox"
               Open By Appointment
