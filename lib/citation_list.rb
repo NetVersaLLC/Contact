@@ -387,8 +387,7 @@
   ['Expressupdateusa', 'expressupdateusas',
     [
       ['text', 'email'],
-      ['text', 'password'],
-      ['select', 'expressupdateusa_category']  
+      ['text', 'password'], 
     ],
       'Expressupdateusa'
   ],
