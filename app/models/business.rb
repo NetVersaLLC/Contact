@@ -123,9 +123,6 @@ class Business < ActiveRecord::Base
         y = klass.new
         STDERR.puts "Model: #{klass}"
         STDERR.puts "Instance: #{y.inspect}"
-        if thescan.where(:site => klass).first.status == :claimed
-          y.do_not_sync == 1
-        end
         y.business_id = business_id
         y.save
         backburner_process.update_attribute(:processed, backburner_process.processed.to_s + " #{klass}")
