@@ -75,6 +75,9 @@
       url: this.action,
       type: 'post',
       success: function(res){
+        
+        $(".site-accounts").prepend("<div class='alert alert-success site-accounts-notification'>your account has been successfully saved</div>");
+        setTimeout(function(){ $(".site-accounts-notification").remove(); }, 5000);
         $(".ajax-progress").hide();
         $('.btn-save', _this).prop('disabled', false);
       }
