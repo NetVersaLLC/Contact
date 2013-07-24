@@ -68,6 +68,8 @@
     var _this = this;
     $(".ajax-progress").show();
     $('.btn-save', _this).prop('disabled', true);
+    if ( /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($(this).find("[type='email']").val()) ){
+
     $.ajax({ 
       data: $(this).serialize(),
       url: this.action,
@@ -77,6 +79,11 @@
         $('.btn-save', _this).prop('disabled', false);
       }
     });
+    } else { 
+      alert("The email address is invalid.");
+      $(".ajax-progress").hide();
+      $('.btn-save', _this).prop('disabled', false);
+    }
     return false;
   });
 
