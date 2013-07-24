@@ -34,6 +34,10 @@ ActiveAdmin.register Business do
     column :client_checkin
 
     #actions do |post| 
+    column :categories do |v|
+      (1..5).map { |i| v.send("category#{i}") }.keep_if(&:present?).to_sentence
+    end
+
     column do |v|
       link_to("Categories", "/admin/categories?business_id=#{v.id}")
     end
