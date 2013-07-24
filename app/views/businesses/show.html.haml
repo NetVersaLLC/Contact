@@ -28,7 +28,8 @@
           %h3 
             %a(href="#myModal" role="button" data-toggle="modal" data-remote="#{business_notifications_path(@business)}"  )
               Items Pending Action 
-          %h1.counter= @business.notifications.count #@job_count
+          %a(href="#myModal" role="button" data-toggle="modal" data-remote="#{business_notifications_path(@business)}"  )
+            %h1.counter= @business.notifications.count #@job_count
       %a.business-button{:href => "/report.pdf?business_id=#{@business.id}"}
         =image_tag('icon-report.png')
         View Report

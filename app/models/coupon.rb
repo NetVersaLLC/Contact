@@ -1,10 +1,19 @@
 class Coupon < ActiveRecord::Base
-  attr_accessible :code, :name, :login, :password, :percentage_off, :label_id 
+  attr_accessible :code, :name, :login, :password, :label_id, :use_discount
+  attr_accessible :percentage_off_monthly, :percentage_off_signup
+  attr_accessible :dollars_off_monthly, :dollars_off_signup
   attr_accessible :redeemed_count, :allowed_upto
 
   belongs_to :label
-  validates :percentage_off, :numericality => { :greater_than => 0, :less_than_or_equal_to => 100 }
+
+  validates :use_discount, inclusion: { in: %w(percentage dollars)}
+  validates :percentage_off_monthly, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
+  validates :percentage_off_signup, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
+  validates :dollars_off_monthly, :numericality => { :greater_than_or_equal_to => 0.0 } 
+  validates :dollars_off_signup, :numericality => { :greater_than_or_equal_to => 0.0 } 
+
   validates :allowed_upto, :numericality => { :greater_than => 0 }
+
 
   def self.get_for( something_for_a_label, code ) 
     Coupon.where( :label_id => something_for_a_label.label_id, 

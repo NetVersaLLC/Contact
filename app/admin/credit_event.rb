@@ -1,33 +1,35 @@
 ActiveAdmin.register CreditEvent do
-  scope_to :current_label
+  actions :index 
+
+  filter :label 
+  filter :action 
+  filter :note 
+  filter :created_at 
+  filter :charge_amount 
+  filter :post_available_balance 
+
 
   index do 
     column :created_at 
     column :action 
-    column :quantity 
-    column :other do |v| 
-      v.other.name unless v.other.nil?
-    end
-    column :user
+    column "Amount", :sortable => :charge_amount do |credit_event| 
+      number_to_currency(credit_event.charge_amount)
+    end 
+    column "Balance", :sortable => :post_available_balance do |credit_event| 
+      number_to_currency(credit_event.post_available_balance) 
+    end 
     column :note
   end 
 
-  form do |f|
-    f.inputs "Transfer to #{resource.other.name}" do
-      f.input :other_id, :as => :hidden, :value => resource.other.id
-      f.input :quantity
-    end 
-    f.actions do 
-      f.action :submit, :label => "Transfer Credits" 
-    end 
-  end 
+  form partial: "form"
 
   controller do 
-    def new 
+
+    def new
       @credit_event = CreditEvent.new
       @credit_event.other = Label.find(params[:other_id])
 
-      raise CanCan::AccessDenied  unless @credit_event.other.parent_id == current_label.id
+      raise CanCan::AccessDenied  unless can? :edit, @credit_event.other
     end 
 
     # create the transfer 
@@ -35,7 +37,9 @@ ActiveAdmin.register CreditEvent do
       other = Label.accessible_by(current_ability).find(params[:credit_event][:other_id]) 
       raise CanCan::AccessDenied  unless other.parent_id == current_label.id 
 
-      CreditsProcessor.new( current_user, current_label).transfer( other, params[:credit_event]) 
+      ce = LabelProcessor.new(current_label).transfer_funds(other, params[:credit_event][:charge_amount])
+      flash[:notice] = (ce.status == :success ? 'Transfer succeeded' : "Transfer failed. #{ce.note}" )
+
       redirect_to admin_dashboard_path 
     end 
   end 

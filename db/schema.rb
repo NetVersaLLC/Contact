@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130715202254) do
+ActiveRecord::Schema.define(:version => 20130723205442) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -422,25 +422,33 @@ ActiveRecord::Schema.define(:version => 20130715202254) do
   create_table "coupons", :force => true do |t|
     t.string   "name"
     t.string   "code"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.integer  "percentage_off"
+    t.datetime "created_at",                                       :null => false
+    t.datetime "updated_at",                                       :null => false
+    t.integer  "percentage_off_monthly"
     t.integer  "label_id"
-    t.integer  "redeemed_count", :default => 0
-    t.integer  "allowed_upto",   :default => 0
+    t.integer  "redeemed_count",         :default => 0
+    t.integer  "allowed_upto",           :default => 0
+    t.integer  "percentage_off_signup",  :default => 0
+    t.integer  "dollars_off_monthly",    :default => 0
+    t.integer  "dollars_off_signup",     :default => 0
+    t.string   "use_discount",           :default => "percentage"
   end
 
   add_index "coupons", ["code"], :name => "index_coupons_on_code"
 
   create_table "credit_events", :force => true do |t|
-    t.integer  "quantity",   :default => 0
-    t.string   "action",                    :null => false
+    t.integer  "quantity",                                             :default => 0
+    t.string   "action",                                                                :null => false
     t.string   "note"
     t.integer  "other_id"
-    t.integer  "label_id",                  :null => false
+    t.integer  "label_id",                                                              :null => false
     t.integer  "user_id"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at",                                                            :null => false
+    t.datetime "updated_at",                                                            :null => false
+    t.decimal  "charge_amount",          :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "post_available_balance", :precision => 8, :scale => 2, :default => 0.0
+    t.integer  "transaction_event_id"
+    t.string   "status"
   end
 
   create_table "crunchbases", :force => true do |t|
@@ -665,6 +673,7 @@ ActiveRecord::Schema.define(:version => 20130715202254) do
     t.datetime "updated_at",                                :null => false
     t.integer  "foursquare_category_id"
     t.boolean  "do_not_sync",            :default => false
+    t.string   "foursquare_page"
   end
 
   add_index "foursquares", ["business_id"], :name => "index_foursquares_on_business_id"
@@ -769,6 +778,7 @@ ActiveRecord::Schema.define(:version => 20130715202254) do
     t.integer  "facebook_category_id"
     t.integer  "facebook_profile_category_id"
     t.integer  "yellowtalk_category_id"
+    t.integer  "yellowwiz_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -895,6 +905,15 @@ ActiveRecord::Schema.define(:version => 20130715202254) do
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
 
+  create_table "insiderpages", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
     t.text     "secrets"
@@ -945,6 +964,7 @@ ActiveRecord::Schema.define(:version => 20130715202254) do
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
     t.boolean  "do_not_sync",  :default => false
+    t.string   "email"
   end
 
   add_index "justclicklocals", ["business_id"], :name => "index_justclicklocals_on_business_id"
@@ -982,21 +1002,25 @@ ActiveRecord::Schema.define(:version => 20130715202254) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
     t.text     "custom_css"
-    t.datetime "created_at",                                                                :null => false
-    t.datetime "updated_at",                                                                :null => false
+    t.datetime "created_at",                                                                                                   :null => false
+    t.datetime "updated_at",                                                                                                   :null => false
     t.string   "login"
     t.string   "password"
     t.text     "footer"
     t.integer  "parent_id"
-    t.integer  "credits",              :default => 0
-    t.string   "mail_from",            :default => "change_this@to_your_support_email.com"
+    t.integer  "credits",                                                 :default => 0
+    t.string   "mail_from",                                               :default => "change_this@to_your_support_email.com"
     t.string   "favicon_file_name"
     t.string   "favicon_content_type"
     t.integer  "favicon_file_size"
     t.datetime "favicon_updated_at"
     t.boolean  "is_pdf"
-    t.boolean  "is_show_password",     :default => true
+    t.boolean  "is_show_password",                                        :default => true
     t.string   "theme"
+    t.decimal  "available_balance",         :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "package_signup_rate",       :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "package_subscription_rate", :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "credit_limit",              :precision => 8, :scale => 2, :default => 0.0
   end
 
   add_index "labels", ["domain"], :name => "index_labels_on_domain"
@@ -1294,6 +1318,7 @@ ActiveRecord::Schema.define(:version => 20130715202254) do
     t.datetime "force_update"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.boolean  "do_not_sync"
   end
 
   add_index "mycitybusinesses", ["business_id"], :name => "index_mycitybusinesses_on_business_id"
@@ -1316,6 +1341,7 @@ ActiveRecord::Schema.define(:version => 20130715202254) do
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
     t.boolean  "do_not_sync",  :default => false
+    t.string   "username"
   end
 
   create_table "notifications", :force => true do |t|
@@ -1334,8 +1360,9 @@ ActiveRecord::Schema.define(:version => 20130715202254) do
     t.string   "site"
     t.string   "payload"
     t.string   "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.integer  "queue_insert_order", :default => 0
   end
 
   add_index "package_payloads", ["package_id"], :name => "index_packages_payloads_on_package_id"
@@ -1988,8 +2015,31 @@ ActiveRecord::Schema.define(:version => 20130715202254) do
     t.string   "username"
     t.text     "secrets"
     t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.integer  "yellowtalk_category_id"
+    t.boolean  "do_not_sync",            :default => false
+  end
+
+  create_table "yellowwiz_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "yellowwiz_categories", ["name"], :name => "index_yellowwiz_categories_on_name"
+  add_index "yellowwiz_categories", ["parent_id"], :name => "index_yellowwiz_categories_on_parent_id"
+
+  create_table "yellowwizs", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.string   "username"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "do_not_sync",  :default => false
   end
 
   create_table "yelp_categories", :force => true do |t|

@@ -1,9 +1,8 @@
 class Label < ActiveRecord::Base
   has_attached_file :logo, :styles => { :thumb => "200x200>" }
-  attr_accessible :name, :domain, :custom_css, :login, :password, :logo, :footer,:is_pdf ,:is_show_password
   has_attached_file :favicon, :styles => { :thumb => "200x200>" }
   attr_accessible :name, :domain, :custom_css, :login, :password, :logo, :footer,:is_pdf ,:is_show_password, :favicon
-  attr_accessible :mail_from, :theme
+  attr_accessible :mail_from, :theme, :credit_limit, :package_signup_rate, :package_subscription_rate
 
   acts_as_tree :order => :name
   has_many :users
@@ -11,6 +10,7 @@ class Label < ActiveRecord::Base
   has_many :packages
   has_many :package_payloads
   has_many :credit_events 
+  has_many :transaction_events
 
   THEMES = %w{ ace amelia cerulean cosmo cyborg journal readable simplex slate spacelab spruce superhero united }
   
@@ -38,20 +38,43 @@ class Label < ActiveRecord::Base
     name 
   end 
 
+  def credit_held_by_children 
+    children.sum(:credit_limit)
+  end
+  def funds_available
+    credit_limit + available_balance - credit_held_by_children
+  end 
+
   validates :login,
-    :presence => true,
+    #:presence => true,             # resellers cant create a label if validating presence
     :format => { :with => /\S*/ }
   validates :password,
-    :presence => true,
+    #:presence => true,
     :format => { :with => /\S*/ }
   validates :domain,
     :presence => true
   validates :logo,
     :presence => true
-
   validates_format_of :favicon_file_name,
     :allow_blank => true,
     :with => %r{\.(ico|jpg|jpeg|png)$}i
+  validate :credit_limit_within_range
+
+  def credit_limit_within_range
+    # cant be more than what the parent has available 
+    unless self.parent.nil? 
+      was = self.credit_limit_was
+      if self.credit_limit > self.parent.credit_limit - parent.credit_held_by_children + was
+        errors.add(:credit_limit, "The parent label does not have enough credit available.") 
+      end 
+    end
+
+    # need enough to cover the children 
+    if self.credit_limit < self.credit_held_by_children 
+      errors.add(:credit_limit, "There needs to be enough credit to cover the amount held by the sub labels.")
+    end
+  end 
+
 
 #  def gateway
 #    return @gateway if @gateway

@@ -10,10 +10,6 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     end
     @password =  Devise.friendly_token.first(10)
     @is_checkout_session = checkout_setup
-    if current_label.credits < -99
-      redirect_to '/try_again_later'
-      return
-    end
     super
   end
 
@@ -51,11 +47,12 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
       end 
 
       if @is_checkout_session == true
-        credit_card_processor = CreditCardProcessor.new(current_label, params[:creditcard] ) 
-        business_processor = BusinessProcessor.new( credit_card_processor ) 
-        
-        @transaction = 
-          business_processor.create_a_business(resource, @package, params[:coupon])
+        label_processsor = LabelProcessor.new( current_label ) 
+
+        @transaction = label_processsor.create_business( resource, 
+                      params[:coupon], 
+                      params[:creditcard], 
+                      @package) 
 
         if @transaction.is_success?
           flash[:notice] = "Signed up"
@@ -78,7 +75,6 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
           expire_session_data_after_sign_in!
         end
   
-
         User.send_welcome(resource) # It should be done as backburner process  as User.async.send_welcome(resource)
         if @is_checkout_session == true
           if !@transaction.business.subscription.active || @transaction.business.subscription.active.nil?

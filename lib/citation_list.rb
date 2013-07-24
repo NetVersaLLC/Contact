@@ -147,7 +147,7 @@
     ],
       'MapQuest'
   ],
-  ['InsiderPage', 'insider_pages',
+  ['InsiderPage', 'insider_page',
     [
       ['text', 'email'],
       ['text', 'password']
@@ -426,7 +426,8 @@
   ['Gomylocal', 'gomylocals',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'gomylocal_category']
     ],
       'Gomylocal'
   ],
@@ -495,8 +496,7 @@
     [
       ['text', 'email'],
       ['text', 'password'],
-      ['select', 'facebook_category'],
-      ['select', 'facebook_profile_category']
+      ['select', 'facebook_category']
 
     ],
       'Facebook'
@@ -515,12 +515,19 @@
     ],
       'Hotfrog'
   ],
-  ['Localeze', 'localezes',
+  ['Yellowtalk', 'yellowtalks',
     [
-      ['text', 'email'],
-      ['text', 'password'],
+      ['select', 'yellowtalk_category']
     ],
-      'Localeze'
+    'Yellowtalk'
+  ],
+  ['Mycitybusiness', 'mycitybusinesses',
+    [],
+    'Mycitybusiness'
+  ],
+  ['Yellowwiz', 'yellowwiz',
+    [],
+    'Yellowwiz'
   ]
 ]
 
