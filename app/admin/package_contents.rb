@@ -8,6 +8,9 @@ ActiveAdmin.register_page "Package Contents" do
   end
 
   content do
+    para do 
+      "Simply drag and drop to change the order for inserting payloads into the queue.  Don't forget to Save Sequence when you are done."
+    end 
     select(:id => 'packages_list') do
       current_user.packages.each do |pac|
         option(:value => pac.id) do
@@ -15,11 +18,15 @@ ActiveAdmin.register_page "Package Contents" do
         end
       end
     end
+    button(:id => 'save_insert_order') do 
+      "Save Sequence"
+    end 
+
     pac = current_user.packages.first
-    table(:id => 'package_content_table', :class => 'index_table index') do
+    table(:id => 'package_content_table', :class => 'index_table index striped') do
     # gets loaded up via ajax
     #  PackagePayload.where(:package_id => pac.id).order("site asc").each do |obj|
-    #    tr do
+    #    tr 
     #      td(:class => 'payload_name') do 
     #        "#{obj.site}/#{obj.payload}"
     #      end

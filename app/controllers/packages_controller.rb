@@ -3,7 +3,7 @@ class PackagesController < ApplicationController
   # skip_before_filter :verify_authenticity_token
   def index
     if current_user.reseller?
-      @packages = Package.find(params[:id]).package_payloads.order("site asc")
+      @packages = Package.find(params[:id]).package_payloads.insert_order #order("site asc")
       render json: @packages
     else
       error = {:error => :access_denied}
@@ -21,6 +21,19 @@ class PackagesController < ApplicationController
       render json: error, :status => 403
     end
   end
+
+  def reorder 
+    package = PackagePayload.find(params[:id]) 
+    if can? :edit, package
+      params[:payload_ids].each_with_index do |id, index|
+        PackagePayload.where(id: id).update_all( queue_insert_order: index)
+      end 
+      render json: true
+    else 
+      error = {:error => :access_denied}
+      render json: error, :status => 403
+    end 
+  end 
 
   def create
     if current_user.reseller?
