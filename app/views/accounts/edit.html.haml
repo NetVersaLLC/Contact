@@ -68,17 +68,20 @@
     var _this = this;
     $(".ajax-progress").show();
     $('.btn-save', _this).prop('disabled', true);
-    if ( /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($(this).find("[type='email']").val()) ){
-
-    $.ajax({ 
-      data: $(this).serialize(),
-      url: this.action,
-      type: 'post',
-      success: function(res){
-        $(".ajax-progress").hide();
-        $('.btn-save', _this).prop('disabled', false);
-      }
-    });
+    if ( $(this).find("[type='email']").length == 0 ||
+      /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test($(this).find("[type='email']").val()) ){
+      $.ajax({ 
+        data: $(this).serialize(),
+        url: this.action,
+        type: 'post',
+        success: function(res){
+          
+          $(".site-accounts").prepend("<div class='alert alert-success site-accounts-notification'>Your account has been successfully saved.</div>");
+          setTimeout(function(){ $(".site-accounts-notification").remove(); }, 5000);
+          $(".ajax-progress").hide();
+          $('.btn-save', _this).prop('disabled', false);
+        }
+      });
     } else { 
       alert("The email address is invalid.");
       $(".ajax-progress").hide();
