@@ -2,10 +2,10 @@ class Package < ActiveRecord::Base
   include ApplicationHelper
   attr_accessor :original_price, :saved
   attr_accessible :original_price, :saved
-  attr_accessible :description, :name, :price, :short_description, :monthly_fee, :label_id
+  attr_accessible :description, :name, :price, :short_description, :monthly_fee #, :label_id
   has_many :package_payloads
   has_many :subscriptions
-  belongs_to :label
+  #belongs_to :label
 
   validates :monthly_fee,
     :numericality => { :greater_than => 0 },
@@ -13,8 +13,7 @@ class Package < ActiveRecord::Base
   validates :price,
     :numericality => { :greater_than => 0 },
     :presence => true
-  validates :label_id,
-    :presence => true
+  #validates :label_id,  :presence => true
 
   def self.list
     ret = []

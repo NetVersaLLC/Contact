@@ -7,8 +7,8 @@ class Label < ActiveRecord::Base
   acts_as_tree :order => :name
   has_many :users
   has_many :coupons
-  has_many :packages
-  has_many :package_payloads
+  #has_many :packages
+  #has_many :package_payloads
   has_many :credit_events 
   has_many :transaction_events
 

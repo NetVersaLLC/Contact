@@ -15,18 +15,18 @@ class Coupon < ActiveRecord::Base
   validates :allowed_upto, :numericality => { :greater_than => 0 }
 
 
-  def self.get_for( something_for_a_label, code ) 
-    Coupon.where( :label_id => something_for_a_label.label_id, 
+  def self.get_for( label, code ) 
+    Coupon.where( :label_id => label.id, 
                   :code => code )
   end 
 
-  def self.get_available_for( something_for_a_label, code ) 
-    Coupon.get_for(something_for_a_label, code)
+  def self.get_available_for( label, code ) 
+    Coupon.get_for(label, code)
           .where("redeemed_count < allowed_upto" )
   end 
 
-  def self.redeem( something_for_a_label, code) 
-    c = Coupon.get_for( something_for_a_label, code).first 
+  def self.redeem( label, code) 
+    c = Coupon.get_for( label, code).first 
 
     c.update_attribute(:redeemed_count, c.redeemed_count + 1) if c 
   end 

@@ -10,6 +10,7 @@ ActiveAdmin.register Coupon do
 
   form do |f|
     f.inputs do
+      f.input :label
       f.input :name 
       f.input :code 
       f.input :allowed_upto
@@ -20,6 +21,20 @@ ActiveAdmin.register Coupon do
       f.input :percentage_off_signup 
     end
     f.actions
+  end 
+
+  show do |label| 
+    attributes_table do 
+      row :label 
+      row :name 
+      row :code
+      row :allowed_upto
+      row :use_discount 
+      row :dollars_off_monthly 
+      row :dollars_off_signup 
+      row :percentage_off_monthly 
+      row :percentage_off_signup
+    end 
   end 
 
 end
