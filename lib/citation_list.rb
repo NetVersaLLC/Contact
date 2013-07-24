@@ -147,10 +147,11 @@
     ],
       'MapQuest'
   ],
-  ['InsiderPage', 'insider_page',
+  ['InsiderPage', 'insider_pages',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'insider_page_category']
     ],
       'InsiderPage'
   ],
