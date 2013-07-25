@@ -39,14 +39,13 @@ module Business::MiscMethods
       end
     end
 
-    def completed_jobs_since_last_task
-      submitted_jobs = PackagePayload.where(:package_id => self.subscription.package_id).map{|pp| pp.name} 
-
+    def accounts_synced
+     
       last_sync_request = tasks.order('created_at desc').first
       last_sync_requested_at = last_sync_request.nil? ? Time.new(2013,1,1) : last_sync_request.created_at
-      finished_jobs = completed_jobs.where("created_at > ?", last_sync_requested_at).pluck(:name)
+      completed_sites = completed_jobs.where("created_at > ?", last_sync_requested_at).map{|j| j.name.split("/")[0] }
 
-      submitted_jobs & finished_jobs
+      completed_sites & package_payload_sites
     end 
 
     def birthday

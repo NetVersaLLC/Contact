@@ -7,10 +7,10 @@
             %h1= @business.package_payload_sites.length #Business.citation_list.length
             %span ACTIVE LISTINGS 
           .citation-info
-            %h1= @business.completed_jobs_since_last_task.length
+            %h1= @business.accounts_synced.length
             %span SYNCRONIZED
           .citation-info
-            %h1= @business.package_payload_sites.length - @business.completed_jobs_since_last_task.length
+            %h1= @business.package_payload_sites.length - @business.accounts_synced.length
             %span UNSYNCRONIZED
         .span3
           -if params[:delay] 
