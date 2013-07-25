@@ -13,16 +13,19 @@ class Business < ActiveRecord::Base
 
   #has_attached_file :logo, :styles => { :thumb => '100x100>', :medium => '240x240>' }
 
+  belongs_to :user
+  belongs_to :subscription
+  belongs_to :label
+ 
+  has_one :transaction_event # transaction that occurred at sign up  #belongs
+
   has_many :jobs, :order => "position"
   has_many :failed_jobs, :order => "position"
   has_many :completed_jobs, :order => "position"
   has_many :codes
-  belongs_to :user
-  belongs_to :subscription
-  belongs_to :label
   has_many :notifications  #belongs_to not there in notification.rb
   has_many :images         #belongs_to not there in image.rb
-  has_one :transaction_event # transaction that occurred at sign up  #belongs
+  has_many :tasks
 
   # Triggers -> moved to BusinessObserver
 

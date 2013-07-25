@@ -8,7 +8,7 @@ class TasksController < ApplicationController
     # if they been paying their bill
     if business.label.funds_available > 0.0
       @task             = Task.new
-      @task.business_id = params['business_id']
+      @task.business_id =  business.id
       @task.started_at  = Time.now
 
       if @task.save!

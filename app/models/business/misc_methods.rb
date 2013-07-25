@@ -39,6 +39,16 @@ module Business::MiscMethods
       end
     end
 
+    def completed_jobs_since_last_task
+      submitted_jobs = PackagePayload.where(:package_id => self.subscription.package_id).map{|pp| pp.name} 
+
+      last_sync_request = tasks.order('created_at desc').first
+      last_sync_requested_at = last_sync_request.nil? ? Time.new(2013,1,1) : last_sync_request.created_at
+      finished_jobs = completed_jobs.where("created_at > ?", last_sync_requested_at).pluck(:name)
+
+      submitted_jobs & finished_jobs
+    end 
+
     def birthday
       if self.contact_birthday
         Date.strptime self.contact_birthday, '%m/%d/%Y'

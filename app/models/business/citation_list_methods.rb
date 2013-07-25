@@ -34,6 +34,7 @@ module Business::CitationListMethods
       @package_payloads = package_sites & citation_sites
     end 
 
+
     def package_payloads_include?(site) 
       package_payload_sites.include?(site)
     end 
