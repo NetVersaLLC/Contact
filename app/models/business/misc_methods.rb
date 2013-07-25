@@ -50,11 +50,13 @@ module Business::MiscMethods
     end 
 
     def birthday
-      if self.contact_birthday
-        Date.strptime self.contact_birthday, '%m/%d/%Y'
-      else
-        Date.today - 30.year - (rand()*365).day
+      date = self.contact_birthday
+      unless date
+        date = Date.today - 30.year - (rand()*365).day
+	self.contact_birthday = date
+	self.save
       end
+      Date.strptime date, '%m/%d/%Y'
     end
 
 
