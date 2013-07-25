@@ -2,10 +2,10 @@ class Package < ActiveRecord::Base
   include ApplicationHelper
   attr_accessor :original_price, :saved
   attr_accessible :original_price, :saved
-  attr_accessible :description, :name, :price, :short_description, :monthly_fee, :label_id
+  attr_accessible :description, :name, :price, :short_description, :monthly_fee #, :label_id
   has_many :package_payloads
   has_many :subscriptions
-  belongs_to :label
+  #belongs_to :label
 
   validates :monthly_fee,
     :numericality => { :greater_than => 0 },
@@ -13,8 +13,7 @@ class Package < ActiveRecord::Base
   validates :price,
     :numericality => { :greater_than => 0 },
     :presence => true
-  validates :label_id,
-    :presence => true
+  #validates :label_id,  :presence => true
 
   def self.list
     ret = []
@@ -27,11 +26,13 @@ class Package < ActiveRecord::Base
   def apply_coupon(coupon)
     self.original_price = self.price
     if coupon
-      self.price   = (self.price * (1.0 - (coupon.percentage_off / 100.0))).to_i
-      # NOTE: If coupon is 100% off then no subscription cost.
-      if coupon.percentage_off == 100
-        self.monthly_fee = 0
-      end
+      if coupon.use_discount == "percentage" 
+        self.price   = (self.price * (1.0 - (coupon.percentage_off_signup / 100.0))).to_i
+        self.monthly_fee = (self.monthly_fee * (1.0 - (coupon.percentage_off_monthly / 100.0))).to_i
+      elsif coupon.use_discount == "dollars"
+        self.price       -= coupon.dollars_off_signup  > self.price ? self.price : coupon.dollars_off_signup
+        self.monthly_fee -= coupon.dollars_off_monthly > self.monthly_fee ? self.monthly_fee : coupon.dollars_off_monthly
+      end 
       self.saved = self.original_price - self.price
     else
       self.saved = 0

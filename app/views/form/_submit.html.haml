@@ -3,9 +3,10 @@
     = submit_tag "Save Changes", :class => 'btn btn-primary save-changes'
     %a.next-button.btn.btn-large.btn-primary Next
     %a.back-button.btn.btn-large.btn-primary Back
-  - else 
+  - else
     %a.next-button.btn.btn-large.btn-primary Next
     %a.back-button.btn.btn-large.btn-primary Back
+    .dashboard-show= link_to "Dashboard", business_path(params[:id]), :class => "btn btn-primary"
 -#
   %section{:id => 'section-save'}
   = @f.actions do

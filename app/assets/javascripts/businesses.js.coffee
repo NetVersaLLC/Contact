@@ -70,6 +70,9 @@ $ ->
       if cur_step.index() == 7 
         auto_download_client_software()
 
+      if cur_step.index() == 6
+        $('.dashboard-show').show()
+
       if cur_step.index() != 6
         $('form.business').enableClientSideValidations()
 

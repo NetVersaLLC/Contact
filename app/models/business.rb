@@ -85,6 +85,9 @@ class Business < ActiveRecord::Base
   attr_accessible :getfave_attributes
   accepts_nested_attributes_for :getfaves, :allow_destroy => true
 
+  has_many :yellowwiz, :dependent => :destroy, :class_name => "Yellowwiz"
+  attr_accessible :yellowwiz_attributes
+  accepts_nested_attributes_for :yellowwiz, :allow_destroy => true
 
   def logo
       images.where(:is_logo=>true).first
@@ -114,13 +117,16 @@ class Business < ActiveRecord::Base
       backburner_process = BackburnerProcess.find_or_create_by_user_id_and_business_id(user_id, business_id)
       backburner_process.update_attribute(:all_processes, Business.sub_models.map{|b|b.name}.join(' ') )
 
+
       Business.sub_models.each do |klass|
+        
         y = klass.new
         STDERR.puts "Model: #{klass}"
         STDERR.puts "Instance: #{y.inspect}"
         y.business_id = business_id
         y.save
         backburner_process.update_attribute(:processed, backburner_process.processed.to_s + " #{klass}")
+
       end
       Business.find(business_id).touch  # expire cache fragments
     end

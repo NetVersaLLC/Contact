@@ -147,10 +147,11 @@
     ],
       'MapQuest'
   ],
-  ['InsiderPage', 'insider_page',
+  ['InsiderPage', 'insider_pages',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'insider_page_category']
     ],
       'InsiderPage'
   ],
@@ -164,7 +165,7 @@
   ],
   ['Justclicklocal', 'justclicklocals',
     [
-      ['text', 'username'],
+      ['text', 'email'],
       ['text', 'password']
     ],
       'Justclicklocal'
@@ -387,7 +388,7 @@
   ['Expressupdateusa', 'expressupdateusas',
     [
       ['text', 'email'],
-      ['text', 'password']  
+      ['text', 'password'], 
     ],
       'Expressupdateusa'
   ],
@@ -425,7 +426,8 @@
   ['Gomylocal', 'gomylocals',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'gomylocal_category']
     ],
       'Gomylocal'
   ],
@@ -524,7 +526,7 @@
     [],
     'Mycitybusiness'
   ],
-  ['Yellowwiz', 'yellowwizes',
+  ['Yellowwiz', 'yellowwiz',
     [],
     'Yellowwiz'
   ]

@@ -97,6 +97,10 @@ class User < ActiveRecord::Base
     self.access_level <= User.owner
   end
 
+  def role_is
+    User::TYPES.key(self.access_level).try(:to_s).try(:humanize)
+  end
+
   def labels
     if self.admin?
       Label.where('id is not null')

@@ -21,7 +21,7 @@ module Business::MiscMethods
 
     def create_jobs
       sub = self.subscription
-      PackagePayload.where(:package_id => sub.package_id).each do |obj|
+      PackagePayload.where(:package_id => sub.package_id).insert_order.each do |obj|
         thereport = Report.where(:business_id => self.id).first        
         if not thereport == nil
           thescan = Scan.where(:report_id => thereport.id).first
