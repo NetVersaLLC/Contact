@@ -38,10 +38,10 @@ refresh_image_list = (active_image_id) ->
       that = this
       $this = $(this)
       $this.colorbox
-        initialWidth: 800
-        initialHeight: 800
+        innerWidth:  1080
+        innerHeight: 800
         html: ->
-          "<form action='/images/#{$this.data("id")}' method='put' data-remote='true'><input type='hidden' name='image[is_crop]' value=1 >  <img src='#{that.href}' id='image-crop-#{$this.data("id")}'  > <input type='hidden' name='image[crop_x]' id='crop-x-#{$this.data("id")}' > <input type='hidden' name='image[crop_y]' id='crop-y-#{$this.data("id")}' > <input type='hidden' name='image[crop_w]' id='crop-w-#{$this.data("id")}' >  <input type='hidden' name='image[crop_h]' id='crop-h-#{$this.data("id")}' > <input type='submit' value='update' > </form>"
+          "<form action='/images/#{$this.data("id")}' method='put' data-remote='true'><input type='hidden' name='image[is_crop]' value=1 >  <img src='#{that.href}' id='image-crop-#{$this.data("id")}'  > <input type='hidden' name='image[crop_x]' id='crop-x-#{$this.data("id")}' > <input type='hidden' name='image[crop_y]' id='crop-y-#{$this.data("id")}' > <input type='hidden' name='image[crop_w]' id='crop-w-#{$this.data("id")}' >  <input type='hidden' name='image[crop_h]' id='crop-h-#{$this.data("id")}' > <input type='submit' value='update' data-disable-with='Please wait...' class='btn btn-primary' > </form>"
 
       $(document).bind "cbox_complete", -> 
         $("#image-crop-#{ $this.data("id") }").Jcrop
@@ -55,7 +55,7 @@ refresh_image_list = (active_image_id) ->
             $("#crop-y-#{ $this.data("id") }").val(coords.y)
             $("#crop-w-#{ $this.data("id") }").val(coords.w)
             $("#crop-h-#{ $this.data("id") }").val(coords.h)
-          setSelect: [0, 0, 500, 500]
+          setSelect: [0, 0, 200, 200]
           aspectRatio: 1
 
           
@@ -67,7 +67,8 @@ add_image = (response) ->
     $('#show-logo').html('<img src=' + response.medium + ' />')
     html = '<li class="span4" style="position: relative" id="thumbnail'+response.id+'"><div class="thumbnail"><img id="img'+response['id']+'" src="'+response.medium+'"  alt=""><button class="btn btn-info remove_thumbnail" style="position: absolute; top: 4px; right: 2px;" data-image-id="'+response['id']+'">X</button></div></li>'
   else 
-    html = '<li class="span4" style="position: relative" id="thumbnail'+response['id']+'"><div class="thumbnail"><a href="'+response.url+'" class="colorbox" data-id="'+response.id+'" id="img-href-'+response.id+'"   >  <img id="img'+response['id']+'" src="'+response['medium']+'"  alt=""><button class="btn btn-info remove_thumbnail" style="position: absolute; top: 4px; right: 2px;" data-image-id="'+response['id']+'">X</button><button class="btn btn-info set-logo" style="position: absolute; top: 4px; right: 40px;" data-image-id="'+response['id']+'">Set as Logo</button></a></div></li>'
+    html = '<li class="span4" style="position: relative" id="thumbnail'+response['id']+'"><div class="thumbnail"><a href="'+response.url+'" class="colorbox" data-id="'+response.id+'" id="img-href-'+response.id+'"   >  <img id="img'+response['id']+'" src="'+response['medium']+'"  alt=""></a><button class="btn btn-info remove_thumbnail" style="position: absolute; top: 4px; right: 2px;" data-image-id="'+response['id']+'">X</button><button class="btn btn-info set-logo" style="position: absolute; top: 4px; right: 40px;" data-image-id="'+response['id']+'">Set as Logo</button></div></li>'
+
   $('#logo-section ul.thumbnails').append(html)
 
 
