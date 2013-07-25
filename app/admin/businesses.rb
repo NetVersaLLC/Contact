@@ -2,9 +2,17 @@ ActiveAdmin.register Business do
   scope_to :current_user, :association_method => :business_scope
   actions :all, :except => [:new] 
 
+  filter :label
   filter :redeemed_coupon, :label => "Coupon",
          :as => :select, :collection => proc { Coupon.where(:label_id => current_user.label.id) }
-  preserve_default_filters!
+  filter :business_name
+  filter :company_website
+  filter :client_checkin 
+  filter :business_name
+  filter :corporate_name
+  filter :categorized 
+  filter :is_client_downloaded 
+  
 
   form :partial => 'form'
 
@@ -32,8 +40,9 @@ ActiveAdmin.register Business do
     end
 
     column :client_checkin
-
-    #actions do |post| 
+    column :categorized, sortable: :categorized do |v| 
+      v.categorized ? "Yes" : "No"
+    end
     column do |v|
       link_to("Categories", "/admin/categories?business_id=#{v.id}")
     end
