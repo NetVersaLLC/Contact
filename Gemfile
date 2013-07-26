@@ -73,7 +73,7 @@ gem 'airbrake'
 gem 'capistrano-db-tasks', require: false
 gem 'axlsx'
 gem 'vitelity'
-gem "backburner", "~> 0.3.4"
+gem "backburner", ">=0.4.0" # "~> 0.3.4"
 gem 'daemons'
 gem 'prawn'
 gem 'user_impersonate' 

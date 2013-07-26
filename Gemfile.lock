@@ -88,11 +88,11 @@ GEM
       htmlentities (~> 4.3.1)
       nokogiri (>= 1.4.1)
       rubyzip (>= 0.9.5)
-    backburner (0.3.4)
-      beaneater (~> 0.3.0)
+    backburner (0.4.1)
+      beaneater (~> 0.3.1)
       dante (~> 0.1.5)
     bcrypt-ruby (3.0.1)
-    beaneater (0.3.0)
+    beaneater (0.3.1)
     binding_of_caller (0.7.1)
       debug_inspector (>= 0.0.1)
     bourbon (3.1.6)
@@ -381,7 +381,7 @@ DEPENDENCIES
   awesome_print
   aws-sdk (~> 1.11.3)
   axlsx
-  backburner (~> 0.3.4)
+  backburner (>= 0.4.0)
   binding_of_caller
   cancan
   capistrano
