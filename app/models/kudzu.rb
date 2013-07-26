@@ -1,7 +1,7 @@
 class Kudzu < ClientData
-  attr_accessible :username, :kudzu_category_id
+  attr_accessible       :username, :kudzu_category_id
   virtual_attr_accessor :password, :secret_answer
-belongs_to            :kudzu_category
+  belongs_to            :kudzu_category
   
   def self.make_password
     SecureRandom.urlsafe_base64(rand()*6 + 6).gsub(/[^A-Za-z0-9]/, '')
@@ -18,7 +18,7 @@ belongs_to            :kudzu_category
           if p.content_type =~ /text\/html/
             nok = Nokogiri::HTML(p.decoded)
             nok.xpath("//a").each do |link|
-              if link.attr('href') =~ /https:\/\/register.kudzu.com\/confirmEmail.do\?confirmCode=/
+              if link.attr('href') =~ /https:\/\/register.kudzu.com\/confirmEmail.do\?confirmCode=*/
                 @link = link.attr('href')
               end
             end
