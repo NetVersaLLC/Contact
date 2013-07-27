@@ -18,8 +18,8 @@ class CodesController < ApplicationController
   end 
 
   def create 
-    if params[:code] # from the form 
-      @code = Code.new( params[:code] ) 
+    if params[:code] and not params[:site_name] # from the form 
+      @code = Code.new( :code => params[:code]) 
     else 
       @code = Code.new( site_name: params[:site_name], code: params[:code]) 
     end 
