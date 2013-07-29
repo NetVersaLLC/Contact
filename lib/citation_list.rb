@@ -115,7 +115,7 @@
       ['select', 'foursquare_category'],
       ['text', 'foursquare_page']
     ],
-      'foursquare'
+      'Foursquare'
   ],
   ['Localdatabase', 'localdatabases',
     [
