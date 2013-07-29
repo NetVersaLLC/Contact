@@ -11,7 +11,6 @@ class SubscriptionsController < ApplicationController
     @subscription = Subscription.new
     @package      = Package.first
   end
-
   def edit
     @business = Business.find(params[:business_id])
     @subscription = @business.subscription
@@ -22,19 +21,13 @@ class SubscriptionsController < ApplicationController
     end
     @creditcard = CreditCard.new
   end
-
   def update 
     # set up a subscription
     @business = Business.find(params[:business_id])
-    @subscription = Subscription.find( params[:id] ) 
     @package = Package.find(params[:package_id]) 
 
-    @subscription.business = @business
-
-    ccp = CreditCardProcessor.new(current_label, params[:creditcard]) 
-    bp = BusinessProcessor.new ccp 
-    
-    transaction_event = bp.update_a_business( current_user, @package, @business )
+    lb = LabelProcessor.new current_label 
+    transaction_event = lb.renew_business_subscription(current_user, @package, @business, params[:creditcard]) 
 
     if transaction_event.status == :success
       flash[:notice] = 'Subscription updated' 

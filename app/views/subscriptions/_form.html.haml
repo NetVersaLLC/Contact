@@ -2,7 +2,7 @@
   $(document).ready(function(){
     window.registerCheckoutHooks();
   });
-- if @subscription.active
+- if @business.subscription.active
   %h4.section-label Subscription Active
   %table.table.table-striped
     %tr
@@ -16,13 +16,13 @@
     %tr
       %td Started
       %td
-        = @subscription.created_at.strftime("%Y-%m-%d")
+        = @business.subscription.created_at.strftime("%Y-%m-%d")
     %tr
       %td Billing Type
       %td Monthly
   = link_to 'Cancel Subscription', subscription_path(@business), :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-info'
 - else
-  = semantic_form_for [@business,@subscription], :class => 'form-horizontal'   do |f|
+  = semantic_form_for [@business,@business.subscription], :class => 'form-horizontal'   do |f|
     = f.semantic_errors
     - @f = f
     %h3

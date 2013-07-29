@@ -7,7 +7,7 @@ class LabelProcessor
   #  @credit_card_processor = credit_card_processor 
   #end 
 
-  def renew_business( user, package, business, credit_card)
+  def renew_business_subscription( user, package, business, credit_card)
     charge_and_subscribe user, package, business, nil, credit_card
   end 
 
@@ -94,7 +94,7 @@ class LabelProcessor
     end 
 
     # set up a subscription
-    subscription  = ccp.monthly_recurring_charge(package.monthly_fee * 100 )
+    subscription  = ccp.monthly_recurring_charge(package.monthly_fee * 100, business.subscription )
     subscription.business = business 
     subscription.package = package 
     subscription.label = @label
