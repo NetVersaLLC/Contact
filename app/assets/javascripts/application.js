@@ -4,7 +4,7 @@
 //= require easypaginate
 //= require bootstrap.min
 //= require businesses
-//= require jquery.fineuploader-3.3.0.min
+//= require jquery.fineuploader.min
 //= require jquery.payment
 //= require jquery.psteps.min
 //= require jquery.cookie
