@@ -1,6 +1,6 @@
 %h3.page-title
   Login
-= semantic_form_for(resource, :as => resource_name, :url => session_path(resource_name), :validate => true, :html => {:class => 'form-horizontal'}) do |f|
+= semantic_form_for(resource, :as => resource_name, :url => session_path(resource_name),  :html => {:class => 'form-horizontal'}) do |f|
   = f.semantic_errors
   = f.inputs do
     .control-group
@@ -29,7 +29,7 @@
         -elsif alert
           .controls.alert.alert-error.span4
             = flash[:alert]
-    = f.input :email,    hint:"Enter your email address"
+    = f.input :email,  :validate => { :uniqueness => false } 
     = f.input :password, hint:"Enter password"
   -if devise_mapping.rememberable?
     = f.input :remember_me, :as => :boolean, :class => 'span4'
