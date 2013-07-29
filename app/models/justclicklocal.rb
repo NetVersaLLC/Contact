@@ -4,7 +4,7 @@ class Justclicklocal < ClientData
 #	validates :password,
 #            :presence => true
 
-def coinflip
+def self.coinflip
 	flip = rand(100)
 	if flip < (50)
 		#puts("heads")
@@ -15,7 +15,7 @@ def coinflip
 	end
 end
 
-def random_letter
+def self.random_letter
 	alphabet = 'A'.upto('Z').to_a
 	letter = rand(26)
 	if coinflip == true then
