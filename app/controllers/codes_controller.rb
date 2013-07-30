@@ -23,13 +23,15 @@ class CodesController < ApplicationController
     else 
       @code = Code.new( site_name: params[:site_name], code: params[:code]) 
     end 
-   
     @code.business = Business.find(params[:business_id]) 
      if params[:next_job]
       @code.next_job = params[:next_job]
     end
     @code.save 
 
+    #remove the notification/pending action
+    Notification.where("url like ?","%#{params[:code][:site_name]}%").first.delete
+    
     respond_to do |format| 
       format.html do
           flash[:notice] = 'Code saved!'
