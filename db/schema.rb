@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130723205442) do
+ActiveRecord::Schema.define(:version => 20130731122707) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -1455,6 +1455,7 @@ ActiveRecord::Schema.define(:version => 20130723205442) do
     t.datetime "updated_at",   :null => false
     t.string   "ident"
     t.integer  "package_id"
+    t.integer  "label_id"
   end
 
   add_index "reports", ["business_id"], :name => "index_reports_on_business_id"
