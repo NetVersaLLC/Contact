@@ -136,6 +136,7 @@
     [
       ['text', 'username'],
       ['text', 'password'],
+      ['text', 'email'],
       ['select', 'tupalo_category']
     ],
       'Tupalo'
