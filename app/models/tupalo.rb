@@ -1,5 +1,5 @@
 class Tupalo < ClientData
-  attr_accessible :username
+  attr_accessible :email, :username
   virtual_attr_accessor :password
   belongs_to :tupalo_category
 
