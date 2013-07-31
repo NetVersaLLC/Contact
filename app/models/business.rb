@@ -114,6 +114,18 @@ class Business < ActiveRecord::Base
     Business.async.create_site_accounts_ex user_id, business_id
   end
 
+
+    def create_site_accounts_test
+      #this method is ONLY used for creating test accounts with the account_creator script.
+      Business.sub_models.each do |klass| 
+        y = klass.new
+        STDERR.puts "Model: #{klass}"
+        STDERR.puts "Instance: #{y.inspect}"
+        y.business_id = self.id
+        y.save
+      end
+    end
+
   private
 
     def self.create_site_accounts_ex(user_id, business_id)
@@ -162,5 +174,8 @@ class Business < ActiveRecord::Base
         image.destroy
       end unless images.blank?
     end
+
+
+
   # end private methods
 end
