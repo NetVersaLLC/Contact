@@ -12,14 +12,16 @@ class CodesController < ApplicationController
     
     if params[:screen_to_phone] 
       render 'new_screen_to_phone' 
-    else 
+    elsif params[:mail] 
+      render 'new_mail_verify'
+    else
       render 
     end 
   end 
 
   def create 
     if params[:code] and not params[:site_name] # from the form 
-      @code = Code.new( :code => params[:code]) 
+      @code = Code.new( :code => params[:code][:code], site_name: params[:code][:site_name]) 
     else 
       @code = Code.new( site_name: params[:site_name], code: params[:code]) 
     end 
