@@ -9,11 +9,11 @@ class PdfReport
       
       top_y_position = cursor
 
-      bounding_box( [0, cursor], :width => 200, :height => 100) do
-        image(logo, :fit => [200,100]) if File.exist?(logo)
+      bounding_box( [0, cursor], :width => 200, :height => 150) do
+        image(logo, :fit => [200,150]) if File.exist?(logo)
       end
 
-      bounding_box( [200, top_y_position], :width => 320, :height => 100) do
+      bounding_box( [200, top_y_position], :width => 320, :height => 150) do
         move_down 15
         text(title, :size => 16, :style => :bold, :align => :center)
         move_down 15
@@ -64,6 +64,7 @@ private
     address1 = "#{business.address} #{business.address2}"
     address2 = "#{business.city}, #{business.state} #{business.zip}"
     phone = business.local_phone
+
 
     return [logo, title, address1, address2, phone]
   end
