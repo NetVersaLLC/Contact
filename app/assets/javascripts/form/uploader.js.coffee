@@ -41,9 +41,12 @@ refresh_image_list = (active_image_id) ->
         innerWidth:  1080
         innerHeight: 800
         html: ->
-          "<form action='/images/#{$this.data("id")}' method='put' data-remote='true'><input type='hidden' name='image[is_crop]' value=1 >  <img src='#{that.href}' id='image-crop-#{$this.data("id")}'  > <input type='hidden' name='image[crop_x]' id='crop-x-#{$this.data("id")}' > <input type='hidden' name='image[crop_y]' id='crop-y-#{$this.data("id")}' > <input type='hidden' name='image[crop_w]' id='crop-w-#{$this.data("id")}' >  <input type='hidden' name='image[crop_h]' id='crop-h-#{$this.data("id")}' > <input type='submit' value='update' data-disable-with='Please wait...' class='btn btn-primary' > </form>"
+          "<form action='/images/#{$this.data("id")}' method='put' data-remote='true'><input type='hidden' name='image[is_crop]' value=1 >  <img src='#{that.href}' id='image-crop-#{$this.data("id")}'  > <input type='hidden' name='image[crop_x]' id='crop-x-#{$this.data("id")}' > <input type='hidden' name='image[crop_y]' id='crop-y-#{$this.data("id")}' > <input type='hidden' name='image[crop_w]' id='crop-w-#{$this.data("id")}' >  <input type='hidden' name='image[crop_h]' id='crop-h-#{$this.data("id")}' > <input type='submit' value='update' data-disable-with='Please wait...' class='btn btn-primary' ><a href='#' class='close-cbox btn'>Cancel</a></form>"
 
       $(document).bind "cbox_complete", -> 
+        $(".close-cbox").click (eventObject) ->
+          eventObject.preventDefault()
+          $("#cboxClose").click()
         $("#image-crop-#{ $this.data("id") }").Jcrop
           onChange: (coords) ->
             $("#crop-x-#{ $this.data("id") }").val(coords.x)
