@@ -15,4 +15,11 @@ class UserMailer < ActionMailer::Base
     mail(:to => user.email, :subject => "Don't forget to download the client") 
   end 
 
+  def setup_completed_email(business)
+    @business_name = business.business_name
+    @user = business.user
+    @url  = "https://#{@user.label.domain}/users/sign_in"
+    mail(:to => @user.email, :from => @user.label.mail_from, 
+          :subject => "Jobs Completed for #{business.business_name}")
+  end
 end
