@@ -7,7 +7,7 @@ group :development do
   gem 'capistrano'
   gem 'rvm-capistrano'
   gem 'rb-fsevent'
-#  gem 'better_errors'
+  gem 'better_errors'
   gem 'binding_of_caller'
 end
 
@@ -80,3 +80,5 @@ gem 'user_impersonate'
 gem 'dogapi', ">=1.3.0"
 gem 'redcarpet'
 gem 'unicorn'
+gem 'rate-limiting'
+gem 'dalli'

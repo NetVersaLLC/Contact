@@ -93,6 +93,9 @@ GEM
       dante (~> 0.1.5)
     bcrypt-ruby (3.0.1)
     beaneater (0.3.1)
+    better_errors (0.8.0)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
     binding_of_caller (0.7.1)
       debug_inspector (>= 0.0.1)
     bourbon (3.1.6)
@@ -143,6 +146,7 @@ GEM
       nokogiri (>= 1.5.0)
       rails (~> 3.0)
     daemons (1.1.9)
+    dalli (2.6.4)
     dante (0.1.5)
     data_magic (0.14)
       faker (>= 1.1.2)
@@ -289,6 +293,8 @@ GEM
       thor (>= 0.14.6, < 2.0)
     raindrops (0.11.0)
     rake (10.0.4)
+    rate-limiting (1.0.4)
+      json
     rb-fsevent (0.9.3)
     rdoc (3.12.2)
       json (~> 1.4)
@@ -382,6 +388,7 @@ DEPENDENCIES
   aws-sdk (~> 1.11.3)
   axlsx
   backburner (>= 0.4.0)
+  better_errors
   binding_of_caller
   cancan
   capistrano
@@ -396,6 +403,7 @@ DEPENDENCIES
   cucumber
   cucumber-rails
   daemons
+  dalli
   database_cleaner
   deathbycaptcha
   detect_email_settings
@@ -421,6 +429,7 @@ DEPENDENCIES
   prawn
   rabl
   rails (= 3.2.13)
+  rate-limiting
   rb-fsevent
   redcarpet
   rspec-rails

@@ -73,4 +73,6 @@ Contact::Application.configure do
     :bucket => 'netversa',
     :s3_credentials => Rails.root.join( "config", "s3.yml")
   }
+
+  config.cache_store = :dalli_store, 'cache.netversa.com'
 end
