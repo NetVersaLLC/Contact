@@ -32,7 +32,7 @@ class CodesController < ApplicationController
     @code.save 
 
     #remove the notification/pending action
-    Notification.where("url like ?","%#{params[:code][:site_name]}%").first.delete
+    Notification.where("url like ? and business_id = ?","%#{params[:code][:site_name]}%", params[:business_id]).first.delete
     
     respond_to do |format| 
       format.html do
