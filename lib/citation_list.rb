@@ -450,7 +450,8 @@
     [
       ['text', 'email'],
       ['text', 'password'],
-      ['text', 'secret_answer']
+      ['text', 'secret_answer'],
+      ['select', 'adsolutionsyp_category']
     ],
       'Ad Solutions YP'
   ],
