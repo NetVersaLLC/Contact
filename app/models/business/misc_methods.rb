@@ -32,6 +32,9 @@ module Business::MiscMethods
           end
         end
 
+        account = ClientData.get_sub_object( obj.site, self )
+        next if account.respond_to?(:do_not_sync) && account.do_not_sync
+
         payload  = Payload.new( obj.site, obj.payload )
         job      = Job.inject(self.id, payload.payload, payload.data_generator, payload.ready)
         job.name = "#{obj.site}/#{obj.payload}"
