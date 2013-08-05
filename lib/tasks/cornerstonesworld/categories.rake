@@ -1,6 +1,6 @@
 require 'json'
 
-namespace :cornerstoneworld do
+namespace :cornerstonesworld do
   task :categories => :environment do
 	body = File.open(Rails.root.join("categories", "Cornerstoneworld", "categories.json"), 'r').read
     categories = JSON.parse(body) 
