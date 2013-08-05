@@ -24,10 +24,6 @@ module Business::Validations
 
     validates :category1,
       :presence => true
-    validates :category2,
-      :presence => true
-    validates :category3,
-      :presence => true
     validates :business_name,
       :presence => true
     validates :corporate_name, :length => { :maximum => 50 },
