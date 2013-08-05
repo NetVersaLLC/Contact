@@ -905,6 +905,15 @@ ActiveRecord::Schema.define(:version => 20130805160751) do
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
 
+  create_table "insiderpages", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
     t.text     "secrets"
@@ -1312,9 +1321,9 @@ ActiveRecord::Schema.define(:version => 20130805160751) do
     t.integer  "business_id"
     t.text     "secrets"
     t.datetime "force_update"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-    t.boolean  "do_not_sync",  :default => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.boolean  "do_not_sync"
   end
 
   add_index "mycitybusinesses", ["business_id"], :name => "index_mycitybusinesses_on_business_id"
@@ -1336,8 +1345,8 @@ ActiveRecord::Schema.define(:version => 20130805160751) do
     t.datetime "force_update"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
-    t.string   "username"
     t.boolean  "do_not_sync",  :default => false
+    t.string   "username"
   end
 
   create_table "notifications", :force => true do |t|
