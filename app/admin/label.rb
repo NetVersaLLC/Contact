@@ -21,7 +21,12 @@ ActiveAdmin.register Label do
   index do
     column :id
     column :name
+    column :legal_name
     column :domain
+    column :label_domain
+    column :address
+    column :support_email
+    column :support_phone
     column :mail_from
     column "Balance", :sortable=>:available_balance do |label|
       number_to_currency(label.available_balance)
