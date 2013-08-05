@@ -16,6 +16,8 @@ require './account_creator/utility'
 ### DO NOT USE THIS FOR PHONE VERIFICATION PAYLOADS ###
 ##                                                   ##
 
+
+
 forwards_to = ARGV[0]
 if forwards_to.nil?
   puts "For phone enabled verifies use ./account_creator/create_business.rb instead."
@@ -25,10 +27,13 @@ if forwards_to.nil?
 end
 
 ActiveRecord::Base.transaction do
-number = ARGV[0]
+number = ARGV[0].dup
 #number = ARGV[0]
 #Utility.get_number()
 numb = {}
+
+puts number
+
 
 numb['ratecenter'] = ARGV[1]
 numb['state'] = ARGV[2]
@@ -79,13 +84,13 @@ business.contact_gender = 'Female'
 business.contact_prefix = 'Miss.'
 business.contact_first_name = Faker::Name.first_name
 business.contact_last_name = Faker::Name.last_name
-business.local_phone = "555-555-1212"
+business.local_phone = number
 business.mobile_phone = business.local_phone
 
 business_hash = address
 
 business.address = business_hash['address']
-business.address2 = 'Suite 101'
+business.address2 = 'Suite 6'
 business.city = business_hash['city']
 business.state = business_hash['state']
 business.zip = business_hash['zip']
@@ -151,17 +156,23 @@ business.trade_license_description = "Telecommunications Provider Lisence"
 business.brands = "Television Cable, Internet Service, Phone Provider"
 business.tag_line = "Cable, Internet, Phone"
 business.job_titles = "Cable Company"
-business.toll_free_phone = "1:800-456-6445"
+#business.toll_free_phone = "800-456-6445"
 
 business.user_id = user.id
 business.subscription_id = sub.id
+puts "ABout to save business"
+business.save
+puts business.errors.inspect
+puts("Businesses saved")
+puts business.id
 
-business.save!
+business.create_site_accounts_test
+puts business.inspect
 
 ## Now set categories
-model = AngiesList.where(:business_id => business.id).first
-model.angies_list_category_id = 656
-model.save!
+#model = AngiesList.where(:business_id => business.id).first
+#model.angies_list_category_id = 656
+#model.save!
 
 model = Bing.where(:business_id => business.id).first
 model.bing_category_id = 2778
@@ -189,10 +200,6 @@ model.save!
 
 model = Ezlocal.where(:business_id => business.id).first
 model.ezlocal_category_id = 3099
-model.save!
-
-model = Findthebest.where(:business_id => business.id).first
-model.findthebest_category_id = 25
 model.save!
 
 model = Foursquare.where(:business_id => business.id).first
@@ -253,10 +260,6 @@ model.save!
 
 model = Snoopitnow.where(:business_id => business.id).first
 model.snoopitnow_category_id = 170
-model.save!
-
-model = Spotbusiness.where(:business_id => business.id).first
-model.spotbusiness_category_id = 4
 model.save!
 
 model = Tupalo.where(:business_id => business.id).first

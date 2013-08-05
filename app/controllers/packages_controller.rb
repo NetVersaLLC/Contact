@@ -23,10 +23,10 @@ class PackagesController < ApplicationController
   end
 
   def reorder 
-    package = PackagePayload.find(params[:id]) 
+    package = Package.find(params[:id]) 
     if can? :edit, package
       params[:payload_ids].each_with_index do |id, index|
-        PackagePayload.where(id: id).update_all( queue_insert_order: index)
+        PackagePayload.where(id: id).where(package_id: package.id).update_all( queue_insert_order: index)
       end 
       render json: true
     else 

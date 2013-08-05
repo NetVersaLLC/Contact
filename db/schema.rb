@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130723205442) do
+ActiveRecord::Schema.define(:version => 20130805160751) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -905,15 +905,6 @@ ActiveRecord::Schema.define(:version => 20130723205442) do
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
 
-  create_table "insiderpages", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "email"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
     t.text     "secrets"
@@ -1021,6 +1012,11 @@ ActiveRecord::Schema.define(:version => 20130723205442) do
     t.decimal  "package_signup_rate",       :precision => 8, :scale => 2, :default => 0.0
     t.decimal  "package_subscription_rate", :precision => 8, :scale => 2, :default => 0.0
     t.decimal  "credit_limit",              :precision => 8, :scale => 2, :default => 0.0
+    t.string   "label_domain"
+    t.string   "address"
+    t.string   "legal_name"
+    t.string   "support_email"
+    t.string   "support_phone"
   end
 
   add_index "labels", ["domain"], :name => "index_labels_on_domain"
@@ -1316,9 +1312,9 @@ ActiveRecord::Schema.define(:version => 20130723205442) do
     t.integer  "business_id"
     t.text     "secrets"
     t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.boolean  "do_not_sync"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "do_not_sync",  :default => false
   end
 
   add_index "mycitybusinesses", ["business_id"], :name => "index_mycitybusinesses_on_business_id"
@@ -1340,8 +1336,8 @@ ActiveRecord::Schema.define(:version => 20130723205442) do
     t.datetime "force_update"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
-    t.boolean  "do_not_sync",  :default => false
     t.string   "username"
+    t.boolean  "do_not_sync",  :default => false
   end
 
   create_table "notifications", :force => true do |t|
@@ -1455,6 +1451,7 @@ ActiveRecord::Schema.define(:version => 20130723205442) do
     t.datetime "updated_at",   :null => false
     t.string   "ident"
     t.integer  "package_id"
+    t.integer  "label_id"
   end
 
   add_index "reports", ["business_id"], :name => "index_reports_on_business_id"
@@ -1753,6 +1750,7 @@ ActiveRecord::Schema.define(:version => 20130723205442) do
     t.datetime "updated_at",                            :null => false
     t.integer  "tupalo_category_id"
     t.boolean  "do_not_sync",        :default => false
+    t.string   "email"
   end
 
   create_table "tweets", :force => true do |t|

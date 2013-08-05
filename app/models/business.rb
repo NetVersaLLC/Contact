@@ -13,16 +13,19 @@ class Business < ActiveRecord::Base
 
   #has_attached_file :logo, :styles => { :thumb => '100x100>', :medium => '240x240>' }
 
+  belongs_to :user
+  belongs_to :subscription
+  belongs_to :label
+ 
+  has_one :transaction_event # transaction that occurred at sign up  #belongs
+
   has_many :jobs, :order => "position"
   has_many :failed_jobs, :order => "position"
   has_many :completed_jobs, :order => "position"
   has_many :codes
-  belongs_to :user
-  belongs_to :subscription
-  belongs_to :label
   has_many :notifications  #belongs_to not there in notification.rb
   has_many :images         #belongs_to not there in image.rb
-  has_one :transaction_event # transaction that occurred at sign up  #belongs
+  has_many :tasks
 
   # Triggers -> moved to BusinessObserver
 
@@ -111,6 +114,18 @@ class Business < ActiveRecord::Base
     Business.async.create_site_accounts_ex user_id, business_id
   end
 
+
+    def create_site_accounts_test
+      #this method is ONLY used for creating test accounts with the account_creator script.
+      Business.sub_models.each do |klass| 
+        y = klass.new
+        STDERR.puts "Model: #{klass}"
+        STDERR.puts "Instance: #{y.inspect}"
+        y.business_id = self.id
+        y.save
+      end
+    end
+
   private
 
     def self.create_site_accounts_ex(user_id, business_id)
@@ -159,5 +174,8 @@ class Business < ActiveRecord::Base
         image.destroy
       end unless images.blank?
     end
+
+
+
   # end private methods
 end

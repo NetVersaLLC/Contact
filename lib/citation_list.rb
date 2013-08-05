@@ -115,7 +115,7 @@
       ['select', 'foursquare_category'],
       ['text', 'foursquare_page']
     ],
-      'foursquare'
+      'Foursquare'
   ],
   ['Localdatabase', 'localdatabases',
     [
@@ -136,6 +136,7 @@
     [
       ['text', 'username'],
       ['text', 'password'],
+      ['text', 'email'],
       ['select', 'tupalo_category']
     ],
       'Tupalo'
@@ -449,7 +450,8 @@
     [
       ['text', 'email'],
       ['text', 'password'],
-      ['text', 'secret_answer']
+      ['text', 'secret_answer'],
+      ['select', 'adsolutionsyp_category']
     ],
       'Ad Solutions YP'
   ],

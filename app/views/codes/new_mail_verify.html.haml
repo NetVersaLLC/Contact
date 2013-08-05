@@ -1,0 +1,25 @@
+.row
+  .span12
+    #code-step-1
+      .code-box 
+        %h3 #{@code.site_name.capitalize} Mail Verification 
+        %p 
+          In order to fully validate your listing with #{@code.site_name.capitalize} you need to validate your address. A Postcard from #{@code.site_name.capitalize} was sent to #{@code.business.address}, #{@code.business.address2} which contains a validation code. If you have receieved the postcard please click 
+          %strong "I have a Postcard from #{@code.site_name.capitalize}" 
+          Enter the code into the box that appears and click
+          %strong "Save".
+
+      %form{id: 'phone_verification_job_data'} 
+        =hidden_field_tag :business_id, @code.business_id 
+        =hidden_field_tag :name, "#{@code.site_name.capitalize}/#{@code.next_job}"
+        %button.btn{id: 'start_call', type: 'button'} I have a Postcard from #{@code.site_name.capitalize}
+    #code-step-2{:style => 'display: none;'}
+      .code-box 
+        %h3 Enter the code from the Postcard
+        %p If you don't have the Postcard just Click the back button and try again when you do have it. 
+
+      = form_for [:business, @code], :html => { class: 'form-inline'} do |f|
+        =f.text_field :code 
+        =f.hidden_field :site_name 
+        =f.button "Save Code", :class=>'btn' 
+

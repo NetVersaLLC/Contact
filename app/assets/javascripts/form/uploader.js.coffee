@@ -24,19 +24,21 @@ set_logo = (e)->
 # The numbering (display_name) is tied to the position, so on 
 # a delete, we need to get the reordered list to remove any 
 # resulting gaps 
-refresh_image_list = (active_image_id) -> 
+refresh_image_list = (active_image_id) ->
   $.getJSON "/images.json?business_id=#{window.business_id}", (images) ->
     $("#logo-section ul.thumbnails").children().remove()   # clean the slate
+    $("#uploader").data("fineuploader").uploader._netUploadedOrQueued = images.length if $("#uploader").data("fineuploader")
+    #console.log "images length :#{ images.length  } " if $("#uploader").data("fineuploader")
     add_image image for image in images      # add them back in
     $('.remove_thumbnail').click (e)->       # wire up for deletion
       delete_image(e)
-    $('.set-logo').click (e)-> 
+    $('.set-logo').click (e)->
       set_logo(e)
     $("#thumbnail"+active_image_id).addClass('active-block')
 
 # ugly looking helper to keep the html out of the way 
 add_image = (response) ->
-  if response.is_logo == true 
+  if response.is_logo == true
     $('#show-logo').html('<img src=' + response.medium + ' />')
     html = '<li class="span4" style="position: relative" id="thumbnail'+response.id+'"><div class="thumbnail"><img id="img'+response['id']+'" src="'+response.medium+'"  alt=""><button class="btn btn-info remove_thumbnail" style="position: absolute; top: 4px; right: 2px;" data-image-id="'+response['id']+'">X</button></div></li>'
   else 
@@ -52,23 +54,24 @@ $(document).ready ->
   params[csrf_param]    = encodeURI(csrf_token)
   params["business_id"] = window.business_id
   params["business_form_edit_id"] = window.business_form_edit_id
-  
-  refresh_image_list()
 
-  # wire up existing images to delete button 
-  $('.remove_thumbnail').click (e)->  
+
+  # wire up existing images to delete button
+  $('.remove_thumbnail').click (e)->
     delete_image(e)
 
   $('.set-logo').click (e)->
     set_logo(e)
 
   $('#uploader').fineUploader(
-    validation: 
+    validation:
       allowedExtensions: ['jpg','gif','jpeg','png','bmp']
+      itemLimit: 9
 
     request:
       endpoint: '/images'
       params: params
   ).on 'complete', (event, id, name, response)->
-    return unless response['success']    
+    return unless response['success']
     refresh_image_list()
+  refresh_image_list()

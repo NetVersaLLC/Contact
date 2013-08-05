@@ -4,6 +4,31 @@ class Justclicklocal < ClientData
 #	validates :password,
 #            :presence => true
 
+def self.coinflip
+	flip = rand(100)
+	if flip < (50)
+		#puts("heads")
+		true
+	else
+		#puts("tails")
+		false
+	end
+end
+
+def self.random_letter
+	alphabet = 'A'.upto('Z').to_a
+	letter = rand(26)
+	if coinflip == true then
+		alphabet[letter]
+	else
+		alphabet[letter].downcase
+	end 
+end
+
+def self.make_password
+	password = rand(9..14).times.collect { random_letter }.join
+	return password
+end
 
 def self.get_hours(business)
 hours = {}

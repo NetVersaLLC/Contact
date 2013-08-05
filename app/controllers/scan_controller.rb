@@ -5,7 +5,7 @@ class ScanController < ApplicationController
     @phone       = params[:phone].strip
     @package_id  = params[:package_id]
     @ident       = SecureRandom.uuid
-    @report      = Report.generate(@name,@zip,@phone,@package_id,@ident)
+    @report      = Report.generate(@name,@zip,@phone,@package_id,@ident, current_label)
   end
 
   def check

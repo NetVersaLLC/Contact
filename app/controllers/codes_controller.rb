@@ -12,24 +12,28 @@ class CodesController < ApplicationController
     
     if params[:screen_to_phone] 
       render 'new_screen_to_phone' 
-    else 
+    elsif params[:mail] 
+      render 'new_mail_verify'
+    else
       render 
     end 
   end 
 
   def create 
-    if params[:code] # from the form 
-      @code = Code.new( params[:code] ) 
+    if params[:code] and not params[:site_name] # from the form 
+      @code = Code.new( :code => params[:code][:code], site_name: params[:code][:site_name]) 
     else 
       @code = Code.new( site_name: params[:site_name], code: params[:code]) 
     end 
-   
     @code.business = Business.find(params[:business_id]) 
      if params[:next_job]
       @code.next_job = params[:next_job]
     end
     @code.save 
 
+    #remove the notification/pending action
+    Notification.where("url like ? and business_id = ?","%#{params[:code][:site_name]}%", params[:business_id]).first.delete
+    
     respond_to do |format| 
       format.html do
           flash[:notice] = 'Code saved!'

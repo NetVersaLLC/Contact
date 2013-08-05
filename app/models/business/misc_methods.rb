@@ -39,12 +39,23 @@ module Business::MiscMethods
       end
     end
 
+    def accounts_synced
+     
+      last_sync_request = tasks.order('created_at desc').first
+      last_sync_requested_at = last_sync_request.nil? ? Time.new(2013,1,1) : last_sync_request.created_at
+      completed_sites = completed_jobs.where("created_at > ?", last_sync_requested_at).map{|j| j.name.split("/")[0] }
+
+      completed_sites & package_payload_sites
+    end 
+
     def birthday
-      if self.contact_birthday
-        Date.strptime self.contact_birthday, '%m/%d/%Y'
-      else
-        Date.today - 30.year - (rand()*365).day
+      date = self.contact_birthday
+      unless date
+        date = Date.today - 30.year - (rand()*365).day
+	self.contact_birthday = date
+	self.save
       end
+      Date.strptime date, '%m/%d/%Y'
     end
 
 

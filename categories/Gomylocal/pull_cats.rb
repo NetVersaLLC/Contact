@@ -15,24 +15,6 @@ sleep(1)
 finalCats = {}
 Cats = {}
 @browser.select_list(:name => 't0').options.each do |root|
-
-next if root.text == "Animals & Pets"
-next if root.text == "Arts & Entertainment"
-next if root.text == "Automotive"
-next if root.text == "Beauty & Fitness"
-next if root.text == "Building & Construction"
-next if root.text == "Business Services"
-next if root.text == "Community & Government"
-next if root.text == "Computers & Electronics"
-next if root.text == "Education & Employment"
-next if root.text == "Forestry & Agriculture"
-next if root.text == "Health Care & Medical"
-next if root.text == "Home & Garden"
-next if root.text == "Industrial Supplies & Machinery"
-next if root.text == "Legal & Financial"
-next if root.text == "Media & Communications"
-
-  
   puts(root.text)
 	root.click
 	sleep(2)
@@ -40,14 +22,25 @@ next if root.text == "Media & Communications"
   sub1hash = {}
   sub1array = []
 	@browser.div(:id => 'd0').select(:class => 'grey_12pt').options.each do |sub1|
-    next if @browser.text.include? "You have an error in your SQL syntax;"
-		@browser.div(:id => 'd0').select(:class => 'grey_12pt').clear
-    puts(" > " +sub1.text)
-		subname = "t"+sub1.value
-    
-    sub1.click
-        
-    Watir::Wait.until{ @browser.img(:src => 'images/category_submit.jpg').exists? or @browser.select_list(:name => "#{subname}").exists? } 
+    retries_left = 10
+    begin
+      next if @browser.text.include? "You have an error in your SQL syntax;"
+  		@browser.div(:id => 'd0').select(:class => 'grey_12pt').clear
+      puts(" > " +sub1.text)
+  		subname = "t"+sub1.value
+      
+      sub1.click
+
+      Watir::Wait.until{ @browser.img(:src => 'images/category_submit.jpg').exists? or @browser.select_list(:name => "#{subname}").exists? }
+
+    rescue Watir::Wait::TimeoutError
+      puts "Caught a Timeout!"
+      retries_left -= 1
+      retry if retries_left > 0
+
+      raise
+    end
+
     next if @browser.text.include? "You have an error in your SQL syntax;"
     if @browser.select_list(:name => "#{subname}").exists?    
       sub2hash = []
@@ -57,19 +50,14 @@ next if root.text == "Media & Communications"
           sub2hash.push(sub2.text)
       end      
 		end
-    
-   sub1hash[sub1.text] = sub2hash
-   #sub1array.push(sub1hash)
-    
-    
-	end
+    sub1hash[sub1.text] = sub2hash
+    #sub1array.push(sub1hash)
+  end
   
   Cats[root.text] = sub1hash
-  
-
-@browser.select_list(:name => 't0').clear
-
+  @browser.select_list(:name => 't0').clear
 end
+
 finalCats = Cats
 
 file = File.open("categories.json", "w")

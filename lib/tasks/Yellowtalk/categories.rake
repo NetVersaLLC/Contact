@@ -1,3 +1,16 @@
+namespace :yellowtalk do
+  task :categories => :environment do
+root = YellowtalkCategory.create(:name => 'root')  
+  File.open(Rails.root.join("categories", "Yellowtalk", "categories.txt"), 'r').each do |line|
+  next if line == ""
+      YellowtalkCategory.create( :name => line, :parent_id => root.id)      
+      puts(line)           
+    end
+  end
+end
+
+
+=begin
 require 'json'
 
 namespace :yellowtalk do
@@ -16,4 +29,4 @@ namespace :yellowtalk do
  	end
   end
 end
- 
+=end

@@ -16,6 +16,7 @@ class Ability
 
       can :read,   ActiveAdmin::Page, :name => "Dashboard"
       can :read,   ActiveAdmin::Page, :name => "My Label"
+      can :read,   Report, :label_id => user.label_id
       can :manage, Business, :user => { :label_id => user.label_id }
       can :manage, Coupon, :label_id => user.label_id
       can :read,   CreditEvent, :label_id => user.label_id 

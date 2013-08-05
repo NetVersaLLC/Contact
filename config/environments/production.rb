@@ -52,7 +52,7 @@ Contact::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
   
   # Setting defautt action url
-  config.action_mailer.default_url_options = { :host => 'signup.towncenter.com' }
+  config.action_mailer.default_url_options = { :protocol => 'https', :host => 'signup.towncenter.com' }
 
   # Enable threaded mode
   # config.threadsafe!
@@ -73,4 +73,6 @@ Contact::Application.configure do
     :bucket => 'netversa',
     :s3_credentials => Rails.root.join( "config", "s3.yml")
   }
+
+  config.cache_store = :dalli_store, 'cache.netversa.com'
 end

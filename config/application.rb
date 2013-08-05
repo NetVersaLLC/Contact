@@ -9,6 +9,8 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+require "rate_limiting"
+
 module Contact
   class Application < Rails::Application
 
@@ -63,5 +65,12 @@ module Contact
     config.assets.version = '1.0'
 
     config.cache_store = :memory_store
+
+    config.middleware.use RateLimiting do |r|
+      r.define_rule(:match => '/scanner/start', :metric => :rpd, :type => :fixed, :limit => 10)
+      r.set_cache(Rails.cache) if Rails.cache.present?
+    end
+
+
   end
 end
