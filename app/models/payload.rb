@@ -37,6 +37,9 @@ class Payload
     site, payload = *name.split("/")
     inst = new(site,payload)
   end
+  def self.exists?(site, payload) 
+    File.exists?( Rails.root.join('sites', site, payload) )
+  end 
 
   def initialize(site, payload)
     @site_dir       = site

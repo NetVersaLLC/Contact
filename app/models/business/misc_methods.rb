@@ -22,6 +22,9 @@ module Business::MiscMethods
     def create_jobs
       sub = self.subscription
       PackagePayload.where(:package_id => sub.package_id).insert_order.each do |obj|
+        site_name = obj.site 
+        payload_name = obj.payload 
+
         thereport = Report.where(:business_id => self.id).first        
         if not thereport == nil
           thescan = Scan.where(:report_id => thereport.id).first
@@ -32,12 +35,14 @@ module Business::MiscMethods
           end
         end
 
-        account = ClientData.get_sub_object( obj.site, self )
-        next if account.respond_to?(:do_not_sync) && account.do_not_sync
+        account = ClientData.get_sub_object( site_name, self )
 
-        payload  = Payload.new( obj.site, obj.payload )
+        next if account.respond_to?(:do_not_sync) && account.do_not_sync
+        payload_name = "UpdateListing" if account && account.has_existing_credentials? && Payload.exists?(site_name, 'UpdateListing')
+
+        payload  = Payload.new( site_name, payload_name )
         job      = Job.inject(self.id, payload.payload, payload.data_generator, payload.ready)
-        job.name = "#{obj.site}/#{obj.payload}"
+        job.name = "#{site_name}/#{payload_name}"
         job.save
       end
     end
