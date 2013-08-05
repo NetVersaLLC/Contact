@@ -44,7 +44,12 @@ ActiveAdmin.register Label do
   show do |label| 
     attributes_table do 
       row :name 
+      row :legal_name
       row :domain 
+      row :label_domain
+      row :address
+      row :support_email
+      row :support_phone
       row :mail_from 
       row("package_signup_rate")       { number_to_currency(label.package_signup_rate) } 
       row("package_subscription_rate") { number_to_currency(label.package_subscription_rate) } 
@@ -73,7 +78,12 @@ ActiveAdmin.register Label do
   form do |f|
     f.inputs do
       f.input :name
+      f.input :legal_name
       f.input :domain 
+      f.input :label_domain
+      f.input :address
+      f.input :support_email
+      f.input :support_phone
       f.input :mail_from
       f.input :package_signup_rate
       f.input :package_subscription_rate
