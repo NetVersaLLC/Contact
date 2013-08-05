@@ -1,6 +1,6 @@
 require 'json'
-  namespace :facebook do
-  task :profile_categories => :environment do
+  namespace :facebook_profile do
+  task :categories => :environment do
 body = File.open(Rails.root.join("categories", "Facebook", "profile_categories.json"), 'r').read
     categories = JSON.parse(body)
 
