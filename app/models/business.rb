@@ -19,12 +19,12 @@ class Business < ActiveRecord::Base
  
   has_one :transaction_event # transaction that occurred at sign up  #belongs
 
-  has_many :jobs, :order => "position"
-  has_many :failed_jobs, :order => "position"
-  has_many :completed_jobs, :order => "position"
+  has_many :jobs, :order => "position", dependent: :destroy
+  has_many :failed_jobs, :order => "position", dependent: :delete_all
+  has_many :completed_jobs, :order => "position", dependent: :delete_all
   has_many :codes
-  has_many :notifications  #belongs_to not there in notification.rb
-  has_many :images         #belongs_to not there in image.rb
+  has_many :notifications, dependent: :delete_all  #belongs_to not there in notification.rb
+  has_many :images, dependent: :delete_all         #belongs_to not there in image.rb
   has_many :tasks
 
   # Triggers -> moved to BusinessObserver
@@ -145,36 +145,6 @@ class Business < ActiveRecord::Base
       end
       Business.find(business_id).touch  # expire cache fragments
     end
-
-    def delete_all_associated_records
-      jobs = self.jobs
-      completed_jobs = self.completed_jobs
-      failed_jobs = self.failed_jobs
-      notifications = self.notifications
-      images = self.images
-      self.transaction_event.destroy unless self.transaction_event.blank?
-
-      jobs.each do |job|
-        job.destroy
-      end unless jobs.blank?
-
-      completed_jobs.each do |completed_job|
-        completed_job.destroy
-      end unless completed_jobs.blank?
-
-      failed_jobs.each do |failed_job|
-        failed_job.destroy
-      end unless failed_jobs.blank?
-
-      notifications.each do |notification|
-        notification.destroy
-      end unless notifications.blank?
-
-      images.each do |image|
-        image.destroy
-      end unless images.blank?
-    end
-
 
 
   # end private methods

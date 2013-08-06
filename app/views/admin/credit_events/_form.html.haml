@@ -7,6 +7,9 @@
       %li.number.input.optional.numeric.stringish
         =f.label :charge_amount, "Amount to transfer"
         =f.text_field :charge_amount, :value => number_with_precision(f.object.charge_amount, precision: 2)
+      %li.number.input.optional.stringish
+        =f.label :memo, "Memo"
+        =f.text_field :memo
   %fieldset.actions
     %ol
       %li.action.input_action

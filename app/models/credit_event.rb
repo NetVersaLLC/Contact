@@ -7,5 +7,4 @@ class CreditEvent < ActiveRecord::Base
   belongs_to :other, :class_name => Label  # the 'other' involved party 
   belongs_to :transaction_event
 
-
 end 

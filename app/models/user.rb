@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable,
          :validatable, :token_authenticatable
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :authentication_token, :tos
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :authentication_token, :tos, :referrer_code
   validates :email, :presence => true
   validates :password, :presence => true
   validates :password_confirmation, :presence => true

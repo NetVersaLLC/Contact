@@ -26,7 +26,7 @@ class LabelProcessor
   # transfer funds to a label so they can transact business.  This is usually done 
   # through the active admin panel
   #
-  def transfer_funds( to_label, amount )
+  def transfer_funds( to_label, amount, memo )
     damount = BigDecimal.new(amount)
 
     ce = CreditEvent.new 
@@ -35,6 +35,7 @@ class LabelProcessor
     ce.charge_amount = -1 * damount
     ce.action = 'transfer funds'
     ce.status = :success
+    ce.memo = memo
 
     source = @label
     dest = to_label
@@ -60,6 +61,7 @@ class LabelProcessor
                             note: "Transfer from #{source.name}", 
                             charge_amount: damount, 
                             action: "transfer funds",
+                            memo: memo,
                             post_available_balance: dest.available_balance )
       end 
     end 

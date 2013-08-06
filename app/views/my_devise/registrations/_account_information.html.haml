@@ -13,6 +13,8 @@
     %input{:name => 'user[password]', :placeholder => "Password", :type => "password", :required => 'required', :id => 'password' }/
     %label{:for => 'user[password_confirmation]'} Verify Password*
     %input{:name => 'user[password_confirmation]', :placeholder => "Password Confirmation", :type => "password", :required => 'required', :id => 'password_confirmation' }/
+    %label{:for => 'user[referrer_code]'} Referrer ID 
+    %input{:name => 'user[referrer_code]',:type => "text", :id => 'referrer_code', placeholder: 'Optional referral id'}
   - else
     %input{:name => 'user[password]', :type => "hidden", :value => 'password' }/
     %input{:name => 'user[password_confirmation]', :type => "hidden", :value => 'passw0rd' }/
