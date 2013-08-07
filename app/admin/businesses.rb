@@ -65,7 +65,9 @@ ActiveAdmin.register Business do
   controller do
     def destroy
       @business = Business.find(params[:id])
-      if @business.destroy
+
+      #if @business.destroy
+      if LabelProcessor.new(current_label).destroy_business(@business)
         redirect_to admin_businesses_url, :notice => 'Business was successfully deleted'
       else
         redirect_to admin_businesses_url, :notice => "Business can't be deleted"

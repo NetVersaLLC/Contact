@@ -134,7 +134,8 @@ class BusinessesController < ApplicationController
   def destroy
     @business = Business.find(params[:id])
     if @business and @business.user_id == current_user.id
-      @business.destroy
+      #@business.destroy
+      LabelProcessor.new(current_label).destroy_business(@business)
     end
 
     respond_to do |format|

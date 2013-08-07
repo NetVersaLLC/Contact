@@ -22,6 +22,13 @@ class LabelProcessor
     charge_and_subscribe user, package, nil, coupon, credit_card
   end 
 
+  def destroy_business( business ) 
+    ccp = CreditCardProcessor.new(@label)
+    ccp.cancel_recurring( business.subscription ) 
+
+    business.destroy
+  end 
+
   #
   # transfer funds to a label so they can transact business.  This is usually done 
   # through the active admin panel

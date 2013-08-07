@@ -24,6 +24,8 @@ class BusinessObserver < ActiveRecord::Observer
   end 
 
 
+
+
   def before_save(business)
     business.strip_blanks()
   end 
