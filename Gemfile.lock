@@ -357,8 +357,6 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    user_impersonate (0.8.0)
-      rails (~> 3.2.0)
     uuidtools (2.1.4)
     vitelity (1.0.1)
       activesupport
@@ -439,7 +437,6 @@ DEPENDENCIES
   therubyracer
   uglifier (>= 1.0.3)
   unicorn
-  user_impersonate
   vitelity
   zeus
   zip

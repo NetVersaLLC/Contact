@@ -1,7 +1,7 @@
 ActiveAdmin.register User do
-  scope_to :current_user, :association_method => :user_scope
+  #scope_to :current_user, :association_method => :user_scope
 
-  filter :label 
+  filter :label, as: :select, :collection => proc { Label.accessible_by(current_ability) } 
   filter :email 
   filter :access_level,  as: :select, :collection => Hash[User::TYPES.map{|k,v| [k.to_s.humanize, v]}] 
   filter :created_at 
@@ -20,19 +20,11 @@ ActiveAdmin.register User do
       raw links.join(", ")
     end
 
-    column :links do |resource|
-      links = ''.html_safe
-      if controller.action_methods.include?('show')
-        links += link_to I18n.t('active_admin.view'), resource_path(resource), :class => "member_link view_link"
-      end
-      if controller.action_methods.include?('edit')
-        links += link_to I18n.t('active_admin.edit'), edit_resource_path(resource), :class => "member_link edit_link"
-      end
-      if controller.action_methods.include?('destroy')
-        links += link_to I18n.t('active_admin.delete'), resource_path(resource), :method => :delete, :confirm => 'Are you sure you want to delete this?  All associated records will also be delete.', :class => "member_link delete_link"
-      end
-      links
-    end
+    actions do |user| 
+      if user.id != current_user.id && user.owner? 
+        link_to "Impersonate", new_impersonation_path(user)
+      end 
+    end 
   end
 
   form do |f|
@@ -46,6 +38,10 @@ ActiveAdmin.register User do
   end
   
   controller do
+    def scoped_collection 
+      User.accessible_by(current_ability)
+    end 
+
     def destroy
       user = User.find(params[:id])
       if user.destroy

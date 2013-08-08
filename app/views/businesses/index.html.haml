@@ -1,21 +1,25 @@
-%table.table.table-bordered
-  %thead
-    %tr
-      %th Business Name
-      %th Package
-      %th Download
-  - @businesses.each do |business|
-    %tbody
+- if @businesses.count == 0 
+  .alert 
+    You do not have a business set up yet.  Please contact 
+    %a(href="mailto:#{current_label.support_email}")  #{current_label.support_email}
+    for more information.  
+- else   
+  %table.table.table-bordered
+    %thead
       %tr
-        %td
-          %a.btn.btn-info{:href => business_path(business.id)} #{business.business_name}
-        %td
-          Default
-        %td
-          %a.btn.btn-warning.btn-large{:href => "/downloads/#{business.id}"} Download Client
+        %th Business Name
+        %th Package
+        %th Download
+    - @businesses.each do |business|
+      %tbody
+        %tr
+          %td
+            %a.btn.btn-info{:href => business_path(business.id)} #{business.business_name}
+          %td
+            Default
+          %td
+            %a.btn.btn-warning.btn-large{:href => "/downloads/#{business.id}"} Download Client
+  %br/
+  %br/
 
-
-%br/
-%br/
-
-%a.btn.btn-info{:href => new_business_path()} Add Another Business
+/%a.btn.btn-info{:href => new_business_path()} Add Another Business

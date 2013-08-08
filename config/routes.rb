@@ -1,6 +1,6 @@
 Contact::Application.routes.draw do
 
-  mount UserImpersonate::Engine => "/impersonate", as: "impersonate_engine"
+  #mount UserImpersonate::Engine => "/impersonate", as: "impersonate_engine"
 
   get    '/payloads/:id(.:format)', :controller => :payloads, :action => :index
   get    '/packages/:id(.:format)', :controller => :packages, :action => :index
@@ -33,6 +33,10 @@ Contact::Application.routes.draw do
     :controller => :businesses, 
     :action => :tada,
     :as => 'tada'
+
+  get    '/impersonate', to: 'impersonate#index' 
+  get    '/impersonate/:id', to: 'impersonate#new', as: :new_impersonation
+  delete '/impersonate/revert', to: 'impersonate#revert', as: :revert_impersonation
 
   resources :notifications 
 
