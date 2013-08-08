@@ -9,9 +9,9 @@ class Scanner
 
   debug_output $stderr
 
-  def initialize(report)
+  def initialize(report, site)
     @report              = report
-    @site                = report.site
+    @site                = site
     @location            = Location.where(:zip => report.zip).first
     @data                = {}
     @data['business']    = report.business

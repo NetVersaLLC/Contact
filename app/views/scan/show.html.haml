@@ -34,7 +34,7 @@
       %td Address
       %td Link to Profile
   %tbody
-    - @report.scans.each do |scan|
+    - @report.scans.order(:site).each do |scan|
       %tr
         %td
           - if scan.status == 'claimed'
