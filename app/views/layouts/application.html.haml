@@ -26,8 +26,6 @@
     = csrf_meta_tags
     %style{:type => "text/css"}
       = current_label.custom_css
-    /[if lt IE 9]
-      <script src="/assets/html5shiv.js"></script>
     %link{:rel => "icon", :type => "image/ico", :href => current_label.favicon_url}/
   %body
     - if impersonating_user 
