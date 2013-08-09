@@ -52,7 +52,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
         @transaction = label_processsor.create_business( resource, 
                       params[:coupon], 
                       params[:creditcard], 
-                      @package) 
+                      params[:package_id]) 
 
         if @transaction.is_success?
           flash[:notice] = "Signed up"

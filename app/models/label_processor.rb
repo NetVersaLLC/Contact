@@ -15,8 +15,9 @@ class LabelProcessor
      CreditCardProcessor.new(@label, credit_card_info ) 
   end 
 
-  def create_business( user, coupon_code, credit_card, package )
+  def create_business( user, coupon_code, credit_card, package_id )
     coupon = Coupon.where(:label_id => user.label_id, :code => coupon_code ).first
+    package = Package.find(package_id)
     package.apply_coupon( coupon ) 
 
     charge_and_subscribe user, package, nil, coupon, credit_card
