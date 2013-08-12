@@ -30,9 +30,10 @@ ActiveAdmin.register User do
   form do |f|
     f.inputs "Edit User" do
       f.input :email
-      f.input :authentication_token
+      #f.input :authentication_token
       f.input :password 
-      f.input :access_level, as: :select, :collection => Hash[User::TYPES.map{|k,v| [k.to_s.humanize, v]}] 
+      f.input :password_confirmation 
+      f.input :access_level, as: :select, :collection => Hash[User::TYPES.select{|k,v| v >= current_user.access_level}.map{|k,v| [k.to_s.humanize, v]}] 
     end
     f.buttons
   end
@@ -56,8 +57,14 @@ ActiveAdmin.register User do
     @user = User.new
   end
   member_action :create, :method => :post do
-    @user = User.new(params[:user])
-    @user.label_id = current_label.id
+    @user = User.new do |u| 
+      u.email = params[:user][:email] 
+      u.password = params[:user][:password] 
+      u.password_confirmation = params[:user][:password_confirmation] 
+      u.access_level = params[:user][:access_level] 
+    end 
+
+    @user.label_id = current_user.label.id
     respond_to do |format|
       if @user.save
         format.html { redirect_to admin_users_path, notice: 'Created your User profile.' }

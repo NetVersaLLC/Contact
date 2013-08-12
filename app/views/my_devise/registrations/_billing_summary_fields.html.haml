@@ -40,3 +40,6 @@
       %button.btn.btn-info#addCoupon{:type => 'button'} Add
   - else
     %input#coupon{:name => 'coupon', :type => "hidden", :value => (@coupon ? @coupon.code : '') }/
+  %label{:for => 'user[referrer_code]'} Referrer ID 
+  %input{:name => 'user[referrer_code]',:type => "text", :id => 'referrer_code', placeholder: 'Optional referral id'}
+

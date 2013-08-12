@@ -5,9 +5,9 @@ class User < ActiveRecord::Base
 
   attr_accessor :temppass
   attr_accessible :callcenter
+  attr_accessible :access_level, :as => :admin
 
   validate :must_have_valid_access_level
-
   
   def must_have_valid_access_level
     unless TYPES.has_value? access_level
