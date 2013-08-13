@@ -78,8 +78,11 @@ STDERR.puts "Generating business..."
 
 business = Business.new
 
-business.business_name = Faker::Company.name
-business.corporate_name = Faker::Company.name
+data = {}
+data['business'] = Faker::Company.name
+
+business.business_name = data['business']
+business.corporate_name = data['business']
 business.contact_gender = 'Female'
 business.contact_prefix = 'Miss.'
 business.contact_first_name = Faker::Name.first_name
@@ -143,6 +146,7 @@ business.category4 = "Internet Service Provider"
 business.category5 = "Telecommunications Equipment Supplier"
 business.categorized = true
 business.geographic_areas = 'Within 100 Miles'
+business.company_website = "http://www."+data['business'].gsub(" ","").downcase
 
 business.keywords = "Cable, Telecommunications, Service, Provider, Internet"
 business.status_message = "We're a Cable Company. Come on down and buy some Cable."
@@ -169,13 +173,9 @@ puts business.id
 business.create_site_accounts_test
 puts business.inspect
 
-## Now set categories
-#model = AngiesList.where(:business_id => business.id).first
-#model.angies_list_category_id = 656
-#model.save!
 
 model = Bing.where(:business_id => business.id).first
-model.bing_category_id = 2778
+model.bing_category_id = 153
 model.save!
 
 model = Businessdb.where(:business_id => business.id).first
@@ -203,7 +203,7 @@ model.ezlocal_category_id = 3099
 model.save!
 
 model = Foursquare.where(:business_id => business.id).first
-model.foursquare_category_id = 326
+model.foursquare_category_id = 15
 model.save!
 
 model = Ibegin.where(:business_id => business.id).first
@@ -309,12 +309,48 @@ model.save!
 model = Zippro.where(:business_id => business.id).first
 model.zippro_category_id = 134
 model.save!
+ 
+model = Adsolutionsyp.where(:business_id => business.id).first
+model.adsolutionsyp_category_id = 3034
+model.save! 
+
+model = AngiesList.where(:business_id => business.id).first
+model.angies_list_category_id = 656
+model.save!
+
+model = Facebook.where(:business_id => business.id).first
+model.facebook_category_id = 19
+model.facebook_profile_category_id = 19
+model.save!
+
+model = Gomylocal.where(:business_id => business.id).first
+model.gomylocal_category_id = 878
+model.save!
+
+model = InsiderPage.where(:business_id => business.id).first
+model.insider_page_category_id = 540
+model.save!
+
+model = Yahoo.where(:business_id => business.id).first
+model.yahoo_category_id = 246
+model.save!
+
+model = Yellowtalk.where(:business_id => business.id).first
+model.yellowtalk_category_id = 402
+model.save!
+
+puts "Starting Sync"
+task = Task.new
+task.business_id = business.id
+task.started_at = Time.now
+task.save
 
 STDERR.puts "*" * 78
-STDERR.puts "Generated new user: #{user.email}"
-STDERR.puts "          password: #{password}"
-STDERR.puts "      Subscription: #{sub.id}"
-STDERR.puts "       Business ID: #{business.id}"
+STDERR.puts "  Generated new user: #{user.email}"
+STDERR.puts "            password: #{password}"
+STDERR.puts "        Subscription: #{sub.id}"
+STDERR.puts "         Business ID: #{business.id}"
+STDERR.puts "                 Key: #{user.authentication_token}"
 STDERR.puts "*" * 78
 ap business_hash
 STDERR.puts "*" * 78
