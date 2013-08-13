@@ -142,11 +142,11 @@ business.contact_birthday = "09/21/1975"#Utility.generate_birthday
 business.category1 = "Cable Company"
 business.category2 = "Telecommunications Contractor"
 business.category3 = "Telecommunications Service Provider"
-business.category4 = "Internet Service Provider"
+business.category4 = "Internet Service Provider" 
 business.category5 = "Telecommunications Equipment Supplier"
 business.categorized = true
 business.geographic_areas = 'Within 100 Miles'
-business.company_website = "http://www."+data['business'].gsub(" ","").downcase
+business.company_website = "http://www."+data['business'].gsub(" ","").downcase+".com"
 
 business.keywords = "Cable, Telecommunications, Service, Provider, Internet"
 business.status_message = "We're a Cable Company. Come on down and buy some Cable."
