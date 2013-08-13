@@ -109,39 +109,4 @@ $ ->
   #delay_task_sync_button()
   window.company_description()
 
-  $('#email').blur ->
-    unless $.trim(@value).length
-      $(this).css "border-color","red"
-    else
-      $(this).css "border-color","#CCCCCC"
-
-  $('#password').blur ->
-    unless $.trim(@value).length
-      $(this).css "border-color","red"
-    else
-      $(this).css "border-color","#CCCCCC"
-
-  $('#password_confirmation').blur ->
-    unless $.trim(@value).length
-      $(this).css "border-color","red"
-    else
-      $(this).css "border-color","#CCCCCC"
-
-  $('#name').blur ->
-    unless $.trim(@value).length
-      $(this).css "border-color","red"
-    else
-      $(this).css "border-color","#CCCCCC"
-
-  $('#card_number').blur ->
-    unless $.trim(@value).length
-      $(this).css "border-color","red"
-    else
-      $(this).css "border-color","#CCCCCC"
-
-  $('#cvv').blur ->
-    unless $.trim(@value).length
-      $(this).css "border-color","red"
-    else
-      $(this).css "border-color","#CCCCCC"
 
