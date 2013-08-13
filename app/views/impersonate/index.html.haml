@@ -1,0 +1,10 @@
+.row-fluid
+  .span6
+    %table.table.table-condensed
+      - @users.each do |user| 
+        %tr
+          %td
+            = user.email
+          %td
+            = link_to 'Impersonate', new_impersonation_path( user )  
+    

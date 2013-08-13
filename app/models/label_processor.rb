@@ -15,18 +15,26 @@ class LabelProcessor
      CreditCardProcessor.new(@label, credit_card_info ) 
   end 
 
-  def create_business( user, coupon_code, credit_card, package )
+  def create_business( user, coupon_code, credit_card, package_id )
     coupon = Coupon.where(:label_id => user.label_id, :code => coupon_code ).first
+    package = Package.find(package_id)
     package.apply_coupon( coupon ) 
 
     charge_and_subscribe user, package, nil, coupon, credit_card
+  end 
+
+  def destroy_business( business ) 
+    ccp = CreditCardProcessor.new(@label)
+    ccp.cancel_recurring( business.subscription ) 
+
+    business.destroy
   end 
 
   #
   # transfer funds to a label so they can transact business.  This is usually done 
   # through the active admin panel
   #
-  def transfer_funds( to_label, amount )
+  def transfer_funds( to_label, amount, memo )
     damount = BigDecimal.new(amount)
 
     ce = CreditEvent.new 
@@ -35,6 +43,7 @@ class LabelProcessor
     ce.charge_amount = -1 * damount
     ce.action = 'transfer funds'
     ce.status = :success
+    ce.memo = memo
 
     source = @label
     dest = to_label
@@ -60,6 +69,7 @@ class LabelProcessor
                             note: "Transfer from #{source.name}", 
                             charge_amount: damount, 
                             action: "transfer funds",
+                            memo: memo,
                             post_available_balance: dest.available_balance )
       end 
     end 

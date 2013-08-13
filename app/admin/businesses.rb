@@ -29,7 +29,7 @@ ActiveAdmin.register Business do
     if current_user.admin? 
       column :impersonate do |v| 
         unless v.user.nil? 
-          link_to 'Login', impersonate_engine.impersonate_user_path(v.user) #"/impersonate/user/205"
+          link_to 'Login', new_impersonation_path(v.user) #"/impersonate/user/205"
         end 
       end 
     end 
@@ -65,7 +65,9 @@ ActiveAdmin.register Business do
   controller do
     def destroy
       @business = Business.find(params[:id])
-      if @business.destroy
+
+      #if @business.destroy
+      if LabelProcessor.new(current_label).destroy_business(@business)
         redirect_to admin_businesses_url, :notice => 'Business was successfully deleted'
       else
         redirect_to admin_businesses_url, :notice => "Business can't be deleted"

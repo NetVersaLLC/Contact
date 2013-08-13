@@ -5,9 +5,7 @@ class BusinessesController < ApplicationController
   def index
     flash.keep
     @businesses = Business.where(:user_id => current_user.id)
-    if @businesses.count == 0
-      redirect_to new_business_path()
-    elsif @businesses.count == 1
+    if @businesses.count == 1
       b = @businesses.first 
 
       if !b.subscription.active || b.subscription.active.nil?
@@ -50,9 +48,9 @@ class BusinessesController < ApplicationController
 
     #Subscription.find( session[:subscription] )
     @business = Business.new
-    @accounts = @business.nonexistent_accounts_array
+    #@accounts = @business.nonexistent_accounts_array
 
-    @site_accounts = Business.citation_list #.map {|x| x[0..1]}
+    #@site_accounts = Business.citation_list #.map {|x| x[0..1]}
 
     respond_to do |format|
       format.html # new.html.erb
@@ -134,7 +132,8 @@ class BusinessesController < ApplicationController
   def destroy
     @business = Business.find(params[:id])
     if @business and @business.user_id == current_user.id
-      @business.destroy
+      #@business.destroy
+      LabelProcessor.new(current_label).destroy_business(@business)
     end
 
     respond_to do |format|

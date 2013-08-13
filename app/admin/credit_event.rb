@@ -18,7 +18,10 @@ ActiveAdmin.register CreditEvent do
     column "Balance", :sortable => :post_available_balance do |credit_event| 
       number_to_currency(credit_event.post_available_balance) 
     end 
-    column :note
+    column :memo
+    column "System Note" do |credit_event| 
+      credit_event.note
+    end 
   end 
 
   form partial: "form"
@@ -37,7 +40,7 @@ ActiveAdmin.register CreditEvent do
       other = Label.accessible_by(current_ability).find(params[:credit_event][:other_id]) 
       raise CanCan::AccessDenied  unless other.parent_id == current_label.id 
 
-      ce = LabelProcessor.new(current_label).transfer_funds(other, params[:credit_event][:charge_amount])
+      ce = LabelProcessor.new(current_label).transfer_funds(other, params[:credit_event][:charge_amount], params[:credit_event][:memo])
       flash[:notice] = (ce.status == :success ? 'Transfer succeeded' : "Transfer failed. #{ce.note}" )
 
       redirect_to admin_dashboard_path 

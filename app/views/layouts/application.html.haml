@@ -26,12 +26,10 @@
     = csrf_meta_tags
     %style{:type => "text/css"}
       = current_label.custom_css
-    /[if lt IE 9]
-      <script src="/assets/html5shiv.js"></script>
     %link{:rel => "icon", :type => "image/ico", :href => current_label.favicon_url}/
   %body
-    - if current_staff_user 
-      = render 'user_impersonate/header' 
+    - if impersonating_user 
+      = render 'impersonate/header' 
 
     %header.navbar.navbar-inverse
       .navbar-inner 
@@ -57,6 +55,8 @@
             .alert.alert-info= flash[:notice] 
           - if flash[:error] 
             .alert.alert-error= flash[:error] 
+          - if flash[:alert] 
+            .alert.alert-error= flash[:alert] 
         .span6 
     - if user_signed_in?
       = render 'layouts/business_options'

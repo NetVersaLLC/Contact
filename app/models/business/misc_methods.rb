@@ -119,7 +119,7 @@ module Business::MiscMethods
 
             username = thing.username if thing.respond_to?('username') 
             username ||= thing.email if thing.respond_to?('email') 
-            username ||= 'submitted' 
+            username ||= '' 
             password = thing.password if thing.respond_to?('password') 
             password ||= '' 
             row[1] = username.to_s
@@ -165,5 +165,9 @@ module Business::MiscMethods
       return hash
     end
 
+    def self.signup_completed_not_reported      
+      signup_completed_not_reported_businesses = Business.where("signup_completed <= ? AND signup_msg_sent = ?", 7.days.ago, false)
+      return signup_completed_not_reported_businesses
+    end
   end
 end

@@ -1,6 +1,6 @@
 class CreditCardProcessor
 
-  def initialize( label, card_hash )
+  def initialize( label, card_hash = nil )
     @label = label
     @creditcard = ActiveMerchant::Billing::CreditCard.new(card_hash) if card_hash
 
@@ -151,12 +151,11 @@ class CreditCardProcessor
   #
   #
   def cancel_recurring( subscription ) 
-    subscription.active  = false
-    subscription.status  = :cancelled
-    subscription.message = "Subscription cancelled."
 
-    response = @gateway.cancel_recurring(subscription.subscription_code)
     unless subscription.subscription_code.blank? 
+      subscription.active  = false
+      subscription.status  = :cancelled
+      subscription.message = "Subscription cancelled."
       response = @gateway.cancel_recurring(subscription.subscription_code)
 
       unless response.success?

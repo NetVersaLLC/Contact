@@ -23,9 +23,8 @@ class BusinessObserver < ActiveRecord::Observer
     business.set_times()
   end 
 
-  def before_destroy(business) 
-    business.delete_all_associated_records()
-  end 
+
+
 
   def before_save(business)
     business.strip_blanks()

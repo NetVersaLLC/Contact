@@ -1,7 +1,7 @@
 ActiveAdmin.register User do
-  scope_to :current_user, :association_method => :user_scope
+  #scope_to :current_user, :association_method => :user_scope
 
-  filter :label 
+  filter :label, as: :select, :collection => proc { Label.accessible_by(current_ability) } 
   filter :email 
   filter :access_level,  as: :select, :collection => Hash[User::TYPES.map{|k,v| [k.to_s.humanize, v]}] 
   filter :created_at 
@@ -20,32 +20,29 @@ ActiveAdmin.register User do
       raw links.join(", ")
     end
 
-    column :links do |resource|
-      links = ''.html_safe
-      if controller.action_methods.include?('show')
-        links += link_to I18n.t('active_admin.view'), resource_path(resource), :class => "member_link view_link"
-      end
-      if controller.action_methods.include?('edit')
-        links += link_to I18n.t('active_admin.edit'), edit_resource_path(resource), :class => "member_link edit_link"
-      end
-      if controller.action_methods.include?('destroy')
-        links += link_to I18n.t('active_admin.delete'), resource_path(resource), :method => :delete, :confirm => 'Are you sure you want to delete this?  All associated records will also be delete.', :class => "member_link delete_link"
-      end
-      links
-    end
+    actions do |user| 
+      if user.id != current_user.id && user.owner? 
+        link_to "Impersonate", new_impersonation_path(user)
+      end 
+    end 
   end
 
   form do |f|
     f.inputs "Edit User" do
       f.input :email
-      f.input :authentication_token
+      #f.input :authentication_token
       f.input :password 
-      f.input :access_level, as: :select, :collection => Hash[User::TYPES.map{|k,v| [k.to_s.humanize, v]}] 
+      f.input :password_confirmation 
+      f.input :access_level, as: :select, :collection => Hash[User::TYPES.select{|k,v| v >= current_user.access_level}.map{|k,v| [k.to_s.humanize, v]}] 
     end
     f.buttons
   end
   
   controller do
+    def scoped_collection 
+      User.accessible_by(current_ability)
+    end 
+
     def destroy
       user = User.find(params[:id])
       if user.destroy
@@ -60,8 +57,14 @@ ActiveAdmin.register User do
     @user = User.new
   end
   member_action :create, :method => :post do
-    @user = User.new(params[:user])
-    @user.label_id = current_label.id
+    @user = User.new do |u| 
+      u.email = params[:user][:email] 
+      u.password = params[:user][:password] 
+      u.password_confirmation = params[:user][:password_confirmation] 
+      u.access_level = params[:user][:access_level] 
+    end 
+
+    @user.label_id = current_user.label.id
     respond_to do |format|
       if @user.save
         format.html { redirect_to admin_users_path, notice: 'Created your User profile.' }
