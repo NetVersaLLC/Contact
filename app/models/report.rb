@@ -4,6 +4,7 @@ class Report < ActiveRecord::Base
   queue_priority 1000
   attr_accessible :business, :business_id, :completed_at, :name, :phone, :site, :started_at, :zip,  :label_id
   has_many :scans
+  belongs_to :label
 
   def perform
     # site_list     = %w/Google Bing Yahoo Yelp Citisquare Cornerstonesworld Discoverourtown Expressbusinessdirectory Getfave Ibegin Localizedbiz Yellowee Tupalo Justclicklocal Localpages Insiderpages/
