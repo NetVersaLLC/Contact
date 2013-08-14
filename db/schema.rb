@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130806192929) do
+ActiveRecord::Schema.define(:version => 20130814140518) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -1322,9 +1322,9 @@ ActiveRecord::Schema.define(:version => 20130806192929) do
     t.integer  "business_id"
     t.text     "secrets"
     t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.boolean  "do_not_sync"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "do_not_sync",  :default => false
   end
 
   add_index "mycitybusinesses", ["business_id"], :name => "index_mycitybusinesses_on_business_id"
@@ -1589,8 +1589,9 @@ ActiveRecord::Schema.define(:version => 20130806192929) do
     t.string   "url"
     t.string   "traffic_stats"
     t.string   "notes"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+    t.boolean  "enabled_for_scan",      :default => false
   end
 
   create_table "snoopitnow_categories", :force => true do |t|

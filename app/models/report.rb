@@ -13,8 +13,9 @@ class Report < ActiveRecord::Base
 
     threads       = []
     #site_list = %w/Google Yahoo Yelp Cornerstonesworld Discoverourtown Expressbusinessdirectory Ibegin Localizedbiz Yellowee Tupalo Localpages Getfave Insiderpage Zippro Gomylocal Uscity Kudzu Snoopitnow Justclicklocal Businessdb Ebusinesspage/
-    site_list = %w/Google Yahoo Yelp Bing Facebook Foursquare Cornerstonesworld Citisquare Ebusinesspages Expressbusinessdirectory Getfave Hotfrog Ibegin Insiderpages Localizedbiz Showmelocal Uscity Yellowassistance Zippro/
-    site_list.each do |site|
+    #site_list = %w/Google Yahoo Yelp Bing Facebook Foursquare Cornerstonesworld Citisquare Ebusinesspages Expressbusinessdirectory Getfave Hotfrog Ibegin Insiderpages Localizedbiz Showmelocal Uscity Yellowassistance Zippro/
+    #site_list.each do |site|
+    SiteProfile.where(enabled_for_scan: true).pluck(:site).each do |site|
       threads << Thread.new do
         scan        = Scanner.new(self, site)
         result      = scan.run
