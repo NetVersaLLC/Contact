@@ -88,11 +88,18 @@ GEM
       htmlentities (~> 4.3.1)
       nokogiri (>= 1.4.1)
       rubyzip (>= 0.9.5)
-    backburner (0.4.1)
+    backburner (0.4.3)
       beaneater (~> 0.3.1)
       dante (~> 0.1.5)
+    backports (3.3.3)
     bcrypt-ruby (3.0.1)
     beaneater (0.3.1)
+    beanstalkd_view (1.2.4)
+      beaneater (~> 0.3.0)
+      json
+      sinatra (>= 1.3.0)
+      sinatra-contrib (>= 1.3.0)
+      vegas (~> 0.1.2)
     better_errors (0.8.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -103,7 +110,7 @@ GEM
       thor
     builder (3.0.4)
     cancan (1.6.10)
-    capistrano (2.15.4)
+    capistrano (2.15.5)
       highline
       net-scp (>= 1.0.0)
       net-sftp (>= 2.0.0)
@@ -164,8 +171,6 @@ GEM
       railties (~> 3.1)
       warden (~> 1.2.1)
     diff-lcs (1.2.4)
-    dogapi (1.6.0)
-      json (>= 1.5.1)
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (1.4.0)
@@ -234,11 +239,11 @@ GEM
     multi_json (1.7.3)
     multi_xml (0.5.3)
     mysql2 (0.3.11)
-    net-scp (1.1.1)
+    net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
       net-ssh (>= 2.6.5)
-    net-ssh (2.6.7)
+    net-ssh (2.6.8)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
     nokogiri (1.5.9)
@@ -272,6 +277,8 @@ GEM
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
+    rack-protection (1.5.0)
+      rack
     rack-ssl (1.3.3)
       rack
     rack-test (0.6.2)
@@ -335,6 +342,17 @@ GEM
     shoulda-context (1.1.2)
     shoulda-matchers (2.1.0)
       activesupport (>= 3.0.0)
+    sinatra (1.4.3)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (~> 1.3, >= 1.3.4)
+    sinatra-contrib (1.4.0)
+      backports (>= 2.0)
+      eventmachine
+      rack-protection
+      rack-test
+      sinatra (~> 1.4.2)
+      tilt (~> 1.3)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -358,6 +376,8 @@ GEM
       rack
       raindrops (~> 0.7)
     uuidtools (2.1.4)
+    vegas (0.1.11)
+      rack (>= 1.0.0)
     vitelity (1.0.1)
       activesupport
       rest-client
@@ -386,6 +406,7 @@ DEPENDENCIES
   aws-sdk (~> 1.11.3)
   axlsx
   backburner (>= 0.4.0)
+  beanstalkd_view
   better_errors
   binding_of_caller
   cancan
@@ -406,7 +427,6 @@ DEPENDENCIES
   deathbycaptcha
   detect_email_settings
   devise
-  dogapi (>= 1.3.0)
   eventmachine
   factory_girl_rails
   faker

@@ -109,6 +109,7 @@ class CreditCardProcessor
     names            = @creditcard.name.split(/\s+/)
     first_name       = names.shift
     last_name        = names.join(" ")
+    start_date = Date.today.day < 29 ? 1.month.from_now : Date.today.at_beginning_of_month + 2.months
 
     response = @gateway.recurring( monthly_fee, @creditcard, {
       :interval => {
@@ -116,7 +117,7 @@ class CreditCardProcessor
         :length => 1
       },
       :duration => {
-        :start_date  => Date.today,
+        :start_date  => start_date.to_date,
         :occurrences => 9999
       },
       :billing_address => {

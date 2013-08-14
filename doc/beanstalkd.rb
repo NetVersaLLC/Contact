@@ -1,5 +1,5 @@
 Backburner.configure do |config|
-  config.beanstalk_url    = ["beanstalk://127.0.0.1"]
+  config.beanstalk_url    = ["beanstalk://beanstalkd.netversa.com"]
   config.tube_namespace   = "contact"
   config.on_error         = lambda { |e| Airbrake.notify(e) }
   config.max_job_retries  = 3

@@ -32,12 +32,12 @@ examineCard = ()->
       em.removeClass('activeCard')
 
 formElement = (cond, title, desc, id)->
-  console.log(title, cond)
   error = true
+  console.log "#{title} #{id}"
   if cond == false
     addMessage(title, desc)
+    $("##{id}").css 'border-color', 'red'
     error = false
-  console.log("formElment", cond, title, desc, id, error)
   error
 
 window.formElement = formElement
@@ -46,7 +46,7 @@ regexMatch = (id, regex)->
   $('#'+id).val().match(regex) != null
 
 requiredElement = (id, name)->
-  error = formElement(regexMatch(id, /\S+/), name, name+" is required", name)
+  error = formElement(regexMatch(id, /\S+/), name, name+" is required", id)
   error
 check_fields =()->
   if $('#card_number').val() == ""
@@ -64,6 +64,7 @@ check_fields =()->
 
 formValidates = ()->
   $('#errors').html('')
+  $('#new_user input, #new_user select').css 'border-color','#CCC'
   error = false
   console.log($('#card_month').val(), $('#card_year').val())
   errors = []
@@ -85,7 +86,6 @@ formValidates = ()->
   unless ($('#user_tos').is(':checked'))
     addMessage("Terms of Service", "You must agree to the terms of service")
     errors.push false
-  console.log errors
   validates = true
   $.each errors, (i,e)->
     console.log(e)
@@ -109,6 +109,7 @@ reset_coupon = () ->
       process_coupon()
 
 window.registerCheckoutHooks = ()->
+
   examineCard()
   $('#addCoupon').click ()->
     process_coupon()
@@ -132,6 +133,12 @@ window.registerCheckoutHooks = ()->
   $('#cvv').payment('formatCardCVC')
 
   $('#submit_button').click (e)->
+    console.log e
+    console.log document.activeElement.id
+    if document.activeElement.id == 'coupon' 
+      $('#addCoupon').click() 
+      return false 
+
     check_fields()
     if formValidates() == true
       return true
