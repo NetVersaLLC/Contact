@@ -26,9 +26,9 @@ ActiveAdmin.register Business do
     column :company_website do |v|
       link_to v.company_website, v.company_website
     end
-    if current_user.admin? 
+    if current_user.reseller?
       column :impersonate do |v| 
-        unless v.user.nil? 
+        unless v.user.nil? || cannot?(:manage, v.user)
           link_to 'Login', new_impersonation_path(v.user) #"/impersonate/user/205"
         end 
       end 
