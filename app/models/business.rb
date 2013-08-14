@@ -92,6 +92,10 @@ class Business < ActiveRecord::Base
   attr_accessible :yellowwiz_attributes
   accepts_nested_attributes_for :yellowwiz, :allow_destroy => true
 
+  has_many :mojopages, :dependent => :destroy, :class_name => "Mojopages"
+  attr_accessible :mojopages_attributes
+  accepts_nested_attributes_for :mojopages, :allow_destroy => true
+
   def logo
       images.where(:is_logo=>true).first
   end

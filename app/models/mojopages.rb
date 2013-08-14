@@ -1,4 +1,4 @@
-class Mojopage < ClientData
+class Mojopages < ClientData
   attr_accessible :email
   virtual_attr_accessor :password
   belongs_to            :mojopages_category

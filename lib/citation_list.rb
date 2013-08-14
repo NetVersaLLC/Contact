@@ -51,7 +51,7 @@
     ],
       'Manta'
   ],
-  ['Mojopage', 'mojopages',
+  ['Mojopages', 'mojopages',
     [
       ['text', 'email'],
       ['text', 'password'],
