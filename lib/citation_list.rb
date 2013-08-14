@@ -54,7 +54,8 @@
   ['Mojopage', 'mojopages',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'mojopages_category']
     ],
       'MojoPAGES'
   ],
