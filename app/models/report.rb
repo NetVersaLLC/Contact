@@ -11,17 +11,13 @@ class Report < ActiveRecord::Base
     uri = URI('http://reports.savilo.com/TownCenter/leads.php')
     res = Net::HTTP.post_form(uri, {:phone => self.phone, :zip => self.zip, :business_name => self.business})
 
-    threads       = []
     #site_list = %w/Google Yahoo Yelp Cornerstonesworld Discoverourtown Expressbusinessdirectory Ibegin Localizedbiz Yellowee Tupalo Localpages Getfave Insiderpage Zippro Gomylocal Uscity Kudzu Snoopitnow Justclicklocal Businessdb Ebusinesspage/
     #site_list = %w/Google Yahoo Yelp Bing Facebook Foursquare Cornerstonesworld Citisquare Ebusinesspages Expressbusinessdirectory Getfave Hotfrog Ibegin Insiderpages Localizedbiz Showmelocal Uscity Yellowassistance Zippro/
     #site_list.each do |site|
     SiteProfile.where(enabled_for_scan: true).pluck(:site).each do |site|
-      threads << Thread.new do
-        scan        = Scanner.new(self, site)
-        result      = scan.run
-      end
+      scan        = Scanner.new(self, site)
+      result      = scan.run
     end
-    threads.each {|t| t.join }
 
     self.completed_at = Time.now
     self.save!

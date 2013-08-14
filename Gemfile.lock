@@ -13,14 +13,6 @@ GIT
   specs:
     nested_form (0.3.2)
 
-GIT
-  remote: git@github.com:jjeffus/capistrano-beanstalkd.git
-  revision: d58654a6c1d5180c66b770bf4e8fab95a1475744
-  specs:
-    capistrano-beanstalkd (0.0.2)
-      backburner
-      capistrano
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -99,8 +91,15 @@ GEM
     backburner (0.4.3)
       beaneater (~> 0.3.1)
       dante (~> 0.1.5)
+    backports (3.3.3)
     bcrypt-ruby (3.0.1)
     beaneater (0.3.1)
+    beanstalkd_view (1.2.4)
+      beaneater (~> 0.3.0)
+      json
+      sinatra (>= 1.3.0)
+      sinatra-contrib (>= 1.3.0)
+      vegas (~> 0.1.2)
     better_errors (0.8.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -278,6 +277,8 @@ GEM
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
+    rack-protection (1.5.0)
+      rack
     rack-ssl (1.3.3)
       rack
     rack-test (0.6.2)
@@ -341,6 +342,17 @@ GEM
     shoulda-context (1.1.2)
     shoulda-matchers (2.1.0)
       activesupport (>= 3.0.0)
+    sinatra (1.4.3)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (~> 1.3, >= 1.3.4)
+    sinatra-contrib (1.4.0)
+      backports (>= 2.0)
+      eventmachine
+      rack-protection
+      rack-test
+      sinatra (~> 1.4.2)
+      tilt (~> 1.3)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -364,6 +376,8 @@ GEM
       rack
       raindrops (~> 0.7)
     uuidtools (2.1.4)
+    vegas (0.1.11)
+      rack (>= 1.0.0)
     vitelity (1.0.1)
       activesupport
       rest-client
@@ -392,11 +406,11 @@ DEPENDENCIES
   aws-sdk (~> 1.11.3)
   axlsx
   backburner (>= 0.4.0)
+  beanstalkd_view
   better_errors
   binding_of_caller
   cancan
   capistrano
-  capistrano-beanstalkd!
   capistrano-db-tasks
   capybara
   capybara-screenshot
