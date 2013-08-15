@@ -15,7 +15,7 @@ class BusinessObserver < ActiveRecord::Observer
 
     unless Rails.env == 'test' 
       business.create_site_accounts() 
-      business.create_jobs() 
+    #  business.create_jobs() 
     end 
   end 
 
