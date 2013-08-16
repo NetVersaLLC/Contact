@@ -16,6 +16,7 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   # config.use_transactional_fixtures = false
+  config.use_transactional_fixtures = true
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
@@ -32,14 +33,14 @@ RSpec.configure do |config|
   config.add_formatter 'documentation'
 
   # Clean up the database
-  require 'database_cleaner'
-  config.before(:suite) do
-    DatabaseCleaner[:active_record].clean_with(:truncation)
-    DatabaseCleaner[:active_record].strategy = :truncation
-  end
+  #require 'database_cleaner'
+  #config.before(:suite) do
+  #  DatabaseCleaner[:active_record].clean_with(:truncation)
+  #  DatabaseCleaner[:active_record].strategy = :truncation
+  #end
 
-  config.before(:all) do
-    DatabaseCleaner.clean
-  end
+  #config.before(:all) do
+  #  DatabaseCleaner.clean
+  #end
 
 end

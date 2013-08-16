@@ -17,7 +17,15 @@ FactoryGirl.define do
     category1 'wine bar' 
     category2 'funhouse' 
     category3 'hamburgers' 
-    crunchbase_attributes 'crunchbase'
+    keywords 'keywords' 
+    status_message 'some status message' 
+    services_offered 'service1, service2' 
+    brands 'brands' 
+    tag_line 'We Rock!' 
+    job_titles 'ceo, manager' 
+    corporate_name 'corporate name' 
+
+    #crunchbase_attributes 'crunchbase'
   end 
 
   factory :label do 

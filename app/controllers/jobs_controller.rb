@@ -20,8 +20,13 @@ class JobsController < ApplicationController
     end
     @job = Job.pending(@business)
     logger.info "Job is: #{@job.inspect}"
-    if @job == nil
-      @job = {:status => 'wait'}
+
+    # when there is nothing to do, look for something to do
+    if @job.nil?
+      Task.complete(@business) 
+      Task.start_sync(@business) 
+
+      @job = {:status => 'wait'} # jobs are being inserted in the background.  
     else
       @job['payload_data'] = @job.get_job_data(@business, params)
     end

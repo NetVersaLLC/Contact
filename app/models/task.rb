@@ -1,3 +1,38 @@
 class Task < ActiveRecord::Base
   belongs_to :business
+  attr_accessible :status, :started_at, :business_id, :completed_at
+
+  validate :status, inclusion: { in: %w(new running completed) } 
+
+  def self.open 
+    where(status: 'new')
+  end 
+
+  def self.request_sync( business )
+    t = Task.where(business_id: business.id).open.first
+    t = Task.create({business_id: business.id, started_at: Time.now} ) if t.nil?
+    t
+  end 
+
+  def self.start_sync( business ) 
+    t = Task.where(business_id: business.id).open.first
+    unless t.nil?
+      business.create_jobs
+      t.update_attributes(:started_at => Time.now, :status => 'running') 
+      true
+    else 
+      false
+    end 
+
+  end 
+  def self.complete( business ) 
+    t = Task.where(business_id: business.id).where(status: 'running').first
+    if t
+      t.update_attributes({completed_at: Time.now, status: 'completed'}) 
+      true 
+    else 
+      false 
+    end 
+  end 
+
 end
