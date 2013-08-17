@@ -105,8 +105,15 @@ $ ->
       return cur_step.hasClass("step-visited")
   } )
 
+  $('#business_mobile_phone').mask("999-999-9999")
+  $('#business_local_phone').mask("999-999-9999")
+  $('#business_alternate_phone').mask("999-999-9999")
+  $('#business_toll_free_phone').mask("999-999-9999")
+  $('#business_fax_number').mask("999-999-9999")
+
   window.initMap()
   #delay_task_sync_button()
   window.company_description()
 
-
+window.ClientSideValidations.callbacks.element.before = (element, eventData)->
+  console.log element

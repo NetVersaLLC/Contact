@@ -638,3 +638,9 @@
   });
 
 }).call(this);
+
+window.ClientSideValidations.validators.local['phone'] = function(element, options) {
+  if (!/^(?:\d\d\d-\d\d\d-\d\d\d\d)|(?:___-___-____)$/i.test(element.val())) {
+    return options.message;
+  }
+}

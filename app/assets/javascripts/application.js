@@ -5,6 +5,7 @@
 //= require bootstrap.min
 //= require businesses
 //= require jquery.fineuploader.min
+//= require jquery.maskedinput.min
 //= require jquery.payment
 //= require jquery.psteps.min
 //= require jquery.cookie

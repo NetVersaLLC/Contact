@@ -8,6 +8,9 @@ en:
   errors: 
     messages: 
       blank: "Can not be blank" 
+  errors:
+    messages:
+      phone: "Not a valid phone number"
   formtastic: 
     titles: 
       business_details:      "Business Details"

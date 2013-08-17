@@ -1,3 +1,18 @@
+class PhoneValidator < ActiveModel::EachValidator
+  def validate_each(record, attr_name, value)
+    unless value =~ /^(?:\d\d\d-\d\d\d-\d\d\d\d)|(?:___-___-____)$/
+      record.errors.add(attr_name, :phone, options.merge(:value => value))
+    end
+  end
+end
+
+# This allows us to assign the validator in the model
+module ActiveModel::Validations::HelperMethods
+  def validates_phone(*attr_names)
+    validates_with PhoneValidator, _merge_attributes(attr_names)
+  end
+end
+
 module Business::Validations
   extend ActiveSupport::Concern
   included do
@@ -37,24 +52,14 @@ module Business::Validations
       :presence => true
     validates :contact_last_name,
       :presence => true
-    validates :local_phone,
-      :presence => true,
-      :format => { :with => phone_regex, :message => 'Invalid format'}
-    validates :alternate_phone,
-      :allow_blank => true,
-      :format => { :with => phone_regex,:message => 'Invalid format' }
-    validates :toll_free_phone,
-	  :allow_blank => true,
-      :format => { :with => /^(?:888|877|866|855|844|833|822|800)-\d\d\d-\d\d\d\d$/, :message => 'Invalid format'}
-    validates :mobile_phone,
-      :presence => true,      
-      :format => { :with => phone_regex, :message => 'Invalid format' }
-    validates :fax_number,
-      :allow_blank => true,
-      :format => { :with => phone_regex, :message => 'Invalid format' }
-    #validates :address,
-    #  :presence => true
-    validates :business_description, :presence => true, :length => {:minimum => 50, :maximum => 200}
+
+    validates_phone :local_phone
+    validates_phone :alternate_phone
+    validates_phone :toll_free_phone
+    validates_phone :mobile_phone
+    validates_phone :fax_number
+    
+      validates :business_description, :presence => true, :length => {:minimum => 50, :maximum => 200}
     validates :geographic_areas,
       :presence => true
     validates :year_founded,

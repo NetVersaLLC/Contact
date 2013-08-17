@@ -315,6 +315,8 @@ ActiveRecord::Schema.define(:version => 20130816153441) do
     t.string   "tag_line"
     t.text     "job_titles"
     t.boolean  "is_client_downloaded",      :default => false
+    t.datetime "setup_completed"
+    t.boolean  "setup_msg_sent",            :default => false
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
@@ -906,15 +908,6 @@ ActiveRecord::Schema.define(:version => 20130816153441) do
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
 
-  create_table "insiderpages", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "email"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
     t.text     "secrets"
@@ -1346,8 +1339,8 @@ ActiveRecord::Schema.define(:version => 20130816153441) do
     t.datetime "force_update"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
-    t.boolean  "do_not_sync",  :default => false
     t.string   "username"
+    t.boolean  "do_not_sync",  :default => false
   end
 
   create_table "notifications", :force => true do |t|
