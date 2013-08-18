@@ -114,6 +114,3 @@ $ ->
   window.initMap()
   #delay_task_sync_button()
   window.company_description()
-
-window.ClientSideValidations.callbacks.element.before = (element, eventData)->
-  console.log element
