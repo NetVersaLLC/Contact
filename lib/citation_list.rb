@@ -532,6 +532,14 @@
   ['Yellowwiz', 'yellowwiz',
     [],
     'Yellowwiz'
+  ],
+  ['Citydata', 'citydata',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'citydata_category']
+    ],
+      'City-Data'
   ]
 ]
 
