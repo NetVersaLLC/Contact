@@ -540,6 +540,10 @@
       ['select', 'citydata_category']
     ],
       'City-Data'
+  ],
+  ['Onlinenetwork', 'onlinenetworks',
+    [],
+    '24/7 OnlineNetwork'
   ]
 ]
 
