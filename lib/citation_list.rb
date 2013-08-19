@@ -540,6 +540,18 @@
       ['select', 'citydata_category']
     ],
       'City-Data'
+  ],
+  ['Onlinenetwork', 'onlinenetworks',
+    [],
+    '24/7 OnlineNetwork'
+  ],
+  ['Meetlocalbiz', 'meetlocalbizs',
+    [
+      ['text', 'username'],
+      ['text', 'password'],
+      ['select', 'meetlocalbiz_category']
+    ],
+      'Meetlocalbiz'
   ]
 ]
 

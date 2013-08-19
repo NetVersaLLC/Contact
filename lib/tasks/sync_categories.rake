@@ -4,8 +4,8 @@ namespace :sync do
       data[2].each do |row|
         if row[0] == 'select'
           klass = row[1].classify.constantize
-          next if klass == GoogleCategory
-          #next unless klass == YellowtalkCategory
+          #next if klass == GoogleCategory
+          next unless klass == MeetlocalbizCategory
 
           if klass == AngiesListCategory
             fixedName = "angies_list"
