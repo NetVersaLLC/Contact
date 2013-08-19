@@ -45,7 +45,7 @@ class Task < ActiveRecord::Base
     if t.nil?
       return "No sync queued"
     else
-      t.started_at.strftime("Changed queued on %m/%d/%Y")
+      t.started_at.strftime("Changes queued on %m/%d/%Y")
     end 
   end
 
