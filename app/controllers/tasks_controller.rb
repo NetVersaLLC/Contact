@@ -9,12 +9,12 @@ class TasksController < ApplicationController
       @task = Task.request_sync( business )
 
       if @task.errors.empty?
-        flash[:notice] = 'Sync started'
+        flash[:notice] = 'Changes queued'
       else
         flash[:notice] = "Error: #{@task.errors}"
       end
     else 
-      flash[:notice] = 'Started the sync'
+      flash[:notice] = 'Queued your changes'
       LabelMailer.sync_disabled_email(business.label).deliver
     end 
 

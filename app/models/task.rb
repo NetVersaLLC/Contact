@@ -10,7 +10,12 @@ class Task < ActiveRecord::Base
 
   def self.request_sync( business )
     t = Task.where(business_id: business.id).open.first
-    t = Task.create({business_id: business.id, started_at: Time.now} ) if t.nil?
+    if t.nil?
+      t = Task.create({business_id: business.id, started_at: Time.now} ) if t.nil?
+    else
+      t.started_at = Time.now
+      t.save
+    end
     t
   end 
 
@@ -23,8 +28,8 @@ class Task < ActiveRecord::Base
     else 
       false
     end 
-
   end 
+
   def self.complete( business ) 
     t = Task.where(business_id: business.id).where(status: 'running').first
     if t
@@ -34,5 +39,14 @@ class Task < ActiveRecord::Base
       false 
     end 
   end 
+
+  def self.get_last_sync( business )
+    t = Task.where('business_id=? AND started_at > ?', business.id, Date.yesterday).first
+    if t.nil?
+      return "No sync queued"
+    else
+      t.started_at.strftime("Changed queued on %m/%d/%Y")
+    end 
+  end
 
 end

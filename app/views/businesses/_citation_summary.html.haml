@@ -16,7 +16,8 @@
           -if params[:delay] 
             %br
             %br
-            %h3 Syncing...
+            %h3
+              = Task.get_last_sync(@business)
           -else 
             - if !@business.valid?
               %p(style="margin-top:60px;")= t("business_valid_notice")
