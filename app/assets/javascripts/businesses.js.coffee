@@ -105,11 +105,11 @@ $ ->
       return cur_step.hasClass("step-visited")
   } )
 
-  $('#business_mobile_phone').mask("999-999-9999")
-  $('#business_local_phone').mask("999-999-9999")
-  $('#business_alternate_phone').mask("999-999-9999")
-  $('#business_toll_free_phone').mask("999-999-9999")
-  $('#business_fax_number').mask("999-999-9999")
+  $('#business_mobile_phone').inputmask("999-999-9999",{ "clearIncomplete": true, 'clearMaskOnLostFocus': true })
+  $('#business_local_phone').inputmask("999-999-9999",{ "clearIncomplete": true , 'clearMaskOnLostFocus': true })
+  $('#business_alternate_phone').inputmask("999-999-9999",{ "clearIncomplete": true, 'clearMaskOnLostFocus': true })
+  $('#business_toll_free_phone').inputmask("999-999-9999",{ "clearIncomplete": true, 'clearMaskOnLostFocus': true })
+  $('#business_fax_number').inputmask("999-999-9999",{ "clearIncomplete": true, 'clearMaskOnLostFocus': true })
 
   window.initMap()
   #delay_task_sync_button()
