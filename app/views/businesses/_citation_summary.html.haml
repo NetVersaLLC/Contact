@@ -25,6 +25,10 @@
               %p(style="margin-top:70px;")= t("client_downloaded_notice")
               = link_to "Download Client", business_download_url(@business, "client"), :class => 'btn btn-warning'
             - else  
-              = form_for Task.new do
-                %input{:type => :hidden, :value => @business.id, :name => 'business_id'}
-                %input{:type => :image, :value => 'Sync Now', :src => '/assets/sync_button.png', :class => 'sync' }
+              - if @business.sync_needed? 
+                = form_for Task.new do
+                  %input{:type => :hidden, :value => @business.id, :name => 'business_id'}
+                  %input{:type => :image, :value => 'Sync Now', :src => '/assets/sync_button.png', :class => 'sync' }
+              - else   
+                .sync.alert.alert-success
+                  Your profile is up to date. 

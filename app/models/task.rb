@@ -8,6 +8,10 @@ class Task < ActiveRecord::Base
     where(status: 'new')
   end 
 
+  def completed?
+    status == 'completed' 
+  end 
+
   def self.request_sync( business )
     t = Task.where(business_id: business.id).open.first
     if t.nil?

@@ -2,6 +2,11 @@ module Business::MiscMethods
   extend ActiveSupport::Concern
   included do
 
+    def sync_needed? 
+      t = tasks.order('created_at desc').first 
+      t.nil? || t.created_at < self.updated_at
+    end 
+
     def post_to_leadtrac
       lead = Lead.new(self)
       lead.post
