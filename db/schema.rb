@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130819022801) do
+ActiveRecord::Schema.define(:version => 20130819150506) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -387,9 +387,9 @@ ActiveRecord::Schema.define(:version => 20130819022801) do
     t.string   "code"
     t.string   "site_name"
     t.integer  "business_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.string   "next_job"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.string   "next_job",    :default => "Verify"
   end
 
   create_table "completed_jobs", :force => true do |t|
@@ -619,9 +619,9 @@ ActiveRecord::Schema.define(:version => 20130819022801) do
     t.integer  "business_id"
     t.datetime "force_update"
     t.text     "secrets"
-    t.integer  "ezlocal_category_id"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.integer  "ezlocal_category_id"
     t.string   "email"
     t.boolean  "do_not_sync",         :default => false
   end
@@ -655,8 +655,9 @@ ActiveRecord::Schema.define(:version => 20130819022801) do
     t.datetime "created_at",                                      :null => false
     t.datetime "updated_at",                                      :null => false
     t.boolean  "do_not_sync",                  :default => false
-    t.integer  "facebook_category_id"
+    t.text     "cookies"
     t.integer  "facebook_profile_category_id"
+    t.integer  "facebook_category_id"
   end
 
   create_table "failed_jobs", :force => true do |t|
@@ -675,6 +676,18 @@ ActiveRecord::Schema.define(:version => 20130819022801) do
 
   add_index "failed_jobs", ["business_id"], :name => "index_failed_jobs_on_business_id"
   add_index "failed_jobs", ["status"], :name => "index_failed_jobs_on_status"
+
+  create_table "female_fname", :force => true do |t|
+    t.text     "first",                    :null => false
+    t.integer  "zip",   :default => 10016, :null => false
+    t.datetime "dtime",                    :null => false
+  end
+
+  create_table "female_lname", :force => true do |t|
+    t.text     "last",                     :null => false
+    t.integer  "zip",   :default => 10016, :null => false
+    t.datetime "dtime",                    :null => false
+  end
 
   create_table "foursquare_categories", :force => true do |t|
     t.integer  "parent_id"
@@ -799,8 +812,8 @@ ActiveRecord::Schema.define(:version => 20130819022801) do
     t.integer  "usyellowpages_category_id"
     t.integer  "zipperpage_category_id"
     t.integer  "ziplocal_category_id"
-    t.integer  "facebook_category_id"
     t.integer  "facebook_profile_category_id"
+    t.integer  "facebook_category_id"
     t.integer  "yellowtalk_category_id"
     t.integer  "yellowwiz_category_id"
     t.integer  "citydata_category_id"
@@ -823,7 +836,6 @@ ActiveRecord::Schema.define(:version => 20130819022801) do
     t.datetime "updated_at",                            :null => false
     t.integer  "google_category_id"
     t.boolean  "do_not_sync",        :default => false
-    t.text     "cookies"
   end
 
   add_index "googles", ["business_id"], :name => "index_googles_on_business_id"
@@ -835,9 +847,9 @@ ActiveRecord::Schema.define(:version => 20130819022801) do
     t.string   "status"
     t.datetime "force_update"
     t.string   "listing_url"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-    t.boolean  "do_not_sync",  :default => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.boolean  "do_not_sync"
   end
 
   add_index "hotfrogs", ["business_id"], :name => "index_hotfrogs_on_business_id"
@@ -930,6 +942,15 @@ ActiveRecord::Schema.define(:version => 20130819022801) do
   end
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
+
+  create_table "insiderpages", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
@@ -1307,6 +1328,7 @@ ActiveRecord::Schema.define(:version => 20130819022801) do
     t.datetime "created_at",               :null => false
     t.datetime "updated_at",               :null => false
     t.integer  "meetlocalbiz_category_id"
+    t.boolean  "do_not_sync"
   end
 
   create_table "merchantcircle_categories", :force => true do |t|
@@ -1359,9 +1381,9 @@ ActiveRecord::Schema.define(:version => 20130819022801) do
     t.integer  "business_id"
     t.text     "secrets"
     t.datetime "force_update"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-    t.boolean  "do_not_sync",  :default => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+    t.boolean  "do_not_sync"
   end
 
   add_index "mycitybusinesses", ["business_id"], :name => "index_mycitybusinesses_on_business_id"
@@ -1383,8 +1405,8 @@ ActiveRecord::Schema.define(:version => 20130819022801) do
     t.datetime "force_update"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
-    t.string   "username"
     t.boolean  "do_not_sync",  :default => false
+    t.string   "username"
   end
 
   create_table "notifications", :force => true do |t|
@@ -1404,6 +1426,7 @@ ActiveRecord::Schema.define(:version => 20130819022801) do
     t.datetime "force_update"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.boolean  "do_not_sync"
   end
 
   create_table "package_payloads", :force => true do |t|
@@ -1459,17 +1482,16 @@ ActiveRecord::Schema.define(:version => 20130819022801) do
     t.string   "transaction_number"
     t.integer  "business_id"
     t.integer  "label_id"
-    t.integer  "transaction_id"
+    t.integer  "transaction_event_id"
     t.string   "message"
     t.text     "response"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
-    t.integer  "transaction_event_id"
   end
 
   add_index "payments", ["business_id"], :name => "index_payments_on_business_id"
   add_index "payments", ["label_id"], :name => "index_payments_on_label_id"
-  add_index "payments", ["transaction_id"], :name => "index_payments_on_transaction_id"
+  add_index "payments", ["transaction_event_id"], :name => "index_payments_on_transaction_id"
 
   create_table "primeplace_categories", :force => true do |t|
     t.integer  "parent_id"
@@ -1847,9 +1869,9 @@ ActiveRecord::Schema.define(:version => 20130819022801) do
     t.text     "secrets"
     t.datetime "force_update"
     t.text     "username"
+    t.integer  "usbdn_category_id"
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
-    t.integer  "usbdn_category_id"
     t.boolean  "do_not_sync",       :default => false
   end
 
@@ -2204,6 +2226,7 @@ ActiveRecord::Schema.define(:version => 20130819022801) do
     t.datetime "updated_at",                             :null => false
     t.integer  "zippro_category2_id"
     t.integer  "zippro_category_id"
+    t.integer  "form_id"
     t.boolean  "do_not_sync",         :default => false
   end
 
