@@ -11,6 +11,15 @@ class Task < ActiveRecord::Base
   def completed?
     status == 'completed' 
   end 
+  def started? 
+    status != 'new'
+  end 
+  def running? 
+    status == 'running' 
+  end 
+  def active? 
+    started? || running? 
+  end 
 
   def self.request_sync( business )
     t = Task.where(business_id: business.id).open.first

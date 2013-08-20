@@ -11,7 +11,7 @@
             %span SYNCRONIZED
           .citation-info
             %h1= @business.package_payload_sites.length - @business.accounts_synced.length
-            %span UNSYNCRONIZED
+            %span= @business.tasks.last.completed? ? "UNSYNCRONIZED" : "CONNECTING" 
         .span3
           -if params[:delay] 
             %br

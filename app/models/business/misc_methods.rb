@@ -4,7 +4,14 @@ module Business::MiscMethods
 
     def sync_needed? 
       t = tasks.order('created_at desc').first 
-      t.nil? || t.created_at < self.updated_at
+
+      return true if t.nil? 
+      return false unless t.started? 
+      return true if t.started_at < self.updated_at 
+
+      return true if package_payload_sites.length - accounts_synced.length > 0 
+
+      return false 
     end 
 
     def post_to_leadtrac
