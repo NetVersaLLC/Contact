@@ -41,7 +41,10 @@
                   Welcome 
                   %strong= "#{current_user.email}!"
             %ul.nav.pull-right
-              %li= link_to('Sign Out', destroy_user_session_path, :method => :delete)
+              -if session[:impersonator_id] 
+                %li=link_to('Sign Out', revert_impersonation_path, :method => :delete)
+              -else 
+                %li= link_to('Sign Out', destroy_user_session_path, :method => :delete)
           - else 
             %ul.nav.pull-right
               %li= link_to('Sign In', new_user_session_path)
