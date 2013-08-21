@@ -1,22 +1,18 @@
 class Scanner
   include HTTParty
   digest_auth 'api', '13fc9e78f643ab9a2e11a4521479fdfe'
-
   base_uri ENV['SCAN_SERVER'] || 'scan.netversa.com'
-  
-  # the AWS beanstalk instance weston setup
-  # base_uri 'scan-mri-staging-2hpbtmyw2a.elasticbeanstalk.com'
 
   debug_output $stderr
 
-  def initialize(report, site)
-    @report              = report
+  def self.scan(report_id, site)
+    @report              = Report.find(report_id)
     @site                = site
-    @location            = Location.where(:zip => report.zip).first
+    @location            = Location.where(:zip => @report.zip).first
     @data                = {}
-    @data['business']    = report.business
-    @data['phone']       = report.phone
-    @data['zip']         = report.zip
+    @data['business']    = @report.business
+    @data['phone']       = @report.phone
+    @data['zip']         = @report.zip
     @data['latitude']    = @location.latitude
     @data['longitude']   = @location.longitude
     @data['state']       = Carmen::state_name( @location.state )
@@ -24,33 +20,37 @@ class Scanner
     @data['city']        = @location.city
     @data['county']      = @location.county
     @data['country']     = @location.country
-  end
 
-  def run
     options = {
-      :query => {:payload_data => @data.to_json, :site => @site},
+      :query   => {
+        :payload_data => @data.to_json,
+        :site         => @site
+      },
       :headers => { 'content-length' => '0' }
     }
+
+    status         = nil
+    result         = nil
+    listed_phone   = nil
+    listed_address = nil
+    listed_url     = nil
+    error_message  = nil
+    request_time   = nil
+
     begin
-      response = self.class.post("/scan.json", options)
-    rescue
-      error_message = 'Failed'
+      Timeout::timeout(15) do
+        response = Scanner.post("/scan.json", options)
+        Delayed::Worker.logger.info "#{site}: Response: #{response.inspect}"
+      end
+    rescue => e
+      error_message = "#{site}: #{e.message}: #{e.backtrace.join("\n")}"
       status = 'error'
       response = {
         'error' => 'Failed'
       }
     end
 
-    status = nil
-    result = nil
-    listed_phone = nil
-    listed_address = nil
-    listed_url = nil
-    error_message = nil
-    request_time = nil
-
     if response['error']
-      error_message  = response['error']
       status         = 'error'
     else
       result         = response['result']
@@ -64,6 +64,8 @@ class Scanner
         status = 'error'
       end
     end
+
+    Delayed::Worker.logger.info "#{@site}: #{Time.now.iso8601}"
 
     Scan.create do |s|
       s.report_id      = @report.id

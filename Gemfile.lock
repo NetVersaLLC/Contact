@@ -163,6 +163,11 @@ GEM
       json (>= 1.4.6)
       rest-client (~> 1.6.1)
     debug_inspector (0.0.2)
+    delayed_job (4.0.0)
+      activesupport (>= 3.0, < 4.1)
+    delayed_job_active_record (4.0.0)
+      activerecord (>= 3.0, < 4.1)
+      delayed_job (>= 3.0, < 4.1)
     detect_email_settings (0.0.1)
       mail
     devise (2.2.4)
@@ -425,6 +430,7 @@ DEPENDENCIES
   dalli
   database_cleaner
   deathbycaptcha
+  delayed_job_active_record
   detect_email_settings
   devise
   eventmachine
