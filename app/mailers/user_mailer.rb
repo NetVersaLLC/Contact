@@ -10,9 +10,9 @@ class UserMailer < ActionMailer::Base
     mail(:to => user.email, :from => user.label.mail_from, :subject => "Welcome to #{user.label.name}")
   end
 
-  def download_client_reminder_email(user) 
-    @user = user 
-    mail(:to => user.email, :subject => "Don't forget to download the client") 
+  def download_client_reminder_email(user)
+    @user = user
+    mail(:to => user.email, :from => user.label.mail_from, :subject => "Don't forget to download the client") 
   end 
 
   def setup_completed_email(business)

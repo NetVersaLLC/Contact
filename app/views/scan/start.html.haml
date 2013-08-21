@@ -11,6 +11,13 @@
   %h2#message Scanning...
   %img{:src => '/assets/progress.gif'}
 
+#email_report_group
+  %form.form-inline{:role => "form"}
+    .form-group
+      %label.sr-only{:for => "report_email"} Email address
+      %input#report_email.form-control{:placeholder => "Enter email", :type => "email"}/
+    %input.btn.btn-default#set_email{:type => :button, :value => "Email Me The Report"}
+
 :javascript
   function checkProgress() {
     $.getJSON('/scanner/check.json?ident=#{@report.ident}', function(data) {
@@ -28,4 +35,9 @@
   }
   $(document).ready(function(){
     var intervalID = window.setInterval(checkProgress, 5000);
+    $('#set_email').click(function(){
+      $.post('/scanner/email', {'email': $('#report_email').val(), 'ident': '#{@report.ident}'}).done(function(data){
+        console.log(data);
+      });
+    });
   });

@@ -95,6 +95,7 @@ Contact::Application.routes.draw do
 
   post    '/scanner/start', :controller => :scan, :action => :start
   get     '/scanner/check(.:format)', :controller => :scan, :action => :check
+  post    '/scanner/email', :controller => :scan, :action => :email
   get     '/scan/:id',      :controller => :scan, :action => :show
 
   get     '/test/exception', :controller => :test, :action => :exception

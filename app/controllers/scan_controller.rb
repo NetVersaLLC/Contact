@@ -3,9 +3,10 @@ class ScanController < ApplicationController
     @name        = params[:name].strip
     @zip         = params[:zip].strip
     @phone       = params[:phone].strip
+    @email       = params[:email].strip
     @package_id  = params[:package_id]
     @ident       = SecureRandom.uuid
-    @report      = Report.generate(@name,@zip,@phone,@package_id,@ident, current_label)
+    @report      = Report.generate(@name,@zip,@phone,@package_id,@ident, current_label, @email)
   end
 
   def check
@@ -28,4 +29,13 @@ class ScanController < ApplicationController
   def show
     @report = Report.where(:ident => params[:id]).first
   end
+
+  def email
+    @report = Report.where(:ident => params[:ident]).first
+    @report.email = params[:email]
+    @report.save!
+    res = {:status => 'updated'}
+    render :json => res
+  end
+
 end

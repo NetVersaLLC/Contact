@@ -17,10 +17,15 @@ class Report < ActiveRecord::Base
 
     self.completed_at = Time.now
     self.save!
+
+    unless self.email.nil?
+      ReportMailer.report_email(self).deliver
+    end
+
     return self
   end
 
-  def self.generate(business, zip, phone, package_id, ident, label) 
+  def self.generate(business, zip, phone, package_id, ident, label, email) 
     report = Report.create do |r|
       r.business   = business
       r.zip        = zip
@@ -28,6 +33,7 @@ class Report < ActiveRecord::Base
       r.package_id = package_id
       r.ident      = ident
       r.label      = label
+      r.email      = email
     end
     report.delay.perform
     report
