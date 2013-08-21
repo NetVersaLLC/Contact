@@ -12,7 +12,7 @@ class Report < ActiveRecord::Base
       Scanner.delay.scan(self.id, site)
     end
 
-    sleep 25
+    sleep 45
     Delayed::Worker.logger.info "Ending performance: #{Time.now.iso8601}"
 
     self.completed_at = Time.now

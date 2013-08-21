@@ -21,34 +21,15 @@ class Scanner
     @data['county']      = @location.county
     @data['country']     = @location.country
 
-    options = {
-      :query   => {
-        :payload_data => @data.to_json,
-        :site         => @site
-      },
-      :headers => { 'content-length' => '0' }
-    }
-
-    status         = nil
+    request_time   = nil
     result         = nil
     listed_phone   = nil
     listed_address = nil
     listed_url     = nil
+    status         = nil
     error_message  = nil
-    request_time   = nil
 
-    begin
-      Timeout::timeout(15) do
-        response = Scanner.post("/scan.json", options)
-        Delayed::Worker.logger.info "#{site}: Response: #{response.inspect}"
-      end
-    rescue => e
-      error_message = "#{site}: #{e.message}: #{e.backtrace.join("\n")}"
-      status = 'error'
-      response = {
-        'error' => 'Failed'
-      }
-    end
+    response,status,error_message = Scan.make_scan(@data, @site)
 
     if response['error']
       status         = 'error'
@@ -60,7 +41,7 @@ class Scanner
         listed_address = result['listed_address']
         listed_url     = result['listed_url']
       else
-        error_message = 'Not supported'
+       error_message = 'Not supported'
         status = 'error'
       end
     end
