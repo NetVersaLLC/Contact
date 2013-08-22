@@ -88,18 +88,7 @@ GEM
       htmlentities (~> 4.3.1)
       nokogiri (>= 1.4.1)
       rubyzip (>= 0.9.5)
-    backburner (0.4.3)
-      beaneater (~> 0.3.1)
-      dante (~> 0.1.5)
-    backports (3.3.3)
     bcrypt-ruby (3.0.1)
-    beaneater (0.3.1)
-    beanstalkd_view (1.2.4)
-      beaneater (~> 0.3.0)
-      json
-      sinatra (>= 1.3.0)
-      sinatra-contrib (>= 1.3.0)
-      vegas (~> 0.1.2)
     better_errors (0.8.0)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -152,9 +141,7 @@ GEM
       cucumber (>= 1.2.0)
       nokogiri (>= 1.5.0)
       rails (~> 3.0)
-    daemons (1.1.9)
     dalli (2.6.4)
-    dante (0.1.5)
     data_magic (0.14)
       faker (>= 1.1.2)
       yml_reader (>= 0.2)
@@ -168,6 +155,12 @@ GEM
     delayed_job_active_record (4.0.0)
       activerecord (>= 3.0, < 4.1)
       delayed_job (>= 3.0, < 4.1)
+    delayed_job_web (1.2.0)
+      activerecord (> 3.0.0)
+      delayed_job (> 2.0.3)
+      haml (>= 3.1.3)
+      rdoc
+      sinatra (>= 0.9.2)
     detect_email_settings (0.0.1)
       mail
     devise (2.2.4)
@@ -351,13 +344,6 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
-    sinatra-contrib (1.4.0)
-      backports (>= 2.0)
-      eventmachine
-      rack-protection
-      rack-test
-      sinatra (~> 1.4.2)
-      tilt (~> 1.3)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -381,8 +367,6 @@ GEM
       rack
       raindrops (~> 0.7)
     uuidtools (2.1.4)
-    vegas (0.1.11)
-      rack (>= 1.0.0)
     vitelity (1.0.1)
       activesupport
       rest-client
@@ -410,8 +394,6 @@ DEPENDENCIES
   awesome_print
   aws-sdk (~> 1.11.3)
   axlsx
-  backburner (>= 0.4.0)
-  beanstalkd_view
   better_errors
   binding_of_caller
   cancan
@@ -426,11 +408,11 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   cucumber
   cucumber-rails
-  daemons
   dalli
   database_cleaner
   deathbycaptcha
   delayed_job_active_record
+  delayed_job_web
   detect_email_settings
   devise
   eventmachine

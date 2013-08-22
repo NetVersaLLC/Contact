@@ -75,7 +75,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
           expire_session_data_after_sign_in!
         end
   
-        User.send_welcome(resource) # It should be done as backburner process  as User.async.send_welcome(resource)
+        User.delay.send_welcome(resource)
         if @is_checkout_session == true
           if !@transaction.business.subscription.active || @transaction.business.subscription.active.nil?
             Notification.add_activate_subscription @transaction.business

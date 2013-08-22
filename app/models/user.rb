@@ -1,8 +1,4 @@
 class User < ActiveRecord::Base
-  include Backburner::Performable
-  queue "user-jobs"  # defaults to 'user'
-  queue_priority 500 # most urgent priority is 0
-
   attr_accessor :temppass
   attr_accessible :callcenter
   attr_accessible :access_level, :as => :admin

@@ -56,7 +56,7 @@
         %td #{scan.listed_address}
         %td
           - if scan.listed_url and scan.listed_url != ''
-            %a.btn.btn-large.btn-primary{:href => scan.listed_url}
+            %a.btn.btn-large.btn-primary{:href => scan.listed_url, :target => '_blank'}
               %i.icon-link
               Link
 

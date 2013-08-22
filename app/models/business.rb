@@ -6,9 +6,6 @@ class Business < ActiveRecord::Base
   include Business::FormMethods
   include Business::MiscMethods
 
-  include Backburner::Performable
-  queue "business-manage"
-
   # Associations
 
   #has_attached_file :logo, :styles => { :thumb => '100x100>', :medium => '240x240>' }
@@ -120,7 +117,7 @@ class Business < ActiveRecord::Base
   def create_site_accounts
     user_id = self.user.id
     business_id = self.id
-    Business.async.create_site_accounts_ex user_id, business_id
+    Business.delay.create_site_accounts_ex user_id, business_id
   end
 
 
