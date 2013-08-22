@@ -108,14 +108,14 @@ Contact::Application.routes.draw do
   put     '/images/set_logo/:id(.:format)', :action=>"set_logo", :controller=>"images"
   get     '/images/get_logo/:business_id(.:format)', :action=>"get_logo", :controller=>"images"
 
-  get '/resellers', :controller => :pages, :action => :resellers
-  get '/try_again_later', :controller => :pages, :action => :try_again_later
+  get     '/resellers', :controller => :pages, :action => :resellers
+  get     '/try_again_later', :controller => :pages, :action => :try_again_later
 
-  get '/congratulations', :controller => :pages, :action => :congratulations
-  get '/begin-sync', :controller => :pages, :action => :begin_sync, :as=>'begin_sync'
+  get     '/congratulations', :controller => :pages, :action => :congratulations
+  get     '/begin-sync', :controller => :pages, :action => :begin_sync, :as=>'begin_sync'
 
-  get '/leads', :controller => :leads, :action => :show
-  post'/leads', :controller => :leads, :action => :create
+  get     '/leads', :controller => :leads, :action => :show
+  post    '/leads', :controller => :leads, :action => :create
 
   match "/watch" => DelayedJobWeb, :anchor => false
 

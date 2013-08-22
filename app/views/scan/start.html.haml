@@ -9,15 +9,21 @@
 
 #sites
   %h2#message Scanning...
-  %img{:src => '/assets/progress.gif'}
+
+%br/
+%br/
+%img{:src => '/assets/progress.gif'}
+%br/
+%br/
 
 #email_report_group
-  %form.form-inline{:role => "form"}
+  %form.form-search{:role => "form"}
     .form-group
-      %label.sr-only{:for => "report_email"} Email address
-      %input#report_email.form-control{:placeholder => "Enter email", :type => "email"}/
+      %label.sr-only{:for => "report_email"} I'm tired of waiting, please send it to my email:
+    %input#report_email.span4.search-query{:placeholder => "Enter email", :type => "email"}/
     %input.btn.btn-default#set_email{:type => :button, :value => "Email Me The Report"}
-
+%br/
+%br/
 :javascript
   function checkProgress() {
     $.getJSON('/scanner/check.json?ident=#{@report.ident}', function(data) {
@@ -37,7 +43,7 @@
     var intervalID = window.setInterval(checkProgress, 5000);
     $('#set_email').click(function(){
       $.post('/scanner/email', {'email': $('#report_email').val(), 'ident': '#{@report.ident}'}).done(function(data){
-        console.log(data);
+        $('#email_report_group').html('You will receive an email with your report shortly.')
       });
     });
   });
