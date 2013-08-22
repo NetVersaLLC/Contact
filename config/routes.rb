@@ -119,7 +119,6 @@ Contact::Application.routes.draw do
 
   match "/watch" => DelayedJobWeb, :anchor => false
 
-  mount BeanstalkdView::Server, :at => "/beanstalkd"
   root :to => redirect("/pages/make_redirect")
   ActiveAdmin.routes(self) # Moved to bottom to resovle Unitialized Dashborad error w activeadmin 0.6.0 
 end

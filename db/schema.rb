@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130821205921) do
+ActiveRecord::Schema.define(:version => 20130822183336) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -131,15 +131,6 @@ ActiveRecord::Schema.define(:version => 20130821205921) do
   end
 
   add_index "aols", ["username"], :name => "index_aols_on_username"
-
-  create_table "backburner_processes", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "business_id"
-    t.text     "all_processes"
-    t.text     "processed"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
 
   create_table "bing_categories", :force => true do |t|
     t.integer  "parent_id"
