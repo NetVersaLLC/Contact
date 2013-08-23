@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130822183336) do
+ActiveRecord::Schema.define(:version => 20130823193912) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -1457,6 +1457,22 @@ ActiveRecord::Schema.define(:version => 20130822183336) do
     t.integer  "patch_category_id"
     t.boolean  "do_not_sync",       :default => false
   end
+
+  create_table "payload_nodes", :force => true do |t|
+    t.string   "name"
+    t.boolean  "active",     :default => false
+    t.datetime "broken_at"
+    t.text     "notes"
+    t.integer  "parent_id",  :default => 1
+    t.integer  "package_id", :default => 0
+    t.integer  "position",   :default => 0
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "payload_nodes", ["name"], :name => "index_payload_nodes_on_name"
+  add_index "payload_nodes", ["package_id"], :name => "index_payload_nodes_on_package_id"
+  add_index "payload_nodes", ["parent_id"], :name => "index_payload_nodes_on_parent_id"
 
   create_table "payments", :force => true do |t|
     t.string   "status"
