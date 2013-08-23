@@ -12,11 +12,10 @@ days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
 	days.each do |day|
 		if business.send("#{day}_enabled".to_sym) == true
 			hours[ "#{day}" ] =
-				 	[
-						business.send("#{day}_open".to_sym).downcase.gsub("am"," am").gsub("pm"," pm"),
-						business.send("#{day}_close".to_sym).downcase.gsub("am"," am").gsub("pm"," pm")
-					]
-				
+				[
+					business.send("#{day}_open".to_sym).downcase.gsub("am"," am").gsub("pm"," pm"),
+					business.send("#{day}_close".to_sym).downcase.gsub("am"," am").gsub("pm"," pm")
+				]
 		else
 			hours[ "#{day}" ] = [ "closed" ]
 		end
@@ -45,7 +44,23 @@ end
     end
     accepted
   end
-
-
-
+  def self.check_email(business)
+    @link = nil
+    CheckMail.get_link(business) do |mail|
+      if mail.subject =~ /Localndex - Activation/i
+        mail.parts.map do |p|
+			if p.content_type =~ /text\/html/
+				nok = Nokogiri::HTML(p.decoded)
+				nok.xpath("//a").each do |link|
+					if link.attr('href') =~ /http:\/\/www.localndex.com\/register.aspx\?*/
+						@link = link.attr('href')
+					end
+				end
+			end
+        end
+      end
+    end
+    STDERR.puts "Localndex mail actication link: #{@link}"
+    @link
+  end
 end
