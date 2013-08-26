@@ -2,6 +2,15 @@ module Business::MiscMethods
   extend ActiveSupport::Concern
   included do
 
+    def last_task_completed?
+      task = self.tasks.last
+      unless task.nil?
+        return task.completed?
+      else
+        false
+      end
+    end
+
     def sync_needed? 
       t = tasks.order('created_at desc').first 
 

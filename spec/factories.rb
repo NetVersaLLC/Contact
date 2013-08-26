@@ -25,6 +25,8 @@ FactoryGirl.define do
     job_titles 'ceo, manager' 
     corporate_name 'corporate name' 
 
+    subscription
+    user = @user
     #crunchbase_attributes 'crunchbase'
   end 
 
@@ -38,9 +40,10 @@ FactoryGirl.define do
   end 
 
   factory :user do 
-    email 'user@contact.dev' 
+    email "user@contact.dev"
     password 'password' 
-    access_level User.owner 
+    password_confirmation 'password' 
+    access_level User.owner
     label 
   end 
 
@@ -69,6 +72,7 @@ FactoryGirl.define do
 
   factory :subscription do
     label_id 5
+    active true
     package_id 1
     monthly_fee 20
   end

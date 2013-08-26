@@ -20,24 +20,36 @@ describe PayloadNode do
     @in_su     = @bing_su.children.create(:name => "Insiderpage/SignUp")
     @in_ve     = @in_su.children.create(:name => "Insiderpage/Verify")
     @in_hl     = @in_ve.children.create(:name => "Insiderpage/HandleListing")
+
+    Job.create(:name => 'Utils/ImageSync', :business_id => correct.id)
+    Job.create(:name => 'Bing/SignUp', :business_id => correct.id)
+    Job.create(:name => 'Bing/CreateRule', :business_id => correct.id)
+    Job.create(:name => 'Bing/CreateListing', :business_id => correct.id)
+    Job.create(:name => 'Bing/AdditionalDetails', :business_id => correct.id)
+    Job.create(:name => 'Bing/VerifyMail', :business_id => correct.id)
+    Job.create(:name => 'AngiesList/SignUp', :business_id => correct.id)
+    Job.create(:name => 'AngiesList/CreateListing', :business_id => correct.id)
+    Job.create(:name => 'Citisquare/ClaimListing', :business_id => correct.id)
+    Job.create(:name => 'Insiderpage/SignUp', :business_id => correct.id)
+    Job.create(:name => 'Insiderpage/Verify', :business_id => correct.id)
+    Job.create(:name => 'Insiderpage/HandleListing', :business_id => correct.id)
+    
+    Job.create(:name => 'Utils/ImageSync', :business_id => missing.id)
+    Job.create(:name => 'Bing/SignUp', :business_id => missing.id)
+    Job.create(:name => 'Bing/CreateRule', :business_id => missing.id)
+    Job.create(:name => 'Bing/CreateListing', :business_id => missing.id)
   end
 
-	it { should have_many :transaction_events}
-	it { should belong_to :label }
-	it { should belong_to :business }
-	it { should belong_to :transaction_event }
-	
-	let(:payment) { FactoryGirl.build(:payment) }
+	let(:correct) { FactoryGirl.create(:business) }
+	let(:missing) { FactoryGirl.create(:business) }
+	let(:empty) { FactoryGirl.create(:business) }
 
-	it 'is valid with valid attributes' do
-		payment.should be_valid
+	it 'should return an empty list for a complete listing' do
+		PayloadNode.find_missed_payloads(correct).length.should == 0
 	end
 
-	describe '#label_id' do
-	  it 'is required' do
-	  	payment.label_id = nil
-	  	payment.should_not be_valid
-	  end
-	end
+  it 'should return a list of missed payloads for an incomplete listing' do
+		PayloadNode.find_missed_payloads(missed).length.should == 4
+  end
 
 end
