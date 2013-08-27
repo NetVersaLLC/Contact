@@ -38,4 +38,13 @@ class ScanController < ApplicationController
     render :json => res
   end
 
+  def send_email
+    @report = Report.where(:ident => params[:ident]).first
+    @report.email = params[:email]
+    @report.save!
+    flash[:notice] = 'Report has been sent'
+    ReportMailer.report_email(@report).deliver
+    redirect_to "/scan/#{@report.ident}"
+  end
+
 end
