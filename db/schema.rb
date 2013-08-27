@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130827184000) do
+ActiveRecord::Schema.define(:version => 20130827180424) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -810,6 +810,8 @@ ActiveRecord::Schema.define(:version => 20130827184000) do
     t.integer  "facebook_profile_category_id"
     t.integer  "yellowtalk_category_id"
     t.integer  "yellowwiz_category_id"
+    t.integer  "citydata_category_id"
+    t.integer  "meetlocalbiz_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -935,6 +937,15 @@ ActiveRecord::Schema.define(:version => 20130827184000) do
   end
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
+
+  create_table "insiderpages", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
@@ -1459,20 +1470,21 @@ ActiveRecord::Schema.define(:version => 20130827184000) do
   end
 
   create_table "payload_nodes", :force => true do |t|
-    t.string   "name"
-    t.boolean  "active",     :default => false
+    t.string   "payload_name"
+    t.boolean  "active",       :default => false
     t.datetime "broken_at"
     t.text     "notes"
-    t.integer  "parent_id",  :default => 1
-    t.integer  "package_id", :default => 0
-    t.integer  "position",   :default => 0
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.integer  "parent_id",    :default => 1
+    t.integer  "package_id",   :default => 0
+    t.integer  "position",     :default => 0
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.string   "site_name"
   end
 
-  add_index "payload_nodes", ["name"], :name => "index_payload_nodes_on_name"
   add_index "payload_nodes", ["package_id"], :name => "index_payload_nodes_on_package_id"
   add_index "payload_nodes", ["parent_id"], :name => "index_payload_nodes_on_parent_id"
+  add_index "payload_nodes", ["payload_name"], :name => "index_payload_nodes_on_name"
 
   create_table "payments", :force => true do |t|
     t.string   "status"

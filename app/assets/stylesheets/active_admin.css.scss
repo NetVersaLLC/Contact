@@ -96,3 +96,19 @@ $info   : #99F;
 text-align: center;
  width: 920px;
 }
+
+#payload_list_container ul { 
+  min-height: 10px; 
+  list-style-type: none;
+  border: 1px #AAA solid;
+}
+#payload_list_container li {
+  cursor: move;
+  background-color: #DDD;
+}
+
+#payload_list_trash { 
+  background-color: #FFD8D8;
+  min-height: 10px; 
+  list-style-type: none;
+}

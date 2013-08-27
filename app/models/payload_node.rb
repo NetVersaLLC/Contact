@@ -1,5 +1,5 @@
 class PayloadNode < ActiveRecord::Base
-  attr_accessible :active, :broken_at, :name, :notes, :package_id, :parent_id, :position
+  attr_accessible :active, :broken_at, :site_name, :notes, :package_id, :parent_id, :position, :payload_name
   acts_as_tree :order => "position"
 
   def add_child_payload(name)
@@ -41,5 +41,18 @@ class PayloadNode < ActiveRecord::Base
     self.recurse_tree(business, self.root, missing)
     STDERR.puts "missing: #{missing.inspect}"
     return missing
+  end 
+
+  def self.list(site_name)
+    PayloadNode.where(site_name: site_name ).order(:position)
+  end 
+
+  def name  
+    "#{site_name}/#{payload_name}" 
+  end 
+
+  before_save :default_values
+  def default_values
+    self.position ||= self.maximum(:position) + 10
   end
 end
