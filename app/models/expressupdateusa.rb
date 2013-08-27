@@ -1,5 +1,5 @@
 class Expressupdateusa < ClientData
- attr_accessible :email
+ attr_accessible :email, :claimurl
   virtual_attr_accessor :password	
  
  
