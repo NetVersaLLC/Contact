@@ -48,9 +48,9 @@ Contact::Application.routes.draw do
     resources :subscriptions, :except => [:index, :show]
   end 
 
-  get     '/codes/:business_id/:site_name(.:format)', :action=>"site_code", :controller=>"codes" 
-  post    '/codes/:business_id/:site_name(.:format)', :action=>"create",    :controller=>"codes" 
-  delete  '/codes/:business_id/:site_name(.:format)', :action=>"destroy",    :controller=>"codes" 
+  get     '/codes/:business_id/:site_name(.:format)', :action=>"site_code", :controller=>"codes"
+  post    '/codes/:business_id/:site_name(.:format)', :action=>"create",    :controller=>"codes"
+  delete  '/codes/:business_id/:site_name(.:format)', :action=>"destroy",   :controller=>"codes"
 
   get     '/report(.:format)', :controller => :businesses, :action => :report
 

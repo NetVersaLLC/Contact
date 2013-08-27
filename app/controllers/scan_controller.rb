@@ -3,10 +3,11 @@ class ScanController < ApplicationController
     @name        = params[:name].strip
     @zip         = params[:zip].strip
     @phone       = params[:phone].strip
-    @email       = params[:email].strip
+    @email       = params[:email]
+    @referral    = params[:referrer_code]
     @package_id  = params[:package_id]
     @ident       = SecureRandom.uuid
-    @report      = Report.generate(@name,@zip,@phone,@package_id,@ident, current_label, @email)
+    @report      = Report.generate(@name,@zip,@phone,@package_id,@ident,current_label,@email,@referral)
   end
 
   def check
