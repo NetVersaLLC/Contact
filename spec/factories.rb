@@ -26,7 +26,7 @@ FactoryGirl.define do
     corporate_name 'corporate name' 
 
     subscription
-    user = @user
+    user
     #crunchbase_attributes 'crunchbase'
   end 
 
