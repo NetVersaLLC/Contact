@@ -48,9 +48,9 @@ Contact::Application.routes.draw do
     resources :subscriptions, :except => [:index, :show]
   end 
 
-  get     '/codes/:business_id/:site_name(.:format)', :action=>"site_code", :controller=>"codes" 
-  post    '/codes/:business_id/:site_name(.:format)', :action=>"create",    :controller=>"codes" 
-  delete  '/codes/:business_id/:site_name(.:format)', :action=>"destroy",    :controller=>"codes" 
+  get     '/codes/:business_id/:site_name(.:format)', :action=>"site_code", :controller=>"codes"
+  post    '/codes/:business_id/:site_name(.:format)', :action=>"create",    :controller=>"codes"
+  delete  '/codes/:business_id/:site_name(.:format)', :action=>"destroy",   :controller=>"codes"
 
   get     '/report(.:format)', :controller => :businesses, :action => :report
 
@@ -96,6 +96,7 @@ Contact::Application.routes.draw do
   post    '/scanner/start', :controller => :scan, :action => :start
   get     '/scanner/check(.:format)', :controller => :scan, :action => :check
   post    '/scanner/email', :controller => :scan, :action => :email
+  post    '/scanner/send', :controller => :scan, :action => :send_email
   get     '/scan/:id',      :controller => :scan, :action => :show
 
   get     '/test/exception', :controller => :test, :action => :exception

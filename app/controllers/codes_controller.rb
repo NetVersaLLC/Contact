@@ -19,21 +19,20 @@ class CodesController < ApplicationController
     end 
   end 
 
-  def create 
+  def create
     if params[:code] and not params[:site_name] # from the form 
       @code = Code.new( :code => params[:code][:code], site_name: params[:code][:site_name]) 
-    else 
+    else
       @code = Code.new( site_name: params[:site_name], code: params[:code]) 
-    end 
+    end
     @code.business = Business.find(params[:business_id]) 
      if params[:next_job]
       @code.next_job = params[:next_job]
     end
-    @code.save 
+    @code.save
 
     #remove the notification/pending action
     Notification.where("url like ? and business_id = ?","%#{params[:code][:site_name]}%", params[:business_id]).first.delete
-    
     respond_to do |format| 
       format.html do
           flash[:notice] = 'Code saved!'
@@ -45,21 +44,21 @@ class CodesController < ApplicationController
 
   def destroy
     @code = Code.where( :business_id => params[:business_id], :site_name => params[:site_name] ).first
-    if @code.nil? 
+    if @code.nil?
       render :nothing => true, :status => :not_found
-    else 
+    else
       @code.delete
       render :json => @code
-    end 
+    end
   end
 
   def site_code
     @code = Code.where( :business_id => params[:business_id], :site_name => params[:site_name] ).first
-    if @code.nil? 
+    if @code.nil?
       render :nothing => true, :status => :not_found
-    else 
+    else
       render :json => @code
-    end 
-  end 
+    end
+  end
 
-end 
+end

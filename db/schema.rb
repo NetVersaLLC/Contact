@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130823193912) do
+ActiveRecord::Schema.define(:version => 20130827184000) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -1524,13 +1524,14 @@ ActiveRecord::Schema.define(:version => 20130823193912) do
     t.string   "status"
     t.datetime "completed_at"
     t.integer  "business_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.string   "ident"
     t.integer  "package_id"
     t.integer  "label_id"
     t.string   "email"
     t.datetime "email_sent"
+    t.string   "referrer_code"
   end
 
   add_index "reports", ["business_id"], :name => "index_reports_on_business_id"

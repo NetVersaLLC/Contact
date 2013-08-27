@@ -69,6 +69,13 @@
 
 %br
 %br
+%form.form-search{:role => "form", :action => '/scanner/send', :method => :post}
+  .form-group
+    %label.sr-only{:for => "report_email"} Have this report sent to your email:
+  %input{:type => :hidden, :name => :ident, :value => @report.ident}/
+  %input.span4.search-query{:placeholder => "Enter email", :type => "email", :name => 'email'}/
+  %input.btn.btn-default{:type => :submit, :value => "Email Me The Report"}
+%br/
 
 :javascript
   $('.siteButton').tooltip();
