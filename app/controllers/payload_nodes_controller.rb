@@ -1,9 +1,9 @@
 class PayloadNodesController < ApplicationController
   before_filter      :authenticate_user!
 
-  def show
+  def index
     if current_user.reseller?
-      @payloads = PayloadNode.list(params[:id])
+      @payloads = PayloadNode.order('position asc')
       render json: @payloads
     else
       error = {:error => :access_denied}
@@ -12,16 +12,15 @@ class PayloadNodesController < ApplicationController
   end
 
   def create
-   site_name = params[:site]
    tree = params[:tree] 
    tree.each_with_index do |leaf, i| 
      n = leaf[1] 
      parent_id = n[:parent_id] == 'root' ? nil : n[:parent_id]
      if n[:id] == "new" 
-       node = PayloadNode.create( payload_name: n[:name], site_name: site_name, parent_id: parent_id, position: i )
+       node = PayloadNode.create( name: n[:name], parent_id: parent_id, position: i )
      else 
        node = PayloadNode.find( n[:id] ) 
-       node = node.update_attributes( payload_name: n[:name], parent_id: parent_id, position: i)
+       node = node.update_attributes( name: n[:name], parent_id: parent_id, position: i)
      end 
    end
    trash = params[:trash]

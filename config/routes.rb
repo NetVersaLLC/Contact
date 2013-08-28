@@ -21,7 +21,7 @@ Contact::Application.routes.draw do
   resources :booboos
   resources :subscriptions
   resources :pings
-  resources :payload_nodes, only: [:show, :create]
+  resources :payload_nodes, only: [:index, :create]
 
   post    '/businesses/:id',
     :controller => :businesses, 

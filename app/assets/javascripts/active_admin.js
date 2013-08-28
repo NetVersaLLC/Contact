@@ -8,6 +8,7 @@
 //= require active_admin_clients
 //= require active_admin_packages
 //= require active_admin_categories
+//= require active_admin_payload_nodes
 
 
 

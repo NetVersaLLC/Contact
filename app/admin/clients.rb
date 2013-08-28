@@ -45,6 +45,7 @@ ActiveAdmin.register_page "Client Manager" do
         li span(:class => 'ui-icon ui-icon-circle-check') + link_to("Succeeded",   "#client_tabs-3")
         li span(:class => 'ui-icon ui-icon-circle-close') + link_to("Errors",      "#client_tabs-4")
         li span(:class => 'ui-icon ui-icon-info') + link_to("Client Info", "#client_tabs-5")
+        li span(:class => 'ui-icon ui-icon-info') + link_to("Payload Editor", "#client_tabs-6")
       end
       div(:id => 'client_tabs-1') do
         ""
@@ -59,6 +60,9 @@ ActiveAdmin.register_page "Client Manager" do
         ""
       end
       div(:id => 'client_tabs-5') do
+        ""
+      end
+      div(:id => 'client_tabs-6') do
         ""
       end
     end

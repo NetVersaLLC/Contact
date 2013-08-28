@@ -97,12 +97,14 @@ text-align: center;
  width: 920px;
 }
 
-#payload_list_container ul { 
+#payload_nodes_container ul { 
   min-height: 10px; 
   list-style-type: none;
   border: 1px #AAA solid;
+  border-bottom: none; 
+  border-top: none;
 }
-#payload_list_container li {
+#payload_nodes_container li {
   cursor: move;
   background-color: #DDD;
 }

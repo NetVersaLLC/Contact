@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130827180424) do
+ActiveRecord::Schema.define(:version => 20130828175125) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -602,14 +602,24 @@ ActiveRecord::Schema.define(:version => 20130827180424) do
 
   add_index "expressbusinessdirectories", ["business_id"], :name => "index_expressbusinessdirectories_on_business_id"
 
+  create_table "expressupdateusa_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "expressupdateusa_categories", ["parent_id"], :name => "index_expressupdateusa_categories_on_parent_id"
+
   create_table "expressupdateusas", :force => true do |t|
     t.integer  "business_id"
     t.datetime "force_update"
     t.text     "secrets"
     t.string   "email"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-    t.boolean  "do_not_sync",  :default => false
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
+    t.boolean  "do_not_sync",                  :default => false
+    t.integer  "expressupdateusa_category_id"
   end
 
   create_table "ezlocal_categories", :force => true do |t|
@@ -1470,21 +1480,20 @@ ActiveRecord::Schema.define(:version => 20130827180424) do
   end
 
   create_table "payload_nodes", :force => true do |t|
-    t.string   "payload_name"
-    t.boolean  "active",       :default => false
+    t.string   "name"
+    t.boolean  "active",     :default => false
     t.datetime "broken_at"
     t.text     "notes"
-    t.integer  "parent_id",    :default => 1
-    t.integer  "package_id",   :default => 0
-    t.integer  "position",     :default => 0
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-    t.string   "site_name"
+    t.integer  "parent_id",  :default => 1
+    t.integer  "package_id", :default => 0
+    t.integer  "position",   :default => 0
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
+  add_index "payload_nodes", ["name"], :name => "index_payload_nodes_on_name"
   add_index "payload_nodes", ["package_id"], :name => "index_payload_nodes_on_package_id"
   add_index "payload_nodes", ["parent_id"], :name => "index_payload_nodes_on_parent_id"
-  add_index "payload_nodes", ["payload_name"], :name => "index_payload_nodes_on_name"
 
   create_table "payments", :force => true do |t|
     t.string   "status"
