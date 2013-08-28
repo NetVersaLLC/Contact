@@ -109,7 +109,14 @@ showClient = (panel)->
     $(panel).html( html )
 
 window.loadPayloads = ()->
-
+  $.getJSON '/payloads/'+$('#payload_categories_select').val()+'.json', (data)->
+    html = '<ul id="payload_list_ul">'
+    $.each data, (i,e)->
+      html += '<li class="ui-state-default" data-payload-id="'+e+'">'+e+'</li>'
+    html += '</ul>'
+    $('#payload_list_container').html(html)
+    $('#payload_list_ul > li').click (e)->
+      window.payloadListAction(e)
 
     #$('#payload_list_ul > li').click (e)->
     #  window.payloadListAction(e)
