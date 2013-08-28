@@ -7,7 +7,12 @@ class ScanController < ApplicationController
     @referral    = params[:referrer_code]
     @package_id  = params[:package_id]
     @ident       = SecureRandom.uuid
-    @report      = Report.generate(@name,@zip,@phone,@package_id,@ident,current_label,@email,@referral)
+    @report      = Report.where(:business => @name, :zip => @zip, :phone => @phone).order(:created_at).last
+    if @report != nil
+      redirect_to "/scan/#{@report.ident}"
+    else
+      @report      = Report.generate(@name,@zip,@phone,@package_id,@ident,current_label,@email,@referral)
+    end
   end
 
   def check
