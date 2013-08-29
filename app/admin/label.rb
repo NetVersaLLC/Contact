@@ -70,6 +70,7 @@ ActiveAdmin.register Label do
       row :parent 
       row("Users"){label.users.where( 'access_level <= ?', User.reseller ).collect { |user| "#{ user.email  } (#{ user.role_is })" 
 }.to_sentence.html_safe}
+      row :report_email_body
       row :custom_css 
       row :footer
     end 
@@ -94,6 +95,7 @@ ActiveAdmin.register Label do
         f.input :login 
         f.input :password , :input_html => { :value => f.object.password } ,:as => :string
       end 
+      f.input :report_email_body
       f.input :custom_css # text area 
       f.input :footer # text area
     end

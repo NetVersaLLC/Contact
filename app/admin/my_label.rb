@@ -18,6 +18,7 @@ ActiveAdmin.register_page "My Label" do
         f.input :favicon, :as => :file
         f.input :login, :label => 'Authorize.Net Login'
         f.input :password, :label => 'Authroize.Net Password'
+        f.input :report_email_body
         f.input :custom_css # text area 
         f.input :footer # text area
         f.input :is_pdf, :as => :radio, :collection => { "PDF" => true, "CSV" => false} 
