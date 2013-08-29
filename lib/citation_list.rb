@@ -545,6 +545,14 @@
     [],
     '24/7 OnlineNetwork'
   ],
+    ['Bizzspot', 'bizzspots',
+    [
+      ['text', 'username'],
+      ['text', 'password'],
+      ['text', 'email']
+    ],
+      'Bizzspot'
+  ],
   ['Meetlocalbiz', 'meetlocalbizs',
     [
       ['text', 'username'],
