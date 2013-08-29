@@ -64,13 +64,17 @@ class LabelProcessor
         dest.reload
 
         ce.note = "Transfer to #{dest.name}"
-        CreditEvent.create( label_id: dest.id,
+        cf = CreditEvent.create( label_id: dest.id,
                             other_id: source.id,
                             note: "Transfer from #{source.name}", 
                             charge_amount: damount, 
                             action: "transfer funds",
                             memo: memo,
                             post_available_balance: dest.available_balance )
+        tc = cf.generate_transaction_code 
+        cf.update_attribute(:transaction_code, tc + '-S') 
+
+        ce.transaction_code = tc + '-R'
       end 
     end 
 
@@ -141,13 +145,14 @@ class LabelProcessor
     Label.update_all("available_balance = available_balance - package_signup_rate", {id: @label.id}) 
     @label.reload
 
-    CreditEvent.create(label_id: @label.id, 
+    ce = CreditEvent.create(label_id: @label.id, 
                        user_id: user.id, 
                        charge_amount: (-1) * @label.package_signup_rate, 
                        post_available_balance: @label.available_balance, 
                        note: "Business sign up",
                        action: "sign up", 
                        transaction_event_id: transaction_event.id)
+    ce.update_attribute( :transaction_code, ce.generate_transaction_code )
 
     payment.business = business 
     payment.transaction_event = transaction_event 

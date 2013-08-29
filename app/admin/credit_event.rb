@@ -8,7 +8,6 @@ ActiveAdmin.register CreditEvent do
   filter :charge_amount 
   filter :post_available_balance 
 
-
   index do 
     column :created_at 
     column :action 
@@ -22,6 +21,7 @@ ActiveAdmin.register CreditEvent do
     column "System Note" do |credit_event| 
       credit_event.note
     end 
+    column :transaction_code
   end 
 
   form partial: "form"
