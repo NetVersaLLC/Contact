@@ -6,7 +6,7 @@ require './config/environment.rb'
 site                = ARGV.shift
 data                = {}
 data['business']    = 'ListingApe'
-data['phone']       = '888-6000-APE'
+data['phone']       = '888-600-0273'
 data['zip']         = '92780'
 data['latitude']    = 33.6650
 data['longitude']   = 117.9122

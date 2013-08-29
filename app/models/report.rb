@@ -4,6 +4,12 @@ class Report < ActiveRecord::Base
   belongs_to :label
 
   def perform
+    if self.status != nil and self.status == 'started'
+      return
+    end
+    self.status = 'started'
+    self.save!
+
     uri = URI('http://reports.savilo.com/TownCenter/leads.php')
     res = Net::HTTP.post_form(uri, {:phone => self.phone, :zip => self.zip, :business_name => self.business, :email => self.email, :referrer_code => self.referrer_code})
 
@@ -15,6 +21,7 @@ class Report < ActiveRecord::Base
     sleep 30
     Delayed::Worker.logger.info "Ending performance: #{Time.now.iso8601}"
 
+    self.status = 'completed'
     self.completed_at = Time.now
     self.save!
 
