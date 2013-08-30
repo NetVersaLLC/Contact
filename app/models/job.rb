@@ -37,6 +37,17 @@ class Job < JobBase
     end
   end
 
+  def self.get_latest(business, name)
+    p = Job.where(business_id: business.id, name: name).last 
+    f = FailedJob.where(business_id: business.id, name: name).last 
+    c = CompletedJob.where(business_id: business.id, name: name).last 
+
+    r = p 
+    r = f if f.present? && ( r.nil? || f.created_at > r.created_at )
+    r = c if c.present? && ( r.nil? || c.created_at > r.created_at )
+    r
+  end 
+
   def self.pending(business)
     #@job = Job.where('business_id = ? AND status IN (0,1) AND runtime < NOW()', business.id).order(:position).first
     @job = Job.where('business_id = ? AND status IN (0,1) AND runtime < UTC_TIMESTAMP()', business.id).order(:position).first

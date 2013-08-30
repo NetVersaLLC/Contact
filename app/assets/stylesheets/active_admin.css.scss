@@ -64,6 +64,13 @@ $success: #9F9;
 $warning: #FF9;
 $failure: #F99;
 $info   : #99F;
+$missing: #3FF;
+.missing{
+  box-shadow: 0px 0px 3px $missing;
+  border-radius: 5px;
+  background-color: $missing;
+}
+
 .success {
   box-shadow: 0px 0px 3px $success;
   border-radius: 5px;

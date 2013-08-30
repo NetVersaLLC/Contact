@@ -107,6 +107,12 @@ showClient = (panel)->
       html += '</tr>'
     html += '</tbody></table>'
     $(panel).html( html )
+showLatest = (panel)->
+  window.current_tab = "completed_jobs"
+  #$.getJSON "/admin/jobs/completed_jobs.js?business_id=#{window.business_id}", (data)->
+  $.get "/admin/jobs/latest_jobs?business_id=#{window.business_id}", (data)->
+    $(panel).html(data) # window.buildTable(data) )
+    registerHooks()
 
 window.loadPayloads = ()->
   $.getJSON '/payloads/'+$('#payload_categories_select').val()+'.json', (data)->
@@ -147,7 +153,8 @@ window.startPayloads = () ->
     showFailed,
     showCompleted,
     showErrors,
-    showClient
+    showClient, 
+    showLatest
   ]
   $('#client_tabs').tabs
     select: (event,ui)->

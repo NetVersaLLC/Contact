@@ -46,6 +46,25 @@ ActiveAdmin.register Job do
     end 
   end
 
+  collection_action :latest_jobs, :method => :get do
+    @jobs = []
+    business = Business.find(params[:business_id]) 
+    sites = business.subscription.package.package_payloads.pluck(:site)
+
+    PayloadNode.order('position asc').each do |node| 
+      next unless sites.include?( node.name.split('/')[0])
+
+      job = Job.get_latest( business, node.name) 
+      job = Job.new( name: node.name, status: 6 ) if job.nil? # missing job 
+      @jobs.push job
+    end 
+
+    respond_to do |format|
+      format.html { render "results", layout: false }  
+      format.json { render json: @jobs }  
+    end 
+  end
+
   member_action :view_payload, :method => :get do
     @job = Job.get(params[:table], params[:id])
     render :inline => CodeRay.scan(@job.payload, :ruby).page
