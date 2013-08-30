@@ -1,6 +1,13 @@
+<% if @report.label.report_email_body.present? %> 
+  <%= @report.label.report_email_body %> 
+<% else %> 
 Your Scan Listing Report
 ===============================================
 
 Your listing report is available here:
 
+<% end %> 
+
 <%= @url %>
+
+http://<%= @report.label.label_domain %>

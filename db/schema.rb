@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130829164633) do
+ActiveRecord::Schema.define(:version => 20130829203712) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -1072,6 +1072,7 @@ ActiveRecord::Schema.define(:version => 20130829164633) do
     t.string   "legal_name"
     t.string   "support_email"
     t.string   "support_phone"
+    t.text     "report_email_body"
   end
 
   add_index "labels", ["domain"], :name => "index_labels_on_domain"
