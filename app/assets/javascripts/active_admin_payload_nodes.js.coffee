@@ -21,7 +21,10 @@ window.loadPayloadNodes = () ->
     $('#payload_nodes_container ul, #payload_trash').sortable({connectWith: '#payload_nodes_container ul, .connect_thru'})
     $('#add_payload_node').click (e) -> 
       node_name = $('#new_node_name').val()
-      $('#payload_list_ul').append("<li data-payload-id='new' data-payload-name='#{node_name}'>#{node_name}<ul></ul></li>")
+      now = new Date() 
+      new_id = "new_#{now.getTime()}"
+      $('#payload_list_ul').append("<li data-payload-id='#{new_id}' data-payload-name='#{node_name}'>#{node_name}<ul data-payload-id='#{new_id}'> </ul></li>")
+      $('#payload_nodes_container ul, #payload_trash').sortable({connectWith: '#payload_nodes_container ul, .connect_thru'})
 
     $('#save_payload_nodes').click (e) -> 
       payload = {} 
@@ -42,6 +45,6 @@ window.loadPayloadNodes = () ->
         data: payload 
       request.done (data) -> 
         alert('Payload updated.') 
-        window.loadPayloads()
+        window.loadPayloadsNodes()
       request.fail () -> alert('Payload update failed.')
 

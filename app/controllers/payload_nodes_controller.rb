@@ -12,12 +12,17 @@ class PayloadNodesController < ApplicationController
   end
 
   def create
+   new_node_ids = {} 
    tree = params[:tree] 
    tree.each_with_index do |leaf, i| 
      n = leaf[1] 
+
      parent_id = n[:parent_id] == 'root' ? nil : n[:parent_id]
-     if n[:id] == "new" 
+     parent_id = new_node_ids[parent_id] if parent_id.present? && parent_id.starts_with("new")
+
+     if n[:id].starts_with("new")
        node = PayloadNode.create( name: n[:name], parent_id: parent_id, position: i )
+       new_node_ids[n[:id]] = node.id 
      else 
        node = PayloadNode.find( n[:id] ) 
        node = node.update_attributes( name: n[:name], parent_id: parent_id, position: i)
