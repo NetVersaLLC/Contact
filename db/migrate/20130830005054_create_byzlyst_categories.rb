@@ -7,6 +7,5 @@ class CreateByzlystCategories < ActiveRecord::Migration
       t.timestamps
     end
     add_index :byzlyst_categories, :parent_id
-    add_column :byzlysts, :byzlyst_category_id, :integer
   end
 end

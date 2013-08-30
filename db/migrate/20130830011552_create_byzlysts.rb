@@ -3,6 +3,7 @@ class CreateByzlysts < ActiveRecord::Migration
     create_table :byzlysts do |t|
       t.integer :parent_id
       t.string :name
+      t.integer :byzlyst_category_id
 
       t.timestamps
     end
