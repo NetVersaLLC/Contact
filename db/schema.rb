@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130829203712) do
+ActiveRecord::Schema.define(:version => 20130902024328) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -157,6 +157,17 @@ ActiveRecord::Schema.define(:version => 20130829203712) do
   end
 
   add_index "bings", ["business_id"], :name => "index_bings_on_business_id"
+
+  create_table "bizzspots", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.string   "username"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.boolean  "do_not_sync",  :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
 
   create_table "booboos", :force => true do |t|
     t.integer  "user_id"
@@ -314,6 +325,26 @@ ActiveRecord::Schema.define(:version => 20130829203712) do
   add_index "businesses", ["category2"], :name => "index_businesses_on_category2"
   add_index "businesses", ["category3"], :name => "index_businesses_on_category3"
   add_index "businesses", ["user_id"], :name => "index_businesses_on_user_id"
+
+  create_table "byzlyst_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "byzlyst_categories", ["parent_id"], :name => "index_byzlyst_categories_on_parent_id"
+
+  create_table "byzlysts", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.integer  "byzlyst_category_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "username"
+  end
+
+  add_index "byzlysts", ["parent_id"], :name => "index_byzlysts_on_parent_id"
 
   create_table "citisquare_categories", :force => true do |t|
     t.integer  "parent_id"
@@ -823,8 +854,6 @@ ActiveRecord::Schema.define(:version => 20130829203712) do
     t.integer  "facebook_profile_category_id"
     t.integer  "yellowtalk_category_id"
     t.integer  "yellowwiz_category_id"
-    t.integer  "citydata_category_id"
-    t.integer  "meetlocalbiz_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -950,15 +979,6 @@ ActiveRecord::Schema.define(:version => 20130829203712) do
   end
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
-
-  create_table "insiderpages", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "email"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
 
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
@@ -1295,6 +1315,27 @@ ActiveRecord::Schema.define(:version => 20130829203712) do
   end
 
   add_index "map_quests", ["business_id"], :name => "index_map_quests_on_business_id"
+
+  create_table "mapquest_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "mapquest_categories", ["parent_id"], :name => "index_mapquest_categories_on_parent_id"
+
+  create_table "mapquests", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.string   "email"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.integer  "mapquest_category_id"
+  end
+
+  add_index "mapquests", ["business_id"], :name => "index_mapquests_on_business_id"
 
   create_table "matchpoint_categories", :force => true do |t|
     t.integer  "parent_id"
