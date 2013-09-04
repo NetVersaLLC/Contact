@@ -3,15 +3,6 @@
     .container 
       .row 
         .span9
-          .citation-info
-            %h1= @business.package_payload_sites.length #Business.citation_list.length
-            %span ACTIVE LISTINGS 
-          .citation-info
-            %h1= @business.accounts_synced.length
-            %span SYNCRONIZED
-          .citation-info
-            %h1= @business.package_payload_sites.length - @business.accounts_synced.length
-            %span= @business.last_task_completed? ? "UNSYNCRONIZED" : "CONNECTING" 
         .span3
           -if params[:delay] 
             %br
