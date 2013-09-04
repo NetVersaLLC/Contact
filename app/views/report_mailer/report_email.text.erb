@@ -1,13 +1,13 @@
 <% if @report.label.report_email_body.present? %> 
-  <%= @report.label.report_email_body %> 
+  <%= Mustache.render @report.label.report_email_body, :url => @url, :company_name => @report.label.name, :legal_name => @report.label.legal_name, :domain => @report.label.label_domain, :address => @report.label.address, :phone => @report.label.support_phone, :support_email => @report.label.support_email, :mail_from => @report.label.mail_from %> 
 <% else %> 
 Your Scan Listing Report
 ===============================================
 
 Your listing report is available here:
 
-<% end %> 
-
 <%= @url %>
 
 http://<%= @report.label.label_domain %>
+
+<% end %> 

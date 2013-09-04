@@ -8,7 +8,7 @@ class ScanController < ApplicationController
     @package_id  = params[:package_id]
     @ident       = SecureRandom.uuid
     @report      = Report.where(:business => @name, :zip => @zip, :phone => @phone).order(:created_at).last
-    if @report != nil
+    if @report != nil and @reportb.created_at.to_datetime > (Time.now - 1.days)
       redirect_to "/scan/#{@report.ident}"
     else
       @report      = Report.generate(@name,@zip,@phone,@package_id,@ident,current_label,@email,@referral)
