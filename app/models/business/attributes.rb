@@ -12,6 +12,7 @@ module Business::Attributes
     attr_accessible :business_description, :services_offered, :specialies, :professional_associations, :languages, :geographic_areas, :year_founded
     attr_accessible :company_website, :incentive_offers, :links_to_photos, :links_to_videos
     attr_accessible :category1, :category2, :category3, :category4, :category5
+    attr_accessible :categorized
     attr_accessible :other_social_links, :positive_review_links
     attr_accessible :keyword1, :keyword2, :keyword3, :keyword4, :keyword5
     attr_accessible :competitors, :most_like, :industry_leaders

@@ -1,7 +1,7 @@
 window.categories = ->
   $('.business-category').autocomplete
     source: (req, add)->
-      $.getJSON "/google_categories/"+ req.term, (data)->
+      $.getJSON "/google_categories/"+req.term, (data)->
         add(data)
         $('form').resetClientSideValidations();
     change: (event, ui)-> 
@@ -9,7 +9,8 @@ window.categories = ->
       # these fields do not have to containg an entry (blank is ok)
       if (target.id == 'business_category4' ||  target.id == 'business_category5') && not target.value?.length 
         return
-
+      if (target.id == 'business_category1')
+        $('form').append('<input type="hidden" name="categorized" value="false" />')
       if (ui.item == null)  # was not selected from the list 
         show_category_alert("You must select an item from the list.", event.currentTarget) 
       check_for_duplicates( event.currentTarget ) 

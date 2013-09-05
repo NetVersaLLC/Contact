@@ -16,10 +16,14 @@ namespace :examine do
         STDERR.puts "klass: #{row[1]}"
         begin
           # klass = eval row[1].camelize
-          klass = eval row[1].camelize.constantize
-          STDERR.puts klass
+          objs = eval "business.#{data[1]}.first"
+          if objs != nil
+            name = eval "objs.#{row[1]}.name"
+            STDERR.puts "Category: #{data[1]}: #{row[1]}: #{name}"
+          end
         rescue Exception => e
-          bad_categories.push row[1].camelize
+          STDERR.puts e
+          bad_categories.push [row[1].camelize, e]
         end
         unless File.exists? Rails.root.join("public", "categories", "#{row[1].camelize}.js")
           missing_javascript.push row[1].camelize
