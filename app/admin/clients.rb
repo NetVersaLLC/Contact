@@ -8,6 +8,7 @@ ActiveAdmin.register_page "Client Manager" do
   end
 
   content do
+    @business_info = Business.find(params[:business_id])
     div(:id => 'assign_payload', :style => 'display: none') do
       h2 "Assign payload?"
       para "Are you sure you want to assign payload to client?"
@@ -31,11 +32,12 @@ ActiveAdmin.register_page "Client Manager" do
     end
     script do
       raw "window.business_id = #{params[:business_id]};\n" +
+      "window.business_paused = #{@business_info.paused?};\n" +
+      "window.business_paused_at = '#{(@business_info.paused_at ? @business_info.paused_at : 'Not Paused')}';\n" +
       "window.payloadListAction = window.clientPayloadListAction;\n"+
       "$(document).ready(function() { window.startPayloads(); });"
     end
     div(:id => 'client_info') do
-      @business_info = Business.find(params[:business_id])
       h3 "#{@business_info.business_name}/#{@business_info.address}/#{@business_info.local_phone}"
     end
     div(:id => 'client_tabs') do

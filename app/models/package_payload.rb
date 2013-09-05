@@ -7,4 +7,8 @@ class PackagePayload < ActiveRecord::Base
   def name
     self.site + '/' + self.payload
   end
+
+  def self.by_package(package_id)
+    PackagePayload.where(:package_id => package_id).insert_order
+  end
 end

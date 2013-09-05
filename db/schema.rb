@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130902024328) do
+ActiveRecord::Schema.define(:version => 20130905173736) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -319,6 +319,7 @@ ActiveRecord::Schema.define(:version => 20130902024328) do
     t.boolean  "is_client_downloaded",      :default => false
     t.datetime "setup_completed"
     t.boolean  "setup_msg_sent",            :default => false
+    t.datetime "paused_at"
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
@@ -854,6 +855,8 @@ ActiveRecord::Schema.define(:version => 20130902024328) do
     t.integer  "facebook_profile_category_id"
     t.integer  "yellowtalk_category_id"
     t.integer  "yellowwiz_category_id"
+    t.integer  "citydata_category_id"
+    t.integer  "meetlocalbiz_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"

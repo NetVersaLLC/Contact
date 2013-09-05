@@ -25,16 +25,16 @@ ActiveAdmin.register Job do
   collection_action :pending_jobs, :method => :get do
     @jobs = Job.where('business_id = ? AND status IN (0,1)', params[:business_id]).order(:position)
     respond_to do |format|
-      format.html { render "results", layout: false }  
-      format.json { render json: @jobs }  
+      format.html { render "results", layout: false }
+      format.json { render json: @jobs }
     end 
   end
 
   collection_action :failed_jobs, :method => :get do
     @jobs = FailedJob.where('business_id = ?', params[:business_id]).order(:position)
     respond_to do |format|
-      format.html { render "results", layout: false }  
-      format.json { render json: @jobs }  
+      format.html { render "results", layout: false }
+      format.json { render json: @jobs }
     end 
   end
 
@@ -103,8 +103,33 @@ ActiveAdmin.register Job do
     job.save
     render json: true
   end
+
+  collection_action :toggle_jobs, :method => :put do
+    business = Business.find(params[:business_id])
+    paused = nil
+    if business.paused_at == nil
+      business.paused_at = Time.now
+      paused = true
+    else
+      business.paused_at = nil
+      paused = false
+    end
+    business.save
+    render json: paused
+  end
+
+  collection_action :add_missing, :method => :post do
+    business = Business.find(params[:business_id])
+    PayloadNode.add_missed_payloads(business)
+    render json: true
+  end
+
+  collection_action :clear_jobs, :method => :delete do
+    Job.delete_all(:business_id => params[:business_id])
+    render json: true
+  end
+
   member_action :reorder, :method => :post do
-    business = Business.find(params[:id])
     if params[:table] == 'jobs'
       klass = Job
     elsif params[:table] == 'failed_jobs'

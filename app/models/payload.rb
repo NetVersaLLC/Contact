@@ -23,6 +23,16 @@ class Payload
     payloads.sort
   end
 
+  def self.children(name)
+    site, payload = *name.split("/")
+    children = []
+    File.open(Rails.root.join("sites", site, payload, "client_script.rb")).read.scan(/self.start\s*\(?\s*["']([^'"]+)["']/).each do |match|
+      next if match[0] == name
+      children.push match[0]
+    end
+    children
+  end
+
   def self.all
     all = []
     Payload.sites.each do |site|
@@ -37,6 +47,7 @@ class Payload
     site, payload = *name.split("/")
     inst = new(site,payload)
   end
+
   def self.exists?(site, payload) 
     File.exists?( Rails.root.join('sites', site, payload) )
   end 

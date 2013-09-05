@@ -2,6 +2,18 @@ module Business::MiscMethods
   extend ActiveSupport::Concern
   included do
 
+    def paused?
+      self.paused_at.nil? ? false : true
+    end
+
+    def add_job(name)
+      site, payload = *name.split("/")
+      p = Payload.new( site, payload )
+      job = Job.inject(self.id, p.payload, p.data_generator, p.ready)
+      job.name = name
+      job.save
+    end
+
     def last_task_completed?
       task = self.tasks.last
       unless task.nil?
@@ -42,7 +54,7 @@ module Business::MiscMethods
 
     def create_jobs
       sub = self.subscription
-      PackagePayload.where(:package_id => sub.package_id).insert_order.each do |obj|
+      PackagePayload.by_package(sub.package_id).each do |obj|
         site_name = obj.site 
         payload_name = obj.payload 
 
@@ -120,7 +132,7 @@ module Business::MiscMethods
       non_account_data = [ ['Site', 'Status'] ]
 
       citation_site_hash = Business.site_accounts_by_key2
-      PackagePayload.where(:package_id => self.subscription.package_id).each do |p|
+      PackagePayload.by_package(:package_id => self.subscription.package_id).each do |p|
         site = citation_site_hash[p.site]
 
         if site.nil?

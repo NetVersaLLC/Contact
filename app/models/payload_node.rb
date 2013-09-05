@@ -17,7 +17,7 @@ class PayloadNode < ActiveRecord::Base
     STDERR.puts "Node: #{node.inspect}"
     STDERR.puts "Node Child: #{node.children.inspect}"
     STDERR.puts "Checking..."
-    if CompletedJob.where(:business_id => business.id, :name => node.name).count == 0 and Job.where(:business_id => business.id, :name => node.name).count == 0
+    unless CompletedJob.where(:business_id => business.id, :name => node.name).count > 0 or Job.where(:business_id => business.id, :name => node.name).count > 0
       missing.push node.name
       STDERR.puts "Adding: #{node.name}..."
       return
@@ -30,18 +30,28 @@ class PayloadNode < ActiveRecord::Base
   end
 
   def self.find_missed_payloads(business)
-    STDERR.puts "find_missing_payloads(#{business.id})"
     return nil if business.nil?
     missing = []
-    root = self.root
-    PayloadNode.where(:parent_id => 0).each do |p|
-      p.parent_id = root.id
-      p.save
-    end
     self.recurse_tree(business, self.root, missing)
     STDERR.puts "missing: #{missing.inspect}"
     return missing
-  end 
+  end
+
+  def self.add_missed_payloads(business)
+    self.find_missed_payloads(business).each do |payload|
+      business.add_job(payload)
+    end
+  end
+
+  def self.add_recursive(package, parent_id)
+    top = PayloadNode.create do |node|
+        node.name      = package
+        node.parent_id = parent_id
+    end
+    Payload.children(package).each do |payload|
+      self.add_recursive(payload, top.id)
+    end
+  end
 
   before_save :default_values
   def default_values

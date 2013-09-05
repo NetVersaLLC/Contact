@@ -69,12 +69,35 @@ registerHooks = ()->
     window.job_id = $(e.target).parent().attr('data-job-id')
     console.log window.job_id
     $('#rerun_payload').dialog( "open" )
-
+  $('#pause_button').button()
+  $('#pause_button').click ->
+    $.ajax
+      url: "/admin/jobs/toggle_jobs?business_id=#{window.business_id}"
+      type: 'PUT',
+      success: (response)->
+        if response == true
+          $('#paused_at').html('Paused')
+        else
+          $('#paused_at').html('Not Paused')
+  $('#load_missed_payloads').button()
+  $('#load_missed_payloads').click ->
+    $.post "/admin/jobs/add_missing?business_id=#{window.business_id}", (data)->
+      alert("Added missing payloads!");
+      window.reloadView()
+  $('#clear_payloads').button()
+  $('#clear_payloads').click ->
+    $.ajax
+      url: "/admin/jobs/clear_jobs?business_id=#{window.business_id}"
+      type: 'DELETE',
+      success: (response)->
+        alert("Cleared payloads!");
+        window.reloadView()
 
 showPending = (panel)->
   window.current_tab = "jobs"
   #$.getJSON "/admin/jobs/pending_jobs.js?business_id=#{window.business_id}", (data)->
   $.get "/admin/jobs/pending_jobs?business_id=#{window.business_id}", (data)->
+    data = "<div id='dash'><input type='checkbox' id='pause_button' /><label for='pause_button'>Toggle Payload Pause</label><span id='paused_at'>Paused at: "+window.business_paused_at+"</span><input type='button' id='load_missed_payloads' value='Add Missed Payloads' /><input type='button' id='clear_payloads' value='Clear Payloads' /></div>" + data
     $(panel).html(data) # window.buildTable(data) )
     registerHooks()
 showFailed = (panel)->

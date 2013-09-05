@@ -18,6 +18,10 @@ class JobsController < ApplicationController
     if not @business.categorized == true
       @job = {:status => 'no_categories'}
     end
+    if not @business.categorized == true
+      @job = {:status => 'paused'}
+    end
+
     @job = Job.pending(@business)
     logger.info "Job is: #{@job.inspect}"
 
