@@ -70,6 +70,11 @@ ActiveAdmin.register Job do
     render :inline => CodeRay.scan(@job.payload, :ruby).page
   end
 
+  member_action :view_backtrace, :method => :get do
+    @job = FailedJob.find(params[:id])
+    render :partial => 'view_backtrace'
+  end
+
   member_action :view_meta, :method => :get do
     @job = Job.get(params[:table], params[:id])
     render :partial => '/admin/jobs/view_meta'

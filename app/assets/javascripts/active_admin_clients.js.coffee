@@ -51,6 +51,13 @@ registerHooks = ()->
       $('#view_meta').dialog({autoOpen: false}) 
       $('#view_meta').html(data)
       $('#view_meta').dialog( "open" )
+  $('.view_backtrace').click (e)->
+    window.job_id = $(e.target).parent().attr('data-job-id')
+    console.log window.job_id
+    $('#view_backtrace').html('<iframe src="/admin/jobs/'+window.job_id+'/view_backtrace" style="width: 700px; height: 300px" scrolling="yes" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0">')
+    $('#view_backtrace').dialog( "open")
+  $('.view_meta').click (e)->
+
   $('.view_booboo').click (e)->
     window.booboo_id = e.target.getAttribute('data-booboo-id')
     console.log window.booboo_id
@@ -207,6 +214,17 @@ window.startPayloads = () ->
       "Cancel": ()->
         $( this ).dialog( "close" )
   $('#view_payload').dialog
+    autoOpen: false,
+    show: "blind",
+    hide: "explode"
+    width: 750
+    buttons:
+      Ok: ()->
+        $( this ).dialog( "close" )
+      Cancel: ()->
+        $( this ).dialog( "close" )
+  
+  $('#view_backtrace').dialog
     autoOpen: false,
     show: "blind",
     hide: "explode"

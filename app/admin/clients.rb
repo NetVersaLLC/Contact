@@ -24,6 +24,9 @@ ActiveAdmin.register_page "Client Manager" do
     div(:id => 'view_payload', :style => 'display: none') do
       ""
     end
+    div(:id => 'view_backtrace', :style => 'display: none') do
+      ""
+    end
     div(:id => 'view_meta', :style => 'display: none') do
       ""
     end

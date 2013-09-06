@@ -80,7 +80,7 @@ class JobsController < ApplicationController
       if params[:status] == 'success'
         @job.success(params[:message])
       else
-        @job.failure(params[:message])
+        @job.failure(params[:message], params[:returned])
       end
       respond_to do |format|
         format.json { head :no_content }
