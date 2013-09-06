@@ -15,27 +15,26 @@ class JobsController < ApplicationController
     end
     @business.checkin()
 
-    if not @business.categorized == true
+    @job = {:status => 'default'}
+    if @business.categorized == false
       @job = {:status => 'no_categories'}
-    end
-    if not @business.categorized == true
+    elsif @business.paused == true
       @job = {:status => 'paused'}
-    end
-
-    @job = Job.pending(@business)
-    logger.info "Job is: #{@job.inspect}"
-
-    # when there is nothing to do, look for something to do
-    if @job.nil?
-      Task.complete(@business) 
-      Task.start_sync(@business) 
-
-      @job = {:status => 'wait'} # jobs are being inserted in the background.  
-    else
-      @job['payload_data'] = @job.get_job_data(@business, params)
-    end
-    unless @business.subscription and @business.subscription.active?
+    elsif (@business.subscription != nil and @business.subscription.active?) == false
       @job = {:status => 'inactive'}
+    else
+      @job = Job.pending(@business)
+      logger.info "Job is: #{@job.inspect}"
+
+      # when there is nothing to do, look for something to do
+      if @job.nil?
+        Task.complete(@business) 
+        Task.start_sync(@business) 
+
+        @job = {:status => 'wait'} # jobs are being inserted in the background.  
+      else
+        @job['payload_data'] = @job.get_job_data(@business, params)
+      end
     end
     respond_to do |format|
       format.json { render json: @job }
