@@ -1,0 +1,17 @@
+%form.formtastic.job#notification_form{"accept-charset" => "UTF-8", :method => "get", :novalidate => "novalidate"}
+  %div{:style => "margin:0;padding:0;display:inline"}
+  %input#notification_id{:name => "notification[id]", :type => "hidden", :value => @notification.id}
+  %fieldset.inputs
+    %legend Notification
+    #notification_title_input.string.control-group.optional.stringish
+      %label.control-label{:for => "notification_title"} Title
+      .controls
+        %input#notification_title{:maxlength => "255", :name => "notification[title]", :type => "text", :value => @notification.title}
+    #notification_url_input.string.control-group.optional.stringish
+      %label.control-label{:for => "notification_url"} URL
+      .controls
+        %input#notification_url{:maxlength => "255", :name => "notification[url]", :type => "text", :value => @notification.url}
+    #notification_body_input.string.control-group.required.stringish
+      %label.control-label{:for => "notification_body"} Description
+      .controls
+        %input#notification_body{:maxlength => "255", :name => "notification[body]", :type => "text", :value => @notification.body}

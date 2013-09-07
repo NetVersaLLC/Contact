@@ -56,14 +56,19 @@ registerHooks = ()->
     console.log window.job_id
     $('#view_backtrace').html('<iframe src="/admin/jobs/'+window.job_id+'/view_backtrace" style="width: 700px; height: 300px" scrolling="yes" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0">')
     $('#view_backtrace').dialog( "open")
-  $('.view_meta').click (e)->
-
   $('.view_booboo').click (e)->
     window.booboo_id = e.target.getAttribute('data-booboo-id')
     console.log window.booboo_id
     $.get '/admin/booboos/'+window.booboo_id+'/view.js', null, (data)->
       $('#view_booboo').html(data['message'])
       $('#view_booboo').dialog( "open" )
+  $('.view_notification').click (e)->
+    window.notification_id = $(e.target).parent().attr('data-notification-id')
+    console.log window.notification_id
+    $.get '/notifications/'+window.notification_id+'/edit', (data)->
+      $('#view_notification').dialog({autoOpen: false}) 
+      $('#view_notification').html(data)
+      $('#view_notification').dialog( "open" )
   $('.displayList').sortable
     stop: (event, ui) ->
       em = []
@@ -76,6 +81,15 @@ registerHooks = ()->
     window.job_id = $(e.target).parent().attr('data-job-id')
     console.log window.job_id
     $('#rerun_payload').dialog( "open" )
+  $('.delete_notification').click (e)->
+    window.notification_id = $(e.target).parent().attr('data-notification-id')
+    if confirm("Are you sure you want to delete this notification?") == true
+      $.ajax
+        url: "/notifications/#{window.notification_id}"
+        type: 'DELETE',
+        success: (response)->
+          alert("Removed the notification!");
+          window.reloadView()
   $('#pause_button').button()
   $('#pause_button').click ->
     $.ajax
@@ -99,31 +113,36 @@ registerHooks = ()->
       success: (response)->
         alert("Cleared payloads!");
         window.reloadView()
+  $('#add_notification_button').button()
+  $('#add_notification_button').click (e)->
+    $.ajax
+      url: '/notifications/new',
+      type: 'GET',
+      success: (data)->
+        $('#view_notification').dialog({autoOpen: false}) 
+        $('#view_notification').html(data)
+        $('#view_notification').dialog( "open" )
 
 showPending = (panel)->
   window.current_tab = "jobs"
-  #$.getJSON "/admin/jobs/pending_jobs.js?business_id=#{window.business_id}", (data)->
   $.get "/admin/jobs/pending_jobs?business_id=#{window.business_id}", (data)->
     data = "<div id='dash'><input type='checkbox' id='pause_button' /><label for='pause_button'>Toggle Payload Pause</label><span id='paused_at'>Paused at: "+window.business_paused_at+"</span><input type='button' id='load_missed_payloads' value='Add Missed Payloads' /><input type='button' id='clear_payloads' value='Clear Payloads' /></div>" + data
-    $(panel).html(data) # window.buildTable(data) )
+    $(panel).html(data)
     registerHooks()
 showFailed = (panel)->
   window.current_tab = "failed_jobs"
-  #$.getJSON "/admin/jobs/failed_jobs.js?business_id=#{window.business_id}", (data)->
   $.get "/admin/jobs/failed_jobs?business_id=#{window.business_id}", (data)->
-    $(panel).html(data) # window.buildTable(data) )
+    $(panel).html(data)
     registerHooks()
 showCompleted = (panel)->
   window.current_tab = "completed_jobs"
-  #$.getJSON "/admin/jobs/completed_jobs.js?business_id=#{window.business_id}", (data)->
   $.get "/admin/jobs/completed_jobs?business_id=#{window.business_id}", (data)->
-    $(panel).html(data) # window.buildTable(data) )
+    $(panel).html(data)
     registerHooks()
 showErrors = (panel)->
   window.current_tab = "booboos"
-  #$.getJSON "/admin/booboos/list.js?business_id=#{window.business_id}", (data)->
   $.get "/admin/booboos/list?business_id=#{window.business_id}", (data)->
-    $(panel).html( data ) #window.buildErrorTable(data) )
+    $(panel).html( data )
     registerHooks()
 showClient = (panel)->
   window.current_tab = "ciients"
@@ -139,9 +158,18 @@ showClient = (panel)->
     $(panel).html( html )
 showLatest = (panel)->
   window.current_tab = "completed_jobs"
-  #$.getJSON "/admin/jobs/completed_jobs.js?business_id=#{window.business_id}", (data)->
   $.get "/admin/jobs/latest_jobs?business_id=#{window.business_id}", (data)->
-    $(panel).html(data) # window.buildTable(data) )
+    $(panel).html(data)
+    registerHooks()
+showNotifications = (panel)->
+  window.current_tab = "notifications"
+  $.get "/notifications.json?business_id=#{window.business_id}", (data)->
+    if data == null or data['notifications'].length == 0
+      data = 'No notifications'
+    else
+      data = data['html']
+    data = "<div id='dash'><input type='button' id='add_notification_button' value='New Notification' /></div>" + data
+    $(panel).html( data )
     registerHooks()
 
 window.loadPayloads = ()->
@@ -153,9 +181,6 @@ window.loadPayloads = ()->
     $('#payload_list_container').html(html)
     $('#payload_list_ul > li').click (e)->
       window.payloadListAction(e)
-
-    #$('#payload_list_ul > li').click (e)->
-    #  window.payloadListAction(e)
 
 window.clientPayloadListAction = (e)->
   console.log("clientPayloadListAction()")
@@ -184,7 +209,8 @@ window.startPayloads = () ->
     showCompleted,
     showErrors,
     showClient, 
-    showLatest
+    showLatest,
+    showNotifications
   ]
   $('#client_tabs').tabs
     select: (event,ui)->
@@ -223,7 +249,7 @@ window.startPayloads = () ->
         $( this ).dialog( "close" )
       Cancel: ()->
         $( this ).dialog( "close" )
-  
+
   $('#view_backtrace').dialog
     autoOpen: false,
     show: "blind",
@@ -248,7 +274,6 @@ window.startPayloads = () ->
           success: ( response ) ->
             $('#rerun_payload').dialog( "close" )
             window.reloadView()
-
       Cancel: ()->
         $( this ).dialog( "close" )
 
@@ -279,6 +304,33 @@ window.startPayloads = () ->
       Cancel: ()->
         $( this ).dialog( "close" )
 
+  $('#view_notification').dialog
+    autoOpen: false,
+    show: "blind",
+    hide: "explode"
+    width: 500
+    buttons:
+      Ok: ()->
+        notification = $('#notification_form').serialize() + '&notification[business_id]='+window.business_id
+        id = $('#notification_id').val()
+        if id == ''
+          $.ajax
+            url: '/notifications',
+            type: 'POST',
+            data: notification,
+            success: ( response ) ->
+              window.reloadView()
+          $( this ).dialog( "close" )
+        else
+          $.ajax
+            url: '/notifications/'+id,
+            type: 'PUT',
+            data: notification,
+            success: ( response ) ->
+              window.reloadView()
+          $( this ).dialog( "close" )
+      Cancel: ()->
+        $( this ).dialog( "close" )
   $('#assign_payload').dialog
     autoOpen: false,
     show: "blind",

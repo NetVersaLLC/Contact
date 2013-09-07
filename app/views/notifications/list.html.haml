@@ -1,0 +1,14 @@
+%ul.displayList
+  - @notifications.each do |notification|
+    %li.ui-state-default.ui-corner-all{ :data => { "notification-id" => notification.id}}
+      - color = 'ui-icon-mail-closed info'
+      %span.ui-icon{:title => notification.title, :class => color}
+      - if notification.new_record? # missing notification
+        %span.ui-icon.ui-icon-cancel{title: 'Missing notification'}
+      - else
+        %span.ui-icon.ui-icon-trash.delete_notification{ :title=> "Delete notification"}
+        %span.ui-icon.ui-icon-tag.view_notification{ :title => "Edit" }
+      = notification.title
+      - if notification.created_at != nil
+        %span{:style => 'color: green;'}
+          = distance_of_time_in_words_to_now(notification.created_at)

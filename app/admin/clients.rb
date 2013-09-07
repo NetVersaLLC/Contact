@@ -33,6 +33,9 @@ ActiveAdmin.register_page "Client Manager" do
     div(:id => 'view_booboo', :style => 'display: none') do
       ""
     end
+    div(:id => 'view_notification', :style => 'display: none') do
+      ""
+    end
     script do
       raw "window.business_id = #{params[:business_id]};\n" +
       "window.business_paused = #{@business_info.paused?};\n" +
@@ -50,7 +53,8 @@ ActiveAdmin.register_page "Client Manager" do
         li span(:class => 'ui-icon ui-icon-circle-check') + link_to("Succeeded",   "#client_tabs-3")
         li span(:class => 'ui-icon ui-icon-circle-close') + link_to("Errors",      "#client_tabs-4")
         li span(:class => 'ui-icon ui-icon-info') + link_to("Client Info", "#client_tabs-5")
-        li span(:class => 'ui-icon ui-icon-info') + link_to("Payload", "#client_tabs-6")
+        li span(:class => 'ui-icon ui-icon-person') + link_to("Payload", "#client_tabs-6")
+        li span(:class => 'ui-icon ui-icon-comment') + link_to("Notifications", "#client_tabs-7")
       end
       div(:id => 'client_tabs-1') do
         ""
@@ -68,6 +72,9 @@ ActiveAdmin.register_page "Client Manager" do
         ""
       end
       div(:id => 'client_tabs-6') do
+        ""
+      end
+      div(:id => 'client_tabs-7') do
         ""
       end
     end
