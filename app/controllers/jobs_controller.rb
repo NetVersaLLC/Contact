@@ -18,7 +18,7 @@ class JobsController < ApplicationController
     @job = {:status => 'default'}
     if @business.categorized == false
       @job = {:status => 'no_categories'}
-    elsif @business.paused == true
+    elsif @business.paused? == true
       @job = {:status => 'paused'}
     elsif (@business.subscription != nil and @business.subscription.active?) == false
       @job = {:status => 'inactive'}
