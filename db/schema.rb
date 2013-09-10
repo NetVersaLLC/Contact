@@ -497,6 +497,7 @@ ActiveRecord::Schema.define(:version => 20130905173736) do
     t.string   "status"
     t.string   "memo"
     t.string   "transaction_code"
+    t.integer  "subscription_id"
   end
 
   add_index "credit_events", ["label_id"], :name => "index_credit_events_on_label_id"
@@ -1777,8 +1778,8 @@ ActiveRecord::Schema.define(:version => 20130905173736) do
     t.integer  "package_id"
     t.boolean  "tos_agreed"
     t.boolean  "active",               :default => false
-    t.datetime "created_at",                              :null => false
-    t.datetime "updated_at",                              :null => false
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
     t.integer  "intial_fee"
     t.string   "subscription_code"
     t.integer  "label_id"
@@ -1788,6 +1789,7 @@ ActiveRecord::Schema.define(:version => 20130905173736) do
     t.integer  "monthly_fee"
     t.string   "status"
     t.integer  "transaction_event_id"
+    t.datetime "label_last_billed_at", :default => '2013-07-09 21:48:55'
   end
 
   add_index "subscriptions", ["package_id"], :name => "index_subscriptions_on_package_id"

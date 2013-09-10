@@ -147,6 +147,10 @@ class CreditCardProcessor
     subscription 
   end 
 
+  def valid_recurring( subscription ) 
+    status = @gateway.status_recurring( subscription.subscription_code) 
+    status == 'active'
+  end 
 
   #
   #

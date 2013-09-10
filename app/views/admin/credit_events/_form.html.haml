@@ -5,7 +5,7 @@
       =f.hidden_field :other_id
     %ol
       %li.number.input.optional.numeric.stringish
-        =f.label :charge_amount, "Amount to transfer"
+        =f.label :charge_amount, "Payment Amount"
         =f.text_field :charge_amount, :value => number_with_precision(f.object.charge_amount, precision: 2)
       %li.number.input.optional.stringish
         =f.label :memo, "Memo"

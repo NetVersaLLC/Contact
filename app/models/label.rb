@@ -11,6 +11,7 @@ class Label < ActiveRecord::Base
   #has_many :package_payloads
   has_many :credit_events 
   has_many :transaction_events
+  has_many :subscriptions
 
   THEMES = %w{ ace amelia cerulean cosmo cyborg journal readable simplex slate spacelab spruce superhero united }
   
@@ -45,6 +46,7 @@ class Label < ActiveRecord::Base
     credit_limit + available_balance - credit_held_by_children
   end 
 
+
   validates :login,
     #:presence => true,             # resellers cant create a label if validating presence
     :format => { :with => /\S*/ }
@@ -74,7 +76,6 @@ class Label < ActiveRecord::Base
       errors.add(:credit_limit, "There needs to be enough credit to cover the amount held by the sub labels.")
     end
   end 
-
 
 #  def gateway
 #    return @gateway if @gateway
