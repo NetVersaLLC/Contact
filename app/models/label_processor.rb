@@ -3,6 +3,8 @@ class LabelProcessor
     @label = label
   end 
 
+  
+
   #def initialize( credit_card_processor ) 
   #  @credit_card_processor = credit_card_processor 
   #end 
@@ -30,60 +32,87 @@ class LabelProcessor
     business.destroy
   end 
 
-  #
-  # transfer funds to a label so they can transact business.  This is usually done 
-  # through the active admin panel
-  #
-  def transfer_funds( to_label, amount, memo )
+  def add_funds( to_label, amount, memo )
     damount = BigDecimal.new(amount)
-
-    ce = CreditEvent.new 
-    ce.label = @label
-    ce.other = to_label 
-    ce.charge_amount = -1 * damount
-    ce.action = 'transfer funds'
-    ce.status = :success
-    ce.memo = memo
 
     source = @label
     dest = to_label
-    
-    Label.transaction do |t|
-      source.reload
 
-      if ( source.available_balance < damount ) 
-        ce.note = 'Insufficient funds' 
-        ce.status = :failed
-        raise ActiveRecord::Rollback
-      else 
-        # atomic updates
-        Label.update_all("available_balance = available_balance - #{amount}", {id: source.id}) 
-        Label.update_all("available_balance = available_balance + #{amount}", {id: dest.id}) 
+    # atomic update
+    Label.update_all("available_balance = available_balance + #{amount}", {id: dest.id}) 
+    dest.reload
 
-        source.reload
-        dest.reload
+    cf = CreditEvent.create( label_id: dest.id,
+                        other_id: source.id,
+                        note: "#{source.name} added funds", 
+                        charge_amount: damount, 
+                        action: "payment",
+                        memo: memo,
+                        status: :success, 
+                        post_available_balance: dest.available_balance )
 
-        ce.note = "Transfer to #{dest.name}"
-        cf = CreditEvent.create( label_id: dest.id,
-                            other_id: source.id,
-                            note: "Transfer from #{source.name}", 
-                            charge_amount: damount, 
-                            action: "transfer funds",
-                            memo: memo,
-                            post_available_balance: dest.available_balance )
-        tc = cf.generate_transaction_code 
-        cf.update_attribute(:transaction_code, tc + '-S') 
+    tc = cf.generate_transaction_code 
+    cf.update_attribute(:transaction_code, tc + '-S') 
+    cf
+  end 
 
-        ce.transaction_code = tc + '-R'
+  #
+  # Debit the label's account, and each parent up the tree.  
+  #
+  def debit_sign_up user, transaction_event, label
+    return if label.nil?
+
+    # It's ok if the balance goes negative, we want the sign up either way. This is an atomic update 
+    Label.update_all("available_balance = available_balance - package_signup_rate", {id: label.id}) 
+    label.reload
+
+    ce = CreditEvent.create(label_id: label.id, 
+                       user_id: user.id, 
+                       charge_amount: (-1) * label.package_signup_rate, 
+                       post_available_balance: label.available_balance, 
+                       note: "Business sign up",
+                       action: "sign up", 
+                       transaction_event_id: transaction_event.id)
+
+    debit_sign_up(user, transaction_event, label.parent)
+  end 
+
+  # 
+  # Each month, debit the label for each active subscription.  
+  # Care has been taken so that this job, which usually runs from a cron -> rake task, can safely 
+  # be re-run in case an error occurs. 
+  # 
+  def debit_monthly_subscriptions 
+    ccp = CreditCardProcessor.new(@label)
+
+    # subscriptions dont start for atleast a month after being created. 
+    # filter out any recently billed subscriptions.  This allows a job to rerun safely if an error occurs.
+    @label.subscriptions.where('created_at < ? and label_last_billed_at <= ?', 1.month.ago, 1.month.ago).where(status: :success).each do |subscription| 
+      if ccp.valid_recurring( subscription )
+        debit_monthly_subscription @label, subscription
       end 
     end 
-
-    ce.post_available_balance = source.available_balance
-    ce.save 
-    ce
   end 
 
   private 
+  def debit_monthly_subscription label, subscription
+    Label.update_all("available_balance = available_balance - package_subscription_rate", {id: label.id}) 
+    label.reload
+
+    ce = CreditEvent.create(label_id: label.id, 
+                       charge_amount: (-1) * label.package_signup_rate, 
+                       post_available_balance: label.available_balance, 
+                       note: "monthly business subscription fee",
+                       action: "monthly subscription", 
+                       subscription: subscription )
+
+    # this to help filter out recently charged subscriptions if a job needs to be rerun 
+    # due to some failure. 
+    subscription.update_attribute(label_last_billed_at: Time.now ) 
+
+    debit_monthly_subscription( label.parent, subscription ) unless label.parent.nil?
+  end 
+
   def charge_and_subscribe( user, package, business, coupon, credit_card)
     ccp = self.credit_card_processor( credit_card )
 
@@ -141,18 +170,7 @@ class LabelProcessor
     transaction_event.business = business
     transaction_event.save 
 
-    # It's ok if the balance goes negative, we want the sign up either way
-    Label.update_all("available_balance = available_balance - package_signup_rate", {id: @label.id}) 
-    @label.reload
-
-    ce = CreditEvent.create(label_id: @label.id, 
-                       user_id: user.id, 
-                       charge_amount: (-1) * @label.package_signup_rate, 
-                       post_available_balance: @label.available_balance, 
-                       note: "Business sign up",
-                       action: "sign up", 
-                       transaction_event_id: transaction_event.id)
-    ce.update_attribute( :transaction_code, ce.generate_transaction_code )
+    debit_sign_up user, transaction_event, @label
 
     payment.business = business 
     payment.transaction_event = transaction_event 

@@ -40,7 +40,7 @@ ActiveAdmin.register CreditEvent do
       other = Label.accessible_by(current_ability).find(params[:credit_event][:other_id]) 
       raise CanCan::AccessDenied  unless other.parent_id == current_label.id 
 
-      ce = LabelProcessor.new(current_label).transfer_funds(other, params[:credit_event][:charge_amount], params[:credit_event][:memo])
+      ce = LabelProcessor.new(current_label).add_funds(other, params[:credit_event][:charge_amount], params[:credit_event][:memo])
       flash[:notice] = (ce.status == :success ? 'Transfer succeeded' : "Transfer failed. #{ce.note}" )
 
       redirect_to admin_dashboard_path 
