@@ -50,13 +50,13 @@ class JobsController < ApplicationController
         format.json { render json: {:error => 'Not Found'}, status: :not_found}
       end
       return
-    end    
-     
-      if params[:delay]
-        runtime = Time.now + params[:delay].to_i*60
-      else
-        runtime = Time.now - 5.hours
-      end
+    end
+
+    if params[:delay]
+      runtime = Time.now + params[:delay].to_i*60
+    else
+      runtime = Time.now - 5.hours
+    end
 
     @job = Job.inject(params[:business_id], payload.payload, payload.data_generator, payload.ready, runtime)
     @job.name = params[:name]
@@ -73,13 +73,20 @@ class JobsController < ApplicationController
 
   def update
     @job = Job.find(params[:id])
+
     unless @job.business.user_id == current_user.id
       redirect_to '/', :status => 403
     else
       if params[:status] == 'success'
         @job.success(params[:message])
       else
-        @job.failure(params[:message], params[:returned])
+        @screenshot = nil
+        if params[:screenshot]
+          @screenshot = Screenshot.new
+          @screenshot.data = QqFile.parse(params[:screenshot], request)
+          @screenshot.save
+        end
+        @failed_job = @job.failure(params[:message], params[:backtrace], @screenshot)
       end
       respond_to do |format|
         format.json { head :no_content }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130905173736) do
+ActiveRecord::Schema.define(:version => 20130910223205) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -422,7 +422,6 @@ ActiveRecord::Schema.define(:version => 20130905173736) do
     t.integer  "status"
     t.text     "status_message"
     t.text     "payload"
-    t.text     "returned"
     t.datetime "waited_at"
     t.integer  "position"
     t.datetime "created_at",     :null => false
@@ -718,14 +717,16 @@ ActiveRecord::Schema.define(:version => 20130905173736) do
     t.integer  "status"
     t.text     "status_message"
     t.text     "payload"
-    t.text     "returned"
+    t.text     "backtrace"
     t.datetime "waited_at"
     t.integer  "position"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.integer  "screenshot_id"
   end
 
   add_index "failed_jobs", ["business_id"], :name => "index_failed_jobs_on_business_id"
+  add_index "failed_jobs", ["screenshot_id"], :name => "index_failed_jobs_on_screenshot_id"
   add_index "failed_jobs", ["status"], :name => "index_failed_jobs_on_status"
 
   create_table "foursquare_categories", :force => true do |t|
@@ -998,7 +999,6 @@ ActiveRecord::Schema.define(:version => 20130905173736) do
     t.integer  "status"
     t.text     "status_message"
     t.text     "payload"
-    t.text     "returned"
     t.datetime "waited_at"
     t.integer  "position"
     t.datetime "created_at",                                        :null => false

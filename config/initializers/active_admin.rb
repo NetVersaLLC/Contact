@@ -3,6 +3,21 @@ ActiveAdmin.setup do |config|
     redirect_to destroy_user_session_path unless current_user.reseller?
   end
 
+  def admin_sub_menu
+    action_item do
+      link_to "Payload Nodes", "/admin/payload_nodes"
+    end
+    action_item do
+      link_to "Package Contents", "/admin/package_contents"
+    end
+    action_item do
+      link_to "Site Profiles", "/admin/site_profiles"
+    end
+    action_item do
+      link_to "Payload Manager", "/admin/payload_manager"
+    end
+  end
+
   config.site_title = "Citation Admin"
 
   config.view_factory.footer = ActiveAdminFooter

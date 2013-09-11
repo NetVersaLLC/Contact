@@ -2,7 +2,7 @@ class Job < JobBase
   belongs_to :business
 
   attr_accessible :payload, :data_generator, :status, :runtime
-  attr_accessible :business_id, :name, :status_message, :returned, :waited_at, :position, :data
+  attr_accessible :business_id, :name, :status_message, :backtrace, :waited_at, :position, :data
 
   validates :status,
     :presence => true,
@@ -38,15 +38,15 @@ class Job < JobBase
   end
 
   def self.get_latest(business, name)
-    p = Job.where(business_id: business.id, name: name).last 
-    f = FailedJob.where(business_id: business.id, name: name).last 
-    c = CompletedJob.where(business_id: business.id, name: name).last 
+    p = Job.where(business_id: business.id, name: name).last
+    f = FailedJob.where(business_id: business.id, name: name).last
+    c = CompletedJob.where(business_id: business.id, name: name).last
 
-    r = p 
+    r = p
     r = f if f.present? && ( r.nil? || f.created_at > r.created_at )
     r = c if c.present? && ( r.nil? || c.created_at > r.created_at )
     r
-  end 
+  end
 
   def self.pending(business)
     #@job = Job.where('business_id = ? AND status IN (0,1) AND runtime < NOW()', business.id).order(:position).first
@@ -91,21 +91,21 @@ END
     end
   end
 
-  def success(msg='Job completed successfully', returned=nil)
+  def success(msg='Job completed successfully')
     self.with_lock do
       self.status         = TO_CODE[:finished]
       self.status_message = msg
-      self.returned       = returned
       self.save
     end
     self.is_now(CompletedJob)
   end
 
-  def failure(msg='Job failed', returned=nil)
+  def failure(msg='Job failed', backtrace=nil, screenshot=nil)
     self.with_lock do
       self.status         = TO_CODE[:error]
       self.status_message = msg
-      self.returned       = returned
+      self.backtrace      = backtrace
+      self.screenshot     = screenshot
       self.save
     end
     self.is_now(FailedJob)

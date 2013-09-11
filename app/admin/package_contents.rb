@@ -1,5 +1,6 @@
 ActiveAdmin.register_page "Package Contents" do
-  menu :label => 'Package Contents'
+  menu false
+  admin_sub_menu
 
   sidebar :payloads do
     div({:id => 'payload_list'}) do
@@ -8,9 +9,9 @@ ActiveAdmin.register_page "Package Contents" do
   end
 
   content do
-    para do 
+    para do
       "Simply drag and drop to change the order for inserting payloads into the queue.  Don't forget to Save Sequence when you are done."
-    end 
+    end
     select(:id => 'packages_list') do
       current_user.packages.each do |pac|
         option(:value => pac.id) do
@@ -18,9 +19,9 @@ ActiveAdmin.register_page "Package Contents" do
         end
       end
     end
-    button(:id => 'save_insert_order') do 
+    button(:id => 'save_insert_order') do
       "Save Sequence"
-    end 
+    end
 
     pac = current_user.packages.first
     table(:id => 'package_content_table', :class => 'index_table index striped') do
@@ -41,7 +42,7 @@ ActiveAdmin.register_page "Package Contents" do
       para "Are you sure you want to assign payload to package?"
     end
      script do
-      "window.business_id = #{params[:business_id]};" 
+      "window.business_id = #{params[:business_id]};"
     #  "$(document).ready(function() { window.startPayloads(); });"
      end
   end

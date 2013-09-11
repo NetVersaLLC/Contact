@@ -1,18 +1,18 @@
 ActiveAdmin.register Business do
   scope_to :current_user, :association_method => :business_scope
-  actions :all, :except => [:new] 
+  actions :all, :except => [:new]
 
   filter :label
   filter :redeemed_coupon, :label => "Coupon",
          :as => :select, :collection => proc { Coupon.where(:label_id => current_user.label.id) }
   filter :business_name
   filter :company_website
-  filter :client_checkin 
+  filter :client_checkin
   filter :business_name
   filter :corporate_name
-  filter :categorized 
-  filter :is_client_downloaded 
-  
+  filter :categorized
+  filter :is_client_downloaded
+
 
   form :partial => 'form'
 
@@ -39,7 +39,14 @@ ActiveAdmin.register Business do
       end
     end
 
-    column :client_checkin
+    column :client_checkin do |v|
+      if v.client_checkin.nil?
+        "Never"
+      else
+        distance_of_time_in_words_to_now(v.client_checkin)
+      end
+    end
+
     column :categorized, sortable: :categorized do |v| 
       v.categorized ? "Yes" : "No"
     end

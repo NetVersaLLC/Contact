@@ -8,7 +8,6 @@ class JobBase < ActiveRecord::Base
       o.data_generator = self.data_generator
       o.status         = self.status
       o.payload        = self.payload
-      o.returned       = self.returned
       o.position       = self.position
       o.waited_at      = self.waited_at
       o.created_at     = self.created_at
