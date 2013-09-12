@@ -18,7 +18,7 @@ ActiveAdmin.register_page "Categories" do
       Business.citation_list.each do |data|
         data[2].each do |row|
           if row[0] == 'select'
-            klass = eval row[1]
+            klass = eval row[1].camelize
             next if klass == GoogleCategory
             script(:src => "/categories/#{klass}.js") do
             end

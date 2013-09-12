@@ -5,11 +5,12 @@ use File::KeePass;
 use JSON qw/decode_json/;
 use File::Temp qw/tempfile/;
 
-# my $input;
-#{
-#  local $/=undef;
-#  $input = <STDIN>;
-#}
+my ($input, @input);
+{
+  local $/=undef;
+  $input = <STDIN>;
+  @input = decode_json($input);
+}
 
 my $domain = shift @ARGV;
 my $db = File::KeePass->new();
@@ -23,13 +24,15 @@ my $group = $db->add_group({
 });
 my $gid = $group->{'id'};
 
-my $e = $db->add_entry({
-  'title'    => 'Something',
-  'username' => 'someuser',
-  'url'      => 'http://binsearch.info',
-  'password' => 'somepass',
-  'group'    => $gid,
-});
+foreach my $site (@input) {
+  my $e = $db->add_entry({
+    'title'    => $site->{'title'},
+    'username' => $site->{'username'},
+    'url'      => $site->{'url'},
+    'password' => $site->{'password'},
+    'group'    => $gid,
+  });
+}
 
 $db->save_db($file, 'netversa');
 
