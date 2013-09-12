@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130910223205) do
+ActiveRecord::Schema.define(:version => 20130912183935) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -325,6 +325,7 @@ ActiveRecord::Schema.define(:version => 20130910223205) do
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
   add_index "businesses", ["category2"], :name => "index_businesses_on_category2"
   add_index "businesses", ["category3"], :name => "index_businesses_on_category3"
+  add_index "businesses", ["state"], :name => "state"
   add_index "businesses", ["user_id"], :name => "index_businesses_on_user_id"
 
   create_table "byzlyst_categories", :force => true do |t|
@@ -1007,6 +1008,8 @@ ActiveRecord::Schema.define(:version => 20130910223205) do
     t.text     "ready"
     t.text     "data_generator"
     t.string   "runtime",        :default => "2013-05-16 19:33:04"
+    t.integer  "screenshot_id"
+    t.text     "backtrace"
   end
 
   add_index "jobs", ["business_id"], :name => "index_jobs_on_business_id"
@@ -1642,6 +1645,13 @@ ActiveRecord::Schema.define(:version => 20130910223205) do
   add_index "scans", ["site"], :name => "index_scans_on_site"
   add_index "scans", ["zip"], :name => "index_scans_on_zip"
 
+  create_table "screenshots", :force => true do |t|
+    t.string   "data_file_name"
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.datetime "data_updated_at"
+  end
+
   create_table "searches", :force => true do |t|
     t.string   "name"
     t.string   "zip"
@@ -1789,7 +1799,7 @@ ActiveRecord::Schema.define(:version => 20130910223205) do
     t.integer  "monthly_fee"
     t.string   "status"
     t.integer  "transaction_event_id"
-    t.datetime "label_last_billed_at", :default => '2013-07-09 21:48:55'
+    t.datetime "label_last_billed_at", :default => '2013-07-12 18:42:00'
   end
 
   add_index "subscriptions", ["package_id"], :name => "index_subscriptions_on_package_id"
