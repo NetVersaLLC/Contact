@@ -19,6 +19,13 @@ class ImpersonateController < ApplicationController
     end 
 
     redirect_to admin_root_url
-  end 
+  end
+
+  def credentials
+    @business = Business.find(params[:business_id])
+    @user = @business.user
+    @info = {:auth_token => @user.authentication_token, :email => @user.email, :name => @business.business_name}
+    render :json => @info
+  end
 
 end 
