@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130912183935) do
+ActiveRecord::Schema.define(:version => 20130913173707) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -427,6 +427,8 @@ ActiveRecord::Schema.define(:version => 20130912183935) do
     t.integer  "position"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
+    t.text     "backtrace"
+    t.integer  "screenshot_id"
   end
 
   add_index "completed_jobs", ["business_id"], :name => "index_completed_jobs_on_business_id"
