@@ -56,6 +56,8 @@ registerHooks = ()->
     console.log window.job_id
     $('#view_backtrace').html('<iframe src="/admin/jobs/'+window.job_id+'/view_backtrace" style="width: 700px; height: 300px" scrolling="yes" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0">')
     $('#view_backtrace').dialog( "open")
+  $('.view_screenshot').click (e)->
+    window.location.href = $(e.target).attr('data-screenshot-url')
   $('.view_booboo').click (e)->
     window.booboo_id = e.target.getAttribute('data-booboo-id')
     console.log window.booboo_id

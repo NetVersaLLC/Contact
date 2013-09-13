@@ -17,6 +17,8 @@
         %span.ui-icon.ui-icon-script.view_payload{ :title => "View Payload"}
         - if job.class == FailedJob
           %span.ui-icon.ui-icon-alert.view_backtrace{ :title => "View Backtrace" }
+          - unless job.screenshot.nil? or job.screenshot.data.nil?
+            %span.ui-icon.ui-icon-image.view_screenshot{ :title => "View Screenshot", 'data-screenshot-url' => job.screenshot.data.url(), 'data-screenshot-thumb' => job.screenshot.data.url(:medium) }
         %span.ui-icon.ui-icon-tag.view_meta{ :title => "View Meta" }
         - if job.class != Job
           %span.ui-icon.ui-icon-triangle-1-w.rerun{ :title => "Rerun Job"}
