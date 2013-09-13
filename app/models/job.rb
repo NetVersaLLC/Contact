@@ -1,5 +1,6 @@
 class Job < JobBase
   belongs_to :business
+  belongs_to :screenshot
 
   attr_accessible :payload, :data_generator, :status, :runtime
   attr_accessible :business_id, :name, :status_message, :backtrace, :waited_at, :position, :data
@@ -105,7 +106,7 @@ END
       self.status         = TO_CODE[:error]
       self.status_message = msg
       self.backtrace      = backtrace
-      self.screenshot     = screenshot
+      self.screenshot_id  = screenshot.id
       self.save
     end
     self.is_now(FailedJob)
