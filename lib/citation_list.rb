@@ -560,13 +560,6 @@
       ['select', 'meetlocalbiz_category']
     ],
       'Meetlocalbiz'
-  ],
-  ['Brownbook', 'brownbooks',
-    [
-      ['text', 'email'],
-      ['text', 'password'],
-    ],
-      'Brownbook'
   ]
 ]
 
