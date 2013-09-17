@@ -7,10 +7,14 @@
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
     %meta{:content => "", :name => "description"}/
     %meta{:content => "", :name => "author"}/
-    %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"}
+
+    %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"}
     %script(src="//static.getclicky.com/js")
-    %link{:href => "//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css", :rel => "stylesheet"}
-    %link{:href => "//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css", :rel => "stylesheet"}
+    %script(src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js")
+  
+    %link(href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.no-icons.min.css" rel="stylesheet")
+    %link{:href => "//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css", :rel => "stylesheet"}
+
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "application"
 
@@ -31,9 +35,69 @@
     - if impersonating_user 
       = render 'impersonate/header' 
 
-    %header.navbar.navbar-inverse
-      .navbar-inner 
-        .container 
+    .navbar#navbar
+      .navbar-header
+        %a.navbar-brand{ href: '#'}
+          %small
+            %i{class: "icon-leaf"}
+              Sync Admin
+
+      %ul.nav.ace-nav.navbar-right
+        %li.purple
+          %a.dropdown-toggle{:data => {toggle: "dropdown"}, href: "#"}
+            %i.icon-bell-alt.icon-animated-bell
+            %span.badge.badge-important 8
+
+          %ul.pull-right.dropdown-navbar.navbar-pink.dropdown-menu.dropdown-caret.dropdown-closer
+            %li.nav-header
+              %i.icon-warning-sign
+              Notifications
+
+            %li
+              %a{href: "#"}
+                .clearfix
+                  %span.pull-left
+                    %i.btn.btn-mini.no-hover.btn-pink.icon-comment
+                    Your listing published
+                  %span.pull-right.badge.badge-info +12
+            %li
+              %a{href: "#"}
+                %i.btn.btn-mini.btn-primary.icon-key
+                Phone verification needed...
+            %li
+              %a{href: "#"}
+                .clearfix
+                  %span.pull-left
+                    %i.btn.btn-mini.no-hover.btn-success.icon-shopping-cart
+                    Activate your subscription!
+            %li
+              %a{href: "#"}
+                See all notifications
+                %i.icon-arrow-right
+
+        %li.light-blue
+          %a.dropdown-toggle{:data => {toggle: "dropdown"}, href: "#"}
+            %img.nav-user-photo(src="assets/avatars/user.jpg" alt="Jason's Photo")
+            %span.user-info
+              %small Welcome
+              Jason
+            %i.icon-caret-down
+
+          %ul.user-menu.pull-right.dropdown-menu.dropdown-yellow.dropdown-caret.dropdown-closer
+            %li
+              %a{href: "#"}
+                %i.icon-cog
+                Settings
+            %li
+              %a{href: "profile.html"}
+                %i.icon-user
+                My Profile
+            %li.divider
+            %li
+              %a{href: "#"}
+                %i.icon-off
+                Logout
+        -#
           - if user_signed_in?
             %ul.nav 
               %li 
@@ -62,7 +126,7 @@
             .alert.alert-error= flash[:alert] 
         .span6 
     - if user_signed_in?
-      = render 'layouts/business_options'
+      -# = render 'layouts/business_options'
       = yield :summary #render 'layouts/citation_summary' 
 
     .content{ :class => user_signed_in? ? 'signed_in' : '' } 

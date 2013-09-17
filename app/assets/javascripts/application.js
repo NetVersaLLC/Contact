@@ -2,7 +2,6 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require easypaginate
-//= require bootstrap.min
 //= require businesses
 //= require jquery.fineuploader.min
 //= require jquery.inputmask.bundle.min
@@ -15,4 +14,7 @@
 
 //= require custom
 //= require codes
+//= require ace.min
+//= require ace-elements.min
+//= require ace-extra.min
 //

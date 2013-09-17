@@ -1,13 +1,4 @@
 GIT
-  remote: git://github.com/cgunther/formtastic-bootstrap.git
-  revision: 4e6a7f50153af805470d43a2bd2c9885a902e4a6
-  branch: bootstrap2-rails3-2-formtastic-2-1
-  specs:
-    formtastic-bootstrap (1.1.2)
-      formtastic
-      rails (>= 3.1.0)
-
-GIT
   remote: git://github.com/ryanb/nested_form.git
   revision: a25eebe8205e4e63899873b716535def6c1f5a9d
   specs:
@@ -422,7 +413,6 @@ DEPENDENCIES
   factory_girl_rails
   faker
   formtastic (~> 2.1.1)
-  formtastic-bootstrap!
   haml
   haml-rails
   httparty
