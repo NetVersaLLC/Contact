@@ -1,0 +1,78 @@
+.navbar#navbar
+  .navbar-header
+    %a.navbar-brand{ href: '#'}
+      %small
+        %i{class: "icon-leaf"}
+          Sync Admin
+
+  %ul.nav.ace-nav.navbar-right
+    %li.purple
+      %a.dropdown-toggle{:data => {toggle: "dropdown"}, href: "#"}
+        %i.icon-bell-alt.icon-animated-bell
+        %span.badge.badge-important 8
+
+      %ul.pull-right.dropdown-navbar.navbar-pink.dropdown-menu.dropdown-caret.dropdown-closer
+        %li.nav-header
+          %i.icon-warning-sign
+          Notifications
+
+        %li
+          %a{href: "#"}
+            .clearfix
+              %span.pull-left
+                %i.btn.btn-mini.no-hover.btn-pink.icon-comment
+                Your listing published
+              %span.pull-right.badge.badge-info +12
+        %li
+          %a{href: "#"}
+            %i.btn.btn-mini.btn-primary.icon-key
+            Phone verification needed...
+        %li
+          %a{href: "#"}
+            .clearfix
+              %span.pull-left
+                %i.btn.btn-mini.no-hover.btn-success.icon-shopping-cart
+                Activate your subscription!
+        %li
+          %a{href: "#"}
+            See all notifications
+            %i.icon-arrow-right
+
+    %li.light-blue
+      %a.dropdown-toggle{:data => {toggle: "dropdown"}, href: "#"}
+        =image_tag("avatars/user.jpg", class: "nav-user-photo")
+        %span.user-info
+          %small Welcome
+          Jason
+        %i.icon-caret-down
+
+      %ul.user-menu.pull-right.dropdown-menu.dropdown-yellow.dropdown-caret.dropdown-closer
+        %li
+          %a{href: "#"}
+            %i.icon-cog
+            Settings
+        %li
+          %a{href: "profile.html"}
+            %i.icon-user
+            My Profile
+        %li.divider
+        %li
+          %a{href: "#"}
+            %i.icon-off
+            Logout
+    -#
+      - if user_signed_in?
+        %ul.nav 
+          %li 
+            = link_to edit_user_registration_path do 
+              Welcome 
+              %strong= "#{current_user.email}!"
+        %ul.nav.pull-right
+          -if session[:impersonator_id] 
+            %li=link_to('Sign Out', revert_impersonation_path, :method => :delete)
+          -else 
+            %li= link_to('Sign Out', destroy_user_session_path, :method => :delete)
+      - else 
+        %ul.nav.pull-right
+          %li= link_to('Sign In', new_user_session_path)
+
