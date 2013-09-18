@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130913173707) do
+ActiveRecord::Schema.define(:version => 20130918184129) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -183,6 +183,17 @@ ActiveRecord::Schema.define(:version => 20130913173707) do
 
   add_index "booboos", ["business_id"], :name => "index_booboos_on_business_id"
   add_index "booboos", ["user_id"], :name => "index_booboos_on_user_id"
+
+  create_table "brownbooks", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.string   "email"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "brownbooks", ["business_id"], :name => "index_brownbooks_on_business_id"
 
   create_table "business_form_edits", :force => true do |t|
     t.integer  "user_id"
@@ -1744,6 +1755,8 @@ ActiveRecord::Schema.define(:version => 20130913173707) do
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
     t.boolean  "enabled_for_scan",      :default => false
+    t.boolean  "enabled",               :default => true
+    t.text     "technical_notes"
   end
 
   create_table "snoopitnow_categories", :force => true do |t|

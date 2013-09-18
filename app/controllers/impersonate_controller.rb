@@ -17,15 +17,16 @@ class ImpersonateController < ApplicationController
       sign_in User.find(session[:impersonator_id]) 
       session[:impersonator_id] = nil
     end 
-
     redirect_to admin_root_url
   end
 
   def credentials
     @business = Business.find(params[:business_id])
     @user = @business.user
-    @info = {:auth_token => @user.authentication_token, :email => @user.email, :name => @business.business_name}
-    render :json => @info
+    @info = {:auth_token => @user.authentication_token, :name => @business.business_name, :subscription_active => @business.subscription.active, :paused => !@business.paused_at.nil?, :payloads => @business.list_payloads}
+    respond_to do |format|
+      format.json { render json: @info }
+    end
   end
 
 end 
