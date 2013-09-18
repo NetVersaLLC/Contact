@@ -52,15 +52,16 @@
                 %input.nav-search-input#nav-search-input(autocomplete="off" placeholder="Search ...")
                 %i.icon-search.nav-search-icon
           .page-content
-            .row 
-              .col-md-6
-                - if flash[:notice] 
-                  .alert.alert-info= flash[:notice] 
-                - if flash[:error] 
-                  .alert.alert-error= flash[:error] 
-                - if flash[:alert] 
-                  .alert.alert-error= flash[:alert] 
-              .col-md-6
+            -# 
+              .row 
+                .col-md-6
+                  - if flash[:notice] 
+                    .alert.alert-info= flash[:notice] 
+                  - if flash[:error] 
+                    .alert.alert-error= flash[:error] 
+                  - if flash[:alert] 
+                    .alert.alert-error= flash[:alert] 
+                .col-md-6
             = yield 
 
     :javascript 

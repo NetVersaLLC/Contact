@@ -81,3 +81,5 @@ gem 'dalli'
 gem 'delayed_job_active_record'
 gem "delayed_job_web"
 gem 'mustache'
+gem 'will_paginate', '~> 3.0.0'
+gem 'inherited_resources' 

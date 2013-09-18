@@ -1,0 +1,40 @@
+.page-header
+  %h1 Site Profiles
+.row
+  .col-xs-12 
+    .table-responsive
+      %table.table.table-striped.table-bordered.table-hover
+        %thead
+          %tr
+            %th Site
+            %th Owner 
+            %th Founded
+            %th Alexa US Traffice Rank 
+            %th Page Rank
+            %th URL 
+            %th Traffic Stats 
+            %th Notes 
+            %th Enabled for Scan 
+            %th
+        %tbody
+          -@site_profiles.each do |site_profile| 
+            %tr
+              %td= link_to site_profile.site, site_profile_path(site_profile)
+              %td= site_profile.owner 
+              %td= site_profile.founded 
+              %td= site_profile.alexa_us_traffic_rank 
+              %td= site_profile.page_rank 
+              %td 
+                %a{href: "#{site_profile.url}"}= site_profile.url
+              %td= site_profile.traffic_stats 
+              %td= site_profile.notes
+              %td= site_profile.enabled_for_scan
+              %td
+                .visible-md.visible-lg.hidden-sm.hidden-xs.btn-group
+                  =link_to(site_profile_url(site_profile), class: 'btn btn-xs btn-success') do 
+                    %i.icon-ok.bigger-120
+                  =link_to(edit_site_profile_url(site_profile), class: 'btn btn-xs btn-info') do 
+                    %i.icon-edit.bigger-120
+                  =link_to(site_profile_url(site_profile), method: :delete, confirm: 'Are you sure?', class: 'btn btn-xs btn-danger') do 
+                    %i.icon-trash.bigger-120
+                  

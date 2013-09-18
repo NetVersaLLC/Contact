@@ -62,6 +62,7 @@ Contact::Application.routes.draw do
   resources :zip,  :only => [:index]
   resources :city, :only => [:index]
   resources :terms, :only => [:index]
+  resources :site_profiles
 
   get     '/jobs(.:format)',     :controller => :jobs,   :action => :index
   post    '/jobs(.:format)',     :controller => :jobs,   :action => :create
