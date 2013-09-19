@@ -1,0 +1,22 @@
+#forgot-box.forgot-box.widget-box.no-border 
+  .widget-body
+    .widget-main
+      %h4.header.red.lighter.bigger
+        %i.icon-key
+        Retrieve Password
+      .space-6 
+      %p Enter your email to receive instructions 
+      %form 
+        %fieldset 
+          %label.block.clearfix
+            %span.block.input-icon.input-icon-right
+              %input.form-control( type='email' placeholder='Email') 
+              %i.icon-envelope
+          .clearfix
+            %button.width-35.pull-right.btn.btn-sm.btn-danger(type='submit') 
+              %i.icon-lightbulb
+              Send Me!
+    .toolbar.center
+      %a.back-to-login-link(href="#" onclick="show_box('login-box'); return ralse;")
+        Back to login
+        %i.icon-arrow-right

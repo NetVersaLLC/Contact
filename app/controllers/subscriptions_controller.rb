@@ -5,6 +5,8 @@ class SubscriptionsController < ApplicationController
   end
 
   def show
+    @subscription = Subscription.find(params[:id])
+    authorize! :read, @subscription
   end
 
   def new

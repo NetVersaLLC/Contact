@@ -1,36 +1,6 @@
 !!!
 %html{:lang => "en"}
-  %head
-    %meta{:charset => "utf-8"}/
-    %title
-      = current_label.name
-    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
-    %meta{:content => "", :name => "description"}/
-    %meta{:content => "", :name => "author"}/
-
-    %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"}
-    %script(src="//static.getclicky.com/js")
-    %script(src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js")
-  
-    %link(href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.no-icons.min.css" rel="stylesheet")
-    %link{:href => "//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css", :rel => "stylesheet"}
-
-    = stylesheet_link_tag    "application", :media => "all"
-    = javascript_include_tag "application"
-
-
-    -if signed_in? && current_label.css_is_set?
-      = current_label.theme_css_files
-    /-else # this is already included in application.css.  Plus, you need to prepend with /assets
-    /  %link{:rel => :stylesheet, :href => "bootstrap.min.css" }
-
-    -if signed_in? && current_label.css_is_set?
-      = current_label.theme_js_files
-
-    = csrf_meta_tags
-    %style{:type => "text/css"}
-      = current_label.custom_css
-    %link{:rel => "icon", :type => "image/ico", :href => current_label.favicon_url}/
+  =render 'layouts/head'
   %body
     - if impersonating_user 
       = render 'impersonate/header' 
