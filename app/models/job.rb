@@ -2,6 +2,8 @@ class Job < JobBase
   belongs_to :business
   belongs_to :screenshot
 
+  after_create :assign_position
+
   attr_accessible :payload, :data_generator, :status, :runtime
   attr_accessible :business_id, :name, :status_message, :backtrace, :waited_at, :position, :data
 
@@ -24,6 +26,16 @@ class Job < JobBase
     :error     => 5
   }
   TO_SYM = TO_CODE.invert
+
+  def assign_position
+    pos = Job.where(:business_id => self.business_id).minimum(:position)
+    if pos == nil
+      self.position = self.id
+    else
+      self.position = pos - 1
+    end
+    self.save
+  end
 
   def wait
     self.status == TO_CODE[:running]
