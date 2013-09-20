@@ -65,6 +65,7 @@ module Business::MiscMethods
         profile = SiteProfile.where(:site => site).first
         if profile == nil
           final[site] = {
+            :id => nil,
             :name => site,
             :enabled => false,
             :technical_notes => nil,
@@ -73,6 +74,7 @@ module Business::MiscMethods
           }
         else
           final[site] = {
+            :id => profile.id,
             :name => site,
             :enabled => profile.enabled,
             :technical_notes => profile.technical_notes,
