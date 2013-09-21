@@ -81,4 +81,8 @@ FactoryGirl.define do
     label_id 2
     package_id 5
   end
+
+  factory :scan do
+    city 'Noname City'
+  end
 end 

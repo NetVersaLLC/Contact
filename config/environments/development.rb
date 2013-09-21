@@ -40,6 +40,10 @@ Contact::Application.configure do
 
   config.log_level = :debug
 
+  # used to authenticate scan server callbacks
+  config.scan_api_token = '892457gh9q87fah98ef7hq987harhq9w87eh8'
+  config.scan_server = 'http://localhost:4567/'
+
   config.paperclip_defaults = {
     :storage => :s3,
     :s3_protocol => 'https',

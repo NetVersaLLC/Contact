@@ -31,7 +31,11 @@ Contact::Application.configure do
   config.force_ssl = true
 
   # See everything in the log (default is :info)
-  config.log_level = :warn  # important to maintain PCI compliance 
+  config.log_level = :warn  # important to maintain PCI compliance
+
+  # used to authenticate scan server callbacks
+  config.scan_api_token = '892457gh9q87fah98ef7hq987harhq9w87eh8'
+  config.scan_server = 'scan.netversa.com'
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]

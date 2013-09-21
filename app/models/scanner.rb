@@ -1,7 +1,7 @@
 class Scanner
   include HTTParty
   digest_auth 'api', '13fc9e78f643ab9a2e11a4521479fdfe'
-  base_uri ENV['SCAN_SERVER'] || 'scan.netversa.com'
+  base_uri ENV['SCAN_SERVER'] || Contact::Application.config.scan_server
 
   debug_output $stderr
 

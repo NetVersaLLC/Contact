@@ -1,6 +1,11 @@
 class Scan < ActiveRecord::Base
   belongs_to :report
 
+  TASK_STATUS_WAITING = 0
+  TASK_STATUS_TAKEN = 1
+  TASK_STATUS_FINISHED = 2
+  TASK_STATUS_FAILED = 3
+
   def self.make_scan(data,site)
     options = {
       :query   => {
