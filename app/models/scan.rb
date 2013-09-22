@@ -6,23 +6,50 @@ class Scan < ActiveRecord::Base
   TASK_STATUS_FINISHED = 2
   TASK_STATUS_FAILED = 3
 
-  def self.make_scan(data,site)
-    options = {
-      :query   => {
-        :payload_data => data.to_json,
-        :site         => site
-      },
-      :headers => { 'content-length' => '0' }
-    }
+  def self.create_for_site(report_id, site)
+    report = Report.find(self.id)
+    location = Location.where(:zip => report.zip).first
+    super.create do |s|
+      s.report_id      = report_id
+      s.site           = site
+      s.business       = report.business,
+      s.phone          = report.phone,
+      s.zip            = report.zip,
+      s.latitude       = location.latitude,
+      s.longitude      = location.longitude,
+      s.state          = Carmen::state_name(location.state),
+      s.state_short    = location.state,
+      s.city           = location.city,
+      s.county         = location.county,
+      s.country        = location.country
+    end
+  end
 
-    status         = nil
-    error_message  = nil
-    response       = nil
+  def format_data_for_scan_server
+    {
+      :payload_data => self.attributes.slice(:business, :phone, :zip, :latitude, :longitude,
+                                              :state, :state_short, :city, :county, :country).to_json,
+      :site => site
+    }
+  end
+
+  def send_to_scan_server!
+    status         = nil # are this vars really necessary ?
+    error_message  = nil # are this vars really necessary ?
+    response       = nil # are this vars really necessary ?
     begin
-      Timeout::timeout(15) do
-        response = Scanner.post("/scan.json", options)
-        Delayed::Worker.logger.info "#{site}: Response: #{response.inspect}"
-      end
+      response = HTTParty.post("/scan.json", {
+          :query   => format_data_for_scan_server,
+          :headers => { 'content-length' => '0' },
+          :timeout => 5,
+          :base_uri => ENV['SCAN_SERVER'] || Contact::Application.config.scan_server_uri,
+          :digest_auth => {
+              :username => Contact::Application.config.scan_server_api_username,
+              :password => Contact::Application.config.scan_server_api_token,
+          },
+          :debug_output => $stderr
+      })
+      Delayed::Worker.logger.info "#{site}: Response: #{response.inspect}"
     rescue => e
       error_message = "#{site}: #{e.message}: #{e.backtrace.join("\n")}"
       status = 'error'
@@ -30,7 +57,6 @@ class Scan < ActiveRecord::Base
         'error' => 'Failed'
       }
     end
-
     return response, status, error_message
   end
 
@@ -40,6 +66,7 @@ class Scan < ActiveRecord::Base
         return row[3]
       end
     end
-    return self.site
+    self.site
   end
 end
+

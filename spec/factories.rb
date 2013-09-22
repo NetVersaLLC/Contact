@@ -85,4 +85,17 @@ FactoryGirl.define do
   factory :scan do
     city 'Noname City'
   end
-end 
+
+  factory :report do
+    business      'NetVersa'
+    zip           '92614'
+    phone         '855-418-9357'
+    package_id    '1'
+    ident         { SecureRandom.uuid }
+    email         'help@netversa.com'
+    referrer_code '234'
+    status        'started'
+
+    label
+  end
+end

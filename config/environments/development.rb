@@ -40,9 +40,15 @@ Contact::Application.configure do
 
   config.log_level = :debug
 
+  # credentials to access scan server
+  # username and token are used for digest auth
+  config.scan_server = 'http://localhost:4567/'
+  config.scan_server_api_username = 'api'
+  config.scan_server_api_token = '13fc9e78f643ab9a2e11a4521479fdfe'
+
   # used to authenticate scan server callbacks
   config.scan_api_token = '892457gh9q87fah98ef7hq987harhq9w87eh8'
-  config.scan_server = 'http://localhost:4567/'
+
 
   config.paperclip_defaults = {
     :storage => :s3,
