@@ -142,6 +142,9 @@ GEM
       nokogiri (>= 1.5.0)
       rails (~> 3.0)
     daemons (1.1.9)
+    daemons-rails (1.2.1)
+      daemons
+      multi_json (~> 1.0)
     dalli (2.6.4)
     data_magic (0.14)
       faker (>= 1.1.2)
@@ -411,6 +414,7 @@ DEPENDENCIES
   cucumber
   cucumber-rails
   daemons
+  daemons-rails
   dalli
   database_cleaner
   deathbycaptcha
