@@ -57,7 +57,7 @@
             My Profile
         %li.divider
         %li
-          %a{href: "#"}
+          =link_to destroy_session_path(current_user), method: "delete" do
             %i.icon-off
             Logout
     -#

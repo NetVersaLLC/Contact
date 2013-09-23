@@ -1,0 +1,30 @@
+.page-header
+  %h1 Users
+.row
+  .col-xs-12 
+    - if @users.blank? 
+      .alert.alert-block.alert-success
+        No users were found. 
+    - else 
+      .table-responsive
+        %table.table.table-striped.table-bordered.table-hover
+          %thead
+            %tr
+              %th.center
+              %th Email 
+              %th Full Name 
+              %th.hidden-480 Role 
+              %th.hidden-480 Phone Number
+              %th.hidden-480 Status 
+              %th
+          %tbody
+            - @users.each do |user|
+              %tr
+                %td
+                %td= user.email
+                %td ???
+                %td= user.role_is
+                %td ???
+                %td ??? 
+                %td Actions
+    %button.btn.btn-primary Add User
