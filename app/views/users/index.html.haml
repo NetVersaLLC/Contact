@@ -26,5 +26,12 @@
                 %td= user.role_is
                 %td ???
                 %td ??? 
-                %td Actions
+                %td 
+                  .btn-group
+                    = link_to user, class: 'btn btn-xs btn-success', title: 'Show user' do 
+                      %i.icon-ok.bigger-120
+                    = link_to edit_user_path(user), class: 'btn btn-xs btn-info', title: 'Edit user' do 
+                      %i.icon-edit
+                    = link_to user, method: :delete, class: 'btn btn-xs btn-danger', confirm: 'Are you sure?', title: 'Delete user' do 
+                      %i.icon-trash
     %button.btn.btn-primary Add User
