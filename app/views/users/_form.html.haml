@@ -1,57 +1,51 @@
 .row
   .col-xs-12
-    .widget-box
-      .widget-header.widget-header-blue.widget-header-flat
-        %h4.lighter Edit User Wizard
-      .widget-body 
-        .widget-main
-          #user-wizard{ data: { target: '#step-container'}}
-            %ul.wizard-steps
-              %li.active{data: { target: "#step1"}}
-                %span.step 1
-                %span.title Register Username
-              %li{data: { target: "#step2"}}
-                %span.step 2
-                %span.title Create User Profile
-              %li{data: { target: "#step3"}}
-                %span.step 3
-                %span.title Assign Role
-              %li{data: { target: "#step4"}}
-                %span.step 4
-                %span.title Choose Locations
-          %hr/
-          #step-container.step-content.position-relative
-            %form{ role: "form"}
-              #step1.step-pane.active
-                %h3.lighter.block.green Login Credentials
-                .row
-                  .col-xs-4
-                    .form-group
-                      %label Username
-                      %input.form-control(type="text" name="username" id="username")
-                    .form-group
-                      %label Email
-                      %input.form-control(type="email" name="email" id="email" placeholder="yourname@example.com")
-                    .form-group
-                      %label Password
-                      %input.form-control(type="password" name="email" id="email")
-                    .form-group
-                      %label Type Password Again
-                      %input.form-control(type="password" name="email" id="email")
-              #step2.step-pane
-                step 2
-              #step3.step-pane 
-                step 3 
-              #step4.step-pane
-                step 4
-          %hr/
-          .wizard-actions
-            %button.btn.btn-prev
-              %i.icon-arrow-left
-              Prev
-            %button.btn.btn-success.btn-next{ data: { last: "Finish "}} 
-              Next 
-              %i.icon-arrow-right.icon-on-right
+    #user-wizard.wizard{ data: {target: '#step-container' }}
+      %ul.wizard-steps
+        %li.active{data: { target: "#step1"}}
+          %span.step 1
+          %span.title Register Username
+        %li{data: { target: "#step2"}}
+          %span.step 2
+          %span.title Create User Profile
+        %li{data: { target: "#step3"}}
+          %span.step 3
+          %span.title Assign Role
+        %li{data: { target: "#step4"}}
+          %span.step 4
+          %span.title Choose Locations
+    %hr/
+    #step-container.step-content
+      %form
+        #step1.step-pane.active
+          %h3.lighter.block.green Login Credentials
+          .row
+            .col-xs-3
+              .form-group
+                %label Username
+                %input.form-control(type="text" name="username" id="username")
+              .form-group
+                %label Email
+                %input.form-control(type="email" name="email" id="email" placeholder="yourname@example.com")
+              .form-group
+                %label Password
+                %input.form-control(type="password" name="email" id="email")
+              .form-group
+                %label Type Password Again
+                %input.form-control(type="password" name="email" id="email")
+        #step2.step-pane
+          step 2
+        #step3.step-pane 
+          step 3 
+        #step4.step-pane
+          step 4
+    %hr/
+    .wizard-actions
+      %button.btn.btn-prev
+        %i.icon-arrow-left
+        Prev
+      %button.btn.btn-success.btn-next{ data: { last: "Finish "}} 
+        Next 
+        %i.icon-arrow-right.icon-on-right
 :javascript
-  $('#user-wizard').ace_wizard();
-  alert('hi');
+  jQuery(function($) { $('#user-wizard').ace_wizard(); } );
