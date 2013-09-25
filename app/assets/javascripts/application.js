@@ -15,6 +15,6 @@
 //= require custom
 //= require codes
 //= require fuelux.wizard.min
-//= require ace-elements
+//= require ace-elements.min
 //= require ace-extra.min
 //= require ace.min

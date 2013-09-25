@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130918184129) do
+ActiveRecord::Schema.define(:version => 20130925193409) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -2033,6 +2033,15 @@ ActiveRecord::Schema.define(:version => 20130918184129) do
     t.integer  "label_id"
     t.boolean  "callcenter"
     t.string   "referrer_code"
+    t.string   "contact_gender"
+    t.string   "contact_prefix"
+    t.string   "contact_first_name"
+    t.string   "contact_middle_name"
+    t.string   "contact_last_name"
+    t.date     "contact_date_of_birth"
+    t.string   "mobile_phone"
+    t.boolean  "mobile_appears",         :default => false
+    t.string   "username"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

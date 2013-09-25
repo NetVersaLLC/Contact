@@ -16,29 +16,73 @@
           %span.title Choose Locations
     %hr/
     #step-container.step-content
-      %form
+      =form_for @user do |f|
         #step1.step-pane.active
-          %h3.lighter.block.green Login Credentials
-          .row
-            .col-xs-3
-              .form-group
-                %label Username
-                %input.form-control(type="text" name="username" id="username")
-              .form-group
-                %label Email
-                %input.form-control(type="email" name="email" id="email" placeholder="yourname@example.com")
-              .form-group
-                %label Password
-                %input.form-control(type="password" name="email" id="email")
-              .form-group
-                %label Type Password Again
-                %input.form-control(type="password" name="email" id="email")
+          %fieldset
+            %legend.lighter.block.green Login Credentials
+            .row
+              .col-xs-3
+                .form-group
+                  =f.label :username
+                  =f.text_field :username, class: "form-control"
+                .form-group
+                  =f.label :email
+                  =f.email_field :email, class: "form-control", placeholder: "email@example.com"
+                .form-group
+                  =f.label :password
+                  =f.password_field :password, class: "form-control"
+                .form-group
+                  =f.label :confirm_password, "Type Password Again"
+                  =f.password_field :confirm_password, class: "form-control"
         #step2.step-pane
-          step 2
+          %fieldset
+            %legend.lighter.block.green Contact Information
+            .row
+              .col-xs-3
+                .form-group
+                  =f.label :contact_prefix, "Contact Prefix"
+                  =f.select :contact_prefix, Business.prefix_list, {}, {class: "form-control"}
+                .form-group 
+                  =f.label :contact_gender, "Contact Gender"
+                  =f.select :contact_prefix, Business.gender_list, {}, {class: "form-control"}
+                .form-group 
+                  =f.label :contact_first_name, "Contact First Name"
+                  =f.text_field :contact_first_name, class: "form-control"
+                .form-group 
+                  =f.label :contact_middle_name 
+                  =f.text_field :contact_middle_name, class: "form-control"
+                .form-group 
+                  =f.label :contact_last_name 
+                  =f.text_field :contact_last_name, class: "form-control"
+                .form-group 
+                  =f.label :contact_date_of_birth, "Contact Date of Birth"
+                  =f.text_field :contact_date_of_birth, class: "form-control", type: "date"
+                .form-group 
+                  =f.label :mobile_phone, "Mobile Phone"
+                  =f.telephone_field :mobile_phone, class: "form-control"
+            .row
+              .col-xs-6
+                .control-group 
+                  %label.control-label Should Mobile Number Appear on Listings?
+                  .radio
+                    %label
+                      =f.radio_button :mobile_appears, true
+                      %span.lbl Yes
+                  .radio
+                    %label
+                      =f.radio_button :mobile_appears, false
+                      %span.lbl No
+
         #step3.step-pane 
-          step 3 
+          %fieldset
+            %legend.lighter.block.green Assign Role
+            .row
+              .col-xs-3
         #step4.step-pane
-          step 4
+          %fieldset
+            %legend.lighter.block.green Assign Location
+            .row
+              .col-xs-3
     %hr/
     .wizard-actions
       %button.btn.btn-prev
