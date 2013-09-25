@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130913173707) do
+ActiveRecord::Schema.define(:version => 20130918184129) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -184,6 +184,17 @@ ActiveRecord::Schema.define(:version => 20130913173707) do
   add_index "booboos", ["business_id"], :name => "index_booboos_on_business_id"
   add_index "booboos", ["user_id"], :name => "index_booboos_on_user_id"
 
+  create_table "brownbooks", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.string   "email"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "brownbooks", ["business_id"], :name => "index_brownbooks_on_business_id"
+
   create_table "business_form_edits", :force => true do |t|
     t.integer  "user_id"
     t.integer  "business_id"
@@ -325,7 +336,6 @@ ActiveRecord::Schema.define(:version => 20130913173707) do
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
   add_index "businesses", ["category2"], :name => "index_businesses_on_category2"
   add_index "businesses", ["category3"], :name => "index_businesses_on_category3"
-  add_index "businesses", ["state"], :name => "state"
   add_index "businesses", ["user_id"], :name => "index_businesses_on_user_id"
 
   create_table "byzlyst_categories", :force => true do |t|
@@ -987,6 +997,15 @@ ActiveRecord::Schema.define(:version => 20130913173707) do
   end
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
+
+  create_table "insiderpages", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
@@ -1744,6 +1763,8 @@ ActiveRecord::Schema.define(:version => 20130913173707) do
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
     t.boolean  "enabled_for_scan",      :default => false
+    t.boolean  "enabled",               :default => true
+    t.text     "technical_notes"
   end
 
   create_table "snoopitnow_categories", :force => true do |t|
@@ -1801,7 +1822,7 @@ ActiveRecord::Schema.define(:version => 20130913173707) do
     t.integer  "monthly_fee"
     t.string   "status"
     t.integer  "transaction_event_id"
-    t.datetime "label_last_billed_at", :default => '2013-07-12 18:42:00'
+    t.datetime "label_last_billed_at", :default => '2013-07-09 21:48:55'
   end
 
   add_index "subscriptions", ["package_id"], :name => "index_subscriptions_on_package_id"

@@ -52,6 +52,40 @@ module Business::MiscMethods
       save
     end
 
+    def list_payloads
+      sub = self.subscription
+      sites = []
+      PackagePayload.by_package(sub.package_id).each do |obj|
+        next if obj.site == 'Utils' or obj.site == 'Test'
+        sites.push obj.site
+      end
+      sites = sites.uniq
+      final = {}
+      sites.each do |site|
+        profile = SiteProfile.where(:site => site).first
+        if profile == nil
+          final[site] = {
+            :id => nil,
+            :name => site,
+            :enabled => false,
+            :technical_notes => nil,
+            :missing => true,
+            :payloads => nil
+          }
+        else
+          final[site] = {
+            :id => profile.id,
+            :name => site,
+            :enabled => profile.enabled,
+            :technical_notes => profile.technical_notes,
+            :missing => false,
+            :payloads => Payload.list(site)
+          }
+        end
+      end
+      return final
+    end
+
     def create_jobs
       sub = self.subscription
       PackagePayload.by_package(sub.package_id).each do |obj|
