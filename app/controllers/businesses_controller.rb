@@ -1,24 +1,30 @@
-class BusinessesController < ApplicationController
+class BusinessesController < InheritedResources::Base
+  load_and_authorize_resource 
+  respond_to :html #,:xml, :json
+  actions :all
 
-  before_filter :authenticate_user!
+  def index 
+    @q = Business.search(params[:q])
+    @businesses = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10)
+  end 
 
-  def index
-    flash.keep
-    @businesses = Business.where(:user_id => current_user.id)
-    if @businesses.count == 1
-      b = @businesses.first 
+  # def index
+  #   flash.keep
+  #   @businesses = Business.where(:user_id => current_user.id)
+  #   if @businesses.count == 1
+  #     b = @businesses.first 
 
-      if !b.subscription.active || b.subscription.active.nil?
-        Notification.add_activate_subscription b
-      end 
+  #     if !b.subscription.active || b.subscription.active.nil?
+  #       Notification.add_activate_subscription b
+  #     end 
 
-      if b.is_client_downloaded
-        redirect_to business_path(b) 
-      else 
-        redirect_to edit_business_path(b)
-      end 
-    end
-  end
+  #     if b.is_client_downloaded
+  #       redirect_to business_path(b) 
+  #     else 
+  #       redirect_to edit_business_path(b)
+  #     end 
+  #   end
+  # end
 
   # GET /businesses/1
   # GET /businesses/1.json

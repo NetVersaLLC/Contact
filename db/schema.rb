@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130925193409) do
+ActiveRecord::Schema.define(:version => 20130926190156) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -331,6 +331,7 @@ ActiveRecord::Schema.define(:version => 20130925193409) do
     t.datetime "setup_completed"
     t.boolean  "setup_msg_sent",            :default => false
     t.datetime "paused_at"
+    t.string   "tags"
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"

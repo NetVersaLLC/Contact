@@ -1,25 +1,54 @@
-- if @businesses.count == 0 
-  .alert 
-    You do not have a business set up yet.  Please contact 
-    %a(href="mailto:#{current_label.support_email}")  #{current_label.support_email}
-    for more information.  
+- if @businesses.empty?
+  .alert.alert-warning
+    %strong Oops! 
+    No locations were found.
 - else   
-  %table.table.table-bordered
-    %thead
-      %tr
-        %th Business Name
-        %th Package
-        %th Download
-    - @businesses.each do |business|
-      %tbody
+  =render 'filter'
+  .dataTables_wrapper
+    %table.table.table-striped.table-bordered.table-hover
+      %thead 
         %tr
-          %td
-            %a.btn.btn-info{:href => business_path(business.id)} #{business.business_name}
-          %td
-            Default
-          %td
-            %a.btn.btn-warning.btn-large{:href => "/downloads/#{business.id}"} Download Client
+          %th.center
+            %input(type="checkbox")
+          %th Address
+          %th Location Name 
+          %th Phone Number 
+          %th Tags 
+          %th Modify 
+      %tbody 
+        - @businesses.each do |business| 
+          %tr
+            %td.center
+              %input(type="checkbox")
+            %td
+              =link_to business do 
+                =business.address 
+                %br/
+                ="#{business.city}, #{business.state} #{business.zip}"
+            %td= business.name
+            %td= business.toll_free_phone.present? ? business.toll_free_phone : business.local_phone
+            %td= business.tags 
+            %td Actions 
+    .row 
+      .col-md-6
+        .dataTables_info
+          = page_entries_info @businesses
+      .col-md-6
+        .dataTables_paginate.paging_bootstrap
+          = will_paginate @businesses, previous_label: "<", next_label: ">", inner_window: 1, outer_window: 1
   %br/
-  %br/
-
-/%a.btn.btn-info{:href => new_business_path()} Add Another Business
+  .row
+    .col-md-12
+      .btn-group
+        %button.btn.btn-info.btn-sm.dropdown-toggle{data: {toggle:"dropdown"}} 
+          Bulk edit
+          %i.icon-angle-down.icon-on-right
+        %ul.dropdown-menu
+          %li 
+            %a{:href => "#"} Suspend Sync
+          %li 
+            %a{:href => "#"} Delete Location 
+          %li.divider
+          %li 
+            %a{:href => "#"} Broadcast Message
+        =link_to "Add location", new_business_path, class: "btn btn-info btn-sm"
