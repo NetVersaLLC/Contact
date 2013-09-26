@@ -5,7 +5,7 @@ class BusinessesController < InheritedResources::Base
 
   def index 
     @q = Business.search(params[:q])
-    @businesses = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10)
+    @businesses = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 5)
   end 
 
   # def index
@@ -28,15 +28,15 @@ class BusinessesController < InheritedResources::Base
 
   # GET /businesses/1
   # GET /businesses/1.json
-  def show
-    @business  = Business.find(params[:id])
-    if @business.user_id != current_user.id
-      redirect_to root_path
-      return
-    end
-    @accounts  = @business.nonexistent_accounts_array
-    @job_count = Job.where(:business_id => @business.id, :status => 0).count
-  end
+  # def show
+  #   @business  = Business.find(params[:id])
+  #   if @business.user_id != current_user.id
+  #     redirect_to root_path
+  #     return
+  #   end
+  #   @accounts  = @business.nonexistent_accounts_array
+  #   @job_count = Job.where(:business_id => @business.id, :status => 0).count
+  # end
 
   def tada
     @business  = Business.find(params[:id])
