@@ -41,6 +41,7 @@ has_client_checked_in = () ->
         window.setTimeout has_client_checked_in, 10000
 
 $ ->
+  ###  
   $('.next-button, .back-button, .step-title').click (evt) -> 
     form = $('form.business')
     form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators )
@@ -104,6 +105,7 @@ $ ->
       return 'error' if cur_step.find(".error").length > 0
       return cur_step.hasClass("step-visited")
   } )
+  ###
 
   $('#business_mobile_phone').inputmask("999-999-9999",{ "clearIncomplete": true, 'clearMaskOnLostFocus': true })
   $('#business_local_phone').inputmask("999-999-9999",{ "clearIncomplete": true , 'clearMaskOnLostFocus': true })

@@ -6,8 +6,9 @@
 //= require jquery.fineuploader.min
 //= require jquery.inputmask.bundle.min
 //= require jquery.payment
-//= require jquery.psteps.min
+//  require jquery.psteps.min
 //= require jquery.cookie
+//= require jquery.colorbox-min
 //= require purl
 //= require checkout
 //= require rails.validations

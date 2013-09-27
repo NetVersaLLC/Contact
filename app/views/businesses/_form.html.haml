@@ -1,10 +1,98 @@
 .row
-  .span12
-    = render :partial => 'form/search_form' unless request.xhr?
-.row{:id => "display_form"}
-  .span12
-    = render :partial => 'form/business_tab' unless request.xhr?
+  .col-xs-12
+    #location-wizard.wizard{ data: {target: '#step-container' }}
+      %ul.wizard-steps
+        %li.active{data: { target: "#step1"}}
+          %span.step 1
+          %span.title Business Details
+        %li{data: { target: "#step2"}}
+          %span.step 2
+          %span.title Hours and Payment
+        %li{data: { target: "#step3"}}
+          %span.step 3
+          %span.title Business Description
+        %li{data: { target: "#step4"}}
+          %span.step 4
+          %span.title Mange Images
+        %li{data: { target: "#step5"}}
+          %span.step 5
+          %span.title Existing Accounts
+    %hr/
+    #step-container.step-content
+      =form_for @business do |f|
+        =render partial: "form_step_1", locals: {f: f}
+        =render partial: "form_step_2", locals: {f: f}
+        =render partial: "form_step_3", locals: {f: f}
+        =render partial: "form_step_4", locals: {f: f}
+        =render partial: "form_step_5", locals: {f: f}
+    %hr/
+    .wizard-actions
+      %button.btn.btn-prev
+        %i.icon-arrow-left
+        Prev
+      %button.btn.btn-success.btn-next{ data: { last: "Finish "}} 
+        Next 
+        %i.icon-arrow-right.icon-on-right
 
-   
+:javascript
+  window.business_id = '#{@business.id}';
+  jQuery(function($) { 
+    $('#location-wizard').ace_wizard(); 
 
+    var colorbox_params = {
+      reposition:true,
+      scalePhotos:true,
+      scrolling:false,
+      previous:'<i class="icon-arrow-left"></i>',
+      next:'<i class="icon-arrow-right"></i>',
+      close:'&times;',
+      current:'{current} of {total}',
+      maxWidth:'100%',
+      maxHeight:'100%',
+      onOpen:function(){
+        document.body.style.overflow = 'hidden';
+      },
+      onClosed:function(){
+        document.body.style.overflow = 'auto';
+      },
+      onComplete:function(){
+        $.colorbox.resize();
+      }
+    };
 
+    $('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
+    $("#cboxLoadingGraphic").append("<i class='icon-spinner orange'></i>");//let's add a custom loading icon
+
+    $('#input-file-3').ace_file_input({
+          style:'well',
+          btn_choose:'Drop files here or click to choose',
+          btn_change:null,
+          no_icon:'icon-cloud-upload',
+          droppable:true,
+          thumbnail:'small'//large | fit
+          //,icon_remove:null//set null, to hide remove/reset button
+          /**,before_change:function(files, dropped) {
+            //Check an example below
+            //or examples/file-upload.html
+            return true;
+          }*/
+          /**,before_remove : function() {
+            return true;
+          }*/
+          ,
+          preview_error : function(filename, error_code) {
+            //name of the file that failed
+            //error_code values
+            //1 = 'FILE_LOAD_FAILED',
+            //2 = 'IMAGE_LOAD_FAILED',
+            //3 = 'THUMBNAIL_FAILED'
+            //alert(error_code);
+          }
+      
+        }).on('change', function(){
+          //console.log($(this).data('ace_input_files'));
+          //console.log($(this).data('ace_input_method'));
+        });
+
+  })
+  
