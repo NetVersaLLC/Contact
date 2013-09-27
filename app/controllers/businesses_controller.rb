@@ -65,20 +65,20 @@ class BusinessesController < InheritedResources::Base
   end
 
   # GET /businesses/1/edit
-  def edit
-    @business = Business.find(params[:id])
-    if @business.user_id != current_user.id
-      redirect_to root_path
-      return
-    end
+  # def edit
+  #   @business = Business.find(params[:id])
+  #   if @business.user_id != current_user.id
+  #     redirect_to root_path
+  #     return
+  #   end
 
-    @accounts = @business.nonexistent_accounts_array
-    @site_accounts = Business.citation_list #.map {|x| x[0..1]}
-    respond_to do |format|
-      format.html { render @business.is_client_downloaded ? 'edit' : 'new' } 
-      format.json { render json: @business }
-    end
-  end
+  #   @accounts = @business.nonexistent_accounts_array
+  #   @site_accounts = Business.citation_list #.map {|x| x[0..1]}
+  #   respond_to do |format|
+  #     format.html { render @business.is_client_downloaded ? 'edit' : 'new' } 
+  #     format.json { render json: @business }
+  #   end
+  # end
 
 
   def client_checked_in 

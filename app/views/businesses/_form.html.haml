@@ -14,9 +14,6 @@
         %li{data: { target: "#step4"}}
           %span.step 4
           %span.title Mange Images
-        %li{data: { target: "#step5"}}
-          %span.step 5
-          %span.title Existing Accounts
     %hr/
     #step-container.step-content
       =form_for @business do |f|
@@ -24,7 +21,6 @@
         =render partial: "form_step_2", locals: {f: f}
         =render partial: "form_step_3", locals: {f: f}
         =render partial: "form_step_4", locals: {f: f}
-        =render partial: "form_step_5", locals: {f: f}
     %hr/
     .wizard-actions
       %button.btn.btn-prev
@@ -35,6 +31,12 @@
         %i.icon-arrow-right.icon-on-right
 
 :javascript
+
+  $('[data-toggle="popover"]').each( function() {
+      $(this).on('focus', function(){ $(this).popover('show'); console.log('focus');}); 
+      $(this).on('blur', function(){ $(this).popover('hide'); console.log('blur');}); 
+    } ); 
+
   window.business_id = '#{@business.id}';
   jQuery(function($) { 
     $('#location-wizard').ace_wizard(); 
