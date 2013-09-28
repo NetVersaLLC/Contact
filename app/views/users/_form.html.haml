@@ -40,23 +40,23 @@
             .row
               .col-xs-3
                 .form-group
-                  =f.label :contact_prefix, "Contact Prefix"
-                  =f.select :contact_prefix, Business.prefix_list, {}, {class: "form-control"}
+                  =f.label :prefix
+                  =f.select :prefix, Business.prefix_list, {}, {class: "form-control"}
                 .form-group 
-                  =f.label :contact_gender, "Contact Gender"
-                  =f.select :contact_prefix, Business.gender_list, {}, {class: "form-control"}
+                  =f.label :gender
+                  =f.select :prefix, Business.gender_list, {}, {class: "form-control"}
                 .form-group 
-                  =f.label :contact_first_name, "Contact First Name"
-                  =f.text_field :contact_first_name, class: "form-control"
+                  =f.label :first_name
+                  =f.text_field :first_name, class: "form-control"
                 .form-group 
-                  =f.label :contact_middle_name 
-                  =f.text_field :contact_middle_name, class: "form-control"
+                  =f.label :middle_name 
+                  =f.text_field :middle_name, class: "form-control"
                 .form-group 
-                  =f.label :contact_last_name 
-                  =f.text_field :contact_last_name, class: "form-control"
+                  =f.label :last_name 
+                  =f.text_field :last_name, class: "form-control"
                 .form-group 
-                  =f.label :contact_date_of_birth, "Contact Date of Birth"
-                  =f.text_field :contact_date_of_birth, class: "form-control", type: "date"
+                  =f.label :date_of_birth
+                  =f.text_field :date_of_birth, class: "form-control", type: "date"
                 .form-group 
                   =f.label :mobile_phone, "Mobile Phone"
                   =f.telephone_field :mobile_phone, class: "form-control"

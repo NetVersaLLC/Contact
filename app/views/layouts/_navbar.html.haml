@@ -40,7 +40,7 @@
 
     %li.light-blue
       %a.dropdown-toggle{:data => {toggle: "dropdown"}, href: "#"}
-        =image_tag("avatars/user.jpg", class: "nav-user-photo")
+        =image_tag(current_user.avatar.url(:icon), class: "nav-user-photo")
         %span.user-info
           %small Welcome
           Jason
@@ -52,7 +52,7 @@
             %i.icon-cog
             Settings
         %li
-          %a{href: "profile.html"}
+          =link_to current_user do 
             %i.icon-user
             My Profile
         %li.divider

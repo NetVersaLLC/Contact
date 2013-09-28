@@ -1,5 +1,6 @@
 class ClientData < ActiveRecord::Base
-  self.abstract_class = true
+  self.table_name = "client_data"
+  #self.abstract_class = true
   belongs_to      :business
   attr_accessible :force_update, :do_not_sync
   serialize       :secrets, CerebusClient.new

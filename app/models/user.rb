@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   attr_accessor :temppass
   attr_accessible :callcenter
   attr_accessible :access_level, :as => :admin
+  attr_accessible :avatar
+  has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>", :tiny => "36x36" }, :default_url => "/assets/user_blue.png" # "/images/:style/missing_user.png"
 
   validate :must_have_valid_access_level
   

@@ -65,6 +65,7 @@ Contact::Application.routes.draw do
   resources :terms, :only => [:index]
   resources :site_profiles
   resources :users
+  resources :accounts
 
   get     '/jobs(.:format)',     :controller => :jobs,   :action => :index
   post    '/jobs(.:format)',     :controller => :jobs,   :action => :create
@@ -90,13 +91,11 @@ Contact::Application.routes.draw do
   get     '/downloads/:business_id', :controller => :downloads,       :action => :download
   get     '/emails/check/:site',     :controller => :emails,          :action => :check
 
-  get     '/contact-us', :controller => :pages, :action => :contact_us
 
   get     '/categories(.:format)', :controller => :categories, :action => :index
   get     '/categories/:id(.:format)', :controller => :categories, :action => :show
   post    '/categories(.:format)', :controller => :categories, :action => :create
 
-  get     '/pages/make_redirect', :controller => :pages, :action => :make_redirect
 
   post    '/scanner/start', :controller => :scan, :action => :start
   get     '/scanner/check(.:format)', :controller => :scan, :action => :check
@@ -114,11 +113,15 @@ Contact::Application.routes.draw do
   put     '/images/set_logo/:id(.:format)', :action=>"set_logo", :controller=>"images"
   get     '/images/get_logo/:business_id(.:format)', :action=>"get_logo", :controller=>"images"
 
-  get     '/resellers', :controller => :pages, :action => :resellers
-  get     '/try_again_later', :controller => :pages, :action => :try_again_later
+  get     '/pages/make_redirect', :controller => :pages, :action => :make_redirect
 
-  get     '/congratulations', :controller => :pages, :action => :congratulations
   get     '/begin-sync', :controller => :pages, :action => :begin_sync, :as=>'begin_sync'
+  get     '/contact-us', :controller => :pages, :action => :contact_us
+  get     '/congratulations', :controller => :pages, :action => :congratulations
+  get     '/dashboard', :controller => :pages, :action => :dashboard
+  get     '/resellers', :controller => :pages, :action => :resellers
+  get     '/support', :controller => :pages, :action => :support
+  get     '/try_again_later', :controller => :pages, :action => :try_again_later
 
   get     '/leads', :controller => :leads, :action => :show
   post    '/leads', :controller => :leads, :action => :create

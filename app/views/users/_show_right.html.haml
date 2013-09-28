@@ -32,17 +32,17 @@
   .profile-info-row 
     .profile-info-name Location Name
     .profile-info-value
-      %span.editable.editable-click= @business.name
+      %span.editable.editable-click name 
   .profile-info-row 
     .profile-info-name Location 
     .profile-info-value 
       %i.icon-map-marker.light-orange.bigger-110
-      %span.editable= @business.address
-      %span.editable= "#{@business.city}, #{@business.state} #{@business.zip}"
+      %span.editable address
+      %span.editable city state and zip
   .profile-info-row 
     .profile-info-name Phone
     .profile-info-value
-      %span.editable= @business.local_phone
+      %span.editable Phone
   .profile-info-row 
     .profile-info-name Email
     .profile-info-value 
@@ -50,7 +50,7 @@
   .profile-info-row 
     .profile-info-name URL
     .profile-info-value 
-      %span.editable= @business.company_website
+      %span.editable website
   .profile-info-row 
     .profile-info-name Store Manager
     .profile-info-value 

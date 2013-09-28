@@ -1,5 +1,17 @@
-class AccountsController < ApplicationController
-	skip_before_filter :verify_authenticity_token
+class AccountsController < InheritedResources::Base
+  defaults :resource_class => ClientData, :collection_name => 'accounts', :instance_name => 'account'
+
+  load_and_authorize_resource 
+  skip_before_filter :verify_authenticity_token
+
+  respond_to :html #,:xml, :json
+  actions :all
+
+  # def index 
+  #   @q = ClientData.search(params[:q])
+  #   @users = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10)
+  # end   
+
 	def create
 		business = Business.find( params[:business_id] )
 		if current_user.nil? or business.user_id != current_user.id

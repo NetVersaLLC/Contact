@@ -1,7 +1,7 @@
 .sidebar#sidebar
   %ul.nav.nav-list
     %li 
-      %a{ href: '#'}
+      %a{ href: "/dashboard"}
         %i.icon-dashboard
         %span.menu-text Dashboard 
     %li 
@@ -12,8 +12,8 @@
       = link_to users_url do
         %i.icon-desktop
         %span.menu-text Users 
-    %li 
-      %a{ href: '#'}
+    %li
+      = link_to accounts_url do  
         %i.icon-list 
         %span.menu-text Accounts
     %li.closed 
@@ -30,7 +30,7 @@
             %i.icon-double-angle-right
             Invoice 
     %li 
-      %a{ href: '#'}
+      %a{ href: '/support'}
         %i.icon-list-alt
         %span.menu-text Support
     %li

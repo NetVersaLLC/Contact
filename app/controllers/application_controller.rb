@@ -29,13 +29,13 @@ class ApplicationController < ActionController::Base
     redirect_to new_user_session_url, :alert => exception.message
   end
 
-  def after_sign_in_path_for resource
-    if resource.admin? || resource.reseller?
-      admin_root_url
-    else
-      root_url
-    end
-  end
+  # def after_sign_in_path_for resource
+  #   if resource.admin? || resource.reseller?
+  #     admin_root_url
+  #   else
+  #     root_url
+  #   end
+  # end
 
   # def current_ability
   #   @current_ability ||= Ability.new(current_admin_user)

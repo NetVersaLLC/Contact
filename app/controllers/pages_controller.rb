@@ -3,6 +3,10 @@ class PagesController < ApplicationController
 
   def contact_us
   end
+  def support
+  end
+  def dashboard
+  end
 
   def make_redirect
     current_label

@@ -1,9 +1,10 @@
-class UsersController < ApplicationController 
+class UsersController < InheritedResources::Base
   load_and_authorize_resource 
+  respond_to :html #,:xml, :json
+  actions :all
 
-  protected 
-  	def collection 
-  		@users ||= end_of_association_chain.accessible_by(current_ability)
-  	end
-
+  def index 
+    @q = User.search(params[:q])
+    @users = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10)
+  end   
 end 

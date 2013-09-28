@@ -1,12 +1,24 @@
-.page-header
-  %h1 Users
 .row
   .col-xs-12 
     - if @users.blank? 
       .alert.alert-block.alert-success
         No users were found. 
     - else 
-      .table-responsive
+      .widget-box 
+        .widget-header 
+          %h4 Search 
+        .widget-body
+          .widget-main
+            =search_form_for @q, class:"form-inline" do |f|
+              .input-group
+                =f.text_field :email_cont,  placeholder: "Email"
+                =f.text_field :first_name_start,  placeholder: "First Name"
+                =f.text_field :last_name_start,   placeholder: "Last Name"
+                %span.input-group-btn
+                  %button.btn.btn-purple.btn-sm
+                    Search
+                    %i.icon-search.icon-on-right.bigger-110
+      .dataTables_wrapper
         %table.table.table-striped.table-bordered.table-hover
           %thead
             %tr
@@ -34,4 +46,12 @@
                       %i.icon-edit
                     = link_to user, method: :delete, class: 'btn btn-xs btn-danger', confirm: 'Are you sure?', title: 'Delete user' do 
                       %i.icon-trash
-    %button.btn.btn-primary Add User
+        .row 
+          .col-md-6
+            .dataTables_info
+              = page_entries_info @businesses
+          .col-md-6
+            .dataTables_paginate.paging_bootstrap
+              = will_paginate @businesses, previous_label: "<", next_label: ">", inner_window: 1, outer_window: 1
+
+    =link_to "Add User", new_user_path, class: "btn btn-primary"

@@ -1,7 +1,8 @@
 class Google < ClientData
   attr_accessible       :email,:cookies
   virtual_attr_accessor :password, :secret_answer
-  belongs_to            :google_category
+
+  belongs_to            :google_category, foreign_key: "category_id"
 
   def self.make_password
     SecureRandom.urlsafe_base64(rand()*6 + 8)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130926190156) do
+ActiveRecord::Schema.define(:version => 20130928170310) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -417,6 +417,30 @@ ActiveRecord::Schema.define(:version => 20130926190156) do
   end
 
   add_index "citysearches", ["business_id"], :name => "index_citysearches_on_business_id"
+
+  create_table "client_data", :force => true do |t|
+    t.string   "email"
+    t.string   "username"
+    t.text     "secrets"
+    t.string   "status"
+    t.datetime "force_update"
+    t.boolean  "do_not_sync",         :default => false
+    t.string   "secret_answer"
+    t.string   "local_url"
+    t.string   "listings_url"
+    t.string   "listing_url"
+    t.string   "facebook_signin"
+    t.string   "foursquare_page"
+    t.string   "places_url"
+    t.string   "youtube_channel"
+    t.text     "cookies"
+    t.string   "type"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.integer  "profile_category_id"
+    t.integer  "category_id"
+    t.integer  "business_id"
+  end
 
   create_table "codes", :force => true do |t|
     t.string   "code"
@@ -2034,15 +2058,19 @@ ActiveRecord::Schema.define(:version => 20130926190156) do
     t.integer  "label_id"
     t.boolean  "callcenter"
     t.string   "referrer_code"
-    t.string   "contact_gender"
-    t.string   "contact_prefix"
-    t.string   "contact_first_name"
-    t.string   "contact_middle_name"
-    t.string   "contact_last_name"
-    t.date     "contact_date_of_birth"
+    t.string   "gender"
+    t.string   "prefix"
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.date     "date_of_birth"
     t.string   "mobile_phone"
     t.boolean  "mobile_appears",         :default => false
     t.string   "username"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

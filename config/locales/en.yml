@@ -45,6 +45,11 @@ en:
         category3:            "Category 3"
         category4:            "Category 4"
         category5:            "Category 5"
+      user:    
+        first_name:           "First Name" 
+        middle_name:          "Middle Name" 
+        last_name:            "Last Name" 
+        date_of_birth:        "Date of Birth"
     hints: 
       business: 
         alternate_phone:     "Format: 555-555-1212" 
