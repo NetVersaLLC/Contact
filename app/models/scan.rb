@@ -7,9 +7,9 @@ class Scan < ActiveRecord::Base
   TASK_STATUS_FAILED = 3
 
   def self.create_for_site(report_id, site)
-    report = Report.find(self.id)
+    report = Report.find(report_id)
     location = Location.where(:zip => report.zip).first
-    super.create do |s|
+    self.create do |s|
       s.report_id      = report_id
       s.site           = site
       s.business       = report.business,

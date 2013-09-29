@@ -44,3 +44,13 @@ RSpec.configure do |config|
   #end
 
 end
+
+def create_site_profiles
+  FactoryGirl.create(:site_profile, :site => "Foursquare")
+  FactoryGirl.create(:site_profile, :site => "Facebook")
+  FactoryGirl.create(:site_profile, :site => "Google")
+  FactoryGirl.create(:site_profile, :site => "Yelp")
+  FactoryGirl.create(:site_profile, :site => "Yahoo")
+  FactoryGirl.create(:site_profile, :site => "Bing")
+  FactoryGirl.create(:site_profile, :site => "Bing")
+end

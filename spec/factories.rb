@@ -37,7 +37,7 @@ FactoryGirl.define do
     domain "www.example.com" 
     logo_file_name "nothing" 
     credits 10
-  end 
+  end
 
   factory :user do 
     email "user@contact.dev"
@@ -97,5 +97,13 @@ FactoryGirl.define do
     status        'started'
 
     label
+  end
+
+  factory :site_profile do
+    owner 'Private'
+    founded { SecureRandom.random_number(2013) }
+    alexa_us_traffic_rank { SecureRandom.random_number(100) }
+    page_rank { SecureRandom.random_number(10) }
+    enabled_for_scan '1'
   end
 end

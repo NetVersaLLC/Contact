@@ -10,9 +10,10 @@ class Report < ActiveRecord::Base
     self.status = 'started'
     self.save!
 
-    uri = URI('http://reports.savilo.com/TownCenter/leads.php')
-    Net::HTTP.delay.post_form(uri, {:phone => self.phone, :zip => self.zip, :business_name => self.business,
-                                    :email => self.email, :referrer_code => self.referrer_code})
+    # fixme: instantiate object for delayed job
+    #uri = URI('http://reports.savilo.com/TownCenter/leads.php')
+    #Net::HTTP.delay.post_form(uri, {:phone => self.phone, :zip => self.zip, :business_name => self.business,
+    #                                :email => self.email, :referrer_code => self.referrer_code})
 
     Delayed::Worker.logger.info "Starting performance: #{Time.now.iso8601}"
 
@@ -28,7 +29,7 @@ class Report < ActiveRecord::Base
   end
 
   def self.generate(business, zip, phone, package_id, ident, label, email, referral)
-    report = super.create do |r|
+    report = self.create do |r|
       r.business      = business
       r.zip           = zip
       r.phone         = phone
