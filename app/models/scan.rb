@@ -27,7 +27,7 @@ class Scan < ActiveRecord::Base
 
   def format_data_for_scan_server
     {
-      :payload_data => self.attributes.slice(:business, :phone, :zip, :latitude, :longitude,
+      :scan => self.attributes.slice(:business, :phone, :zip, :latitude, :longitude,
                                               :state, :state_short, :city, :county, :country).to_json,
       :site => site
     }

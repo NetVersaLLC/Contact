@@ -120,6 +120,8 @@ Contact::Application.routes.draw do
   get     '/leads', :controller => :leads, :action => :show
   post    '/leads', :controller => :leads, :action => :create
 
+  post    '/scanapi/:action', :controller => :scan_api
+
   match "/watch" => DelayedJobWeb, :anchor => false
 
   root :to => redirect("/pages/make_redirect")
