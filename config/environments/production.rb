@@ -34,8 +34,12 @@ Contact::Application.configure do
   config.log_level = :warn  # important to maintain PCI compliance
 
   # used to authenticate scan server callbacks
+  config.scan_server_uri = 'scan.netversa.com'
+  config.scan_server_api_username = 'api'
+  config.scan_server_api_token = '892457gh9q87fah98ef7hq987harhq9w87eh8'
+
+  # used to authenticate scan server callbacks
   config.scan_api_token = '892457gh9q87fah98ef7hq987harhq9w87eh8'
-  config.scan_server = 'scan.netversa.com'
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]

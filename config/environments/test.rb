@@ -36,6 +36,10 @@ Contact::Application.configure do
   config.active_support.deprecation = :stderr
 
   # used to authenticate scan server callbacks
+  config.scan_server_uri = 'http://localhost:4567/'
+  config.scan_server_api_username = 'api'
+  config.scan_server_api_token = '892457gh9q87fah98ef7hq987harhq9w87eh8'
+
+  # used to authenticate scan server callbacks
   config.scan_api_token = '892457gh9q87fah98ef7hq987harhq9w87eh8'
-  config.scan_server = 'http://localhost:4567/'
 end

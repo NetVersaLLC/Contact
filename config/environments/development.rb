@@ -42,7 +42,7 @@ Contact::Application.configure do
 
   # credentials to access scan server
   # username and token are used for digest auth
-  config.scan_server = 'http://localhost:4567/'
+  config.scan_server_uri = 'http://localhost:4567/'
   config.scan_server_api_username = 'api'
   config.scan_server_api_token = '13fc9e78f643ab9a2e11a4521479fdfe'
 

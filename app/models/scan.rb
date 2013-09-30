@@ -12,22 +12,23 @@ class Scan < ActiveRecord::Base
     self.create do |s|
       s.report_id      = report_id
       s.site           = site
-      s.business       = report.business,
-      s.phone          = report.phone,
-      s.zip            = report.zip,
-      s.latitude       = location.latitude,
-      s.longitude      = location.longitude,
-      s.state          = Carmen::state_name(location.state),
-      s.state_short    = location.state,
-      s.city           = location.city,
-      s.county         = location.county,
+      s.task_status    = Scan::TASK_STATUS_WAITING
+      s.business       = report.business
+      s.phone          = report.phone
+      s.zip            = report.zip
+      s.latitude       = location.latitude
+      s.longitude      = location.longitude
+      s.state          = Carmen::state_name(location.state)
+      s.state_short    = location.state
+      s.city           = location.city
+      s.county         = location.county
       s.country        = location.country
     end
   end
 
   def format_data_for_scan_server
     {
-      :scan => self.attributes.slice(:business, :phone, :zip, :latitude, :longitude,
+      :scan => @attributes.symbolize_keys.slice(:id, :business, :phone, :zip, :latitude, :longitude,
                                               :state, :state_short, :city, :county, :country).to_json,
       :site => site
     }
@@ -62,11 +63,11 @@ class Scan < ActiveRecord::Base
 
   def site_name
     Business.citation_list.each do |row|
-      if row[0] == self.site
+      if row[0] == site
         return row[3]
       end
     end
-    self.site
+    site
   end
 end
 

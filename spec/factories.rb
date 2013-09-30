@@ -48,11 +48,11 @@ FactoryGirl.define do
   end 
 
   factory :location do 
-    zip 92626
+    zip '92614'
     city 'Costa Mesa' 
     state 'CA'
-    latitude 33.680139
-    longitude -117.908452
+    latitude '33.680139'
+    longitude '-117.908452'
   end 
 
   factory :package do 
@@ -83,7 +83,16 @@ FactoryGirl.define do
   end
 
   factory :scan do
-    city 'Noname City'
+    city      'Noname City'
+    site      'Foursquare'
+    latitude  '41.650967'
+    longitude '-83.536485'
+    state     'Ohio'
+    state_short 'OH'
+    county    'Lucas'
+    country   'US'
+    task_status '0'
+
   end
 
   factory :report do

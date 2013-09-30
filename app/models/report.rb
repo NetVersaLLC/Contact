@@ -1,11 +1,11 @@
 class Report < ActiveRecord::Base
-  attr_accessible :business, :business_id, :completed_at, :name, :phone, :site, :started_at, :zip,  :label_id
+  attr_accessible :business, :business_id, :completed_at, :name, :phone, :site, :started_at, :zip, :label_id
   has_many :scans
   belongs_to :label
 
   def create_scan_tasks
     if self.status == 'started'
-      return
+      raise 'Report generation already started'
     end
     self.status = 'started'
     self.save!

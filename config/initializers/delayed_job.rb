@@ -7,5 +7,5 @@ Delayed::Worker.default_priority = 5
 Delayed::Worker.read_ahead = 5
 Delayed::Worker.default_queue_name = 'scans'
 # will execute all jobs realtime when set to true
-Delayed::Worker.delay_jobs = false
+Delayed::Worker.delay_jobs = true
 
