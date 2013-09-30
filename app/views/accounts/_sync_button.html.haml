@@ -1,0 +1,22 @@
+.btn-group
+  - if account.do_not_sync
+    %button.btn.btn-danger Disabled
+    %button.btn.btn-danger.dropdown-toggle(data-toggle="dropdown")
+      %span.icon-caret-down.icon-only
+    %ul.dropdown-menu.dropdown-danger
+      %li
+        %a{href: "#"} Enable Sync
+      %li.divider 
+      %li
+        %a{href:"#"} Show Sync History
+  -else 
+    %button.btn.btn-success Enabled
+    %button.btn.btn-success.dropdown-toggle(data-toggle="dropdown")
+      %span.icon-caret-down.icon-only
+    %ul.dropdown-menu.dropdown-success
+      %li
+        %a{href: "#"} Disable Sync
+      %li.divider 
+      %li
+        %a{href:"#"} Show Sync History
+

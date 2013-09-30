@@ -1,0 +1,24 @@
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th.center
+      %th Listing Domain
+      %th Sync Enabled
+      %th.hidden-480
+        %i.icon-time
+        Last Update  
+      %th.hidden-480 Include in Broadcaset
+      %th.hidden-480 Status
+      %th Modify
+  %tbody
+    - @accounts.each do |account|
+      %tr
+        %td
+        %td= account.class.name
+        %td= render partial: "sync_button", locals: { :account => account }
+        %td
+        %td
+        %td
+        %td
+          = link_to edit_account_path(account) do 
+            %i.icon-edit.green

@@ -20,23 +20,5 @@
                       Search
                       %i.icon-search.icon-on-right.bigger-110
       .dataTables_wrapper
-        %table.table.table-striped.table-bordered.table-hover
-          %thead
-            %tr
-              %th.center
-              %th Email 
-              %th Full Name 
-              %th.hidden-480 Role 
-              %th.hidden-480 Phone Number
-              %th.hidden-480 Status 
-              %th
-          %tbody
-            - @accounts.each do |account|
-              %tr
-                %td
-                %td= account.class.name
-                %td
-                %td
-                %td
-                %td
-                %td
+        =render 'index_table'
+        =render 'will_paginate'
