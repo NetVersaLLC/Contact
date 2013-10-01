@@ -28,7 +28,7 @@
       %ul.ace-thumbnails
         -@business.images.each do |image| 
           %li
-            %a.cboxElement{ data: { rel: 'colorbox'}, href: image.url}
+            %a.cboxElement{ data: { rel: 'colorbox'}, href: image.url }
               %img{ src: "#{image.url}", alt: "150x150"}
               .text
                 .inner Sample Caption on hover 

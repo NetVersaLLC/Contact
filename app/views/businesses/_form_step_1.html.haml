@@ -3,7 +3,7 @@
     .col-xs-3
       .form-group
         =f.label :business_name
-        =f.text_field :business_name, class: "form-control", maxlength: '50', placeholder: I18n.t('helpers.placeholders.business.business_name'), :data => { content: I18n.t('popovers.business.business_name.content'), 'original-title' => I18n.t('popovers.business.business_name.title'), toggle: 'popover'  }
+        =f.text_field :business_name, class: "form-control", maxlength: '50', placeholder: I18n.t('helpers.placeholders.business.business_name'), :data => { content: I18n.t('popovers.business.business_name.content'), 'title' => I18n.t('popovers.business.business_name.title'), toggle: 'popover'  }
       .form-group
         =f.label :corporate_name
         =f.text_field :corporate_name, class: "form-control", maxlength: '50',placeholder: I18n.t('helpers.placeholders.business.corporate_name'), :data => { content: I18n.t('popovers.business.dba_name.content'), 'original-title' => I18n.t('popovers.business.dba_name.title'), toggle: 'popover'  }

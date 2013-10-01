@@ -8,7 +8,7 @@ class AccountsController < InheritedResources::Base
   actions :all
 
   def index 
-     @q = ClientData.search(params[:q])
+     @q = ClientData.includes(:business).search(params[:q])
      @accounts = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10)
   end   
 

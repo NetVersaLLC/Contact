@@ -39,7 +39,7 @@
 
   window.business_id = '#{@business.id}';
   jQuery(function($) { 
-    $('#location-wizard').ace_wizard(); 
+    $('#location-wizard').ace_wizard().on('finished', function(e){ $(".edit_business, .new_business").submit();});
 
     var colorbox_params = {
       reposition:true,

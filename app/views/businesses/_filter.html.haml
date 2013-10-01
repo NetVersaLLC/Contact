@@ -15,16 +15,21 @@
       .widget-body
         .widget-main
           =search_form_for @q do |f|
-            .form-group
-              =f.text_field :address_cont, placeholder: 'Address, phone, etc...'
-            .form-group 
-              =f.text_field :tags_cont, placeholder: "Tags"
-            .form-group
-              =f.text_field :city_start, placeholder: "City"
-            .form-group
-              =f.text_field :state_eq, placeholder: "State"
-            .form-group
-              =f.text_field :zip_eq, placeholder: "Zip"
+            .row
+              .col-md-12
+                =f.text_field :tags_cont, placeholder: "Tags", class: "form-control"
+            %br
+            .row
+              .col-md-12
+                =f.text_field :address_cont, placeholder: 'Address, phone, etc...', class: "form-control"
+            %br
+            .row
+              .col-md-5
+                =f.text_field :city_start, placeholder: "City", class: "form-control"
+              .col-md-4
+                =f.select :state_eq, Carmen::states('US'), {}, {class: "form-control"}
+              .col-md-3
+                =f.text_field :zip_eq, placeholder: "Zip", class: "form-control"
             .form-actions 
               %button.btn.btn-primary Filter 
               %button.btn.btn-warning{type: "reset"} Clear 

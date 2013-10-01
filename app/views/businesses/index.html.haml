@@ -28,7 +28,13 @@
             %td= business.name
             %td= business.toll_free_phone.present? ? business.toll_free_phone : business.local_phone
             %td= business.tags 
-            %td Actions 
+            %td
+              = link_to business, class: "btn btn-xs btn-success" do 
+                %i.icon-ok.bigger-120
+              = link_to edit_business_path(business), class: "btn btn-xs btn-info" do 
+                %i.icon-edit.bigger-120
+              = link_to business, method: :delete, confirm: "Are you sure?", class: "btn btn-xs btn-danger" do 
+                %i.icon-trash.bigger-120
     .row 
       .col-md-6
         .dataTables_info
