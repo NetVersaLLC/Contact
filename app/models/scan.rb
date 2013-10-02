@@ -29,7 +29,7 @@ class Scan < ActiveRecord::Base
   def format_data_for_scan_server
     {
       :scan => @attributes.symbolize_keys.slice(:id, :business, :phone, :zip, :latitude, :longitude,
-                                              :state, :state_short, :city, :county, :country).to_json,
+                                              :state, :state_short, :city, :county, :country),
       :site => site
     }
   end
@@ -41,15 +41,17 @@ class Scan < ActiveRecord::Base
     begin
       response = HTTParty.post("/scan.json", {
           :query   => format_data_for_scan_server,
-          :headers => { 'content-length' => '0' },
+          :headers => { 'Content-Length' => '0' },
           :timeout => 5,
           :base_uri => ENV['SCAN_SERVER'] || Contact::Application.config.scan_server_uri,
           :digest_auth => {
               :username => Contact::Application.config.scan_server_api_username,
               :password => Contact::Application.config.scan_server_api_token,
           },
-          :debug_output => $stderr
+          #:debug_output => $stderr
       })
+      write_attribute(:task_status, TASK_STATUS_TAKEN)
+      save!
       Delayed::Worker.logger.info "#{site}: Response: #{response.inspect}"
     rescue => e
       error_message = "#{site}: #{e.message}: #{e.backtrace.join("\n")}"

@@ -23,6 +23,8 @@ describe Scan do
       scan = FactoryGirl.create(:scan)
       response, status, error_message = scan.send_to_scan_server!
       error_message.should eq nil
+      scan.reload
+      scan.task_status.should eq Scan::TASK_STATUS_TAKEN
     end
   end
 
@@ -30,8 +32,7 @@ describe Scan do
     it 'should include id' do
       scan = FactoryGirl.create(:scan)
       data = scan.format_data_for_scan_server
-      parsed = JSON.parse(data[:scan])
-      JSON.parse(data[:scan]).has_key?('id').should == true
+      data[:scan].has_key?(:id).should == true
     end
   end
 end

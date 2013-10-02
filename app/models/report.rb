@@ -48,6 +48,7 @@ class Report < ActiveRecord::Base
     Report.where(:status => 'started').each do |report|
       unfinished_tasks_count = Scan.where(:report_id => report.id,
                                           :task_status => [Scan::TASK_STATUS_TAKEN, Scan::TASK_STATUS_WAITING]).count
+      puts "report id: " + report.id.to_s  + " unfinished tasks count: " + unfinished_tasks_count.to_s
       next unless unfinished_tasks_count == 0
 
       report.status = 'completed'
