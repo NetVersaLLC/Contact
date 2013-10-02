@@ -8,6 +8,13 @@ module Business::Validations
       /^\d{3,12}$/
     end
 
+    validates :business_name,
+      :presence => true
+    validates :corporate_name, :length => { :maximum => 50 },
+      :presence => true
+    validates :zip,
+      :presence => true,
+      :format => { :with => zip_regex, :message => 'Invalid format'}
     
     validates :keywords,
       :presence => true
@@ -24,13 +31,6 @@ module Business::Validations
 
     validates :category1,
       :presence => true
-    validates :business_name,
-      :presence => true
-    validates :corporate_name, :length => { :maximum => 50 },
-      :presence => true
-    validates :zip,
-      :presence => true,
-      :format => { :with => zip_regex, :message => 'Invalid format'}
     validates :contact_gender,
       :presence => true
     validates :contact_first_name,

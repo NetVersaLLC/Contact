@@ -1,53 +1,31 @@
 #step3.step-pane
   .row
-    .col-xs-6
-      %p Your customers will likely have their first experience with your business. Your business description should be between 50 and 200 characters.
-      .form-group
-        =f.label :business_description
-        =f.text_area :business_description, class: "form-control", :maxlength => 200, rows: 3,
-        data: { content: I18n.t('popovers.business.business_description.content'), title: I18n.t('popovers.business.business_description.title'), :toggle => 'popover'}
-      .form-group
-        = form_group( f, :keywords)
-      .form-group 
-        = form_group( f, :status_message)
-      .form-group 
-        = form_group( f, :services_offered) 
-      .form-group 
-        = form_group( f, :trade_license)
-      .form-group 
-        = form_group( f, :trade_license_number)
-      .form-group 
-        = form_group( f, :trade_license_locale)
-      .form-group 
-        = form_group( f, :trade_license_authority)
-      .form-group 
-        = form_group( f, :trade_license_expiration)
-      .form-group 
-        = form_group( f, :trade_license_description)
-      .form-group 
-        = form_group( f, :brands) 
-      .form-group 
-        = form_group( f, :tag_line)
-      .form-group 
-        = form_group( f, :job_titles) 
-      .form-group 
-        = form_group( f, :professional_associations)
-      .form-group 
-        = form_group_select( f, :geographic_areas, Business.geographic_areas_list)
-      .form-group 
-        = form_group( f, :company_website)
+    .col-xs-12
+      %fieldset
+        %legend Company Description
+        %p.lead Your customers will likely have their first experience with your business. Your business description should be between 50 and 200 characters.
+        = render partial: "form_group", locals: {f: f, field: :business_description,  args: {:maxlength => 200, rows: 3}}
+        = render partial: "form_group", locals: {f: f, field: :keywords} 
+        = render partial: "form_group", locals: {f: f, field: :status_message}
+        = render partial: "form_group", locals: {f: f, field: :services_offered} 
+        = render partial: "form_group", locals: {f: f, field: :trade_license} 
+        = render partial: "form_group", locals: {f: f, field: :trade_license_number} 
+        = render partial: "form_group", locals: {f: f, field: :trade_license_locale} 
+        = render partial: "form_group", locals: {f: f, field: :trade_license_authority} 
+        = render partial: "form_group", locals: {f: f, field: :trade_license_expiration} 
+        = render partial: "form_group", locals: {f: f, field: :brands} 
+        = render partial: "form_group", locals: {f: f, field: :tag_line} 
+        = render partial: "form_group", locals: {f: f, field: :job_titles} 
+        = render partial: "form_group", locals: {f: f, field: :professional_associations} 
+        = render partial: "form_group_select", locals: {f: f, field: :geographic_areas, items: Business.geographic_areas_list}
+      = render partial: "form_group", locals: {f: f, field: :company_website}
   .row
-    .col-xs-6
+    .col-xs-12
       %fieldset 
         %legend Categories 
-        %p The next most important aspect of your business profile is the following categories. Select 3 categories, the first one is the primary category and is the most important. The next two are used on many sites but only as secondary or tertiary categories.
-        .form-group
-          = form_group( f, :category1, 'business-category')
-        .form-group
-          = form_group( f, :category2, 'business-category')
-        .form-group
-          = form_group( f, :category3, 'business-category')
-        .form-group
-          = form_group( f, :category4, 'business-category')
-        .form-group
-          = form_group( f, :category5, 'business-category')
+        %p.lead The next most important aspect of your business profile is the following categories. Select 3 categories, the first one is the primary category and is the most important. The next two are used on many sites but only as secondary or tertiary categories.
+        = render partial: "form_group", locals: {f: f, field: :category1, args: { class: 'form-control business-category'}}
+        = render partial: "form_group", locals: {f: f, field: :category2, args: { class: 'form-control business-category'}}
+        = render partial: "form_group", locals: {f: f, field: :category3, args: { class: 'form-control business-category'}}
+        = render partial: "form_group", locals: {f: f, field: :category4, args: { class: 'form-control business-category'}}
+        = render partial: "form_group", locals: {f: f, field: :category5, args: { class: 'form-control business-category'}}

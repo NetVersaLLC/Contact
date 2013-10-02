@@ -1,13 +1,14 @@
 # Business form
 
 #= require jquery.optionTree
-#= require form/listing_finder
+#= require form/validations
+# = require form/listing_finder
 #= require form/business_details
 #= require form/payment_methods
 #= require form/business_hours
 #= require form/categories
 #= require form/uploader
-#= require form/company_description
+# = require form/company_description
 
 save_edits = () ->
   action = $('form.business').attr('action') + '.json'

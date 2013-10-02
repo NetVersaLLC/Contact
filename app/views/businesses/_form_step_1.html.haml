@@ -1,42 +1,28 @@
 #step1.step-pane.active
   .row
-    .col-xs-3
+    .col-xs-12
+      =render partial: "form_group", locals: { f: f, field: :business_name}
+      =render partial: "form_group", locals: { f: f, field: :corporate_name, args: {maxlength: '50'}}
+      =render partial: "form_group", locals: { f: f, field: :local_phone}
+      =render partial: "form_group", locals: { f: f, field: :alternate_phone}
+      =render partial: "form_group", locals: { f: f, field: :toll_free_phone}
+      =render partial: "form_group", locals: { f: f, field: :fax_number}
+
       .form-group
-        =f.label :business_name
-        =f.text_field :business_name, class: "form-control", maxlength: '50', placeholder: I18n.t('helpers.placeholders.business.business_name'), :data => { content: I18n.t('popovers.business.business_name.content'), 'title' => I18n.t('popovers.business.business_name.title'), toggle: 'popover'  }
-      .form-group
-        =f.label :corporate_name
-        =f.text_field :corporate_name, class: "form-control", maxlength: '50',placeholder: I18n.t('helpers.placeholders.business.corporate_name'), :data => { content: I18n.t('popovers.business.dba_name.content'), 'original-title' => I18n.t('popovers.business.dba_name.title'), toggle: 'popover'  }
-      .form-group
-        =f.label :local_phone
-        =f.telephone_field :local_phone, class: "form-control", placeholder: I18n.t('helpers.placeholders.business.local_phone'), :data => { content: I18n.t('popovers.business.local_phone.content'), 'original-title' => I18n.t('popovers.business.local_phone.title'), toggle: 'popover'  }
-      .form-group
-        =f.label :alternate_phone
-        =f.telephone_field :alternate_phone, class: "form-control", placeholder: I18n.t('helpers.placeholders.business.alternate_phone'),:data => { content: I18n.t('popovers.business.alternate_phone.content'), 'original-title' => I18n.t('popovers.business.alternate_phone.title'), toggle: 'popover'  }
-      .form-group
-        =f.label :toll_free_phone
-        =f.telephone_field :toll_free_phone, class: "form-control",placeholder: I18n.t('helpers.placeholders.business.toll_free_phone'), :data => { content: I18n.t('popovers.business.toll_free_phone.content'), 'original-title' => I18n.t('popovers.business.toll_free_phone.title'), toggle: 'popover'  }
-      .form-group
-        =f.label :fax_number
-        =f.telephone_field :fax_number, class: "form-control", placeholder: I18n.t('helpers.placeholders.business.fax_number'), :data => { content: I18n.t('popovers.business.fax_number.content'), 'original-title' => I18n.t('popovers.business.fax_number.title'), toggle: 'popover'  }
-      .form-group
-        =f.label :address
-        .input-group
-          =f.text_field :address, class: "form-control", maxlength: '100',placeholder: I18n.t('helpers.placeholders.business.address')
-          %span.input-group-btn
-            %button.btn.btn-sm.btn-info Map
-      .form-group
-        =f.label :address2
-        =f.text_field :address2, class: "form-control", maxlength: '100',placeholder: I18n.t('helpers.placeholders.business.address2')
-      .form-group
-        =f.label :city
-        =f.text_field :city, class: "form-control", maxlength: '100',placeholder: I18n.t('helpers.placeholders.business.city')
-      .form-group
-        =f.label :state
-        =f.select :state, Carmen::states('US'), {}, {class: "form-control"}
-      .form-group
-        =f.label :zip
-        =f.number_field :zip, class: "form-control", 
-          :data => { content: I18n.t('popovers.business.zip.content'), 'original-title' => I18n.t('popovers.business.zip.title'), toggle: 'popover'  },placeholder: I18n.t('helpers.placeholders.business.zip')
+        .row
+          .col-sm-5
+            =f.label :address
+        .row
+          .col-xs-12.col-sm-5
+            .input-group
+              =f.text_field :address, class: "form-control", placeholder: I18n.t("helpers.placeholders.business.address")
+              %span.input-group-btn
+                %button.btn.btn-sm.btn-info Map
+
+      =render partial: "form_group", locals: { f: f, field: :address2, args: {maxlength: '100', data: {:toggle => ''}}}
+      =render partial: "form_group", locals: { f: f, field: :city}
+      =render partial: "form_group_select", locals: { f: f, items: Carmen::states('US'),  field: :state }
+      =render partial: "form_group", locals: { f: f, field: :zip}
+
       %h3 Whos the boss 
       %p select a manager for this location

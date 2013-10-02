@@ -77,6 +77,8 @@ en:
         toll_free_phone:     "Toll-Free Phone" 
         year_founded:        "Year Founded" 
         zip:                 "Business Zip"
+        keywords:            "Search Engine Keywords"
+        status_message:      ""
 
   popovers: 
     business: 

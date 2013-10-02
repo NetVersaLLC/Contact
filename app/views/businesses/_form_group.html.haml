@@ -1,0 +1,12 @@
+.form-group
+  .row
+    .col-sm-5
+      =f.label field
+  .row
+    .col-xs-12.col-sm-5
+      - args ||= {}
+      - options = { class: "form-control", placeholder: I18n.t("helpers.placeholders.business.#{field}"), data: { content: I18n.t("popovers.business.#{field}.content"), 'original-title' => I18n.t("popovers.business.#{field}.title"), toggle: 'popover'  } }
+      - if args.has_key?(:rows)
+        =f.text_area field, options.merge(args)
+      -else 
+        =f.text_field field.to_sym, options.merge(args)
