@@ -37,6 +37,8 @@ Contact::Application.configure do
   config.scan_server_uri = 'scan.netversa.com'
   config.scan_server_api_username = 'api'
   config.scan_server_api_token = '892457gh9q87fah98ef7hq987harhq9w87eh8'
+  # period to wait before resending task that is waiting for result to scanserver again
+  config.scan_task_resend_interval = 10.seconds
 
   # used to authenticate scan server callbacks
   config.scan_api_token = '892457gh9q87fah98ef7hq987harhq9w87eh8'

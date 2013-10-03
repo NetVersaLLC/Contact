@@ -26,6 +26,15 @@ class Scan < ActiveRecord::Base
     end
   end
 
+  def self.resend_long_waiting_tasks!
+    self.where("task_status = :task_status AND updated_at < :updated_at", {
+        task_status: Scan::TASK_STATUS_TAKEN,
+        updated_at: Time.now - Contact::Application.config.scan_task_resend_interval
+    }).each do |s|
+      s.delay.send_to_scan_server!
+    end
+  end
+
   def format_data_for_scan_server
     {
       :scan => @attributes.symbolize_keys.slice(:id, :business, :phone, :zip, :latitude, :longitude,

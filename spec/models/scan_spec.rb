@@ -35,4 +35,15 @@ describe Scan do
       data[:scan].has_key?(:id).should == true
     end
   end
+
+  describe 'resend_long_waiting_tasks!' do
+    it 'should resend tasks that have been waiting for the response longer than X seconds' do
+      scan = FactoryGirl.create(:scan,
+        updated_at: DateTime.current - Contact::Application.config.scan_task_resend_interval - 1.minute,
+        task_status: Scan::TASK_STATUS_TAKEN)
+      delayed_jobs_before_operation = DelayedJob.all.size
+      Scan.resend_long_waiting_tasks!
+      DelayedJob.all.size.should > delayed_jobs_before_operation
+    end
+  end
 end
