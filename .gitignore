@@ -14,6 +14,7 @@ public/system/
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
+/log/*.pid
 /tmp
 *.swp
 .sass-cache
@@ -108,3 +109,4 @@ captchas/uploads
 
 # Ignore Splatr.exe
 /labels/Splatr/Setup.exe
+
