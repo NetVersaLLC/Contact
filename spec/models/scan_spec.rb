@@ -47,13 +47,14 @@ describe Scan do
     end
   end
 
-  describe 'delete_too_long_waiting_tasks!' do
-    it 'should resend tasks that have been waiting for the response longer than X seconds' do
+  describe 'fail_tasks_that_waiting_too_long!' do
+    it 'should mark as failed tasks that didnt get result in reasonable time' do
       scan = FactoryGirl.create(:scan,
-                                created_at: DateTime.current - Contact::Application.config.scan_task_delete_interval - 1.second,
+                                created_at: DateTime.current - Contact::Application.config.scan_task_fail_interval - 1.second,
                                 task_status: Scan::TASK_STATUS_TAKEN)
-      Scan.delete_too_long_waiting_tasks!
-      Scan.where(:id => scan.id).size.should == 0
+      Scan.fail_tasks_that_waiting_too_long!
+      scan.reload
+      scan.task_status.should == Scan::TASK_STATUS_FAILED
     end
   end
 end

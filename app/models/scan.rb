@@ -35,11 +35,11 @@ class Scan < ActiveRecord::Base
     end
   end
 
-  def self.delete_too_long_waiting_tasks!
+  def self.fail_tasks_that_waiting_too_long!
     self.where("task_status = :task_status AND created_at < :created_at", {
         task_status: Scan::TASK_STATUS_TAKEN,
-        created_at: DateTime.current - Contact::Application.config.scan_task_delete_interval
-    }).destroy_all
+        created_at: DateTime.current - Contact::Application.config.scan_task_fail_interval
+    }).update_all({task_status: Scan::TASK_STATUS_FAILED})
   end
 
   def format_data_for_scan_server

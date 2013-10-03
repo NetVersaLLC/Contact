@@ -16,6 +16,6 @@ end
 
 while($running) do
   Scan.resend_long_waiting_tasks!
-  Scan.delete_too_long_waiting_tasks!
+  Scan.fail_tasks_that_waiting_too_long!
   sleep 5
 end
