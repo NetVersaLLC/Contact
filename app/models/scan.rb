@@ -29,10 +29,17 @@ class Scan < ActiveRecord::Base
   def self.resend_long_waiting_tasks!
     self.where("task_status = :task_status AND updated_at < :updated_at", {
         task_status: Scan::TASK_STATUS_TAKEN,
-        updated_at: Time.now - Contact::Application.config.scan_task_resend_interval
+        updated_at: DateTime.current - Contact::Application.config.scan_task_resend_interval
     }).each do |s|
       s.delay.send_to_scan_server!
     end
+  end
+
+  def self.delete_too_long_waiting_tasks!
+    self.where("task_status = :task_status AND created_at < :created_at", {
+        task_status: Scan::TASK_STATUS_TAKEN,
+        created_at: DateTime.current - Contact::Application.config.scan_task_delete_interval
+    }).destroy_all
   end
 
   def format_data_for_scan_server
@@ -56,8 +63,7 @@ class Scan < ActiveRecord::Base
           :digest_auth => {
               :username => Contact::Application.config.scan_server_api_username,
               :password => Contact::Application.config.scan_server_api_token,
-          },
-          #:debug_output => $stderr
+          }
       })
       write_attribute(:task_status, TASK_STATUS_TAKEN)
       save!
