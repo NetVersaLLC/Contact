@@ -18,11 +18,10 @@
  *= require ace-rtl.min
  *= require ace-skins.min.css 
  *= require checkout
- *= require businesses
  *= require style
  *= require fineuploader-3.3.0
  *= require custom
  *= require codes
  *= require colorbox
-*/
+ *= require businesses*/
 

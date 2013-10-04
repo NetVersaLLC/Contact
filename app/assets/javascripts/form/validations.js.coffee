@@ -91,4 +91,6 @@ $ ->
       else error.insertAfter(element.parent())
 
     submitHandler:  (form) ->
+      console.log 'submit handler'
+      form.submit()
     invalidHandler: (form) ->

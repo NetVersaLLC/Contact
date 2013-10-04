@@ -12,26 +12,18 @@
             .inner A caption on Hover. 
   .row
     .col-xs-12
+      #uploader
+
+  .row
+    .col-xs-12
       %h3 Additional Images
       %p= I18n.t('popovers.business.logo.additional_logo_content')
-      .ace-file-input
-        %input(id="new_file" type="file")
-        %label.file-label(data-title="Choose")
-          %span.file-name(data-title="No File ...")
-            %i.icon-upload-alt
-        %a.remove(href="#")
-          %i.icon-remove
-      .ace-file-input.ace-file-multiple
-        %input#input-file-3(type="file" multiple="")
         
-
       %ul.ace-thumbnails
         -@business.images.each do |image| 
           %li
-            %a.cboxElement{ data: { rel: 'colorbox'}, href: image.url }
+            %a{ data: { rel: 'colorbox'}, href: image.url }
               %img{ src: "#{image.url}", alt: "150x150"}
-              .text
-                .inner Sample Caption on hover 
             .tools.tools-bottom
               %a.remove_thumbnail{'data-image-id' => image.id, href:"#"}
                 %i.icon-remove.red

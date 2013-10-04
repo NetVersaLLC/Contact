@@ -2,7 +2,6 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require easypaginate
-//= require jquery.fineuploader.min
 //= require jquery.inputmask.bundle.min
 //= require jquery.payment
 //= require jquery.cookie
