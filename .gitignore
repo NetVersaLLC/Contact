@@ -9,11 +9,13 @@ public/system/
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
+/db/schema.rb
 /config/database.yml
 /config/initializers/beanstalkd.rb
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
+/log/*.pid
 /tmp
 *.swp
 .sass-cache
@@ -108,3 +110,5 @@ captchas/uploads
 
 # Ignore Splatr.exe
 /labels/Splatr/Setup.exe
+
+

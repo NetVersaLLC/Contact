@@ -31,7 +31,19 @@ Contact::Application.configure do
   config.force_ssl = true
 
   # See everything in the log (default is :info)
-  config.log_level = :warn  # important to maintain PCI compliance 
+  config.log_level = :warn  # important to maintain PCI compliance
+
+  # used to authenticate scan server callbacks
+  config.scan_server_uri = 'ec2-50-17-135-19.compute-1.amazonaws.com'
+  config.scan_server_api_username = 'api'
+  config.scan_server_api_token = '892457gh9q87fah98ef7hq987harhq9w87eh8'
+  # period to wait before resending task that is waiting for result to scanserver again
+  config.scan_task_resend_interval = 10.seconds
+  # how much time to wait before considering scan as failed
+  config.scan_task_fail_interval = 1.minute
+
+  # used to authenticate scan server callbacks
+  config.scan_api_token = '892457gh9q87fah98ef7hq987harhq9w87eh8'
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]

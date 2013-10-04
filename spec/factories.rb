@@ -37,7 +37,7 @@ FactoryGirl.define do
     domain "www.example.com" 
     logo_file_name "nothing" 
     credits 10
-  end 
+  end
 
   factory :user do 
     email "user@contact.dev"
@@ -48,11 +48,11 @@ FactoryGirl.define do
   end 
 
   factory :location do 
-    zip 92626
+    zip '92614'
     city 'Costa Mesa' 
     state 'CA'
-    latitude 33.680139
-    longitude -117.908452
+    latitude '33.680139'
+    longitude '-117.908452'
   end 
 
   factory :package do 
@@ -81,4 +81,38 @@ FactoryGirl.define do
     label_id 2
     package_id 5
   end
-end 
+
+  factory :scan do
+    city      'Noname City'
+    site      'Foursquare'
+    latitude  '41.650967'
+    longitude '-83.536485'
+    state     'Ohio'
+    state_short 'OH'
+    county    'Lucas'
+    country   'US'
+    task_status '0'
+
+  end
+
+  factory :report do
+    business      'NetVersa'
+    zip           '92614'
+    phone         '855-418-9357'
+    package_id    '1'
+    ident         { SecureRandom.uuid }
+    email         'help@netversa.com'
+    referrer_code '234'
+    status        'started'
+
+    label
+  end
+
+  factory :site_profile do
+    owner 'Private'
+    founded { SecureRandom.random_number(2013) }
+    alexa_us_traffic_rank { SecureRandom.random_number(100) }
+    page_rank { SecureRandom.random_number(10) }
+    enabled_for_scan '1'
+  end
+end
