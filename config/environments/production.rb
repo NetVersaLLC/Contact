@@ -36,7 +36,7 @@ Contact::Application.configure do
   # used to authenticate scan server callbacks
   config.scan_server_uri = 'http://ec2-50-17-135-19.compute-1.amazonaws.com/'
   config.scan_server_api_username = 'api'
-  config.scan_server_api_token = '892457gh9q87fah98ef7hq987harhq9w87eh8'
+  config.scan_server_api_token = '13fc9e78f643ab9a2e11a4521479fdfe'
   # period to wait before resending task that is waiting for result to scanserver again
   config.scan_task_resend_interval = 10.seconds
   # how much time to wait before considering scan as failed
