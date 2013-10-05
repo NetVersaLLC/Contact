@@ -71,6 +71,7 @@ gem 'faker'
 gem 'cancan'
 gem 'airbrake'
 gem 'capistrano-db-tasks', require: false
+gem 'capistrano-unicorn', :require => false
 gem 'axlsx'
 gem 'vitelity'
 gem 'daemons'
