@@ -2,66 +2,46 @@
   $(document).ready(function(){
     window.registerCheckoutHooks();
   });
-- if @business.subscription.active
-  %h4.section-label Subscription Active
-  %table.table.table-striped
-    %tr
-      %td Package Name
-      %td
-        = @package.name
-    %tr
-      %td Monthly Fee
-      %td 
-        = "$%02.02f" % (@package.monthly_fee)
-    %tr
-      %td Started
-      %td
-        = @business.subscription.created_at.strftime("%Y-%m-%d")
-    %tr
-      %td Billing Type
-      %td Monthly
-  = link_to 'Cancel Subscription', subscription_path(@business), :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-info'
+- if @subscription.active
+  =render "view"
+  = link_to 'Cancel Subscription', subscription_path(@subscription), :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger'
+
 - else
-  = semantic_form_for [@business,@business.subscription], :class => 'form-horizontal'   do |f|
-    = f.semantic_errors
-    - @f = f
+  = form_for @subscription do |f|
     %h3
     %p
-      One-time Setup $#{@package.price} + $#{@package.monthly_fee}  recurring
+      One-time Setup $#{@subscription.package.price} + $#{@subscription.package.monthly_fee}  recurring
       Get listed in 45+ of the top online directories and start growing your online presence today.
-    .offset3.span8
-      %section{:id => 'section-packages'}
-        %input#subscription_package_id{ :name => "package_id", :type => "hidden", :value => @package.id }
-      %section{:id => 'section-billing'}
-        %fieldset 
-          - if defined?(@error) && @error.present? 
-            .alert.alert-error!= @error
-          Billing Information 
-          %label{:for => 'creditcard[name]'} Name (as it appears on your card)
-          %input{:name => 'creditcard[name]', :placeholder => "Name", :type => "text", :required => true, :pattern => '\S+', :id => 'name', :value => @name }/
-          .cards
-            = image_tag 'mastercard-inactive.gif', :id => 'mastercard'
-            = image_tag 'visa-inactive.gif', :id => 'visa'
-            = image_tag 'american_express-inactive.gif', :id => 'american_express'
-            = image_tag 'discover-inactive.gif', :id => 'discover'
-            %input#creditcard_type{:name => 'creditcard[brand]', :type => 'hidden', :value => ''}
-          %label{:for => 'creditcard[number]'} Card number
-          %input#card_number{:name => 'creditcard[number]', :placeholder => "Card Number", :type => "text", :required => true, :value => @card_number}/
-          %label{:for => 'creditcard[month]'} Expiration date
-          .input-append
-            %select#card_month.span2{:name => 'creditcard[month]'}
-              - Date::MONTHNAMES[1..12].each_with_index do |name, i|
-                - val = "%02d" % (i + 1)
-                %option{:value => val, :selected=> (params[:creditcard] && params[:creditcard][:month]==val) }
-                  #{name} (#{val})
-            %select#card_year.span2{:name => 'creditcard[year]'}
-              - (Time.now.year .. Time.now.year+10).to_a.each do |year|
-                %option{:selected=> (params[:creditcard] && params[:creditcard][:year]==year.to_s)}
-                  = year
-          %label{:for => 'creditcard[verification_value]'} Security code (3 on back, Amex: 4 on front)
-          %input#cvv.span1{:placeholder => "CVV", :type => "text", :name => 'creditcard[verification_value]', :required => 'required', :pattern => '\S+', :value => @cvv }/
-          = image_tag 'card_back.png',  :style => 'margin-bottom: 10px'
-          = image_tag 'card_front.png',  :style => 'margin-bottom: 10px'
-          %span.help-block Enter your card number without spaces or dashes.
+    %section{:id => 'section-billing'}
+      %fieldset 
+        - if defined?(@error) && @error.present? 
+          .alert.alert-error!= @error
+        Billing Information 
+        %label{:for => 'creditcard[name]'} Name (as it appears on your card)
+        %input{:name => 'creditcard[name]', :placeholder => "Name", :type => "text", :required => true, :pattern => '\S+', :id => 'name', :value => @name }/
+        .cards
+          = image_tag 'mastercard-inactive.gif', :id => 'mastercard'
+          = image_tag 'visa-inactive.gif', :id => 'visa'
+          = image_tag 'american_express-inactive.gif', :id => 'american_express'
+          = image_tag 'discover-inactive.gif', :id => 'discover'
+          %input#creditcard_type{:name => 'creditcard[brand]', :type => 'hidden', :value => ''}
+        %label{:for => 'creditcard[number]'} Card number
+        %input#card_number{:name => 'creditcard[number]', :placeholder => "Card Number", :type => "text", :required => true, :value => @card_number}/
+        %label{:for => 'creditcard[month]'} Expiration date
+        .input-append
+          %select#card_month.span2{:name => 'creditcard[month]'}
+            - Date::MONTHNAMES[1..12].each_with_index do |name, i|
+              - val = "%02d" % (i + 1)
+              %option{:value => val, :selected=> (params[:creditcard] && params[:creditcard][:month]==val) }
+                #{name} (#{val})
+          %select#card_year.span2{:name => 'creditcard[year]'}
+            - (Time.now.year .. Time.now.year+10).to_a.each do |year|
+              %option{:selected=> (params[:creditcard] && params[:creditcard][:year]==year.to_s)}
+                = year
+        %label{:for => 'creditcard[verification_value]'} Security code (3 on back, Amex: 4 on front)
+        %input#cvv.span1{:placeholder => "CVV", :type => "text", :name => 'creditcard[verification_value]', :required => 'required', :pattern => '\S+', :value => @cvv }/
+        = image_tag 'card_back.png',  :style => 'margin-bottom: 10px'
+        = image_tag 'card_front.png',  :style => 'margin-bottom: 10px'
+        %span.help-block Enter your card number without spaces or dashes.
 
-          = submit_tag "Subscribe", :class => 'btn btn-primary'
+        = submit_tag "Subscribe", :class => 'btn btn-primary'

@@ -1,0 +1,21 @@
+%table.table.table-striped
+  %tr
+    %td Package Name
+    %td
+      = @subscription.package.name
+  %tr
+    %td Status
+    %td{class: [@subscription.active && 'green', !@subscription.active && 'red']}
+      %strong
+        = @subscription.active ? "Active" : "Inactive"
+  %tr
+    %td Monthly Fee
+    %td 
+      = number_to_currency(@subscription.monthly_fee)
+  %tr
+    %td Started
+    %td
+      = l(@subscription.created_at.to_date, format: :long)
+  %tr
+    %td Billing Type
+    %td Monthly

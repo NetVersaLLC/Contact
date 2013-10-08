@@ -32,11 +32,8 @@
 
 :javascript
 
-  // $('[data-toggle="popover"]').each( function() {
-  //     $(this).on('focus', function(){ $(this).popover('show'); console.log('focus');}); 
-  //     $(this).on('blur', function(){ $(this).popover('hide'); console.log('blur');}); 
-  //   } ); 
-
+  $('[data-toggle="popover"]').popover({trigger: "hover"}); 
+  
   window.business_id = '#{@business.id}';
   jQuery(function($) { 
 

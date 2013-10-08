@@ -23,7 +23,7 @@
         -@business.images.each do |image| 
           %li
             %a{ data: { rel: 'colorbox'}, href: image.url }
-              %img{ src: "#{image.url}", alt: "150x150"}
+              = image_tag image.medium
             .tools.tools-bottom
               %a.remove_thumbnail{'data-image-id' => image.id, href:"#"}
                 %i.icon-remove.red

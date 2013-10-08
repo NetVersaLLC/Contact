@@ -1,20 +1,3 @@
-.page-header
-  %h1 Subscription
-.row
-  .col-xs-12 
-    .table-responsive
-      %table.table.table-striped
-        %tbody
-          %tr
-            %td Package Name 
-            %td= @subscription.package.name
-          %tr
-            %td Monthly Fee 
-            %td= @subscription.monthly_fee
-          %tr
-            %td Started 
-            %td= @subscription.created_at
-          %tr
-            %td Billing Type
-            %td Monthly
-
+%h3.page-title Subscription Details
+=render 'view'
+= link_to 'Edit Subscription', edit_subscription_path(@subscription), class: "btn btn-info"
