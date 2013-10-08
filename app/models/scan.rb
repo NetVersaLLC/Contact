@@ -1,3 +1,5 @@
+require 'json'
+
 class Scan < ActiveRecord::Base
   belongs_to :report
 
@@ -54,6 +56,7 @@ class Scan < ActiveRecord::Base
     status         = nil # are this vars really necessary ?
     error_message  = nil # are this vars really necessary ?
     response       = nil # are this vars really necessary ?
+    resulting_status = TASK_STATUS_TAKEN
     begin
       response = HTTParty.post("/scan.json", {
           :query   => format_data_for_scan_server,
@@ -65,17 +68,17 @@ class Scan < ActiveRecord::Base
               :password => Contact::Application.config.scan_server_api_token,
           }
       })
-      write_attribute(:task_status, TASK_STATUS_TAKEN)
-      save!
+      unless response['error'].nil?
+        resulting_status = TASK_STATUS_FAILED
+        write_attribute(:error_message, response['error'])
+      end
       Delayed::Worker.logger.info "#{site}: Response: #{response.inspect}"
     rescue => e
-      error_message = "#{site}: #{e.message}: #{e.backtrace.join("\n")}"
-      status = 'error'
-      response = {
-        'error' => 'Failed'
-      }
+      resulting_status = TASK_STATUS_FAILED
+      write_attribute(:error_message, "#{site}: #{e.message}: #{e.backtrace.join("\n")}")
     end
-    return response, status, error_message
+    write_attribute(:task_status, resulting_status)
+    save!
   end
 
   def site_name

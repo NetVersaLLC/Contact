@@ -26,6 +26,11 @@ describe Scan do
       scan.reload
       scan.task_status.should eq Scan::TASK_STATUS_TAKEN
     end
+
+    it 'should mark task as failed immediately when got error from scanserver' do
+      scan = FactoryGirl.create(:scan)
+      response, status, error_message = scan.send_to_scan_server!
+    end
   end
 
   describe 'format_data_for_server' do
