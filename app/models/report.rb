@@ -10,10 +10,9 @@ class Report < ActiveRecord::Base
     self.status = 'started'
     self.save!
 
-    # fixme: instantiate object for delayed job
-    #uri = URI('http://reports.savilo.com/TownCenter/leads.php')
-    #Net::HTTP.delay.post_form(uri, {:phone => self.phone, :zip => self.zip, :business_name => self.business,
-    #                                :email => self.email, :referrer_code => self.referrer_code})
+    uri = URI('http://reports.savilo.com/TownCenter/leads.php')
+    Net::HTTP.delay.post_form(uri, {:phone => self.phone, :zip => self.zip, :business_name => self.business,
+                                    :email => self.email, :referrer_code => self.referrer_code})
 
     Delayed::Worker.logger.info "Starting performance: #{Time.now.iso8601}"
 
