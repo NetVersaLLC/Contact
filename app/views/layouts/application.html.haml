@@ -13,9 +13,13 @@
             %ul.breadcrumb
               %li
                 %i.icon-home.home-icon
-                %a{href:'#'} Home 
-              %li.active 
-                Dashboard
+                %a{href:"/"} Home
+              - breadcrumbs.each do |txt, path| 
+                %li
+                  -if path.present?
+                    %a{href:"#{eval(path.to_s)}"}= txt
+                  -else 
+                    =txt
           .nav-search#nav-search 
             %form.form-search 
               %span.input-icon

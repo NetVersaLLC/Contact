@@ -3,9 +3,17 @@ class BusinessesController < InheritedResources::Base
   respond_to :html #,:xml, :json
   actions :all
 
+  add_breadcrumb 'Locations', :businesses_url
+  add_breadcrumb  'New Location', '', only: [:new, :create]
+  add_breadcrumb  'Edit Location', '', only: [:edit, :update]
+
   def index 
     @q = Business.search(params[:q])
     @businesses = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 5)
+  end 
+
+  def show 
+      show! { add_breadcrumb @business.business_name, nil}
   end 
 
   # def index

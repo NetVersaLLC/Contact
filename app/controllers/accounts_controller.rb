@@ -7,6 +7,9 @@ class AccountsController < InheritedResources::Base
   respond_to :html #,:xml, :json
   actions :all
 
+  add_breadcrumb 'Accounts', :accounts_url
+  add_breadcrumb 'Edit Account', nil, only: [:edit, :update]
+
   def index 
      @q = ClientData.includes(:business).search(params[:q])
      @accounts = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10)

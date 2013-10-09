@@ -1,7 +1,10 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  helper_method :impersonating_user, :breadcrumbs
 
-  helper_method :impersonating_user 
+  def breadcrumbs
+    @breadcrumbs ||= []
+  end 
 
   def current_label
     label = Label.where(:domain => request.host).first
@@ -40,4 +43,14 @@ class ApplicationController < ActionController::Base
   # def current_ability
   #   @current_ability ||= Ability.new(current_admin_user)
   # end 
+  protected 
+    def add_breadcrumb name, url = ''
+      breadcrumbs << [name, url]
+    end 
+
+    def self.add_breadcrumb name, url, options = {}
+      before_filter options do |controller| 
+        controller.send(:add_breadcrumb, name, url)
+      end 
+    end 
 end

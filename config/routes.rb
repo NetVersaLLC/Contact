@@ -23,9 +23,7 @@ Contact::Application.routes.draw do
   resources :pings
   resources :payload_nodes, only: [:index, :create]
 
-  post    '/businesses/:id',
-    :controller => :businesses, 
-    :action => :update
+  resources :businesses 
   get    '/businesses/client_checked_in/:id', 
     :controller => :businesses, 
     :action => :client_checked_in,
@@ -66,13 +64,8 @@ Contact::Application.routes.draw do
   resources :users
   resources :accounts
 
-  get     '/jobs(.:format)',     :controller => :jobs,   :action => :index
-  post    '/jobs(.:format)',     :controller => :jobs,   :action => :create
-  put     '/jobs/:id(.:format)', :controller => :jobs,   :action => :update
-  delete  '/jobs/:id(.:format)', :controller => :jobs,   :action => :remove
-  get     '/jobs/list(.:format)',:controller => :jobs,   :action => :list
-
-  post    '/accounts(.:format)', :controller => :accounts,   :action => :create
+  resources :jobs,  except: [:show]
+  get     '/jobs/list(.:format)', :controller => :jobs,   :action => :list
 
   # Bing 
   get     '/bing_category(.:format)',  :controller => :bing,   :action => :bing_category

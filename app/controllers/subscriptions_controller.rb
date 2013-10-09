@@ -1,5 +1,10 @@
 class SubscriptionsController < ApplicationController
   before_filter      :authenticate_user!
+
+  add_breadcrumb 'Subscriptions', :subscriptions_url
+  add_breadcrumb 'Edit Subscription', '', only: [:edit, :update]
+  add_breadcrumb 'Subscription', '', only: [:show]
+
   # skip_before_filter :verify_authenticity_token
   def index
     @q = Subscription.joins(:business, :package).search(params[:q])
