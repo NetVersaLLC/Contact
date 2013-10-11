@@ -14,6 +14,7 @@
  *= require jquery-bootstrap
  * require include-bootstrap
  * require ace-fonts
+ *= require datepicker
  *= require ace.min.css 
  *= require ace-rtl.min
  *= require ace-skins.min.css 

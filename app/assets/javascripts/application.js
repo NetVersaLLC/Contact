@@ -12,8 +12,10 @@
 //= require checkout
 
 //= require codes
+//= require bootstrap-datepicker.min
 //= require fuelux.wizard.min
 //= require ace-elements.min
 //= require ace-extra.min
 //= require ace.min
 //= require businesses
+//= require users

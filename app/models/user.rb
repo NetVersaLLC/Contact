@@ -1,11 +1,21 @@
 class User < ActiveRecord::Base
   attr_accessor :temppass
-  attr_accessible :callcenter
-  attr_accessible :access_level, :as => :admin
-  attr_accessible :avatar
+
+  attr_accessible :avatar, :username, :password_confirmation, :first_name, :middle_name, :last_name,  as: [:default, :admin]
+  attr_accessible :mobile_phone, :mobile_appears, :prefix, :callcenter, :date_of_birth,               as: [:default, :admin]
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :authentication_token,     as: [:default, :admin]
+  attr_accessible :tos, :referrer_code,                                                               as: [:default, :admin]
+  attr_accessible :access_level,                                                                      :as => :admin
+
+
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>", :tiny => "36x36" }, :default_url => "/assets/user_blue.png" # "/images/:style/missing_user.png"
 
   validate :must_have_valid_access_level
+  validates :email, :presence => true
+  #validates :password, :presence => true
+  #validates :password_confirmation, :presence => true
+  #validates :tos, :acceptance => {:message => "You must agree to the Terms of Service."}, :on => :create
+
   
   def must_have_valid_access_level
     unless TYPES.has_value? access_level
@@ -43,12 +53,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable,
          :validatable, :token_authenticatable
-
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :authentication_token, :tos, :referrer_code
-  validates :email, :presence => true
-  validates :password, :presence => true
-  validates :password_confirmation, :presence => true
-  validates :tos, :acceptance => {:message => "You must agree to the Terms of Service."}, :on => :create
 
   before_save :ensure_authentication_token
 

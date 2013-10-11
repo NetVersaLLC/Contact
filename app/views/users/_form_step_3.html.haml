@@ -1,0 +1,12 @@
+#step3.step-pane 
+  %fieldset
+    %legend.lighter.block.green Assign Role
+    .row
+      .col-xs-3
+        .control-group
+          %label.control-label.bolder Role 
+          - User::TYPES.each do |k,v|
+            .radio
+              %label
+                =f.radio_button :access_level, v
+                %span.lbl= k.to_s.humanize

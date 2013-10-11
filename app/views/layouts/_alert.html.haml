@@ -1,0 +1,8 @@
+- if msg.present?
+  .alert.alert-block.alert-danger
+    %button.close(data-dismiss="alert" type="button") 
+      %i.icon-remove
+    %p
+      %strong 
+        %i.icon-remove
+      = flash[:notice] 

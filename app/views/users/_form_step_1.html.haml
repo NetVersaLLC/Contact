@@ -1,0 +1,18 @@
+#step1.step-pane.active
+  %fieldset
+    %legend.lighter.block.green Login Credentials
+    .row
+      .col-xs-3
+        .form-group
+          =f.label :username
+          =f.text_field :username, class: "form-control"
+        .form-group
+          =f.label :email
+          =f.email_field :email, class: "form-control", placeholder: "email@example.com"
+        .form-group
+          =f.label :password
+          =f.password_field :password, class: "form-control"
+        .form-group
+          =f.label :password_confirmation, "Type Password Again"
+          =f.password_field :password_confirmation, class: "form-control"
+

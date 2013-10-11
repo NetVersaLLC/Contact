@@ -26,12 +26,9 @@
                 %input.nav-search-input#nav-search-input(autocomplete="off" placeholder="Search ...")
                 %i.icon-search.nav-search-icon
           .page-content
-            - if flash[:notice] 
-              .alert.alert-info= flash[:notice] 
-            - if flash[:error] 
-              .alert.alert-danger= flash[:error] 
-            - if flash[:alert] 
-              .alert.alert-danger= flash[:alert] 
+            =render partial: "layouts/notice" 
+            =render partial: "layouts/alert", locals: {msg: flash[:alert]} 
+            =render partial: "layouts/alert", locals: {msg: flash[:error]} 
             = yield 
 
     :javascript 

@@ -33,10 +33,10 @@
             - @users.each do |user|
               %tr
                 %td
-                %td= user.email
-                %td ???
+                %td= link_to user.email, edit_user_path(user), title: 'Edit user'
+                %td  #{user.first_name} #{user.last_name}
                 %td= user.role_is
-                %td ???
+                %td= user.mobile_phone
                 %td ??? 
                 %td 
                   .btn-group

@@ -17,72 +17,10 @@
     %hr/
     #step-container.step-content
       =form_for @user do |f|
-        #step1.step-pane.active
-          %fieldset
-            %legend.lighter.block.green Login Credentials
-            .row
-              .col-xs-3
-                .form-group
-                  =f.label :username
-                  =f.text_field :username, class: "form-control"
-                .form-group
-                  =f.label :email
-                  =f.email_field :email, class: "form-control", placeholder: "email@example.com"
-                .form-group
-                  =f.label :password
-                  =f.password_field :password, class: "form-control"
-                .form-group
-                  =f.label :confirm_password, "Type Password Again"
-                  =f.password_field :confirm_password, class: "form-control"
-        #step2.step-pane
-          %fieldset
-            %legend.lighter.block.green Contact Information
-            .row
-              .col-xs-3
-                .form-group
-                  =f.label :prefix
-                  =f.select :prefix, Business.prefix_list, {}, {class: "form-control"}
-                .form-group 
-                  =f.label :gender
-                  =f.select :prefix, Business.gender_list, {}, {class: "form-control"}
-                .form-group 
-                  =f.label :first_name
-                  =f.text_field :first_name, class: "form-control"
-                .form-group 
-                  =f.label :middle_name 
-                  =f.text_field :middle_name, class: "form-control"
-                .form-group 
-                  =f.label :last_name 
-                  =f.text_field :last_name, class: "form-control"
-                .form-group 
-                  =f.label :date_of_birth
-                  =f.text_field :date_of_birth, class: "form-control", type: "date"
-                .form-group 
-                  =f.label :mobile_phone, "Mobile Phone"
-                  =f.telephone_field :mobile_phone, class: "form-control"
-            .row
-              .col-xs-6
-                .control-group 
-                  %label.control-label Should Mobile Number Appear on Listings?
-                  .radio
-                    %label
-                      =f.radio_button :mobile_appears, true
-                      %span.lbl Yes
-                  .radio
-                    %label
-                      =f.radio_button :mobile_appears, false
-                      %span.lbl No
-
-        #step3.step-pane 
-          %fieldset
-            %legend.lighter.block.green Assign Role
-            .row
-              .col-xs-3
-        #step4.step-pane
-          %fieldset
-            %legend.lighter.block.green Assign Location
-            .row
-              .col-xs-3
+        =render partial: "form_step_1", locals: { f: f }
+        =render partial: "form_step_2", locals: { f: f }
+        =render partial: "form_step_3", locals: { f: f }
+        =render partial: "form_step_4", locals: { f: f }
     %hr/
     .wizard-actions
       %button.btn.btn-prev
@@ -92,4 +30,8 @@
         Next 
         %i.icon-arrow-right.icon-on-right
 :javascript
-  jQuery(function($) { $('#user-wizard').ace_wizard(); } );
+  jQuery(function($) { 
+  /* http://eternicode.github.io/bootstrap-datepicker/ */
+  $('.date-picker').datepicker({startView: 2, format: "mm/dd/yyyy", keyboardNavigation: false}); 
+  } );
+

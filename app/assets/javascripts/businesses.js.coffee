@@ -107,8 +107,8 @@ $ ->
       return cur_step.hasClass("step-visited")
   } )
   ###
-
-  $('#business_mobile_phone').inputmask("999-999-9999",{ "clearIncomplete": true, 'clearMaskOnLostFocus': true })
+  #
+  $('#user_mobile_phone').inputmask("999-999-9999",{ "clearIncomplete": true, 'clearMaskOnLostFocus': true });
   $('#business_local_phone').inputmask("999-999-9999",{ "clearIncomplete": true , 'clearMaskOnLostFocus': true })
   $('#business_alternate_phone').inputmask("999-999-9999",{ "clearIncomplete": true, 'clearMaskOnLostFocus': true })
   $('#business_toll_free_phone').inputmask("999-999-9999",{ "clearIncomplete": true, 'clearMaskOnLostFocus': true })

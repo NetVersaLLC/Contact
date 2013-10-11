@@ -2,10 +2,8 @@
 $ ->
   $('#location-wizard').ace_wizard()
     .on 'finished', -> 
-      console.log "finished"
       $(".edit_business, .new_business").submit()
     .on 'change', (e, info) -> 
-      console.log "change"
       return $(".edit_business, .new_business").valid()
 
   validation_rules =  
