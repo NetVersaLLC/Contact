@@ -42,7 +42,13 @@ class ClientData < ActiveRecord::Base
     @scan
   end 
 
-  def latest_job
+  def last_update
+    j = CompletedJob.where(business_id: self.business_id).where(name: "#{self.class.name}/UpdateListing").last
+    if j.present? && j.updated_at.present 
+      distance_of_time_in_words_to_now( j.updated_at ) 
+    else 
+      "Not synced"
+    end 
   end 
 
 

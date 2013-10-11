@@ -13,11 +13,16 @@
   %tbody
     - @accounts.each do |account|
       %tr
-        %td
+        %td.center
+          %input(type="checkbox")
         %td= account.class.name
         %td= render partial: "sync_button", locals: { :account => account }
+        %td= account.last_update
         %td
-        %td
+          %label.pull-right.inline
+            %small.text-muted Broadcast: 
+            %input.ace.ace-switch(type="checkbox" checked="checked")
+            %span.lbl
         %td
           %span.label=  account.latest_scan.status 
           -if account.latest_scan.completed_at.present?
@@ -28,4 +33,19 @@
             %i.icon-ok.bigger-120
           = link_to edit_account_path(account), class: "btn btn-xs btn-info" do 
             %i.icon-edit.bigger-120
-
+.btn-group
+  %button.btn.btn-info.btn-sm.dropdown-toggle(data-toggle="dropdown") 
+    Bulk edit
+    %span.icon-caret-down.icon-on-right
+  %ul.dropdown-menu.dropdown-info.pull-right
+    %li
+      %a(href="#") Enable Sync 
+    %li
+      %a(href="#") Disable Sync 
+    %li 
+      %a(href="#") Enable Broadcast 
+    %li
+      %a(href="#") Disable Broadcast 
+    %li.divider 
+    %li
+      %a(href="#") One-Time Broadcast
