@@ -114,7 +114,7 @@ Contact::Application.routes.draw do
   get     '/resellers', :controller => :pages, :action => :resellers
   get     '/support', :controller => :pages, :action => :support
   get     '/try_again_later', :controller => :pages, :action => :try_again_later
-
+  
   get     '/leads', :controller => :leads, :action => :show
   post    '/leads', :controller => :leads, :action => :create
 
