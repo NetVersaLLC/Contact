@@ -53,7 +53,6 @@ Contact::Application.routes.draw do
 
   get     '/report(.:format)', :controller => :businesses, :action => :report
 
-  resources :site_profiles
   resources :results
   resources :tasks
   resources :places

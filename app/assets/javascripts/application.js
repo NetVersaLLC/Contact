@@ -7,6 +7,8 @@
 //= require jquery.cookie
 //= require jquery.colorbox-min
 //= require jquery.validate.min
+//= require jquery.flot.min
+//= require jquery.flot.pie.min
 //= require additional-methods.min 
 //= require purl
 //= require checkout

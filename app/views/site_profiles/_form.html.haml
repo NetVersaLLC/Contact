@@ -1,0 +1,57 @@
+=form_for @site_profile,  html: { multipart: true} do |f|
+  %fieldset
+    %legend.lighter.block.green Site Profile
+    .row
+      .col-xs-6
+        .form-group
+          =f.label :site
+          =f.text_field :site, class: "form-control"
+        .form-group
+          =f.label :owner
+          =f.text_field :owner, class: "form-control"
+        .form-group
+          =f.label :founded
+          =f.text_field :founded, class: "form-control"
+        .form-group
+          =f.label :alexa_us_traffic_rank
+          =f.text_field :alexa_us_traffic_rank, class: "form-control"
+        .form-group
+          =f.label :page_rank
+          =f.text_field :page_rank, class: "form-control"
+        .form-group
+          =f.label :url
+          =f.text_field :url, class: "form-control"
+        .form-group
+          =f.label :traffic_stats
+          =f.text_field :traffic_stats, class: "form-control"
+        .form-group
+          =f.label :notes
+          =f.text_area :notes, class: "form-control"
+        .form-group
+          =f.label :enabled_for_scan
+          =f.text_field :enabled_for_scan, class: "form-control"
+        .form-group
+          =f.label :technical_notes
+          =f.text_area :technical_notes, class: "form-control"
+        .form-group
+          =f.label :logo
+          =f.file_field :logo, class: "logo-upload"
+          =image_tag @site_profile.logo.url
+        .clearfix.form-actions
+          .col-md-offset-3.col-md-9
+            %button.btn.btn-info(type="submit") 
+              %i.icon-ok.bigger-110
+              Submit
+            %button.btn(type="reset")
+              %i.icon-undo.bigger-110 
+              Reset
+:javascript
+  jQuery( function($){
+  $(".logo-upload").ace_file_input({ 
+    no_file: 'No File...', 
+    btn_choose: 'Choose', 
+    btn_change: 'Change', 
+    droppable: false, 
+    onchange: null, 
+    thumbnail: false}); 
+    }); 

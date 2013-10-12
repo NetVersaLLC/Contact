@@ -1,54 +1,144 @@
-%h3 Scan Results
+.row
+  .col-xs-6
+    %address
+    %h3.text-primary= @report.business
+    = @report.zip
+    %br
+    = @report.phone
+  .col-xs-6
+    .widget-box
+      .widget-header.widget-header-flat.widget-header-small
+        %h5
+          %i.icon-signal
+          Network Sources
+      .widget-body
+        .widget-main
+          #piechart-networks
 
-%h4#name
-  = @report.business
-%h4#zip
-  = @report.zip
-%h4#zip
-  = @report.phone
+.widget-box
+  .widget-header.header-color-blue
+    %h5.bigger.lighter
+      %i.icon-table 
+      Scan Results 
+  .widget-body
+    .widget-main.no-padding 
+      %table.table.table-striped.table-bordered.table-hover
+        %thead
+          %tr
+            %th
+            %th Site
+            %th Phone 
+            %th Address 
+            %th Status 
+            %th Link to Profile
+        %tbody
+          - @report.scans.order(:site).each do |scan|
+            %tr
+              %td
+              %td= scan.site_name 
+              %td= scan.listed_phone
+              %td= scan.listed_address 
+              - if scan.status == 'claimed'
+                %td.text-success
+                  %i.icon-ok.bigger-110.green
+                  Listed &amp; Claimed
+              - elsif scan.status == 'listed'
+                %td.text-warning.orange
+                  %i.icon-warning-sign
+                  Listed
+              - else
+                %td
+                  %span.label.label-danger
+                    %i.icon-remove
+                    Unlisted
+              %td
+                - if scan.listed_url.present?
+                  %a{:href => scan.listed_url, :target => '_blank'}
+                    %i.icon-link
+                    View Profile 
+.row
+  .col-xs-9 
+    %form.form-inline 
+      %input.input-xlarge(type="text" placeholder="Enter Email" type="email")
+      %button.btn.btn-info.btn-sm(type="submit") EMAIL ME THE REPORT
 
-%br
-%br
+  .col-xs-3
+    %a.btn.btn-primary.btn-large.pull-right(href="/users/sign_up?package_id=#{@report.package_id}") 
+      %i.icon-wrench 
+      Fix These Errors
+:javascript
+  jQuery(function($) {
 
-%table.table.table-striped.table-bordered.table-hover
-  %thead
-    %tr
-      %th
-      %th Site
-      %th Phone 
-      %th Address 
-      %th Status 
-      %th Link to Profile
-  %tbody
-    - @report.scans.order(:site).each do |scan|
-      %tr
-        %td= scan.site_name 
-        %td= scan.listed_phone
-        %td= scan.listed_address 
-        - if scan.status == 'claimed'
-          %td
-            %i.icon-ok.bigger-110.green
-            Listed &amp; Claimed
-        - elsif scan.status == 'listed'
-          %td.text-warning.orange
-            %i.icon-warning-sign
-            Listed
-        - else
-          %td.text-danger
-            %i.remove
-            Unlisted
-        %td
-          - if scan.listed_url.present?
-            %a.btn.btn-large.btn-primary{:href => scan.listed_url, :target => '_blank'}
-              %i.icon-link
-              Link
+    var placeholder = $('#piechart-networks').css({'width':'90%' , 'min-height':'150px'});
+    var data = [
+    { label: "social networks",  data: 38.7, color: "#68BC31"},
+    { label: "search engines",  data: 24.5, color: "#2091CF"},
+    { label: "ad campaigns",  data: 8.2, color: "#AF4E96"},
+    { label: "direct traffic",  data: 18.6, color: "#DA5430"},
+    { label: "other",  data: 10, color: "#FEE074"}
+    ]
+    function drawPieChart(placeholder, data, position) {
+      $.plot(placeholder, data, {
+      series: {
+        pie: {
+          show: true,
+          tilt:0.8,
+          highlight: {
+            opacity: 0.25
+          },
+          stroke: {
+            color: '#fff',
+            width: 2
+          },
+          startAngle: 2
+        }
+      },
+      legend: {
+        show: true,
+        position: position || "ne", 
+        labelBoxBorderColor: null,
+        margin:[-30,15]
+      }
+      ,
+      grid: {
+        hoverable: true,
+        clickable: true
+      }
+     })
+   }
+   drawPieChart(placeholder, data);
 
+   /**
+   we saved the drawing function and the data to redraw with different position later when switching to RTL mode dynamically
+   so that's not needed actually.
+   */
+   placeholder.data('chart', data);
+   placeholder.data('draw', drawPieChart);
+
+   var $tooltip = $("<div class='tooltip top in'><div class='tooltip-inner'></div></div>").hide().appendTo('body');
+   var previousPoint = null;
+    
+   placeholder.on('plothover', function (event, pos, item) {
+   if(item) {
+     if (previousPoint != item.seriesIndex) {
+        previousPoint = item.seriesIndex;
+        var tip = item.series['label'] + " : " + item.series['percent']+'%';
+        $tooltip.show().children(0).text(tip);
+      }
+      $tooltip.css({top:pos.pageY + 10, left:pos.pageX + 10});
+    } else {
+      $tooltip.hide();
+      previousPoint = null;
+    }
+
+   });
+  });
 -#
   %table.table.table-striped
     %thead
       %tr
         %td Status
-        %td Site
+        %td Si
         %td Phone
         %td Address
         %td Link to Profile
