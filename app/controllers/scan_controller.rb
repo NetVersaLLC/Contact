@@ -1,17 +1,21 @@
 class ScanController < ApplicationController
   def start
-    @name        = params[:name].strip
-    @zip         = params[:zip].strip
-    @phone       = params[:phone].strip
-    @email       = params[:email]
-    @referral    = params[:referrer_code]
-    @package_id  = params[:package_id]
-    @ident       = SecureRandom.uuid
-    @report      = Report.where(:business => @name, :zip => @zip, :phone => @phone).order(:created_at).last
+    @name = params[:name].strip
+    @zip = params[:zip].strip
+    @phone = params[:phone].strip
+    @email = params[:email]
+    @referral = params[:referrer_code]
+    @package_id = params[:package_id]
+    @ident = SecureRandom.uuid
+    @report = Report.where(:business => @name, :zip => @zip, :phone => @phone).order(:created_at).last
     if @report != nil and @report.created_at.to_datetime > (Time.now - 1.days)
       redirect_to "/scan/#{@report.ident}"
     else
-      @report      = Report.generate(@name,@zip,@phone,@package_id,@ident,current_label,@email,@referral)
+      location = Location.where(:zip => @zip).first
+      unless location
+        return render :error, locals: {message: "Unknown zip code"}
+      end
+      @report = Report.generate(@name, @zip, @phone, @package_id, @ident, current_label, @email, @referral)
     end
   end
 

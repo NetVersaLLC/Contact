@@ -23,6 +23,7 @@ group :production do
   gem 'unicorn'
 end
 
+
 group :test do
   gem 'cucumber'
   gem 'cucumber-rails', :require => false
@@ -71,9 +72,11 @@ gem 'faker'
 gem 'cancan'
 gem 'airbrake'
 gem 'capistrano-db-tasks', require: false
+gem 'capistrano-unicorn', :require => false
 gem 'axlsx'
 gem 'vitelity'
 gem 'daemons'
+gem 'daemons-rails'
 gem 'prawn'
 gem 'redcarpet'
 gem 'unicorn'
