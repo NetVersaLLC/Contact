@@ -2,33 +2,43 @@
   %h1 Site Profiles
 .row
   .col-xs-12 
-    .table-responsive
+    .row
+      .col-xs-6
+        .widget-box 
+          .widget-header 
+            %h4 Search 
+          .widget-body
+            .widget-main
+              =search_form_for @q, class:"form-search" do |f|
+                .input-group
+                  =f.text_field :site_cont,  placeholder: "Site", class: "form-control search-query"
+                  %span.input-group-btn
+                    %button.btn.btn-purple.btn-sm
+                      Search
+                      %i.icon-search.icon-on-right.bigger-110
+    .dataTables_wrapper
       %table.table.table-striped.table-bordered.table-hover
         %thead
           %tr
             %th Site
             %th Owner 
-            %th Founded
             %th Alexa US Traffice Rank 
             %th Page Rank
-            %th URL 
-            %th Traffic Stats 
-            %th Notes 
-            %th Enabled for Scan 
-            %th
+            %th Scan?
+            %th Actions
         %tbody
           -@site_profiles.each do |site_profile| 
             %tr
-              %td= link_to site_profile.site, site_profile_path(site_profile)
+              %td
+                = image_tag site_profile.logo.url(:thumb)
+                = link_to site_profile.site, site_profile_path(site_profile)
               %td= site_profile.owner 
-              %td= site_profile.founded 
               %td= site_profile.alexa_us_traffic_rank 
               %td= site_profile.page_rank 
-              %td 
-                %a{href: "#{site_profile.url}"}= site_profile.url
-              %td= site_profile.traffic_stats 
-              %td= site_profile.notes
-              %td= site_profile.enabled_for_scan
+              %td
+                = form_for site_profile do |f|
+                  =f.check_box :enabled_for_scan, class: "ace ace-switch ace-switch-3"
+                  %span.lbl
               %td
                 .visible-md.visible-lg.hidden-sm.hidden-xs.btn-group
                   =link_to(site_profile_url(site_profile), class: 'btn btn-xs btn-success') do 
@@ -37,4 +47,15 @@
                     %i.icon-edit.bigger-120
                   =link_to(site_profile_url(site_profile), method: :delete, confirm: 'Are you sure?', class: 'btn btn-xs btn-danger') do 
                     %i.icon-trash.bigger-120
-                  
+      .row 
+        .col-md-6
+          .dataTables_info
+            = page_entries_info @businesses
+        .col-md-6
+          .dataTables_paginate.paging_bootstrap
+            = will_paginate @businesses, previous_label: "<", next_label: ">", inner_window: 1, outer_window: 1
+    %br/
+    .row
+      .col-md-12
+        .btn-group 
+          =link_to "Add Site Profile", new_site_profile_path, class: "btn btn-info btn-sm"

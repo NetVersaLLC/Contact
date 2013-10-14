@@ -37,6 +37,12 @@
           =f.label :logo
           =f.file_field :logo, class: "logo-upload"
           =image_tag @site_profile.logo.url
+          %div
+            %small.text-muted
+              -if @site_profile.logo_file_name.blank?
+                Default Imag:
+              -else 
+                =@site_profile.logo_file_name
         .clearfix.form-actions
           .col-md-offset-3.col-md-9
             %button.btn.btn-info(type="submit") 
