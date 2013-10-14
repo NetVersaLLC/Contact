@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131012151341) do
+ActiveRecord::Schema.define(:version => 20131014162229) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -1577,13 +1577,6 @@ ActiveRecord::Schema.define(:version => 20131012151341) do
     t.boolean  "do_not_sync",       :default => false
   end
 
-  create_table "payload_categories", :force => true do |t|
-    t.string   "name"
-    t.integer  "position"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "payload_nodes", :force => true do |t|
     t.string   "name"
     t.boolean  "active",     :default => false
@@ -1618,17 +1611,6 @@ ActiveRecord::Schema.define(:version => 20131012151341) do
   add_index "payments", ["business_id"], :name => "index_payments_on_business_id"
   add_index "payments", ["label_id"], :name => "index_payments_on_label_id"
   add_index "payments", ["transaction_id"], :name => "index_payments_on_transaction_id"
-
-  create_table "pings", :force => true do |t|
-    t.integer  "user_id"
-    t.integer  "business_id"
-    t.string   "message"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "pings", ["business_id"], :name => "index_pings_on_business_id"
-  add_index "pings", ["user_id"], :name => "index_pings_on_user_id"
 
   create_table "primeplace_categories", :force => true do |t|
     t.integer  "parent_id"
@@ -1705,6 +1687,7 @@ ActiveRecord::Schema.define(:version => 20131012151341) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "task_status"
+    t.integer  "site_profile_id"
   end
 
   add_index "scans", ["business"], :name => "index_scans_on_business"
@@ -1872,7 +1855,7 @@ ActiveRecord::Schema.define(:version => 20131012151341) do
     t.integer  "monthly_fee"
     t.string   "status"
     t.integer  "transaction_event_id"
-    t.datetime "label_last_billed_at", :default => '2013-07-15 20:43:13'
+    t.datetime "label_last_billed_at", :default => '2013-07-09 21:48:55'
   end
 
   add_index "subscriptions", ["package_id"], :name => "index_subscriptions_on_package_id"

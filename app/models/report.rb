@@ -16,7 +16,7 @@ class Report < ActiveRecord::Base
 
     Delayed::Worker.logger.info "Starting performance: #{Time.now.iso8601}"
 
-    SiteProfile.where(enabled_for_scan: true).pluck(:site).each do |site|
+    SiteProfile.where(enabled_for_scan: true).each do |site|
       scan = Scan.create_for_site(self.id, site)
       scan.delay.send_to_scan_server!
     end
@@ -53,7 +53,7 @@ class Report < ActiveRecord::Base
       report.completed_at = Time.now
       report.save!
 
-      ReportMailer.report_email(report).deliver unless report.email.nil? || report.email.empty?
+      ReportMailer.report_email(report).deliver if report.email.present?
     end
   end
 end

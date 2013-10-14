@@ -1,0 +1,43 @@
+.widget-box
+  .widget-header.header-color-blue
+    %h5.bigger.lighter
+      %i.icon-table 
+      Scan Results 
+  .widget-body
+    .widget-main.no-padding 
+      %table.table.table-striped.table-bordered.table-hover
+        %thead
+          %tr
+            %th
+            %th Site
+            %th Phone 
+            %th Address 
+            %th Status 
+            %th Link to Profile
+        %tbody
+          - @report.scans.includes(:site_profile).order(:site).each do |scan|
+            %tr
+              %td
+                -if scan.site_profile.present? 
+                  = image_tag scan.site_profile.logo.url(:thumb)
+              %td= scan.site_name 
+              %td= scan.listed_phone
+              %td= scan.listed_address 
+              - if scan.status == 'claimed'
+                %td.text-success
+                  %i.icon-ok.bigger-110.green
+                  Listed &amp; Claimed
+              - elsif scan.status == 'listed'
+                %td.text-warning.orange
+                  %i.icon-warning-sign
+                  Listed
+              - else
+                %td.text-danger
+                  %i.icon-remove
+                  Unlisted
+              %td
+                - if scan.listed_url.present?
+                  %a{:href => scan.listed_url, :target => '_blank'}
+                    %i.icon-link
+                    View Profile 
+

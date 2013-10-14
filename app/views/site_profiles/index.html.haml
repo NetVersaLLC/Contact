@@ -36,7 +36,7 @@
               %td= site_profile.alexa_us_traffic_rank 
               %td= site_profile.page_rank 
               %td
-                = form_for site_profile do |f|
+                = form_for site_profile, remote: true do |f|
                   =f.check_box :enabled_for_scan, class: "ace ace-switch ace-switch-3"
                   %span.lbl
               %td

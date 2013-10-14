@@ -21,8 +21,10 @@
  *= require checkout
  *= require style
  *= require fineuploader-3.3.0
+ *= require jquery.gritter
  *= require custom
  *= require codes
  *= require colorbox
+ *= require scan
  *= require businesses*/
 

@@ -9,6 +9,7 @@
 //= require jquery.validate.min
 //= require jquery.flot.min
 //= require jquery.flot.pie.min
+//= require jquery.gritter.min
 //= require additional-methods.min 
 //= require purl
 //= require checkout
@@ -20,4 +21,5 @@
 //= require ace-extra.min
 //= require ace.min
 //= require businesses
+//= require site-profiles
 //= require users

@@ -1,6 +1,6 @@
 class SiteProfile < ActiveRecord::Base
   attr_accessible :logo
-  has_attached_file :logo, styles: { :thumb => "48x48>" }, default_url: "/assets/missing_logo.jpg"
+  has_attached_file :logo, styles: { :thumb => "32x32>" }, default_url: "/assets/missing_logo.jpg"
 
   attr_accessible :alexa_us_traffic_rank, :founded, :notes, :owner, :page_rank, :site, :traffic_stats, :url, :enabled_for_scan, :enabled, :technical_notes
 

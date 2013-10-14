@@ -1,71 +1,68 @@
+%h3.text-primary= @report.business
 .row
   .col-xs-6
-    %address
-    %h3.text-primary= @report.business
-    = @report.zip
-    %br
-    = @report.phone
+    %dl
+      %dt Searched for:
+      %dd
+        %dl.dl-horizontal
+          %dt Business Name:
+          %dd= @report.business 
+          %dt Business Zip:
+          %dd= @report.zip 
+          %dt Business Phone: 
+          %dd= @report.phone
+    %dl
+      %dt Report Information:
+      %dd
+        %dl.dl-horizontal
+          %dt Completed at: 
+          %dd= l(@report.updated_at, format: :long)
+          %dt Report Id: 
+          %dd= @report.ident
+          %dt.text-danger Unclaimed Count:
+          %dd.text-danger 5
+          %dt.text-warning Listed:
+          %dd.text-warning 1 
+          %dt.text-success Listed & Claimed:
+          %dd.text-success 1
   .col-xs-6
-    .widget-box
-      .widget-header.widget-header-flat.widget-header-small
-        %h5
-          %i.icon-signal
-          Network Sources
-      .widget-body
-        .widget-main
-          #piechart-networks
-
-.widget-box
-  .widget-header.header-color-blue
-    %h5.bigger.lighter
-      %i.icon-table 
-      Scan Results 
-  .widget-body
-    .widget-main.no-padding 
-      %table.table.table-striped.table-bordered.table-hover
-        %thead
-          %tr
-            %th
-            %th Site
-            %th Phone 
-            %th Address 
-            %th Status 
-            %th Link to Profile
-        %tbody
-          - @report.scans.order(:site).each do |scan|
-            %tr
-              %td
-              %td= scan.site_name 
-              %td= scan.listed_phone
-              %td= scan.listed_address 
-              - if scan.status == 'claimed'
-                %td.text-success
-                  %i.icon-ok.bigger-110.green
-                  Listed &amp; Claimed
-              - elsif scan.status == 'listed'
-                %td.text-warning.orange
-                  %i.icon-warning-sign
-                  Listed
-              - else
-                %td
-                  %span.label.label-danger
-                    %i.icon-remove
-                    Unlisted
-              %td
-                - if scan.listed_url.present?
-                  %a{:href => scan.listed_url, :target => '_blank'}
-                    %i.icon-link
-                    View Profile 
+    .row
+      .col-xs-6
+        .well
+          .errorsdetected
+            .errorcount 234
+            .errordesc Errors Detected 
+          .clearfix
+      .col-xs-3
+        %a.btn.btn-app.btn-primary.no-radius(href="/users/sign_up?package_id=#{@report.package_id}")
+          %i.icon-wrench 
+          Go Fix!
+    .row
+      .col-xs-12
+        .widget-box
+          .widget-header.widget-header-flat.widget-header-small
+            %h5
+              %i.icon-signal
+              Scan Summary 
+          .widget-body
+            .widget-main
+              #piechart-networks
+%br
+=render "scans"
 .row
-  .col-xs-9 
-    %form.form-inline 
-      %input.input-xlarge(type="text" placeholder="Enter Email" type="email")
-      %button.btn.btn-info.btn-sm(type="submit") EMAIL ME THE REPORT
-
-  .col-xs-3
+  .col-xs-4
+    %form.form-search
+      .input-group
+        %input.form-control.search-query(type="text" placeholder="name@somewhere.com" type="email")
+        %span.input-group-btn
+          %button.btn.btn-info.btn-sm(type="submit")
+            %i.icon-envelope-alt.bigger-110
+              Send me the report
+  .col-xs-8
     %a.btn.btn-primary.btn-large.pull-right(href="/users/sign_up?package_id=#{@report.package_id}") 
       %i.icon-wrench 
-      Fix These Errors
+        Fix These Errors
+
 :javascript
   jQuery(function($) {
 
@@ -82,7 +79,8 @@
       series: {
         pie: {
           show: true,
-          tilt:0.8,
+          radius: 1,
+          tilt:0.5,
           highlight: {
             opacity: 0.25
           },
@@ -90,7 +88,18 @@
             color: '#fff',
             width: 2
           },
-          startAngle: 2
+          startAngle: 2, 
+          label: { 
+            show: true, 
+            radius: 1, //3/4, 
+            formatter: function(label, series){ 
+              return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">'+label+'<br/>'+Math.round(series.percent)+'%</div>';
+            }, 
+            background: { 
+              opacity: 0.5, 
+              color: '#000'
+            }
+          }
         }
       },
       legend: {
@@ -99,11 +108,11 @@
         labelBoxBorderColor: null,
         margin:[-30,15]
       }
-      ,
+      /*,
       grid: {
         hoverable: true,
         clickable: true
-      }
+      } */
      })
    }
    drawPieChart(placeholder, data);
