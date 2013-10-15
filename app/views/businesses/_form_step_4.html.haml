@@ -4,8 +4,9 @@
       %h3 Logo 
       %p= I18n.t('popovers.business.logo.logo_content')  
       #logo.well
+        %p Drop an image from the gallery to make it the logo.
         -if @business.logo.nil? 
-          .no-logo{ class:[ @business.logo.present? && :hidden] } Drag an image from the gallery to make it the logo.
+          -#.no-logo{ class:[ @business.logo.present? && :hidden] } Drop an image from the gallery to make it the logo.
         %ul.ace-thumbnails
           -if @business.logo.present?
             = f.fields_for :images, @business.logo do |image|

@@ -47,12 +47,11 @@ $(document).ready ->
 
 
   # wire up existing images to delete button
-  #$('.remove_thumbnail').click (e)->
-  #  delete_image(e)
+  $(".delete-image").click (e) ->
+    $(this).closest("li").find(".destroy-image").val(true) 
+    $(this).closest("li").hide()
+    e.preventDefault()
 
-  #$('.set-logo').click (e)->
-  #  set_logo(e)
-  #
 
   $gallery = $("#gallery") 
   $logo = $("#logo") 
@@ -75,7 +74,7 @@ $(document).ready ->
     activeClass: "custom-state-active", 
     drop: (event, ui) -> 
 
-      $( ".no-logo").hide()
+      #$( ".no-logo").hide()
       # move existing logo back to the gallery 
       $("#logo li").appendTo("#gallery") 
       $(ui.draggable).appendTo("#logo .ace-thumbnails")
