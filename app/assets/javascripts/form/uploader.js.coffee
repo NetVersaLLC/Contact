@@ -48,8 +48,9 @@ $(document).ready ->
 
   # wire up existing images to delete button
   $(".delete-image").click (e) ->
-    $(this).closest("li").find(".destroy-image").val(true) 
-    $(this).closest("li").hide()
+    if confirm( 'Are you sure?') 
+      $(this).closest("li").find(".destroy-image").val(true) 
+      $(this).closest("li").hide()
     e.preventDefault()
 
 
