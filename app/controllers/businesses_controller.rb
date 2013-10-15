@@ -121,25 +121,25 @@ class BusinessesController < InheritedResources::Base
 
   # PUT /businesses/1
   # PUT /businesses/1.json
-  def update
-    @business = Business.find(params[:id])
+  #def update
+  #  @business = Business.find(params[:id])
 
-    respond_to do |format|
-      @business.attributes = params[:business] 
+  #  respond_to do |format|
+  #    @business.attributes = params[:business] 
 
-      #if @business.update_attributes(params[:business])
-      if @business.save( :validate =>  !request.xhr?)
-        format.html { redirect_to @business, :notice => 'Business was successfully updated.' } 
-        format.json { head :no_content }
-      else
-        @accounts = @business.nonexistent_accounts_array
-        @site_accounts = Business.citation_list #.map {|x| x[0..1]}
+  #    #if @business.update_attributes(params[:business])
+  #    if @business.save( :validate =>  !request.xhr?)
+  #      format.html { redirect_to @business, :notice => 'Business was successfully updated.' } 
+  #      format.json { head :no_content }
+  #    else
+  #      @accounts = @business.nonexistent_accounts_array
+  #      @site_accounts = Business.citation_list #.map {|x| x[0..1]}
 
-        format.html { render action: "edit" }
-        format.json { render json: @business.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #      format.html { render action: "edit" }
+  #      format.json { render json: @business.errors, status: :unprocessable_entity }
+  #    end
+  #  end
+  #end
 
   # DELETE /businesses/1
   # DELETE /businesses/1.json
