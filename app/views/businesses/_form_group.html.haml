@@ -5,7 +5,11 @@
   .row
     .col-xs-12
       - args ||= {}
-      - options = { class: "col-xs-5", title: "", placeholder: I18n.t("helpers.placeholders.business.#{field}"), data: { content: I18n.t("popovers.business.#{field}.content"), 'original-title' => I18n.t("popovers.business.#{field}.title"), toggle: 'popover'  } }
+      - options = { class: "col-xs-5", title: "", placeholder: I18n.t("helpers.placeholders.business.#{field}") }
+      - unless I18n.t("popovers.business.#{field}.content").include?('missing')
+        - options = options.merge( { :data => {toggle: 'popover', content: I18n.t("popovers.business.#{field}.content"), 'original-title' => I18n.t("popovers.business.#{field}.title") } })
+        - STDERR.puts options
+      -# options = { class: "col-xs-5", title: "", placeholder: I18n.t("helpers.placeholders.business.#{field}"), data: { content: I18n.t("popovers.business.#{field}.content"), 'original-title' => I18n.t("popovers.business.#{field}.title"), toggle: 'popover'  } }
       - if args.has_key?(:rows)
         =f.text_area field, options.merge(args)
       -else 

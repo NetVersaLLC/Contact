@@ -79,6 +79,24 @@ en:
         zip:                 "Business Zip"
         keywords:            "Search Engine Keywords"
         status_message:      ""
+        trade_license:       "" 
+        trade_license_number: ""
+        trade_license_locale: ""
+        trade_license_authority: ""
+        trade_license_expiration: ""
+        brands:               ""
+        tag_line:             "" 
+        job_titles:           "" 
+        profesional_associations: ""
+        services_offered:     ""
+        category1:           "" 
+        category2:           "" 
+        category3:           "" 
+        category4:           "" 
+        category5:           "" 
+
+
+
 
   popovers: 
     business: 

@@ -1,0 +1,5 @@
+%li
+  =image_tag( image.medium, alt: "150x150", "data-image-id" => image.id)
+  .tools.tools-bottom
+    %a.remove_thumbnail{'data-image-id' => image.id, href:"#"}
+      %i.icon-trash.red

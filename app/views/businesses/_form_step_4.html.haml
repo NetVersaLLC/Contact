@@ -1,29 +1,24 @@
 #step4.step-pane
   .row
-    .col-xs-12
+    .col-xs-6
       %h3 Logo 
       %p= I18n.t('popovers.business.logo.logo_content')  
-      -if @business.logo.nil? 
-        .alert.alert-info A logo has not been selected.
-      -else 
-        %a.cboxElement{ data: {rel: "colorbox"}, href: @business.logo.medium }
-          =image_tag( @business.logo.medium, alt: "150x150")
-          .text
-            .inner A caption on Hover. 
-  .row
-    .col-xs-12
-      #uploader
+      #logo.well
+        -if @business.logo.nil? 
+          .no-logo{ class:[ @business.logo.present? && :hidden] } Drag an image from the gallery to make it the logo.
+        %ul.ace-thumbnails
+          -if @business.logo.present?
+            =render partial: "gallery_image", locals: { image: @business.logo } 
 
   .row
     .col-xs-12
-      %h3 Additional Images
+      %h3 Image Gallery
       %p= I18n.t('popovers.business.logo.additional_logo_content')
         
-      %ul.ace-thumbnails
+      %ul#gallery.ace-thumbnails
         -@business.images.each do |image| 
-          %li
-            %a{ data: { rel: 'colorbox'}, href: image.url }
-              = image_tag image.medium
-            .tools.tools-bottom
-              %a.remove_thumbnail{'data-image-id' => image.id, href:"#"}
-                %i.icon-remove.red
+          =render partial: "gallery_image", locals: { image: image } 
+  .row
+    .col-xs-6
+      #uploader
+

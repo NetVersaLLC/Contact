@@ -32,7 +32,7 @@
               %td
                 = image_tag site_profile.logo.url(:thumb)
                 = link_to site_profile.site, site_profile_path(site_profile)
-              %td= site_profile.owner 
+              %td= truncate(site_profile.owner)
               %td= site_profile.alexa_us_traffic_rank 
               %td= site_profile.page_rank 
               %td
