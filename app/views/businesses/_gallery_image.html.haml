@@ -1,5 +1,7 @@
 %li
-  =image_tag( image.medium, alt: "150x150", "data-image-id" => image.id)
+  =image_tag( image.object.medium, alt: "150x150")
+  =image.hidden_field :_destroy, class: 'destroy-image' 
+  =image.hidden_field :is_logo, class: 'is-logo'
   .tools.tools-bottom
-    %a.remove_thumbnail{'data-image-id' => image.id, href:"#"}
+    %a.remove_thumbnail
       %i.icon-trash.red

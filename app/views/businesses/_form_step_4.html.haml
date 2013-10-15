@@ -8,15 +8,15 @@
           .no-logo{ class:[ @business.logo.present? && :hidden] } Drag an image from the gallery to make it the logo.
         %ul.ace-thumbnails
           -if @business.logo.present?
-            =render partial: "gallery_image", locals: { image: @business.logo } 
-
+            = f.fields_for :images, @business.logo do |image|
+              =render partial: "gallery_image", locals: { image: image } 
   .row
     .col-xs-12
       %h3 Image Gallery
       %p= I18n.t('popovers.business.logo.additional_logo_content')
         
       %ul#gallery.ace-thumbnails
-        -@business.images.each do |image| 
+        = f.fields_for :images do |image|
           =render partial: "gallery_image", locals: { image: image } 
   .row
     .col-xs-6

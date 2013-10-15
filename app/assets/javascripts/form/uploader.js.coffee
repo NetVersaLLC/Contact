@@ -10,17 +10,6 @@
 #      refresh_image_list()  # the delete action on the controller 
 #                            # will get the positions reordered, 
 #
-#set_logo = (e)->
-#  e.preventDefault()
-#  image_id = $(e.target).attr('data-image-id')
-#  $(".set-logo"+image_id).css({ display: "none" })
-#  request = $.ajax
-#    type: "PUT",
-#    url: "/images/set_logo/"+image_id,
-#    dataType: 'html',
-#  request.done (data) ->  
-#    refresh_image_list(image_id)
-#    $("#thumbnail"+image_id).addClass('active-block')
 
 # The numbering (display_name) is tied to the position, so on 
 # a delete, we need to get the reordered list to remove any 
@@ -85,11 +74,15 @@ $(document).ready ->
     accept: "#gallery li" 
     activeClass: "custom-state-active", 
     drop: (event, ui) -> 
+
       $( ".no-logo").hide()
       # move existing logo back to the gallery 
       $("#logo li").appendTo("#gallery") 
+      $(ui.draggable).appendTo("#logo .ace-thumbnails")
+      
+      $("#logo .is-logo").val(true)
+      $("#gallery .is-logo").val(false)
 
-      $(ui.draggable).appendTo("#logo .ace-thumbnails") 
 
 
   $('#uploader').fineUploader(
