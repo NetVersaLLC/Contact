@@ -38,21 +38,18 @@
 
 
 $(document).ready ->
-  params                = {}
-  csrf_token            = $("meta[name=csrf-token]").attr("content")
-  csrf_param            = $("meta[name=csrf-param]").attr("content")
-  params[csrf_param]    = encodeURI(csrf_token)
-  params["business_id"] = window.business_id
-  params["business_form_edit_id"] = window.business_form_edit_id
+  #params                = {}
+  #csrf_token            = $("meta[name=csrf-token]").attr("content")
+  #csrf_param            = $("meta[name=csrf-param]").attr("content")
+  #params[csrf_param]    = encodeURI(csrf_token)
+  #params["business_id"] = window.business_id
+  #params["business_form_edit_id"] = window.business_form_edit_id
 
-
-  # wire up existing images to delete button
   $(".delete-image").click (e) ->
     if confirm( 'Are you sure?') 
       $(this).closest("li").find(".destroy-image").val(true) 
       $(this).closest("li").hide()
     e.preventDefault()
-
 
   $gallery = $("#gallery") 
   $logo = $("#logo") 
@@ -68,7 +65,6 @@ $(document).ready ->
     activeClass: "ui-state-highlight", 
     drop: (event, ui) -> 
       console.log ui 
-      
 
   $logo.droppable 
     accept: "#gallery li" 
@@ -102,9 +98,13 @@ $(document).ready ->
       success: 'alert alert-success'
       fail: 'alert alert-error'
     request:
-      endpoint: '/images'
-      params: params
+      endpoint: "/businesses/#{window.business_id}/images.json"
+
+      #params: params
   ).on 'complete', (event, id, name, response)->
-    return unless response['success']
-    #refresh_image_list()
-    #refresh_image_list()
+    html = $("#new-image").html() 
+    html = html.replace(/<%=id%>/g, response.id) 
+    html = html.replace(/<%=src%>/g, response.url) 
+
+    $(html).appendTo("#gallery")
+

@@ -41,10 +41,11 @@ Contact::Application.routes.draw do
   resources :notifications 
 
   resources :businesses do 
-    resources :codes, :only => [:new, :create] 
     resources :accounts, :only => [:edit, :update, :create]
-    resources :notifications
+    resources :codes, :only => [:new, :create] 
     resources :downloads, :only => [:show]
+    resources :images
+    resources :notifications
   end 
 
   get     '/codes/:business_id/:site_name(.:format)', :action=>"site_code", :controller=>"codes"
@@ -96,12 +97,16 @@ Contact::Application.routes.draw do
 
   get     '/test/exception', :controller => :test, :action => :exception
 
-  get     '/images(.:format)', :action => 'index', :controller => 'images'
-  post    '/images(.:format)', :action=>"create", :controller=>"images"
-  delete  '/images/:id(.:format)',:action=>"destroy", :controller=>"images"
-  delete  '/images/:id/all(.:format)',:action=>"destroy_all", :controller=>"images"
-  put     '/images/:id(.:format)', :action=>"update", :controller=>"images"
-  get     '/images/get_logo/:business_id(.:format)', :action=>"get_logo", :controller=>"images"
+  # set up as a nested resource
+  #get     '/images(.:format)', :action => 'index', :controller => 'images'
+  #post    '/images(.:format)', :action=>"create", :controller=>"images"
+  #delete  '/images/:id(.:format)',:action=>"destroy", :controller=>"images"
+  #delete  '/images/:id/all(.:format)',:action=>"destroy_all", :controller=>"images"
+  #put     '/images/:id(.:format)', :action=>"update", :controller=>"images"
+
+  # make route more rails compliant
+  #get     '/images/get_logo/:business_id(.:format)', :action=>"get_logo", :controller=>"images"
+  get     '/images/:business_id/get_logo(.:format)', :action=>"get_logo", :controller=>"images"
 
   get     '/pages/make_redirect', :controller => :pages, :action => :make_redirect
 

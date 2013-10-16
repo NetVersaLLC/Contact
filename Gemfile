@@ -88,3 +88,4 @@ gem 'mustache'
 gem 'will_paginate', '~> 3.0.5'
 gem "bootstrap-will_paginate", :git => 'git://github.com/yrgoldteeth/bootstrap-will_paginate.git'
 gem 'inherited_resources' 
+gem "jbuilder"
