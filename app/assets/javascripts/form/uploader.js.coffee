@@ -1,41 +1,17 @@
-  
-#delete_image = (e)->
-#  e.preventDefault()
-#  image_id = $(e.target).attr('data-image-id')
-#  $.ajax
-#    type: "POST",
-#    url: "/images/"+image_id+".json",
-#    data: {_method: "delete"},
-#    success: (data)->
-#      refresh_image_list()  # the delete action on the controller 
-#                            # will get the positions reordered, 
-#
 
-# The numbering (display_name) is tied to the position, so on 
-# a delete, we need to get the reordered list to remove any 
-# resulting gaps 
-#refresh_image_list = (active_image_id) ->
-#  $.getJSON "/images.json?business_id=#{window.business_id}", (images) ->
-#    $("#logo-section ul.thumbnails").children().remove()   # clean the slate
-#    $("#uploader").data("fineuploader").uploader._netUploadedOrQueued = images.length if $("#uploader").data("fineuploader")
-#    #console.log "images length :#{ images.length  } " if $("#uploader").data("fineuploader")
-#    add_image image for image in images      # add them back in
-#    $('.remove_thumbnail').click (e)->       # wire up for deletion
-#      delete_image(e)
-#    $('.set-logo').click (e)->
-#      set_logo(e)
-#    $("#thumbnail"+active_image_id).addClass('active-block')
-#
-## ugly looking helper to keep the html out of the way 
-#add_image = (response) ->
-#  if response.is_logo == true
-#    $('#show-logo').html('<img src=' + response.medium + ' />')
-#    html = '<li class="span4" style="position: relative" id="thumbnail'+response.id+'"><div class="thumbnail"><img id="img'+response['id']+'" src="'+response.medium+'"  alt=""><button class="btn btn-info remove_thumbnail" style="position: absolute; top: 4px; right: 2px;" data-image-id="'+response['id']+'">X</button></div></li>'
-#  else 
-#    html = '<li class="span4" style="position: relative" id="thumbnail'+response['id']+'"><div class="thumbnail"><img id="img'+response['id']+'" src="'+response['medium']+'"  alt=""><button class="btn btn-info remove_thumbnail" style="position: absolute; top: 4px; right: 2px;" data-image-id="'+response['id']+'">X</button><button class="btn btn-info set-logo" style="position: absolute; top: 4px; right: 40px;" data-image-id="'+response['id']+'">Set as Logo</button></div></li>'
-#
-#  $('#logo-section ul.thumbnails').append(html)
+bind_gallery_item = (item) -> 
+  console.log item
+  $(item).draggable
+    revert: "invalid" 
+    containment: "document" 
+    helper: "clone" 
+    cursor: "move" 
 
+  $(".delete-image", item).click (e) ->
+    if confirm( 'Are you sure?') 
+      $(this).closest("li").find(".destroy-image").val(true) 
+      $(this).closest("li").hide()
+    e.preventDefault()
 
 $(document).ready ->
   #params                = {}
@@ -45,20 +21,11 @@ $(document).ready ->
   #params["business_id"] = window.business_id
   #params["business_form_edit_id"] = window.business_form_edit_id
 
-  $(".delete-image").click (e) ->
-    if confirm( 'Are you sure?') 
-      $(this).closest("li").find(".destroy-image").val(true) 
-      $(this).closest("li").hide()
-    e.preventDefault()
+  $("#gallery li").each (index, li) ->
+    bind_gallery_item( li )
 
   $gallery = $("#gallery") 
   $logo = $("#logo") 
-
-  $("li", $gallery).draggable
-    revert: "invalid" 
-    containment: "document" 
-    helper: "clone" 
-    cursor: "move" 
 
   $gallery.droppable 
     accept: "#logo > li" 
@@ -78,8 +45,6 @@ $(document).ready ->
       
       $("#logo .is-logo").val(true)
       $("#gallery .is-logo").val(false)
-
-
 
   $('#uploader').fineUploader(
     debug: true
@@ -106,5 +71,8 @@ $(document).ready ->
     html = html.replace(/<%=id%>/g, response.id) 
     html = html.replace(/<%=src%>/g, response.url) 
 
-    $(html).appendTo("#gallery")
+    elements = $(html).appendTo("#gallery")
+    console.log elements[0]
+    bind_gallery_item(elements[0])
+
 
