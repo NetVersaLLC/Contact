@@ -1,6 +1,5 @@
 
 bind_gallery_item = (item) -> 
-  console.log item
   $(item).draggable
     revert: "invalid" 
     containment: "document" 
@@ -14,18 +13,8 @@ bind_gallery_item = (item) ->
     e.preventDefault()
 
 $(document).ready ->
-  #params                = {}
-  #csrf_token            = $("meta[name=csrf-token]").attr("content")
-  #csrf_param            = $("meta[name=csrf-param]").attr("content")
-  #params[csrf_param]    = encodeURI(csrf_token)
-  #params["business_id"] = window.business_id
-  #params["business_form_edit_id"] = window.business_form_edit_id
-
   $("#gallery li").each (index, li) ->
     bind_gallery_item( li )
-
-  $gallery = $("#gallery") 
-  $logo = $("#logo") 
 
   $gallery.droppable 
     accept: "#logo > li" 
@@ -72,7 +61,6 @@ $(document).ready ->
     html = html.replace(/<%=src%>/g, response.url) 
 
     elements = $(html).appendTo("#gallery")
-    console.log elements[0]
     bind_gallery_item(elements[0])
 
 
