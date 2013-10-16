@@ -8,10 +8,12 @@
       = link_to businesses_url do 
         %i.icon-text-width 
         %span.menu-text Locations 
-    %li 
-      = link_to users_url do
-        %i.icon-desktop
-        %span.menu-text Users 
+
+    - if current_user.reseller?
+      %li 
+        = link_to users_url do
+          %i.icon-desktop
+          %span.menu-text Users 
     %li
       = link_to accounts_url do  
         %i.icon-list 

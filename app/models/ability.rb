@@ -49,6 +49,7 @@ class Ability
           end
         end
       end
+      can :manage, ClientData, :business => { :user_id => user.id }
       can :read,   SiteProfile 
       can :manage, [Subscription,TransactionEvent,Payment], :business => { :user_id => user.id }
       can :create, Booboo, :user_id => user.id
