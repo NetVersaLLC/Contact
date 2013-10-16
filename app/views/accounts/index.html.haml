@@ -9,16 +9,30 @@
           %h4 Search 
         .widget-body
           .widget-main
-            -#
-              =search_form_for @q, class:"form-inline" do |f|
-                .input-group
-                  =f.text_field :email_cont,  placeholder: "Email"
-                  =f.text_field :first_name_start,  placeholder: "First Name"
-                  =f.text_field :last_name_start,   placeholder: "Last Name"
-                  %span.input-group-btn
-                    %button.btn.btn-purple.btn-sm
-                      Search
-                      %i.icon-search.icon-on-right.bigger-110
+            =search_form_for @q, url: accounts_path, lass:"form-search" do |f|
+              .input-group
+                =f.text_field :type_cont,  placeholder: "Listing Domain", class: "form-control"
+                %span.input-group-btn
+                  %button.btn.btn-purple.btn-sm
+                    Search
+                    %i.icon-search.icon-on-right.bigger-110
       .dataTables_wrapper
         =render 'index_table'
         =render 'will_paginate'
+      .btn-group
+        %button.btn.btn-info.btn-sm.dropdown-toggle(data-toggle="dropdown") 
+          Bulk edit
+          %span.icon-caret-down.icon-on-right
+        %ul.dropdown-menu.dropdown-info.pull-right
+          %li
+            %a(href="#") Enable Sync 
+          %li
+            %a(href="#") Disable Sync 
+          %li 
+            %a(href="#") Enable Broadcast 
+          %li
+            %a(href="#") Disable Broadcast 
+          %li.divider 
+          %li
+            %a(href="#") One-Time Broadcast
+
