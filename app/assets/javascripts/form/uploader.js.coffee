@@ -16,13 +16,13 @@ $(document).ready ->
   $("#gallery li").each (index, li) ->
     bind_gallery_item( li )
 
-  $gallery.droppable 
+  $("#gallery").droppable 
     accept: "#logo > li" 
     activeClass: "ui-state-highlight", 
     drop: (event, ui) -> 
       console.log ui 
 
-  $logo.droppable 
+  $("#logo").droppable 
     accept: "#gallery li" 
     activeClass: "custom-state-active", 
     drop: (event, ui) -> 
