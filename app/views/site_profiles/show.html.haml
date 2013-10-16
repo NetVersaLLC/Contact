@@ -28,4 +28,5 @@
     %p 
       =image_tag @site_profile.logo.url
 
-    = link_to 'Edit Site Profile', edit_site_profile_path(@site_profile), class: "btn btn-info"
+    - if can? :edit, @site_profile
+      = link_to 'Edit Site Profile', edit_site_profile_path(@site_profile), class: "btn btn-info"

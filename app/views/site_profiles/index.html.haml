@@ -24,7 +24,7 @@
             %th Owner 
             %th Alexa US Traffice Rank 
             %th Page Rank
-            %th Scan?
+            %th Scan Enabled
             %th Actions
         %tbody
           -@site_profiles.each do |site_profile| 
@@ -36,17 +36,21 @@
               %td= site_profile.alexa_us_traffic_rank 
               %td= site_profile.page_rank 
               %td
-                = form_for site_profile, remote: true do |f|
-                  =f.check_box :enabled_for_scan, class: "ace ace-switch ace-switch-3"
-                  %span.lbl
+                - if can? :edit, site_profile 
+                  = form_for site_profile, remote: true do |f|
+                    =f.check_box :enabled_for_scan, class: "ace ace-switch ace-switch-3"
+                    %span.lbl
+                -else 
+                  = site_profile.enabled_for_scan ? "Yes":"No"
               %td
                 .visible-md.visible-lg.hidden-sm.hidden-xs.btn-group
                   =link_to(site_profile_url(site_profile), class: 'btn btn-xs btn-success') do 
                     %i.icon-ok.bigger-120
-                  =link_to(edit_site_profile_url(site_profile), class: 'btn btn-xs btn-info') do 
-                    %i.icon-edit.bigger-120
-                  =link_to(site_profile_url(site_profile), method: :delete, confirm: 'Are you sure?', class: 'btn btn-xs btn-danger') do 
-                    %i.icon-trash.bigger-120
+                  - if can? :manage, site_profile
+                    =link_to(edit_site_profile_url(site_profile), class: 'btn btn-xs btn-info') do 
+                      %i.icon-edit.bigger-120
+                    =link_to(site_profile_url(site_profile), method: :delete, confirm: 'Are you sure?', class: 'btn btn-xs btn-danger') do 
+                      %i.icon-trash.bigger-120
       .row 
         .col-md-6
           .dataTables_info
