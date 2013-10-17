@@ -15,12 +15,19 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
 
   def create
     STDERR.puts "Ues running"
-    @callcenter = params[:callcenter] == '1' ? true : false
+    if params[:callcenter] and params[:callcenter] =~ /1/i
+      @callcenter = true
+    else
+      @callcenter = false
+    end
+
     build_resource
     resource.callcenter = @callcenter 
+    resource.temppass = Random.rand(899999) + 100000
+
     if @callcenter == true 
-      resource.temppass = resource.password = resource.password_confirmation = Random.rand(899999) + 100000
-    end 
+      resource.password = resource.password_confirmation = resource.temppass
+    end
 
     @is_checkout_session = checkout_setup
 
