@@ -1,0 +1,67 @@
+%h4.header.blue.bolder.smaller General
+.row
+  .col-xs-12.col-sm-4
+    =f.file_field :avatar
+  .col-xs-12.col-sm-8
+    .form-group
+      =f.label :username, class: "col-sm-4 control-label no-padding-right"
+      .col-sm-8
+        =f.text_field :username, class: "col-xs-12 col-sm-10"
+    .space-4
+    .form-group 
+      =f.label :first_name, "Name", class: "col-sm-4 control-label no-padding-right"
+      .col-sm-8
+        =f.select :prefix, Business.prefix_list, {}
+        =f.text_field :first_name, class: "input-small", placeholder: "First Name"
+        =f.text_field :last_name, class: "input-small", placeholder: "Last Name"
+%hr
+.form-group
+  =f.label :date_of_birth, "Birth Date", class: "col-sm-3 control-label no-padding-right"
+  .col-sm-9 
+    .input-medium 
+      .input-group
+        =f.text_field :date_of_birth, class: "input-medium date-picker", type: "date"
+        %span.input-group-addon
+          %i.icon-calendar.bigger-110
+.space-4
+.form-group 
+  =f.label :gender, class: "col-sm-3 control-label no-padding-right"
+  .col-sm-9
+    =f.select :gender, Business.gender_list, {}
+.space-4
+%h4.header.blue.bolder.smaller Contact
+.form-group 
+  =f.label :email, class: "col-sm-3 control-label no-padding-right"
+  .col-sm-9
+    %span.input-icon.input-icon-right
+      =f.email_field :email
+      %i.icon-envelope
+.space4
+.form-group 
+  =f.label :mobile_phone, "Mobile Phone", class: "col-sm-3 control-label no-padding-right"
+  .col-sm-9
+    %span.input-icon.input-icon-right
+      =f.telephone_field :mobile_phone, class: "input-medium input-mask-phone"
+      %i.icon-phone.icon-flip-horizontal
+.space4
+          
+-#
+  .form-group
+    =f.label :prefix
+    =f.select :prefix, Business.prefix_list, {}, {class: "form-control"}
+  .form-group 
+    =f.label :middle_name 
+    =f.text_field :middle_name, class: "form-control"
+      .row
+        .col-xs-6
+          .control-group 
+            %label.control-label Should Mobile Number Appear on Listings?
+            .radio
+              %label
+                =f.radio_button :mobile_appears, true
+                %span.lbl Yes
+            .radio
+              %label
+                =f.radio_button :mobile_appears, false
+                %span.lbl No
+

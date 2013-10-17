@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   attr_accessible :avatar, :username, :password_confirmation, :first_name, :middle_name, :last_name,  as: [:default, :admin]
   attr_accessible :mobile_phone, :mobile_appears, :prefix, :callcenter, :date_of_birth,               as: [:default, :admin]
   attr_accessible :email, :password, :password_confirmation, :remember_me, :authentication_token,     as: [:default, :admin]
-  attr_accessible :tos, :referrer_code,                                                               as: [:default, :admin]
+  attr_accessible :tos, :referrer_code, :gender,                                                      as: [:default, :admin]
   attr_accessible :access_level,                                                                      :as => :admin
 
 
