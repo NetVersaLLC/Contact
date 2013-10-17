@@ -1,13 +1,13 @@
 %div 
   %span.profile-picture 
-  =image_tag @user.avatar.url(:medium), class: "editable.img-responsive"
+    =image_tag @user.avatar.url(:medium), class: "editable.img-responsive"
 
   .space-4
   .width-80.label.label-info.label-xlg.arrowed-in.arrowed-in-right
     .inline.position-relative
       %a.user-title-label.dropdown-toggle{data:{toggle:"dropdown"}}
         %i.icon-circle.light-green.middle
-        %span.white.middle.bigger-120 Name 
+        %span.white.middle.bigger-120= "#{@user.first_name} #{@user.last_name}".presence || "Not provided"
       %ul.align-left.dropdown-menu.dropdown-caret.dropdown-lighter
         %li.dropdown-header Change Status 
         %li 
@@ -28,12 +28,9 @@
   .space-6
   .profile-contact-info
     .profile-contact-links.align-left
-      %a.btn.btn-link{href:"#"}
-        %i.icon-bullhorn.bigger-120.green 
-        Send Broadcast
       =link_to edit_user_path(@user), class: "btn btn-link" do 
         %i.icon-edit.bigger-120.pink
-        Edit Listing 
+        Edit Profile
       %a.btn.btn-link{:href => "#"}  
         %i.icon-globe.bigger-125.blue 
         %i.icon-facebook.bigger-125.blue 

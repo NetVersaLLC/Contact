@@ -43,7 +43,7 @@
         =image_tag(current_user.avatar.url(:icon), class: "nav-user-photo")
         %span.user-info
           %small Welcome
-          Jason
+          = current_user.first_name.presence || "User" 
         %i.icon-caret-down
 
       %ul.user-menu.pull-right.dropdown-menu.dropdown-yellow.dropdown-caret.dropdown-closer
