@@ -1,60 +1,24 @@
-- if @businesses.empty?
-  .alert.alert-warning
-    %strong Oops! 
-    No locations were found.
-- else   
-  =render 'filter'
-  .dataTables_wrapper
-    %table.table.table-striped.table-bordered.table-hover.dataTable
-      %thead 
-        %tr
-          %th.center
-            %input(type="checkbox")
-          %th Address
-          %th Location Name 
-          %th Phone Number 
-          %th Tags 
-          %th Modify 
-      %tbody 
-        - @businesses.each do |business| 
-          %tr
-            %td.center
-              %input(type="checkbox")
-            %td
-              =link_to business do 
-                =business.address 
-                %br/
-                ="#{business.city}, #{business.state} #{business.zip}"
-            %td= business.name
-            %td= business.toll_free_phone.present? ? business.toll_free_phone : business.local_phone
-            %td= business.tags 
-            %td
-              = link_to business, class: "btn btn-xs btn-success" do 
-                %i.icon-ok.bigger-120
-              = link_to edit_business_path(business), class: "btn btn-xs btn-info" do 
-                %i.icon-edit.bigger-120
-              = link_to business, method: :delete, confirm: "Are you sure?", class: "btn btn-xs btn-danger" do 
-                %i.icon-trash.bigger-120
-    .row 
-      .col-md-6
-        .dataTables_info
-          = page_entries_info @businesses
-      .col-md-6
-        .dataTables_paginate.paging_bootstrap
-          = will_paginate @businesses, previous_label: "<", next_label: ">", inner_window: 1, outer_window: 1
-  %br/
-  .row
-    .col-md-12
-      .btn-group
-        %button.btn.btn-info.btn-sm.dropdown-toggle{data: {toggle:"dropdown"}} 
-          Bulk edit
-          %i.icon-angle-down.icon-on-right
-        %ul.dropdown-menu
-          %li 
-            %a{:href => "#"} Suspend Sync
-          %li 
-            %a{:href => "#"} Delete Location 
-          %li.divider
-          %li 
-            %a{:href => "#"} Broadcast Message
-        =link_to "Add location", new_business_path, class: "btn btn-info btn-sm"
+.row
+  .col-xs-12
+    - if @businesses.empty?
+      .alert.alert-warning
+        No locations were found.
+    - else   
+      =render 'filter'
+      =render 'index_table'
+      %br/
+      .row
+        .col-md-12
+          .btn-group
+            %button.btn.btn-info.btn-sm.dropdown-toggle{data: {toggle:"dropdown"}} 
+              Bulk edit
+              %i.icon-angle-down.icon-on-right
+            %ul.dropdown-menu
+              %li 
+                %a{:href => "#"} Suspend Sync
+              %li 
+                %a{:href => "#"} Delete Location 
+              %li.divider
+              %li 
+                %a{:href => "#"} Broadcast Message
+            =link_to "Add location", new_business_path, class: "btn btn-info btn-sm"
