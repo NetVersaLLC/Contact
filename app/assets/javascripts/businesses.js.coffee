@@ -89,9 +89,16 @@ $ ->
    $("#mapbutton").on 'click', (e) => 
       e.preventDefault()
 
+      business_name = $("#business_business_name").val()
+      address = $("#business_address").val()
+      zip = $("#business_zip").val()
+      marker = encodeURIComponent "#{address},#{zip}"
+
+      $("#modalmap img").attr("src","http://maps.googleapis.com/maps/api/staticmap?center=#{marker}&zoom=14&size=400x300&maptype=roadmap&markers=color:blue%7Clabel:A%7C#{marker}&sensor=false")  
+
       dialog = $("#modalmap").removeClass('hide').dialog
         modal: true
-        title: "<div class='widget-header'><h4 class='smaller'><i class='icon-ok'></i> jQuery UI Dialog</h4></div>"
+        title: "<div class='widget-header'><h4 class='smaller'><i class='icon-globe'></i> #{business_name}</h4></div>"
         width: 425
         height: 410
         buttons: [ 
