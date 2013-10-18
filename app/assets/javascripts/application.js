@@ -1,6 +1,5 @@
 //= require dummy
 //= require jquery_ujs
-//= require jquery-ui
 //= require easypaginate
 //= require jquery.inputmask.bundle.min
 //= require jquery.payment

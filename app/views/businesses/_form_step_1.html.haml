@@ -17,7 +17,7 @@
             .input-group
               =f.text_field :address, class: "form-control", placeholder: I18n.t("helpers.placeholders.business.address")
               %span.input-group-btn
-                %button.btn.btn-sm.btn-info Map
+                %button#mapbutton.btn.btn-sm.btn-info Map
 
       =render partial: "form_group", locals: { f: f, field: :address2, args: {maxlength: '100', data: {:toggle => ''}}}
       =render partial: "form_group", locals: { f: f, field: :city}
@@ -26,3 +26,6 @@
 
       %h3 Whos the boss 
       %p select a manager for this location
+
+#modalmap.hide
+  %img(src="http://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=14&size=400x300&maptype=roadmap&markers=color:blue%7Clabel:A%7CBrooklyn+Bridge,New+York,NY&sensor=false") 

@@ -92,5 +92,31 @@
           //console.log($(this).data('ace_input_method'));
         });
 
+     // so html can be placed in the dialog title
+     $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+       _title: function(title) {
+        if (!this.options.title ) {
+            title.html("&#160;");
+        } else {
+            title.html(this.options.title);
+        }
+      }
+    }));
+    $("#mapbutton").on('click', function(e){ 
+      e.preventDefault(); 
+
+      var dialog = $("#modalmap").removeClass('hide').dialog({ 
+        modal: true, 
+        title: "<div class='widget-header'><h4 class='smaller'><i class='icon-ok'></i> jQuery UI Dialog</h4></div>",
+        width: 425, 
+        height: 410,
+        buttons: [ {
+          text:  "OK", 
+          "class": "btn btn-primary btn-xs", 
+          click: function(){ $(this).dialog("close"); } 
+          } ]
+        });  
+      });  
+
   })
   

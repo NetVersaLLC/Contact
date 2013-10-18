@@ -10,8 +10,8 @@
  *
  *= require_self
  * require formtastic-bootstrap
- *= require jquery-ui
- *= require jquery-bootstrap
+ * require jquery-ui
+ * require jquery-bootstrap
  * require include-bootstrap
  * require ace-fonts
  *= require datepicker
@@ -26,5 +26,6 @@
  *= require codes
  *= require colorbox
  *= require scan
- *= require businesses*/
+ *= require businesses
+ *= require jquery.ui.overrides */
 

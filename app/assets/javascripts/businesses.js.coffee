@@ -42,72 +42,96 @@ has_client_checked_in = () ->
         window.setTimeout has_client_checked_in, 10000
 
 $ ->
-  ###  
-  $('.next-button, .back-button, .step-title').click (evt) -> 
-    form = $('form.business')
-    form.isValid( window.ClientSideValidations.forms[form.attr('id')].validators )
-    save_edits()
+  return unless $("form").is(".new_business, .edit_business") 
 
-  # existing accounts
-  $('#edit-accounts-area').load "/businesses/#{window.business_id}/accounts/all/edit"
-
-  $('form.business').enableClientSideValidations()
-
-  window.showing_tab= 0
+  $('[data-toggle="popover"]').popover({trigger: "hover"})
   
-  $('.pf-form').psteps( {
-    traverse_titles: 'always',
-    validate_use_error_msg: false,
-    shrink_step_names: false,
-    validate_next_step: false,
-    ignore_errors_on_next: true,
-    validate_errors: false, 
+  window.business_id = '#{@business.id}'
+  jQuery(function($) { 
 
-    steps_show: () ->
-      cur_step = $(this)
-      #console.log "show #{cur_step.index()}"
-      #console.log cur_step.attr('class')
-      window.showing_tab = cur_step.index() 
+  colorbox_params = {
+      reposition:true,
+      scalePhotos:true,
+      scrolling:false,
+      previous:'<i class="icon-arrow-left"></i>',
+      next:'<i class="icon-arrow-right"></i>',
+      close:'&times;',
+      current:'{current} of {total}',
+      maxWidth:'100%',
+      maxHeight:'100%',
+      onOpen:function(){
+        document.body.style.overflow = 'hidden';
+      },
+      onClosed:function(){
+        document.body.style.overflow = 'auto';
+      },
+      onComplete:function(){
+        $.colorbox.resize();
+      }
+    };
 
-      if cur_step.index() == 7 
-        auto_download_client_software()
+    $('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
+    $("#cboxLoadingGraphic").append("<i class='icon-spinner orange'></i>");//let's add a custom loading icon
 
-      if cur_step.index() == 6
-        $('.dashboard-show').show()
+    $('#input-file-3').ace_file_input({
+          style:'well',
+          btn_choose:'Drop files here or click to choose',
+          btn_change:null,
+          no_icon:'icon-cloud-upload',
+          droppable:true,
+          thumbnail:'small'//large | fit
+          //,icon_remove:null//set null, to hide remove/reset button
+          /**,before_change:function(files, dropped) {
+            //Check an example below
+            //or examples/file-upload.html
+            return true;
+          }*/
+          /**,before_remove : function() {
+            return true;
+          }*/
+          ,
+          preview_error : function(filename, error_code) {
+            //name of the file that failed
+            //error_code values
+            //1 = 'FILE_LOAD_FAILED',
+            //2 = 'IMAGE_LOAD_FAILED',
+            //3 = 'THUMBNAIL_FAILED'
+            //alert(error_code);
+          }
+      
+        }).on('change', function(){
+          //console.log($(this).data('ace_input_files'));
+          //console.log($(this).data('ace_input_method'));
+        });
 
-      if cur_step.index() != 6
-        $('form.business').enableClientSideValidations()
+     // so html can be placed in the dialog title
+     $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+       _title: function(title) {
+        if (!this.options.title ) {
+            title.html("&#160;");
+        } else {
+            title.html(this.options.title);
+        }
+      }
+    }));
+    $("#mapbutton").on('click', function(e){ 
+      e.preventDefault(); 
 
-    validation_rule: () ->
-      errors = 0
-      # some useful class items: step-visited step-active last-active
-      cur_step = $(this)
-      console.log "validation #{cur_step.index()}"
-      console.log cur_step.attr('class')
+      var dialog = $("#modalmap").removeClass('hide').dialog({ 
+        modal: true, 
+        title: "<div class='widget-header'><h4 class='smaller'><i class='icon-ok'></i> jQuery UI Dialog</h4></div>",
+        width: 425, 
+        height: 410,
+        buttons: [ {
+          text:  "OK", 
+          "class": "btn btn-primary btn-xs", 
+          click: function(){ $(this).dialog("close"); } 
+          } ]
+        });  
+      });  
 
-      if cur_step.index() == 3 
-        if cur_step.hasClass('step-visited')
-          $('#section-business-hours .alert-danger').remove() 
-          $('#section-payment-methods .alert-danger').remove() 
-
-          unless $(".bussiness_hours_checkbox").is(':checked')
-            errors++
-            $('#section-business-hours').prepend("<div class='alert alert-danger'>You must check at least one day.</div>") 
-          unless $('.payment_method input[type=checkbox]').is(':checked') 
-            errors++
-            $('#section-payment-methods').prepend("<div class='alert alert-danger'>You must check at least one payment method.</div>") 
-
-          return if errors then 'error' else true
-
-      if cur_step.hasClass("step-visited") && cur_step.find(".error").length > 0 
-        scrollToFirstError() if cur_step.hasClass("step-active")
-        return 'error' 
-
-      return 'error' if cur_step.find(".error").length > 0
-      return cur_step.hasClass("step-visited")
-  } )
-  ###
-  #
+  })
+  
   $('#user_mobile_phone').inputmask("999-999-9999",{ "clearIncomplete": true, 'clearMaskOnLostFocus': true });
   $('#business_local_phone').inputmask("999-999-9999",{ "clearIncomplete": true , 'clearMaskOnLostFocus': true })
   $('#business_alternate_phone').inputmask("999-999-9999",{ "clearIncomplete": true, 'clearMaskOnLostFocus': true })
