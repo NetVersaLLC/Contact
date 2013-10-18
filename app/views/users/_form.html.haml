@@ -35,7 +35,7 @@
 :javascript
   jQuery(function($) { 
   /* http://eternicode.github.io/bootstrap-datepicker/ */
-    $('.date-picker').datepicker({startView: 0, format: "yyyy-mm-dd", keyboardNavigation: false}); 
+    $('.date-picker').datepicker({autoclose: true, startView: 0, format: "yyyy-mm-dd", keyboardNavigation: false}); 
     $('#edit-basic')
       .find('input[type=file]').ace_file_input({
         style:'well',

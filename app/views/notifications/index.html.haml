@@ -1,5 +1,5 @@
 .row
-  .col-xs-6
+  .col-xs-9
     - if @notifications.blank? 
       .alert.alert-block.alert-success
         No action items were found. 
@@ -14,6 +14,8 @@
             %thead
               %tr
                 %th Action
+                - if current_user.reseller?
+                  %th Business
                 %th Status
                 %th Created at
                 %th Delete
@@ -22,8 +24,18 @@
                 %tr
                   %td
                     %a{href: "#{notification.url}"}= notification.title
+                  -if current_user.reseller? 
+                    %td= truncate(notification.business.business_name)
                   %td New
                   %td= l(notification.created_at, format: :long)
                   %td 
                     = link_to notification, method: :delete, confirm: "Are you sure?", class: "btn btn-xs btn-danger" do 
                       %i.icon-trash.bigger-120
+          .row 
+            .col-md-6
+              .dataTables_info
+                = page_entries_info @notifications
+            .col-md-6
+              .dataTables_paginate.paging_bootstrap
+                = will_paginate @notifications, previous_label: "<", next_label: ">", inner_window: 1, outer_window: 1
+
