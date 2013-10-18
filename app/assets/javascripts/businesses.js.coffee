@@ -10,15 +10,7 @@
 #= require form/uploader
 # = require form/company_description
 
-save_edits = () ->
-  action = $('form.business').attr('action') + '.json'
-  $.post action,
-    $('form.business').serialize(),
-
-scrollToFirstError = () ->
-  $('html,body').animate({'scrollTop':$('.error:first').offset().top-100})
-
-# only for the business.show view
+###
 delay_task_sync_button = ->
   if window.location.search.indexOf("delay=true") > 0
     $("form.new_task > input[type='image']").attr('disabled','disabled')
@@ -40,104 +32,82 @@ has_client_checked_in = () ->
         window.location = "/businesses/tada/#{window.business_id}"
       else
         window.setTimeout has_client_checked_in, 10000
+###
 
 $ ->
-  return unless $("form").is(".new_business, .edit_business") 
+
+  return if $("form").is(".new_business, .edit_business") isnt true
 
   $('[data-toggle="popover"]').popover({trigger: "hover"})
   
   window.business_id = '#{@business.id}'
-  jQuery(function($) { 
 
-  colorbox_params = {
-      reposition:true,
-      scalePhotos:true,
-      scrolling:false,
-      previous:'<i class="icon-arrow-left"></i>',
-      next:'<i class="icon-arrow-right"></i>',
-      close:'&times;',
-      current:'{current} of {total}',
-      maxWidth:'100%',
-      maxHeight:'100%',
-      onOpen:function(){
-        document.body.style.overflow = 'hidden';
-      },
-      onClosed:function(){
-        document.body.style.overflow = 'auto';
-      },
-      onComplete:function(){
-        $.colorbox.resize();
-      }
-    };
+  colorbox_params = 
+    reposition:true
+    scalePhotos:true
+    scrolling:false
+    previous:'<i class="icon-arrow-left"></i>'
+    next:'<i class="icon-arrow-right"></i>'
+    close:'&times;'
+    current:'{current} of {total}'
+    maxWidth:'100%'
+    maxHeight:'100%'
+    onOpen: () ->
+      document.body.style.overflow = 'hidden'
+    onClosed: () ->
+      document.body.style.overflow = 'auto'
+    onComplete: () ->
+      $.colorbox.resize()
 
-    $('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
-    $("#cboxLoadingGraphic").append("<i class='icon-spinner orange'></i>");//let's add a custom loading icon
+  $('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params)
+  $("#cboxLoadingGraphic").append("<i class='icon-spinner orange'></i>") #let's add a custom loading icon
 
-    $('#input-file-3').ace_file_input({
-          style:'well',
-          btn_choose:'Drop files here or click to choose',
-          btn_change:null,
-          no_icon:'icon-cloud-upload',
-          droppable:true,
-          thumbnail:'small'//large | fit
-          //,icon_remove:null//set null, to hide remove/reset button
-          /**,before_change:function(files, dropped) {
-            //Check an example below
-            //or examples/file-upload.html
-            return true;
-          }*/
-          /**,before_remove : function() {
-            return true;
-          }*/
-          ,
-          preview_error : function(filename, error_code) {
-            //name of the file that failed
-            //error_code values
-            //1 = 'FILE_LOAD_FAILED',
-            //2 = 'IMAGE_LOAD_FAILED',
-            //3 = 'THUMBNAIL_FAILED'
-            //alert(error_code);
-          }
-      
-        }).on('change', function(){
-          //console.log($(this).data('ace_input_files'));
-          //console.log($(this).data('ace_input_method'));
-        });
+  $('#input-file-3').ace_file_input
+    style:'well',
+    btn_choose:'Drop files here or click to choose',
+    btn_change:null,
+    no_icon:'icon-cloud-upload',
+    droppable:true,
+    thumbnail:'small'  # large | fit
+    preview_error: (filename, error_code) ->
+      #name of the file that failed
+      #/error_code values
+      #/1 = 'FILE_LOAD_FAILED',
+      #/2 = 'IMAGE_LOAD_FAILED',
+      #/3 = 'THUMBNAIL_FAILED'
+      #/alert(error_code);
+   # so html can be placed in the dialog title
+   
+   $.widget "ui.dialog", 
+     $.extend {}, $.ui.dialog.prototype, 
+       _title: (title) -> 
+         if (!this.options.title ) 
+           title.html("&#160;")
+         else 
+           title.html(this.options.title)
 
-     // so html can be placed in the dialog title
-     $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
-       _title: function(title) {
-        if (!this.options.title ) {
-            title.html("&#160;");
-        } else {
-            title.html(this.options.title);
-        }
-      }
-    }));
-    $("#mapbutton").on('click', function(e){ 
-      e.preventDefault(); 
+   $("#mapbutton").on 'click', (e) => 
+      e.preventDefault()
 
-      var dialog = $("#modalmap").removeClass('hide').dialog({ 
-        modal: true, 
-        title: "<div class='widget-header'><h4 class='smaller'><i class='icon-ok'></i> jQuery UI Dialog</h4></div>",
-        width: 425, 
-        height: 410,
-        buttons: [ {
-          text:  "OK", 
-          "class": "btn btn-primary btn-xs", 
-          click: function(){ $(this).dialog("close"); } 
-          } ]
-        });  
-      });  
+      dialog = $("#modalmap").removeClass('hide').dialog
+        modal: true
+        title: "<div class='widget-header'><h4 class='smaller'><i class='icon-ok'></i> jQuery UI Dialog</h4></div>"
+        width: 425
+        height: 410
+        buttons: [ 
+          text:  "OK"
+          "class": "btn btn-primary btn-xs"
+          click: () -> 
+            $(this).dialog("close")
+          ]
 
-  })
-  
+
   $('#user_mobile_phone').inputmask("999-999-9999",{ "clearIncomplete": true, 'clearMaskOnLostFocus': true });
   $('#business_local_phone').inputmask("999-999-9999",{ "clearIncomplete": true , 'clearMaskOnLostFocus': true })
   $('#business_alternate_phone').inputmask("999-999-9999",{ "clearIncomplete": true, 'clearMaskOnLostFocus': true })
   $('#business_toll_free_phone').inputmask("999-999-9999",{ "clearIncomplete": true, 'clearMaskOnLostFocus': true })
   $('#business_fax_number').inputmask("999-999-9999",{ "clearIncomplete": true, 'clearMaskOnLostFocus': true })
 
-  window.initMap()
+  #window.initMap()
   #delay_task_sync_button()
   window.company_description()
