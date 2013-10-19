@@ -38,9 +38,9 @@ Contact::Application.configure do
   config.scan_server_api_username = 'api'
   config.scan_server_api_token = '13fc9e78f643ab9a2e11a4521479fdfe'
   # period to wait before resending task that is waiting for result to scanserver again
-  config.scan_task_resend_interval = 10.seconds
+  config.scan_task_resend_interval = 5.seconds
   # how much time to wait before considering scan as failed
-  config.scan_task_fail_interval = 1.minute
+  config.scan_task_fail_interval = 30.seconds
 
   # used to authenticate scan server callbacks
   config.scan_api_token = '892457gh9q87fah98ef7hq987harhq9w87eh8'

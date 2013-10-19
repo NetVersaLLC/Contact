@@ -33,7 +33,7 @@ class Scan < ActiveRecord::Base
         task_status: Scan::TASK_STATUS_TAKEN,
         updated_at: DateTime.current - Contact::Application.config.scan_task_resend_interval
     }).each do |s|
-      s.delay.send_to_scan_server!
+      s.send_to_scan_server_in_thread!
     end
   end
 
@@ -44,11 +44,30 @@ class Scan < ActiveRecord::Base
     }).update_all({task_status: Scan::TASK_STATUS_FAILED})
   end
 
+  def self.send_all_waiting_tasks!
+    self.where("task_status = :task_status", {
+        task_status: Scan::TASK_STATUS_WAITING
+    }).each do |s|
+      s.send_to_scan_server_in_thread!
+    end
+  end
+
   def format_data_for_scan_server
     {
       :scan => @attributes.symbolize_keys.slice(:id, :business, :phone, :zip, :latitude, :longitude,
                                               :state, :state_short, :city, :county, :country),
       :site => site
+    }
+  end
+
+  def send_to_scan_server_in_thread!
+    ActiveRecord::Base.connection_pool.release_connection()
+    Thread.new(self) { |t|
+      begin
+        t.send_to_scan_server!
+      rescue => e
+        puts "thread died with exception: #{e}: #{e.backtrace.join("\n")}"
+      end
     }
   end
 
@@ -72,13 +91,18 @@ class Scan < ActiveRecord::Base
         resulting_status = TASK_STATUS_FAILED
         write_attribute(:error_message, response['error'])
       end
-      Delayed::Worker.logger.info "#{site}: Response: #{response.inspect}"
     rescue => e
-      resulting_status = TASK_STATUS_FAILED
+      if [SocketError, Errno::ECONNREFUSED].include?(e.class)
+        resulting_status = TASK_STATUS_WAITING
+      else
+        # task shouldn't fail in cases when scanserver went down for small time interval
+        resulting_status = TASK_STATUS_FAILED
+      end
       write_attribute(:error_message, "#{site}: #{e.message}: #{e.backtrace.join("\n")}")
     end
     write_attribute(:task_status, resulting_status)
     save!
+    ActiveRecord::Base.connection_pool.release_connection()
   end
 
   def site_name

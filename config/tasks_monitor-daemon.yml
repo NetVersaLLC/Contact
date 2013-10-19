@@ -1,7 +1,9 @@
+app_name: tasks_monitor
 dir_mode: script
+mode: load
 dir: ../../log
 multiple: false
 backtrace: true
-monitor: false
+monitor: true
 ontop: false
-app_name: tasks_monitor
+log_output: true

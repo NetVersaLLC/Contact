@@ -14,8 +14,14 @@ Signal.trap("TERM") do
   $running = false
 end
 
+Signal.trap("SIGTERM") do
+  $running = false
+end
+
 while($running) do
+  ActiveRecord::Base.connection_pool.clear_stale_cached_connections!
+  Scan.send_all_waiting_tasks!
   Scan.resend_long_waiting_tasks!
   Scan.fail_tasks_that_waiting_too_long!
-  sleep 5
+  sleep 2
 end

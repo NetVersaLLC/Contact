@@ -28,10 +28,35 @@ describe Scan do
     end
 
     it 'should mark task as failed immediately when got error from scanserver' do
+      scan = FactoryGirl.create(:scan, :site => 'nosuchsite')
+      scan.send_to_scan_server!
+      scan.reload
+      scan.task_status.should == Scan::TASK_STATUS_FAILED
+    end
+
+    it 'should not mark task as failed when scanserver is down (connection refused)' do
       scan = FactoryGirl.create(:scan)
-      response, status, error_message = scan.send_to_scan_server!
+      scan_server_uri = Contact::Application.config.scan_server_uri
+      Contact::Application.config.scan_server_uri = 'http://localhost:4565/';
+      scan.send_to_scan_server!
+      Contact::Application.config.scan_server_uri = scan_server_uri
+      scan.reload
+      scan.task_status.should == Scan::TASK_STATUS_WAITING
     end
   end
+
+  describe 'send_all_waiting_tasks!' do
+    self.use_transactional_fixtures = false
+
+    it 'should send all tasks in WAITING status to scan server' do
+      scan = FactoryGirl.create(:scan)
+      Scan.send_all_waiting_tasks!
+      sleep(2) # easy way to avoid dealing with thread monitoring. May fail in rare cases.
+      scan.reload
+      scan.task_status.should eq Scan::TASK_STATUS_TAKEN
+    end
+  end
+
 
   describe 'format_data_for_server' do
     it 'should include id' do
@@ -46,9 +71,9 @@ describe Scan do
       scan = FactoryGirl.create(:scan,
         updated_at: DateTime.current - Contact::Application.config.scan_task_resend_interval - 1.minute,
         task_status: Scan::TASK_STATUS_TAKEN)
-      delayed_jobs_before_operation = DelayedJob.all.size
+      threads_before_operation = Thread.list.size
       Scan.resend_long_waiting_tasks!
-      DelayedJob.all.size.should > delayed_jobs_before_operation
+      Thread.list.size > threads_before_operation # may fail sometimes
     end
   end
 
