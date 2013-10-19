@@ -1,43 +1,71 @@
-.center 
-  %span.btn.btn-app.btn-sm.btn-yellow.no-hover 
-    %span.line-height-1.bigger-170 8
-    %br/ 
-    %span.line-height-1.smaller-90 
-      Action
-      %br/
-      Items
-  %span.btn.btn-app.btn-sm.btn-pink.no-hover 
-    %span.bigger-170.line-height-1 4
-    %br/ 
-    %span.smaller-90.line-height-1 
-      Activity
-      %br/
-      Alerts
-  %span.btn.btn-app.btn-sm.btn-light.no-hover 
-    %span.bigger-170.line-height-1 25
-    %br/ 
-    %span.smaller-90.line-height-1 
-      Sync'd
-      %br/
-      Accounts 
-  %span.btn.btn-app.btn-sm.btn-success.no-hover 
-    %span.bigger-170.line-height-1 25
-    %br/ 
-    %span.smaller-90.line-height-1 
-      Live 
-      %br/
-      Listings
-.space-12
-.profile-user-info.profile-user-info-striped
-  .profile-info-row 
-    .profile-info-name Name
-    .profile-info-value
-      %span= "#{@user.first_name} #{@user.last_name}".presence || "Not provided"
-  .profile-info-row 
-    .profile-info-name Phone
-    .profile-info-value
-      %span= @user.mobile_phone.presence || "Not provided"
-  .profile-info-row 
-    .profile-info-name Email
-    .profile-info-value 
-      %span.editable= @user.email
+%table.table.table-striped
+  %tr
+    %td Name
+    %td= "#{@user.prefix} #{@user.first_name} #{@user.last_name}".presence || "Not provided"
+  %tr
+    %td Phone 
+    %td= @user.mobile_phone.presence || "Not provided"
+  %tr
+    %td Email 
+    %td= @user.email
+  %tr
+    %td Birthdate
+    %td= l(@user.date_of_birth, format: :long)
+  %tr
+    %td Gender
+    %td= @user.gender
+  %tr
+    %td Role 
+    %td= @user.role_is
+
+= link_to 'Edit Profile', edit_user_path(@user), class: "btn btn-info"
+
+-#
+  .center 
+    %span.btn.btn-app.btn-sm.btn-yellow.no-hover 
+      %span.line-height-1.bigger-170 8
+      %br/ 
+      %span.line-height-1.smaller-90 
+        Action
+        %br/
+        Items
+    %span.btn.btn-app.btn-sm.btn-pink.no-hover 
+      %span.bigger-170.line-height-1 4
+      %br/ 
+      %span.smaller-90.line-height-1 
+        Activity
+        %br/
+        Alerts
+    %span.btn.btn-app.btn-sm.btn-light.no-hover 
+      %span.bigger-170.line-height-1 25
+      %br/ 
+      %span.smaller-90.line-height-1 
+        Sync'd
+        %br/
+        Accounts 
+    %span.btn.btn-app.btn-sm.btn-success.no-hover 
+      %span.bigger-170.line-height-1 25
+      %br/ 
+      %span.smaller-90.line-height-1 
+        Live 
+        %br/
+        Listings
+  .space-12
+  .profile-user-info.profile-user-info-striped
+    .profile-info-row 
+      .profile-info-name Name
+      .profile-info-value
+        %span= "#{@user.first_name} #{@user.last_name}".presence || "Not provided"
+    .profile-info-row 
+      .profile-info-name Phone
+      .profile-info-value
+        %span= @user.mobile_phone.presence || "Not provided"
+    .profile-info-row 
+      .profile-info-name Email
+      .profile-info-value 
+        %span.editable= @user.email
+    .profile-info-row 
+      .profile-info-name Role
+      .profile-info-value 
+        %span.editable= @user.role_is
+

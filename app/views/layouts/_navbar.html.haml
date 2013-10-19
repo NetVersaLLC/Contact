@@ -40,7 +40,7 @@
 
     %li.light-blue
       %a.dropdown-toggle{:data => {toggle: "dropdown"}, href: "#"}
-        =image_tag(current_user.avatar.url(:icon), class: "nav-user-photo")
+        =image_tag(current_user.avatar.url(:tiny), class: "nav-user-photo")
         %span.user-info
           %small Welcome
           = current_user.first_name.presence || "User" 
