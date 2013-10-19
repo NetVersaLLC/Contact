@@ -1,4 +1,4 @@
-app_name: tasks_monitor
+app_name: tasks_executor
 dir_mode: script
 mode: load
 dir: ../../log
