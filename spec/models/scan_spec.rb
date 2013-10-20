@@ -36,10 +36,10 @@ describe Scan do
 
     it 'should not mark task as failed when scanserver is down (connection refused)' do
       scan = FactoryGirl.create(:scan)
-      scan_server_uri = Contact::Application.config.scan_server_uri
-      Contact::Application.config.scan_server_uri = 'http://localhost:4565/';
+      scan_server_uri = Contact::Application.config.scanserver['server_uri']
+      Contact::Application.config.scanserver['server_uri'] = 'http://localhost:4565/';
       scan.send_to_scan_server!
-      Contact::Application.config.scan_server_uri = scan_server_uri
+      Contact::Application.config.scanserver['server_uri'] = scan_server_uri
       scan.reload
       scan.task_status.should == Scan::TASK_STATUS_WAITING
     end

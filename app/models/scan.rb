@@ -56,7 +56,9 @@ class Scan < ActiveRecord::Base
     {
       :scan => @attributes.symbolize_keys.slice(:id, :business, :phone, :zip, :latitude, :longitude,
                                               :state, :state_short, :city, :county, :country),
-      :site => site
+      :site => site,
+      :callback_host => Contact::Application.config.scanserver['callback_host'],
+      :callback_port => Contact::Application.config.scanserver['callback_port']
     }
   end
 
@@ -81,10 +83,10 @@ class Scan < ActiveRecord::Base
           :query   => format_data_for_scan_server,
           :headers => { 'Content-Length' => '0' },
           :timeout => 5,
-          :base_uri => ENV['SCAN_SERVER'] || Contact::Application.config.scan_server_uri,
+          :base_uri => ENV['SCAN_SERVER'] || Contact::Application.config.scanserver['server_uri'],
           :digest_auth => {
-              :username => Contact::Application.config.scan_server_api_username,
-              :password => Contact::Application.config.scan_server_api_token,
+              :username => Contact::Application.config.scanserver['api_username'],
+              :password => Contact::Application.config.scanserver['api_token'],
           }
       })
       unless response['error'].nil?
