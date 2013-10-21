@@ -11,6 +11,7 @@ public/system/
 /db/*.sqlite3
 /db/schema.rb
 /config/database.yml
+/config/scanserver.yml
 /config/initializers/beanstalkd.rb
 
 # Ignore all logfiles and tempfiles.
