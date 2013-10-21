@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131018163916) do
+ActiveRecord::Schema.define(:version => 20131021224503) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -1465,17 +1465,13 @@ ActiveRecord::Schema.define(:version => 20131018163916) do
 
   create_table "package_payloads", :force => true do |t|
     t.integer  "package_id"
-    t.string   "site"
-    t.string   "payload"
-    t.string   "description"
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
     t.integer  "queue_insert_order", :default => 0
+    t.integer  "site_id"
   end
 
   add_index "package_payloads", ["package_id"], :name => "index_packages_payloads_on_package_id"
-  add_index "package_payloads", ["payload"], :name => "index_packages_payloads_on_payload"
-  add_index "package_payloads", ["site"], :name => "index_packages_payloads_on_site"
 
   create_table "packages", :force => true do |t|
     t.string   "name"
@@ -1522,11 +1518,13 @@ ActiveRecord::Schema.define(:version => 20131018163916) do
     t.text     "data_generator"
     t.text     "client_script"
     t.text     "ready"
+    t.integer  "site_id"
   end
 
   add_index "payloads", ["name"], :name => "index_payload_nodes_on_name"
   add_index "payloads", ["package_id"], :name => "index_payload_nodes_on_package_id"
   add_index "payloads", ["parent_id"], :name => "index_payload_nodes_on_parent_id"
+  add_index "payloads", ["site_id"], :name => "index_payloads_on_site_id"
 
   create_table "payments", :force => true do |t|
     t.string   "status"

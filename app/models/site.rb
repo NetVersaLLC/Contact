@@ -3,7 +3,7 @@ class Site < ActiveRecord::Base
   has_many :payloads
 
   def self.by_name(name)
-    Site.where(:name => site).first
+    Site.where(:name => name).first
   end
 
   def self.get(site)
