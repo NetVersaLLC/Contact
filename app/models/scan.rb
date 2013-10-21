@@ -79,11 +79,15 @@ class Scan < ActiveRecord::Base
     response       = nil # are this vars really necessary ?
     resulting_status = TASK_STATUS_TAKEN
     begin
+      base_uri = Contact::Application.config.scanserver['server_uri']
+      if base_uri[-1] == '/'
+        base_uri = base_uri[0..-2]
+      end
       response = HTTParty.post("/scan.json", {
           :query   => format_data_for_scan_server,
           :headers => { 'Content-Length' => '0' },
           :timeout => 5,
-          :base_uri => ENV['SCAN_SERVER'] || Contact::Application.config.scanserver['server_uri'],
+          :base_uri => base_uri,
           :digest_auth => {
               :username => Contact::Application.config.scanserver['api_username'],
               :password => Contact::Application.config.scanserver['api_token'],
