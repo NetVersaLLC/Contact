@@ -62,7 +62,7 @@ module Business::MiscMethods
       sites = sites.uniq
       final = {}
       sites.each do |site|
-        profile = SiteProfile.where(:site => site).first
+        profile = Site.where(:site => site).first
         if profile == nil
           final[site] = {
             :id => nil,

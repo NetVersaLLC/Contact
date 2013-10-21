@@ -1,5 +1,10 @@
-class SiteProfile < ActiveRecord::Base
+class Site < ActiveRecord::Base
   attr_accessible :alexa_us_traffic_rank, :founded, :notes, :owner, :page_rank, :site, :traffic_stats, :url, :enabled_for_scan, :enabled, :technical_notes
+  has_many :payloads
+
+  def self.by_name(name)
+    Site.where(:name => site).first
+  end
 
   def self.get(site)
     site = self.where(:site => site).first

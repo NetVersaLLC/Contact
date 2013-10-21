@@ -1,4 +1,4 @@
-ActiveAdmin.register SiteProfile do
+ActiveAdmin.register Site do
   menu false
   admin_sub_menu
 

@@ -50,7 +50,7 @@
               %i.icon-exclamation-sign
               Unlisted
         %td
-          %a.btn.btn-large.siteName{:href => "##{scan.site}", 'data-toggle' => 'popover', 'data-content' => SiteProfile.get(scan.site), 'data-original-title' => scan.site_name}
+          %a.btn.btn-large.siteName{:href => "##{scan.site}", 'data-toggle' => 'popover', 'data-content' => Site.get(scan.site), 'data-original-title' => scan.site_name}
             #{scan.site_name}
         %td #{scan.listed_phone}
         %td #{scan.listed_address}

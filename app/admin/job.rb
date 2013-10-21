@@ -51,7 +51,7 @@ ActiveAdmin.register Job do
     business = Business.find(params[:business_id]) 
     sites = business.subscription.package.package_payloads.pluck(:site)
 
-    PayloadNode.order('position asc').each do |node| 
+    Payload.order('position asc').each do |node| 
       next unless sites.include?( node.name.split('/')[0])
 
       job = Job.get_latest( business, node.name) 
@@ -125,7 +125,7 @@ ActiveAdmin.register Job do
 
   collection_action :add_missing, :method => :post do
     business = Business.find(params[:business_id])
-    PayloadNode.add_missed_payloads(business)
+    Payload.add_missed_payloads(business)
     render json: true
   end
 
