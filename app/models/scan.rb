@@ -33,7 +33,7 @@ class Scan < ActiveRecord::Base
         task_status: Scan::TASK_STATUS_TAKEN,
         updated_at: DateTime.current - Contact::Application.config.scan_task_resend_interval
     }).each do |s|
-      s.delay.send_to_scan_server!
+      s.send_to_scan_server_in_thread!
     end
   end
 
@@ -44,11 +44,32 @@ class Scan < ActiveRecord::Base
     }).update_all({task_status: Scan::TASK_STATUS_FAILED})
   end
 
+  def self.send_all_waiting_tasks!
+    self.where("task_status = :task_status", {
+        task_status: Scan::TASK_STATUS_WAITING
+    }).each do |s|
+      s.send_to_scan_server_in_thread!
+    end
+  end
+
   def format_data_for_scan_server
     {
       :scan => @attributes.symbolize_keys.slice(:id, :business, :phone, :zip, :latitude, :longitude,
                                               :state, :state_short, :city, :county, :country),
-      :site => site
+      :site => site,
+      :callback_host => Contact::Application.config.scanserver['callback_host'],
+      :callback_port => Contact::Application.config.scanserver['callback_port']
+    }
+  end
+
+  def send_to_scan_server_in_thread!
+    ActiveRecord::Base.connection_pool.release_connection()
+    Thread.new(self) { |t|
+      begin
+        t.send_to_scan_server!
+      rescue => e
+        puts "thread died with exception: #{e}: #{e.backtrace.join("\n")}"
+      end
     }
   end
 
@@ -62,23 +83,28 @@ class Scan < ActiveRecord::Base
           :query   => format_data_for_scan_server,
           :headers => { 'Content-Length' => '0' },
           :timeout => 5,
-          :base_uri => ENV['SCAN_SERVER'] || Contact::Application.config.scan_server_uri,
+          :base_uri => ENV['SCAN_SERVER'] || Contact::Application.config.scanserver['server_uri'],
           :digest_auth => {
-              :username => Contact::Application.config.scan_server_api_username,
-              :password => Contact::Application.config.scan_server_api_token,
+              :username => Contact::Application.config.scanserver['api_username'],
+              :password => Contact::Application.config.scanserver['api_token'],
           }
       })
       unless response['error'].nil?
         resulting_status = TASK_STATUS_FAILED
         write_attribute(:error_message, response['error'])
       end
-      Delayed::Worker.logger.info "#{site}: Response: #{response.inspect}"
     rescue => e
-      resulting_status = TASK_STATUS_FAILED
+      if [SocketError, Errno::ECONNREFUSED].include?(e.class)
+        resulting_status = TASK_STATUS_WAITING
+      else
+        # task shouldn't fail in cases when scanserver went down for small time interval
+        resulting_status = TASK_STATUS_FAILED
+      end
       write_attribute(:error_message, "#{site}: #{e.message}: #{e.backtrace.join("\n")}")
     end
     write_attribute(:task_status, resulting_status)
     save!
+    ActiveRecord::Base.connection_pool.release_connection()
   end
 
   def site_name

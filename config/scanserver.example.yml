@@ -1,0 +1,26 @@
+development:
+  # scanserver
+  server_uri: http://localhost:4567/
+  api_username: api
+  api_token: 13fc9e78f643ab9a2e11a4521479fdfe
+  # this server (used to authenticate callbacks)
+  scan_api_token: 892457gh9q87fah98ef7hq987harhq9w87eh8
+  callback_host: localhost
+  callback_port: 3000
+test:
+  server_uri: http://localhost/
+  api_username: api
+  api_token: 13fc9e78f643ab9a2e11a4521479fdfe
+  # this server (used to authenticate callbacks)
+  scan_api_token: 892457gh9q87fah98ef7hq987harhq9w87eh8
+  callback_host: localhost
+  callback_port: 3000
+production:
+  server_uri: http://ec2-50-17-135-19.compute-1.amazonaws.com/
+  api_username: api
+  api_token: 13fc9e78f643ab9a2e11a4521479fdfe
+  # this server (used to authenticate callbacks)
+  scan_api_token: 892457gh9q87fah98ef7hq987harhq9w87eh8
+  callback_host: sync.towncenter.com
+  callback_port: 80
+

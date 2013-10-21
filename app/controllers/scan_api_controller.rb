@@ -18,7 +18,7 @@ class ScanApiController < ApplicationController
   protected
 
   def authenticate!
-    head :forbidden unless params[:token] && Contact::Application.config.scan_api_token == params[:token]
+    head :forbidden unless params[:token] && Contact::Application.config.scanserver['scan_api_token'] == params[:token]
   end
 
 end
