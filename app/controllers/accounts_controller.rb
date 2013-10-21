@@ -4,7 +4,7 @@ class AccountsController < InheritedResources::Base
   load_and_authorize_resource 
   skip_before_filter :verify_authenticity_token
 
-  respond_to :html #,:xml, :json
+  respond_to :html, :json
   actions :all
 
   add_breadcrumb 'Accounts', :accounts_url
@@ -56,11 +56,6 @@ class AccountsController < InheritedResources::Base
 		# end
 		# render "edit", layout: false 
   # end 
-  def update 
-    update! do |format| 
-      format.html { redirect_to accounts_url } 
-    end
-  end 
 
   # def update 
 		# business = Business.find( params[:business_id] )

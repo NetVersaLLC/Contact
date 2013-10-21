@@ -29,7 +29,7 @@
             %br
             %small.text-muted= l(account.latest_scan.completed_at, format: :long)
         %td
-          = link_to account_path(account), class: "btn btn-xs btn-success" do 
+          -#= link_to account_path(account), class: "btn btn-xs btn-success" do 
             %i.icon-ok.bigger-120
           = link_to edit_account_path(account), class: "btn btn-xs btn-info" do 
             %i.icon-edit.bigger-120

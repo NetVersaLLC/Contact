@@ -1,23 +1,23 @@
-.btn-group
-  - if account.do_not_sync
-    %button.btn.btn-danger Disabled
+=form_for account, as: :client_data, url: account_path(account), remote: true, html: { class: "enable_sync" , :"data-type" => "json"} do |f|
+  =f.hidden_field :do_not_sync, value: !account.do_not_sync
+  .btn-group.sync_disabled{ style: (!account.do_not_sync) && "display: none;" }
+    %button.btn.btn-danger(type="button") Disabled
     %button.btn.btn-danger.dropdown-toggle(data-toggle="dropdown")
       %span.icon-caret-down.icon-only
     %ul.dropdown-menu.dropdown-danger
       %li
-        %a{href: "#"} Enable Sync
+        %a.account_sync{href: "#"} Enable Sync
       %li.divider 
       %li
         %a{href:"#"} Show Sync History
-  -else 
-    %button.btn.btn-success Enabled
+  .btn-group.sync_enabled{ style: account.do_not_sync && "display: none;" }
+    %button.btn.btn-success(type="button") Enabled
     %button.btn.btn-success.dropdown-toggle(data-toggle="dropdown")
       %span.icon-caret-down.icon-only
     %ul.dropdown-menu.dropdown-success
       %li
-        %a{href: "#"} Disable Sync
+        %a.account_sync{href: "#"} Disable Sync
       %li.divider 
       %li
         %a{href:"#"} Show Sync History
         -#"/users?q[email_cont]=sales&q[first_name_start]=&q[last_name_start]=
-
