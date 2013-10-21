@@ -56,6 +56,11 @@ class AccountsController < InheritedResources::Base
 		# end
 		# render "edit", layout: false 
   # end 
+  def update 
+    update! do |format| 
+      format.html { redirect_to accounts_url } 
+    end
+  end 
 
   # def update 
 		# business = Business.find( params[:business_id] )
