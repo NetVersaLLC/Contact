@@ -63,6 +63,7 @@ Contact::Application.routes.draw do
   resources :site_profiles
   resources :users
   resources :accounts
+  resources :reports, :except => [:edit, :update]
 
   resources :jobs,  except: [:show]
   get     '/jobs/list(.:format)', :controller => :jobs,   :action => :list

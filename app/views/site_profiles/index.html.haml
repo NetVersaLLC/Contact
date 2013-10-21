@@ -49,7 +49,7 @@
                   - if can? :manage, site_profile
                     =link_to(edit_site_profile_url(site_profile), class: 'btn btn-xs btn-info') do 
                       %i.icon-edit.bigger-120
-                    =link_to(site_profile_url(site_profile), method: :delete, confirm: 'Are you sure?', class: 'btn btn-xs btn-danger') do 
+                    -#=link_to(site_profile_url(site_profile), method: :delete, confirm: 'Are you sure?', class: 'btn btn-xs btn-danger') do 
                       %i.icon-trash.bigger-120
       .row 
         .col-md-6
@@ -58,7 +58,7 @@
         .col-md-6
           .dataTables_paginate.paging_bootstrap
             = will_paginate @businesses, previous_label: "<", next_label: ">", inner_window: 1, outer_window: 1
-    %br/
+  -#%br/
     .row
       .col-md-12
         .btn-group 
