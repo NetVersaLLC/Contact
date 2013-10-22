@@ -6,8 +6,9 @@ class SitesController < ApplicationController
   add_breadcrumb 'Site Profiles', :site_profiles_url
 
   def index
-    @site_profiles = Site.all
-  end
+    @q = Site.search(params[:q])
+    @site_profiles = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10).order("site asc")
+  end 
 
   # GET /site_profiles/1
   # GET /site_profiles/1.json
