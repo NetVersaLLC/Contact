@@ -1,9 +1,6 @@
 class MyDevise::RegistrationsController < Devise::RegistrationsController
-  def sign_up(resource_name, resource)
-    sign_in(resource_name, resource)
-  end
 
-  def new
+  def new_old
     @callcenter = false
     if params[:callcenter] == '1'
       @callcenter = true
@@ -14,6 +11,41 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
   end
 
   def create
+    build_resource
+
+    # put this on the form
+    resource.label_id = current_label.id
+
+    if resource.save
+      sign_up(resource_name, resource)
+      label_processsor = LabelProcessor.new( current_label ) 
+
+      transaction = label_processsor.create_business( resource, 
+                      params[:coupon], 
+                      params[:creditcard], 
+                      params[:package_id]) 
+
+      if transaction.is_success?
+        set_flash_message :notice, :signed_up if is_navigational_format?
+        User.delay.send_welcome(resource)
+        redirect_to edit_business_path(transaction.business)
+      else
+        #flash[:notice] = @transaction.message
+        errors.push @transaction.message
+      end
+    else 
+      clean_up_passwords resource
+      respond_with resource,:location => after_inactive_sign_up_path_for(resource)
+
+      clean_up_passwords resource
+      resource.delete # should be resource.destroy
+      render :action=>:new
+    end 
+
+  end
+
+
+  def create_old
     STDERR.puts "Ues running"
     if params[:callcenter] and params[:callcenter] =~ /1/i
       @callcenter = true
