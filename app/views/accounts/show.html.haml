@@ -1,4 +1,6 @@
+%h3= @account.type
 %table.table.table-striped
+  -if @account.responds_to? :username
   %tr
     %td Name
     %td= "#{@user.prefix} #{@user.first_name} #{@user.last_name}".presence || "Not provided"
@@ -18,4 +20,4 @@
     %td Role 
     %td= @user.role_is
 
-= link_to 'Edit Profile', edit_user_path(@user), class: "btn btn-info"
+= link_to 'Edit Account', edit_account_path(@account), class: "btn btn-info"
