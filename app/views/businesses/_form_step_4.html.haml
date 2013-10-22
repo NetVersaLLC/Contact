@@ -1,0 +1,39 @@
+#step4.step-pane
+  .row
+    .col-xs-6
+      %h3 Logo 
+      %p= I18n.t('popovers.business.logo.logo_content')  
+      #logo.well
+        %p Drop an image from the gallery to make it the logo.
+        -if @business.logo.nil? 
+          -#.no-logo{ class:[ @business.logo.present? && :hidden] } Drop an image from the gallery to make it the logo.
+        %ul.ace-thumbnails
+          -if @business.logo.present?
+            = f.fields_for :images, @business.logo do |image|
+              =render partial: "layouts/gallery_image", locals: { image: image } 
+  .row
+    .col-xs-12
+      %h3 Image Gallery
+      %p= I18n.t('popovers.business.logo.additional_logo_content')
+        
+      %ul#gallery.ace-thumbnails
+        = f.fields_for :images do |image|
+          = render partial: "layouts/gallery_image", locals: { image: image } 
+  .row
+    .col-xs-6
+      #uploader
+        
+:plain
+  <script type="text/html" id="new-image">
+    <li>
+      <img alt="150x150" src="<%=src%>" />
+      <input class="destroy-image" id="business_images_attributes_<%=id%>__destroy" name="business[images_attributes][<%=id%>][_destroy]" type="hidden" value="false" />
+      <input class="is-logo" id="business_images_attributes_<%=id%>_is_logo" name="business[images_attributes][<%=id%>][is_logo]" type="hidden" value="0" />
+      <div class='tools tools-bottom'>
+        <button class='btn btn-danger btn-xs delete-image'>
+          <i class='icon-trash'></i>
+        </button>
+      </div>
+    </li>
+    <input id="business_images_attributes_<%=id%>_id" name="business[images_attributes][<%=id%>][id]" type="hidden" value="<%=id%>" />
+  </script>

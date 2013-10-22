@@ -1,0 +1,8 @@
+- if flash[:notice] 
+  .alert.alert-block.alert-success
+    %button.close(data-dismiss="alert" type="button") 
+      %i.icon-remove
+    %p
+      %strong 
+        %i.icon-ok
+      = flash[:notice] 

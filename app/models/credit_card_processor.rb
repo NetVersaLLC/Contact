@@ -157,7 +157,7 @@ class CreditCardProcessor
   #
   def cancel_recurring( subscription ) 
 
-    unless subscription.subscription_code.blank? 
+    #unless subscription.subscription_code.blank? 
       subscription.active  = false
       subscription.status  = :cancelled
       subscription.message = "Subscription cancelled."
@@ -167,7 +167,7 @@ class CreditCardProcessor
         subscription.message = response.message
         subscription.status  = :failed_cancellation
       end
-    end 
+    #end 
 
     subscription.save validate: false
     subscription 

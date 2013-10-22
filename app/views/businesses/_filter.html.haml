@@ -1,0 +1,36 @@
+.row 
+  .col-md-6
+    .widget-box 
+      .widget-header 
+        %h4 Location Filter 
+        %span.widget-toolbar 
+          %a{:href => "#", data: {action: 'settings'}} 
+            %i.icon-cog
+          %a{:href => "#", data: {action: "reload"}}
+            %i.icon-refresh 
+          %a{:href => "#", data: {action: "collapse"}}
+            %i.icon-chevron-up
+          %a{:href => "#", data: {action: "close"} }  
+            %i.icon-remove
+      .widget-body
+        .widget-main
+          =search_form_for @q do |f|
+            .row
+              .col-md-12
+                =f.text_field :tags_cont, placeholder: "Tags", class: "form-control"
+            %br
+            .row
+              .col-md-12
+                =f.text_field :address_cont, placeholder: 'Address, phone, etc...', class: "form-control"
+            %br
+            .row
+              .col-md-5
+                =f.text_field :city_start, placeholder: "City", class: "form-control"
+              .col-md-4
+                =f.select :state_eq, Carmen::states('US'), {}, {class: "form-control"}
+              .col-md-3
+                =f.text_field :zip_eq, placeholder: "Zip", class: "form-control"
+            .form-actions 
+              %button.btn.btn-primary Filter 
+              %button.btn.btn-warning{type: "reset"} Clear 
+              %button.btn.btn-success Save Tag

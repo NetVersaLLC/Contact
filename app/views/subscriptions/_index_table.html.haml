@@ -1,0 +1,25 @@
+%table.table.table-striped.table-bordered.table-hover
+  %thead
+    %tr
+      %th Business Name
+      %th Package Name
+      %th Status 
+      %th Member Since
+      %th Sign-Up Fee
+      %th Monthly Fee
+      %th Actions
+  %tbody
+    - @subscriptions.each do |subscription|
+      %tr
+        %td= subscription.business.nil? ? "" : subscription.business.business_name
+        %td= subscription.package.name
+        %td{class: [subscription.active && 'green', !subscription.active && 'red']}
+          = subscription.active ? "Active" : "Inactive"
+        %td= l(subscription.created_at.to_date, format: :long)
+        %td.money= number_to_currency(subscription.intial_fee || 0)
+        %td.money= number_to_currency(subscription.monthly_fee || 0)
+        %td
+          = link_to subscription, class: "btn btn-xs btn-success", title: "Show details" do 
+            %i.icon-ok.bigger-120
+          = link_to edit_subscription_path(subscription), class: "btn btn-xs btn-info", title: "Edit" do 
+            %i.icon-edit.bigger-120

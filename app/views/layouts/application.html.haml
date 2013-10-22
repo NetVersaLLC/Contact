@@ -1,79 +1,36 @@
 !!!
 %html{:lang => "en"}
-  %head
-    %meta{:charset => "utf-8"}/
-    %title
-      = current_label.name
-    %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
-    %meta{:content => "", :name => "description"}/
-    %meta{:content => "", :name => "author"}/
-    %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.1/jquery.min.js"}
-    %script(src="//static.getclicky.com/js")
-    %link{:href => "//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css", :rel => "stylesheet"}
-    %link{:href => "//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css", :rel => "stylesheet"}
-    = stylesheet_link_tag    "application", :media => "all"
-    = javascript_include_tag "application"
-
-
-    -if signed_in? && current_label.css_is_set?
-      = current_label.theme_css_files
-    /-else # this is already included in application.css.  Plus, you need to prepend with /assets
-    /  %link{:rel => :stylesheet, :href => "bootstrap.min.css" }
-
-    -if signed_in? && current_label.css_is_set?
-      = current_label.theme_js_files
-
-    = csrf_meta_tags
-    %style{:type => "text/css"}
-      = current_label.custom_css
-    %link{:rel => "icon", :type => "image/ico", :href => current_label.favicon_url}/
+  =render 'layouts/head'
   %body
     - if impersonating_user 
       = render 'impersonate/header' 
+    = render 'layouts/navbar'
+    .main-container
+      .main-container-inner
+        = render 'layouts/sidebar' 
+        .main-content
+          .breadcrumbs#breadcrumbs
+            %ul.breadcrumb
+              %li
+                %i.icon-home.home-icon
+                %a{href:"/"} Home
+              - breadcrumbs.each do |txt, path| 
+                %li
+                  -if path.present?
+                    %a{href:"#{eval(path.to_s)}"}= txt
+                  -else 
+                    =txt
+          .nav-search#nav-search 
+            %form.form-search 
+              %span.input-icon
+                %input.nav-search-input#nav-search-input(autocomplete="off" placeholder="Search ...")
+                %i.icon-search.nav-search-icon
+          .page-content
+            =render partial: "layouts/notice" 
+            =render partial: "layouts/alert", locals: {msg: flash[:alert]} 
+            =render partial: "layouts/alert", locals: {msg: flash[:error]} 
+            = yield 
 
-    %header.navbar.navbar-inverse
-      .navbar-inner 
-        .container 
-          - if user_signed_in?
-            %ul.nav 
-              %li 
-                = link_to edit_user_registration_path do 
-                  Welcome 
-                  %strong= "#{current_user.email}!"
-            %ul.nav.pull-right
-              -if session[:impersonator_id] 
-                %li=link_to('Sign Out', revert_impersonation_path, :method => :delete)
-              -else 
-                %li= link_to('Sign Out', destroy_user_session_path, :method => :delete)
-          - else 
-            %ul.nav.pull-right
-              %li= link_to('Sign In', new_user_session_path)
-
-    .ajax-progress
-
-    .container
-      .row 
-        .span6 
-          - if flash[:notice] 
-            .alert.alert-info= flash[:notice] 
-          - if flash[:error] 
-            .alert.alert-error= flash[:error] 
-          - if flash[:alert] 
-            .alert.alert-error= flash[:alert] 
-        .span6 
-    - if user_signed_in?
-      = render 'layouts/business_options'
-      = yield :summary #render 'layouts/citation_summary' 
-
-    .content{ :class => user_signed_in? ? 'signed_in' : '' } 
-      .container
-        = yield 
-
-    %footer 
-      %span
-        Copyright &copy; 2013 
-        %strong NetVersa, LLC.,
-        All Rights Reserved.
     :javascript 
       try{ clicky.init(100634376); }catch(e){}
     %noscript

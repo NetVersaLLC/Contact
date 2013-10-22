@@ -1,0 +1,31 @@
+#step3.step-pane
+  .row
+    .col-xs-12
+      %fieldset
+        %legend Company Description
+        %p.lead Your customers will likely have their first experience with your business. Your business description should be between 50 and 200 characters.
+        = render partial: "form_group", locals: {f: f, field: :business_description,  args: {:maxlength => 200, rows: 3}}
+        = render partial: "form_group", locals: {f: f, field: :keywords} 
+        = render partial: "form_group", locals: {f: f, field: :status_message}
+        = render partial: "form_group", locals: {f: f, field: :services_offered} 
+        = render partial: "form_group", locals: {f: f, field: :trade_license} 
+        = render partial: "form_group", locals: {f: f, field: :trade_license_number} 
+        = render partial: "form_group", locals: {f: f, field: :trade_license_locale} 
+        = render partial: "form_group", locals: {f: f, field: :trade_license_authority} 
+        = render partial: "form_group", locals: {f: f, field: :trade_license_expiration} 
+        = render partial: "form_group", locals: {f: f, field: :brands} 
+        = render partial: "form_group", locals: {f: f, field: :tag_line} 
+        = render partial: "form_group", locals: {f: f, field: :job_titles} 
+        = render partial: "form_group", locals: {f: f, field: :professional_associations} 
+        = render partial: "form_group_select", locals: {f: f, field: :geographic_areas, items: Business.geographic_areas_list}
+        = render partial: "form_group", locals: {f: f, field: :company_website}
+  .row
+    .col-xs-12
+      %fieldset 
+        %legend Categories 
+        %p.lead The next most important aspect of your business profile is the following categories. Select 3 categories, the first one is the primary category and is the most important. The next two are used on many sites but only as secondary or tertiary categories.
+        = render partial: "form_group", locals: {f: f, field: :category1, args: { class: 'col-xs-5 business-category'}}
+        = render partial: "form_group", locals: {f: f, field: :category2, args: { class: 'col-xs-5 business-category'}}
+        = render partial: "form_group", locals: {f: f, field: :category3, args: { class: 'col-xs-5 business-category'}}
+        = render partial: "form_group", locals: {f: f, field: :category4, args: { class: 'col-xs-5 business-category'}}
+        = render partial: "form_group", locals: {f: f, field: :category5, args: { class: 'col-xs-5 business-category'}}

@@ -1,0 +1,7 @@
+%li
+  =image_tag( image.object.medium, alt: "150x150")
+  =image.hidden_field :_destroy, class: 'destroy-image' 
+  =image.hidden_field :is_logo, class: 'is-logo'
+  .tools.tools-bottom
+    %button.btn.btn-danger.btn-xs.delete-image
+      %i.icon-trash

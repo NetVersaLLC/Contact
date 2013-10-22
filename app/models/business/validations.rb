@@ -8,6 +8,13 @@ module Business::Validations
       /^\d{3,12}$/
     end
 
+    validates :business_name,
+      :presence => true
+    validates :corporate_name, :length => { :maximum => 50 },
+      :presence => true
+    validates :zip,
+      :presence => true,
+      :format => { :with => zip_regex, :message => 'Invalid format'}
     
     validates :keywords,
       :presence => true
@@ -24,39 +31,32 @@ module Business::Validations
 
     validates :category1,
       :presence => true
-    validates :business_name,
-      :presence => true
-    validates :corporate_name, :length => { :maximum => 50 },
-      :presence => true
-    validates :zip,
-      :presence => true,
-      :format => { :with => zip_regex, :message => 'Invalid format'}
-    validates :contact_gender,
-      :presence => true
-    validates :contact_first_name,
-      :presence => true
-    validates :contact_last_name,
-      :presence => true
+    # validates :contact_gender,
+    #   :presence => true
+    # validates :contact_first_name,
+    #   :presence => true
+    # validates :contact_last_name,
+    #   :presence => true
 
     validates :local_phone,
       :presence => true
-    validates :mobile_phone,
-      :presence => true
+    # validates :mobile_phone,
+    #   :presence => true
     
       validates :business_description, :presence => true, :length => {:minimum => 50, :maximum => 200}
     validates :geographic_areas,
       :presence => true
-    validates :year_founded,
-      :presence => true,
-      :numericality => { 
-        :only_integer => true, 
-        :greater_than => 1000, 
-        :less_than => Date.current.year + 1 
-        }
+    # validates :year_founded,
+    #   :presence => true,
+    #   :numericality => { 
+    #     :only_integer => true, 
+    #     :greater_than => 1000, 
+    #     :less_than => Date.current.year + 1 
+    #     }
     # enforce m/d/yyyy, and mm/dd/yyyy.  mm 1-12, dd 1-31 
-    validates :contact_birthday,
-      :allow_blank => true,
-      :format => { :with => /^(0{0,1}[1-9]|1[012])\/(\d|[012]\d|3[01])\/((19|20)\d\d)$/ } #/^\d\d\/\d\d\/\d\d\d\d$/ }
+    # validates :contact_birthday,
+    #   :allow_blank => true,
+    #   :format => { :with => /^(0{0,1}[1-9]|1[012])\/(\d|[012]\d|3[01])\/((19|20)\d\d)$/ } #/^\d\d\/\d\d\/\d\d\d\d$/ }
 
     def time_cannot_same
       errors.add(:monday_open,'') if self.monday_open == self.monday_close && self.open_24_hours == false

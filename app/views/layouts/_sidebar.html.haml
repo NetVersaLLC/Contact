@@ -1,0 +1,69 @@
+.sidebar#sidebar
+  %ul.nav.nav-list
+    %li 
+      %a{ href: "/dashboard"}
+        %i.icon-dashboard
+        %span.menu-text Dashboard 
+    %li 
+      = link_to businesses_url do 
+        %i.icon-text-width 
+        %span.menu-text Locations 
+
+    - if current_user.reseller?
+      %li 
+        = link_to users_url do
+          %i.icon-desktop
+          %span.menu-text Users 
+    %li
+      = link_to accounts_url do  
+        %i.icon-list 
+        %span.menu-text Accounts
+    %li.closed 
+      %a.dropdown-toggle{ href: '#'}
+        %i.icon-edit
+        %span.menu-text Billing 
+      %ul.submenu
+        %li
+          = link_to subscriptions_path do 
+            %i.icon-double-angle-right
+            Subscription
+        %li
+          %a{href:'#'} 
+            %i.icon-double-angle-right
+            Invoice 
+    %li 
+      %a{ href: '/support'}
+        %i.icon-list-alt
+        %span.menu-text Support
+    %li
+      = link_to notifications_path do 
+        %i.icon-calendar
+        %span.menu-text
+          Action Items
+          -# %span.badge.badge-primary 5
+    %li.closed 
+      %a.dropdown-toggle{href:'#'}
+        %i.icon-th
+        %span.menu-text Network 
+      %ul.submenu 
+        %li
+          %a{href:'#'}
+            %i.icon-double-angle-right
+            Health 
+        %li
+          =link_to site_profiles_url do 
+            %i.icon-double-angle-right
+            Statistics
+        %li
+          %a{href:'#'}
+            %i.icon-double-angle-right
+            Update Timetables
+        %li
+          =link_to reports_path do 
+            %i.icon-double-angle-right
+            Scan Reports
+    = render "layouts/sidebar_admin"
+  .sidebar-collapse#sidebar-collapse
+    %i.icon-double-angle-left
+
+

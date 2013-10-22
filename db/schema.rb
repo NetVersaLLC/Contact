@@ -320,6 +320,7 @@ ActiveRecord::Schema.define(:version => 20131021224503) do
     t.datetime "setup_completed"
     t.boolean  "setup_msg_sent",            :default => false
     t.datetime "paused_at"
+    t.string   "tags"
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
@@ -405,6 +406,30 @@ ActiveRecord::Schema.define(:version => 20131021224503) do
   end
 
   add_index "citysearches", ["business_id"], :name => "index_citysearches_on_business_id"
+
+  create_table "client_data", :force => true do |t|
+    t.string   "email"
+    t.string   "username"
+    t.text     "secrets"
+    t.string   "status"
+    t.datetime "force_update"
+    t.boolean  "do_not_sync",         :default => false
+    t.string   "secret_answer"
+    t.string   "local_url"
+    t.string   "listings_url"
+    t.string   "listing_url"
+    t.string   "facebook_signin"
+    t.string   "foursquare_page"
+    t.string   "places_url"
+    t.string   "youtube_channel"
+    t.text     "cookies"
+    t.string   "type"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.integer  "profile_category_id"
+    t.integer  "category_id"
+    t.integer  "business_id"
+  end
 
   create_table "codes", :force => true do |t|
     t.string   "code"
@@ -866,7 +891,7 @@ ActiveRecord::Schema.define(:version => 20131021224503) do
   add_index "google_categories", ["slug"], :name => "index_google_categories_on_slug"
   add_index "google_categories", ["yelp_category_id"], :name => "index_google_categories_on_yelp_category_id"
 
-  create_table "googles", :force => true do |t|
+  create_table "googles_renamed", :force => true do |t|
     t.integer  "business_id"
     t.string   "email"
     t.string   "youtube_channel"
@@ -881,7 +906,7 @@ ActiveRecord::Schema.define(:version => 20131021224503) do
     t.text     "cookies"
   end
 
-  add_index "googles", ["business_id"], :name => "index_googles_on_business_id"
+  add_index "googles_renamed", ["business_id"], :name => "index_googles_on_business_id"
 
   create_table "hotfrogs", :force => true do |t|
     t.integer  "business_id"
@@ -985,6 +1010,15 @@ ActiveRecord::Schema.define(:version => 20131021224503) do
   end
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
+
+  create_table "insiderpages", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
@@ -1620,6 +1654,7 @@ ActiveRecord::Schema.define(:version => 20131021224503) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "task_status"
+    t.integer  "site_profile_id"
   end
 
   add_index "scans", ["business"], :name => "index_scans_on_business"
@@ -1727,6 +1762,10 @@ ActiveRecord::Schema.define(:version => 20131021224503) do
     t.boolean  "enabled",               :default => true
     t.text     "technical_notes"
     t.string   "login_url"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
   end
 
   add_index "sites", ["name"], :name => "index_sites_on_name"
@@ -1786,7 +1825,7 @@ ActiveRecord::Schema.define(:version => 20131021224503) do
     t.integer  "monthly_fee"
     t.string   "status"
     t.integer  "transaction_event_id"
-    t.datetime "label_last_billed_at", :default => '2013-08-16 20:11:27'
+    t.datetime "label_last_billed_at", :default => '2013-07-09 21:48:55'
   end
 
   add_index "subscriptions", ["package_id"], :name => "index_subscriptions_on_package_id"
@@ -1997,6 +2036,19 @@ ActiveRecord::Schema.define(:version => 20131021224503) do
     t.integer  "label_id"
     t.boolean  "callcenter"
     t.string   "referrer_code"
+    t.string   "gender"
+    t.string   "prefix"
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.date     "date_of_birth"
+    t.string   "mobile_phone"
+    t.boolean  "mobile_appears",         :default => false
+    t.string   "username"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

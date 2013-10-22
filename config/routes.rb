@@ -23,9 +23,7 @@ Contact::Application.routes.draw do
   resources :pings
   resources :payload_nodes, only: [:index, :create]
 
-  post    '/businesses/:id',
-    :controller => :businesses, 
-    :action => :update
+  resources :businesses 
   get    '/businesses/client_checked_in/:id', 
     :controller => :businesses, 
     :action => :client_checked_in,
@@ -43,11 +41,11 @@ Contact::Application.routes.draw do
   resources :notifications 
 
   resources :businesses do 
-    resources :codes, :only => [:new, :create] 
     resources :accounts, :only => [:edit, :update, :create]
-    resources :notifications
+    resources :codes, :only => [:new, :create] 
     resources :downloads, :only => [:show]
-    resources :subscriptions, :except => [:index, :show]
+    resources :images
+    resources :notifications
   end 
 
   get     '/codes/:business_id/:site_name(.:format)', :action=>"site_code", :controller=>"codes"
@@ -56,21 +54,19 @@ Contact::Application.routes.draw do
 
   get     '/report(.:format)', :controller => :businesses, :action => :report
 
-  resources :site_profiles
   resources :results
   resources :tasks
   resources :places
   resources :zip,  :only => [:index]
   resources :city, :only => [:index]
   resources :terms, :only => [:index]
+  resources :site_profiles
+  resources :users
+  resources :accounts
+  resources :reports, :except => [:edit, :update]
 
-  get     '/jobs(.:format)',     :controller => :jobs,   :action => :index
-  post    '/jobs(.:format)',     :controller => :jobs,   :action => :create
-  put     '/jobs/:id(.:format)', :controller => :jobs,   :action => :update
-  delete  '/jobs/:id(.:format)', :controller => :jobs,   :action => :remove
-  get     '/jobs/list(.:format)',:controller => :jobs,   :action => :list
-
-  post    '/accounts(.:format)', :controller => :accounts,   :action => :create
+  resources :jobs,  except: [:show]
+  get     '/jobs/list(.:format)', :controller => :jobs,   :action => :list
 
   # Bing 
   get     '/bing_category(.:format)',  :controller => :bing,   :action => :bing_category
@@ -88,13 +84,11 @@ Contact::Application.routes.draw do
   get     '/downloads/:business_id', :controller => :downloads,       :action => :download
   get     '/emails/check/:site',     :controller => :emails,          :action => :check
 
-  get     '/contact-us', :controller => :pages, :action => :contact_us
 
   get     '/categories(.:format)', :controller => :categories, :action => :index
   get     '/categories/:id(.:format)', :controller => :categories, :action => :show
   post    '/categories(.:format)', :controller => :categories, :action => :create
 
-  get     '/pages/make_redirect', :controller => :pages, :action => :make_redirect
 
   post    '/scanner/start', :controller => :scan, :action => :start
   get     '/scanner/check(.:format)', :controller => :scan, :action => :check
@@ -104,20 +98,27 @@ Contact::Application.routes.draw do
 
   get     '/test/exception', :controller => :test, :action => :exception
 
-  get     '/images(.:format)', :action => 'index', :controller => 'images'
-  post    '/images(.:format)', :action=>"create", :controller=>"images"
-  delete  '/images/:id(.:format)',:action=>"destroy", :controller=>"images"
-  delete  '/images/:id/all(.:format)',:action=>"destroy_all", :controller=>"images"
-  put     '/images/:id(.:format)', :action=>"update", :controller=>"images"
-  put     '/images/set_logo/:id(.:format)', :action=>"set_logo", :controller=>"images"
-  get     '/images/get_logo/:business_id(.:format)', :action=>"get_logo", :controller=>"images"
+  # set up as a nested resource
+  #get     '/images(.:format)', :action => 'index', :controller => 'images'
+  #post    '/images(.:format)', :action=>"create", :controller=>"images"
+  #delete  '/images/:id(.:format)',:action=>"destroy", :controller=>"images"
+  #delete  '/images/:id/all(.:format)',:action=>"destroy_all", :controller=>"images"
+  #put     '/images/:id(.:format)', :action=>"update", :controller=>"images"
 
-  get     '/resellers', :controller => :pages, :action => :resellers
-  get     '/try_again_later', :controller => :pages, :action => :try_again_later
+  # make route more rails compliant
+  #get     '/images/get_logo/:business_id(.:format)', :action=>"get_logo", :controller=>"images"
+  get     '/images/:business_id/get_logo(.:format)', :action=>"get_logo", :controller=>"images"
 
-  get     '/congratulations', :controller => :pages, :action => :congratulations
+  get     '/pages/make_redirect', :controller => :pages, :action => :make_redirect
+
   get     '/begin-sync', :controller => :pages, :action => :begin_sync, :as=>'begin_sync'
-
+  get     '/contact-us', :controller => :pages, :action => :contact_us
+  get     '/congratulations', :controller => :pages, :action => :congratulations
+  get     '/dashboard', :controller => :pages, :action => :dashboard
+  get     '/resellers', :controller => :pages, :action => :resellers
+  get     '/support', :controller => :pages, :action => :support
+  get     '/try_again_later', :controller => :pages, :action => :try_again_later
+  
   get     '/leads', :controller => :leads, :action => :show
   post    '/leads', :controller => :leads, :action => :create
 

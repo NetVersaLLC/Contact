@@ -1,0 +1,35 @@
+%table.table.table-striped.table-bordered.table-hover.dataTable
+  %thead
+    %tr
+      %th.center
+      %th Listing Domain
+      %th Sync Enabled
+      %th.hidden-480
+        %i.icon-time
+        Last Update  
+      %th.hidden-480 Include in Broadcaset
+      %th.hidden-480 Status
+      %th Modify
+  %tbody
+    - @accounts.each do |account|
+      %tr
+        %td.center
+          %input(type="checkbox")
+        %td= account.class.name
+        %td= render partial: "sync_button", locals: { :account => account }
+        %td= account.last_update
+        %td
+          %label.pull-right.inline
+            %small.text-muted Broadcast: 
+            %input.ace.ace-switch(type="checkbox" checked="checked")
+            %span.lbl
+        %td
+          %span.label=  account.latest_scan.status 
+          -if account.latest_scan.completed_at.present?
+            %br
+            %small.text-muted= l(account.latest_scan.completed_at, format: :long)
+        %td
+          = link_to account_path(account), class: "btn btn-xs btn-success" do 
+            %i.icon-ok.bigger-120
+          = link_to edit_account_path(account), class: "btn btn-xs btn-info" do 
+            %i.icon-edit.bigger-120

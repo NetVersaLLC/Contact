@@ -24,6 +24,9 @@ class Business < ActiveRecord::Base
   has_many :images, dependent: :delete_all         #belongs_to not there in image.rb
   has_many :tasks
 
+  attr_accessible :images_attributes
+  accepts_nested_attributes_for :images, allow_destroy: true
+
   # Triggers -> moved to BusinessObserver
 
   # search on activeadmin -> meta_search

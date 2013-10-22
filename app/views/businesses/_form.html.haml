@@ -1,10 +1,32 @@
 .row
-  .span12
-    = render :partial => 'form/search_form' unless request.xhr?
-.row{:id => "display_form"}
-  .span12
-    = render :partial => 'form/business_tab' unless request.xhr?
-
-   
-
+  .col-xs-12
+    #location-wizard.wizard{ data: {target: '#step-container' }}
+      %ul.wizard-steps
+        %li.active{data: { target: "#step1"}}
+          %span.step 1
+          %span.title Business Details
+        %li{data: { target: "#step2"}}
+          %span.step 2
+          %span.title Hours and Payment
+        %li{data: { target: "#step3"}}
+          %span.step 3
+          %span.title Business Description
+        %li{data: { target: "#step4"}}
+          %span.step 4
+          %span.title Mange Images
+    %hr/
+    #step-container.step-content
+      =form_for @business do |f|
+        =render partial: "form_step_1", locals: {f: f}
+        =render partial: "form_step_2", locals: {f: f}
+        =render partial: "form_step_3", locals: {f: f}
+        =render partial: "form_step_4", locals: {f: f}
+    %hr/
+    .wizard-actions
+      %button.btn.btn-prev
+        %i.icon-arrow-left
+        Prev
+      %button.btn.btn-success.btn-next{ data: { last: "Finish "}} 
+        Next 
+        %i.icon-arrow-right.icon-on-right
 

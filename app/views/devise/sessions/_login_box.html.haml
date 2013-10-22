@@ -1,0 +1,79 @@
+#login-box.login-box.visible.widget-box.no-border
+  .widget-body
+    .widget-main
+      %h4.header.blue.lighter.bigger
+        %i.icon-coffee.green
+        Please Enter Your Information
+      .space-6
+
+      = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+        %fieldset 
+          %label.block.clearfix
+            %span.block.input-icon.input-icon-right 
+              = f.text_field :email, :placeholder => 'EMail', class: 'form-control' 
+              %i.icon-user
+          %label.block.clearfix
+            %span.block.input-icon.input-icon-right 
+              = f.password_field :password, placeholder: 'Password', class: 'form-control' 
+              %i.icon-lock
+          .space
+          .clearfix
+            %label.inline
+              =f.check_box :remember_me, class: 'ace'
+              %span.lbl Remember Me
+            %button.width-35.pull-right.btn.btn-sm.btn-primary{ type: "submit"}
+              %i.icon-key
+              Login
+          .space-4 
+    .toolbar.clearfix
+      %div
+        %a.forgot-password-link( href="#" onclick="show_box('forgot-box'); return false;")
+          %i.icon-arrow-left
+          I forgot my password
+      %div
+        %a.user-signup-link( href="#" onclick="show_box('signup-box'); return false;")
+          I want to register
+          %i.icon-arrow-right
+
+
+
+-#
+        = f.semantic_errors
+        = f.inputs do
+          .control-group
+            %label 
+            - if params[:user]
+              - if params[:user][:email] == "" && params[:user][:password] == ""
+                .controls.alert.alert-error.span4
+                  = "Email and password can't be blank."
+              - elsif params[:user][:email] == ""
+                .controls.alert.alert-error.span4
+                  = "Email can't be blank."
+              - elsif params[:user][:password] == ""
+                .controls.alert.alert-error.span4
+                  = "Password can't be blank."
+              - elsif !params[:user][:email].match(/\A[^@]+@([^@\.]+\.)+[^@\.]+\z/.to_s)
+                .controls.alert.alert-error.span4
+                  = "Email is invalid."
+              - elsif params[:failure_reason] == :not_found_in_database
+                .controls.alert.alert-error.span4
+                  = "Account not registered. "
+                  =# link_to "Sign up here!", new_user_registration_path
+              -elsif params[:failure_reason] == :invalid
+                .controls.alert.alert-error.span4
+                  = "Account registered. "
+                  = link_to "Forgot your password?", new_user_password_path
+              -elsif alert
+                .controls.alert.alert-error.span4
+                  = flash[:alert]
+          = f.input :email
+          = f.input :password, hint:"Enter password"
+        -if devise_mapping.rememberable?
+          = f.input :remember_me, :as => :boolean, :class => 'span4'
+        = f.actions do
+          = f.action :submit, :as => :button, :label => 'Sign In', :button_html => {:class => "btn btn-primary"}
+        = f.validate :email, :password 
+        = f.validate :email, :uniqueness => false 
+
+  = render :partial => "devise/shared/links"
+

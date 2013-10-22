@@ -1,10 +1,19 @@
 class SubscriptionsController < ApplicationController
   before_filter      :authenticate_user!
+
+  add_breadcrumb 'Subscriptions', :subscriptions_url
+  add_breadcrumb 'Edit Subscription', '', only: [:edit, :update]
+  add_breadcrumb 'Subscription', '', only: [:show]
+
   # skip_before_filter :verify_authenticity_token
   def index
+    @q = Subscription.joins(:business, :package).search(params[:q])
+    @subscriptions = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10)
   end
 
   def show
+    @subscription = Subscription.find(params[:id])
+    authorize! :read, @subscription
   end
 
   def new
@@ -12,13 +21,14 @@ class SubscriptionsController < ApplicationController
     @package      = Package.first
   end
   def edit
-    @business = Business.find(params[:business_id])
-    @subscription = @business.subscription
-    @package = @subscription.package
-    if @subscription == nil
-      @subscription = Subscription.new
-      @package = current_label.packages.first
-    end
+    @subscription = Subscription.find(params[:id])
+    # @business = Business.find(params[:business_id])
+    # @subscription = @business.subscription
+    # @package = @subscription.package
+    # if @subscription == nil
+    #   @subscription = Subscription.new
+    #   @package = current_label.packages.first
+    # end
     @creditcard = CreditCard.new
   end
   def update 
@@ -40,20 +50,22 @@ class SubscriptionsController < ApplicationController
   end 
 
   def destroy
-    business = Business.find(params[:id])
-    @sub = business.subscription
-    if @sub.active == false
+    subscription = Subscription.find(params[:id])
+    authorize! :destroy, subscription 
+
+    if subscription.active == false
       flash[:alert] = "Subscription already cancelled."
     else
       ccp = CreditCardProcessor.new(current_label, nil ) 
-      @sub = ccp.cancel_recurring(@sub)
-      if @sub.status == :cancelled 
-        Notification.add_activate_subscription business 
-        flash[:alert] = "Subscription cancelled."
+      subscription = ccp.cancel_recurring(subscription)
+      if subscription.status == :cancelled 
+        Notification.add_activate_subscription subscription.business 
+        flash[:notice] = "Subscription cancelled."
       else
-        flash[:alert] = "Error: #{@sub.message}"
+        airbrake_notify StandartException.new("Could not cancel subscription id=#{subscription.id} error=#{subscription.message}")
+        flash[:notice] = "An error occured trying to cancel your subscription."
       end
     end
-    redirect_to businesses_path
+    redirect_to subscriptions_path
   end
 end

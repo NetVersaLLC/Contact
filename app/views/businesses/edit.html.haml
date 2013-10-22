@@ -1,8 +1,1 @@
-- unless request.xhr?
-  %h3.page-title
-    #{@business.business_name}
-  %br
-  %br
-.row
-  .span12
-    = render :partial => 'form/business_tab' unless request.xhr?
+=render 'form'

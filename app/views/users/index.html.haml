@@ -1,0 +1,55 @@
+.row
+  .col-xs-12 
+    - if @users.blank? 
+      .alert.alert-block.alert-success
+        No users were found. 
+    - else 
+      .widget-box 
+        .widget-header 
+          %h4 Search 
+        .widget-body
+          .widget-main
+            =search_form_for @q, class:"form-inline" do |f|
+              .input-group
+                =f.text_field :email_cont,  placeholder: "Email"
+                =f.text_field :first_name_start,  placeholder: "First Name"
+                =f.text_field :last_name_start,   placeholder: "Last Name"
+                %span.input-group-btn
+                  %button.btn.btn-purple.btn-sm
+                    Search
+                    %i.icon-search.icon-on-right.bigger-110
+      .dataTables_wrapper
+        %table.table.table-striped.table-bordered.table-hover
+          %thead
+            %tr
+              %th Email 
+              %th Full Name 
+              %th.hidden-480 Role 
+              %th.hidden-480 Phone Number
+              %th.hidden-480 Status 
+              %th
+          %tbody
+            - @users.each do |user|
+              %tr
+                %td= link_to user.email, user, title: 'Show user'
+                %td  #{user.first_name} #{user.last_name}
+                %td= user.role_is
+                %td= user.mobile_phone
+                %td ??? 
+                %td 
+                  .btn-group
+                    = link_to user, class: 'btn btn-xs btn-success', title: 'Show user' do 
+                      %i.icon-ok.bigger-120
+                    = link_to edit_user_path(user), class: 'btn btn-xs btn-info', title: 'Edit user' do 
+                      %i.icon-edit
+                    = link_to user, method: :delete, class: 'btn btn-xs btn-danger', confirm: 'Are you sure?', title: 'Delete user' do 
+                      %i.icon-trash
+        .row 
+          .col-md-6
+            .dataTables_info
+              = page_entries_info @businesses
+          .col-md-6
+            .dataTables_paginate.paging_bootstrap
+              = will_paginate @businesses, previous_label: "<", next_label: ">", inner_window: 1, outer_window: 1
+
+    =link_to "Add User", new_user_path, class: "btn btn-primary"

@@ -1,0 +1,42 @@
+%h1.blue= @account.type
+%table.table.table-striped
+  -if @account.class.accessible_attributes.include? :username
+    %tr
+      %td Username
+      %td= @account.username
+  -if @account.class.accessible_attributes.include? :email
+    %tr
+      %td Email
+      %td= @account.email
+  %tr
+    %td Sync Enabled
+    %td= @account.do_not_sync ? "No":"Yes"
+  -if @account.class.accessible_attributes.include? :listing_url
+    %tr
+      %td Listing URL
+      %td
+        -if @account.listing_url.blank?
+          None Found
+        -else 
+          %a{ href: "#{@account.listing_url}" , target: "_blank" }= @account.type
+  -if @account.class.accessible_attributes.include? :listings_url
+    %tr
+      %td Listing URL
+      %td
+        -if @account.listings_url.blank?
+          None Found. 
+        -else 
+          %a{ href: "#{@account.listings_url}", target: "_blank" }= @account.type
+  -if @account.class.accessible_attributes.include? :places_url
+    %tr
+      %td Places URL
+      %td
+        -if @account.places_url.blank?
+          None Found
+        -else 
+          %a{ href: "#{@account.places_url}", target: "_blank"  }= @account.type
+  %tr
+    %td Scan Status 
+    %td= @account.latest_scan.status
+
+= link_to 'Edit Account', edit_account_path(@account), class: "btn btn-info"

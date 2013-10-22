@@ -1,3 +1,13 @@
 // Place all the styles related to the scan controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.errorsdetected{  width: 50ex;  } 
+.errorcount { 
+    float: left;
+    color: red; 
+    font-size: 7.5ex;
+    padding-right: 0.5ex;
+    line-height: 2ex;
+    font-weight: bold;
+}
+.errordesc { font-size: 2.5ex; width: 10ex; float: left; } 

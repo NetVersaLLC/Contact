@@ -1,8 +1,41 @@
-.notification-modal-title-row
-  %h3 To Do List
--if @notifications.length == 0 
-  %p You do not have any tasks to complete. 
--else 
-  %p Please complete these steps immediately to ensure maximum exposure for your business:
-  %dl
-    = render @notifications
+.row
+  .col-xs-9
+    - if @notifications.blank? 
+      .alert.alert-block.alert-success
+        No action items were found. 
+    - else 
+      .widget-box 
+        .widget-header
+          %h5.bigger.lighter 
+            %i.icon-table 
+            Pending Action Items
+        .widget-body   
+          %table.table.table-striped.table-bordered.table-hover
+            %thead
+              %tr
+                %th Action
+                - if current_user.reseller?
+                  %th Business
+                %th Status
+                %th Created at
+                %th Delete
+            %tbody
+              - @notifications.each do |notification|
+                %tr
+                  %td
+                    %a{href: "#{notification.url}"}= notification.title
+                  -if current_user.reseller? 
+                    %td= truncate(notification.business.business_name)
+                  %td New
+                  %td= l(notification.created_at, format: :long)
+                  %td 
+                    = link_to notification, method: :delete, confirm: "Are you sure?", class: "btn btn-xs btn-danger" do 
+                      %i.icon-trash.bigger-120
+          .row 
+            .col-md-6
+              .dataTables_info
+                = page_entries_info @notifications
+            .col-md-6
+              .dataTables_paginate.paging_bootstrap
+                = will_paginate @notifications, previous_label: "<", next_label: ">", inner_window: 1, outer_window: 1
+

@@ -1,36 +1,50 @@
-class BusinessesController < ApplicationController
+class BusinessesController < InheritedResources::Base
+  load_and_authorize_resource 
+  respond_to :html #,:xml, :json
+  actions :all
 
-  before_filter :authenticate_user!
+  add_breadcrumb 'Locations', :businesses_url
+  add_breadcrumb  'New Location', '', only: [:new, :create]
+  add_breadcrumb  'Edit Location', '', only: [:edit, :update]
 
-  def index
-    flash.keep
-    @businesses = Business.where(:user_id => current_user.id)
-    if @businesses.count == 1
-      b = @businesses.first 
+  def index 
+    @q = Business.search(params[:q])
+    @businesses = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 5)
+  end 
 
-      if !b.subscription.active || b.subscription.active.nil?
-        Notification.add_activate_subscription b
-      end 
+  def show 
+      show! { add_breadcrumb @business.business_name, nil}
+  end 
 
-      if b.is_client_downloaded
-        redirect_to business_path(b) 
-      else 
-        redirect_to edit_business_path(b)
-      end 
-    end
-  end
+  # def index
+  #   flash.keep
+  #   @businesses = Business.where(:user_id => current_user.id)
+  #   if @businesses.count == 1
+  #     b = @businesses.first 
+
+  #     if !b.subscription.active || b.subscription.active.nil?
+  #       Notification.add_activate_subscription b
+  #     end 
+
+  #     if b.is_client_downloaded
+  #       redirect_to business_path(b) 
+  #     else 
+  #       redirect_to edit_business_path(b)
+  #     end 
+  #   end
+  # end
 
   # GET /businesses/1
   # GET /businesses/1.json
-  def show
-    @business  = Business.find(params[:id])
-    if @business.user_id != current_user.id
-      redirect_to root_path
-      return
-    end
-    @accounts  = @business.nonexistent_accounts_array
-    @job_count = Job.where(:business_id => @business.id, :status => 0).count
-  end
+  # def show
+  #   @business  = Business.find(params[:id])
+  #   if @business.user_id != current_user.id
+  #     redirect_to root_path
+  #     return
+  #   end
+  #   @accounts  = @business.nonexistent_accounts_array
+  #   @job_count = Job.where(:business_id => @business.id, :status => 0).count
+  # end
 
   def tada
     @business  = Business.find(params[:id])
@@ -59,20 +73,20 @@ class BusinessesController < ApplicationController
   end
 
   # GET /businesses/1/edit
-  def edit
-    @business = Business.find(params[:id])
-    if @business.user_id != current_user.id
-      redirect_to root_path
-      return
-    end
+  # def edit
+  #   @business = Business.find(params[:id])
+  #   if @business.user_id != current_user.id
+  #     redirect_to root_path
+  #     return
+  #   end
 
-    @accounts = @business.nonexistent_accounts_array
-    @site_accounts = Business.citation_list #.map {|x| x[0..1]}
-    respond_to do |format|
-      format.html { render @business.is_client_downloaded ? 'edit' : 'new' } 
-      format.json { render json: @business }
-    end
-  end
+  #   @accounts = @business.nonexistent_accounts_array
+  #   @site_accounts = Business.citation_list #.map {|x| x[0..1]}
+  #   respond_to do |format|
+  #     format.html { render @business.is_client_downloaded ? 'edit' : 'new' } 
+  #     format.json { render json: @business }
+  #   end
+  # end
 
 
   def client_checked_in 
@@ -107,25 +121,25 @@ class BusinessesController < ApplicationController
 
   # PUT /businesses/1
   # PUT /businesses/1.json
-  def update
-    @business = Business.find(params[:id])
+  #def update
+  #  @business = Business.find(params[:id])
 
-    respond_to do |format|
-      @business.attributes = params[:business] 
+  #  respond_to do |format|
+  #    @business.attributes = params[:business] 
 
-      #if @business.update_attributes(params[:business])
-      if @business.save( :validate =>  !request.xhr?)
-        format.html { redirect_to @business, :notice => 'Business was successfully updated.' } 
-        format.json { head :no_content }
-      else
-        @accounts = @business.nonexistent_accounts_array
-        @site_accounts = Business.citation_list #.map {|x| x[0..1]}
+  #    #if @business.update_attributes(params[:business])
+  #    if @business.save( :validate =>  !request.xhr?)
+  #      format.html { redirect_to @business, :notice => 'Business was successfully updated.' } 
+  #      format.json { head :no_content }
+  #    else
+  #      @accounts = @business.nonexistent_accounts_array
+  #      @site_accounts = Business.citation_list #.map {|x| x[0..1]}
 
-        format.html { render action: "edit" }
-        format.json { render json: @business.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #      format.html { render action: "edit" }
+  #      format.json { render json: @business.errors, status: :unprocessable_entity }
+  #    end
+  #  end
+  #end
 
   # DELETE /businesses/1
   # DELETE /businesses/1.json

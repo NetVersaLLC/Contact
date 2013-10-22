@@ -52,7 +52,7 @@ class Report < ActiveRecord::Base
       report.completed_at = Time.now
       report.save!
 
-      ReportMailer.report_email(report).deliver unless report.email.nil? || report.email.empty?
+      ReportMailer.report_email(report).deliver if report.email.present?
     end
   end
 end

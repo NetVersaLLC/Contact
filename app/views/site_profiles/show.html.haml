@@ -1,0 +1,32 @@
+.page-header
+  %h1 Site Profile
+.row
+  .col-xs-6
+    %h4 Site 
+    %p= @site_profile.site
+    %h4 Owner
+    %p= @site_profile.owner 
+    %h4 Founded
+    %p= @site_profile.founded
+    %h4 Notes
+    %p= @site_profile.notes
+    %h4 Alexa US Traffic Rank
+    %p= @site_profile.alexa_us_traffic_rank
+    %h4 Page Rank
+    %p= @site_profile.page_rank
+    %h4 Url
+    %p= @site_profile.url
+    %h4 Traffic Stats
+    %p= @site_profile.traffic_stats
+    %h4 Notes
+    %p= @site_profile.notes
+    %h4 Enabled For Scan
+    %p= @site_profile.enabled_for_scan
+    %h4 Technical Notes
+    %p= @site_profile.technical_notes
+    %h4 Logo
+    %p 
+      =image_tag @site_profile.logo.url
+
+    - if can? :edit, @site_profile
+      = link_to 'Edit Site Profile', edit_site_profile_path(@site_profile), class: "btn btn-info"

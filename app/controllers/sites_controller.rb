@@ -1,8 +1,10 @@
 class SitesController < ApplicationController
   before_filter :authenticate_user!
+  load_and_authorize_resource 
+  respond_to :html, :json, :js
+  actions :all, except: [ :delete ] 
+  add_breadcrumb 'Site Profiles', :site_profiles_url
 
-  # GET /site_profiles
-  # GET /site_profiles.json
   def index
     @site_profiles = Site.all
   end

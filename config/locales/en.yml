@@ -11,11 +11,11 @@ en:
   errors:
     messages:
       phone: "Not a valid phone number"
-  formtastic: 
+  helpers: 
     titles: 
       business_details:      "Business Details"
       company_description:   "Company Description"
-    labels: 
+    label: 
       business: 
         address:             "Address" 
         address2:            "Address 2"
@@ -33,13 +33,23 @@ en:
         corporate_name:      "Corporate Name" 
         fax_number:          "Fax Number"
         geographic_areas:    "Geographic Areas" 
-        local_phone:         "Local Phone"
+        local_phone:         "Main Business Phone"
         mobile_appears:      "Should Mobile Number Appear on Listings?" 
         mobile_phone:        "Mobile Phone" 
         professional_associations: "Professional Associations" 
         toll_free_phone:     "Toll-Free Phone" 
         year_founded:        "Year Founded" 
         zip:                 "Zip"
+        category1:            "Category 1"
+        category2:            "Category 2"
+        category3:            "Category 3"
+        category4:            "Category 4"
+        category5:            "Category 5"
+      user:    
+        first_name:           "First Name" 
+        middle_name:          "Middle Name" 
+        last_name:            "Last Name" 
+        date_of_birth:        "Date of Birth"
     hints: 
       business: 
         alternate_phone:     "Format: 555-555-1212" 
@@ -53,7 +63,7 @@ en:
         address2:            "Address Line 2"
         alternate_phone:     "Alternate Phone" 
         business_description: "Business Description"
-        business_name:       "The name of the business."
+        business_name:       "My Business Name"
         city:                "City" 
         company_website:     "Company Website"
         contact_birthday:    "Contact Birthday" 
@@ -61,17 +71,41 @@ en:
         contact_middle_name: "Contact Middle Name" 
         contact_last_name:   "Contact Last Name" 
         corporate_name:      "DBA/Corporate Name"
+        fax_number:          ""
         local_phone:         "Primary Local Phone"
         professional_associations: "Professional Associations and Memberships"
         toll_free_phone:     "Toll-Free Phone" 
         year_founded:        "Year Founded" 
         zip:                 "Business Zip"
+        keywords:            "Search Engine Keywords"
+        status_message:      ""
+        trade_license:       "" 
+        trade_license_number: ""
+        trade_license_locale: ""
+        trade_license_authority: ""
+        trade_license_expiration: ""
+        brands:               ""
+        tag_line:             "" 
+        job_titles:           "" 
+        profesional_associations: ""
+        services_offered:     ""
+        category1:           "" 
+        category2:           "" 
+        category3:           "" 
+        category4:           "" 
+        category5:           "" 
+
+
+
 
   popovers: 
     business: 
       address:
         content:  "This address will be used in all online directory listings, including your website."
         title:    "Primary Business Address"
+      alternate_phone: 
+        content:  "Example: 555-555-1212"
+        title:    "Alternate Phone"
       local_phone:
         content:  "This number will be used in all online directory listings, including your website."
         title:    "Primary Local Phone Number" 

@@ -1,25 +1,24 @@
-- if @businesses.count == 0 
-  .alert 
-    You do not have a business set up yet.  Please contact 
-    %a(href="mailto:#{current_label.support_email}")  #{current_label.support_email}
-    for more information.  
-- else   
-  %table.table.table-bordered
-    %thead
-      %tr
-        %th Business Name
-        %th Package
-        %th Download
-    - @businesses.each do |business|
-      %tbody
-        %tr
-          %td
-            %a.btn.btn-info{:href => business_path(business.id)} #{business.business_name}
-          %td
-            Default
-          %td
-            %a.btn.btn-warning.btn-large{:href => "/downloads/#{business.id}"} Download Client
-  %br/
-  %br/
-
-/%a.btn.btn-info{:href => new_business_path()} Add Another Business
+.row
+  .col-xs-12
+    - if @businesses.empty?
+      .alert.alert-warning
+        No locations were found.
+    - else   
+      =render 'filter'
+      =render 'index_table'
+      %br/
+      .row
+        .col-md-12
+          .btn-group
+            %button.btn.btn-info.btn-sm.dropdown-toggle{data: {toggle:"dropdown"}} 
+              Bulk edit
+              %i.icon-angle-down.icon-on-right
+            %ul.dropdown-menu
+              %li 
+                %a{:href => "#"} Suspend Sync
+              %li 
+                %a{:href => "#"} Delete Location 
+              %li.divider
+              %li 
+                %a{:href => "#"} Broadcast Message
+            =link_to "Add location", new_business_path, class: "btn btn-info btn-sm"

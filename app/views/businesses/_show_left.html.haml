@@ -1,0 +1,45 @@
+%div 
+  -if @business.logo.present?
+    %span.profile-picture 
+      =image_tag @business.logo.medium, class: "editable img-responsive"
+  .space-4
+  .width-80.label.label-info.label-xlg.arrowed-in.arrowed-in-right
+    .inline.position-relative
+      %a.user-title-label.dropdown-toggle{data:{toggle:"dropdown"}}
+        %i.icon-circle.light-green.middle
+        %span.white.middle.bigger-120= @business.corporate_name 
+      %ul.align-left.dropdown-menu.dropdown-caret.dropdown-lighter
+        %li.dropdown-header Change Status 
+        %li 
+          %a{:href => "#"} 
+            %i.icon-circle.green
+            &nbsp;
+            %span.green Available
+        %li 
+          %a{:href => "#"} 
+            %i.icon-circle.red
+            &nbsp; 
+            %span.red Busy 
+        %li 
+          %a{:href => "#"} 
+            %i.icon-circle.grey
+            &nbsp; 
+            %span.grey Invisible
+  .space-6
+  .profile-contact-info
+    .profile-contact-links.align-left
+      %a.btn.btn-link{href:"#"}
+        %i.icon-bullhorn.bigger-120.green 
+        Send Broadcast
+      =link_to edit_business_path(@business), class: "btn btn-link" do 
+        %i.icon-edit.bigger-120.pink
+        Edit Listing 
+      %a.btn.btn-link{:href => "#"}  
+        %i.icon-globe.bigger-125.blue 
+        %i.icon-facebook.bigger-125.blue 
+        %i.icon-twitter.bigger-125.blue 
+        %i.icon-google-plus.bigger-125.blue 
+        %i.icon-foursquare.bigger-125.blue 
+  .space-6
+  .profile-social-links.center 
+.hr.hr12.dotted

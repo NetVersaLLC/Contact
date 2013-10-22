@@ -9,15 +9,23 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require formtastic-bootstrap
- *= require jquery-ui
- *= require jquery-bootstrap
- *= require include-bootstrap
+ * require formtastic-bootstrap
+ * require jquery-ui
+ * require jquery-bootstrap
+ * require include-bootstrap
+ * require ace-fonts
+ *= require datepicker
+ *= require ace.min.css 
+ *= require ace-rtl.min
+ *= require ace-skins.min.css 
  *= require checkout
- *= require businesses
  *= require style
  *= require fineuploader-3.3.0
+ *= require jquery.gritter
  *= require custom
  *= require codes
-*/
+ *= require colorbox
+ *= require scan
+ *= require businesses
+ *= require jquery.ui.overrides */
 

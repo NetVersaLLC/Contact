@@ -1,82 +1,191 @@
-%h3 Scan Results
-
-%h4#name
-  = @report.business
-%h4#zip
-  = @report.zip
-%h4#zip
-  = @report.phone
-
+%h3.text-primary= @report.business
+.row
+  .col-xs-6
+    %dl
+      %dt Searched for:
+      %dd
+        %dl.dl-horizontal
+          %dt Business Name:
+          %dd= @report.business 
+          %dt Business Zip:
+          %dd= @report.zip 
+          %dt Business Phone: 
+          %dd= @report.phone
+    %dl
+      %dt Report Information:
+      %dd
+        %dl.dl-horizontal
+          %dt Completed at: 
+          %dd= l(@report.updated_at, format: :long)
+          %dt Report Id: 
+          %dd= @report.ident
+          %dt.text-danger Unclaimed Count:
+          %dd.text-danger 5
+          %dt.text-warning Listed:
+          %dd.text-warning 1 
+          %dt.text-success Listed & Claimed:
+          %dd.text-success 1
+  .col-xs-6
+    .row
+      .col-xs-6
+        .well
+          .errorsdetected
+            .errorcount 234
+            .errordesc Errors Detected 
+          .clearfix
+      .col-xs-3
+        %a.btn.btn-app.btn-primary.no-radius(href="/users/sign_up?package_id=#{@report.package_id}")
+          %i.icon-wrench 
+          Go Fix!
+    .row
+      .col-xs-12
+        .widget-box
+          .widget-header.widget-header-flat.widget-header-small
+            %h5
+              %i.icon-signal
+              Scan Summary 
+          .widget-body
+            .widget-main
+              #piechart-networks
 %br
-%br
-
-:css
-  .siteButton {
-    text-align: left;
-    width: 200px;
-    font-size: 15pt;
-  }
-  .siteName {
-    width: 250px;
-    font-size: 15pt;
-  }
-  .siteAction {
-    width: 100%;
-    text-align: center;
-  }
-
-%table.table.table-striped
-  %thead
-    %tr
-      %td Status
-      %td Site
-      %td Phone
-      %td Address
-      %td Link to Profile
-  %tbody
-    - @report.scans.order(:site).each do |scan|
-      %tr
-        %td
-          - if scan.status == 'claimed'
-            %a.btn.btn-large.btn-success.siteButton{:href => "#", 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'data-original-title' => 'Your business is listed and claimed.', 'title' => nil}
-              %i.icon-ok-sign
-              Listed &amp; Claimed
-          - elsif scan.status == 'listed'
-            %a.btn.btn-large.btn-warning.siteButton{:href => "#", 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'data-original-title' => 'Your business is listed, but not claimed.', 'title' => nil}
-              %i.icon-minus-sign
-              Listed
-          - else
-            %a.btn.btn-large.btn-danger.siteButton{:href => "#", 'data-toggle' => 'tooltip', 'data-placement' => 'top', 'data-original-title' => 'Your business is not listed.', 'title' => nil}
-              %i.icon-exclamation-sign
-              Unlisted
-        %td
-          %a.btn.btn-large.siteName{:href => "##{scan.site}", 'data-toggle' => 'popover', 'data-content' => Site.get(scan.site), 'data-original-title' => scan.site_name}
-            #{scan.site_name}
-        %td #{scan.listed_phone}
-        %td #{scan.listed_address}
-        %td
-          - if scan.listed_url and scan.listed_url != ''
-            %a.btn.btn-large.btn-primary{:href => scan.listed_url, :target => '_blank'}
-              %i.icon-link
-              Link
-
-%br
-%br
-
-.siteAction
-  %a.btn.btn-primary.btn-large{:href => "/users/sign_up?package_id=#{@report.package_id}"}
-    Fix These Errors
-
-%br
-%br
-%form.form-search{:role => "form", :action => '/scanner/send', :method => :post}
-  .form-group
-    %label.sr-only{:for => "report_email"} Have this report sent to your email:
-  %input{:type => :hidden, :name => :ident, :value => @report.ident}/
-  %input.span4.search-query{:placeholder => "Enter email", :type => "email", :name => 'email'}/
-  %input.btn.btn-default{:type => :submit, :value => "Email Me The Report"}
-%br/
+=render "scans"
+.row
+  .col-xs-4
+    %form.form-search
+      .input-group
+        %input.form-control.search-query(type="text" placeholder="name@somewhere.com" type="email")
+        %span.input-group-btn
+          %button.btn.btn-info.btn-sm(type="submit")
+            %i.icon-envelope-alt.bigger-110
+              Send me the report
+  .col-xs-8
+    %a.btn.btn-primary.btn-large.pull-right(href="/users/sign_up?package_id=#{@report.package_id}") 
+      %i.icon-wrench 
+        Fix These Errors
 
 :javascript
-  $('.siteButton').tooltip();
-  $('.siteName').popover({ trigger: 'hover', html: true });
+  jQuery(function($) {
+
+    var placeholder = $('#piechart-networks').css({'width':'90%' , 'min-height':'150px'});
+    var data = [
+    { label: "listed & claimed",  data: 15.7, color: "#68BC31"},
+    //{ label: "search engines",  data: 24.5, color: "#2091CF"},
+    //{ label: "ad campaigns",  data: 8.2, color: "#AF4E96"},
+    { label: "unlisted",  data: 80, color: "#DA5430"},
+    { label: "listed",  data: 4.3, color: "#FEE074"}
+    ]
+    function drawPieChart(placeholder, data, position) {
+      $.plot(placeholder, data, {
+      series: {
+        pie: {
+          show: true,
+          radius: 1,
+          tilt:0.5,
+          highlight: {
+            opacity: 0.25
+          },
+          stroke: {
+            color: '#fff',
+            width: 2
+          },
+          startAngle: 2, 
+          label: { 
+            show: true, 
+            radius: 1, //3/4, 
+            formatter: function(label, series){ 
+              return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">'+label+'<br/>'+Math.round(series.percent)+'%</div>';
+            }, 
+            background: { 
+              opacity: 0.5, 
+              color: '#000'
+            }
+          }
+        }
+      },
+      legend: {
+        show: true,
+        position: position || "ne", 
+        labelBoxBorderColor: null,
+        margin:[-30,15]
+      }
+      /*,
+      grid: {
+        hoverable: true,
+        clickable: true
+      } */
+     })
+   }
+   drawPieChart(placeholder, data);
+
+   /**
+   we saved the drawing function and the data to redraw with different position later when switching to RTL mode dynamically
+   so that's not needed actually.
+   */
+   placeholder.data('chart', data);
+   placeholder.data('draw', drawPieChart);
+
+   var $tooltip = $("<div class='tooltip top in'><div class='tooltip-inner'></div></div>").hide().appendTo('body');
+   var previousPoint = null;
+    
+   placeholder.on('plothover', function (event, pos, item) {
+   if(item) {
+     if (previousPoint != item.seriesIndex) {
+        previousPoint = item.seriesIndex;
+        var tip = item.series['label'] + " : " + item.series['percent']+'%';
+        $tooltip.show().children(0).text(tip);
+      }
+      $tooltip.css({top:pos.pageY + 10, left:pos.pageX + 10});
+    } else {
+      $tooltip.hide();
+      previousPoint = null;
+    }
+
+   });
+  });
+-#
+  %table.table.table-striped
+    %thead
+      %tr
+        %td Status
+        %td Si
+        %td Phone
+        %td Address
+        %td Link to Profile
+    %tbody
+      - @report.scans.order(:site).each do |scan|
+        %tr
+          %td= scan.site_name 
+          %td= scan.listed_phone
+          %td= scan.listed_address 
+          %td
+            - if scan.status == 'claimed'
+                %i.icon-ok-sign
+                Listed &amp; Claimed
+            - elsif scan.status == 'listed'
+                %i.icon-minus-sign
+                Listed
+            - else
+                %i.icon-exclamation-sign
+                Unlisted
+            - if scan.listed_url.present?
+              %a.btn.btn-large.btn-primary{:href => scan.listed_url, :target => '_blank'}
+                %i.icon-link
+                Link
+
+  .siteAction
+    %a.btn.btn-primary.btn-large{:href => "/users/sign_up?package_id=#{@report.package_id}"}
+      Fix These Errors
+
+  %br
+  %br
+  %form.form-search{:role => "form", :action => '/scanner/send', :method => :post}
+    .form-group
+      %label.sr-only{:for => "report_email"} Have this report sent to your email:
+    %input{:type => :hidden, :name => :ident, :value => @report.ident}/
+    %input.span4.search-query{:placeholder => "Enter email", :type => "email", :name => 'email'}/
+    %input.btn.btn-default{:type => :submit, :value => "Email Me The Report"}
+  %br/
+
+  :javascript
+    $('.siteButton').tooltip();
+    $('.siteName').popover({ trigger: 'hover', html: true });

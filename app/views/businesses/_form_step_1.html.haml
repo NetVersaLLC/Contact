@@ -1,0 +1,31 @@
+#step1.step-pane.active
+  .row
+    .col-xs-12
+      =render partial: "form_group", locals: { f: f, field: :business_name}
+      =render partial: "form_group", locals: { f: f, field: :corporate_name, args: {maxlength: '50'}}
+      =render partial: "form_group", locals: { f: f, field: :local_phone}
+      =render partial: "form_group", locals: { f: f, field: :alternate_phone}
+      =render partial: "form_group", locals: { f: f, field: :toll_free_phone}
+      =render partial: "form_group", locals: { f: f, field: :fax_number}
+
+      .form-group
+        .row
+          .col-sm-5
+            =f.label :address
+        .row
+          .col-xs-5
+            .input-group
+              =f.text_field :address, class: "form-control", placeholder: I18n.t("helpers.placeholders.business.address")
+              %span.input-group-btn
+                %button#mapbutton.btn.btn-sm.btn-info Map
+
+      =render partial: "form_group", locals: { f: f, field: :address2, args: {maxlength: '100', data: {:toggle => ''}}}
+      =render partial: "form_group", locals: { f: f, field: :city}
+      =render partial: "form_group_select", locals: { f: f, items: Carmen::states('US'),  field: :state }
+      =render partial: "form_group", locals: { f: f, field: :zip}
+
+      %h3 Whos the boss 
+      %p select a manager for this location
+
+#modalmap.hide
+  %img
