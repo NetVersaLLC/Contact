@@ -33,15 +33,15 @@ RSpec.configure do |config|
   config.add_formatter 'documentation'
 
   # Clean up the database
-  #require 'database_cleaner'
+  require 'database_cleaner'
   #config.before(:suite) do
   #  DatabaseCleaner[:active_record].clean_with(:truncation)
   #  DatabaseCleaner[:active_record].strategy = :truncation
   #end
 
-  #config.before(:all) do
-  #  DatabaseCleaner.clean
-  #end
+  config.before(:all) do
+    DatabaseCleaner.clean
+  end
 
 end
 

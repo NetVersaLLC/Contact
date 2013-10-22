@@ -18,7 +18,6 @@ class Report < ActiveRecord::Base
 
     SiteProfile.where(enabled_for_scan: true).each do |site|
       scan = Scan.create_for_site(self.id, site)
-      scan.delay.send_to_scan_server!
     end
 
     Delayed::Worker.logger.info "Ending performance: #{Time.now.iso8601}"

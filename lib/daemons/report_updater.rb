@@ -16,5 +16,5 @@ end
 
 while($running) do
   Report.update_statuses
-  sleep 5
+  sleep 3
 end

@@ -3,6 +3,11 @@ class SiteProfile < ActiveRecord::Base
   has_attached_file :logo, styles: { :thumb => "32x32>" }, default_url: "/assets/missing_logo.jpg"
 
   attr_accessible :alexa_us_traffic_rank, :founded, :notes, :owner, :page_rank, :site, :traffic_stats, :url, :enabled_for_scan, :enabled, :technical_notes
+  has_many :payloads
+
+  def self.by_name(name)
+    Site.where(:name => name).first
+  end
 
   def self.get(site)
     site = self.where(:site => site).first

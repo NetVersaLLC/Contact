@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131014162229) do
+ActiveRecord::Schema.define(:version => 20131021224503) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -1499,17 +1499,13 @@ ActiveRecord::Schema.define(:version => 20131014162229) do
 
   create_table "package_payloads", :force => true do |t|
     t.integer  "package_id"
-    t.string   "site"
-    t.string   "payload"
-    t.string   "description"
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
     t.integer  "queue_insert_order", :default => 0
+    t.integer  "site_id"
   end
 
   add_index "package_payloads", ["package_id"], :name => "index_packages_payloads_on_package_id"
-  add_index "package_payloads", ["payload"], :name => "index_packages_payloads_on_payload"
-  add_index "package_payloads", ["site"], :name => "index_packages_payloads_on_site"
 
   create_table "packages", :force => true do |t|
     t.string   "name"
@@ -1543,21 +1539,26 @@ ActiveRecord::Schema.define(:version => 20131014162229) do
     t.boolean  "do_not_sync",       :default => false
   end
 
-  create_table "payload_nodes", :force => true do |t|
+  create_table "payloads", :force => true do |t|
     t.string   "name"
-    t.boolean  "active",     :default => false
+    t.boolean  "active",         :default => false
     t.datetime "broken_at"
     t.text     "notes"
-    t.integer  "parent_id",  :default => 1
-    t.integer  "package_id", :default => 0
-    t.integer  "position",   :default => 0
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.integer  "parent_id",      :default => 1
+    t.integer  "package_id",     :default => 0
+    t.integer  "position",       :default => 0
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.text     "data_generator"
+    t.text     "client_script"
+    t.text     "ready"
+    t.integer  "site_id"
   end
 
-  add_index "payload_nodes", ["name"], :name => "index_payload_nodes_on_name"
-  add_index "payload_nodes", ["package_id"], :name => "index_payload_nodes_on_package_id"
-  add_index "payload_nodes", ["parent_id"], :name => "index_payload_nodes_on_parent_id"
+  add_index "payloads", ["name"], :name => "index_payload_nodes_on_name"
+  add_index "payloads", ["package_id"], :name => "index_payload_nodes_on_package_id"
+  add_index "payloads", ["parent_id"], :name => "index_payload_nodes_on_parent_id"
+  add_index "payloads", ["site_id"], :name => "index_payloads_on_site_id"
 
   create_table "payments", :force => true do |t|
     t.string   "status"
@@ -1746,13 +1747,13 @@ ActiveRecord::Schema.define(:version => 20131014162229) do
 
   add_index "showmelocals", ["business_id"], :name => "index_showmelocals_on_business_id"
 
-  create_table "site_profiles", :force => true do |t|
-    t.string   "site"
+  create_table "sites", :force => true do |t|
+    t.string   "name"
     t.string   "owner"
     t.string   "founded"
     t.string   "alexa_us_traffic_rank"
     t.string   "page_rank"
-    t.string   "url"
+    t.string   "domain"
     t.string   "traffic_stats"
     t.string   "notes"
     t.datetime "created_at",                               :null => false
@@ -1760,11 +1761,17 @@ ActiveRecord::Schema.define(:version => 20131014162229) do
     t.boolean  "enabled_for_scan",      :default => false
     t.boolean  "enabled",               :default => true
     t.text     "technical_notes"
+<<<<<<< HEAD
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
+=======
+    t.string   "login_url"
+>>>>>>> 6a370525c6a091833efd23ebbd3e4dd4f2b21afd
   end
+
+  add_index "sites", ["name"], :name => "index_sites_on_name"
 
   create_table "snoopitnow_categories", :force => true do |t|
     t.integer  "parent_id"

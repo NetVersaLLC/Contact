@@ -1,7 +1,9 @@
+app_name: report_updater
 dir_mode: script
+mode: load
 dir: ../../log
 multiple: false
 backtrace: true
-monitor: false
+monitor: true
 ontop: false
-app_name: report_updater
+log_output: true
