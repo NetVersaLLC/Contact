@@ -7,7 +7,6 @@ $ ->
 
   $('.enable_sync').on "ajax:success", (e, data, status, xhr) -> 
     dns = xhr.responseJSON.do_not_sync 
-    console.log xhr
     $(this).find("input[name=client_data\\[do_not_sync\\]]").val( !dns )
     if dns
       $(this).find(".sync_enabled").hide()
