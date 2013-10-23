@@ -15,9 +15,9 @@
  * require include-bootstrap
  * require ace-fonts
  *= require datepicker
- *= require ace.css 
+ *= require ace
  *= require ace-rtl.min
- *= require ace-skins.min.css 
+ *= require ace-skins.min
  *= require checkout
  *= require style
  *= require fineuploader-3.3.0
