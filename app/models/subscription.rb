@@ -3,9 +3,11 @@ class Subscription < ActiveRecord::Base
 
   attr_accessor :trans
   attr_accessible :package_id, :monthly_fee, :message, :status 
-  has_many   :businesses
+  #has_many   :businesses
+  has_one :business
+
   belongs_to :package
-  belongs_to :business
+  #belongs_to :business
   belongs_to :label
   belongs_to :transaction_event
   has_many   :transaction_events

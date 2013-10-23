@@ -27,6 +27,31 @@ ActiveAdmin.register User do
     end 
   end
 
+  show do |user| 
+    attributes_table do 
+      row :id
+      row("Name"){"#{user.prefix} #{user.first_name} #{user.middle_name} #{user.last_name}"}
+      row :email 
+      row("Access Level"){user.role_is}
+      row :date_of_birth 
+      row :mobile_phone 
+      row :mobile_appears 
+      row :username 
+      row("Business"){user.businesses.pluck(:business_name).to_sentence.html_safe }
+      row :reset_password_sent_at 
+      row :sign_in_count 
+      row :current_sign_in_at
+      row :last_sign_in_at 
+      row :last_sign_in_ip 
+      row :current_sign_in_ip 
+      row :created_at 
+      row :updated_at 
+      row :label 
+      row :callcenter 
+      row :referrer_code 
+    end 
+  end 
+
   form do |f|
     f.inputs "Edit User" do
       f.input :email
@@ -53,9 +78,9 @@ ActiveAdmin.register User do
     end
   end
 
-  member_action :new, :method => :get do
-    @user = User.new
-  end
+  #member_action :new, :method => :get do
+  #  @user = User.new
+  #end
   member_action :create, :method => :post do
     @user = User.new do |u| 
       u.email = params[:user][:email] 

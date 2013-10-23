@@ -138,7 +138,7 @@ class LabelProcessor
 
     # set up a subscription
     subscription  = ccp.monthly_recurring_charge(package.monthly_fee * 100)
-    subscription.business = business 
+    #subscription.business = business 
     subscription.package = package 
     subscription.label = @label
 

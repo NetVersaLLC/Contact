@@ -1,0 +1,17 @@
+%table
+  %tbody
+    %tr
+      %td Last Checkin
+      %td= @business.client_checkin
+    %tr
+      %td Updated
+      %td= @business.updated_at
+    %tr
+      %td Created At
+      %td= @business.created_at
+    %tr
+      %td User
+      %td= link_to @business.user.email, admin_user_path(@business.user)
+    %tr
+      %td Subscription
+      %td= link_to "Subscription", admin_subscription_path(@business.subscription)

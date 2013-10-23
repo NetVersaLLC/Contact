@@ -149,15 +149,16 @@ showErrors = (panel)->
 showClient = (panel)->
   window.current_tab = "ciients"
   console.log "Client", panel
-  $.getJSON "/admin/businesses/#{window.business_id}/client_info.js", (data) ->
-    html = '<table><tbody>'
-    $.each data, (i,e)->
-      html += '<tr>'
-      html += '<td>'+i+'</td>'
-      html += '<td>'+e+'</td>'
-      html += '</tr>'
-    html += '</tbody></table>'
-    $(panel).html( html )
+  $(panel).load("/admin/businesses/#{window.business_id}/client_info") 
+  #  $.getJSON "/admin/businesses/#{window.business_id}/client_info.js", (data) ->
+  #    html = '<table><tbody>'
+  #  $.each data, (i,e)->
+  #    html += '<tr>'
+  #    html += '<td>'+i+'</td>'
+  #    html += '<td>'+e+'</td>'
+  #    html += '</tr>'
+  #  html += '</tbody></table>'
+  #  $(panel).html( html )
 showLatest = (panel)->
   window.current_tab = "completed_jobs"
   $.get "/admin/jobs/latest_jobs?business_id=#{window.business_id}", (data)->
