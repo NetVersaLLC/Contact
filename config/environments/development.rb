@@ -36,10 +36,10 @@ Contact::Application.configure do
   config.assets.compress = true #false
 
   # Expands the lines which load the assets
-  config.assets.debug = false #true
-  config.assets.compile = true
-  config.assets.precompile += %w( skin.css jquery.jcarousel.min.js jquery.min.js jquery_ujs.js bootstrap.min.js bootstrap.min.css style.css )
-  config.assets.digest = true
+  config.assets.debug = true
+  config.assets.compile = false
+  #config.assets.precompile += %w( skin.css jquery.jcarousel.min.js jquery.min.js jquery_ujs.js bootstrap.min.js bootstrap.min.css style.css )
+  #config.assets.digest = true
 
   config.log_level = :debug
 
