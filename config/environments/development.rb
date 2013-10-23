@@ -33,10 +33,13 @@ Contact::Application.configure do
   config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # Do not compress assets
-  config.assets.compress = false
+  config.assets.compress = true #false
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  config.assets.compile = false
+  #config.assets.precompile += %w( skin.css jquery.jcarousel.min.js jquery.min.js jquery_ujs.js bootstrap.min.js bootstrap.min.css style.css )
+  #config.assets.digest = true
 
   config.log_level = :debug
 

@@ -15,7 +15,7 @@
  * require include-bootstrap
  * require ace-fonts
  *= require datepicker
- *= require ace.min.css 
+ *= require ace.css 
  *= require ace-rtl.min
  *= require ace-skins.min.css 
  *= require checkout
