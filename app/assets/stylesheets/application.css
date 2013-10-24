@@ -27,5 +27,6 @@
  *= require jquery.ui.overrides 
  *= require scan
  *= require contact 
+ *= require sessions
  */
 
