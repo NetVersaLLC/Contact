@@ -10,6 +10,12 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     super
   end
 
+  def new 
+    respond_to do |format|
+      format.html { render :new, layout: "layouts/devise/sessions" }
+    end 
+  end 
+
   def create
     build_resource
 
