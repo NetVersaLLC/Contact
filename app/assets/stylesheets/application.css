@@ -25,6 +25,7 @@
  *= require colorbox
  *= require businesses
  *= require jquery.ui.overrides 
+ *= require scan
  *= require contact 
  */
 
