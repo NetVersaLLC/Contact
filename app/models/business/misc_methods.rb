@@ -1,6 +1,35 @@
 module Business::MiscMethods
   extend ActiveSupport::Concern
   included do
+    def self.get_site(model, business)
+      res = model.where(:business_id => business).first
+      if res == nil
+        res = model.create do |obj|
+          obj.business_id = business.id
+        end
+      end
+      res
+    end
+
+    def get_site(model)
+      Business.get_site(model, self)
+    end
+
+    def logo
+        images.where(:is_logo=>true).first
+    end
+
+    def label_id
+      self.user.label_id
+    end
+
+    def strip_blanks
+      self.attributes.each do |key,val|
+        if val.class == String
+          val.strip!
+        end
+      end
+    end
 
     def paused?
       self.paused_at.nil? ? false : true
@@ -130,7 +159,6 @@ module Business::MiscMethods
       end
       Date.strptime date, '%m/%d/%Y'
     end
-
 
     def report_xlsx
       account_data, non_account_data = payload_status_data()
