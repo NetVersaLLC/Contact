@@ -19,13 +19,12 @@
  *= require ace-rtl.min
  *= require ace-skins.min
  *= require checkout
- *= require style
  *= require fineuploader-3.3.0
  *= require jquery.gritter
- *= require custom
  *= require codes
  *= require colorbox
- *= require scan
  *= require businesses
- *= require jquery.ui.overrides */
+ *= require jquery.ui.overrides 
+ *= require contact 
+ */
 
