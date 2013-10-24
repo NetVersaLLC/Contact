@@ -33,18 +33,16 @@ Contact::Application.configure do
   config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   # Do not compress assets
-  config.assets.compress = true #false
+  config.assets.compress = false
 
   # Expands the lines which load the assets
   config.assets.debug = true
-  config.assets.compile = false
-  #config.assets.precompile += %w( skin.css jquery.jcarousel.min.js jquery.min.js jquery_ujs.js bootstrap.min.js bootstrap.min.css style.css )
-  #config.assets.digest = true
 
   config.log_level = :debug
 
   # period to wait before resending task that is waiting for result to scanserver again
   config.scan_task_resend_interval = 5.seconds
+
   # how much time to wait before considering scan as failed
   config.scan_task_fail_interval = 30.seconds
 
