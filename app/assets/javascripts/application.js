@@ -20,5 +20,5 @@
 //= require ace-extra.min
 //= require ace.min
 //= require businesses
-//= require site-profiles
+//= require sites
 //= require users

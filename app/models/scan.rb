@@ -2,7 +2,7 @@ require 'json'
 
 class Scan < ActiveRecord::Base
   belongs_to :report
-  belongs_to :site_profile
+  belongs_to :site
 
   TASK_STATUS_WAITING = 0
   TASK_STATUS_TAKEN = 1

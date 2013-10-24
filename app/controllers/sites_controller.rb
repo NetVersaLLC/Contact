@@ -1,4 +1,5 @@
-class SitesController < ApplicationController
+class SitesController < InheritedResources::Base  #ApplicationController
+
   before_filter :authenticate_user!
   load_and_authorize_resource 
   respond_to :html, :json, :js
@@ -7,58 +8,32 @@ class SitesController < ApplicationController
 
   def index
     @q = Site.search(params[:q])
-    @site_profiles = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10).order("site asc")
+    @sites = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10).order("name asc")
   end 
 
-  # GET /site_profiles/1
-  # GET /site_profiles/1.json
-  def show
-  end
-
-  # GET /site_profiles/new
-  def new
-    @site_profile = Site.new
-  end
-
-  # GET /site_profiles/1/edit
-  def edit
-  end
-
-  # POST /site_profiles
-  # POST /site_profiles.json
   def create
-    @site_profile = Site.new(site_profile_params)
-
-    respond_to do |format|
-      if @site_profile.save
-        format.json { render action: 'show', status: :created, location: @site_profile }
-      else
-        format.json { render json: @site_profile.errors, status: :unprocessable_entity }
-      end
-    end
+    create! do |success, failure| 
+      success.json { render action: 'show', status: :created, location: @site_profile }
+      failure.json { render json: @site_profile.errors, status: :unprocessable_entity }
+    end 
   end
 
-  # PATCH/PUT /site_profiles/1
-  # PATCH/PUT /site_profiles/1.json
   def update
-    @site_profile = Site.find(params[:id])
-    respond_to do |format|
-      if @site_profile.update_attributes(params[:site_profile])
-        format.json { head :no_content }
-      else
-        format.json { render json: @site_profile.errors, status: :unprocessable_entity }
-      end
-    end
+    update! do |success, failure| 
+      success.json { head :no_content }
+      failure.json { render json: @site_profile.errors, status: :unprocessable_entity }
+    end 
   end
 
-  # DELETE /site_profiles/1
-  # DELETE /site_profiles/1.json
   def destroy
-    @site_profile = Site.find(params[:id])
-    @site_profile.destroy
-    respond_to do |format|
+    destroy! do |format|
       format.json { head :no_content }
     end
   end
+
+  protected 
+    def build_resource_params
+      [params.require(:site).permit(:logo,:alexa_us_traffic_rank, :founded, :notes, :owner, :page_rank, :name, :traffic_stats, :domain, :enabled_for_scan, :enabled, :technical_notes)]
+    end 
 
 end

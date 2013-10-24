@@ -1,22 +1,23 @@
-%table.table.table-striped
-  %tr
-    %td Name
-    %td= "#{@user.prefix} #{@user.first_name} #{@user.last_name}".presence || "Not provided"
-  %tr
-    %td Phone 
-    %td= @user.mobile_phone.presence || "Not provided"
-  %tr
-    %td Email 
-    %td= @user.email
-  %tr
-    %td Birthdate
-    %td= l(@user.date_of_birth, format: :long)
-  %tr
-    %td Gender
-    %td= @user.gender
-  %tr
-    %td Role 
-    %td= @user.role_is
+%table.table.table-striped.show-table
+  %tbody
+    %tr
+      %td Name
+      %td= "#{@user.prefix} #{@user.first_name} #{@user.last_name}".presence || "Not provided"
+    %tr
+      %td Phone 
+      %td= @user.mobile_phone.presence || "Not provided"
+    %tr
+      %td Email 
+      %td= @user.email
+    %tr
+      %td Birthdate
+      %td= l(@user.date_of_birth, format: :long)
+    %tr
+      %td Gender
+      %td= @user.gender
+    %tr
+      %td Role 
+      %td= @user.role_is
 
 = link_to 'Edit Profile', edit_user_path(@user), class: "btn btn-info"
 

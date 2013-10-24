@@ -1,5 +1,5 @@
 $ ->
-  $('input[name=site_profile\\[enabled_for_scan\\]]').change () -> 
+  $('input[name=site\\[enabled_for_scan\\]]').change () -> 
     $(this).closest("form").submit()
 
   $('.account_sync').click () -> 
