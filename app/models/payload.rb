@@ -1,5 +1,6 @@
 class Payload < ActiveRecord::Base
   belongs_to :site
+  belongs_to :mode
   attr_accessible :client_script, :ready, :data_generator, :shared
   attr_accessible :active, :broken_at, :name, :notes, :package_id, :parent_id, :position
   acts_as_tree :order => "position"
