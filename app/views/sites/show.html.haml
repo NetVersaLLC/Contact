@@ -1,32 +1,42 @@
 .page-header
-  %h1 Site Profile
+  %h1 Site 
 .row
   .col-xs-6
-    %h4 Site 
-    %p= @site.name
-    %h4 Owner
-    %p= @site.owner 
-    %h4 Founded
-    %p= @site.founded
-    %h4 Notes
-    %p= @site.notes
-    %h4 Alexa US Traffic Rank
-    %p= @site.alexa_us_traffic_rank
-    %h4 Page Rank
-    %p= @site.page_rank
-    %h4 Url
-    %p= @site.domain
-    %h4 Traffic Stats
-    %p= @site.traffic_stats
-    %h4 Notes
-    %p= @site.notes
-    %h4 Enabled For Scan
-    %p= @site.enabled_for_scan
-    %h4 Technical Notes
-    %p= @site.technical_notes
-    %h4 Logo
-    %p 
-      =image_tag @site.logo.url
+    %table.table.table-striped.show-table
+      %tbody 
+        %tr 
+          %td Name 
+          %td= @site.name 
+        %tr
+          %td Owner 
+          %td @site.owner
+        %tr
+          %td Founded
+          %td= @site.founded
+        %tr
+          %td Enabled for Scan 
+          %td= @site.enabled_for_scan
+        %tr
+          %td Alexa US Traffic Rank
+          %td= @site.alexa_us_traffic_rank
+        %tr
+          %td Page Rank 
+          %td= @site.page_rank
+        %tr
+          %td Url 
+          %td @site.domain
+        %tr
+          %td Traffic Stats 
+          %td= @site.traffic_stats
+        %tr
+          %td Notes 
+          %td= @site.notes
+        %tr
+          %td Technical Notes
+          %td= @site.technical_notes
+        %tr
+          %td Logo
+          %td= image_tag @site.logo.url
 
     - if can? :edit, @site
       = link_to 'Edit Site Profile', edit_site_path(@site), class: "btn btn-info"
