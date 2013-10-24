@@ -31,4 +31,9 @@ class SitesController < InheritedResources::Base  #ApplicationController
     end
   end
 
+  protected 
+    def build_resource_params
+      [params.require(:site).permit(:logo,:alexa_us_traffic_rank, :founded, :notes, :owner, :page_rank, :name, :traffic_stats, :domain, :enabled_for_scan, :enabled, :technical_notes)]
+    end 
+
 end

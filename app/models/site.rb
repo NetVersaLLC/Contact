@@ -1,8 +1,11 @@
 class Site < ActiveRecord::Base
-  attr_accessible :logo
+  include ActiveModel::ForbiddenAttributesProtection #strong parameters 
+
   has_attached_file :logo, styles: { :thumb => "32x32>" }, default_url: "/assets/missing_logo.jpg"
 
+  attr_accessible :logo
   attr_accessible :alexa_us_traffic_rank, :founded, :notes, :owner, :page_rank, :name, :traffic_stats, :domain, :enabled_for_scan, :enabled, :technical_notes
+
   has_many :payloads
 
   def self.by_name(name)
