@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131021224503) do
+ActiveRecord::Schema.define(:version => 20131022215151) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -321,11 +321,13 @@ ActiveRecord::Schema.define(:version => 20131021224503) do
     t.boolean  "setup_msg_sent",            :default => false
     t.datetime "paused_at"
     t.string   "tags"
+    t.integer  "mode_id"
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
   add_index "businesses", ["category2"], :name => "index_businesses_on_category2"
   add_index "businesses", ["category3"], :name => "index_businesses_on_category3"
+  add_index "businesses", ["mode_id"], :name => "index_businesses_on_mode_id"
   add_index "businesses", ["user_id"], :name => "index_businesses_on_user_id"
 
   create_table "byzlyst_categories", :force => true do |t|
@@ -891,7 +893,7 @@ ActiveRecord::Schema.define(:version => 20131021224503) do
   add_index "google_categories", ["slug"], :name => "index_google_categories_on_slug"
   add_index "google_categories", ["yelp_category_id"], :name => "index_google_categories_on_yelp_category_id"
 
-  create_table "googles_renamed", :force => true do |t|
+  create_table "googles", :force => true do |t|
     t.integer  "business_id"
     t.string   "email"
     t.string   "youtube_channel"
@@ -906,7 +908,7 @@ ActiveRecord::Schema.define(:version => 20131021224503) do
     t.text     "cookies"
   end
 
-  add_index "googles_renamed", ["business_id"], :name => "index_googles_on_business_id"
+  add_index "googles", ["business_id"], :name => "index_googles_on_business_id"
 
   create_table "hotfrogs", :force => true do |t|
     t.integer  "business_id"
@@ -1010,15 +1012,6 @@ ActiveRecord::Schema.define(:version => 20131021224503) do
   end
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
-
-  create_table "insiderpages", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "email"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
 
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
@@ -1423,6 +1416,13 @@ ActiveRecord::Schema.define(:version => 20131021224503) do
 
   add_index "merchantcircles", ["business_id"], :name => "index_merchantcircles_on_business_id"
 
+  create_table "modes", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "mojopages", :force => true do |t|
     t.datetime "force_update"
     t.text     "secrets"
@@ -1553,8 +1553,10 @@ ActiveRecord::Schema.define(:version => 20131021224503) do
     t.text     "client_script"
     t.text     "ready"
     t.integer  "site_id"
+    t.integer  "mode_id",        :default => 1
   end
 
+  add_index "payloads", ["mode_id"], :name => "index_payloads_on_mode_id"
   add_index "payloads", ["name"], :name => "index_payload_nodes_on_name"
   add_index "payloads", ["package_id"], :name => "index_payload_nodes_on_package_id"
   add_index "payloads", ["parent_id"], :name => "index_payload_nodes_on_parent_id"
@@ -1825,7 +1827,7 @@ ActiveRecord::Schema.define(:version => 20131021224503) do
     t.integer  "monthly_fee"
     t.string   "status"
     t.integer  "transaction_event_id"
-    t.datetime "label_last_billed_at", :default => '2013-07-09 21:48:55'
+    t.datetime "label_last_billed_at", :default => '2013-08-16 20:11:27'
   end
 
   add_index "subscriptions", ["package_id"], :name => "index_subscriptions_on_package_id"
