@@ -60,7 +60,7 @@ Contact::Application.routes.draw do
   resources :zip,  :only => [:index]
   resources :city, :only => [:index]
   resources :terms, :only => [:index]
-  resources :site_profiles
+  resources :sites
   resources :users
   resources :accounts
   resources :reports, :except => [:edit, :update]

@@ -4,11 +4,11 @@ class SitesController < InheritedResources::Base  #ApplicationController
   load_and_authorize_resource 
   respond_to :html, :json
 
-  add_breadcrumb 'Site Profiles', :site_profiles_url
+  add_breadcrumb 'Site Profiles', :sites_url
 
   def index
     @q = Site.search(params[:q])
-    @sites = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10).order("site asc")
+    @sites = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10).order("name asc")
   end 
 
   def create
@@ -26,9 +26,7 @@ class SitesController < InheritedResources::Base  #ApplicationController
   end
 
   def destroy
-    @site = Site.find(params[:id])
-    @site.destroy
-    do |format|
+    destroy! do |format|
       format.json { head :no_content }
     end
   end

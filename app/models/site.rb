@@ -1,4 +1,4 @@
-class SiteProfile < ActiveRecord::Base
+class Site < ActiveRecord::Base
   attr_accessible :logo
   has_attached_file :logo, styles: { :thumb => "32x32>" }, default_url: "/assets/missing_logo.jpg"
 

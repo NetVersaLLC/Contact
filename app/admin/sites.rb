@@ -1,9 +1,9 @@
-ActiveAdmin.register SiteProfile do
+ActiveAdmin.register Site do
   menu false
   admin_sub_menu
 
   index do
-    column :site
+    column :name
     column :owner
     column :page_rank
     default_actions
