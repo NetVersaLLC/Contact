@@ -1,3 +1,46 @@
 .login-container.registrations {
   width: 100%; 
 }
+.sign-up-row { 
+  clear: both;
+  margin-top: 1.5em; 
+}
+
+#initial-fee .input-group, #monthly-subscription .input-group {
+  span:first-child { 
+    width:70%; 
+    text-align: right;
+    padding: 2px;
+  } 
+  span:nth-child(3) { 
+    text-align: left; 
+    padding-left: 2px;
+    width: 13%;
+  } 
+  input { text-align: right; } 
+}
+
+#initial-fee .input-group:nth-child(3) span, #monthly-subscription .input-group span { 
+  font-weight: bold;
+}
+
+
+.cards { 
+  margin-bottom: 5px; 
+}
+
+.cards img { 
+  width: 60px;
+  height: 32px;
+  border: 1px solid black;
+  margin: 5px;
+}
+
+.cards img:first-child { margin-left: 0px; } 
+
+.activeCard { 
+  border-color: rgba(82,168,236,0.8);
+  box-shadow: 0 1px 1px rgba(0,0,0,0.075) inset, 0 0 8px rgba(82,168,236,0.6);
+  outline: 0 none;
+}
+

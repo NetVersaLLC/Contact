@@ -18,7 +18,6 @@
  *= require ace.min
  *= require ace-rtl.min
  *= require ace-skins.min
- *= require checkout
  *= require fineuploader-3.3.0
  *= require jquery.gritter
  *= require codes

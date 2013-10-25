@@ -11,6 +11,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
   end
 
   def new 
+    @user = User.new
     respond_to do |format|
       format.html { render :new, layout: "layouts/devise/sessions" }
     end 
