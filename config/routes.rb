@@ -1,6 +1,5 @@
 Contact::Application.routes.draw do
-
-  #mount UserImpersonate::Engine => "/impersonate", as: "impersonate_engine"
+  resources :payloads
 
   get    '/payloads/:id(.:format)', :controller => :payloads, :action => :index
   get    '/packages/:id(.:format)', :controller => :packages, :action => :index
@@ -12,37 +11,34 @@ Contact::Application.routes.draw do
   devise_for :users,
     :controllers  => {
       :registrations => 'my_devise/registrations',
-  
     }
-  devise_scope :user do 
+  devise_scope :user do
       get '/users/sign_up/process_coupon', :to => 'my_devise/registrations#process_coupon' 
-  end 
+  end
 
-  resources :booboos
   resources :subscriptions
-  resources :pings
   resources :payload_nodes, only: [:index, :create]
 
-  resources :businesses 
-  get    '/businesses/client_checked_in/:id', 
-    :controller => :businesses, 
+  resources :businesses
+  get    '/businesses/client_checked_in/:id',
+    :controller => :businesses,
     :action => :client_checked_in,
     :as => 'client_checked_in'
-  get    '/businesses/tada/:id', 
-    :controller => :businesses, 
+  get    '/businesses/tada/:id',
+    :controller => :businesses,
     :action => :tada,
     :as => 'tada'
 
-  get    '/impersonate', to: 'impersonate#index' 
+  get    '/impersonate', to: 'impersonate#index'
   get    '/impersonate/:id', to: 'impersonate#new', as: :new_impersonation
   delete '/impersonate/revert', to: 'impersonate#revert', as: :revert_impersonation
   get    '/credentials(.:format)', :controller => :impersonate, :action => :credentials
 
-  resources :notifications 
+  resources :notifications
 
-  resources :businesses do 
+  resources :businesses do
     resources :accounts, :only => [:edit, :update, :create]
-    resources :codes, :only => [:new, :create] 
+    resources :codes, :only => [:new, :create]
     resources :downloads, :only => [:show]
     resources :images
     resources :notifications
@@ -67,27 +63,13 @@ Contact::Application.routes.draw do
   resources :jobs,  except: [:show]
   get     '/jobs/list(.:format)', :controller => :jobs,   :action => :list
 
-  # Bing 
-  get     '/bing_category(.:format)',  :controller => :bing,   :action => :bing_category
-
-  # Yahoo 
-  post    '/yahoo/save_email(.:format)',   :controller => :yahoo,  :action => :save_email
-  get     '/yahoo_category(.:format)',  :controller => :yahoo,   :action => :yahoo_category
-
-  # Yelp
-  get     "/yelps/check_email"
-  get     '/yelp_category(.:format)',  :controller => :yelp,   :action => :yelp_category
-
-  post    '/google/save_email',  :controller => :google, :action => :save_email
   post    '/captcha/:type',      :controller => :captcha,         :action => :recaptcha
   get     '/downloads/:business_id', :controller => :downloads,       :action => :download
   get     '/emails/check/:site',     :controller => :emails,          :action => :check
 
-
   get     '/categories(.:format)', :controller => :categories, :action => :index
   get     '/categories/:id(.:format)', :controller => :categories, :action => :show
   post    '/categories(.:format)', :controller => :categories, :action => :create
-
 
   post    '/scanner/start', :controller => :scan, :action => :start
   get     '/scanner/check(.:format)', :controller => :scan, :action => :check
