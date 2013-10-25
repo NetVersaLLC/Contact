@@ -8,8 +8,12 @@
           .col-sm-6.col-sm-offset-1
             =render "sign_up_credit_card"
         .row
-          .col-sm-6
+          .col-sm-5
             =render partial: "sign_up_user",locals: { f: f } 
+:javascript
+  $(document).ready(function(){
+    window.registerCheckoutHooks();
+  });
 
 -#= semantic_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :id => 'checkout') do |f|
   -if current_label.logo.url.present? 

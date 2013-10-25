@@ -12,6 +12,8 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
 
   def new 
     @user = User.new
+    @package = Package.find(params[:package_id])
+
     respond_to do |format|
       format.html { render :new, layout: "layouts/devise/sessions" }
     end 
