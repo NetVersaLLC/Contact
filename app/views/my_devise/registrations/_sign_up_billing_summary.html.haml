@@ -1,41 +1,39 @@
-%h5.blue Billing Summary
-%hr
-#initial-fee.sign-up-row
-  %input{:type => :hidden, :id => 'package_id', :name => 'package_id', :value => @package.id}
-  %label Initial Fee
-  .input-group 
-    %span.input-group-addon Sub-Total: $
-    %input.form-control{type:"text", disabled:"disabled", name:'subtotal', value:@subtotal}
-    %span.input-group-addon .00
-  - unless @saved.nil?
-    %br
-    .input-prepend.input-append
-      .add-on
-        .span2.total
-          Coupon: $
-      %input.tally.span1{:value => @saved, :name => 'coupon_total', :type => "text", :disabled => 'disabled' }/
-      .add-on .00
-      .add-on #{@coupon.code}
-      - if @coupon
-        %a#removeCoupon.add-on X
-  .input-group 
-    %span.input-group-addon Total: $
-    %input.form-control.col-xs-1{type:"text", disabled:"disabled", name:'total', value:@total}
-    %span.input-group-addon .00
-#monthly-subscription.sign-up-row
-  %label Monthly Subscription 
-  .input-group 
-    %span.input-group-addon Amount: $
-    %input.form-control.col-xs-1{type:"text", disabled:"disabled", name: "amount_total", value:@amount_total}
-    %span.input-group-addon .00
-.sign-up-row
-  %label Coupon or Offer Code
-  .input-group 
-    %input.form-control{type:"text", placeholder:"Coupon", name: "coupon"}
-    %span.input-group-btn 
-      %button.btn.btn-info.btn-sm(type="button")  Add
-.sign-up-row
-  %label Referrer ID
-  .input-group 
-    %input.form-control{type: "text", placeholder: "Optional Referrer ID", name: "user[referrer_code]"}
+#billing-summary
+  %h5.blue Billing Summary
+  %hr
+  #initial-fee.sign-up-row
+    %input{:type => :hidden, :id => 'package_id', :name => 'package_id', :value => @package.id}
+    %label Initial Fee
+    .input-group 
+      %span.input-group-addon Sub-Total: $
+      %input.form-control{type:"text", disabled:"disabled", name:'subtotal', value:@subtotal}
+      %span.input-group-addon .00
+    -if @saved.present?
+      .input-group 
+        %span.input-group-addon Coupon: $
+        %input.form-control{type:"text", disabled:"disabled", name:'coupon_total', value:@saved}
+        %span.input-group-addon .00
+        %span.input-group-addon= @coupon.code
+        %button#removeCoupon.btn.btn-danger.btn-sm(type="button") X
+    .input-group 
+      %span.input-group-addon Total: $
+      %input.form-control.col-xs-1{type:"text", disabled:"disabled", name:'total', value:@total}
+      %span.input-group-addon .00
+  #monthly-subscription.sign-up-row
+    %label Monthly Subscription 
+    .input-group 
+      %span.input-group-addon Amount: $
+      %input.form-control.col-xs-1{type:"text", disabled:"disabled", name: "amount_total", value:@amount_total}
+      %span.input-group-addon .00
+  -if @coupon.nil?
+    .sign-up-row
+      %label Coupon or Offer Code
+      .input-group 
+        %input#coupon.form-control{type:"text", placeholder:"Coupon", name: "coupon"}
+        %span.input-group-btn 
+          %button#addCoupon.btn.btn-info.btn-sm(type="button")  Add
+  .sign-up-row
+    %label Referrer ID
+    .input-group 
+      %input.form-control{type: "text", placeholder: "Optional Referrer ID", name: "user[referrer_code]"}
 

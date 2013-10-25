@@ -176,7 +176,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
   def process_coupon 
     checkout_setup
 
-    render :partial => "billing_summary_fields", :layout => false 
+    render :partial => "sign_up_billing_summary", :layout => false 
   end 
 
   def after_update_path_for(resource)
