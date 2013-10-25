@@ -17,6 +17,10 @@ class PagesController < ApplicationController
     end
   end
 
+  def terms 
+    render :terms, layout: "layouts/devise/sessions"
+  end 
+
   def try_again_later
   end
 

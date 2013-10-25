@@ -86,3 +86,4 @@ gem "bootstrap-will_paginate", :git => 'git://github.com/yrgoldteeth/bootstrap-w
 gem 'inherited_resources' 
 gem "jbuilder"
 gem "strong_parameters", "~> 0.2.1"
+gem "redcarpet"

@@ -59,7 +59,6 @@ Contact::Application.routes.draw do
   resources :places
   resources :zip,  :only => [:index]
   resources :city, :only => [:index]
-  resources :terms, :only => [:index]
   resources :sites
   resources :users
   resources :accounts
@@ -117,6 +116,7 @@ Contact::Application.routes.draw do
   get     '/dashboard', :controller => :pages, :action => :dashboard
   get     '/resellers', :controller => :pages, :action => :resellers
   get     '/support', :controller => :pages, :action => :support
+  get     '/terms', :controller => :pages, :action => :terms
   get     '/try_again_later', :controller => :pages, :action => :try_again_later
   
   get     '/leads', :controller => :leads, :action => :show

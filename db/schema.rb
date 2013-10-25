@@ -905,7 +905,7 @@ ActiveRecord::Schema.define(:version => 20131022215151) do
   add_index "google_categories", ["slug"], :name => "index_google_categories_on_slug"
   add_index "google_categories", ["yelp_category_id"], :name => "index_google_categories_on_yelp_category_id"
 
-  create_table "googles", :force => true do |t|
+  create_table "googles_renamed", :force => true do |t|
     t.integer  "business_id"
     t.string   "email"
     t.string   "youtube_channel"
@@ -920,7 +920,7 @@ ActiveRecord::Schema.define(:version => 20131022215151) do
     t.text     "cookies"
   end
 
-  add_index "googles", ["business_id"], :name => "index_googles_on_business_id"
+  add_index "googles_renamed", ["business_id"], :name => "index_googles_on_business_id"
 
   create_table "hotfrogs", :force => true do |t|
     t.integer  "business_id"
@@ -1024,6 +1024,15 @@ ActiveRecord::Schema.define(:version => 20131022215151) do
   end
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
+
+  create_table "insiderpages", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
@@ -1861,7 +1870,7 @@ ActiveRecord::Schema.define(:version => 20131022215151) do
     t.integer  "monthly_fee"
     t.string   "status"
     t.integer  "transaction_event_id"
-    t.datetime "label_last_billed_at", :default => '2013-08-24 16:11:57'
+    t.datetime "label_last_billed_at", :default => '2013-07-09 21:48:55'
   end
 
   add_index "subscriptions", ["package_id"], :name => "index_subscriptions_on_package_id"
