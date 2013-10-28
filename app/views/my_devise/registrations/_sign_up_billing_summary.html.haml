@@ -9,19 +9,20 @@
     %dt
       %label Sub-Total: $
     %dd
-      %input{type:"text", readonly:"readonly", name:'subtotal', value:@subtotal}
+      %input{type:"text", readonly:"readonly", name:'subtotal', value:@package.subtotal}
+      %span .00
     -if @saved.present?
       %dt
         %label Coupon: $
       %dd
-        %input{type:"text", readonly:"readonly", name:'coupon_total', value:@saved}
+        %input{type:"text", readonly:"readonly", name:'coupon_total', value:@package.saved}
         %span .00
         %span= @coupon.code
         %button#removeCoupon.btn.btn-danger.btn-sm(type="button") X
     %dt
       %label Total: $
     %dd
-      %input{type:"text", readonly:"readonly", name:'total', value:@total}
+      %input#sign-up-total{type:"text", readonly:"readonly", name:'total', value:@package.price}
       %span .00
       
   %p Monthly Subscription 
@@ -29,7 +30,7 @@
     %dt
       %label Amount: $
     %dd
-      %input{type:"text", readonly:"readonly", name: "amount_total", value:@amount_total}
+      %input#monthly-fee{type:"text", readonly:"readonly", name: "amount_total", value:@package.monthly_fee}
       %span .00
 
   -if @coupon.nil?

@@ -20,6 +20,8 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
   end 
 
   def create
+    @package = Package.find(params[:package_id])
+
     build_resource
 
     # put this on the form
