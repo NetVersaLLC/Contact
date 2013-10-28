@@ -18,6 +18,9 @@ class Package < ActiveRecord::Base
   def subtotal
     original_price.presence || self.price 
   end 
+  def saved 
+    subtotal - self.price 
+  end 
 
   def self.list
     ret = []

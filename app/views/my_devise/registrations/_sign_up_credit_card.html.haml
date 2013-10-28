@@ -39,7 +39,7 @@
     %label Security code (3 on back, Amex: 4 on front)
     .form-group 
       %div
-        %input#cvv{type:"text", placeholder:"CVV", name: "creditcard[cvv]"}
+        %input#cvv{type:"text", placeholder:"CVV", name: "creditcard[verification_value]"}
         = image_tag 'card_back.png',  :style => 'margin-bottom: 10px'
         = image_tag 'card_front.png',  :style => 'margin-bottom: 10px'
 .row

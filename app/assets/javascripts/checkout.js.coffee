@@ -125,7 +125,6 @@ window.registerCheckoutHooks = ()->
   $('#cvv').payment('formatCardCVC')
 
   validation_options =
-    debug: true
     errorElement: 'div'
     errorClass: 'help-block'
     focusInvalid: false
@@ -146,8 +145,8 @@ window.registerCheckoutHooks = ()->
       "creditcard[number]":
         required: (element) -> 
           is_not_free() 
-          creditcard: true
-      "creditcard[cvv]":
+        creditcard: true
+      "creditcard[verification_value]":
         required: (element) -> 
           is_not_free() 
     messages: 
@@ -182,9 +181,8 @@ window.registerCheckoutHooks = ()->
       else error.insertAfter(element.parent())
       ###
       error.insertAfter(element.parent())
-    submitHandler: (form) -> 
-      console.log "submitting" 
-    invalidHandler: (form) -> 
+    #submitHandler: (form) -> 
+    #invalidHandler: (form) -> 
 
   $('#new_user').validate( validation_options )
 
