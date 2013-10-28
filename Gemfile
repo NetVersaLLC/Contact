@@ -89,3 +89,4 @@ gem "strong_parameters", "~> 0.2.1"
 gem "redcarpet"
 gem "meta_search"
 gem "activeadmin"
+gem 'has_scope'
