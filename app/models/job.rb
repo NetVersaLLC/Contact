@@ -130,6 +130,7 @@ END
       j.status_message = 'Created'
       j.business_id    = business_id
       j.payload        = payload
+      j.signature      = signature
       j.data_generator = data_generator
       j.ready          = ready
       j.runtime        = runtime
