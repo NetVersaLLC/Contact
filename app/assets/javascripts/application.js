@@ -1,14 +1,14 @@
 //= require dummy
 //= require jquery_ujs
 //= require easypaginate
-//= require jquery.inputmask.bundle.min
-//= require jquery.payment
 //= require jquery.cookie
 //= require jquery.colorbox-min
-//= require jquery.validate.min
 //= require jquery.flot.min
 //= require jquery.flot.pie.min
 //= require jquery.gritter.min
+//= require jquery.inputmask.bundle.min
+//= require jquery.payment
+//= require jquery.validate.min
 //= require additional-methods.min 
 //= require purl
 //= require checkout
