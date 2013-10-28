@@ -1,29 +1,44 @@
 .login-container.registrations {
   width: 100%; 
 }
-.sign-up-row { 
-  clear: both;
-  margin-top: 1.5em; 
-}
 
-#initial-fee .input-group, #monthly-subscription .input-group {
-  span:first-child { 
-    width:70%; 
-    text-align: right;
-    padding: 2px;
+dl.sign-up
+{
+  dt,dd { margin-bottom: 1em;  } 
+
+  dt { 
+   width: 10em;
+   text-align: right;
+   background-color: #EEEEEE; 
+   //vertical-align: middle; 
+   border: 1px solid #D5D5D5;
+   //font-size: 14pt;
+   }
+
+  dd { 
+    margin: 0;
+  }
+  dt label, dd span { 
+    margin:  0; 
+    font-size: 14px; 
+    line-height: 1.2;
+    padding: 0.5em;
+  }
+
+  dd input, dd span  { 
+    float: left; 
+    background-color: #EEEEEE;
+    border: 1px solid #D5D5D5;
   } 
-  span:nth-child(3) { 
-    text-align: left; 
-    padding-left: 2px;
-    width: 13%;
-  } 
-  input { text-align: right; } 
+
+  dd input { 
+    width: 4em; 
+    padding: 0.4em; 
+  }
+
 }
 
-#initial-fee .input-group:nth-child(3) span, #monthly-subscription .input-group span { 
-  font-weight: bold;
-}
-
+div.sign-up { width: 17em; } 
 
 .cards { 
   margin-bottom: 5px; 
