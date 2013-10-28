@@ -4,8 +4,8 @@ class BusinessObserver < ActiveRecord::Observer
    business.post_to_leadtrac
 
    unless Rails.env == 'test'
-     business.create_site_accounts()
-    #  business.create_jobs()
+    # business.create_site_accounts()
+    # business.create_jobs()
    end
   end
 

@@ -1895,7 +1895,11 @@ ActiveRecord::Schema.define(:version => 20130928133008) do
     t.integer  "monthly_fee"
     t.string   "status"
     t.integer  "transaction_event_id"
+<<<<<<< HEAD
     t.datetime "label_last_billed_at", :default => '2013-07-13 21:46:39'
+=======
+    t.datetime "label_last_billed_at", :default => '2013-08-24 16:11:57'
+>>>>>>> 4799d966ea868a356a2b8298b5d2e7f951bd6a3e
   end
 
   add_index "subscriptions", ["package_id"], :name => "index_subscriptions_on_package_id"

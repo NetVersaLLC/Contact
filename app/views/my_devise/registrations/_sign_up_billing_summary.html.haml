@@ -11,10 +11,11 @@
     %dd
       %input{type:"text", readonly:"readonly", name:'subtotal', value:@package.subtotal}
       %span .00
-    -if @saved.present?
+    -if @package.saved > 0
       %dt
         %label Coupon: $
       %dd
+        %input#coupon{type:"hidden", name: "coupon", value: params[:coupon] }
         %input{type:"text", readonly:"readonly", name:'coupon_total', value:@package.saved}
         %span .00
         %span= @coupon.code
@@ -22,7 +23,7 @@
     %dt
       %label Total: $
     %dd
-      %input#sign-up-total{type:"text", readonly:"readonly", name:'total', value:@package.price}
+      %input#sign-up-total{type:"text", readonly:"readonly", name:'total', value: @package.price}
       %span .00
       
   %p Monthly Subscription 
@@ -30,10 +31,10 @@
     %dt
       %label Amount: $
     %dd
-      %input#monthly-fee{type:"text", readonly:"readonly", name: "amount_total", value:@package.monthly_fee}
+      %input#sign-up-monthly-fee{type:"text", readonly:"readonly", name: "amount_total", value:@package.monthly_fee}
       %span .00
 
-  -if @coupon.nil?
+  -if @package.saved == 0
     %p Coupon or Offer Code
     .input-group.sign-up
       %input#coupon.form-control{type:"text", placeholder:"Coupon", name: "coupon"}

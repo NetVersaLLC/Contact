@@ -1,10 +1,10 @@
 .row
-  .col-xs-3
+  .col-xs-4
     = select_tag(:payloads_site, options_from_collection_for_select(Site.all, :id, :name))
-  .col-xs-3
+  .col-xs-4
     = select_tag(:payloads_mode, options_from_collection_for_select(Mode.all, :id, :name))
-  .col-xs-6
-    RIGHT
+    = button_tag("View", :id => :payloads_load)
+  .col-xs-4
 
 .row
   .col-xs-12 
