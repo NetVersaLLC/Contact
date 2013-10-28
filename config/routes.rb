@@ -1,5 +1,8 @@
 Contact::Application.routes.draw do
-  resources :payloads
+  resources :labels
+
+  get    '/payloads(.:format)', :controller => :payloads, :action => :index
+  get    '/payloads/:site_id/:mode_id(.:format)', :controller => :payloads, :action => :load
 
   get    '/admin', :controller => :payloads, :action => :index
 

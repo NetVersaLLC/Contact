@@ -5,4 +5,9 @@ class PayloadsController < InheritedResources::Base
   skip_load_and_authorize_resource
   def index
   end
+
+  def load
+    @data = Payload.to_tree(params[:site_id], params[:mode_id])
+    render :json => @data
+  end
 end
