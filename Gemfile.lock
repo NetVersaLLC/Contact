@@ -432,6 +432,7 @@ DEPENDENCIES
   formtastic (~> 2.1.1)
   haml
   haml-rails
+  has_scope
   httparty
   inherited_resources
   jbuilder
