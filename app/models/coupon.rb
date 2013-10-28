@@ -1,4 +1,5 @@
 class Coupon < ActiveRecord::Base
+  scope :label_match, -> { where(:label_id => current_user.label_id )}
   attr_accessible :code, :name, :login, :password, :label_id, :use_discount
   attr_accessible :percentage_off_monthly, :percentage_off_signup
   attr_accessible :dollars_off_monthly, :dollars_off_signup
