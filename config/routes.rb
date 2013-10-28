@@ -1,5 +1,6 @@
 Contact::Application.routes.draw do
   resources :payloads
+  resources :coupons
 
   get    '/admin', :controller => :payloads, :action => :index
 
