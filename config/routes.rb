@@ -1,7 +1,8 @@
 Contact::Application.routes.draw do
   resources :payloads
 
-  get    '/payloads/:id(.:format)', :controller => :payloads, :action => :index
+  get    '/admin', :controller => :payloads, :action => :index
+
   get    '/packages/:id(.:format)', :controller => :packages, :action => :index
   delete '/packages/:id(.:format)', :controller => :packages, :action => :destroy
   post   '/packages/:id(.:format)', :controller => :packages, :action => :create
@@ -109,5 +110,4 @@ Contact::Application.routes.draw do
   match "/watch" => DelayedJobWeb, :anchor => false
 
   root :to => redirect("/pages/make_redirect")
-  ActiveAdmin.routes(self) # Moved to bottom to resovle Unitialized Dashborad error w activeadmin 0.6.0 
 end

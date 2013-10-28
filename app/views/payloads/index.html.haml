@@ -1,0 +1,15 @@
+.row
+  .col-xs-3
+    = select_tag(:payloads_site, options_from_collection_for_select(Site.all, :id, :name))
+  .col-xs-3
+    = select_tag(:payloads_mode, options_from_collection_for_select(Mode.all, :id, :name))
+  .col-xs-6
+    RIGHT
+
+.row
+  .col-xs-12 
+    %form#payloads
+      #payloads_tree.dd
+    :javascript
+      $(function() {
+      });

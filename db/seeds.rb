@@ -16,3 +16,16 @@ Package.new(:name=>'Starter', :price=>99.99,
   :short_description => "This is the short description, it's meant to be one or two sentences.",
   :description => "This is the long description of this package. It can contain HTML and could be several pages if that made sense.")
   .save(:validate=>false)
+
+Mode.create do |c|
+  c.name = 'SignUp'
+  c.description = 'Initial client mode'
+end
+Mode.create do |c|
+  c.name = 'Update'
+  c.description = 'Triggered when client goes into update mode.'
+end
+Mode.create do |c|
+  c.name = 'Delist'
+  c.description = 'Initial client mode'
+end
