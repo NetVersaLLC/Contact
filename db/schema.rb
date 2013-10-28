@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131025195938) do
+ActiveRecord::Schema.define(:version => 20130928133008) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -157,6 +157,17 @@ ActiveRecord::Schema.define(:version => 20131025195938) do
   end
 
   add_index "bings", ["business_id"], :name => "index_bings_on_business_id"
+
+  create_table "bizzspots", :force => true do |t|
+    t.integer  "business_id"
+    t.string   "email"
+    t.string   "username"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.boolean  "do_not_sync",  :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
 
   create_table "booboos", :force => true do |t|
     t.integer  "user_id"
@@ -321,13 +332,11 @@ ActiveRecord::Schema.define(:version => 20131025195938) do
     t.boolean  "setup_msg_sent",            :default => false
     t.datetime "paused_at"
     t.string   "tags"
-    t.integer  "mode_id"
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
   add_index "businesses", ["category2"], :name => "index_businesses_on_category2"
   add_index "businesses", ["category3"], :name => "index_businesses_on_category3"
-  add_index "businesses", ["mode_id"], :name => "index_businesses_on_mode_id"
   add_index "businesses", ["user_id"], :name => "index_businesses_on_user_id"
 
   create_table "byzlyst_categories", :force => true do |t|
@@ -455,7 +464,6 @@ ActiveRecord::Schema.define(:version => 20131025195938) do
     t.datetime "updated_at",     :null => false
     t.text     "backtrace"
     t.integer  "screenshot_id"
-    t.text     "signature"
   end
 
   add_index "completed_jobs", ["business_id"], :name => "index_completed_jobs_on_business_id"
@@ -754,7 +762,6 @@ ActiveRecord::Schema.define(:version => 20131025195938) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "screenshot_id"
-    t.text     "signature"
   end
 
   add_index "failed_jobs", ["business_id"], :name => "index_failed_jobs_on_business_id"
@@ -889,6 +896,7 @@ ActiveRecord::Schema.define(:version => 20131025195938) do
     t.integer  "yellowtalk_category_id"
     t.integer  "yellowwiz_category_id"
     t.integer  "citydata_category_id"
+    t.integer  "meetlocalbiz_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -1039,7 +1047,6 @@ ActiveRecord::Schema.define(:version => 20131025195938) do
     t.string   "runtime",        :default => "2013-05-16 19:33:04"
     t.integer  "screenshot_id"
     t.text     "backtrace"
-    t.text     "signature"
   end
 
   add_index "jobs", ["business_id"], :name => "index_jobs_on_business_id"
@@ -1396,6 +1403,28 @@ ActiveRecord::Schema.define(:version => 20131025195938) do
 
   add_index "matchpoints", ["business_id"], :name => "index_matchpoints_on_business_id"
 
+  create_table "meetlocalbiz_categories", :force => true do |t|
+    t.integer  "parent_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "meetlocalbiz_categories", ["name"], :name => "index_meetlocalbiz_categories_on_name"
+  add_index "meetlocalbiz_categories", ["parent_id"], :name => "index_meetlocalbiz_categories_on_parent_id"
+
+  create_table "meetlocalbizs", :force => true do |t|
+    t.integer  "business_id"
+    t.text     "username"
+    t.text     "email"
+    t.text     "secrets"
+    t.datetime "force_update"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+    t.integer  "meetlocalbiz_category_id"
+    t.boolean  "do_not_sync"
+  end
+
   create_table "merchantcircle_categories", :force => true do |t|
     t.integer  "parent_id"
     t.string   "name"
@@ -1477,8 +1506,8 @@ ActiveRecord::Schema.define(:version => 20131025195938) do
     t.datetime "force_update"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
-    t.string   "username"
     t.boolean  "do_not_sync",  :default => false
+    t.string   "username"
   end
 
   create_table "notifications", :force => true do |t|
@@ -1502,13 +1531,17 @@ ActiveRecord::Schema.define(:version => 20131025195938) do
 
   create_table "package_payloads", :force => true do |t|
     t.integer  "package_id"
+    t.string   "site"
+    t.string   "payload"
+    t.string   "description"
     t.datetime "created_at",                        :null => false
     t.datetime "updated_at",                        :null => false
     t.integer  "queue_insert_order", :default => 0
-    t.integer  "site_id"
   end
 
   add_index "package_payloads", ["package_id"], :name => "index_packages_payloads_on_package_id"
+  add_index "package_payloads", ["payload"], :name => "index_packages_payloads_on_payload"
+  add_index "package_payloads", ["site"], :name => "index_packages_payloads_on_site"
 
   create_table "packages", :force => true do |t|
     t.string   "name"
@@ -1541,6 +1574,22 @@ ActiveRecord::Schema.define(:version => 20131025195938) do
     t.integer  "patch_category_id"
     t.boolean  "do_not_sync",       :default => false
   end
+
+  create_table "payload_nodes", :force => true do |t|
+    t.string   "name"
+    t.boolean  "active",     :default => false
+    t.datetime "broken_at"
+    t.text     "notes"
+    t.integer  "parent_id",  :default => 1
+    t.integer  "package_id", :default => 0
+    t.integer  "position",   :default => 0
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
+  add_index "payload_nodes", ["name"], :name => "index_payload_nodes_on_name"
+  add_index "payload_nodes", ["package_id"], :name => "index_payload_nodes_on_package_id"
+  add_index "payload_nodes", ["parent_id"], :name => "index_payload_nodes_on_parent_id"
 
   create_table "payloads", :force => true do |t|
     t.string   "name"
@@ -1660,7 +1709,6 @@ ActiveRecord::Schema.define(:version => 20131025195938) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "task_status"
-    t.integer  "site_profile_id"
   end
 
   add_index "scans", ["business"], :name => "index_scans_on_business"
@@ -1753,6 +1801,22 @@ ActiveRecord::Schema.define(:version => 20131025195938) do
 
   add_index "showmelocals", ["business_id"], :name => "index_showmelocals_on_business_id"
 
+  create_table "site_profiles", :force => true do |t|
+    t.string   "site"
+    t.string   "owner"
+    t.string   "founded"
+    t.string   "alexa_us_traffic_rank"
+    t.string   "page_rank"
+    t.string   "url"
+    t.string   "traffic_stats"
+    t.string   "notes"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+    t.boolean  "enabled_for_scan",      :default => false
+    t.boolean  "enabled",               :default => true
+    t.text     "technical_notes"
+  end
+
   create_table "sites", :force => true do |t|
     t.string   "name"
     t.string   "owner"
@@ -1767,11 +1831,11 @@ ActiveRecord::Schema.define(:version => 20131025195938) do
     t.boolean  "enabled_for_scan",      :default => false
     t.boolean  "enabled",               :default => true
     t.text     "technical_notes"
-    t.string   "login_url"
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
+    t.string   "login_url"
   end
 
   add_index "sites", ["name"], :name => "index_sites_on_name"
@@ -1831,7 +1895,7 @@ ActiveRecord::Schema.define(:version => 20131025195938) do
     t.integer  "monthly_fee"
     t.string   "status"
     t.integer  "transaction_event_id"
-    t.datetime "label_last_billed_at", :default => '2013-08-16 20:11:27'
+    t.datetime "label_last_billed_at", :default => '2013-07-13 21:46:39'
   end
 
   add_index "subscriptions", ["package_id"], :name => "index_subscriptions_on_package_id"
@@ -2051,10 +2115,6 @@ ActiveRecord::Schema.define(:version => 20131025195938) do
     t.string   "mobile_phone"
     t.boolean  "mobile_appears",         :default => false
     t.string   "username"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
