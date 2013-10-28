@@ -5,6 +5,17 @@ class Payload < ActiveRecord::Base
   attr_accessible :active, :broken_at, :name, :notes, :package_id, :parent_id, :position
   acts_as_tree :order => "position"
 
+  def to_tree
+    [self.name, self.id, [self.children.map {|c| c.to_tree}]]
+  end
+
+  def self.to_tree(site_id, mode_id)
+    ret = []
+    self.where(:site_id => site_id, :mode_id => mode_id, :parent_id => nil).each do |payload|
+      ret.push payload.to_tree
+    end
+  end
+
   def self.by_name(site, name)
     self.where(:site_id => site.id, :name => name).first
   end

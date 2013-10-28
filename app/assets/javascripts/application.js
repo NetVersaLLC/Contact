@@ -22,3 +22,4 @@
 //= require businesses
 //= require sites
 //= require users
+//= require payloads

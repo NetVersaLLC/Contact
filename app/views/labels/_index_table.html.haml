@@ -1,0 +1,10 @@
+%table.table.table-striped.table-bordered.table-hover.dataTable
+  %thead
+    %tr
+      %th Label Name
+      %th Modify
+  %tbody
+    - @labels.each do |label|
+      %tr
+        %td= label.name
+        %td Modify
