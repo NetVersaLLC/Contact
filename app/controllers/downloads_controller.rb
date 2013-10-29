@@ -21,13 +21,12 @@ class DownloadsController < ApplicationController
     end
   end
 
-  def show 
+  def new
     @business = Business.find(params[:business_id])
-    download = params[:id] #will probably always be 'client' 
+    authorize! :read, @business
 
     respond_to do |format| 
       format.html 
-      #format.exe { send_download } 
     end 
 
   end 

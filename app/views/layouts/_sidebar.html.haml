@@ -32,9 +32,17 @@
             %i.icon-double-angle-right
             Invoice 
     %li 
-      %a{ href: '/support'}
+      %a.dropdown-toggle{ href: '#'}
         %i.icon-list-alt
         %span.menu-text Support
+      %ul.submenu
+        %li
+          %a{ href: '/support'}
+            %i.icon-list-alt
+            %span.menu-text Open Ticket
+        %li
+          %a{ href: '#'}
+            %span.menu-text Faq
     %li
       %a{ href: '/coupons'}
         %i.icon-barcode
