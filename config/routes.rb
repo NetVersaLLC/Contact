@@ -1,7 +1,16 @@
 Contact::Application.routes.draw do
-  resources :payloads
+  resources :labels
 
-  get    '/payloads/:id(.:format)', :controller => :payloads, :action => :index
+  get    '/payloads(.:format)', :controller => :payloads, :action => :index
+  get    '/payloads/tree/:site_id/:mode_id(.:format)', :controller => :payloads, :action => :tree
+  put    '/payloads/move/:id/:parent_id(.:format)', :controller => :payloads, :action => :move
+  delete '/payloads/:id(.:format)', :controller => :payloads, :action => :destroy
+  post   '/payloads(.:format)', :controller => :payloads, :action => :create
+  put    '/payloads/:id(.:format)', :controller => :payloads, :action => :update
+  get    '/payloads/:id(.:format)', :controller => :payloads, :action => :show
+
+  get    '/admin', :controller => :payloads, :action => :index
+
   get    '/packages/:id(.:format)', :controller => :packages, :action => :index
   delete '/packages/:id(.:format)', :controller => :packages, :action => :destroy
   post   '/packages/:id(.:format)', :controller => :packages, :action => :create
@@ -39,7 +48,7 @@ Contact::Application.routes.draw do
   resources :businesses do
     resources :accounts, :only => [:edit, :update, :create]
     resources :codes, :only => [:new, :create]
-    resources :downloads, :only => [:show]
+    resources :downloads, :only => [:new]
     resources :images
     resources :notifications
   end 
@@ -59,6 +68,8 @@ Contact::Application.routes.draw do
   resources :users
   resources :accounts
   resources :reports, :except => [:edit, :update]
+  resources :dashboard, :only => [:index]
+  resources :questions
 
   resources :jobs,  except: [:show]
   get     '/jobs/list(.:format)', :controller => :jobs,   :action => :list
@@ -95,7 +106,6 @@ Contact::Application.routes.draw do
   get     '/begin-sync', :controller => :pages, :action => :begin_sync, :as=>'begin_sync'
   get     '/contact-us', :controller => :pages, :action => :contact_us
   get     '/congratulations', :controller => :pages, :action => :congratulations
-  get     '/dashboard', :controller => :pages, :action => :dashboard
   get     '/resellers', :controller => :pages, :action => :resellers
   get     '/support', :controller => :pages, :action => :support
   get     '/terms', :controller => :pages, :action => :terms
@@ -108,6 +118,6 @@ Contact::Application.routes.draw do
 
   match "/watch" => DelayedJobWeb, :anchor => false
 
-  root :to => redirect("/pages/make_redirect")
-  ActiveAdmin.routes(self) # Moved to bottom to resovle Unitialized Dashborad error w activeadmin 0.6.0 
+  root to: "dashboard#index"
+  #root :to => redirect("/pages/make_redirect")
 end

@@ -6,38 +6,41 @@
   %p For best results, this software should be installed on a system at the business location.
   - if request.headers['HTTP_USER_AGENT'].downcase =~ /macintosh/ 
     .alert The client is not compatible with Apple computers.  But, if you were to install it on windows, this is how you would do it. 
-  %ul.thumbnails
-    %li.span4
+  .row
+    .col-sm-4
       .thumbnail
         - if request.headers['HTTP_USER_AGENT'].downcase =~ /chrome/ 
           = image_tag 'chrome_step1.png' 
-          %h5 1. Click Setup.exe 
-          %p Once the download Finishes, Click 'setup.exe' 
+          .caption
+            %h5 1. Click Setup.exe 
+            %p Once the download Finishes, Click 'setup.exe' 
         - elsif request.headers['HTTP_USER_AGENT'].downcase =~ /firefox/
           = image_tag 'firefox_step1.png' 
-          %h5 1. Save the Setup.exe 
-          %p Once the download Finishes, Click the Save File button.  
+          .caption
+            %h5 1. Save the Setup.exe 
+            %p Once the download Finishes, Click the Save File button.  
         - elsif request.headers['HTTP_USER_AGENT'].downcase =~ /msie/
           = image_tag 'ie_step1.png' 
-          %h5 1. Run the Setup.exe
-          %p Once the download Finishes, Click Run
+          .caption
+            %h5 1. Run the Setup.exe
+            %p Once the download Finishes, Click Run
         - else 
           %p Your browser was not recognized.  When the down load completes, simply click 'Setup.exe' to install the client. 
-    %li.span4
+    .col-sm-4
       .thumbnail
         - if request.headers['HTTP_USER_AGENT'].downcase =~ /msie/
           = image_tag 'ie_step2.png' 
-          %h5 1. Click on Open
-          %p Once the download Finishes, Click Run and follow the next step.
+          .caption
+            %h5 1. Click on Open
+            %p Once the download Finishes, Click Run and follow the next step.
         -elsif 
           = image_tag 'download_install_step2.png' 
-          %h5 2. Click on Run
-          %p Click Run to start the Setup Installation Program
-    %li.span4
+          .caption
+            %h5 2. Click on Run
+            %p Click Run to start the Setup Installation Program
+    .col-sm-4
       .thumbnail
         = image_tag 'download_install_step3.png' 
-        %h5 3. Follow the Setup Instruction
-        %p Click Next to complete the setup. 
-
-
-/  %a.btn.btn-warning.btn-large{:href => "/downloads/#{@business.id}"} Download Client
+        .caption
+          %h5 3. Follow the Setup Instruction
+          %p Click Next to complete the setup. 

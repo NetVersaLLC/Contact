@@ -20,6 +20,8 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
   end 
 
   def create
+    @package = Package.find(params[:package_id])
+
     build_resource
 
     # put this on the form
@@ -163,13 +165,9 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     unless @coupon == nil
       @saved      = @package.apply_coupon(@coupon)
     end
-    @subtotal     = @package.original_price
-    @total        = @package.price
-    @amount_total = @package.monthly_fee
-    STDERR.puts "Coupon: #{@coupon.inspect}"
-    STDERR.puts "Subtotal: #{@subtotal}"
-    STDERR.puts "Total: #{@total}"
-    STDERR.puts "Amount: #{@amount_total}"
+    #@subtotal     = @package.original_price
+    #@total        = @package.price
+    #@amount_total = @package.monthly_fee
     return true
   end
 

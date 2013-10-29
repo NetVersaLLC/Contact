@@ -1,9 +1,33 @@
 class Payload < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
+
   belongs_to :site
   belongs_to :mode
-  attr_accessible :client_script, :ready, :data_generator, :shared
-  attr_accessible :active, :broken_at, :name, :notes, :package_id, :parent_id, :position
   acts_as_tree :order => "position"
+
+  def to_tree
+    obj = {
+      id: self.id,
+      label: self.name,
+      isFolder: true,
+      open: true,
+      checkbox: false,
+      radio: false,
+      childs: []
+    }
+    self.children.each do |child|
+      obj[:childs].push child.to_tree
+    end
+    obj
+  end
+
+  def self.to_tree(site_id, mode_id)
+    ret = []
+    self.where(:site_id => site_id, :mode_id => mode_id, :parent_id => nil).each do |payload|
+      ret.push payload.to_tree
+    end
+    ret
+  end
 
   def self.by_name(site, name)
     self.where(:site_id => site.id, :name => name).first

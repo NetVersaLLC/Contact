@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131022215151) do
+ActiveRecord::Schema.define(:version => 20131029212326) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -466,6 +466,7 @@ ActiveRecord::Schema.define(:version => 20131022215151) do
     t.datetime "updated_at",     :null => false
     t.text     "backtrace"
     t.integer  "screenshot_id"
+    t.text     "signature"
   end
 
   add_index "completed_jobs", ["business_id"], :name => "index_completed_jobs_on_business_id"
@@ -764,6 +765,7 @@ ActiveRecord::Schema.define(:version => 20131022215151) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
     t.integer  "screenshot_id"
+    t.text     "signature"
   end
 
   add_index "failed_jobs", ["business_id"], :name => "index_failed_jobs_on_business_id"
@@ -1058,6 +1060,7 @@ ActiveRecord::Schema.define(:version => 20131022215151) do
     t.string   "runtime",        :default => "2013-05-16 19:33:04"
     t.integer  "screenshot_id"
     t.text     "backtrace"
+    t.text     "signature"
   end
 
   add_index "jobs", ["business_id"], :name => "index_jobs_on_business_id"
@@ -1597,6 +1600,7 @@ ActiveRecord::Schema.define(:version => 20131022215151) do
     t.text     "ready"
     t.integer  "site_id"
     t.integer  "mode_id",        :default => 1
+    t.text     "signature"
   end
 
   add_index "payloads", ["mode_id"], :name => "index_payloads_on_mode_id"
@@ -1646,6 +1650,14 @@ ActiveRecord::Schema.define(:version => 20131022215151) do
   end
 
   add_index "primeplaces", ["business_id"], :name => "index_primeplaces_on_business_id"
+
+  create_table "questions", :force => true do |t|
+    t.string   "question_text"
+    t.text     "answer_text"
+    t.integer  "category",      :default => 0
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+  end
 
   create_table "reports", :force => true do |t|
     t.string   "site"

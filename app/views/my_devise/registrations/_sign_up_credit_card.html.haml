@@ -6,7 +6,8 @@
   .col-xs-12
     %label Name (as it appears on your card)
     .form-group 
-      %input.col-xs-7(type="text" placeholder="Name" name="creditcard[name]")
+      %span.block
+        %input(type="text" placeholder="Name" name="creditcard[name]")
 .row.cards 
   .col-xs-12
     = image_tag 'mastercard-inactive.gif', :id => 'mastercard'
@@ -18,7 +19,8 @@
   .col-xs-12
     %label Card number
     .form-group 
-      %input#card_number.col-xs-5{type:"text", placeholder:"Card Number", name: "creditcard[number]"}
+      %div
+        %input#card_number{type:"text", placeholder:"Card Number", name: "creditcard[number]"}
 .row
   .col-xs-12
     %label Expiration Date
@@ -36,9 +38,10 @@
   .col-xs-12
     %label Security code (3 on back, Amex: 4 on front)
     .form-group 
-      %input.col-xs-2{type:"text", placeholder:"CVV", name: "creditcard[cvv]"}
-      = image_tag 'card_back.png',  :style => 'margin-bottom: 10px'
-      = image_tag 'card_front.png',  :style => 'margin-bottom: 10px'
+      %div
+        %input#cvv{type:"text", placeholder:"CVV", name: "creditcard[verification_value]"}
+        = image_tag 'card_back.png',  :style => 'margin-bottom: 10px'
+        = image_tag 'card_front.png',  :style => 'margin-bottom: 10px'
 .row
   .col-xs-12
     %p Enter your card number without spaces or dashes. 

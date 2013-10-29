@@ -1,0 +1,8 @@
+%table.table.table-striped
+  %tr
+    %td Question 
+    %td= @question.question_text
+  %tr
+    %td Answer 
+    %td= @question.answer_text
+=link_to "List", questions_path, class: "btn btn-info"

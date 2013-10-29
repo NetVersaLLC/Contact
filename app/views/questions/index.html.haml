@@ -1,0 +1,44 @@
+  
+.row
+  .col-xs-12
+    .tabbable 
+      %ul#faq_cats.nav.nav-tabs.padding-18.tab-size-bigger
+        %li.active
+          %a{ href: "#faq-tab-1", data: { toggle:"tab" } }
+            %i.blue.icon-question-sign.bigger-120
+            General
+        %li
+          %a{ href: "#faq-tab-2", data: { toggle:"tab" } }
+            %i.green.icon-user.bigger-120
+            Account
+        %li
+          %a{ href: "#faq-tab-3", data: { toggle:"tab" } }
+            %i.orange.icon-credit-card.bigger-120
+            Payments
+      .tab-content.no-border.padding-24
+        #faq-tab-1.tab-pane.fade.in.active
+          %h4.blue 
+            %i.icon-ok.bigger-110
+            General Questions
+          .space-8
+          #faq-list-1.panel-group.accordion-style1.accordion-style2
+            =render @questions
+        #faq-tab-2.tab-pane.fade.in
+          %h4.blue 
+            %i.green.icon-user.bigger-110
+            Account Questions
+          .space-8
+          #faq-list-2.panel-group.accordion-style1.accordion-style2
+            =render @questions
+        #faq-tab-3.tab-pane.fade.in
+          %h4.blue 
+            %i.orange.icon-credit-card.bigger-110
+            Payment Questions
+          .space-8
+          #faq-list-3.panel-group.accordion-style1.accordion-style2
+            =render @questions
+
+-if can?(:create, Question)
+  = link_to new_question_path, class:"btn btn-primary" do 
+    Add Question
+

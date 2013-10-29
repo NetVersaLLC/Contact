@@ -9,8 +9,8 @@ class ApplicationController < ActionController::Base
   def current_label
     label = Label.where(:domain => request.host).first
     unless label
-      #label = Label.first
-      raise "a label to match the domain [#{request.host}] could not be found"
+      label = Label.first
+      #raise "a label to match the domain [#{request.host}] could not be found"
     end
     label
   end
@@ -24,6 +24,10 @@ class ApplicationController < ActionController::Base
     return if current_user.reseller?
     flash[:notice] = "You need to be an admin to access this part of the application"
     redirect_to root_path
+  end
+
+  def authenticate_admin!
+    check_admin_role
   end
 
   rescue_from CanCan::AccessDenied do |exception|
