@@ -439,7 +439,6 @@ DEPENDENCIES
   jquery-cookie-rails
   jquery-rails
   jquery-ui-rails
-  meta_search
   mustache
   mysql2
   nested_form!

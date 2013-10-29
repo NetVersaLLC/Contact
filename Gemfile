@@ -50,7 +50,7 @@ gem 'devise'
 gem 'haml'
 gem 'haml-rails'
 gem 'zip'
-#gem 'activeadmin'
+gem 'activeadmin'
 #gem 'meta_search'   # replaced with ransack 
 gem 'ransack'
 gem 'acts_as_list'
@@ -87,6 +87,6 @@ gem 'inherited_resources'
 gem "jbuilder"
 gem "strong_parameters", "~> 0.2.1"
 gem "redcarpet"
-gem "meta_search"
-gem "activeadmin"
+#gem "meta_search"
+#gem "activeadmin"
 gem 'has_scope'
