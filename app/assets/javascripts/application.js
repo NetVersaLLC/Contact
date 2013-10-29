@@ -9,6 +9,7 @@
 //= require jquery.inputmask.bundle.min
 //= require jquery.payment
 //= require jquery.validate.min
+//= require acitree-rails
 //= require additional-methods.min 
 //= require purl
 //= require checkout
