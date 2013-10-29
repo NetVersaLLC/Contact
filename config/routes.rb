@@ -64,6 +64,7 @@ Contact::Application.routes.draw do
   resources :accounts
   resources :reports, :except => [:edit, :update]
   resources :dashboard, :only => [:index]
+  resources :questions
 
   resources :jobs,  except: [:show]
   get     '/jobs/list(.:format)', :controller => :jobs,   :action => :list
