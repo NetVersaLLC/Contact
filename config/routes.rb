@@ -113,5 +113,6 @@ Contact::Application.routes.draw do
 
   match "/watch" => DelayedJobWeb, :anchor => false
 
-  root :to => redirect("/pages/make_redirect")
+  root to: "dashboard#index"
+  #root :to => redirect("/pages/make_redirect")
 end
