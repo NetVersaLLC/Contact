@@ -48,7 +48,7 @@ Contact::Application.routes.draw do
   resources :businesses do
     resources :accounts, :only => [:edit, :update, :create]
     resources :codes, :only => [:new, :create]
-    resources :downloads, :only => [:show]
+    resources :downloads, :only => [:new]
     resources :images
     resources :notifications
   end 
@@ -68,6 +68,8 @@ Contact::Application.routes.draw do
   resources :users
   resources :accounts
   resources :reports, :except => [:edit, :update]
+  resources :dashboard, :only => [:index]
+  resources :questions
 
   resources :jobs,  except: [:show]
   get     '/jobs/list(.:format)', :controller => :jobs,   :action => :list
@@ -104,7 +106,6 @@ Contact::Application.routes.draw do
   get     '/begin-sync', :controller => :pages, :action => :begin_sync, :as=>'begin_sync'
   get     '/contact-us', :controller => :pages, :action => :contact_us
   get     '/congratulations', :controller => :pages, :action => :congratulations
-  get     '/dashboard', :controller => :pages, :action => :dashboard
   get     '/resellers', :controller => :pages, :action => :resellers
   get     '/support', :controller => :pages, :action => :support
   get     '/terms', :controller => :pages, :action => :terms
@@ -117,5 +118,6 @@ Contact::Application.routes.draw do
 
   match "/watch" => DelayedJobWeb, :anchor => false
 
-  root :to => redirect("/pages/make_redirect")
+  root to: "dashboard#index"
+  #root :to => redirect("/pages/make_redirect")
 end

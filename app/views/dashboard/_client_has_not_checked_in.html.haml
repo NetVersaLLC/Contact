@@ -1,0 +1,11 @@
+.alert.alert-danger
+  %p
+    %strong Hmm!
+    Your Sync Client hasn't checked in.  Is it installed on your computer?
+  %p 
+    %a.btn.btn-sm.btn-info
+      %i.icon-question
+      Help me check.
+    =link_to new_business_download_path(@dashboard.business), class: "btn btn-sm btn-danger" do 
+      %i.icon-download-alt
+      Get Client
