@@ -43,7 +43,7 @@ Contact::Application.routes.draw do
   resources :businesses do
     resources :accounts, :only => [:edit, :update, :create]
     resources :codes, :only => [:new, :create]
-    resources :downloads, :only => [:new, :create]
+    resources :downloads, :only => [:new]
     resources :images
     resources :notifications
   end 
