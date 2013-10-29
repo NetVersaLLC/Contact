@@ -6,14 +6,21 @@ class Payload < ActiveRecord::Base
   acts_as_tree :order => "position"
 
   def to_tree
-    [self.name, self.id, [self.children.map {|c| c.to_tree}]]
+    STDERR.puts "#{self.name}: #{self.id}"
+    children = [self.name, self.id]
+    self.children.each do |child|
+      children.push [child.to_tree]
+    end
+    children
   end
 
   def self.to_tree(site_id, mode_id)
+    STDERR.puts "Site id: #{site_id}  Mode id: #{mode_id}"
     ret = []
     self.where(:site_id => site_id, :mode_id => mode_id, :parent_id => nil).each do |payload|
       ret.push payload.to_tree
     end
+    ret
   end
 
   def self.by_name(site, name)

@@ -6,8 +6,12 @@ class PayloadsController < InheritedResources::Base
   def index
   end
 
-  def load
+  def load_data
     @data = Payload.to_tree(params[:site_id], params[:mode_id])
     render :json => @data
+  end
+
+  def save_data
+    render :json => {:status => :success}
   end
 end
