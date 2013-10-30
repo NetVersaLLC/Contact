@@ -2,8 +2,13 @@ Contact::Application.routes.draw do
   resources :labels
 
   get    '/payloads(.:format)', :controller => :payloads, :action => :index
-  get    '/payloads/:site_id/:mode_id(.:format)', :controller => :payloads, :action => :load_data
-  post   '/payloads(.:format)', :controller => :payloads, :action => :save_data
+  get    '/payloads/tree/:site_id/:mode_id(.:format)', :controller => :payloads, :action => :tree
+  put    '/payloads/move/:id/:parent_id(.:format)', :controller => :payloads, :action => :move
+  delete '/payloads/:id(.:format)', :controller => :payloads, :action => :destroy
+  post   '/payloads(.:format)', :controller => :payloads, :action => :create
+  put    '/payloads/:id(.:format)', :controller => :payloads, :action => :update
+  get    '/payloads/:id(.:format)', :controller => :payloads, :action => :show
+
   get    '/admin', :controller => :payloads, :action => :index
 
   get    '/packages/:id(.:format)', :controller => :packages, :action => :index
