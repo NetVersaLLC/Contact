@@ -5,6 +5,9 @@ class UserMailer < ActionMailer::Base
     @user = user
     @url  = "https://#{user.label.domain}/users/sign_in"
     if user.callcenter == true
+      user.temppass = Random.rand(899999) + 100000
+      user.password = user.password_confirmation = user.temppass
+      user.save :validate => false
       @password = user.temppass
     end
     mail(:to => user.email, :from => user.label.mail_from, :subject => "Welcome to #{user.label.name}")

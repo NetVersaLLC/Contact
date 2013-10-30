@@ -23,11 +23,6 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
 
     build_resource
     resource.callcenter = @callcenter 
-    resource.temppass = Random.rand(899999) + 100000
-
-    if @callcenter == true 
-      resource.password = resource.password_confirmation = resource.temppass
-    end
 
     @is_checkout_session = checkout_setup
 
