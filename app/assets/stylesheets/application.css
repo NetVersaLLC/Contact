@@ -28,6 +28,7 @@
  *= require contact 
  *= require pages
  *= require sessions
- *= require acitree-rails
+ *= require aciTree
+ *= require demo
  */
 
