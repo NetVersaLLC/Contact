@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131029212326) do
+ActiveRecord::Schema.define(:version => 20131031210417) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -442,6 +442,7 @@ ActiveRecord::Schema.define(:version => 20131029212326) do
     t.integer  "profile_category_id"
     t.integer  "category_id"
     t.integer  "business_id"
+    t.integer  "category2_id"
   end
 
   create_table "codes", :force => true do |t|
@@ -907,7 +908,7 @@ ActiveRecord::Schema.define(:version => 20131029212326) do
   add_index "google_categories", ["slug"], :name => "index_google_categories_on_slug"
   add_index "google_categories", ["yelp_category_id"], :name => "index_google_categories_on_yelp_category_id"
 
-  create_table "googles_renamed", :force => true do |t|
+  create_table "googles", :force => true do |t|
     t.integer  "business_id"
     t.string   "email"
     t.string   "youtube_channel"
@@ -922,7 +923,7 @@ ActiveRecord::Schema.define(:version => 20131029212326) do
     t.text     "cookies"
   end
 
-  add_index "googles_renamed", ["business_id"], :name => "index_googles_on_business_id"
+  add_index "googles", ["business_id"], :name => "index_googles_on_business_id"
 
   create_table "hotfrogs", :force => true do |t|
     t.integer  "business_id"
