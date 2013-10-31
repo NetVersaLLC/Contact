@@ -1,7 +1,40 @@
-= div_for coupon do
-  =coupon.name
-  =coupon.percentage_off_monthly
-  =coupon.percentage_off_signup
-  =coupon.dollars_off_signup
-
-  
+%tbody
+  %tr
+    %td.center
+      %label
+        %input.ace{type: "checkbox"}/
+        %span.lbl
+    %td
+      %a 
+        = coupon.name 
+    %td 
+      = coupon.code
+    %td 
+      = coupon.percentage_off_monthly 
+    %td.hidden-480
+      = coupon.percentage_off_signup 
+    %td 
+      = coupon.dollars_off_signup 
+    %td
+      = coupon.dollars_off_monthly
+    %td
+      = coupon.redeemed_count
+    %td
+      = coupon.allowed_upto
+    %td
+      = coupon.created_at
+    %td 
+      = coupon.updated_at 
+    %td.hidden-480
+      %span.label.label-sm.label-warning Active
+    %td
+      .visible-md.visible-lg.hidden-sm.hidden-xs.action-buttons
+        = link_to coupon_path
+          %i.icon-zoom-in.bigger-130
+          %a.blue
+        = link_to edit_coupon_path
+          %i.icon-pencil.bigger-130
+          %a.green
+        = link_to "delete", coupon, method: :delete, data: { confirm: "Delete coupon?" }
+          %i.icon-trash.bigger-130
+          %a.red

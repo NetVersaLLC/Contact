@@ -7,7 +7,15 @@ class CouponsController < ApplicationController
   end
 
   def index
-    @coupons = Coupon.all
+    @coupons = current_user.coupons
+  end
+
+  def show
+    @coupon = Coupon.find(params[:id])
+  end
+
+  def update
+    @coupon = Coupon.find(params[:id])
   end
 
   private

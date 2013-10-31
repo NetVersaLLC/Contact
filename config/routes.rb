@@ -1,5 +1,6 @@
 Contact::Application.routes.draw do
   resources :labels
+  resources :coupons
 
   get    '/payloads(.:format)', :controller => :payloads, :action => :index
   get    '/payloads/tree/:site_id/:mode_id(.:format)', :controller => :payloads, :action => :tree
