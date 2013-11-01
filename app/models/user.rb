@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessor :temppass
+  attr_accessor :temp_password
 
   attr_accessible :avatar, :username, :password_confirmation, :first_name, :middle_name, :last_name,  as: [:default, :admin]
   attr_accessible :mobile_phone, :mobile_appears, :prefix, :callcenter, :date_of_birth,               as: [:default, :admin]

@@ -2,14 +2,20 @@
   .widget-body
     .widget-main
       =form_for @user do |f|
-        .row 
-          .col-sm-6
-            =render "sign_up_billing_summary"
-          .col-sm-6
-            =render "sign_up_credit_card"
-        .row
-          .col-sm-5
-            =render partial: "sign_up_user",locals: { f: f } 
+        = f.hidden_field :callcenter
+        -if @user.callcenter
+          .row
+            .col-sm-5
+              =render partial: "sign_up_callcenter",locals: { f: f } 
+        -else 
+          .row 
+            .col-sm-6
+              =render "sign_up_billing_summary"
+            .col-sm-6
+              =render "sign_up_credit_card"
+          .row
+            .col-sm-5
+              =render partial: "sign_up_user",locals: { f: f } 
 :javascript
   $(document).ready(function(){
     window.registerCheckoutHooks();

@@ -43,10 +43,11 @@
         %li
           =link_to questions_path do 
             %span.menu-text Faq
-    %li
-      %a{ href: '/coupons'}
-        %i.icon-barcode
-        %span.menu-text Coupons
+    -if can? :read, Coupon
+      %li
+        %a{ href: '/coupons'}
+          %i.icon-barcode
+          %span.menu-text Coupons
     %li
       = link_to notifications_path do 
         %i.icon-calendar
