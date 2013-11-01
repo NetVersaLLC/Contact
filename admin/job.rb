@@ -102,7 +102,7 @@ ActiveAdmin.register Job do
   end
 
   member_action :create_job, :method => :post do
-    payload = Payload.new( params[:category], params[:id] )
+    payload = Payload.by_site_and_payload( params[:category], params[:id] )
     job = Job.inject(params[:business_id], payload.payload, payload.data_generator, payload.ready)
     job.name = "#{params[:category]}/#{params[:id]}"
     job.save

@@ -37,7 +37,7 @@ module Business::MiscMethods
 
     def add_job(name)
       site, payload = *name.split("/")
-      p = Payload.new( site, payload )
+      p = Payload.by_site_and_payload( site, payload )
       job = Job.inject(self.id, p.payload, p.data_generator, p.ready)
       job.name = name
       job.save
@@ -136,7 +136,7 @@ module Business::MiscMethods
         next if account.respond_to?(:do_not_sync) && account.do_not_sync
         payload_name = "UpdateListing" if account && account.has_existing_credentials? && Payload.exists?(site_name, 'UpdateListing')
 
-        payload  = Payload.new( site_name, payload_name )
+        payload  = Payload.by_site_and_payload( site_name, payload_name )
         job      = Job.inject(self.id, payload.payload, payload.data_generator, payload.ready)
         job.name = "#{site_name}/#{payload_name}"
         job.save

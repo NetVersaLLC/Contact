@@ -1,13 +1,13 @@
 .row
-  .col-xs-6
+  .col-xs-4
     #payloads_status
     .space4
     %form.form-inline{:role => 'form'}
       = select_tag(:payloads_site, options_from_collection_for_select(Site.all, :id, :name))
       = select_tag(:payloads_mode, options_from_collection_for_select(Mode.all, :id, :name))
-      = button_tag("Delete", :id => :payloads_delete)
+      = button_tag("Delete", :id => :payloads_delete, :class => "btn btn-warning")
     #payloads_tree.aciTree
-  .col-xs-6#payloads_view
+  .col-xs-8#payloads_view
     %form#payloads_form.form-horizontal{:role => 'form'}
       %input#payloads_parent_id{:type => :hidden, :name => 'payload[parent_id]' }/
       %input#payloads_site_id{:type => :hidden, :name => 'payload[site_id]' }/

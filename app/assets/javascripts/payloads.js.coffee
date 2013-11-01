@@ -51,6 +51,23 @@ payloadsDelete = ()->
       url: "/payloads/"+api.getId(item)+".json"
       type: "DELETE"
 
+payloadsUpdateTree = (data)->
+  console.log("Starting updateTree!")
+  api = $('#payloads_tree').aciTree('api')
+  current = api.selected()
+  options =
+    success: (item, options)->
+      console.log("Added: ", item, options)
+    fail: (item, options)->
+      console.log("Failed!", item, options)
+    itemData:
+      id: data['id'],
+      label: data['name']
+      isFolder: true
+  window.hinkerdink_current = current
+  window.hinkerdink_options = options
+  api.append(current, options)
+
 payloadsCreate = ()->
   api = $('#payloads_tree').aciTree('api')
   current = api.selected()
@@ -58,7 +75,11 @@ payloadsCreate = ()->
   $.ajax
     url: "/payloads.json"
     type: "POST"
+    dataType: 'json'
     data: $('#payloads_form').serialize()
+    success: (data)->
+      console.log("was here: ", data)
+      payloadsUpdateTree(data)
 
 payloadsUpdate = ()->
   return unless window.payloads_id
@@ -70,18 +91,11 @@ payloadsUpdate = ()->
 
 $ ->
   initializeAciTree()
-  $('#payloads_site').change ->
-    payloadsLoad()
-  $('#payloads_mode').change ->
-    payloadsLoad()
-  $('#payloads_load').click ->
-    payloadsLoad()
-  $('#payloads_delete').click ->
-    payloadsDelete()
-  $('#payloads_create').click ->
-    payloadsCreate()
-  $('#payloads_update').click ->
-    payloadsUpdate()
+  $('#payloads_site').change payloadsLoad
+  $('#payloads_mode').change payloadsLoad
+  $('#payloads_delete').click payloadsDelete
+  $('#payloads_create').click payloadsCreate
+  $('#payloads_update').click payloadsUpdate
 
 # payloadDataToList = (data)->
 #  html = '<ol class="dd-list">'

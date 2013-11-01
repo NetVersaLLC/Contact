@@ -35,13 +35,9 @@ class PayloadsController < InheritedResources::Base
   end
 
   def create
-    @payload = Payload.new
-    @payload.name = params[:payload][:name]
-    @payload.active = params[:payload][:active]
-    @payload.site_id = params[:payload][:site_id]
-    @payload.parent_id = params[:payload][:parent_id]
+    @payload = Payload.new(payload_params)
     @payload.save!
-    render :json => {:status => :success}
+    render :json => {:status => :success, :id => @payload.id, :name => @payload.name}
   end
 
   def update

@@ -69,7 +69,7 @@ class Payload < ActiveRecord::Base
     self.by_name(site, payload).nil? != true
   end 
 
-  def initialize(site, payload)
+  def self.by_site_and_payload(site, payload)
     site = Site.by_name(site)
     self.by_name(site, payload)
   end
@@ -111,16 +111,6 @@ class Payload < ActiveRecord::Base
   def self.add_missed_payloads(business)
     self.find_missed_payloads(business).each do |payload|
       business.add_job(payload)
-    end
-  end
-
-  def self.add_recursive(package, parent_id)
-    top = Payload.create do |node|
-        node.name      = package
-        node.parent_id = parent_id
-    end
-    Payload.children(package).each do |payload|
-      self.add_recursive(payload, top.id)
     end
   end
 

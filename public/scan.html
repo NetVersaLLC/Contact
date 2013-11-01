@@ -1,4 +1,4 @@
-<form action="/scanner/start" method="post">
+<form action="/scanner/start" method="post" id="scanform">
   <input type="text" id="bussiness_name" name="name" placeholder="Business name" class="action_input_1"/>
   <input type="text" id="bussiness_number" name="phone" placeholder="Business telephone number" class="action_input_1"/>
   <input type="text" id="zip" name="zip" placeholder="Zip" class="action_input_1"/>
@@ -9,3 +9,18 @@
   <input type="hidden" id="package_id" name="package_id" value="1" />
   <input type="submit" class="scan_now" value="Scan Now" />
 </form>
+<script type="text/javascript">
+var urlParams;
+(window.onpopstate = function () {
+    var match,
+        pl     = /\+/g,  // Regex for replacing addition symbol with a space
+        search = /([^&=]+)=?([^&]*)/g,
+        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+        query  = window.location.search.substring(1);
+
+    urlParams = {};
+    while (match = search.exec(query))
+       urlParams[decode(match[1])] = decode(match[2]);
+    document.getElementById('package_id').value = urlParams['package_id'];
+})();
+</script>
