@@ -4,16 +4,15 @@
       .alert.alert-block.alert-success
         No reports were found. 
     - else 
-      -#.widget-box 
+      .widget-box 
         .widget-header 
           %h4 Search 
         .widget-body
           .widget-main
             =search_form_for @q, class:"form-inline" do |f|
               .input-group
-                =f.text_field :email_cont,  placeholder: "Email"
-                =f.text_field :first_name_start,  placeholder: "First Name"
-                =f.text_field :last_name_start,   placeholder: "Last Name"
+                =f.text_field :business_cont,  placeholder: "Business Name"
+                =f.text_field :referrer_code_start,  placeholder: "Referral Code"
                 %span.input-group-btn
                   %button.btn.btn-purple.btn-sm
                     Search
@@ -28,6 +27,7 @@
               %th.hidden-480 Email 
               %th.hidden-480 Label
               %th Created at
+              %th Referral Code
               %th
           %tbody
             - @reports.each do |report|
@@ -38,6 +38,7 @@
                 %td= report.email
                 %td= report.label.presence || "?"
                 %td= l(report.created_at, format: :long)
+                %td= report.referrer_code
                 %td 
                   .btn-group
                     %a.btn.btn-xs.btn-success{ href: "/scan/#{report.ident}"}
