@@ -2,19 +2,19 @@ require 'json'
 
 class Scan < ActiveRecord::Base
   belongs_to :report
-  belongs_to :site
+  #belongs_to :site
 
   TASK_STATUS_WAITING = 0
   TASK_STATUS_TAKEN = 1
   TASK_STATUS_FINISHED = 2
   TASK_STATUS_FAILED = 3
 
-  def self.create_for_site(report_id, site_profile)
+  def self.create_for_site(report_id, site_name)
     report = Report.find(report_id)
     location = Location.where(:zip => report.zip).first
     self.create do |s|
       s.report_id      = report_id
-      s.site           = site_profile.site
+      s.site           = site_name
       s.task_status    = Scan::TASK_STATUS_WAITING
       s.business       = report.business
       s.phone          = report.phone
@@ -26,8 +26,6 @@ class Scan < ActiveRecord::Base
       s.city           = location.city
       s.county         = location.county
       s.country        = location.country
-
-      s.site_profile   = site_profile
     end
   end
 
