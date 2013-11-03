@@ -84,7 +84,7 @@ FactoryGirl.define do
 
   factory :scan do
     city      'Noname City'
-    site      'Foursquare'
+    site_name 'Foursquare'
     latitude  '41.650967'
     longitude '-83.536485'
     state     'Ohio'

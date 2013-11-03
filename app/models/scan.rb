@@ -2,19 +2,20 @@ require 'json'
 
 class Scan < ActiveRecord::Base
   belongs_to :report
-  #belongs_to :site
+  belongs_to :site
 
   TASK_STATUS_WAITING = 0
   TASK_STATUS_TAKEN = 1
   TASK_STATUS_FINISHED = 2
   TASK_STATUS_FAILED = 3
 
-  def self.create_for_site(report_id, site_name)
+  def self.create_for_site(report_id, site)
     report = Report.find(report_id)
     location = Location.where(:zip => report.zip).first
     self.create do |s|
       s.report_id      = report_id
-      s.site           = site_name
+      s.site_id        = site.id
+      s.site_name      = site.name
       s.task_status    = Scan::TASK_STATUS_WAITING
       s.business       = report.business
       s.phone          = report.phone
@@ -57,7 +58,7 @@ class Scan < ActiveRecord::Base
     {
       :scan => @attributes.symbolize_keys.slice(:id, :business, :phone, :zip, :latitude, :longitude,
                                               :state, :state_short, :city, :county, :country),
-      :site => site,
+      :site => site_name,
       :callback_host => Contact::Application.config.scanserver['callback_host'],
       :callback_port => Contact::Application.config.scanserver['callback_port']
     }
@@ -105,20 +106,12 @@ class Scan < ActiveRecord::Base
         # task shouldn't fail in cases when scanserver went down for small time interval
         resulting_status = TASK_STATUS_FAILED
       end
-      write_attribute(:error_message, "#{site}: #{e.message}: #{e.backtrace.join("\n")}")
+      write_attribute(:error_message, "#{site_name}: #{e.message}: #{e.backtrace.join("\n")}")
     end
     write_attribute(:task_status, resulting_status)
     save!
     ActiveRecord::Base.connection_pool.release_connection()
   end
 
-  def site_name
-    Business.citation_list.each do |row|
-      if row[0] == site
-        return row[3]
-      end
-    end
-    site
-  end
 end
 

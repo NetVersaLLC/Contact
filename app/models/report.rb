@@ -16,8 +16,8 @@ class Report < ActiveRecord::Base
 
     Delayed::Worker.logger.info "Starting performance: #{Time.now.iso8601}"
 
-    Site.where(enabled_for_scan: true).pluck(:name).each do |name|
-      scan = Scan.create_for_site(self.id, name)
+    Site.where(enabled_for_scan: true).each do |site|
+      scan = Scan.create_for_site(self.id, site)
     end
 
     Delayed::Worker.logger.info "Ending performance: #{Time.now.iso8601}"

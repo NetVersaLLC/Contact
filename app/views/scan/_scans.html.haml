@@ -15,7 +15,7 @@
             %th Status 
             %th Link to Profile
         %tbody
-          - @report.scans.includes(:site).order(:site).each do |scan|
+          - @report.scans.includes(:site).order(:site_name).each do |scan|
             %tr
               %td
                 -if scan.site.present? 

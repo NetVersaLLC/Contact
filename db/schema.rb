@@ -1700,7 +1700,7 @@ ActiveRecord::Schema.define(:version => 20131102224708) do
 
   create_table "scans", :force => true do |t|
     t.integer  "report_id"
-    t.string   "site"
+    t.string   "site_name"
     t.string   "business"
     t.string   "phone"
     t.string   "zip"
@@ -1726,7 +1726,7 @@ ActiveRecord::Schema.define(:version => 20131102224708) do
 
   add_index "scans", ["business"], :name => "index_scans_on_business"
   add_index "scans", ["phone"], :name => "index_scans_on_phone"
-  add_index "scans", ["site"], :name => "index_scans_on_site"
+  add_index "scans", ["site_name"], :name => "index_scans_on_site"
   add_index "scans", ["zip"], :name => "index_scans_on_zip"
 
   create_table "screenshots", :force => true do |t|

@@ -1,7 +1,7 @@
-namespace :utils do 
+namespace :utils do
   	desc "Add column 'do_not_sync' of type boolean all to citation tables"
-  	task :add_column_to_citations => :environment do 
-	
+  	task :add_column_to_citations => :environment do
+
   		timestamp =  DateTime.parse(Time.now().to_s).iso8601.gsub(/\D/, '')[0..13]
       file_name = File.join(Rails.root, 'db', 'migrate', timestamp + '_add_column_to_citations.rb')
       File.open(file_name, 'w') do |mf|

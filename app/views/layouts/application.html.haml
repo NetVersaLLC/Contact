@@ -3,11 +3,13 @@
   =render 'layouts/head'
   %body
     - if impersonating_user 
-      = render 'impersonate/header' 
-    = render 'layouts/navbar'
+      = render 'impersonate/header'
+    - if current_user
+      = render 'layouts/navbar'
     .main-container
       .main-container-inner
-        = render 'layouts/sidebar' 
+        - if current_user
+          = render 'layouts/sidebar'
         .main-content
           .breadcrumbs#breadcrumbs
             %ul.breadcrumb
