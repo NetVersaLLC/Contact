@@ -19,6 +19,10 @@ class ScanController < ApplicationController
     end
   end
 
+  def restart
+    @report = Report.where(:ident => params[:ident], :zip => @zip, :phone => @phone).order(:created_at).last
+  end
+
   def check
     @result = {:status => :error, :message => "Report not found."}
     Report.where(:ident => params[:ident]).each do |report|

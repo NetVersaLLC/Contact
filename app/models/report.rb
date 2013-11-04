@@ -14,15 +14,9 @@ class Report < ActiveRecord::Base
     Net::HTTP.delay.post_form(uri, {:phone => self.phone, :zip => self.zip, :business_name => self.business,
                                     :email => self.email, :referrer_code => self.referrer_code})
 
-    Delayed::Worker.logger.info "Starting performance: #{Time.now.iso8601}"
-
     SiteProfile.where(enabled_for_scan: true).pluck(:site).each do |site|
       scan = Scan.create_for_site(self.id, site)
     end
-
-    Delayed::Worker.logger.info "Ending performance: #{Time.now.iso8601}"
-
-
     self
   end
 
@@ -54,6 +48,11 @@ class Report < ActiveRecord::Base
 
       ReportMailer.report_email(report).deliver unless report.email.nil? || report.email.empty?
     end
+  end
+
+  def relaunch!
+    Scan.delete_all(["report_id = ?", id])
+    create_scan_tasks
   end
 end
 

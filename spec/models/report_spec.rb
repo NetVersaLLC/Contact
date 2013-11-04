@@ -34,4 +34,15 @@ describe Report do
       DelayedJob.all.size.should > 0
     end
   end
+
+  describe 'relaunch' do
+    it 'should relaunch report generation ' do
+      report = FactoryGirl.create(:report, status: 'completed')
+      scan = FactoryGirl.create(:scan, task_status:3, report_id: report.id)
+      report.relaunch!
+      report.reload
+      report.status.should == 'started'
+      report.scans.size.should > 10
+    end
+  end
 end
