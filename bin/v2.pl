@@ -2,70 +2,123 @@
 
 package Payload;
 use Data::Dumper qw/Dumper/;
+use Tree::Nary;
 
-sub new($$$$$) {
+sub new($$) {
   my $pkg     = shift;
-  my $mode_id = shift;
-  my $site_id = shift;
-  my $id      = shift;
-  my $name    = shift;
-  my $active  = shift;
+  my $dbh     = shift;
+  my $jobs_sth = $dbh->prepare("SELECT site_id FROM jobs WHERE business_id=?");
+  my $completed_sth = $dbh->prepare("SELECT site_id FROM completed_jobs WHERE business_id=?");
   my $self = bless({
-    'mode_id' => $mode_id,
-    'site_id' => $site_id,
-    'id'      => $id,
-    'name'    => $name,
-    'active'  => $active,
-    'parent'  => undef
+      'tree' => Tree::Nary->new(),
+      'dbh'  => $dbh,
+      'completed_sth' => $completed_sth,
+      'jobs_sth' => $jobs_sth
   }, $pkg);
   return $self;
 }
 
-sub set_payload($$$$$) {
-  my $payloads = shift;
-  my $mode_id  = shift;
-  my $site_id  = shift;
-  my $id       = shift;
-  my $payload  = shift;
-  if (not exists($payloads->{$mode_id})) {
-    $payloads->{$mode_id} = {};
-  }
-  if (not exists($payloads->{$mode_id}->{$site_id})) {
-    $payloads->{$mode_id}->{$site_id} = {};
-  }
-  $payloads->{$mode_id}->{$site_id}->{$id} = $payload;
-}
-
-sub calculate_children($) {
-  my $payloads = shift;
-  my %children;
-  foreach my $payload (keys %$payloads) {
-    if (not exists $children{$payload->{'parent'}->{'id'}}) {
-      $children{$payload->{'parent'}->{'id'}} = [$payload];
-    } else {
-      push @{$children{$payload->{'parent'}->{'id'}}}, $payload;
+sub add_payload($) {
+  my $self = shift;
+  my $payload = shift;
+  $payload->{'children'} = $self->{'children'}->{$payload->{'id'}};
+  if (length(@{$payload->{'children'}}) > 0) {
+    foreach my $child (@{$payload->{'children'}}) {
+      $self->add_payload($child);
     }
   }
-  foreach my $child (keys %children) {
-    my $payload = $$payloads{$child};
-    $$payload{'children'} = $children{$child};
+}
+
+sub build($) {
+  my $self = shift;
+  my $rows = shift;
+  my $actives = shift;
+  my (%payloads, %children, %parents, %tree);
+
+  # Build indexes for the data
+  # First create a mapping of id -> HASH
+  foreach my $row (@$rows) {
+    my ($parent_id, $mode_id, $site_id, $id, $name, $active) = @$row;
+    next if not exists $actives->{$site_id}; # Skip sites not active
+    $payloads{$id} = { 'id' => $id, 'mode_id' => $mode_id, 'site_id' => $site_id, 'name' => $name, 'active' => $active, 'parent_id' => $parent_id};
+  }
+
+  # Now build indexes for child / parent relationships
+  foreach my $row (@$rows) {
+    my ($parent_id, $mode_id, $site_id, $id, $name, $active) = @$row;
+    next if not exists $actives->{$site_id}; # Skip sites not active
+    $parent_id = $parent_id || 'root';
+    $children{$parent_id} = [] unless exists $children{$parent_id};
+    push @{$children{$parent_id}}, $payloads{$id};
+    $parents{$id} = $parent_id || 'root';
+  }
+  $$self{'parents'}  = \%parents;
+  $$self{'children'} = \%children;
+  $$self{'payloads'} = \%payloads;
+
+  # Now recursively add children to each node starting at the root nodes
+  # Working on all sites/modes since each root is independent.
+  foreach my $payload (@{$children{'root'}}) {
+    $self->add_payload($payload);
+  }
+
+  # Now finally build the tree structure into $final
+  my $final = {};
+  foreach my $row (@$rows) {
+    my ($parent_id, $mode_id, $site_id, $id, $name, $active) = @$row;
+    next if $parents{$id} ne 'root'; # We are linking in the top level of the tree so only work on root nodes
+    next if not exists $actives->{$site_id}; # Skip sites not active
+    if (not exists($final->{$mode_id})) {
+      $final->{$mode_id} = {};
+    }
+    if (not exists($final->{$mode_id}->{$site_id})) {
+      $final->{$mode_id}->{$site_id} = {};
+    }
+    $final->{$mode_id}->{$site_id}->{$id} = $payloads{$id};
+  }
+  $$self{'tree'} = $final;
+  return $self;
+}
+
+sub load($$) {
+  my $dbh = shift;
+  my $active = shift;
+  $payloads_sth = $dbh->prepare("SELECT parent_id, mode_id, site_id, id, name, active FROM payloads");
+  $payloads_sth->execute();
+  my $rows = $payloads_sth->fetchall_arrayref();
+  my $payloads = Payload->new($dbh);
+  return $payloads->build($rows, $active);
+
+sub recurse($$$$$) {
+  my $self = shift;
+  my $business_id = shift;
+  my $payload_id = shift;
+  my $completed = shift;
+  my $queue = shift;
+  my $payload = $self->{'payloads'}->{$payload_id};
+  if (length $payload->{'children'} > 0) {
   }
 }
 
-sub load($) {
-  my $rows = shift;
-  print Dumper($rows), "\n";
-  my ($row, %payloads);
-  foreach $row (@$rows) {
-    my $parent_id = shift @$row;
-    my ($mode_id, $site_id, $id) = @$row;
-    my $payload = new Payload(@$row);
-    $$payload{'parent'} = $payloads{$parent_id};
-    $payloads{$row->[0]} = $payload;
-    &Payload::set_payload(\%payloads, $mode_id, $site_id, $id, $payload);
+sub examine($) {
+  my $self = shift;
+  my $mode_id = shift;
+  my $site_id = shift;
+  my $business_id = shift;
+  my $jobs_sth = $self->{'jobs_sth'};
+  my $completed_sth = $self->{'completed_sth'};
+  my $tree = $self->{'tree'};
+  my (%completed, %queue);
+  $jobs_sth->execute($business_id);
+  foreach my $payload_id ($jobs_sth->fetchrow_array) {
+    $queue{$payload_id} = 'yes';
   }
-  &calculate_children(\%payloads);
-  return \%payloads;
+  foreach my $payload_id ($completed_sth->fetchrow_array) {
+    $completed{$payload_id} = 'yes';
+  }
+  foreach my $root_id (sort {int($a) <=> int($b)} keys %{ $tree->{$mode_id}->{$site_id} }) {
+    $self->recurse($business_id, $root_id, \%completed, \%queue);
+  }
 }
 
 package main;
@@ -88,16 +141,12 @@ $dbh = DBI->connect("dbi:mysql:$config->{'database'}", $config->{'username'}, $c
 
 my ($business_sth, $payloads_sth, $packages_sth);
 
-my ($payloads, %packages, $business_id);
+my ($payloads, %packages, %active, $business_id);
 
-$payloads_sth = $dbh->prepare("SELECT parent_id, mode_id, site_id, id, name, active FROM payloads");
-$payloads_sth->execute();
-$payloads = &Payload::load($payloads_sth->fetchall_arrayref());
-$payloads_sth->finish();
-
-$packages_sth = $dbh->prepare("SELECT package_id, site_id FROM package_payloads");
+$packages_sth = $dbh->prepare("SELECT package.id, pa.site_id FROM package_payloads pa INNER JOIN packages package ON package.id=pa.package_id");
 $packages_sth->execute();
 foreach my $package (@{$packages_sth->fetchall_arrayref()}) {
+  $active{$package->[1]} = 'yes';
   if (not exists $packages{$package->[0]}) {
     $packages{$package->[0]}=[$package->[1]];
   } else {
@@ -105,20 +154,18 @@ foreach my $package (@{$packages_sth->fetchall_arrayref()}) {
   }
 }
 $packages_sth->finish();
+$payloads = &Payload::load($dbh, \%active);
 
-print Dumper($payloads), "\n";
-
-__END__
 $business_sth = $dbh->prepare("SELECT business.id, business.mode_id, subscription.package_id FROM businesses business INNER JOIN subscriptions subscription WHERE business.subscription_id = subscription.id AND subscription.active=1");
 $business_sth->execute();
-foreach $business (@{$business_sth->fetchall_arrayref()}) {
+foreach my $business (@{$business_sth->fetchall_arrayref()}) {
   my ($business_id, $mode_id, $package_id) = @$business;
   if (not exists $packages{$package_id}) {
     print "Invalid package_id $package_id for $business_id\n";
     next;
   }
   foreach my $site_id (@{$packages{$package_id}}) {
-    &Payload::examine($mode_id, $site_id, $business_id);
+    $payloads->examine($mode_id, $site_id, $business_id);
   }
 }
 $business_sth->finish();

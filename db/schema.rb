@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131104184756) do
+ActiveRecord::Schema.define(:version => 20131105222431) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -468,9 +468,11 @@ ActiveRecord::Schema.define(:version => 20131104184756) do
     t.text     "backtrace"
     t.integer  "screenshot_id"
     t.text     "signature"
+    t.integer  "payload_id"
   end
 
   add_index "completed_jobs", ["business_id"], :name => "index_completed_jobs_on_business_id"
+  add_index "completed_jobs", ["payload_id"], :name => "index_completed_jobs_on_payload_id"
   add_index "completed_jobs", ["status"], :name => "index_completed_jobs_on_status"
 
   create_table "cornerstonesworld_categories", :force => true do |t|
@@ -767,9 +769,11 @@ ActiveRecord::Schema.define(:version => 20131104184756) do
     t.datetime "updated_at",     :null => false
     t.integer  "screenshot_id"
     t.text     "signature"
+    t.integer  "payload_id"
   end
 
   add_index "failed_jobs", ["business_id"], :name => "index_failed_jobs_on_business_id"
+  add_index "failed_jobs", ["payload_id"], :name => "index_failed_jobs_on_payload_id"
   add_index "failed_jobs", ["screenshot_id"], :name => "index_failed_jobs_on_screenshot_id"
   add_index "failed_jobs", ["status"], :name => "index_failed_jobs_on_status"
 
@@ -1053,9 +1057,11 @@ ActiveRecord::Schema.define(:version => 20131104184756) do
     t.integer  "screenshot_id"
     t.text     "backtrace"
     t.text     "signature"
+    t.integer  "payload_id"
   end
 
   add_index "jobs", ["business_id"], :name => "index_jobs_on_business_id"
+  add_index "jobs", ["payload_id"], :name => "index_jobs_on_payload_id"
   add_index "jobs", ["status"], :name => "index_jobs_on_status"
 
   create_table "judys_books", :force => true do |t|

@@ -43,7 +43,7 @@ namespace :payloads do
       end
       if Payload.where(:name => payload_name, :site_id => site.id, :mode_id => signup.id).count == 0
         parent = Payload.create do |p|
-          p.parent_id      = nil
+          p.parent_id      = parent_id
           p.site_id        = site.id
           p.mode_id        = signup.id
           p.active         = false
