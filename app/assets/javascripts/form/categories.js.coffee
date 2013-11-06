@@ -27,7 +27,7 @@ check_for_duplicates = (inputElement) ->
 
 show_category_alert = (message, inputElement) -> 
   console.log inputElement
-  required = ['business_category1','business_category2','business_category3']
+  required = ['business_category1']
   if required.indexOf( inputElement.id ) >= 0
     $(inputElement).closest('.control-group').addClass('error')
   $("#section8").prepend("<div class='alert alert-danger'>#{message}</div>") 
