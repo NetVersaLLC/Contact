@@ -3,10 +3,10 @@
     .widget-main
       =form_for @user do |f|
         = f.hidden_field :callcenter
-        -if @user.callcenter
+        -if @package.nil?
           .row
             .col-sm-5
-              =render partial: "sign_up_callcenter",locals: { f: f } 
+              =render partial: "sign_up_reseller",locals: { f: f } 
         -else 
           .row 
             .col-sm-6
