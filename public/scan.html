@@ -21,6 +21,14 @@
     <fieldset>
       <legend>Scan Report Request</legend>
       <p>
+        <label for="bussiness_contat">Business Contact:</label>
+        <input type="text" id="bussiness_contact_first_name" name="first_name" placeholder="First Name" />
+      </p>
+      <p>
+        <label for="bussiness_contact"></label>
+        <input type="text" id="bussiness_contact_last_name" name="last_name" placeholder="Last Name" />
+      </p>
+      <p>
         <label for="bussiness_name">Business Name:</label>
         <input type="text" id="bussiness_name" name="name" placeholder="Business name" class="action_input_1"/>
       </p>
@@ -52,6 +60,8 @@
 
   $("#scanform").validate({
     rules: {  
+      first_name: "required", 
+      last_name: "required",
       name: "required", 
       phone: "required", 
       zip: "required", 

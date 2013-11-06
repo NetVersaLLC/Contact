@@ -6,6 +6,9 @@ class ScanController < ApplicationController
     @email = params[:email]
     @referral = params[:referrer_code]
     @package_id = params[:package_id]
+    first_name = params[:first_name] 
+    last_name = params[:last_name]
+
     @ident = SecureRandom.uuid
     @report = Report.where(:business => @name, :zip => @zip, :phone => @phone).order(:created_at).last
     if @report != nil and @report.created_at.to_datetime > (Time.now - 1.days)
@@ -15,6 +18,14 @@ class ScanController < ApplicationController
       unless location
         return render :error, locals: {message: "Unknown zip code"}
       end
+
+      if current_user.nil? && current_label.crm_url.present?
+        package = Package.find(@package_id)
+
+        sugar = Sugar.new(current_label.crm_url, current_label.crm_username, current_label.crm_password)
+        sugar.generate_lead(@name, first_name, last_name, @phone, @email, @zip, @referral, package, @ident, current_label)
+      end 
+
       @report = Report.generate(@name, @zip, @phone, @package_id, @ident, current_label, @email, @referral)
     end
   end

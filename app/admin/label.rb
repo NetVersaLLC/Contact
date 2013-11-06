@@ -95,6 +95,9 @@ ActiveAdmin.register Label do
         f.input :login 
         f.input :password , :input_html => { :value => f.object.password } ,:as => :string
       end 
+      f.input :crm_url
+      f.input :crm_username
+      f.input :crm_password
       f.input :report_email_body
       f.input :custom_css # text area 
       f.input :footer # text area
