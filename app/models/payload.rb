@@ -1,8 +1,33 @@
 class Payload < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
+
   belongs_to :site
-  attr_accessible :client_script, :ready, :data_generator, :shared
-  attr_accessible :active, :broken_at, :name, :notes, :package_id, :parent_id, :position
+  belongs_to :mode
   acts_as_tree :order => "position"
+
+  def to_tree
+    obj = {
+      id: self.id,
+      label: self.name,
+      isFolder: true,
+      open: true,
+      checkbox: false,
+      radio: false,
+      childs: []
+    }
+    self.children.each do |child|
+      obj[:childs].push child.to_tree
+    end
+    obj
+  end
+
+  def self.to_tree(site_id, mode_id)
+    ret = []
+    self.where(:site_id => site_id, :mode_id => mode_id, :parent_id => nil).each do |payload|
+      ret.push payload.to_tree
+    end
+    ret
+  end
 
   def self.by_name(site, name)
     self.where(:site_id => site.id, :name => name).first
@@ -44,7 +69,7 @@ class Payload < ActiveRecord::Base
     self.by_name(site, payload).nil? != true
   end 
 
-  def initialize(site, payload)
+  def self.by_site_and_payload(site, payload)
     site = Site.by_name(site)
     self.by_name(site, payload)
   end
@@ -86,16 +111,6 @@ class Payload < ActiveRecord::Base
   def self.add_missed_payloads(business)
     self.find_missed_payloads(business).each do |payload|
       business.add_job(payload)
-    end
-  end
-
-  def self.add_recursive(package, parent_id)
-    top = Payload.create do |node|
-        node.name      = package
-        node.parent_id = parent_id
-    end
-    Payload.children(package).each do |payload|
-      self.add_recursive(payload, top.id)
     end
   end
 

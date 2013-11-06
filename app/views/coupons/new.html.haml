@@ -1,0 +1,30 @@
+= form_for @coupon, :class => "form-horizontal" do |f|
+  = f.label :name, :class => "col-sm-3 control-label no-padding-right"
+  .col-sm-9
+    = f.text_field :name, :class => "col-xs-10 col-sm-5", :placeholder => "Name"
+
+  = f.label :code, :class => "col-sm-3 control-label no-padding-right"
+  .col-sm-9
+    = f.text_field :code, :class => "col-xs-10 col-sm-5", :placeholder => "Code"
+
+  = f.label :percentage_off_monthly, :class => "col-sm-3 control-label no-padding-right"
+  .col-sm-9
+    = f.text_field :percentage_off_monthly, :class => "col-xs-10 col-sm-5", :placeholder => "Percent Off Monthly"
+
+  = f.label :percentage_off_signup, :class => "col-sm-3 control-label no-padding-right"
+  .col-sm-9
+    = f.text_field :percentage_off_signup, :class => "col-xs-10 col-sm-5", :placeholder => "Percent Off Signup"
+
+  = f.label :dollars_off_signup, :class => "col-sm-3 control-label no-padding-right"
+  .col-sm-9
+    = f.text_field :dollars_off_signup, :class => "col-xs-10 col-sm-5", :placeholder => "Dollars Off Signup"
+
+  = f.label :dollars_off_monthly, :class => "col-sm-3 control-label no-padding-right"
+  .col-sm-9
+    = f.text_field :dollars_off_monthly, :class => "col-xs-10 col-sm-5", :placeholder => "Dollars Off Monthly"
+
+  = f.label :allowed_upto, :class => "col-sm-3 control-label no-padding-right" 
+  .col-sm-9
+    = f.text_field :allowed_upto, :class => "col-xs-10 col-sm-5", :placeholder => "Max"
+
+  = f.submit :class => "btn btn-info"

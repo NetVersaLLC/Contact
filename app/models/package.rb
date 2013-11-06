@@ -15,6 +15,13 @@ class Package < ActiveRecord::Base
     :presence => true
   #validates :label_id,  :presence => true
 
+  def subtotal
+    original_price.presence || self.price 
+  end 
+  def saved 
+    subtotal - self.price 
+  end 
+
   def self.list
     ret = []
     Package.all.each do |package|

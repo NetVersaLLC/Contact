@@ -15,11 +15,11 @@
             %th Status 
             %th Link to Profile
         %tbody
-          - @report.scans.includes(:site_profile).order(:site).each do |scan|
+          - @report.scans.includes(:site).order(:site_name).each do |scan|
             %tr
               %td
-                -if scan.site_profile.present? 
-                  = image_tag scan.site_profile.logo.url(:thumb)
+                -if scan.site.present? 
+                  = image_tag scan.site.logo.url(:thumb)
               %td= scan.site_name 
               %td= scan.listed_phone
               %td= scan.listed_address 

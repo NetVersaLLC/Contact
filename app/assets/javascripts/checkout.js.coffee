@@ -62,7 +62,7 @@ check_fields =()->
   if $('#password_confirmation').val() == ""
     $('#password_confirmation').focus()
 
-formValidates = ()->
+###formValidates = ()->
   $('#errors').html('')
   $('#new_user input, #new_user select').css 'border-color','#CCC'
   error = false
@@ -92,10 +92,10 @@ formValidates = ()->
     if e == false
       validates = false
   validates
-
+###
 process_coupon = () -> 
   url = '/users/sign_up/process_coupon?package_id=' + $('#package_id').val() + '&coupon=' + $('#coupon').val()
-  $('fieldset.billing_summary').load url, () ->
+  $('#billing-summary').load url, () ->
     $('#addCoupon').click () -> 
       process_coupon()
     $('#removeCoupon').click ()->
@@ -104,9 +104,12 @@ process_coupon = () ->
 
 reset_coupon = () -> 
   url = '/users/sign_up/process_coupon' + location.search 
-  $('fieldset.billing_summary').load url, () ->
+  $('#billing_summary').load url, () ->
     $('#addCoupon').click () -> 
       process_coupon()
+
+is_not_free = () -> 
+  $("#sign-up-total").val() > 0 || $("#sign-up-monthly-fee").val() > 0
 
 window.registerCheckoutHooks = ()->
 
@@ -115,59 +118,71 @@ window.registerCheckoutHooks = ()->
     process_coupon()
     return false 
 
-    ### 
-    url = $.url()
-    form = $('form#new_user').get(0)
-    form.action = form.action + '?has_coupon='+( $('#coupon').val()!='' )
-    form.submit()
-    window.location.href='/users/sign_up?package_id='+url.param('package_id')+'&coupon='+$('#coupon').val()
-    $('#coupon-show').remove()
-    $('#coupon-discount').remove()
-    $('#coupon-rest-total').remove()
-    $('#amount-reset').remove()
-    ###
   textbox = $('#card_number')
   textbox.keypress(examineCard)
   textbox.blur(examineCard)
   textbox.payment('formatCardNumber')
   $('#cvv').payment('formatCardCVC')
 
-  $('#submit_button').click (e)->
-    console.log e
-    console.log document.activeElement.id
-    if document.activeElement.id == 'coupon' 
-      $('#addCoupon').click() 
-      return false 
+  validation_options =
+    errorElement: 'div'
+    errorClass: 'help-block'
+    focusInvalid: false
+    rules:
+      "user[email]": 
+        email: true 
+        required: true 
+      "user[password]":
+        required: true
+        minlength: 6
+      "user[password_confirmation]": 
+        required: true 
+        equalTo: "#user_password"
+      tos: "required"
+      "creditcard[name]":
+        required: (element) -> 
+          is_not_free() 
+      "creditcard[number]":
+        required: (element) -> 
+          is_not_free() 
+        creditcard: true
+      "creditcard[verification_value]":
+        required: (element) -> 
+          is_not_free() 
+    messages: 
+      email: 
+        required: "Please provide a valid email."
+        email: "Please provide a valid email."
+      password: 
+        required: "Please specify a password."
+        minlength: "Please specify a secure password."
+      tos: "Please accept our policy"
 
-    check_fields()
-    if formValidates() == true
-      return true
-    else
-      return false
+    highlight: (e) ->
+      $(e).closest('.form-group').removeClass('has-info').addClass('has-error')
 
+    success: (e) ->
+      $(e).closest('.form-group').removeClass('has-error') #.addClass('has-info')
+      $(e).remove()
 
+    errorPlacement: (error, element) ->
+      console.log "error placement"
+      ###if(element.is(':checkbox') || element.is(':radio')) 
+        controls = element.closest('div[class*="col-"]')
+        if(controls.find(':checkbox,:radio').length > 1) controls.append(error)
+        else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0))
 
-#  $('#submit_button').click (e)->
-#    if formValidates() == true
-#      console.log("Form validates!")
-#      $('#submit_button').attr("disabled", "disabled")
-#      $('form').submit()
-#    else
-#      console.log("Form does not validate!")
-#    return true
-###
-  $(".billing-system-close-button").click (e) ->
-    $('#amount-reset').show()
-    $('#amount-show').remove()
-    $('#coupon-rest-total').show()
-    $('#coupon-total').remove()
-    $('#coupon-discount').remove()
-    $('#coupon-price').remove()
-    $('#coupon-show').show()
-    $(".remove-coupon").remove()
-    $(".cross-button").remove()
-    $(".coupon-code").remove()
-    url = $.url()
-    window.location.href='/users/sign_up?package_id='+url.param('package_id')
-    ###
+      else if(element.is('.select2')) 
+        error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'))
+
+      else if(element.is('.chosen-select')) 
+        error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'))
+
+      else error.insertAfter(element.parent())
+      ###
+      error.insertAfter(element.parent())
+    #submitHandler: (form) -> 
+    #invalidHandler: (form) -> 
+
+  $('#new_user').validate( validation_options )
 

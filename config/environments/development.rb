@@ -15,6 +15,7 @@ Contact::Application.configure do
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.perform_deliveries = false
 
   # Setting defautt action url
   config.action_mailer.default_url_options = {  :protocol => 'https',:host => 'towncenter.com' }
@@ -42,6 +43,7 @@ Contact::Application.configure do
 
   # period to wait before resending task that is waiting for result to scanserver again
   config.scan_task_resend_interval = 5.seconds
+
   # how much time to wait before considering scan as failed
   config.scan_task_fail_interval = 30.seconds
 

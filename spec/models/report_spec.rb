@@ -24,14 +24,4 @@ describe Report do
     end
   end
 
-  describe 'create_scan_tasks' do
-    it 'should create delayed job for each task' do
-      report = FactoryGirl.create(:report, status: 'waiting')
-      FactoryGirl.create(:location)
-      create_site_profiles
-
-      report.create_scan_tasks
-      DelayedJob.all.size.should > 0
-    end
-  end
 end

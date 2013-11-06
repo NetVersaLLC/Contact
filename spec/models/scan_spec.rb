@@ -10,11 +10,11 @@ describe Scan do
     end
 
     it 'should create valid scan task' do
-      site = 'Foursquare'
+      site = FactoryGirl.create(:site, name: 'Foursquare')
       scan = Scan.create_for_site(@report.id, site)
       scan.task_status.should eq Scan::TASK_STATUS_WAITING
       scan.report_id.should eq @report.id
-      scan.site.should eq site
+      scan.site_name.should eq site.name
     end
   end
 
@@ -28,7 +28,7 @@ describe Scan do
     end
 
     it 'should mark task as failed immediately when got error from scanserver' do
-      scan = FactoryGirl.create(:scan, :site => 'nosuchsite')
+      scan = FactoryGirl.create(:scan, :site_name => 'nosuchsite')
       scan.send_to_scan_server!
       scan.reload
       scan.task_status.should == Scan::TASK_STATUS_FAILED

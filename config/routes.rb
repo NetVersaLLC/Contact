@@ -1,8 +1,17 @@
 Contact::Application.routes.draw do
+  resources :labels
+  resources :coupons
 
-  #mount UserImpersonate::Engine => "/impersonate", as: "impersonate_engine"
+  get    '/payloads(.:format)', :controller => :payloads, :action => :index
+  get    '/payloads/tree/:site_id/:mode_id(.:format)', :controller => :payloads, :action => :tree
+  put    '/payloads/move/:id/:parent_id(.:format)', :controller => :payloads, :action => :move
+  delete '/payloads/:id(.:format)', :controller => :payloads, :action => :destroy
+  post   '/payloads(.:format)', :controller => :payloads, :action => :create
+  put    '/payloads/:id(.:format)', :controller => :payloads, :action => :update
+  get    '/payloads/:id(.:format)', :controller => :payloads, :action => :show
 
-  get    '/payloads/:id(.:format)', :controller => :payloads, :action => :index
+  get    '/admin', :controller => :payloads, :action => :index
+
   get    '/packages/:id(.:format)', :controller => :packages, :action => :index
   delete '/packages/:id(.:format)', :controller => :packages, :action => :destroy
   post   '/packages/:id(.:format)', :controller => :packages, :action => :create
@@ -12,38 +21,35 @@ Contact::Application.routes.draw do
   devise_for :users,
     :controllers  => {
       :registrations => 'my_devise/registrations',
-  
     }
-  devise_scope :user do 
+  devise_scope :user do
       get '/users/sign_up/process_coupon', :to => 'my_devise/registrations#process_coupon' 
-  end 
+  end
 
-  resources :booboos
   resources :subscriptions
-  resources :pings
   resources :payload_nodes, only: [:index, :create]
 
-  resources :businesses 
-  get    '/businesses/client_checked_in/:id', 
-    :controller => :businesses, 
+  resources :businesses
+  get    '/businesses/client_checked_in/:id',
+    :controller => :businesses,
     :action => :client_checked_in,
     :as => 'client_checked_in'
-  get    '/businesses/tada/:id', 
-    :controller => :businesses, 
+  get    '/businesses/tada/:id',
+    :controller => :businesses,
     :action => :tada,
     :as => 'tada'
 
-  get    '/impersonate', to: 'impersonate#index' 
+  get    '/impersonate', to: 'impersonate#index'
   get    '/impersonate/:id', to: 'impersonate#new', as: :new_impersonation
   delete '/impersonate/revert', to: 'impersonate#revert', as: :revert_impersonation
   get    '/credentials(.:format)', :controller => :impersonate, :action => :credentials
 
-  resources :notifications 
+  resources :notifications
 
-  resources :businesses do 
+  resources :businesses do
     resources :accounts, :only => [:edit, :update, :create]
-    resources :codes, :only => [:new, :create] 
-    resources :downloads, :only => [:show]
+    resources :codes, :only => [:new, :create]
+    resources :downloads, :only => [:new]
     resources :images
     resources :notifications
   end 
@@ -59,36 +65,23 @@ Contact::Application.routes.draw do
   resources :places
   resources :zip,  :only => [:index]
   resources :city, :only => [:index]
-  resources :terms, :only => [:index]
-  resources :site_profiles
+  resources :sites
   resources :users
   resources :accounts
   resources :reports, :except => [:edit, :update]
+  resources :dashboard, :only => [:index]
+  resources :questions
 
   resources :jobs,  except: [:show]
   get     '/jobs/list(.:format)', :controller => :jobs,   :action => :list
 
-  # Bing 
-  get     '/bing_category(.:format)',  :controller => :bing,   :action => :bing_category
-
-  # Yahoo 
-  post    '/yahoo/save_email(.:format)',   :controller => :yahoo,  :action => :save_email
-  get     '/yahoo_category(.:format)',  :controller => :yahoo,   :action => :yahoo_category
-
-  # Yelp
-  get     "/yelps/check_email"
-  get     '/yelp_category(.:format)',  :controller => :yelp,   :action => :yelp_category
-
-  post    '/google/save_email',  :controller => :google, :action => :save_email
   post    '/captcha/:type',      :controller => :captcha,         :action => :recaptcha
   get     '/downloads/:business_id', :controller => :downloads,       :action => :download
   get     '/emails/check/:site',     :controller => :emails,          :action => :check
 
-
   get     '/categories(.:format)', :controller => :categories, :action => :index
   get     '/categories/:id(.:format)', :controller => :categories, :action => :show
   post    '/categories(.:format)', :controller => :categories, :action => :create
-
 
   post    '/scanner/start', :controller => :scan, :action => :start
   get     '/scanner/check(.:format)', :controller => :scan, :action => :check
@@ -114,9 +107,9 @@ Contact::Application.routes.draw do
   get     '/begin-sync', :controller => :pages, :action => :begin_sync, :as=>'begin_sync'
   get     '/contact-us', :controller => :pages, :action => :contact_us
   get     '/congratulations', :controller => :pages, :action => :congratulations
-  get     '/dashboard', :controller => :pages, :action => :dashboard
   get     '/resellers', :controller => :pages, :action => :resellers
   get     '/support', :controller => :pages, :action => :support
+  get     '/terms', :controller => :pages, :action => :terms
   get     '/try_again_later', :controller => :pages, :action => :try_again_later
   
   get     '/leads', :controller => :leads, :action => :show
@@ -126,6 +119,6 @@ Contact::Application.routes.draw do
 
   match "/watch" => DelayedJobWeb, :anchor => false
 
-  root :to => redirect("/pages/make_redirect")
-  ActiveAdmin.routes(self) # Moved to bottom to resovle Unitialized Dashborad error w activeadmin 0.6.0 
+  root to: "dashboard#index"
+  #root :to => redirect("/pages/make_redirect")
 end

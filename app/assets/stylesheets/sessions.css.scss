@@ -1,0 +1,62 @@
+.login-container.registrations {
+  width: 100%; 
+}
+
+dl.sign-up
+{
+  dt,dd { margin-bottom: 1em;  } 
+
+  dt { 
+   width: 10em;
+   text-align: right;
+   background-color: #EEEEEE; 
+   //vertical-align: middle; 
+   border: 1px solid #D5D5D5;
+   //font-size: 14pt;
+   }
+
+  dd { 
+    margin: 0;
+  }
+  dt label, dd span { 
+    margin:  0; 
+    font-size: 14px; 
+    line-height: 1.2;
+    padding: 0.5em;
+  }
+
+  dd input, dd span  { 
+    float: left; 
+    background-color: #EEEEEE;
+    border: 1px solid #D5D5D5;
+  } 
+
+  dd input { 
+    width: 4em; 
+    padding: 0.4em; 
+    text-align: right;
+  }
+
+}
+
+div.sign-up { width: 17em; } 
+
+.cards { 
+  margin-bottom: 5px; 
+}
+
+.cards img { 
+  width: 60px;
+  height: 32px;
+  border: 1px solid black;
+  margin: 5px;
+}
+
+.cards img:first-child { margin-left: 0px; } 
+
+.activeCard { 
+  border-color: rgba(82,168,236,0.8);
+  box-shadow: 0 1px 1px rgba(0,0,0,0.075) inset, 0 0 8px rgba(82,168,236,0.6);
+  outline: 0 none;
+}
+

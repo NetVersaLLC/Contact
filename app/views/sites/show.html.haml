@@ -1,0 +1,42 @@
+.page-header
+  %h1 Site 
+.row
+  .col-xs-9
+    %table.table.table-striped.show-table
+      %tbody 
+        %tr 
+          %td Name 
+          %td= @site.name 
+        %tr
+          %td Owner 
+          %td= @site.owner
+        %tr
+          %td Founded
+          %td= @site.founded
+        %tr
+          %td Enabled for Scan 
+          %td= @site.enabled_for_scan
+        %tr
+          %td Alexa US Traffic Rank
+          %td= @site.alexa_us_traffic_rank
+        %tr
+          %td Page Rank 
+          %td= @site.page_rank
+        %tr
+          %td Url 
+          %td= @site.domain
+        %tr
+          %td Traffic Stats 
+          %td= @site.traffic_stats
+        %tr
+          %td Notes 
+          %td= @site.notes
+        %tr
+          %td Technical Notes
+          %td= @site.technical_notes
+        %tr
+          %td Logo
+          %td= image_tag @site.logo.url
+
+    - if can? :edit, @site
+      = link_to 'Edit Site Profile', edit_site_path(@site), class: "btn btn-info"

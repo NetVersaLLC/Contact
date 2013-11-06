@@ -1,4 +1,4 @@
-$ ->
+register_user_hooks = () ->
   $('#user-wizard').ace_wizard()
     .on 'finished', -> 
       $(".edit_user, .new_user").submit()

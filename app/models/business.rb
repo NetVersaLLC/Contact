@@ -13,6 +13,7 @@ class Business < ActiveRecord::Base
   belongs_to :user
   belongs_to :subscription
   belongs_to :label
+  belongs_to :mode
  
   has_one :transaction_event # transaction that occurred at sign up  #belongs
 
@@ -100,53 +101,4 @@ class Business < ActiveRecord::Base
   attr_accessible :citydata_attributes
   accepts_nested_attributes_for :citydata, :allow_destroy => true
 
-
-  def logo
-      images.where(:is_logo=>true).first
-  end
-
-  def label_id
-    self.user.label_id
-  end
-
-  def strip_blanks
-    self.attributes.each do |key,val|
-      if val.class == String
-        val.strip!
-      end
-    end
-  end
-
-  def create_site_accounts
-    user_id = self.user.id
-    business_id = self.id
-    Business.delay.create_site_accounts_ex user_id, business_id
-  end
-
-  def create_site_accounts_test
-    #this method is ONLY used for creating test accounts with the account_creator script.
-    Business.sub_models.each do |klass| 
-      y = klass.new
-      STDERR.puts "Model: #{klass}"
-      STDERR.puts "Instance: #{y.inspect}"
-      y.business_id = self.id
-      y.save
-    end
-  end
-
-  private
-
-    def self.create_site_accounts_ex(user_id, business_id)
-      Business.sub_models.each do |klass|
-        y = klass.new
-        STDERR.puts "Model: #{klass}"
-        STDERR.puts "Instance: #{y.inspect}"
-        y.business_id = business_id
-        y.save
-      end
-      Business.find(business_id).touch  # expire cache fragments
-    end
-
-
-  # end private methods
 end

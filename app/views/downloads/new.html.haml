@@ -1,0 +1,11 @@
+.row 
+  .col-sm-12
+    = render 'shared/download_client'
+:javascript 
+  $(document).ready( function() {  
+    var download;
+    download = function(){ window.location = document.getElementById('download_client').href; } 
+    window.setTimeout( download, 2000 );
+    window.setTimeout( has_client_checked_in, 15000); 
+  } ); 
+

@@ -1,9 +1,9 @@
 class AddLogoSiteProfiles < ActiveRecord::Migration
   def up
-    add_attachment :site_profiles, :logo
+    #add_attachment :sites, :logo
   end
 
   def down
-    remove_attachment :site_profiles, :logo
+    #remove_attachment :sites, :logo
   end
 end

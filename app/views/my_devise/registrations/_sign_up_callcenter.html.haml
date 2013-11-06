@@ -1,0 +1,24 @@
+%br/
+%h4.blue Reseller Sign Up 
+%hr
+%fieldset
+  .form-group
+    %span.block.input-icon.input-icon-right 
+      =f.email_field :email, class: "form-control", placeholder: "Email"
+      %i.icon-envelope
+    .help-block We won't spam you or share your address.
+  .form-group
+    %span.block
+      %input#tos.ace(type="checkbox" name="tos")
+      %span.lbl
+        I accept the 
+        %a{href: '/terms'} User Agreement 
+  .space-24
+  .clearfix 
+    %button.width-30.pull-left.btn.btn-sm{ type: 'reset'}
+      %i.icon-refresh
+      Reset
+    %button.width-65.pull-right.btn.btn-sm.btn-success{ type: 'submit' }
+      Sign Up
+      %i.icon-arrow-right.icon-on-right
+

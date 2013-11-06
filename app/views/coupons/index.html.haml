@@ -1,0 +1,33 @@
+.row
+  .col-xs-12
+    %h3.header.smaller.lighter.blue Coupons
+    = button_to "New Coupon", new_coupon_path, :class => "btn btn-info", :method => :get
+    .table-header
+      Your Coupons
+    .table-responsive
+      %table#sample-table-2.table.table-striped.table-bordered.table-hover
+        %thead
+          %tr
+            %th.center
+              %label
+                %input.ace{type: "checkbox"}/
+                %span.lbl
+            %th Coupon Name
+            %th Coupon Code
+            %th Percent Off (Monthly)
+            %th Percent Off (Signup)
+            %th Dollars Off (Signup)
+            %th Dollars Off (Monthly)
+            %th Redeemed
+            %th Max
+            %th
+              %i.icon-time.bigger-110.hidden-480
+              Created
+            %th
+              %i.icon-time.bigger-110.hidden-480
+              Updated
+            %th.hidden-480 Status
+            %th
+        - @coupons.each do |coupon|
+          - @coupon = coupon
+          = render :partial => 'coupon'

@@ -84,7 +84,7 @@ FactoryGirl.define do
 
   factory :scan do
     city      'Noname City'
-    site      'Foursquare'
+    site_name 'Foursquare'
     latitude  '41.650967'
     longitude '-83.536485'
     state     'Ohio'
@@ -108,7 +108,7 @@ FactoryGirl.define do
     label
   end
 
-  factory :site_profile do
+  factory :site do
     owner 'Private'
     founded { SecureRandom.random_number(2013) }
     alexa_us_traffic_rank { SecureRandom.random_number(100) }

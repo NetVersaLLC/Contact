@@ -5,7 +5,30 @@
         %i.icon-coffee.green
         Please Enter Your Information
       .space-6
-
+      - if params[:user]
+        - if params[:user][:email] == "" && params[:user][:password] == ""
+          .alert.alert-danger
+            = "Email and password can't be blank."
+        - elsif params[:user][:email] == ""
+          .alert.alert-danger
+            = "Email can't be blank."
+        - elsif params[:user][:password] == ""
+          .alert.alert-danger
+            = "Password can't be blank."
+        - elsif !params[:user][:email].match(/\A[^@]+@([^@\.]+\.)+[^@\.]+\z/.to_s)
+          .alert.alert-danger
+            = "Email is invalid."
+        - elsif params[:failure_reason] == :not_found_in_database
+          .alert.alert-danger
+            = "Account not registered. "
+            =# link_to "Sign up here!", new_user_registration_path
+        -elsif params[:failure_reason] == :invalid
+          .alert.alert-danger
+            = "Account registered. "
+            = link_to "Forgot your password?", new_user_password_path
+        -elsif alert
+          .alert.alert-danger
+            = flash[:alert]
       = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
         %fieldset 
           %label.block.clearfix
@@ -30,12 +53,10 @@
         %a.forgot-password-link( href="#" onclick="show_box('forgot-box'); return false;")
           %i.icon-arrow-left
           I forgot my password
-      %div
+      -#%div
         %a.user-signup-link( href="#" onclick="show_box('signup-box'); return false;")
           I want to register
           %i.icon-arrow-right
-
-
 
 -#
         = f.semantic_errors

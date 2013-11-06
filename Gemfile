@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
+gem 'rails', '3.2.15'
 gem 'mysql2'
 
 group :development do
@@ -55,7 +55,6 @@ gem 'activeadmin'
 gem 'ransack'
 gem 'acts_as_list'
 gem 'acts_as_tree'
-gem 'rabl'
 gem 'cerebus'
 gem 'formtastic', '~> 2.1.1'
 gem 'nested_form',  git: 'git://github.com/ryanb/nested_form.git'
@@ -66,7 +65,6 @@ gem 'carmen', '0.2.13'
 gem 'httparty'
 gem 'coderay'
 gem 'activemerchant', :require => 'active_merchant'
-gem 'detect_email_settings'
 gem 'deathbycaptcha'
 gem 'faker'
 gem 'cancan'
@@ -74,11 +72,9 @@ gem 'airbrake'
 gem 'capistrano-db-tasks', require: false
 gem 'capistrano-unicorn', :require => false
 gem 'axlsx'
-gem 'vitelity'
 gem 'daemons'
 gem 'daemons-rails'
 gem 'prawn'
-gem 'redcarpet'
 gem 'unicorn'
 gem 'rate-limiting'
 gem 'dalli'
@@ -89,3 +85,9 @@ gem 'will_paginate', '~> 3.0.5'
 gem "bootstrap-will_paginate", :git => 'git://github.com/yrgoldteeth/bootstrap-will_paginate.git'
 gem 'inherited_resources' 
 gem "jbuilder"
+gem "strong_parameters", "~> 0.2.1"
+gem "redcarpet"
+gem "meta_search"
+#gem "activeadmin"
+gem 'has_scope'
+gem "acitree-rails", :git => 'git@github.com:jjeffus/acitree-rails.git'

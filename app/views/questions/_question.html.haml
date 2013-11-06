@@ -1,0 +1,13 @@
+.panel.panel-default 
+  .panel-heading
+
+    %a.accordion-toggle.collapsed{href: "#faq-#{question.id}", data: { parent: "#faq-list-1", toggle: "collapse"}}
+      %i.icon-chevron-left.pull-right{ data: { "icon-hide" => "icon-chevron-down", "icon-show" => "icon-chevron-left"}}
+      = question.question_text
+  .panel-collapse.collapse{ id: "faq-#{question.id}" }
+    .panel-body
+      = question.answer_text
+      %p
+        = link_to "E", edit_question_path(question), class: "btn btn-info"
+        = link_to "D", question_path(question), method: :delete, class: "btn btn-danger", confirm: "Are you sure?"
+

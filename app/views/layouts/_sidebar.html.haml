@@ -32,9 +32,22 @@
             %i.icon-double-angle-right
             Invoice 
     %li 
-      %a{ href: '/support'}
+      %a.dropdown-toggle{ href: '#'}
         %i.icon-list-alt
         %span.menu-text Support
+      %ul.submenu
+        %li
+          %a{ href: '/support'}
+            %i.icon-list-alt
+            %span.menu-text Open Ticket
+        %li
+          =link_to questions_path do 
+            %span.menu-text Faq
+    -if can? :read, Coupon
+      %li
+        %a{ href: '/coupons'}
+          %i.icon-barcode
+          %span.menu-text Coupons
     %li
       = link_to notifications_path do 
         %i.icon-calendar
@@ -51,7 +64,7 @@
             %i.icon-double-angle-right
             Health 
         %li
-          =link_to site_profiles_url do 
+          =link_to sites_url do 
             %i.icon-double-angle-right
             Statistics
         %li

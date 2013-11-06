@@ -15,17 +15,20 @@
  * require include-bootstrap
  * require ace-fonts
  *= require datepicker
- *= require ace.min.css 
+ *= require ace.min
  *= require ace-rtl.min
- *= require ace-skins.min.css 
- *= require checkout
- *= require style
+ *= require ace-skins.min
  *= require fineuploader-3.3.0
  *= require jquery.gritter
- *= require custom
  *= require codes
  *= require colorbox
- *= require scan
  *= require businesses
- *= require jquery.ui.overrides */
+ *= require jquery.ui.overrides 
+ *= require scan
+ *= require contact 
+ *= require pages
+ *= require sessions
+ *= require aciTree
+ *= require demo
+ */
 

@@ -22,6 +22,8 @@ class Ability
       can :read,   CreditEvent, :label_id => user.label_id 
       can :manage, Label, :id => user.label_id
       can :manage, Label, :parent_id => user.label_id
+      can :manage, Package, :label_id => user.label_id
+      can :read,   Question
       can :read,   Location
       can :manage, Payment, :label_id => user.label_id
       can :manage, User, :label_id => user.label_id
@@ -50,7 +52,6 @@ class Ability
         end
       end
       can :manage, ClientData, :business => { :user_id => user.id }
-      can :read,   SiteProfile 
       can :manage, [Subscription,TransactionEvent,Payment], :business => { :user_id => user.id }
       can :create, Booboo, :user_id => user.id
       can :manage, Job, :business => { :user_id => user.id }
@@ -64,6 +65,7 @@ class Ability
       can :read,   Location
       can :read,   Package
       can :read,   PackagePayload
+      can :read,   Question
       can :manage, Notification, :business => { :user_id => user.id }
       can :manage, Download
       can :manage, Task, :business => { :user_id => user.id }

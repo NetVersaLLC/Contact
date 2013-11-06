@@ -1,0 +1,46 @@
+#billing-summary
+  %h5.blue Billing Summary
+  %hr
+
+  %input{:type => :hidden, :id => 'package_id', :name => 'package_id', :value => @package.id}
+
+  %p Initial Fee 
+  %dl.dl-horizontal.sign-up
+    %dt
+      %label Sub-Total: $
+    %dd
+      %input{type:"text", readonly:"readonly", name:'subtotal', value:@package.subtotal}
+      %span .00
+    -if @package.saved > 0
+      %dt
+        %label Coupon: $
+      %dd
+        %input#coupon{type:"hidden", name: "coupon", value: params[:coupon] }
+        %input{type:"text", readonly:"readonly", name:'coupon_total', value:@package.saved}
+        %span .00
+        %span= @coupon.code
+        %button#removeCoupon.btn.btn-danger.btn-sm(type="button") X
+    %dt
+      %label Total: $
+    %dd
+      %input#sign-up-total{type:"text", readonly:"readonly", name:'total', value: @package.price}
+      %span .00
+      
+  %p Monthly Subscription 
+  %dl.dl-horizontal.sign-up
+    %dt
+      %label Amount: $
+    %dd
+      %input#sign-up-monthly-fee{type:"text", readonly:"readonly", name: "amount_total", value:@package.monthly_fee}
+      %span .00
+
+  -if @package.saved == 0
+    %p Coupon or Offer Code
+    .input-group.sign-up
+      %input#coupon.form-control{type:"text", placeholder:"Coupon", name: "coupon"}
+      %span.input-group-btn
+        %button#addCoupon.btn.btn-info.btn-sm(type="button") Add
+
+  %p Referrer ID
+  %input{type: "text", placeholder: "Optional Referrer ID", name: "user[referrer_code]"}
+

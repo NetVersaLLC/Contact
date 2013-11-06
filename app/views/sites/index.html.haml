@@ -1,0 +1,65 @@
+.page-header
+  %h1 Sites
+.row
+  .col-xs-12 
+    .row
+      .col-xs-6
+        .widget-box 
+          .widget-header 
+            %h4 Search 
+          .widget-body
+            .widget-main
+              =search_form_for @q, class:"form-search" do |f|
+                .input-group
+                  =f.text_field :name_cont,  placeholder: "Site", class: "form-control search-query"
+                  %span.input-group-btn
+                    %button.btn.btn-purple.btn-sm
+                      Search
+                      %i.icon-search.icon-on-right.bigger-110
+    .dataTables_wrapper
+      %table.table.table-striped.table-bordered.table-hover
+        %thead
+          %tr
+            %th Site
+            %th Owner 
+            %th Alexa US Traffice Rank 
+            %th Page Rank
+            %th Scan Status
+            %th Actions
+        %tbody
+          -@sites.each do |site| 
+            %tr
+              %td
+                = image_tag site.logo.url(:thumb)
+                = link_to site.name, site_path(site)
+              %td= truncate(site.owner)
+              %td= site.alexa_us_traffic_rank 
+              %td= site.page_rank 
+              %td
+                - if can? :edit, site 
+                  = form_for site, remote: true do |f|
+                    =f.check_box :enabled_for_scan, class: "ace ace-switch ace-switch-3"
+                    %span.lbl
+                -else 
+                  = site.enabled_for_scan ? "Yes":"No"
+              %td
+                .visible-md.visible-lg.hidden-sm.hidden-xs.btn-group
+                  =link_to(site_url(site), class: 'btn btn-xs btn-success') do 
+                    %i.icon-ok.bigger-120
+                  - if can? :manage, site
+                    =link_to(edit_site_url(site), class: 'btn btn-xs btn-info') do 
+                      %i.icon-edit.bigger-120
+                    -#=link_to(site_profile_url(site_profile), method: :delete, confirm: 'Are you sure?', class: 'btn btn-xs btn-danger') do 
+                      %i.icon-trash.bigger-120
+      .row 
+        .col-md-6
+          .dataTables_info
+            = page_entries_info @sites
+        .col-md-6
+          .dataTables_paginate.paging_bootstrap
+            = will_paginate @sites, previous_label: "<", next_label: ">", inner_window: 1, outer_window: 1
+  -#%br/
+    .row
+      .col-md-12
+        .btn-group 
+          =link_to "Add Site Profile", new_site_profile_path, class: "btn btn-info btn-sm"
