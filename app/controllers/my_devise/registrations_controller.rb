@@ -36,7 +36,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
 
         if transaction.is_success?
           set_flash_message :notice, :signed_up if is_navigational_format?
-          User.delay.send_welcome(resource)
+          User.send_welcome(resource).deliver
           redirect_to edit_business_path(transaction.business)
         else
           #flash[:notice] = @transaction.message
