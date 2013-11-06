@@ -6,7 +6,7 @@
         %span.lbl
           %td
             %a
-              = @coupon.name
+              = link_to @coupon.name, coupon_path(@coupon)
     %td
       = @coupon.code
     %td
@@ -37,4 +37,4 @@
           Edit
           %i.icon-pencil.bigger-130
           %a.green
-        = link_to("delete", @coupon, :method => :delete, :data => { confirm: "Delete @coupon?" })
+        = link_to("Delete", @coupon, :method => :delete, :data => { confirm: "Delete @coupon?" })
