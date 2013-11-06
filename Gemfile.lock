@@ -368,6 +368,10 @@ GEM
       actionpack (~> 3.0)
       activemodel (~> 3.0)
       railties (~> 3.0)
+    sugarcrm (0.9.18)
+      activesupport (>= 2.3.10)
+      i18n
+      json
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
@@ -466,6 +470,7 @@ DEPENDENCIES
   sass-rails (~> 3.2.5)
   shoulda
   strong_parameters (~> 0.2.1)
+  sugarcrm
   therubyracer
   uglifier (>= 1.0.3)
   unicorn
