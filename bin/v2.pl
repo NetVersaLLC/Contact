@@ -9,7 +9,7 @@ sub new($$) {
   my $jobs_sth = $dbh->prepare("SELECT site_id FROM jobs WHERE business_id=?");
   my $completed_sth = $dbh->prepare("SELECT site_id FROM completed_jobs WHERE business_id=?");
   my $queue_sth = $dbh->prepare("INSERT INTO jobs (business_id, name, model, status, status_message, payload, data_generator, payload_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-  my $sites_sth = $dbh->prepare("SELECT ")
+  my $sites_sth = $dbh->prepare("SELECT id, model FROM sites");
   my $self = bless({
       'dbh'  => $dbh,
       'completed_sth' => $completed_sth,
@@ -80,6 +80,19 @@ sub build($) {
   return $self;
 }
 
+sub load_sites {
+  my $self = shift;
+  my $sites_sth = $self->{'sites_sth'};
+  $sites_sth->execute();
+  my %sites;
+  foreach my $site (@${ $sites_sth->fetchall_arrayref() }) {
+    my ($id, $model) = @$site;
+    $sites{$id} = $model;
+  }
+  $$self{'sites'} = \%sites;
+  return \%sites;
+}
+
 sub load($$) {
   my $dbh = shift;
   my $active = shift;
@@ -87,6 +100,7 @@ sub load($$) {
   $payloads_sth->execute();
   my $rows = $payloads_sth->fetchall_arrayref();
   my $payloads = Payload->new($dbh);
+  $payloads->load_sites();
   return $payloads->build($rows, $active);
 }
 
