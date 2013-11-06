@@ -2,6 +2,11 @@
   width: 100%; 
 }
 
+body.login-layout
+{
+  background-color: white;
+}
+
 dl.sign-up
 {
   dt,dd { margin-bottom: 1em;  } 
