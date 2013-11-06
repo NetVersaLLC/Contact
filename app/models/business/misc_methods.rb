@@ -262,5 +262,10 @@ module Business::MiscMethods
       setup_completed_not_reported_businesses = Business.where("setup_completed <= ? AND setup_msg_sent = ?", 7.days.ago, false)
       return setup_completed_not_reported_businesses
     end
+
+    def self.required?(attr)
+      target = (Business.class == Class) ? Business : Business.class
+      target.validators_on(attr).map(&:class).include?(ActiveModel::Validations::PresenceValidator)
+    end
   end
 end
