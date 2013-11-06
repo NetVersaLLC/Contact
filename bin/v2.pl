@@ -2,15 +2,15 @@
 
 package Payload;
 use Data::Dumper qw/Dumper/;
-use Tree::Nary;
 
 sub new($$) {
   my $pkg     = shift;
   my $dbh     = shift;
   my $jobs_sth = $dbh->prepare("SELECT site_id FROM jobs WHERE business_id=?");
   my $completed_sth = $dbh->prepare("SELECT site_id FROM completed_jobs WHERE business_id=?");
+  my $queue_sth = $dbh->prepare("INSERT INTO jobs (business_id, name, model, status, status_message, payload, data_generator, payload_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+  my $sites_sth = $dbh->prepare("SELECT ")
   my $self = bless({
-      'tree' => Tree::Nary->new(),
       'dbh'  => $dbh,
       'completed_sth' => $completed_sth,
       'jobs_sth' => $jobs_sth
@@ -83,11 +83,24 @@ sub build($) {
 sub load($$) {
   my $dbh = shift;
   my $active = shift;
-  $payloads_sth = $dbh->prepare("SELECT parent_id, mode_id, site_id, id, name, active FROM payloads");
+  my $payloads_sth = $dbh->prepare("SELECT parent_id, mode_id, site_id, id, name, active FROM payloads");
   $payloads_sth->execute();
   my $rows = $payloads_sth->fetchall_arrayref();
   my $payloads = Payload->new($dbh);
   return $payloads->build($rows, $active);
+}
+
+sub queue_payload($$) {
+  my $self = shift;
+  my $payload_id = shift;
+  my $business_id = shift;
+  my $queue_sth = $self->{'queue_sth'};
+  my $payload = $self->{'payloads'}->{$payload_id};
+  my $sites = $self->{'sites'};
+  #$payloads{$id} = { 'id' => $id, 'mode_id' => $mode_id, 'site_id' => $site_id, 'name' => $name, 'active' => $active, 'parent_id' => $parent_id};
+  #my $queue_sth = $dbh->prepare("INSERT INTO jobs (business_id, name, model, status, status_message, payload, data_generator, payload_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())");
+  $queue_sth->execute($business_id, $payload->{'name'}, $sites->{$payload_id}, '0', 'Newly added', $payload->{'client_script'}, $payload->{'data_generator'}, $payload_id);
+}
 
 sub recurse($$$$$) {
   my $self = shift;
@@ -96,7 +109,16 @@ sub recurse($$$$$) {
   my $completed = shift;
   my $queue = shift;
   my $payload = $self->{'payloads'}->{$payload_id};
-  if (length $payload->{'children'} > 0) {
+  if (not $completed->{$payload_id}) {
+    if (not exists $queue->{$payload_id}) {
+      $self->queue_payload($payload_id, $business_id);
+      return;
+    }
+  }
+  if (exists $payload->{'children'} and length @{$payload->{'children'}} > 0) {
+    foreach my $child (@{ $payload->{'children'} }) {
+      $self->recurse($business_id, $child->{'id'}, $completed, $queue);
+    }
   }
 }
 
@@ -140,7 +162,6 @@ $config = $config->[0]->{$environment};
 $dbh = DBI->connect("dbi:mysql:$config->{'database'}", $config->{'username'}, $config->{'password'});
 
 my ($business_sth, $payloads_sth, $packages_sth);
-
 my ($payloads, %packages, %active, $business_id);
 
 $packages_sth = $dbh->prepare("SELECT package.id, pa.site_id FROM package_payloads pa INNER JOIN packages package ON package.id=pa.package_id");

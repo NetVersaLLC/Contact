@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131105222431) do
+ActiveRecord::Schema.define(:version => 20131106002618) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -1816,8 +1816,10 @@ ActiveRecord::Schema.define(:version => 20131105222431) do
     t.boolean  "enabled",               :default => true
     t.text     "technical_notes"
     t.string   "login_url"
+    t.string   "model"
   end
 
+  add_index "sites", ["model"], :name => "index_sites_on_model"
   add_index "sites", ["name"], :name => "index_sites_on_name"
 
   create_table "snoopitnow_categories", :force => true do |t|
