@@ -31,9 +31,9 @@ class ApplicationController < ActionController::Base
   end
 
   rescue_from CanCan::AccessDenied do |exception|
-    #redirect_to root_url, :error => exception.message
-    sign_out current_user 
-    redirect_to new_user_session_url, :alert => exception.message
+    redirect_to root_url, :error => exception.message
+    # sign_out current_user 
+    #redirect_to new_user_session_url, :alert => exception.message
   end
 
   # def after_sign_in_path_for resource
