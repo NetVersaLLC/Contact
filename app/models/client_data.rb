@@ -7,6 +7,10 @@ class ClientData < ActiveRecord::Base
   #after_find      :deserialize_attributes
   before_save     :serialize_attributes
 
+  def self.descendants
+    ObjectSpace.each_object(Class).select{|klass| klass < self}
+  end 
+
   def self.get_sub_object( name, business )
     begin 
       m = name.constantize 

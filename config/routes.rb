@@ -46,6 +46,7 @@ Contact::Application.routes.draw do
 
   resources :notifications
 
+  get     '/businesses/:business_id/accounts/categorize', :action=>"categorize", :controller=>"accounts"
   resources :businesses do
     resources :accounts, :only => [:edit, :update, :create]
     resources :codes, :only => [:new, :create]

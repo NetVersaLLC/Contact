@@ -37,36 +37,11 @@ class AccountsController < InheritedResources::Base
 		render json: {'status' => 'success'}
 	end
 
-  # def edit 
-		# business = Business.find( params[:business_id] )
-		# if current_user.nil? or business.user_id != current_user.id
-		# 	redirect_to '/', :status => 403
-		# else
-  #     @accounts = []
-  #     Business.sub_models.each do |model| 
-  #       obj = model.where(:business_id => business.id).first
-  #       unless obj
-  #         obj = model.new
-  #         obj.business = business
-  #       end
-  #       if obj.respond_to?(:email) || obj.respond_to?(:username) || obj.respond_to?(:password)
-  #         @accounts << obj
-  #       end 
-  #     end 
-		# end
-		# render "edit", layout: false 
-  # end 
+  def categorize
+    @business = Business.find(params[:business_id])
 
-  # def update 
-		# business = Business.find( params[:business_id] )
-		# if current_user.nil? or business.user_id != current_user.id
-		# 	redirect_to '/', :status => 403
-		# else
-		# 	model = Business.get_sub_model(params['model'])
-		# 	obj = model.where(:business_id => business.id).first
-		# 	obj.update_attributes(params[obj.class.name.downcase])
-		# 	obj.save!
-		# end
-		# render json: {'status' => 'success'}
-  # end 
+    ClientData.descendants
+
+  end 
+
 end

@@ -7,14 +7,15 @@
       =f.email_field :email, class: "form-control", placeholder: "Email"
       %i.icon-envelope
     .help-block We won't spam you or share your address.
-  .form-group
-    %span.block.input-icon.input-icon-right 
-      =f.password_field :password, placeholder: "Password", class: "form-control"
-      %i.icon-lock
-  .form-group
-    %span.block.input-icon.input-icon-right 
-      =f.password_field :password_confirmation, placeholder: "Repeat Password", class: "form-control"
-      %i.icon-retweet
+  - unless @user.callcenter
+    .form-group
+      %span.block.input-icon.input-icon-right 
+        =f.password_field :password, placeholder: "Password", class: "form-control"
+        %i.icon-lock
+    .form-group
+      %span.block.input-icon.input-icon-right 
+        =f.password_field :password_confirmation, placeholder: "Repeat Password", class: "form-control"
+        %i.icon-retweet
   .form-group
     %span.block
       %input#tos.ace(type="checkbox" name="tos")
