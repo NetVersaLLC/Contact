@@ -1,10 +1,10 @@
 class MyDevise::RegistrationsController < Devise::RegistrationsController
 
   def new 
-    @package = Package.find(params[:package_id])
-
     @user = User.new
     @user.callcenter = params[:callcenter] == "1"
+
+    @package = Package.find(params[:package_id]) unless @user.callcenter
     
     respond_to do |format|
       format.html { render :new, layout: "layouts/devise/sessions" }
@@ -12,9 +12,9 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
   end 
 
   def create
-    @package = Package.find(params[:package_id])
-
     build_resource
+
+    @package = Package.find(params[:package_id]) unless resource.callcenter
 
     resource.label_id = current_label.id
     if resource.callcenter
