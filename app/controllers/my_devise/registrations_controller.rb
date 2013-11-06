@@ -4,7 +4,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     @user = User.new
     @user.callcenter = params[:callcenter] == "1"
 
-    @package = Package.find(params[:package_id]) unless @user.callcenter
+    checkout_setup
     
     respond_to do |format|
       format.html { render :new, layout: "layouts/devise/sessions" }
@@ -14,17 +14,17 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
   def create
     build_resource
 
-    @package = Package.find(params[:package_id]) unless resource.callcenter
+    @package = Package.where(id: params[:package_id]).first
 
     resource.label_id = current_label.id
     if resource.callcenter
-      resource.password = resource.password_confirmation = resource.temp_password = SecurRandom.random_number(1000000)
+      resource.password = resource.password_confirmation = resource.temp_password = SecureRandom.random_number(1000000)
     end 
 
     if resource.save
       sign_up(resource_name, resource)
 
-      if resource.callcenter 
+      if @package.nil?
         redirect_to "/resellers"
       else 
         label_processsor = LabelProcessor.new( current_label ) 
@@ -62,6 +62,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
       @package    = Package.find(params[:package_id])
       @package.original_price = @package.price
     else
+      @package = nil
       return false
     end
     #if @package.label_id != current_label.id
