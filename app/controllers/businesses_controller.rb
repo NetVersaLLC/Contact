@@ -16,35 +16,6 @@ class BusinessesController < InheritedResources::Base
       show! { add_breadcrumb @business.business_name, nil}
   end 
 
-  # def index
-  #   flash.keep
-  #   @businesses = Business.where(:user_id => current_user.id)
-  #   if @businesses.count == 1
-  #     b = @businesses.first 
-
-  #     if !b.subscription.active || b.subscription.active.nil?
-  #       Notification.add_activate_subscription b
-  #     end 
-
-  #     if b.is_client_downloaded
-  #       redirect_to business_path(b) 
-  #     else 
-  #       redirect_to edit_business_path(b)
-  #     end 
-  #   end
-  # end
-
-  # GET /businesses/1
-  # GET /businesses/1.json
-  # def show
-  #   @business  = Business.find(params[:id])
-  #   if @business.user_id != current_user.id
-  #     redirect_to root_path
-  #     return
-  #   end
-  #   @accounts  = @business.nonexistent_accounts_array
-  #   @job_count = Job.where(:business_id => @business.id, :status => 0).count
-  # end
 
   def tada
     @business  = Business.find(params[:id])
@@ -54,39 +25,6 @@ class BusinessesController < InheritedResources::Base
     end
   end 
   
-
-  # GET /businesses/new
-  # GET /businesses/new.json
-  def new
-    # make sure it exists
-
-    #Subscription.find( session[:subscription] )
-    @business = Business.new
-    #@accounts = @business.nonexistent_accounts_array
-
-    #@site_accounts = Business.citation_list #.map {|x| x[0..1]}
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @business }
-    end
-  end
-
-  # GET /businesses/1/edit
-  # def edit
-  #   @business = Business.find(params[:id])
-  #   if @business.user_id != current_user.id
-  #     redirect_to root_path
-  #     return
-  #   end
-
-  #   @accounts = @business.nonexistent_accounts_array
-  #   @site_accounts = Business.citation_list #.map {|x| x[0..1]}
-  #   respond_to do |format|
-  #     format.html { render @business.is_client_downloaded ? 'edit' : 'new' } 
-  #     format.json { render json: @business }
-  #   end
-  # end
 
 
   def client_checked_in 
@@ -99,6 +37,7 @@ class BusinessesController < InheritedResources::Base
   # POST /businesses.json
   def create
     @business = Business.new(params[:business])
+
     @business.user_id = current_user.id
     @business.label_id = current_label.id
     @business.subscription = sub 
@@ -119,27 +58,6 @@ class BusinessesController < InheritedResources::Base
     end 
   end
 
-  # PUT /businesses/1
-  # PUT /businesses/1.json
-  #def update
-  #  @business = Business.find(params[:id])
-
-  #  respond_to do |format|
-  #    @business.attributes = params[:business] 
-
-  #    #if @business.update_attributes(params[:business])
-  #    if @business.save( :validate =>  !request.xhr?)
-  #      format.html { redirect_to @business, :notice => 'Business was successfully updated.' } 
-  #      format.json { head :no_content }
-  #    else
-  #      @accounts = @business.nonexistent_accounts_array
-  #      @site_accounts = Business.citation_list #.map {|x| x[0..1]}
-
-  #      format.html { render action: "edit" }
-  #      format.json { render json: @business.errors, status: :unprocessable_entity }
-  #    end
-  #  end
-  #end
 
   # DELETE /businesses/1
   # DELETE /businesses/1.json
