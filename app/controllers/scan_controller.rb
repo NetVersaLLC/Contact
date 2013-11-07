@@ -49,6 +49,9 @@ class ScanController < ApplicationController
 
   def show
     @report = Report.where(:ident => params[:id]).first
+    respond_to do |format| 
+      format.html { render 'show', layout: current_user ? "application" : "scan"} 
+    end 
   end
 
   def email

@@ -1,0 +1,19 @@
+!!!
+%html{:lang => "en"}
+  =render 'layouts/head'
+  %body.scan-body
+    .container.scan-container
+      - if @report.label
+        .row
+          .col-xs-12
+            = image_tag @report.label.logo.url, class:"scan-logo"
+      = yield 
+
+    :javascript 
+      try{ clicky.init(100634376); }catch(e){}
+    %noscript
+      %p
+        %img(alt="Clicky" width="1" height="1" src="//in.getclicky.com/100634376ns.gif")
+    - if current_label.footer != nil
+      = current_label.footer
+

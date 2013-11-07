@@ -9,7 +9,7 @@
         %i.icon-text-width 
         %span.menu-text Locations 
 
-    - if current_user.reseller?
+    - if can? :manage, User #current_user.reseller?
       %li 
         = link_to users_url do
           %i.icon-desktop
@@ -18,7 +18,7 @@
       = link_to accounts_url do  
         %i.icon-list 
         %span.menu-text Accounts
-    - if current_user.reseller?
+    - if can? :manage,  Subscription #current_user.reseller?
       %li.closed 
         %a.dropdown-toggle{ href: '#'}
           %i.icon-edit
@@ -74,5 +74,3 @@
     = render "layouts/sidebar_admin"
   .sidebar-collapse#sidebar-collapse
     %i.icon-double-angle-left
-
-
