@@ -141,6 +141,7 @@ class LabelProcessor
     subscription.business = business 
     subscription.package = package 
     subscription.label = @label
+    subscription.initial_fee = payment.amount
 
     transaction_event.subscription = subscription  
 

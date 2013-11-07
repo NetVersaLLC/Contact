@@ -16,8 +16,8 @@
         %td{class: [subscription.active && 'green', !subscription.active && 'red']}
           = subscription.active ? "Active" : "Inactive"
         %td= l(subscription.created_at.to_date, format: :long)
-        %td.money= number_to_currency(subscription.intial_fee || 0)
-        %td.money= number_to_currency(subscription.monthly_fee || 0)
+        %td.money= number_to_currency((subscription.intial_fee || 0)  / 100.0) 
+        %td.money= number_to_currency((subscription.monthly_fee || 0) / 100.0)
         %td
           = link_to subscription, class: "btn btn-xs btn-success", title: "Show details" do 
             %i.icon-ok.bigger-120
