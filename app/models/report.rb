@@ -2,7 +2,7 @@ class Report < ActiveRecord::Base
   attr_accessible :business, :business_id, :completed_at, :name, :phone, :site, :started_at, :zip, :label_id
   has_many :scans
   belongs_to :label
-  belongs_to :business
+  #belongs_to :business   CANT ASSOCIATE BECAUSE OF BUSINESS ATTRIBUTE
 
   def create_scan_tasks
     if self.status == 'started'
