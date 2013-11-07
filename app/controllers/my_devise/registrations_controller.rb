@@ -1,10 +1,10 @@
 class MyDevise::RegistrationsController < Devise::RegistrationsController
 
   def new 
-    @package = Package.find(params[:package_id])
-
     @user = User.new
     @user.callcenter = params[:callcenter] == "1"
+
+    checkout_setup
     
     respond_to do |format|
       format.html { render :new, layout: "layouts/devise/sessions" }
@@ -12,19 +12,19 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
   end 
 
   def create
-    @package = Package.find(params[:package_id])
-
     build_resource
+
+    @package = Package.where(id: params[:package_id]).first
 
     resource.label_id = current_label.id
     if resource.callcenter
-      resource.password = resource.password_confirmation = resource.temp_password = SecurRandom.random_number(1000000)
+      resource.password = resource.password_confirmation = resource.temp_password = SecureRandom.random_number(1000000)
     end 
 
     if resource.save
       sign_up(resource_name, resource)
 
-      if resource.callcenter 
+      if @package.nil?
         redirect_to "/resellers"
       else 
         label_processsor = LabelProcessor.new( current_label ) 
@@ -36,7 +36,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
 
         if transaction.is_success?
           set_flash_message :notice, :signed_up if is_navigational_format?
-          User.delay.send_welcome(resource)
+          User.send_welcome(resource).deliver
           redirect_to edit_business_path(transaction.business)
         else
           #flash[:notice] = @transaction.message
@@ -62,6 +62,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
       @package    = Package.find(params[:package_id])
       @package.original_price = @package.price
     else
+      @package = nil
       return false
     end
     #if @package.label_id != current_label.id

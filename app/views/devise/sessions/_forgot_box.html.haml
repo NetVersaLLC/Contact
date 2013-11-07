@@ -6,11 +6,12 @@
         Retrieve Password
       .space-6 
       %p Enter your email to receive instructions 
-      %form 
+      = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| 
+        = devise_error_messages!
         %fieldset 
           %label.block.clearfix
             %span.block.input-icon.input-icon-right
-              %input.form-control( type='email' placeholder='Email') 
+              =f.email_field :email, placeholder: "Email", class: "form-control" 
               %i.icon-envelope
           .clearfix
             %button.width-35.pull-right.btn.btn-sm.btn-danger(type='submit') 

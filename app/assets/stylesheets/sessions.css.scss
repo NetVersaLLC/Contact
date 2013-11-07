@@ -2,6 +2,18 @@
   width: 100%; 
 }
 
+.login-logo 
+{
+  max-width: 90%; 
+  max-height: 10em;
+  padding-top: 10px;
+}
+
+body.login-layout
+{
+  background-color: #EEE;
+}
+
 dl.sign-up
 {
   dt,dd { margin-bottom: 1em;  } 

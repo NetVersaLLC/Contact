@@ -4,6 +4,10 @@ class Scan < ActiveRecord::Base
   belongs_to :report
   belongs_to :site
 
+  scope :claimed, -> { where(status: "claimed") } 
+  scope :listed, -> { where(status: "listed") } 
+  scope :unlisted, -> { where("status <> 'claimed' and status <> 'listed' or status is null") } 
+
   TASK_STATUS_WAITING = 0
   TASK_STATUS_TAKEN = 1
   TASK_STATUS_FINISHED = 2

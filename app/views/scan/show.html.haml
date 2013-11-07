@@ -19,14 +19,14 @@
           %dd= l(@report.updated_at, format: :long)
           %dt Report Id: 
           %dd= @report.ident
-          %dt.text-danger Unclaimed Count:
-          %dd.text-danger 5
+          %dt.text-danger Unlisted Count:
+          %dd.text-danger= @report.scans.unlisted.count
           %dt.text-warning Listed:
-          %dd.text-warning 1 
+          %dd.text-warning= @report.scans.listed.count
           %dt.text-success Listed & Claimed:
-          %dd.text-success 1
+          %dd.text-success= @report.scans.claimed.count
   .col-xs-6
-    .row
+    -#.row
       .col-xs-6
         .well
           .errorsdetected
@@ -47,6 +47,9 @@
           .widget-body
             .widget-main
               #piechart-networks
+        %a.btn.btn-info.btn-block.no-radius(href="/users/sign_up?package_id=#{@report.package_id}")
+          %i.icon-wrench 
+          Go Fix!
 %br
 =render "scans"
 .row
@@ -59,7 +62,7 @@
             %i.icon-envelope-alt.bigger-110
               Send me the report
   .col-xs-8
-    %a.btn.btn-primary.btn-large.pull-right(href="/users/sign_up?package_id=#{@report.package_id}") 
+    %a.btn.btn-info.btn-large.pull-right(href="/users/sign_up?package_id=#{@report.package_id}") 
       %i.icon-wrench 
         Fix These Errors
 
@@ -68,11 +71,9 @@
 
     var placeholder = $('#piechart-networks').css({'width':'90%' , 'min-height':'150px'});
     var data = [
-    { label: "listed & claimed",  data: 15.7, color: "#68BC31"},
-    //{ label: "search engines",  data: 24.5, color: "#2091CF"},
-    //{ label: "ad campaigns",  data: 8.2, color: "#AF4E96"},
-    { label: "unlisted",  data: 80, color: "#DA5430"},
-    { label: "listed",  data: 4.3, color: "#FEE074"}
+    { label: "listed & claimed",  data: "#{@report.status_percentages[0]}", color: "#68BC31"},
+    { label: "unlisted",  data: "#{@report.status_percentages[2]}", color: "#DA5430"},
+    { label: "listed",  data: "#{@report.status_percentages[1]}", color: "#FEE074"}
     ]
     function drawPieChart(placeholder, data, position) {
       $.plot(placeholder, data, {

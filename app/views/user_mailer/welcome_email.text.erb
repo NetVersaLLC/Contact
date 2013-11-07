@@ -4,7 +4,7 @@ Welcome to <%= @user.label.name %>
 You have successfully signed up!
 your username is: <%= @user.email %>.
 <% if @user.callcenter == true %>
-your temporary password is: <%= @password %>
+your temporary password is: <%= @user.temp_password %>
 <% end %>
 
 To login to the site, just follow this link: <%= @url %>.

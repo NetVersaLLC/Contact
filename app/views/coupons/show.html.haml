@@ -1,0 +1,34 @@
+.row
+  .col-xs-12
+    .table-header
+      = @coupon.name
+    .table-responsive
+      %table#sample-table-2.table.table-striped.table-bordered.table-hover
+        %thead
+          %tr
+            %th.center
+            %th Coupon Code
+            %th Redeemed
+            %th Max
+            %th
+              %i.icon-time.bigger-110.hidden-480
+              Created
+            %th
+              %i.icon-time.bigger-110.hidden-480
+              Updated
+        %tbody
+          %tr
+            %td.center
+              %label
+                %input.ace{type: "checkbox"}/
+                %span.lbl
+            %td
+              = @coupon.code
+            %td
+              = @coupon.redeemed_count
+            %td
+              = @coupon.allowed_upto
+            %td
+              = @coupon.created_at
+            %td 
+              = @coupon.updated_at

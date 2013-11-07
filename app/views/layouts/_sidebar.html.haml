@@ -18,19 +18,20 @@
       = link_to accounts_url do  
         %i.icon-list 
         %span.menu-text Accounts
-    %li.closed 
-      %a.dropdown-toggle{ href: '#'}
-        %i.icon-edit
-        %span.menu-text Billing 
-      %ul.submenu
-        %li
-          = link_to subscriptions_path do 
-            %i.icon-double-angle-right
-            Subscription
-        %li
-          %a{href:'#'} 
-            %i.icon-double-angle-right
-            Invoice 
+    - if current_user.reseller?
+      %li.closed 
+        %a.dropdown-toggle{ href: '#'}
+          %i.icon-edit
+          %span.menu-text Billing 
+        %ul.submenu
+          %li
+            = link_to subscriptions_path do 
+              %i.icon-double-angle-right
+              Subscription
+          %li
+            %a{href:'#'} 
+              %i.icon-double-angle-right
+              Invoice 
     %li 
       %a.dropdown-toggle{ href: '#'}
         %i.icon-list-alt
@@ -43,11 +44,6 @@
         %li
           =link_to questions_path do 
             %span.menu-text Faq
-    -if can? :read, Coupon
-      %li
-        %a{ href: '/coupons'}
-          %i.icon-barcode
-          %span.menu-text Coupons
     %li
       = link_to notifications_path do 
         %i.icon-calendar
@@ -59,7 +55,7 @@
         %i.icon-th
         %span.menu-text Network 
       %ul.submenu 
-        %li
+        -#%li
           %a{href:'#'}
             %i.icon-double-angle-right
             Health 
@@ -67,7 +63,7 @@
           =link_to sites_url do 
             %i.icon-double-angle-right
             Statistics
-        %li
+        -#%li
           %a{href:'#'}
             %i.icon-double-angle-right
             Update Timetables
