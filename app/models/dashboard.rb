@@ -35,6 +35,6 @@ class Dashboard
   end 
 
   def business 
-    @bus ||= @user.businesses.first
+    @bus ||= current_user.businesses.first
   end 
 end 
