@@ -4,15 +4,24 @@ class Dashboard
   end 
 
   def client_checkin
+    if @user.reseller?
+      return Time.now
+    end
     business.client_checkin
   end 
 
   def is_client_downloaded
+    if @user.reseller?
+      return true
+    end
     business.is_client_downloaded
   end 
 
   def alerts
     messages = []
+    if @user.reseller?
+      return messages
+    end
     messages << :client_not_downloaded if not business.is_client_downloaded
 
     if business.client_checkin.nil?

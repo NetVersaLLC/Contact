@@ -1,0 +1,18 @@
+%h1 Listing customers
+
+%table
+  %tr
+    %th Name
+    %th Client checkin
+    %th Is Client Downloaded
+    %th
+    %th
+
+  - @customers.each do |customer|
+    %tr
+      %td
+        = link_to customer.business_name, edit_business_path(customer)
+      %td= (customer.client_checkin.nil? ? 'No' : 'Yes')
+      %td= customer.is_client_downloaded?
+      %td= link_to 'Show', customer
+      %td= link_to 'Edit', edit_business_path(customer)

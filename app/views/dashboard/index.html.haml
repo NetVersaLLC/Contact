@@ -19,6 +19,7 @@
             %td Client Downloaded
             %td= @dashboard.is_client_downloaded ? "Yes" : "No"
 
+  - unless current_user.reseller?
     .col-xs-12.col-sm-3 
       =link_to new_business_download_path(@dashboard.business), class: "btn btn-grey btn-block" do 
         %i.icon-download-alt.bigger-230
