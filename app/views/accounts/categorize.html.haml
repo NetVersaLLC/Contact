@@ -6,7 +6,7 @@
           .choose-account-category
             = f.fields_for account do |account_fields|
               = account_fields.label :category_id, account.class.name.humanize, class: "choose-account-category-title"
-              = account_fields.select :category_id, [], {}, {class: "chosen-select", data: {placeholder:"Select Category...", category: "#{account.class.name}"}}
+              = account_fields.select :category_id, [], {}, {class: "chosen-select", data: {placeholder:"Select Category...", category: "#{account.class.name}", catid: "#{account.category_id}"}}
       =f.submit 
 
 :javascript
