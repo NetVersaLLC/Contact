@@ -8,7 +8,11 @@ class Sugar
 
   def generate_lead( business_name, first_name, last_name, phone, email, zip, referral, package, ident, label)
 
-      sales_person = connection::User.all( {conditions: { user_name: "LIKE '%#{referral}'"}} ).first
+    sales_person = connection::User.all( {conditions: { user_name: "LIKE '%#{referral}'"}} ).first
+
+    lead = connection::Lead.all({conditions: { phone_work: phone} }).first
+   
+    if lead.nil?
       lead = connection::Lead.new
 
       lead.account_name = business_name
@@ -19,11 +23,18 @@ class Sugar
       lead.primary_address_postalcode = zip
       lead.opportunity_amount = "#{package.price} - #{package.monthly_fee}/month"
       lead.refered_by = "#{label.name} - #{referral}"
-      lead.lead_source_description = "report id=#{ident} - package id=#{package.id}"
-
       lead.assigned_user_id = sales_person.id if sales_person
 
       lead.save
+    end
+
+    history = connection::Note.new
+    history.assigned_user_id = sales_person.id if sales_person 
+    history.name = "Scan Report Requested" 
+    history.description = "https://sync.fastrank.net/scan/#{ident}"
+    history.parent_type = "Leads" 
+    history.parent_id = lead.id 
+    history.save
   end
 
   private

@@ -1,0 +1,23 @@
+.row
+  .col-xs-8
+    =form_for @business do |f| 
+      - @business.client_data.order("type asc").each do |account| 
+        - if account.has_categories?
+          .choose-account-category
+            = f.fields_for account do |account_fields|
+              = account_fields.label :category_id, account.class.name.humanize, class: "choose-account-category-title"
+              = account_fields.select :category_id, [], {}, {class: "chosen-select", data: {placeholder:"Select Category...", category: "#{account.class.name}"}}
+      =f.submit 
+
+:javascript
+  window.business_id = "#{@business.id}"
+  $( function() { 
+ 
+    $(".chosen-select").each( function(i,e) { 
+      category =  $(e).attr("data-category"); 
+      $.get("/categories/" + category + "/selectoptions", function(data){ 
+        $(e).append(data); 
+        $(e).chosen(); 
+        }); 
+    } ); 
+  }); 

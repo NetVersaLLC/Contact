@@ -1,0 +1,10 @@
+- cache @cachekey do
+  %option{value: ""} 
+  -@root.children.order('name asc').each do |child1|
+    - children = child1.children.order('name asc')
+    - if child1.children.present?
+      %optgroup{label:"#{child1.name}"}
+        - children.each do |child2|
+          %option{value: child2.id}= child2.name
+    -else 
+      %option{value: child1.id}= child1.name
