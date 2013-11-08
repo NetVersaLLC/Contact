@@ -54,4 +54,15 @@ class CategoriesController < ApplicationController
   end
   def delete
   end
+
+  def selectoptions
+    klass = "#{params[:site]}Category".constantize
+    @cachekey = "#{params[:site]} v3"
+    @root = klass.find(1)
+    respond_to do |format| 
+      format.html {render "selectoptions", layout: false }
+    end 
+  end 
+
+
 end

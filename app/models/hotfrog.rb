@@ -7,6 +7,9 @@ class Hotfrog < ClientData
   validates :password,
             :presence => true
 
+  def has_categories? 
+    false
+  end
 def self.payment_methods(business)
     methods = {}
     [

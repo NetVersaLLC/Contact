@@ -40,8 +40,16 @@ class AccountsController < InheritedResources::Base
   def categorize
     @business = Business.find(params[:business_id])
 
-    ClientData.descendants
+    ClientData.descendants.each do |descendant| 
+      account = @business.client_data.where(:type => descendant.name).first
+      if account.nil?
+        new_account = descendant.new 
+        new_account.business_id = @business.id 
+        new_account.save  validate: false
+      end 
+    end 
 
+    render 
   end 
 
 end

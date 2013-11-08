@@ -22,6 +22,7 @@
  *= require jquery.gritter
  *= require codes
  *= require colorbox
+ *= require accounts
  *= require businesses
  *= require jquery.ui.overrides 
  *= require scan

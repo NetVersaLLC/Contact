@@ -2,6 +2,10 @@ class Thinklocal < ClientData
   attr_accessible :email
   virtual_attr_accessor :password
 
+  def has_categories? 
+    false
+  end 
+
 def self.payment_methods(business)
     methods = {}
     [

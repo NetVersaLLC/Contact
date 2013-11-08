@@ -24,7 +24,7 @@ class Business < ActiveRecord::Base
   has_many :notifications, dependent: :delete_all  #belongs_to not there in notification.rb
   has_many :images, dependent: :delete_all         #belongs_to not there in image.rb
   has_many :tasks
-  has_many :client_data
+  has_many :client_data, class_name: "ClientData"
 
   attr_accessible :images_attributes
   accepts_nested_attributes_for :images, allow_destroy: true

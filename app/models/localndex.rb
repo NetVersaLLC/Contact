@@ -5,6 +5,10 @@ class Localndex < ClientData
   #          :presence => true
 
 
+  def has_categories? 
+    false
+  end 
+
 
 def self.get_hours(business)
 hours = {}

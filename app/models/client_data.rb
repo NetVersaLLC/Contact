@@ -7,6 +7,11 @@ class ClientData < ActiveRecord::Base
   #after_find      :deserialize_attributes
   before_save     :serialize_attributes
 
+  # override this and return false in subclasses that dont have categories 
+  def has_categories? 
+    true
+  end 
+
   def self.descendants
     ObjectSpace.each_object(Class).select{|klass| klass < self}
   end 

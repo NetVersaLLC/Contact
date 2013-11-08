@@ -2,6 +2,10 @@ class Mywebyellow < ClientData
   attr_accessible :business_id, :email, :force_update, :secrets
   virtual_attr_accessor :password
   
+  def has_categories? 
+    false
+  end 
+
   def self.payment_methods(business)
     methods = {}
     [

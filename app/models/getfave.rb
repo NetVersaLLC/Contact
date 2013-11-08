@@ -2,6 +2,10 @@ class Getfave < ClientData
   attr_accessible :email
   virtual_attr_accessor :password
 
+  def has_categories? 
+    false
+  end 
+
   def self.check_email(business)
     @link = nil
     CheckMail.get_link(business) do |mail|

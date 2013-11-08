@@ -82,6 +82,7 @@ Contact::Application.routes.draw do
 
   get     '/categories(.:format)', :controller => :categories, :action => :index
   get     '/categories/:id(.:format)', :controller => :categories, :action => :show
+  get     '/categories/:site/selectoptions(.:format)', :controller => :categories, :action => :selectoptions
   post    '/categories(.:format)', :controller => :categories, :action => :create
 
   post    '/scanner/start', :controller => :scan, :action => :start
