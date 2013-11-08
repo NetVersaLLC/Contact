@@ -1,4 +1,7 @@
 Contact::Application.routes.draw do
+  resources :customers
+
+
   resources :labels
   resources :coupons
 
