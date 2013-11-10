@@ -72,7 +72,7 @@
 #feedback_dialog
   .before-submit
     If you're dissatisfied with scan results, please describe your complains here:
-    = form_for ReportFeedback.new, url: report_feedback_path, remote: true, html: {class: "enable_sync" , :"data-type" => "json", id: 'feedback_form'} do |f|
+    = form_for ReportFeedback.new, url: submit_report_feedback_path, remote: true, html: {class: "enable_sync" , :"data-type" => "json", id: 'feedback_form'} do |f|
       = hidden_field_tag :report_ident, @report.ident
       = f.text_area :message, rows: 5, class: 'input-xxlarge'
   .after-submit

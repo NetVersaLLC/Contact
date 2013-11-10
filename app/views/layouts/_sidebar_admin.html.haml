@@ -1,4 +1,4 @@
--if can? :manae, :all #current_user.admin?
+-if can? :manage, :all #current_user.admin?
   %li.closed 
     %a.dropdown-toggle{href:'#'}
       %i.icon-bolt
@@ -20,4 +20,12 @@
         %a{href:'#'}
           %i.icon-double-angle-right
           Packages
+      %li
+        %a{href:'/reports'}
+          %i.icon-double-angle-right
+          Reports
+      %li
+        %a{href:'/report_feedbacks'}
+          %i.icon-double-angle-right
+          Reports Feedback
 
