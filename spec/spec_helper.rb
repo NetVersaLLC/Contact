@@ -3,6 +3,7 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'awesome_print'
 
 require File.dirname(__FILE__) + "/factories1"
 
@@ -12,6 +13,8 @@ require File.dirname(__FILE__) + "/factories1"
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 RSpec.configure do |config|
+  config.include Devise::TestHelpers, :type => :controller
+
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
@@ -42,6 +45,7 @@ RSpec.configure do |config|
   config.before(:all) do
     DatabaseCleaner.clean
   end
+
 
 end
 

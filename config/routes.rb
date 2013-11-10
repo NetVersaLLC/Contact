@@ -93,6 +93,7 @@ Contact::Application.routes.draw do
   post    '/scanner/email', :controller => :scan, :action => :email
   post    '/scanner/send', :controller => :scan, :action => :send_email
   get     '/scan/:id',      :controller => :scan, :action => :show
+  post    '/scan/submit_feedback',  :controller => :scan, :action => :submit_feedback, :as => :report_feedback
 
   get     '/test/exception', :controller => :test, :action => :exception
 
