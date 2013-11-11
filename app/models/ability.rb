@@ -68,6 +68,7 @@ class Ability
       can :manage, Download
       can :manage, Task, :business => { :user_id => user.id }
       can :manage, Report, :business => { :user_id => user.id } 
+      can [:read, :update], User, :id => user.id
     end
   end
 end
