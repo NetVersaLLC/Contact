@@ -17,7 +17,7 @@ class ImpersonateController < ApplicationController
       sign_in User.find(session[:impersonator_id]) 
       session[:impersonator_id] = nil
     end 
-    redirect_to admin_root_url
+    redirect_to root_path
   end
 
   def credentials

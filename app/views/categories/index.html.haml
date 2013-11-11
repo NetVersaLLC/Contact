@@ -19,6 +19,7 @@
           - category_name = klass.where(:id => row[0]).first
           - next if category_name == nil
           - category_name = category_name.name
+          - next if category_name == nil
           - category_id   = row[0]
         - load_button = '<input type="button" onclick="window.loadCategory(\''+klass.to_s+'\')" value="Select" />'
         %div{:class => 'category_show'}
