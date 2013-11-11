@@ -18,7 +18,8 @@
       = link_to accounts_url do  
         %i.icon-list 
         %span.menu-text Accounts
-    - if can? :manage,  Subscription #current_user.reseller?
+    - if current_user.reseller?
+      -# We do not want ordinary users to be able to manage their subscription.
       %li.closed 
         %a.dropdown-toggle{ href: '#'}
           %i.icon-edit

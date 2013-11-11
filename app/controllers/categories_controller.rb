@@ -1,11 +1,14 @@
 class CategoriesController < ApplicationController
-  before_filter      :authenticate_user!
+  before_filter      :authenticate_admin!
   def index
-    klass      = params[:model].constantize
-    category   = klass.find(params[:id])
-    categories = klass.blist_categories(category)
-    render json: {:categories => categories, :count => categories.length}
+    #klass      = params[:model].constantize
+    #category   = klass.find(params[:id])
+    #categories = klass.blist_categories(category)
+    #render json: {:categories => categories, :count => categories.length}
+    @business = Business.find(params[:business_id])
+    @message =  @business.categorized ? "Categorized" : "New"
   end
+
   def show
     klass      = params[:model].constantize
     category   = klass.find(params[:id])
