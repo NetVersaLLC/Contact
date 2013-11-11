@@ -7,6 +7,7 @@ class Coupon < ActiveRecord::Base
 
   belongs_to :label
 
+  validates :code, :name, presence: true
   validates :use_discount, inclusion: { in: %w(percentage dollars)}
   validates :percentage_off_monthly, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }
   validates :percentage_off_signup, :numericality => { :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100 }

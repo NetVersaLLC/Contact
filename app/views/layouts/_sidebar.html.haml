@@ -33,6 +33,11 @@
             %a{href:'#'} 
               %i.icon-double-angle-right
               Invoice 
+    -if can? :manage, Coupon
+      %li
+        %a{ href: '/coupons'}
+          %i.icon-barcode
+          %span.menu-text Coupons
     %li 
       %a.dropdown-toggle{ href: '#'}
         %i.icon-list-alt

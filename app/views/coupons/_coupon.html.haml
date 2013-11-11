@@ -1,40 +1,25 @@
-%tbody
-  %tr
-    %td.center
-      %label
-        %input.ace{type: "checkbox"}/
-        %span.lbl
-          %td
-            %a
-              = link_to @coupon.name, coupon_path(@coupon)
-    %td
-      = @coupon.code
-    %td
-      = @coupon.percentage_off_monthly
-    %td.hidden-480
-      = @coupon.percentage_off_signup
-    %td
-      = @coupon.dollars_off_signup
-    %td
-      = @coupon.dollars_off_monthly
-    %td
-      = @coupon.redeemed_count
-    %td
-      = @coupon.allowed_upto
-    %td
-      = @coupon.created_at
-    %td
-      = @coupon.updated_at
-    %td.hidden-480
-      %span.label.label-sm.label-warning Active
-    %td
-      .visible-md.visible-lg.hidden-sm.hidden-xs.action-buttons
-        %a{:href => coupon_path(@coupon)}
-          Show
-          %i.icon-zoom-in.bigger-130
-          %a.blue
-        %a{:href => edit_coupon_path(@coupon)}
-          Edit
-          %i.icon-pencil.bigger-130
-          %a.green
-        = link_to("Delete", @coupon, :method => :delete, :data => { confirm: "Delete @coupon?" })
+%tr
+  %td= truncate(coupon.name, length: 15)
+  %td
+    = coupon.code
+  %td
+    = coupon.percentage_off_monthly
+  %td.hidden-480
+    = coupon.percentage_off_signup
+  %td
+    = coupon.dollars_off_signup
+  %td
+    = coupon.dollars_off_monthly
+  %td
+    = coupon.redeemed_count
+  %td
+    = coupon.allowed_upto
+  %td.hidden-480
+    %span.label.label-sm.label-warning Active
+  %td
+    %a.btn.btn-xs.btn-success{:href => coupon_path(coupon)}
+      %i.icon-ok.bigger-120
+    %a.btn.btn-xs.btn-info{:href => edit_coupon_path(coupon)}
+      %i.icon-edit.bigger-120
+    %a.btn.btn-xs.btn-danger{:href => coupon_path(coupon), :method => :delete, :confirm => "Are you sure?"}
+      %i.icon-trash.bigger-120
