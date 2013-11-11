@@ -16,7 +16,7 @@
  * require ace-fonts
  *= require datepicker
  *= require ace.min
- *= require ace-rtl.min
+ * require ace-rtl.min
  *= require ace-skins.min
  *= require fineuploader-3.3.0
  *= require jquery.gritter
