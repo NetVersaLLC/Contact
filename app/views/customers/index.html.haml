@@ -7,6 +7,7 @@
     %th Is Client Downloaded
     %th
     %th
+    %th
 
   - @customers.each do |customer|
     %tr
@@ -16,3 +17,4 @@
       %td= customer.is_client_downloaded?
       %td= link_to 'Show', customer
       %td= link_to 'Edit', edit_business_path(customer)
+      %td= link_to 'Impersonate', new_impersonation_path(customer)

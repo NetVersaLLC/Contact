@@ -2,6 +2,8 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
+    raise "Not allowed" if current_user.label_id != current_label.id
+    raise "Not allowed" unless current_user.reseller?
     @customers = Business.where(:label_id => current_label.id)
     respond_to do |format|
       format.html # index.html.erb
