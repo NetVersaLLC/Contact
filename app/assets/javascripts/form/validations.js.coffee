@@ -42,10 +42,6 @@ $ ->
       required: true
     "business[category1]":  
       required: true
-    "business[category2]":  
-      required: true
-    "business[category3]":  
-      required: true
   
   $('.edit_business, .new_business').validate 
     errorElement: 'div'
