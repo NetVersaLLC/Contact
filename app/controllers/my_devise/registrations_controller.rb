@@ -12,40 +12,46 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
   end 
 
   def create
-    build_resource
+    @user = User.new( params[:user] )
 
     @package = Package.where(id: params[:package_id]).first
 
-    resource.label_id = current_label.id
-    if resource.callcenter
-      resource.password = resource.password_confirmation = resource.temp_password = SecureRandom.random_number(1000000)
+    @user.label_id = current_label.id
+    if @user.callcenter
+      @user.password = @user.password_confirmation = @user.temp_password = SecureRandom.random_number(1000000)
     end 
 
-    if resource.save
-      sign_up(resource_name, resource)
+    if @user.save
 
       if @package.nil?
+        sign_up("user", @user)
         redirect_to "/resellers"
       else 
         label_processsor = LabelProcessor.new( current_label ) 
 
-        transaction = label_processsor.create_business( resource, 
+        transaction = label_processsor.create_business( @user, 
                         params[:coupon], 
                         params[:creditcard], 
                         params[:package_id]) 
 
         if transaction.is_success?
           set_flash_message :notice, :signed_up if is_navigational_format?
-          User.send_welcome(resource).deliver
+          sign_up("user", @user)
+          User.send_welcome(@user).deliver
           redirect_to edit_business_path(transaction.business)
         else
           #flash[:notice] = @transaction.message
-          errors.push @transaction.message
+          #errors.push @transaction.message
+          @user.delete 
+          @user = User.new({email: @user.email})
+          @user.errors.add :credit_card, transaction.message
+          checkout_setup
+          render :new, layout: "layouts/devise/sessions" 
         end
       end 
     else 
-      clean_up_passwords resource
-      respond_with resource,:location => after_inactive_sign_up_path_for(resource)
+      clean_up_passwords @user 
+      render :new, layout: "layouts/devise/sessions" 
     end 
 
   end
