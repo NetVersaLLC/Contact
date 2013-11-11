@@ -13,7 +13,9 @@ sub new($$) {
   my $self = bless({
       'dbh'  => $dbh,
       'completed_sth' => $completed_sth,
-      'jobs_sth' => $jobs_sth
+      'jobs_sth' => $jobs_sth,
+      'queue_sth' => $queue_sth,
+      'sites_sth' => $sites_sth
   }, $pkg);
   return $self;
 }
@@ -29,11 +31,11 @@ sub add_payload($) {
   }
 }
 
-sub build($) {
+sub build($$) {
   my $self = shift;
   my $rows = shift;
   my $actives = shift;
-  my (%payloads, %children, %parents, %tree);
+  my (%payloballsads, %children, %parents, %tree);
 
   # Build indexes for the data
   # First create a mapping of id -> HASH
@@ -146,6 +148,7 @@ sub examine($) {
   my $tree = $self->{'tree'};
   my (%completed, %queue);
   $jobs_sth->execute($business_id);
+  $completed_sth->execute($business_id);
   foreach my $payload_id ($jobs_sth->fetchrow_array) {
     $queue{$payload_id} = 'yes';
   }

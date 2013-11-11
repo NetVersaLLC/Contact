@@ -62,9 +62,22 @@
             %i.icon-envelope-alt.bigger-110
               Send me the report
   .col-xs-8
-    %a.btn.btn-info.btn-large.pull-right(href="/users/sign_up?package_id=#{@report.package_id}") 
+    %a.btn.btn-info.btn-large.pull-right(id="feedback_button")
+      %i.icon-exclamation-sign
+        Report a problem
+    %a.btn.btn-info.btn-large.pull-right(href="/users/sign_up?package_id=#{@report.package_id}")
       %i.icon-wrench 
         Fix These Errors
+
+#feedback_dialog
+  .before-submit
+    If you're dissatisfied with scan results, please describe your complains here:
+    = form_for ReportFeedback.new, url: submit_report_feedback_path, remote: true, html: {class: "enable_sync" , :"data-type" => "json", id: 'feedback_form'} do |f|
+      = hidden_field_tag :report_ident, @report.ident
+      = f.text_area :message, rows: 5, class: 'input-xxlarge'
+  .after-submit
+    Thank you!
+
 
 :javascript
   jQuery(function($) {
@@ -142,6 +155,49 @@
     }
 
    });
+
+   $('#feedback_dialog').dialog({
+     width: 500,
+     autoOpen: false,
+     show: {effect: "fade", duration: 150 },
+     hide: {effect: "fade", duration: 150 },
+     buttons: [
+       {
+         text: "Close",
+         class: 'btn btn-info',
+         click: function() {
+           $( this ).dialog('close');
+         }
+       },
+       {
+         text: "Submit",
+         class: 'btn btn-info submit',
+         click: function() {
+            $('#feedback_form').submit();
+         }
+       }
+     ]
+   });
+
+   $('#feedback_button').click(function () {
+      $('#feedback_dialog').parent('.ui-dialog').find('.btn.submit').show();
+      $('#feedback_dialog .after-submit').hide();
+      $('#feedback_dialog .before-submit').show();
+      $('#feedback_dialog').dialog('open');
+
+   });
+
+   $("#feedback_form").on("ajax:success", function(e, data, status, xhr) {
+      $('#feedback_dialog .before-submit').hide();
+      $('#feedback_dialog .after-submit').fadeIn();
+      $('#feedback_dialog').parent('.ui-dialog').find('.btn.submit').hide();
+   }).on("ajax:error", function(e, xhr, status, error) {
+    alert('Error occured during form submission. Try again please');
+   });
+
+
+
+
   });
 -#
   %table.table.table-striped

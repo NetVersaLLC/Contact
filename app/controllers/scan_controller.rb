@@ -49,9 +49,16 @@ class ScanController < ApplicationController
 
   def show
     @report = Report.where(:ident => params[:id]).first
-    respond_to do |format| 
-      format.html { render 'show', layout: current_user ? "application" : "scan"} 
-    end 
+    respond_to do |format|
+      format.html { render 'show', layout: current_user ? "application" : "scan"}
+    end
+  end
+
+  def submit_feedback
+    report = Report.where(:ident => params[:report_ident]).first
+    return head :bad_request if report.nil?
+    feedback = ReportFeedback.create(params[:report_feedback].merge({:report_id => report.id}))
+    render :json => {:status => 'success'}
   end
 
   def email

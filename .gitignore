@@ -12,7 +12,7 @@ public/system/
 /db/schema.rb
 /config/database.yml
 /config/scanserver.yml
-/config/initializers/beanstalkd.rb
+/config/sugarcrm.yml
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
@@ -111,5 +111,4 @@ captchas/uploads
 
 # Ignore Splatr.exe
 /labels/Splatr/Setup.exe
-
 

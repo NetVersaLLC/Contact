@@ -73,6 +73,7 @@ Contact::Application.routes.draw do
   resources :users
   resources :accounts
   resources :reports, :except => [:edit, :update]
+  resources :report_feedbacks, :except => [:edit, :update]
   resources :dashboard, :only => [:index]
   resources :questions
 
@@ -93,6 +94,7 @@ Contact::Application.routes.draw do
   post    '/scanner/email', :controller => :scan, :action => :email
   post    '/scanner/send', :controller => :scan, :action => :send_email
   get     '/scan/:id',      :controller => :scan, :action => :show
+  post    '/scan/submit_feedback',  :controller => :scan, :action => :submit_feedback, :as => :submit_report_feedback
 
   get     '/test/exception', :controller => :test, :action => :exception
 
@@ -119,6 +121,7 @@ Contact::Application.routes.draw do
   
   get     '/leads', :controller => :leads, :action => :show
   post    '/leads', :controller => :leads, :action => :create
+
 
   post    '/scanapi/:action', :controller => :scan_api
 

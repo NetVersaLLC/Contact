@@ -35,4 +35,25 @@ describe ScanController do
       response.should be_success
     end
   end
+
+  describe "GET #show" do
+    it "should work without errors" do
+      report = FactoryGirl.create(:report, :status => 'completed')
+      get :show, :id => report.ident
+      response.should be_success
+    end
+  end
+
+  describe "POST #submit_feedback" do
+    it "should not work when report id is not provided" do
+      post :submit_feedback, :report_feedback => {:message => "i dont like it"}
+      response.should_not be_success
+    end
+
+    it "should work when message and report ident data provided" do
+      report = FactoryGirl.create(:report, :status => 'completed')
+      post :submit_feedback, :report_ident => report.ident, :report_feedback => {:message => "i dont like it"}
+      response.should be_success
+    end
+  end
 end
