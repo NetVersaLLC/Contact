@@ -12,6 +12,8 @@ class UsersController < InheritedResources::Base
     @users = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10)
   end   
 
+
+
   def update 
     @user = User.find(params[:id])
     authorize! :update, @user

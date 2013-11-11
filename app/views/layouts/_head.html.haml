@@ -15,21 +15,11 @@
   /[if lte IE 8]
     %link(rel="stylesheet" href="/assets/ace-ie.min.css")
 
-
   /[if lt IE 9]
     %script(src="assets/html5shiv.js")
     %script(src="assets/respond.min.js")
 
-  /[if !IE]
-    %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"}
-  /[if IE]
-    %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"}
-  /[if !IE]
-    %script{:type => "text/javascript"}
-      window.jquery || document.write("<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js'>"+"<"+"/script>");
-  /[if IE]
-    %script{:type => "text/javascript"}
-      window.jquery || document.write("<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js'>"+"<"+"/script>");
+  %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"}
   %script{:type => "text/javascript"}
     if("ontouchend" in document) document.write("<script src='assets/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 
