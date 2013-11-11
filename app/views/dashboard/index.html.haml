@@ -2,11 +2,11 @@
   =render "index_admin"
 -else 
   .row 
-    .col-xs-12.col-sm-5
+    .col-xs-5
       -@dashboard.alerts.each do |alert|
         = render partial: alert.to_s 
 
-    .col-xs-12.col-sm-4 
+    .col-xs-4
       %table.table.table-striped.table-bordered
         %tbody
           %tr
@@ -20,7 +20,7 @@
             %td= @dashboard.is_client_downloaded ? "Yes" : "No"
 
   - unless current_user.reseller?
-    .col-xs-12.col-sm-3 
+    .col-xs-3 
       =link_to new_business_download_path(@dashboard.business), class: "btn btn-grey btn-block" do 
         %i.icon-download-alt.bigger-230
         Get Sync Client
