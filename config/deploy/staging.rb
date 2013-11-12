@@ -4,4 +4,4 @@ server 'staging.netversa.com', :app, :web, :db, :primary => true
 
 desc 'Restarting daemons'
 after 'deploy:migrations',  'daemons:stop'
-after 'daemons:stop',  'daemons:start'
+#after 'daemons:stop',  'daemons:start'
