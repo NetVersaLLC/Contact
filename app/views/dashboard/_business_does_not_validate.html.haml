@@ -1,0 +1,8 @@
+.alert.alert-danger 
+  %p
+    %strong Yikes!
+    You need to update your business information before it can be synced.  The profile is incompleted or contains invalid information.
+  %p 
+    =link_to edit_business_path(@dashboard.business), class: "btn btn-sm btn-danger" do 
+      %i.icon-edit
+      Update Business
