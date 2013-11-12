@@ -1,7 +1,6 @@
 Contact::Application.routes.draw do
+
   resources :customers
-
-
   resources :labels
   resources :coupons
 
@@ -15,10 +14,9 @@ Contact::Application.routes.draw do
 
   get    '/admin', :controller => :payloads, :action => :index
 
-  get    '/packages/:id(.:format)', :controller => :packages, :action => :index
-  delete '/packages/:id(.:format)', :controller => :packages, :action => :destroy
-  post   '/packages/:id(.:format)', :controller => :packages, :action => :create
+  resources :packages
   post   '/packages/:id/reorder(.:format)', :controller => :packages, :action => :reorder
+
   resources :google_categories
 
   devise_for :users,
@@ -76,6 +74,7 @@ Contact::Application.routes.draw do
   resources :report_feedbacks, :except => [:edit, :update]
   resources :dashboard, :only => [:index]
   resources :questions
+  resources :booboos
 
   resources :jobs,  except: [:show]
   get     '/jobs/list(.:format)', :controller => :jobs,   :action => :list

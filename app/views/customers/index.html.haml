@@ -32,7 +32,11 @@
           %td= customer.is_client_downloaded?
           %td= link_to 'Show', customer
           %td= link_to 'Edit', edit_business_path(customer)
-          %td= link_to 'Impersonate', new_impersonation_path(customer)
+          %td
+            -if customer.user.present? 
+              =link_to 'Impersonate', new_impersonation_path(customer.user)
+            - else 
+              No Owner Assigned
 
   .row 
     .col-xs-5
