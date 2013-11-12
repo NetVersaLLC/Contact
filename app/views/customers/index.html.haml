@@ -1,20 +1,44 @@
 %h1 Listing customers
 
-%table
-  %tr
-    %th Name
-    %th Client checkin
-    %th Is Client Downloaded
-    %th
-    %th
-    %th
+.widget-box 
+  .widget-header 
+    %h4 Search 
+  .widget-body
+    .widget-main
+      =search_form_for @q, url: customers_path, lass:"form-search" do |f|
+        .input-group
+          =f.text_field :business_name_cont,  placeholder: "Business Name", class: "form-control"
+          %span.input-group-btn
+            %button.btn.btn-purple.btn-sm
+              Search
+              %i.icon-search.icon-on-right.bigger-110
 
-  - @customers.each do |customer|
-    %tr
-      %td
-        = link_to customer.business_name, edit_business_path(customer)
-      %td= (customer.client_checkin.nil? ? 'No' : 'Yes')
-      %td= customer.is_client_downloaded?
-      %td= link_to 'Show', customer
-      %td= link_to 'Edit', edit_business_path(customer)
-      %td= link_to 'Impersonate', new_impersonation_path(customer)
+.dataTables_wrapper
+  %table.table.table-striped.table-bordered.table-hover.dataTable
+    %thead
+      %tr
+        %th Name
+        %th Client checkin
+        %th Is Client Downloaded
+        %th
+        %th
+        %th
+    %tbody 
+      - @customers.each do |customer|
+        %tr
+          %td
+            = link_to customer.business_name, edit_business_path(customer)
+          %td= (customer.client_checkin.nil? ? 'No' : 'Yes')
+          %td= customer.is_client_downloaded?
+          %td= link_to 'Show', customer
+          %td= link_to 'Edit', edit_business_path(customer)
+          %td= link_to 'Impersonate', new_impersonation_path(customer)
+
+  .row 
+    .col-xs-5
+      .dataTables_info
+        = page_entries_info @customers
+    .col-xs-7
+      .dataTables_paginate.paging_bootstrap
+        = will_paginate @customers, previous_label: "<", next_label: ">", inner_window: 1, outer_window: 1
+
