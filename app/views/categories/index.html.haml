@@ -1,36 +1,34 @@
 %h1
   = @business.business_name
-%h1 Category: #{@business.category1}
-%h3 Categorized: #{@message}
+%h3 Categorized: #{@categorized}
+%h1
+  Category: 
+  %span#category_main
+    = @category
+%button.btn.btn-warning#show_allcategories
+  Reset All Categories
+%br
+%br
+
+:css
+  #category_main {
+    color: #A00;
+  }
+  .category_selected {
+    color: #00A;
+  }
 
 %script{:src => "/assets/active_admin_categories.js"}
-%form{:action => '/categories', :method => 'post', :id => 'categoryForm'}
-  - Business.citation_list.each do |data|
-    - data[2].each do |row|
-      - if row[0] == 'select'
-        - klass = eval row[1].camelize
-        - next if klass == GoogleCategory
-        - next if klass == nil
-        %script{:src => "/categories/#{klass}.js"}
-        - category_name = ''
-        - category_id   = nil
-        - load_button = ''
-        - res = ActiveRecord::Base.connection.execute "SELECT category_id FROM client_data WHERE business_id=#{@business.id} AND category_id IS NOT NULL AND type='#{data[0]}'"
-        - res.each do |row|
-          - logger.info "Row: #{row.inspect}"
-          - category_name = klass.where(:id => row[0]).first
-          - next if category_name == nil
-          - category_name = category_name.name
-          - next if category_name == nil
-          - category_id   = row[0]
-          - load_button = '<input type="button" onclick="window.loadCategory(\''+klass.to_s+'\')" value="Select" />'
-        %div{:class => 'category_show'}
-          %h2
-            = klass.to_s
-          %h3{:id => "title_#{klass.to_s}"}
-            = raw category_name + load_button
-          %input{:type => 'hidden', :name => "category[#{klass.to_s}]", :id => "category_#{klass.to_s}", :value => category_id}
-          %div{:class => 'selector', :id => "selector_#{klass.to_s}"}
-        %br
-  %input{:type => :hidden, :id => 'business_id', :name => 'business_id', :value => @business.id}
-  %input{:type => :submit, :value => 'Submit'}
+%form#categoryForm{:action => '/categories', :method => 'post'}
+  %input#business_id{:type => :hidden, :name => 'business_id', :value => @business.id}/
+  - @categories.each do |row|
+    - klass, js, loadButton, category_id = *row
+    %script{:src => "/categories/#{klass}.js"}
+    %div{:class => 'category_show'}
+      %h2= klass.to_s
+      %h3.category_selected{:id => "title_#{klass}"}
+      = raw loadButton
+      %input{:type => 'hidden', :name => "category[#{klass}]", :id => "category_#{klass}", :value => category_id}
+      %div{:class => 'selector', :id => "selector_#{klass}"}
+  %input.btn.btn-info{:type => :submit, :value => 'Submit Categories'}
+
