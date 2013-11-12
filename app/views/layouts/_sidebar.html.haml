@@ -18,26 +18,16 @@
       = link_to accounts_url do  
         %i.icon-list 
         %span.menu-text Accounts
-    - if current_user.reseller?
-      -# We do not want ordinary users to be able to manage their subscription.
-      %li.closed 
-        %a.dropdown-toggle{ href: '#'}
-          %i.icon-edit
-          %span.menu-text Billing 
-        %ul.submenu
-          %li
-            = link_to subscriptions_path do 
-              %i.icon-double-angle-right
-              Subscription
-          %li
-            %a{href:'#'} 
-              %i.icon-double-angle-right
-              Invoice 
     -if can? :manage, Coupon
       %li
         %a{ href: '/coupons'}
           %i.icon-barcode
           %span.menu-text Coupons
+    -if current_user.reseller?
+      %li
+        %a{ href: '/customers'}
+          %i.icon-group
+          %span.menu-text Customers
     %li 
       %a.dropdown-toggle{ href: '#'}
         %i.icon-list-alt
@@ -77,6 +67,8 @@
           =link_to reports_path do 
             %i.icon-double-angle-right
             Scan Reports
+    -if current_user.reseller?
+      = render "layouts/sidebar_reseller"
     = render "layouts/sidebar_admin"
   .sidebar-collapse#sidebar-collapse
     %i.icon-double-angle-left

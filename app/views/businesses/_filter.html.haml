@@ -15,7 +15,7 @@
       .widget-body
         .widget-main
           =search_form_for @q do |f|
-            .row
+            -#.row
               .col-md-12
                 =f.text_field :tags_cont, placeholder: "Tags", class: "form-control"
             %br

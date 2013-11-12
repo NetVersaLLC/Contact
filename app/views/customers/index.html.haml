@@ -18,26 +18,31 @@
     %thead
       %tr
         %th Name
-        %th Client checkin
-        %th Is Client Downloaded
+        %th Client Checked In
+        %th Client Downloaded
         %th Categorized?
+        %th Subscription
         %th
         %th
         %th
-        %th
+        %th 
     %tbody 
       - @customers.each do |customer|
         %tr
           %td
             = link_to customer.business_name, edit_business_path(customer)
           %td= (customer.client_checkin.nil? ? 'No' : 'Yes')
-          %td= customer.is_client_downloaded?
-          %td= (customer.categorized ? 'Yes' : 'No')
+          %td= customer.is_client_downloaded? ? 'Yes':'No'
+          %td= customer.categorized? ? 'Yes' : 'No'
+          %td= customer.subscription.present? && customer.subscription.active ? "Active":"Inactive"
           %td= link_to 'Show', customer
           %td= link_to 'Edit', edit_business_path(customer)
           %td= link_to 'Categorize', "/categories?business_id=#{customer.id}"
-          %td= link_to 'Impersonate', new_impersonation_path(customer.user)
-
+          %td
+            -if customer.user.present? 
+              =link_to 'Impersonate', new_impersonation_path(customer.user)
+            - else 
+              No Owner Assigned
   .row 
     .col-xs-5
       .dataTables_info
