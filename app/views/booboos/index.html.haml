@@ -1,0 +1,34 @@
+-if @booboos.empty? 
+  .alert.alert-success 
+    No booboos were found. 
+-else 
+.dataTables_wrapper
+  %table.table.table-striped.table-bordered.table-hover.dataTable
+    %thead
+      %tr
+        %th Name
+        %th Message
+        %th Date
+        %th 
+    %tbody 
+      - @booboos.each do |booboo|
+        %tr
+          %td= booboo.business.present? ? booboo.business.business_name : "Not found"
+          %td
+            %a.popit{href: "#", data: { container: "body", toggle: "popover", content: booboo.message }}= truncate(booboo.message, length: 30)
+          %td= booboo.created_at
+          %td
+            =link_to booboo,  method: :delete, confirm: "Are you sure?", class: "btn btn-xs btn-danger" do 
+              %i.icon-trash.bigger-120
+  .row 
+    .col-xs-5
+      .dataTables_info
+        = page_entries_info @booboos
+    .col-xs-7
+      .dataTables_paginate.paging_bootstrap
+        = will_paginate @booboos, previous_label: "<", next_label: ">", inner_window: 1, outer_window: 1
+
+                
+:javascript
+  $('.popit').popover({trigger: 'hover'}); 
+

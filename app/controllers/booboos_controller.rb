@@ -6,7 +6,7 @@ class BooboosController < InheritedResources::Base
 
   def index 
      @q = Booboo.includes(:business).search(params[:q])
-     @booboos = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10)
+     @booboos = @q.result.order("id desc").accessible_by(current_ability).paginate(page: params[:page], per_page: 20)
   end
 
 end 
