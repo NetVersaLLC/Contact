@@ -20,6 +20,8 @@
         %th Name
         %th Client checkin
         %th Is Client Downloaded
+        %th Categorized?
+        %th
         %th
         %th
         %th
@@ -30,9 +32,11 @@
             = link_to customer.business_name, edit_business_path(customer)
           %td= (customer.client_checkin.nil? ? 'No' : 'Yes')
           %td= customer.is_client_downloaded?
+          %td= (customer.categorized ? 'Yes' : 'No')
           %td= link_to 'Show', customer
           %td= link_to 'Edit', edit_business_path(customer)
-          %td= link_to 'Impersonate', new_impersonation_path(customer)
+          %td= link_to 'Categorize', "/categories?business_id=#{customer.id}"
+          %td= link_to 'Impersonate', new_impersonation_path(customer.user)
 
   .row 
     .col-xs-5

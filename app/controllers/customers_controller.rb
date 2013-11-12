@@ -8,8 +8,8 @@ class CustomersController < InheritedResources::Base
     raise "Not allowed" if current_user.label_id != current_label.id
     raise "Not allowed" unless current_user.reseller?
 
-     @q = Business.order("business_name asc").search(params[:q])
-     @customers = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10)
+    @q = Business.order("business_name asc").search(params[:q])
+    @customers = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10)
   end
 
   private

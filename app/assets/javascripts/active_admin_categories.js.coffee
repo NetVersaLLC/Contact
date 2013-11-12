@@ -50,3 +50,7 @@ window.loadCategory = (model)->
 
 $(document).ready ()->
   $('#categoryForm').append('<input type="hidden" name="authenticity_token" value="'+$('meta[name="csrf-token"]').attr('content')+'" />')
+  $('#show_allcategories').click ()->
+    $('input[type="button"]').click()
+  $('.selectormatic').click ()->
+   console.log($(this).attr('data-model') )
