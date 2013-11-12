@@ -1,5 +1,7 @@
 -if current_user.admin?
   =render "index_admin"
+- if current_user.reseller? 
+  =render "index_reseller"
 -else 
   .row 
     .col-xs-4
