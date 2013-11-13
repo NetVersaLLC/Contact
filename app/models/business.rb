@@ -6,6 +6,7 @@ class Business < ActiveRecord::Base
   include Business::FormMethods
   include Business::MiscMethods
 
+  serialize :temporary_draft_storage
   # Associations
 
   #has_attached_file :logo, :styles => { :thumb => '100x100>', :medium => '240x240>' }

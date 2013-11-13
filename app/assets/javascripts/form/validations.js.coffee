@@ -1,10 +1,5 @@
 
 $ ->
-  $('#location-wizard').ace_wizard()
-    .on 'finished', -> 
-      $(".edit_business, .new_business").submit()
-    .on 'change', (e, info) -> 
-      return $(".edit_business, .new_business").valid()
 
   validation_rules =  
     "business[contact_first_name]":  
