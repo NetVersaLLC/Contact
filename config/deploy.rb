@@ -22,7 +22,11 @@ set :repository , 'git@github.com:NetVersaLLC/Contact.git'
 set :user       , 'ubuntu'
 set :use_sudo   , false
 set :ssh_options, {:forward_agent => true}
-ssh_options[:keys] = [File.join(ENV["HOME"], ".ssh", "id_rsa_netversa"),File.join(ENV["HOME"], ".ssh", "id_rsa")] 
+ssh_options[:keys] = [File.join(ENV["HOME"], ".ssh", "id_rsa_netversa"),File.join(ENV["HOME"], ".ssh", "id_rsa")]
+
+after 'deploy:migrations' do
+  print 'hello world'
+end
 
 namespace :deploy do
   desc 'Running migrations'
@@ -63,6 +67,7 @@ task :after_update_code do
     run "ln -s #{shared_path}/#{share} #{release_path}/#{share}"
   end
 end
+
 
 after 'deploy'           , 'deploy:migrations'
 after 'deploy:migrations', 'deploy:assets'
