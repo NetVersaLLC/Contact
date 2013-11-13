@@ -11,3 +11,7 @@ This application is the core system software. It's a Rails application (obviousl
 You WILL need a dump of the production or staging database to bootsrap this software. There are pivotal issues to update seeds, making this easier to setup is definitely worth working on.
 
 You should be provided with an EC2 instance already configured and setup. If not, please complain to Jonathan.
+
+== Other Information
+
+Check out the QNA document in this repo to get payload questions answered.
