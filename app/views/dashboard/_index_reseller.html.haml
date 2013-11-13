@@ -1,0 +1,31 @@
+%h1 Reseller
+
+.row
+  .col-xs-6
+    - if @scan_reports.empty? 
+      .alert.alert-success 
+        No scan reports have been requested. 
+    - else 
+      %table.table.table-bordered.table-striped
+        %legend Scans Requested
+        %thead 
+          %tr
+            %td Request Date
+            %td Scans Requested
+        %tbody
+          - @scan_reports.each do |report| 
+            %tr
+              %td= report["date"]
+              %td= report["count"]
+  .col-xs-6
+    %table.table.table-bordered
+      %legend Statistics
+      %tbody
+        %tr
+          %td 
+            %strong Active Subscriptions
+          %td= current_label.subscriptions.where(active: true).count()
+        %tr
+          %td 
+            %strong Monthly Fees
+          %td= number_to_currency(current_label.subscriptions.where(active: true).sum(:monthly_fee) / 100.0)

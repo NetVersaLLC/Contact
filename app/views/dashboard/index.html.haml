@@ -1,32 +1,45 @@
 -if current_user.admin?
   =render "index_admin"
+- elsif current_user.reseller? 
+  =render "index_reseller"
 -else 
   .row 
-    .col-xs-12.col-sm-5
+    .col-xs-4
       -@dashboard.alerts.each do |alert|
         = render partial: alert.to_s 
 
-    .col-xs-12.col-sm-4 
+    .col-xs-4
       %table.table.table-striped.table-bordered
         %tbody
           %tr
             %td Client Check In 
             %td= @dashboard.client_checkin.nil? ? "Never" : time_ago_in_words( @dashboard.client_checkin ) + " ago"
           %tr
-            %td Last Sync 
-            %td Never 
+            - if @dashboard.task.nil?
+              %td Last Sync 
+              %td Never
+            - elsif @dashboard.task.completed_at.nil? 
+              %td Last Sync Started
+              %td=time_ago_in_words(@dashboard.task.created_at) + " ago"
+            -else 
+              %td Last Sync Completed
+              %td=time_ago_in_words(@dashboard.task.completed_at) + " ago"
           %tr
             %td Client Downloaded
             %td= @dashboard.is_client_downloaded ? "Yes" : "No"
 
-    .col-xs-12.col-sm-3 
-      =link_to new_business_download_path(@dashboard.business), class: "btn btn-grey btn-block" do 
-        %i.icon-download-alt.bigger-230
-        Get Sync Client
-      %a.btn.btn-info.btn-block
-        %i.icon-refresh.bigger-230
-        Sync
-      %a.btn.btn-primary.btn-block
-        %i.icon-download-alt.bigger-230
-        Support Ticket
+    - unless current_user.reseller?
+      .col-xs-4
+        =link_to new_business_download_path(@dashboard.business), class: "btn btn-grey btn-block" do 
+          %i.icon-download-alt.bigger-230
+          Get Sync Client
+        - if @dashboard.sync_available?
+          =form_for Task.new do |f|
+            = hidden_field_tag :business_id, @dashboard.business.id
+            %button.btn.btn-info.btn-block{ type: "submit"}
+              %i.icon-refresh.bigger-230
+              Sync
+        %a.btn.btn-primary.btn-block{ href: '/support' }
+          %i.icon-question.bigger-230
+          Support Ticket
 

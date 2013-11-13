@@ -47,7 +47,7 @@ Contact::Application.configure do
   # how much time to wait before considering scan as failed
   config.scan_task_fail_interval = 30.seconds
 
-
+  config.cache_store = :memory_store
 
   config.paperclip_defaults = {
     :storage => :s3,
@@ -55,4 +55,5 @@ Contact::Application.configure do
     :bucket => 'netversa',
     :s3_credentials => Rails.root.join( "config", "s3.yml")
   }
+  config.action_controller.perform_caching = true
 end

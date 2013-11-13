@@ -8,6 +8,10 @@ class Linkedin < ClientData
 #            :presence => true
 
 
+  def has_categories? 
+    false
+  end 
+
   def self.check_email(business)
     @link = nil
     CheckMail.get_link(business) do |mail|

@@ -11,7 +11,7 @@
   %tr
     %td Monthly Fee
     %td 
-      = number_to_currency(@subscription.monthly_fee)
+      = number_to_currency((@subscription.monthly_fee||0) / 100.0)
   %tr
     %td Started
     %td

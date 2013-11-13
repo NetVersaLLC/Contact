@@ -2,6 +2,7 @@ class Report < ActiveRecord::Base
   attr_accessible :business, :business_id, :completed_at, :name, :phone, :site, :started_at, :zip, :label_id
   has_many :scans
   belongs_to :label
+  #belongs_to :business   CANT ASSOCIATE BECAUSE OF BUSINESS ATTRIBUTE
 
   def create_scan_tasks
     if self.status == 'started'
@@ -22,9 +23,18 @@ class Report < ActiveRecord::Base
 
     Delayed::Worker.logger.info "Ending performance: #{Time.now.iso8601}"
 
-
     self
   end
+
+  def status_percentages
+    total = scans.count.to_f
+
+    listed = (( scans.listed.count.to_f / total) * 100.0).round(1)
+    claimed = (( scans.claimed.count.to_f / total) * 100.0).round(1)
+    unlisted = 100.0 - listed - claimed 
+    [claimed, listed, unlisted]
+  end 
+
 
   def self.generate(business, zip, phone, package_id, ident, label, email, referral)
     report = self.create do |r|

@@ -3,6 +3,7 @@ class TasksController < ApplicationController
   # skip_before_filter :verify_authenticity_token
   def create
     business = Business.find(params[:business_id]) 
+    authorize! :update, business
 
     # if they been paying their bill
     if business.label.funds_available > 0.0

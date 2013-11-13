@@ -29,6 +29,9 @@
         -elsif alert
           .alert.alert-danger
             = flash[:alert]
+      -if notice
+        .alert.alert-success
+          = flash[:notice]
       = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
         %fieldset 
           %label.block.clearfix
@@ -53,48 +56,7 @@
         %a.forgot-password-link( href="#" onclick="show_box('forgot-box'); return false;")
           %i.icon-arrow-left
           I forgot my password
-      -#%div
-        %a.user-signup-link( href="#" onclick="show_box('signup-box'); return false;")
-          I want to register
-          %i.icon-arrow-right
-
--#
-        = f.semantic_errors
-        = f.inputs do
-          .control-group
-            %label 
-            - if params[:user]
-              - if params[:user][:email] == "" && params[:user][:password] == ""
-                .controls.alert.alert-error.span4
-                  = "Email and password can't be blank."
-              - elsif params[:user][:email] == ""
-                .controls.alert.alert-error.span4
-                  = "Email can't be blank."
-              - elsif params[:user][:password] == ""
-                .controls.alert.alert-error.span4
-                  = "Password can't be blank."
-              - elsif !params[:user][:email].match(/\A[^@]+@([^@\.]+\.)+[^@\.]+\z/.to_s)
-                .controls.alert.alert-error.span4
-                  = "Email is invalid."
-              - elsif params[:failure_reason] == :not_found_in_database
-                .controls.alert.alert-error.span4
-                  = "Account not registered. "
-                  =# link_to "Sign up here!", new_user_registration_path
-              -elsif params[:failure_reason] == :invalid
-                .controls.alert.alert-error.span4
-                  = "Account registered. "
-                  = link_to "Forgot your password?", new_user_password_path
-              -elsif alert
-                .controls.alert.alert-error.span4
-                  = flash[:alert]
-          = f.input :email
-          = f.input :password, hint:"Enter password"
-        -if devise_mapping.rememberable?
-          = f.input :remember_me, :as => :boolean, :class => 'span4'
-        = f.actions do
-          = f.action :submit, :as => :button, :label => 'Sign In', :button_html => {:class => "btn btn-primary"}
-        = f.validate :email, :password 
-        = f.validate :email, :uniqueness => false 
-
-  = render :partial => "devise/shared/links"
-
+    -#%div
+      %a.user-signup-link( href="#" onclick="show_box('signup-box'); return false;")
+        I want to register
+        %i.icon-arrow-right

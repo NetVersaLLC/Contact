@@ -62,13 +62,13 @@ class Ability
       can :manage, Account, :business => { :user_id => user.id }
       can :read,   Coupon
       can [:read,:update], Label, :id => user.label_id
-      can :read,   Location
-      can :read,   Package
+      can :read,   [Location, Package, Question, Site]
       can :read,   PackagePayload
-      can :read,   Question
       can :manage, Notification, :business => { :user_id => user.id }
       can :manage, Download
       can :manage, Task, :business => { :user_id => user.id }
+      can :manage, Report, :business => { :user_id => user.id } 
+      can [:read, :update], User, :id => user.id
     end
   end
 end

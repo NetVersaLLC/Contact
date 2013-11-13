@@ -16,12 +16,13 @@
  * require ace-fonts
  *= require datepicker
  *= require ace.min
- *= require ace-rtl.min
+ * require ace-rtl.min
  *= require ace-skins.min
  *= require fineuploader-3.3.0
  *= require jquery.gritter
  *= require codes
  *= require colorbox
+ *= require accounts
  *= require businesses
  *= require jquery.ui.overrides 
  *= require scan
@@ -29,6 +30,6 @@
  *= require pages
  *= require sessions
  *= require aciTree
- *= require demo
+ *
  */
 

@@ -8,7 +8,7 @@
       = render 'layouts/navbar'
     .main-container
       .main-container-inner
-        - if current_user
+        -if current_user
           = render 'layouts/sidebar'
         .main-content
           .breadcrumbs#breadcrumbs
@@ -22,11 +22,6 @@
                     %a{href:"#{eval(path.to_s)}"}= txt
                   -else 
                     =txt
-          .nav-search#nav-search 
-            %form.form-search 
-              %span.input-icon
-                %input.nav-search-input#nav-search-input(autocomplete="off" placeholder="Search ...")
-                %i.icon-search.nav-search-icon
           .page-content
             =render partial: "layouts/notice" 
             =render partial: "layouts/alert", locals: {msg: flash[:alert]} 

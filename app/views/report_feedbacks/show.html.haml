@@ -1,0 +1,17 @@
+.user-profile
+  .profile-user-info.profile-user-info-striped
+    .profile-info-row
+      .profile-info-name Actions
+      .profile-info-value
+        %a.btn.btn-xs.btn-success{ href: "/scan/#{@report_feedback.report.ident}", target: "blank"} View report
+        = link_to @report_feedback, method: :delete, class: 'btn btn-xs btn-danger', confirm: 'Are you sure?', title: 'Delete this record' do
+          Delete this record
+    .profile-info-row
+      .profile-info-name Business Name
+      .profile-info-value= @report_feedback.report.business
+    .profile-info-row
+      .profile-info-name Scan date
+      .profile-info-value= l(@report_feedback.report.created_at, format: :long)
+    .profile-info-row
+      .profile-info-name User Feedback
+      .profile-info-value= @report_feedback.message

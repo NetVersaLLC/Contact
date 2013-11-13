@@ -2,6 +2,10 @@ class Localcom < ClientData
   attr_accessible :username
   virtual_attr_accessor :password
   
+  def has_categories? 
+    false
+  end 
+
    def self.payment_methods(business)
     methods = {}
     [

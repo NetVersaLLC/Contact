@@ -2,33 +2,31 @@
   %table.table.table-striped.table-bordered.table-hover.dataTable
     %thead 
       %tr
-        %th.center
-          %input(type="checkbox")
+        %th Business Name 
         %th Address
-        %th Location Name 
         %th Phone Number 
-        %th Tags 
+        %th Owner
         %th Modify 
     %tbody 
       - @businesses.each do |business| 
         %tr
-          %td.center
-            %input(type="checkbox")
+          %td=link_to business.business_name, business 
           %td
-            =link_to business do 
-              =business.address 
-              %br/
-              ="#{business.city}, #{business.state} #{business.zip}"
-          %td= business.name
+            =business.address 
+            %br/
+            ="#{business.city}, #{business.state} #{business.zip}"
           %td= business.toll_free_phone.present? ? business.toll_free_phone : business.local_phone
-          %td= business.tags 
+          %td #{business.contact_first_name} #{business.contact_last_name} 
           %td
-            = link_to business, class: "btn btn-xs btn-success" do 
+            %a.btn.btn-xs.btn-success{:href => business_path(business)}
               %i.icon-ok.bigger-120
-            = link_to edit_business_path(business), class: "btn btn-xs btn-info" do 
+            %a.btn.btn-xs.btn-info{:href => edit_business_path(business) }
               %i.icon-edit.bigger-120
-            = link_to business, method: :delete, confirm: "Are you sure?", class: "btn btn-xs btn-danger" do 
+            %a.btn.btn-xs.btn-danger{:href => business_path(business), :method => :delete, :confirm => "Are you sure?"}
               %i.icon-trash.bigger-120
+            - if current_user.admin?
+              %a.btn.btn-xs.btn-info{:href => "/categories?business_id=#{business.id}", :title => "Edit Categories"}
+                %i.icon-align-right.bigger-120
   .row 
     .col-md-6
       .dataTables_info

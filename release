@@ -1,0 +1,5 @@
+-Subscription rates should display in dollars and cents instead of cents. 
+-Make only 1 category required
+-Fix for sign up form remove coupon button
+-Several fixes for IE8+
+-Fix for signing up with an email account that is already registered it doesn't give an error just blanks out the sign up form.

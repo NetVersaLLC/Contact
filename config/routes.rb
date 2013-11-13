@@ -1,4 +1,6 @@
 Contact::Application.routes.draw do
+
+  resources :customers
   resources :labels
   resources :coupons
 
@@ -12,10 +14,9 @@ Contact::Application.routes.draw do
 
   get    '/admin', :controller => :payloads, :action => :index
 
-  get    '/packages/:id(.:format)', :controller => :packages, :action => :index
-  delete '/packages/:id(.:format)', :controller => :packages, :action => :destroy
-  post   '/packages/:id(.:format)', :controller => :packages, :action => :create
+  resources :packages
   post   '/packages/:id/reorder(.:format)', :controller => :packages, :action => :reorder
+
   resources :google_categories
 
   devise_for :users,
@@ -29,6 +30,7 @@ Contact::Application.routes.draw do
   resources :subscriptions
   resources :payload_nodes, only: [:index, :create]
 
+  put '/businesses(.:format)/:id/save_draft', :action => "save_draft", controller: :businesses
   resources :businesses
   get    '/businesses/client_checked_in/:id',
     :controller => :businesses,
@@ -46,6 +48,7 @@ Contact::Application.routes.draw do
 
   resources :notifications
 
+  get     '/businesses/:business_id/accounts/categorize', :action=>"categorize", :controller=>"accounts"
   resources :businesses do
     resources :accounts, :only => [:edit, :update, :create]
     resources :codes, :only => [:new, :create]
@@ -69,6 +72,7 @@ Contact::Application.routes.draw do
   resources :users
   resources :accounts
   resources :reports, :except => [:edit, :update]
+  resources :report_feedbacks, :except => [:edit, :update]
   resources :dashboard, :only => [:index]
   resources :questions
 
@@ -81,6 +85,7 @@ Contact::Application.routes.draw do
 
   get     '/categories(.:format)', :controller => :categories, :action => :index
   get     '/categories/:id(.:format)', :controller => :categories, :action => :show
+  get     '/categories/:site/selectoptions(.:format)', :controller => :categories, :action => :selectoptions
   post    '/categories(.:format)', :controller => :categories, :action => :create
 
   post    '/scanner/start', :controller => :scan, :action => :start
@@ -88,6 +93,7 @@ Contact::Application.routes.draw do
   post    '/scanner/email', :controller => :scan, :action => :email
   post    '/scanner/send', :controller => :scan, :action => :send_email
   get     '/scan/:id',      :controller => :scan, :action => :show
+  post    '/scan/submit_feedback',  :controller => :scan, :action => :submit_feedback, :as => :submit_report_feedback
 
   get     '/test/exception', :controller => :test, :action => :exception
 
@@ -114,6 +120,7 @@ Contact::Application.routes.draw do
   
   get     '/leads', :controller => :leads, :action => :show
   post    '/leads', :controller => :leads, :action => :create
+
 
   post    '/scanapi/:action', :controller => :scan_api
 

@@ -6,6 +6,7 @@ class Business < ActiveRecord::Base
   include Business::FormMethods
   include Business::MiscMethods
 
+  serialize :temporary_draft_storage
   # Associations
 
   #has_attached_file :logo, :styles => { :thumb => '100x100>', :medium => '240x240>' }
@@ -24,9 +25,11 @@ class Business < ActiveRecord::Base
   has_many :notifications, dependent: :delete_all  #belongs_to not there in notification.rb
   has_many :images, dependent: :delete_all         #belongs_to not there in image.rb
   has_many :tasks
+  has_many :client_data, class_name: "ClientData"
 
   attr_accessible :images_attributes
   accepts_nested_attributes_for :images, allow_destroy: true
+  accepts_nested_attributes_for :client_data, allow_destroy: true
 
   # Triggers -> moved to BusinessObserver
 

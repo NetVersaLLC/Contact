@@ -62,37 +62,6 @@ check_fields =()->
   if $('#password_confirmation').val() == ""
     $('#password_confirmation').focus()
 
-###formValidates = ()->
-  $('#errors').html('')
-  $('#new_user input, #new_user select').css 'border-color','#CCC'
-  error = false
-  console.log($('#card_month').val(), $('#card_year').val())
-  errors = []
-  if $("[name='amount_total']").val() != '0' 
-    if $('#card_number').val() == ""
-      errors.push formElement($.payment.validateCardNumber($('#card_number').val()), "Card number", "Please Enter a Valid Card number", "card_number")
-    else
-      errors.push formElement($.payment.validateCardNumber($('#card_number').val()), "Card number", "Card number is not valid", "card_number")
-    errors.push formElement($.payment.validateCardExpiry($('#card_month').val(), $('#card_year').val()), "Expiration date", "Card expiration is invalid", "card_month")
-    if $('#cvv').val() == ""
-      errors.push formElement($.payment.validateCardCVC($('#cvv').val()), "CVV", "CVV is required", 'cvv')
-    else
-      errors.push formElement($.payment.validateCardCVC($('#cvv').val()), "CVV", "CVV is invalid", 'cvv')
-    errors.push requiredElement('name', 'Name')
-  errors.push requiredElement('email', 'Email')
-  if $('#password').length > 0
-    errors.push requiredElement('password', 'Password')
-    errors.push requiredElement('password_confirmation', 'Password Confirmation')
-  unless ($('#user_tos').is(':checked'))
-    addMessage("Terms of Service", "You must agree to the terms of service")
-    errors.push false
-  validates = true
-  $.each errors, (i,e)->
-    console.log(e)
-    if e == false
-      validates = false
-  validates
-###
 process_coupon = () -> 
   url = '/users/sign_up/process_coupon?package_id=' + $('#package_id').val() + '&coupon=' + $('#coupon').val()
   $('#billing-summary').load url, () ->
@@ -104,7 +73,7 @@ process_coupon = () ->
 
 reset_coupon = () -> 
   url = '/users/sign_up/process_coupon' + location.search 
-  $('#billing_summary').load url, () ->
+  $('#billing-summary').load url, () ->
     $('#addCoupon').click () -> 
       process_coupon()
 
@@ -166,20 +135,6 @@ window.registerCheckoutHooks = ()->
       $(e).remove()
 
     errorPlacement: (error, element) ->
-      console.log "error placement"
-      ###if(element.is(':checkbox') || element.is(':radio')) 
-        controls = element.closest('div[class*="col-"]')
-        if(controls.find(':checkbox,:radio').length > 1) controls.append(error)
-        else error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0))
-
-      else if(element.is('.select2')) 
-        error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'))
-
-      else if(element.is('.chosen-select')) 
-        error.insertAfter(element.siblings('[class*="chosen-container"]:eq(0)'))
-
-      else error.insertAfter(element.parent())
-      ###
       error.insertAfter(element.parent())
     #submitHandler: (form) -> 
     #invalidHandler: (form) -> 

@@ -1,0 +1,37 @@
+.row
+  .col-xs-12
+    - if @records.blank?
+      .alert.alert-block.alert-success
+        No records were found.
+    - else
+      .dataTables_wrapper
+        %table.table.table-striped.table-bordered.table-hover
+          %thead
+            %tr
+              %th Business
+              %th Scan Date
+              %th Feedback
+              %th Submitted
+              %th Actions
+          %tbody
+            - @records.each do |r|
+              %tr
+                %td= r.report.business
+                %td
+                  %a.btn.btn-xs.btn-success{ href: "/scan/#{r.report.ident}", target: "blank"}= l(r.report.created_at, format: :short)
+
+                %td= truncate(r.message, length: 70, omission: '...')
+                %td= l(r.created_at, format: :short)
+                %td
+                  .btn-group
+                    = link_to r, method: :get, class: 'btn btn-xs', title: 'Read' do
+                      %i.icon-align-justify
+                    = link_to r, method: :delete, class: 'btn btn-xs btn-danger', confirm: 'Are you sure?', title: 'Delete record' do
+                      %i.icon-trash
+        .row
+          .col-md-6
+            .dataTables_info
+              = page_entries_info @records
+          .col-md-6
+            .dataTables_paginate.paging_bootstrap
+              = will_paginate @records, previous_label: "<", next_label: ">", inner_window: 1, outer_window: 1

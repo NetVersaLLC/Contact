@@ -9,7 +9,7 @@
         %i.icon-text-width 
         %span.menu-text Locations 
 
-    - if current_user.reseller?
+    - if can? :manage, User #current_user.reseller?
       %li 
         = link_to users_url do
           %i.icon-desktop
@@ -18,19 +18,16 @@
       = link_to accounts_url do  
         %i.icon-list 
         %span.menu-text Accounts
-    %li.closed 
-      %a.dropdown-toggle{ href: '#'}
-        %i.icon-edit
-        %span.menu-text Billing 
-      %ul.submenu
-        %li
-          = link_to subscriptions_path do 
-            %i.icon-double-angle-right
-            Subscription
-        %li
-          %a{href:'#'} 
-            %i.icon-double-angle-right
-            Invoice 
+    -if can? :manage, Coupon
+      %li
+        %a{ href: '/coupons'}
+          %i.icon-barcode
+          %span.menu-text Coupons
+    -if current_user.reseller?
+      %li
+        %a{ href: '/customers'}
+          %i.icon-group
+          %span.menu-text Customers
     %li 
       %a.dropdown-toggle{ href: '#'}
         %i.icon-list-alt
@@ -43,11 +40,6 @@
         %li
           =link_to questions_path do 
             %span.menu-text Faq
-    -if can? :read, Coupon
-      %li
-        %a{ href: '/coupons'}
-          %i.icon-barcode
-          %span.menu-text Coupons
     %li
       = link_to notifications_path do 
         %i.icon-calendar
@@ -59,7 +51,7 @@
         %i.icon-th
         %span.menu-text Network 
       %ul.submenu 
-        %li
+        -#%li
           %a{href:'#'}
             %i.icon-double-angle-right
             Health 
@@ -67,7 +59,7 @@
           =link_to sites_url do 
             %i.icon-double-angle-right
             Statistics
-        %li
+        -#%li
           %a{href:'#'}
             %i.icon-double-angle-right
             Update Timetables
@@ -75,8 +67,8 @@
           =link_to reports_path do 
             %i.icon-double-angle-right
             Scan Reports
+    -if current_user.reseller?
+      = render "layouts/sidebar_reseller"
     = render "layouts/sidebar_admin"
   .sidebar-collapse#sidebar-collapse
     %i.icon-double-angle-left
-
-

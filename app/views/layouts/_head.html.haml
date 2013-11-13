@@ -6,30 +6,34 @@
   %meta{:content => "", :name => "description"}/
   %meta{:content => "", :name => "author"}/
 
-  %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"}
-  %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"}
-  %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/file-uploader/3.7.0/fineuploader-jquery.js"}
-  
-  %script(src="//static.getclicky.com/js")
-  %script(src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js")
-
+  %link(href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet")
+  %link(href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet")
   %link(href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/css/base/minified/jquery-ui.min.css" rel="stylesheet")
-  %link(href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.no-icons.min.css" rel="stylesheet")
-  %link(href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet")
-
+  %link(href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.0/chosen.min.css" rel="stylesheet")
   %link(rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300")
-
   = stylesheet_link_tag    "application", :media => "all"
-  = javascript_include_tag "application"
-
   /[if lte IE 8]
-    %link(rel="stylesheet" href="assets/css/ace-ie.min.css")
-
-  / HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
+    %link(rel="stylesheet" href="/assets/ace-ie.min.css")
 
   /[if lt IE 9]
-    %script(src="assets/js/html5shiv.js")
-    %script(src="assets/js/respond.min.js")
+    %script(src="assets/html5shiv.js")
+    %script(src="assets/respond.min.js")
+
+  %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"}
+  %script{:type => "text/javascript"}
+    if("ontouchend" in document) document.write("<script src='assets/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+
+  /[if lte IE 8]
+    %script(src="assets/excanvas.min.js")
+
+  %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"}
+  %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/file-uploader/3.7.0/fineuploader-jquery.js"}
+  %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/chosen/1.0/chosen.jquery.min.js"}  
+  
+  %script(src="//static.getclicky.com/js")
+  %script(src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js")
+
+  = javascript_include_tag "application"
 
   -if signed_in? && current_label.css_is_set?
     = current_label.theme_css_files

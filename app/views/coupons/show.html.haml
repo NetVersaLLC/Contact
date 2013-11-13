@@ -1,0 +1,43 @@
+.row
+  .col-xs-12
+    .table-header
+      = @coupon.name
+    .table-responsive
+      %table.table.table-striped.show-table
+        %tbody 
+          %tr
+            %td Name 
+            %td= @coupon.name
+          %tr
+            %td Coupon Code 
+            %td= @coupon.code
+          %tr
+            %td Redemmed 
+            %td= @coupon.redeemed_count
+          %tr
+            %td Max Allowed
+            %td=@coupon.allowed_upto
+          %tr
+            %td Use Discount 
+            %td=@coupon.use_discount.humanize
+          %tr
+            %td Percent Sign Up 
+            %td= @coupon.percentage_off_signup 
+          %tr
+            %td Percent Off Monthly 
+            %td= @coupon.percentage_off_monthly
+          %tr
+            %td Dollars Off Sign-up 
+            %td= @coupon.dollars_off_signup 
+          %tr 
+            %td Dollars Off Monthly 
+            %td= @coupon.dollars_off_monthly
+          %tr
+            %td Created at 
+            %td= @coupon.created_at 
+          %tr
+            %td Updated at
+            %td= @coupon.updated_at
+= link_to 'Edit Coupon', edit_coupon_path(@coupon), class: "btn btn-info"
+= link_to 'All Coupons', coupons_path, class: "btn btn-success"
+

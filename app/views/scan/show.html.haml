@@ -19,14 +19,14 @@
           %dd= l(@report.updated_at, format: :long)
           %dt Report Id: 
           %dd= @report.ident
-          %dt.text-danger Unclaimed Count:
-          %dd.text-danger 5
+          %dt.text-danger Unlisted Count:
+          %dd.text-danger= @report.scans.unlisted.count
           %dt.text-warning Listed:
-          %dd.text-warning 1 
+          %dd.text-warning= @report.scans.listed.count
           %dt.text-success Listed & Claimed:
-          %dd.text-success 1
+          %dd.text-success= @report.scans.claimed.count
   .col-xs-6
-    .row
+    -#.row
       .col-xs-6
         .well
           .errorsdetected
@@ -47,6 +47,9 @@
           .widget-body
             .widget-main
               #piechart-networks
+        %a.btn.btn-info.btn-block.no-radius(href="/users/sign_up?package_id=#{@report.package_id}")
+          %i.icon-wrench 
+          Go Fix!
 %br
 =render "scans"
 .row
@@ -59,20 +62,31 @@
             %i.icon-envelope-alt.bigger-110
               Send me the report
   .col-xs-8
-    %a.btn.btn-primary.btn-large.pull-right(href="/users/sign_up?package_id=#{@report.package_id}") 
+    %a.btn.btn-info.btn-large.pull-right(id="feedback_button")
+      %i.icon-exclamation-sign
+        Report a problem
+    %a.btn.btn-info.btn-large.pull-right(href="/users/sign_up?package_id=#{@report.package_id}")
       %i.icon-wrench 
         Fix These Errors
+
+#feedback_dialog
+  .before-submit
+    If you're dissatisfied with scan results, please describe your complains here:
+    = form_for ReportFeedback.new, url: submit_report_feedback_path, remote: true, html: {class: "enable_sync" , :"data-type" => "json", id: 'feedback_form'} do |f|
+      = hidden_field_tag :report_ident, @report.ident
+      = f.text_area :message, rows: 5, class: 'input-xxlarge'
+  .after-submit
+    Thank you!
+
 
 :javascript
   jQuery(function($) {
 
     var placeholder = $('#piechart-networks').css({'width':'90%' , 'min-height':'150px'});
     var data = [
-    { label: "listed & claimed",  data: 15.7, color: "#68BC31"},
-    //{ label: "search engines",  data: 24.5, color: "#2091CF"},
-    //{ label: "ad campaigns",  data: 8.2, color: "#AF4E96"},
-    { label: "unlisted",  data: 80, color: "#DA5430"},
-    { label: "listed",  data: 4.3, color: "#FEE074"}
+    { label: "listed & claimed",  data: "#{@report.status_percentages[0]}", color: "#68BC31"},
+    { label: "unlisted",  data: "#{@report.status_percentages[2]}", color: "#DA5430"},
+    { label: "listed",  data: "#{@report.status_percentages[1]}", color: "#FEE074"}
     ]
     function drawPieChart(placeholder, data, position) {
       $.plot(placeholder, data, {
@@ -141,6 +155,49 @@
     }
 
    });
+
+   $('#feedback_dialog').dialog({
+     width: 500,
+     autoOpen: false,
+     show: {effect: "fade", duration: 150 },
+     hide: {effect: "fade", duration: 150 },
+     buttons: [
+       {
+         text: "Close",
+         class: 'btn btn-info',
+         click: function() {
+           $( this ).dialog('close');
+         }
+       },
+       {
+         text: "Submit",
+         class: 'btn btn-info submit',
+         click: function() {
+            $('#feedback_form').submit();
+         }
+       }
+     ]
+   });
+
+   $('#feedback_button').click(function () {
+      $('#feedback_dialog').parent('.ui-dialog').find('.btn.submit').show();
+      $('#feedback_dialog .after-submit').hide();
+      $('#feedback_dialog .before-submit').show();
+      $('#feedback_dialog').dialog('open');
+
+   });
+
+   $("#feedback_form").on("ajax:success", function(e, data, status, xhr) {
+      $('#feedback_dialog .before-submit').hide();
+      $('#feedback_dialog .after-submit').fadeIn();
+      $('#feedback_dialog').parent('.ui-dialog').find('.btn.submit').hide();
+   }).on("ajax:error", function(e, xhr, status, error) {
+    alert('Error occured during form submission. Try again please');
+   });
+
+
+
+
   });
 -#
   %table.table.table-striped

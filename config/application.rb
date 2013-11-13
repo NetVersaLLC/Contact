@@ -66,10 +66,10 @@ module Contact
 
     config.cache_store = :memory_store
 
-    config.middleware.use RateLimiting do |r|
-      r.define_rule(:match => '/scanner/start', :metric => :rpd, :type => :fixed, :limit => 10)
-      r.set_cache(Rails.cache) if Rails.cache.present?
-    end
+    #config.middleware.use RateLimiting do |r|
+    #  r.define_rule(:match => '/scanner/start', :metric => :rpd, :type => :fixed, :limit => 10)
+    #  r.set_cache(Rails.cache) if Rails.cache.present?
+    #end
 
 
   end

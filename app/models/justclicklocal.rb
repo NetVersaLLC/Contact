@@ -4,6 +4,10 @@ class Justclicklocal < ClientData
 #	validates :password,
 #            :presence => true
 
+  def has_categories? 
+    false
+  end 
+
 def self.coinflip
 	flip = rand(100)
 	if flip < (50)

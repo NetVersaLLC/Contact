@@ -5,6 +5,10 @@ class Manta < ClientData
             :allow_blank => true,
             :format => { :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i }
 belongs_to :manta_category
+  def has_categories? 
+    false
+  end 
+
   def self.make_password
     SecureRandom.urlsafe_base64(rand()*6 + 6)
   end

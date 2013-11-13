@@ -2,6 +2,8 @@
   .row
     .col-sm-5
       =f.label field
+      - if Business.required? field
+        *
   .row
     .col-xs-12
       - args ||= {}
