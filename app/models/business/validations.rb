@@ -8,6 +8,14 @@ module Business::Validations
       /^\d{3,12}$/
     end
 
+    validates :contact_first_name,
+      :presence => true
+    validates :contact_last_name,
+      :presence => true
+    validates :contact_gender,
+      :presence => true
+    validates :contact_prefix,
+      :presence => true
     validates :business_name,
       :presence => true
     validates :corporate_name, :length => { :maximum => 50 },

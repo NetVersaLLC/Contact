@@ -16,7 +16,7 @@
             %br/
             ="#{business.city}, #{business.state} #{business.zip}"
           %td= business.toll_free_phone.present? ? business.toll_free_phone : business.local_phone
-          %td= business.user.nil? ? "Not Assigned" : "#{business.user.first_name} #{business.user.last_name}"
+          %td #{business.contact_first_name} #{business.contact_last_name} 
           %td
             %a.btn.btn-xs.btn-success{:href => business_path(business)}
               %i.icon-ok.bigger-120
