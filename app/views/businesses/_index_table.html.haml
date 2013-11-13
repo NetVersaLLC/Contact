@@ -2,20 +2,19 @@
   %table.table.table-striped.table-bordered.table-hover.dataTable
     %thead 
       %tr
-        %th Address
         %th Business Name 
+        %th Address
         %th Phone Number 
         %th Owner
         %th Modify 
     %tbody 
       - @businesses.each do |business| 
         %tr
+          %td=link_to business.business_name, business 
           %td
-            =link_to business do 
-              =business.address 
-              %br/
-              ="#{business.city}, #{business.state} #{business.zip}"
-          %td= business.business_name
+            =business.address 
+            %br/
+            ="#{business.city}, #{business.state} #{business.zip}"
           %td= business.toll_free_phone.present? ? business.toll_free_phone : business.local_phone
           %td= business.user.nil? ? "Not Assigned" : "#{business.user.first_name} #{business.user.last_name}"
           %td
