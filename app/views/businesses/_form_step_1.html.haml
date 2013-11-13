@@ -1,6 +1,11 @@
 #step1.step-pane.active
   .row
     .col-xs-12
+      =render partial: "form_group_select", locals: { f: f, items: Business.prefix_list,  field: :contact_prefix }
+      =render partial: "form_group", locals: { f: f, field: :contact_first_name } 
+      =render partial: "form_group", locals: { f: f, field: :contact_middle_name } 
+      =render partial: "form_group", locals: { f: f, field: :contact_last_name } 
+      =render partial: "form_group_select", locals: { f: f, items: Business.gender_list,  field: :contact_gender }
       =render partial: "form_group", locals: { f: f, field: :business_name}
       =render partial: "form_group", locals: { f: f, field: :corporate_name, args: {maxlength: '50'}}
       =render partial: "form_group", locals: { f: f, field: :local_phone}

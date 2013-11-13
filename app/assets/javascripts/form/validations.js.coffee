@@ -7,6 +7,14 @@ $ ->
       return $(".edit_business, .new_business").valid()
 
   validation_rules =  
+    "business[contact_first_name]":  
+      required: true
+    "business[contact_last_name]":  
+      required: true
+    "business[contact_prefix]":  
+      required: true
+    "business[contact_gender]":  
+      required: true
     "business[business_name]":  
       required: true
     "business[corporate_name]":  
