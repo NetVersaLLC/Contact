@@ -23,7 +23,7 @@ $ ->
       phoneUS: true
     "business[toll_free_phone]":  
       phoneUS: true
-    "business[description]":  
+    "business[business_description]": 
       required: true, 
       rangelength: [50, 200]
     "business[keywords]":  
