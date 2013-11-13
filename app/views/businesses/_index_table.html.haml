@@ -2,26 +2,22 @@
   %table.table.table-striped.table-bordered.table-hover.dataTable
     %thead 
       %tr
-        %th.center
-          %input(type="checkbox")
         %th Address
-        %th Location Name 
+        %th Business Name 
         %th Phone Number 
-        %th Tags 
+        %th Owner
         %th Modify 
     %tbody 
       - @businesses.each do |business| 
         %tr
-          %td.center
-            %input(type="checkbox")
           %td
             =link_to business do 
               =business.address 
               %br/
               ="#{business.city}, #{business.state} #{business.zip}"
-          %td= business.name
+          %td= business.business_name
           %td= business.toll_free_phone.present? ? business.toll_free_phone : business.local_phone
-          %td= business.tags 
+          %td= business.user.nil? ? "Not Assigned" : "#{business.user.first_name} #{business.user.last_name}"
           %td
             %a.btn.btn-xs.btn-success{:href => business_path(business)}
               %i.icon-ok.bigger-120
