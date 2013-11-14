@@ -85,13 +85,14 @@ module Business::MiscMethods
       sub = self.subscription
       sites = []
       PackagePayload.by_package(sub.package_id).each do |obj|
-        next if obj.site == 'Utils' or obj.site == 'Test'
-        sites.push obj.site
+        next if obj == nil
+        next if obj.name == 'Utils' or obj.name == 'Test'
+        sites.push obj.name
       end
       sites = sites.uniq
       final = {}
       sites.each do |site|
-        profile = Site.where(:site => site).first
+        profile = Site.where(:name => site).first
         if profile == nil
           final[site] = {
             :id => nil,
