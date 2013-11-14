@@ -18,7 +18,6 @@ class CreditCardProcessor
       )
       ActiveMerchant::Billing::Base.mode = :test
     end
-    STDERR.puts "Got Gateway: #{@gateway.inspect}"
   end 
 
   def is_credit_card_valid? 
