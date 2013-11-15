@@ -9,8 +9,9 @@ Contact::Application.routes.draw do
   put    '/payloads/move/:id/:parent_id(.:format)', :controller => :payloads, :action => :move
   delete '/payloads/:id(.:format)', :controller => :payloads, :action => :destroy
   post   '/payloads(.:format)', :controller => :payloads, :action => :create
-  put    '/payloads/:id(.:format)', :controller => :payloads, :action => :update
-  get    '/payloads/:id(.:format)', :controller => :payloads, :action => :show
+  put    '/payloads(.:format)', :controller => :payloads, :action => :save
+  put    '/sync_to_git', :controller => :payloads, :action => :sync_to_git
+  put    '/sync_from_git', :controller => :payloads, :action => :sync_from_git
 
   get    '/admin', :controller => :payloads, :action => :index
 

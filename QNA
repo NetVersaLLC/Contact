@@ -1,6 +1,6 @@
 Q.) Is there a universal browser variable such as $browser ?
 
-It's better to create your own browser as needed and pass it as a variable to methods.
+It's better to create your own browser as needed and pass it as a variable to methods. Be sure to do your best to close the browser at the end of the script. The contact_job.rb tries to close them but it helps if we can cooperate.
 
 Q.) What's the default template for the data hash or business hash ?
 
@@ -33,5 +33,8 @@ Captcha solving can be done using Citation/lib/captcha.rb.
 
 Q.) For passwords, will the business data hash have a pointer to retrieve this for an encrypted source ?
 
+You can save passwords using self.save_account(Model, {:keys => :to_save}).
+
 Q.) Will each website have a unique password, or will the business acount do the taboo and share the same password variable over many sites?
 
+When filling out the form you should generate the password AND save it in the model before you sign up to the site.

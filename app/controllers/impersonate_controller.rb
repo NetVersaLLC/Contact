@@ -27,7 +27,7 @@ class ImpersonateController < ApplicationController
       @user = @business.user
       @info = {:status => :success, :auth_token => @user.authentication_token, :name => @business.business_name, :subscription_active => @business.subscription.active, :paused => !@business.paused_at.nil?, :categorized => @business.categorized, :payloads => @business.list_payloads}
     rescue Exception => e
-      @info = {:status => :error, :message => e.message}
+      @info = {:status => :error, :message => e.message, :backtrace => e.backtrace.join("\n")}
     end
     respond_to do |format|
       format.json { render json: @info }

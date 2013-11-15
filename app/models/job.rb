@@ -124,7 +124,7 @@ END
     self.is_now(FailedJob)
   end
 
-  def self.inject(business_id,payload,data_generator,ready = nil,runtime = Time.now)
+  def self.inject(business_id,payload,data_generator,ready = nil,runtime = Time.now, signature='')
     Job.create do |j|
       j.status         = TO_CODE[:new]
       j.status_message = 'Created'

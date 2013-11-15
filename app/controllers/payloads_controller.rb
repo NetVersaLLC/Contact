@@ -4,11 +4,11 @@ class PayloadsController < InheritedResources::Base
   # skip_before_filter :verify_authenticity_token
   skip_load_and_authorize_resource
   def index
+    @payload = Payload.by_name(params[:name])
+    render :json => @payload
   end
 
   def show
-    @payload = Payload.find(params[:id])
-    render :json => @payload
   end
 
   def tree
@@ -40,8 +40,8 @@ class PayloadsController < InheritedResources::Base
     render :json => {:status => :success, :id => @payload.id, :name => @payload.name}
   end
 
-  def update
-    @payload = Payload.find(params[:id])
+  def save
+    @payload = Payload.by_name(params[:name])
     @payload.update_attributes!(payload_params)
     render :json => {:status => :success}
   end

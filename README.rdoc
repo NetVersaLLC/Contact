@@ -1,141 +1,17 @@
 == Welcome to Contact
 
-NOTE: This introduction is not complete. Please make notes about issues you have with it and push your changes. Thanks!
-
 Contact is a collection of software designed to execute automation scripts. It is composed of a client program, a command and control server and a series of automation scripts called payloads.
 
 A single action that is performed is a "payload". When a payload is assigned to actually run for a user then it is called a "job". A "job" is a payload that needs to be executed. A job has an outcome, a payload does not. A good analogy might be a class versus an instance. A class is never executed directly, instead you deal with instances. Clients do not execute payloads, they execute jobs which keep track of the success or failure of their "payload".
 
-This codebase is the client software called Citation specifically citationCheck.rb and lib/contact_job.rb and lib/captcha.rb. These are the only significant files.
+= Codebase
 
-```
-./citationCheck.rb <auth token> <business id>
-```
+This application is the core system software. It's a Rails application (obviously) and we want to follow Rails best practices whenever possible. Please use strong parameters for your controllers and assume a move to Rails 4 soon.
 
-This makes a request to the server for /jobs.json which returns a job and a data hash. It then runs eval(job['payload']) which runs the job. If the payload returns true then the job is assumed to be a success and this result is automatically reported back to the server. If the payload returns false then the job is automatically reported as a failure to the server. Otherwise it is assumed that the payload has reported status to the server.
+You WILL need a dump of the production or staging database to bootsrap this software. There are pivotal issues to update seeds, making this easier to setup is definitely worth working on.
 
-Exceptions can be thrown at any point in the code and they will be automatically caught and reported back to the server. However, exceptions are for unrecoverable errors only. They are not to be used for normal process control. If the job is unable to complete it is best to call ContactJob.failure(job, "Message"). This will notify the server of the failure.
+You should be provided with an EC2 instance already configured and setup. If not, please complain to Jonathan.
 
-== Getting Started
+== Other Information
 
-So you want to set up the Citation system? Whether you are writing payloads or running jobs this is easy. You can test the payloads locally. Here is the process:
-
-= Linux/Mac
-
-Install rvm and then install rubies for 1.8.7 and 1.9.X. The client runs under 1.8.7 and the server runs under 1.9. For the client (on 1.8.7) install the needed gem files with 'bundle install'. For the server you need to install:
-
-```
-gem install therubyracer --no-ri --no-rdoc
-bundle install
-```
-
-= Windows
-
-Install the 1.8.7 and latest 1.9.X from:
-http://rubyinstaller.org/downloads/
-
-It's a good idea to install pik:
-https://github.com/vertiginous/pik
-
-    gem install pik
-    ruby\bin\pik_install c:\windows\system32
-
-Install MySQL
-mysql-5.5.27-win32.msi from http://www.sourceforge.net/projects/mysql.mirror/files/
-
-Switch ruby version to 1.9.x
-    pik 193
-
-
-Install devkit.  Make sure to install in both ruby root directories.
-http://rubyinstaller.org/downloads/
-
-The following removes openssl requirement for gem installation that MS Windows simply won't do.
-    gem update --system
-
-
-For the client:
-    cd githubdirectory\contact
-    bundle install --without production
-    gem install mysql2 --no-ri --no-rdoc
-
-Download http://dev.mysql.com/get/Downloads/Connector-C/mysql-connector-c-noinstall-6.0.2-win32.zip/from/pick .
-Extract libmysql.dll (<zipfile>\lib\libmysql.dll)
-    copy libmysql.dll \ruby\bin
-
-For the server:
-
-Remove thin from Gemfile, then bundle install.
-
-== Windows TroubleShooting
-
-*IE doesn't load, I get a 'attach_function': Function '_get_errno' not found in [msvcrt.dll] FFI::NotFoundError)
-
-1) Try switching ruby versions
-
-    pik 193
-
-2). Solution from http://www.mail-archive.com/watir-general@googlegroups.com/msg17107.html
-
-    gem uninstall watir-classic -v 3.1.0
-    gem install watir-classic -v 3.0.0
-    gem uninstall win32-process -v 0.7.0
-    gem install win32-process -v 0.6.6
-
-= Setting Up
-
-First you need to create the database with 'rake db:create' then migrate the schema with 'rake db:migrate'. Next you need to import the zips.sql file in db/zips.sql. You can import this with:
-
-```
-mysql -u username -p contact_development < db/zips.sql;
-```
-
-
-== Setup.exe download for business form 
-
-Once you have seeded your database, if you will be doing and development or testing with the business form, you will need the file that is downloaded when the form has been completed.  It looks for the setup.exe file in a folder for the 'label' object. 
-
-For the package id that you are going to use (i.e.  http://localhost:3000/user/sign_up?package_id=1), in rails console, note the value returned for Package.find(1).label.name. Then, in rails_root, create the folder [rails_root]/labels/[label name].   
-Then, copy [rails_root]/doc/setup.exe to the new folder.  
-
-== Workflow
-
-You start up the local rails app and go to http://localhost:3000/. Now click sign in then click sign up then fill out fake business info. Next get the authentication id
-for the user from the table.
-
-To do this you can run 'rails console' then call User.first.authentication_token to get the authentication token. Next you need the business id, you can get this with
-'Business.first.id'. It will be "1" if you have just installed a new system.
-
-Take these two values now you can cd to Citation and run:
-
-```
-./citationCheck.rb <authentication token> <business id>
-```
-
-This will then check for jobs and it should print "None". Now go to the admin interface to create a Payload. Admin interface http://localhost:3000/admin. The default
-username is 'admin@example.com' and the password is 'password'. First create some PayloadCategories from the menu at the top and next you can create a Payload using the
-menu at the top. This is the code that gets executed on the client side. Ok, now that the payload has been created you can assign a job so you go to the "Business" menu and
-find the business. Click on the business name to load the interface for managing jobs. Select a payload category from the list on the right.  Assign payloads by clicking
-the name in the list.
-
-You should be able to re-run the command:
-
-```
-./citationCheck.rb <authentication token> <business id>
-```
-
-This time it should execute the job. You can create a payload that has the content "puts 'it is working'" and assign it as a job to test it. Now you can start running,
-debugging and testing jobs.
-
-== Testing
-
-Tested with Ruby 1.9.3p194.
-
-Install required RubyGems:
-
-    gem update --system
-    gem install bundler --no-ri --no-rdoc
-    bundle install
-
-Run the tests with +bundle exec cucumber+
-Reports (html for humans, xml for CI) are in reports folder.
+Check out the QNA document in this repo to get payload questions answered.

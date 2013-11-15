@@ -5,6 +5,131 @@ class Payload < ActiveRecord::Base
   belongs_to :mode
   acts_as_tree :order => "position"
 
+  def save_to_sites
+    site_dir = Rails.root.join("sites", self.site.name)
+    unless Dir.exists?  site_dir
+     Dir.mkdir site_dir
+    end
+    payload_dir = site_dir.join(self.name)
+    unless Dir.exists?  payload_dir
+     Dir.mkdir payload_dir
+    end
+    STDERR.puts "Writing: #{payload_dir}"
+    File.open(payload_dir.join("client_script.rb"), "wb") do |f|
+      f.write self.client_script
+    end 
+    File.open(payload_dir.join("data_generator.rb"), "wb") do |f|
+      f.write self.data_generator
+    end 
+  end
+
+  def self.database_to_git
+    # First sync payloads
+    Payload.where("1 = 1").each do |payload|
+      payload.save_to_sites
+    end
+    # Now remove unused sites
+    sites_dir = Rails.root.join("sites")
+    Dir.open(sites_dir).each do |site_name|
+      next if site_name =~ /^\./
+      site_dir = sites_dir.join(site_name)
+      next unless File.directory? site_dir
+      site = Site.find_by_name(site_name)
+      if site == nil
+        STDERR.puts "Site with name '#{site_name}' does not exist in the database, removing it!"
+        FileUtils.rm_rf sites_dir.join(site_name)
+        next
+      end
+      # And payloads
+      Dir.open(site_dir).each do |payload_name|
+	payload_dir = site_dir.join(payload_name)
+	next if payload_name =~ /^\./
+	next unless File.directory? payload_dir.join(payload_name)
+        payload = Payload.find_by_name_and_site_id(payload_name, site.id)
+	if payload == nil
+	  STDERR.puts "Payload with name '#{payload_name}' does not exist in the database, removing it!"
+          FileUtils.rm_rf payload_dir
+	  next
+	end
+        File.open(payload_dir.join("client_script.rb"), "wb").write payload.client_script
+        File.open(payload_dir.join("data_generator.rb"), "wb").write payload.data_generator
+      end
+    end
+    STDERR.puts "Synced to git in sites/"
+    STDERR.puts "Please remember to commit this work and resolve any conflicts before you git pull!"
+    STDERR.puts "The next step you should take is enter this directory and commit your code and push."
+  end
+
+  def self.git_to_database
+    sites_dir = Rails.root.join("sites")
+    Site.all.each do |site|
+      # Is the site in the db but removed by someone in git?
+      unless File.directory? sites_dir.join(site.name)
+        STDERR.puts "Warning: Someone removed: #{site.name}!"
+        site.destroy
+      end
+    end
+    count = 0
+    Dir.open(sites_dir).each do |site_name|
+      count += 1
+      next if site_name =~ /^\./
+      site_dir = sites_dir.join(site_name)
+      next unless File.directory? site_dir
+      site = Site.find_by_name(site_name)
+      if site == nil
+        site = Site.create do |site|
+          site.name = site_name
+        end
+      end
+      STDERR.puts "#{count}: Site: #{site.name}"
+      Dir.open(site_dir).each do |payload_name|
+	next if payload_name =~ /^\./
+        payload_dir = site_dir.join(payload_name)
+	next unless File.directory? payload_dir
+        payload = Payload.find_by_name_and_site_id(payload_name, site.id)
+	STDERR.puts "#{site.name}/#{payload_name}"
+        if payload == nil
+          payload = Payload.new
+          payload.name = payload_name
+	  payload.site_id = site.id
+          STDERR.puts "Couldn't find a payload in the db for #{site.name}/#{payload_name}"
+          Payload.where(:site_id => site.id).each do |payload|
+            STDERR.puts "#{payload.name}: #{payload.id}"
+          end
+          STDERR.puts "What's the payload parent id for this payload?"
+          STDERR.puts "Enter for a root payload (no parent): "
+          parent_id = STDIN.gets.strip
+          if parent_id != ''
+            payload.parent_id = parent_id
+          end
+          STDERR.puts "Here are the available modes:"
+          Mode.all.each do |mode|
+            STDERR.puts "Mode: #{mode.name}"
+          end
+          STDERR.puts "Which mode (by name) should we use?: "
+          mode_name = STDIN.gets.strip
+          if mode_name != ''
+            mode = Mode.find_by_name(mode_name)
+            payload.mode_id = mode.id
+          end
+          payload.save!
+          STDERR.puts "Saving: #{payload}.."
+        end
+	if File.exists? payload_dir.join("client_script.rb")
+	  script = File.read payload_dir.join("client_script.rb")
+	  payload.client_script = script
+	end
+	if File.exists? payload_dir.join("data_generator.rb")
+	  script = File.read payload_dir.join("data_generator.rb")
+	  payload.data_generator = script
+	end
+	STDERR.puts "Site: #{site}"
+        STDERR.puts "Updating: #{payload.site.name}/#{payload.name}: #{payload_dir}...\n";
+        payload.save!
+      end
+    end
+  end
+
   def to_tree
     obj = {
       id: self.id,
@@ -29,8 +154,13 @@ class Payload < ActiveRecord::Base
     ret
   end
 
-  def self.by_name(site, name)
-    self.where(:site_id => site.id, :name => name).first
+  def self.by_name(name)
+    site_name, payload_name = *name.split("/")
+    site = Site.find_by_name(site_name)
+    if site == nil
+      return nil
+    end
+    self.where(:site_id => site.id, :name => payload_name).first
   end
 
   def self.sites
@@ -61,17 +191,17 @@ class Payload < ActiveRecord::Base
   def self.start(name)
     site, payload = *name.split("/")
     site = Site.by_name(site)
-    self.by_name(site, payload)
+    self.by_name(name)
   end
 
   def self.exists?(site, payload) 
     site = Site.by_name(site)
-    self.by_name(site, payload).nil? != true
+    self.by_name(name).nil? != true
   end 
 
   def self.by_site_and_payload(site, payload)
     site = Site.by_name(site)
-    self.by_name(site, payload)
+    self.by_name("#{site}/#{payload}")
   end
 
   def add_child_payload(name)
