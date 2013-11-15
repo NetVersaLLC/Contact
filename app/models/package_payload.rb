@@ -5,9 +5,6 @@ class PackagePayload < ActiveRecord::Base
 
   scope :insert_order, -> { order( "queue_insert_order ASC") } 
 
-  def name
-    "#{self.package.name}/#{self.site.name}"
-  end
 
   def self.by_package(package_id)
     PackagePayload.where(:package_id => package_id).insert_order
