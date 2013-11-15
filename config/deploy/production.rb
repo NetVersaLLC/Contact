@@ -1,5 +1,5 @@
 set  :rails_env ,'production'
 set  :branch    ,'production'
 role :app, 'web1.netversa.com', 'web2.netversa.com'
-role :db, 'web1.netversa.com'
-role :web, 'web1.netversa.com', 'web2.netversa.com'
+role :worker, 'worker1.netversa.com'
+role :db, 'worker1.netversa.com'
