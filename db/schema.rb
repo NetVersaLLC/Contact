@@ -1587,6 +1587,13 @@ ActiveRecord::Schema.define(:version => 20131113204223) do
     t.boolean  "do_not_sync",       :default => false
   end
 
+  create_table "payload_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "position"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "payloads", :force => true do |t|
     t.string   "name"
     t.boolean  "active",                   :default => false
@@ -1628,6 +1635,17 @@ ActiveRecord::Schema.define(:version => 20131113204223) do
   add_index "payments", ["business_id"], :name => "index_payments_on_business_id"
   add_index "payments", ["label_id"], :name => "index_payments_on_label_id"
   add_index "payments", ["transaction_id"], :name => "index_payments_on_transaction_id"
+
+  create_table "pings", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "business_id"
+    t.string   "message"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "pings", ["business_id"], :name => "index_pings_on_business_id"
+  add_index "pings", ["user_id"], :name => "index_pings_on_user_id"
 
   create_table "primeplace_categories", :force => true do |t|
     t.integer  "parent_id"
@@ -1888,7 +1906,7 @@ ActiveRecord::Schema.define(:version => 20131113204223) do
     t.integer  "monthly_fee"
     t.string   "status"
     t.integer  "transaction_event_id"
-    t.datetime "label_last_billed_at", :default => '2013-07-13 21:46:39'
+    t.datetime "label_last_billed_at", :default => '2013-07-15 20:43:13'
   end
 
   add_index "subscriptions", ["package_id"], :name => "index_subscriptions_on_package_id"
