@@ -64,6 +64,8 @@ Contact::Application.routes.draw do
 
   get     '/report(.:format)', :controller => :businesses, :action => :report
 
+  get     '/client_manager(.:format)', :action=>"index", :controller=>"client_manager"
+
   resources :results
   resources :tasks
   resources :places
