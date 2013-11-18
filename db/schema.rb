@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131118141137) do
+ActiveRecord::Schema.define(:version => 20131118180303) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -1826,7 +1826,7 @@ ActiveRecord::Schema.define(:version => 20131118141137) do
     t.string   "name"
     t.string   "owner"
     t.string   "founded"
-    t.string   "alexa_us_traffic_rank"
+    t.integer  "alexa_us_traffic_rank"
     t.string   "page_rank"
     t.string   "domain"
     t.string   "traffic_stats"
