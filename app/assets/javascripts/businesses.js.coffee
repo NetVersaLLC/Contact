@@ -6,7 +6,7 @@
 #= require form/business_details
 #= require form/payment_methods
 #= require form/business_hours
-#= require form/categories
+# = require form/categories
 #= require form/uploader
 # = require form/company_description
 

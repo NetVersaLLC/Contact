@@ -37,8 +37,9 @@ module Business::Validations
     validates :job_titles,
       :presence => true
 
-    validates :category1,
-      :presence => true
+    validates :category_description, presence: true 
+    #validates :category1,
+    #  :presence => true
     # validates :contact_gender,
     #   :presence => true
     # validates :contact_first_name,
