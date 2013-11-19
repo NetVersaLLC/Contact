@@ -143,7 +143,7 @@ module Business::MiscMethods
 #        job      = Job.inject(self.id, payload.payload, payload.data_generator, payload.ready)
 #        job.name = "#{site_name}/#{payload_name}"
 #        job.save
-      end
+#      end
     end
 
     def accounts_synced
