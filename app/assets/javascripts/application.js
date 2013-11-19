@@ -24,4 +24,3 @@
 //= require sites
 //= require users
 //= require payloads
-//= require client_manager
