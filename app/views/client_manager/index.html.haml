@@ -1,0 +1,27 @@
+#client_manager.row
+  .col-xs-12
+    %ul.nav.nav-tabs
+      %li
+        %a{href: "#pending", data: { toggle: "tab"}} Pending
+      %li
+        %a{href: "#failed", data: { toggle: "tab"}} Failed
+      %li
+        %a{href: "#succeeded", data: { toggle: "tab"}} Succeeded
+      %li
+        %a{href: "#errors", data: { toggle: "tab"}} Errors
+      %li
+        %a{href: "#client_info", data: { toggle: "tab"}} Client Info
+      %li
+        %a{href: "#payload", data: { toggle: "tab"}} Payload
+    .tab-content
+      #pending.tab-pane.active
+        =render "index_table"
+      #failed.tab-pane
+      #succeeded.tab-pane
+      #errors.tab-pane
+      #client_info.tab-pane
+      #payload.tab-pane
+:javascript 
+  $( function(){ 
+    initialize_client_manager(); 
+    }); 

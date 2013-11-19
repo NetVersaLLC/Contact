@@ -1,0 +1,13 @@
+.widget-box 
+  .widget-header 
+    %h4 Search 
+  .widget-body
+    .widget-main
+      =search_form_for @q, class:"form-search" do |f|
+        .input-group
+          =f.text_field :name_cont,  placeholder: "Site", class: "form-control search-query"
+          %span.input-group-btn
+            %button.btn.btn-purple.btn-sm
+              Search
+              %i.icon-search.icon-on-right.bigger-110
+

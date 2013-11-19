@@ -1,22 +1,13 @@
 .page-header
   %h1 Sites
 .row
+  .col-xs-6
+    = render 'search'
+  .col-xs-6
+    = render 'sites_stats'
+.row 
   .col-xs-12 
-    .row
-      .col-xs-6
-        .widget-box 
-          .widget-header 
-            %h4 Search 
-          .widget-body
-            .widget-main
-              =search_form_for @q, class:"form-search" do |f|
-                .input-group
-                  =f.text_field :name_cont,  placeholder: "Site", class: "form-control search-query"
-                  %span.input-group-btn
-                    %button.btn.btn-purple.btn-sm
-                      Search
-                      %i.icon-search.icon-on-right.bigger-110
-    .dataTables_wrapper
+    .dataTables-responsive
       %table.table.table-striped.table-bordered.table-hover
         %thead
           %tr
@@ -24,7 +15,8 @@
             %th Owner 
             %th Alexa US Traffic Rank 
             %th Page Rank
-            %th Scan Status
+            %th Enabled for Scan
+            %th Enabled
             %th Actions
         %tbody
           -@sites.each do |site| 
@@ -41,6 +33,13 @@
                     %span.lbl
                 -else 
                   = site.enabled_for_scan ? "Yes":"No"
+              %td
+                - if can? :edit, site 
+                  = form_for site, remote: true do |f|
+                    =f.check_box :enabled, class: "ace ace-switch ace-switch-3"
+                    %span.lbl
+                -else 
+                  = site.enabled ? "Yes":"No"
               %td
                 .visible-md.visible-lg.hidden-sm.hidden-xs.btn-group
                   =link_to(site_url(site), class: 'btn btn-xs btn-success') do 

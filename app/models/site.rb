@@ -1,5 +1,16 @@
 class Site < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection #strong parameters 
+  
+  STATS_CACHE_KEY = "sites_stats_cache"
+
+  def self.enabled_percent 
+    ratio = Site.connection.select_all("select sum(if(enabled,1,0)) / count(id) as 'enabled_ratio' from sites;").first
+    ratio['enabled_ratio'].round(2) * 100
+  end 
+
+  def self.disabled_percent 
+    100 - enabled_percent 
+  end 
 
   has_attached_file :logo, styles: { :thumb => "32x32>" }, default_url: "/assets/missing_logo.jpg"
 
