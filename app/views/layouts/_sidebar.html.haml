@@ -28,46 +28,6 @@
         %a{ href: '/customers'}
           %i.icon-group
           %span.menu-text Customers
-    %li 
-      %a.dropdown-toggle{ href: '#'}
-        %i.icon-list-alt
-        %span.menu-text Support
-      %ul.submenu
-        %li
-          %a{ href: '/support'}
-            %i.icon-list-alt
-            %span.menu-text Open Ticket
-        %li
-          =link_to questions_path do 
-            %span.menu-text Faq
-    -#%li
-      = link_to notifications_path do 
-        %i.icon-calendar
-        %span.menu-text
-          Action Items
-          -# %span.badge.badge-primary 5
-    %li.closed 
-      %a.dropdown-toggle{href:'#'}
-        %i.icon-th
-        %span.menu-text Network 
-      %ul.submenu 
-        -#%li
-          %a{href:'#'}
-            %i.icon-double-angle-right
-            Health 
-        %li
-          =link_to sites_url do 
-            %i.icon-double-angle-right
-            Statistics
-        -#%li
-          %a{href:'#'}
-            %i.icon-double-angle-right
-            Update Timetables
-        %li
-          =link_to reports_path do 
-            %i.icon-double-angle-right
-            Scan Reports
-    -if current_user.reseller?
       = render "layouts/sidebar_reseller"
     = render "layouts/sidebar_admin"
   .sidebar-collapse#sidebar-collapse

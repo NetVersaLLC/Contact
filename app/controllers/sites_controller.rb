@@ -7,7 +7,7 @@ class SitesController < InheritedResources::Base  #ApplicationController
 
   def index
     @q = Site.search(params[:q])
-    @sites = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10).order("alexa_us_traffic_rank asc, name asc")
+    @sites = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10).order("alexa_us_traffic_rank asc")
   end 
 
   def create
