@@ -15,22 +15,25 @@
       .widget-body
         .widget-main
           =search_form_for @q do |f|
-            .row
+            -#.row
               .col-md-12
                 =f.text_field :tags_cont, placeholder: "Tags", class: "form-control"
             %br
             .row
               .col-md-12
-                =f.text_field :address_cont, placeholder: 'Address, phone, etc...', class: "form-control"
+                =f.text_field :business_name_cont, placeholder: 'Business Name', class: "form-control"
+            %br
+            .row
+              .col-md-12
+                =f.text_field :address_cont, placeholder: 'Street address contains...', class: "form-control"
             %br
             .row
               .col-md-5
                 =f.text_field :city_start, placeholder: "City", class: "form-control"
               .col-md-4
-                =f.select :state_eq, Carmen::states('US'), {}, {class: "form-control"}
+                =f.select :state_eq, options_for_select(USA::states), {include_blank:true}, {class: "form-control"}
               .col-md-3
                 =f.text_field :zip_eq, placeholder: "Zip", class: "form-control"
             .form-actions 
               %button.btn.btn-primary Filter 
               %button.btn.btn-warning{type: "reset"} Clear 
-              %button.btn.btn-success Save Tag

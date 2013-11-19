@@ -1,12 +1,36 @@
 class CategoriesController < ApplicationController
   before_filter      :authenticate_admin!
   def index
-    #klass      = params[:model].constantize
-    #category   = klass.find(params[:id])
-    #categories = klass.blist_categories(category)
-    #render json: {:categories => categories, :count => categories.length}
-    @business = Business.find(params[:business_id])
-    @message =  @business.categorized ? "Categorized" : "New"
+    @business    = Business.find(params[:business_id])
+    @categorized =  @business.categorized ? "Yes" : "No"
+    @category    = @business.category1
+    @categories  = []
+    Business.citation_list.each do |data|
+      model, table, rows = *data
+      rows.each do |cols|
+        type, name = *cols
+        if type == 'select'
+	  klass = eval name.camelize
+	  next if klass == GoogleCategory
+	  next if klass == nil
+	  thisRow = [klass, "/categories/#{klass}.js"]
+	  res = ActiveRecord::Base.connection.execute "SELECT category_id FROM client_data WHERE business_id=#{@business.id} AND category_id IS NOT NULL AND type='#{data[0]}'"
+          category_name = ''
+          category_id   = ''
+	  res.each do |row|
+	    category_id      = row.shift
+	    category         = klass.where(:id => category_id).first
+	    next if category == nil
+	    category_name    = category.name
+	    break
+	  end
+	  load_button = '<input type="button" onclick="window.loadCategory(\''+klass.to_s+'\')" value="Select" />'
+	  thisRow.push "<div class='category_selected'>#{category_name} #{load_button}</div>"
+	  thisRow.push category_id
+	  @categories.push thisRow
+        end
+      end
+   end
   end
 
   def show
@@ -16,9 +40,10 @@ class CategoriesController < ApplicationController
   end
   def create
     business = Business.find(params[:business_id])
-    params[:category].each do |pair|
-      logger.info "Checking: #{pair}"
-      if pair[1] != nil and pair[1].to_i > 0 and pair[0] =~ /((.*?)Category)/
+    cats = params[:category]
+    cats.each_key do |category_model|
+      logger.info "Checking: #{category_model}"
+      if category_model != nil and cats[category_model].to_i > 0 and category_model =~ /((.*?)Category)/
         if $2 == "FacebookProfile"
           model = "Facebook".constantize
         else
@@ -26,22 +51,9 @@ class CategoriesController < ApplicationController
         end
         category = $1.constantize
 
-        inst = nil
-        if business.send( model.table_name ).count > 0
-          inst = business.send( model.table_name ).first
-          logger.info "Found instance"
-        else
-          inst = model.new
-          inst.business_id = business.id
-          logger.info "Created instance"
-        end
-        model.column_names.each do |column|
-          if column =~ /category_id/
-            inst.send("#{column}=", pair[1])
-            logger.info "Setting: #{column} = #{pair[1]}"
-          end
-        end
-        inst.save
+        inst = business.get_site(model)
+        inst.category_id = cats[category_model]
+        inst.save!
       end
     end
     business.categorized = true

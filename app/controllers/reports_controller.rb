@@ -9,9 +9,7 @@ class ReportsController < InheritedResources::Base
 
   def index 
     @q = Report.search(params[:q])
-    @reports = @q.result.accessible_by(current_ability).paginate(page: params[:page] )
+    @reports = @q.result.order("id desc").accessible_by(current_ability).paginate(page: params[:page] )
   end
-
-
 
 end 

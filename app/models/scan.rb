@@ -62,7 +62,7 @@ class Scan < ActiveRecord::Base
     {
       :scan => @attributes.symbolize_keys.slice(:id, :business, :phone, :zip, :latitude, :longitude,
                                               :state, :state_short, :city, :county, :country),
-      :site => site_name,
+      :site => site_name.tr('^A-Za-z0-9,', ''),
       :callback_host => Contact::Application.config.scanserver['callback_host'],
       :callback_port => Contact::Application.config.scanserver['callback_port']
     }
@@ -113,6 +113,7 @@ class Scan < ActiveRecord::Base
       write_attribute(:error_message, "#{site_name}: #{e.message}: #{e.backtrace.join("\n")}")
     end
     write_attribute(:task_status, resulting_status)
+    self.updated_at = DateTime.current
     save!
     ActiveRecord::Base.connection_pool.release_connection()
   end

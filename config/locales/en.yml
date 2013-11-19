@@ -94,8 +94,7 @@ en:
         category3:           "" 
         category4:           "" 
         category5:           "" 
-
-
+        category_description: ""
 
 
   popovers: 

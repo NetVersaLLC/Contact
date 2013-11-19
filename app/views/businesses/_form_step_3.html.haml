@@ -22,10 +22,13 @@
   .row
     .col-xs-12
       %fieldset 
-        %legend Categories 
-        %p.lead The next most important aspect of your business profile is the following categories. Select at least 1 category, the first one is the primary category and is the most important. The next two are used on many sites but only as secondary or tertiary categories.
-        = render partial: "form_group", locals: {f: f, field: :category1, args: { class: 'col-xs-5 business-category'}}
-        = render partial: "form_group", locals: {f: f, field: :category2, args: { class: 'col-xs-5 business-category'}}
-        = render partial: "form_group", locals: {f: f, field: :category3, args: { class: 'col-xs-5 business-category'}}
-        = render partial: "form_group", locals: {f: f, field: :category4, args: { class: 'col-xs-5 business-category'}}
-        = render partial: "form_group", locals: {f: f, field: :category5, args: { class: 'col-xs-5 business-category'}}
+        %legend Category
+        -#%p.lead The next most important aspect of your business profile is the following categories. Select at least 1 category, the first one is the primary category and is the most important. The next two are used on many sites but only as secondary or tertiary categories.
+        -#%p.lead Selecting a category for your business can be challenging. Please describe in the box below what your business does and our trained team of search engine optimization specialists will select the category for you.
+        = render partial: "form_group", locals: {f: f, field: :category_description,  args: {:maxlength => 200, rows: 3}}
+        -#
+          = render partial: "form_group", locals: {f: f, field: :category1, args: { class: 'col-xs-5 business-category'}}
+          = render partial: "form_group", locals: {f: f, field: :category2, args: { class: 'col-xs-5 business-category'}}
+          = render partial: "form_group", locals: {f: f, field: :category3, args: { class: 'col-xs-5 business-category'}}
+          = render partial: "form_group", locals: {f: f, field: :category4, args: { class: 'col-xs-5 business-category'}}
+          = render partial: "form_group", locals: {f: f, field: :category5, args: { class: 'col-xs-5 business-category'}}

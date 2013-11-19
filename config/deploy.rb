@@ -3,7 +3,7 @@ require 'bundler/capistrano'
 require 'rvm/capistrano'
 require 'capistrano-unicorn'
 
-set :stages, %w(production staging worker)
+set :stages, %w(production staging worker teststaging)
 set :default_stage, "staging"
 require 'capistrano/ext/multistage'
 
@@ -22,7 +22,7 @@ set :repository , 'git@github.com:NetVersaLLC/Contact.git'
 set :user       , 'ubuntu'
 set :use_sudo   , false
 set :ssh_options, {:forward_agent => true}
-ssh_options[:keys] = [File.join(ENV["HOME"], ".ssh", "id_rsa_netversa"),File.join(ENV["HOME"], ".ssh", "id_rsa")] 
+ssh_options[:keys] = [File.join(ENV["HOME"], ".ssh", "id_rsa_netversa"),File.join(ENV["HOME"], ".ssh", "id_rsa")]
 
 namespace :deploy do
   desc 'Running migrations'
@@ -34,15 +34,43 @@ namespace :deploy do
   task :assets do
     run "cd #{release_path} && bundle exec rake assets:precompile"
   end
+
+  task :stop_daemons, :roles => :worker do
+    run "cd #{current_path} && bundle exec rake daemons:stop"
+  end
+
+  task :start_daemons, :roles => :worker do
+    run "cd #{release_path} && bundle exec rake daemons:start"
+  end
+
+  desc 'Create symlinks'
+  task :create_symlinks do
+    run ["ln -nfs #{shared_path}/config/application.yml #{release_path}/config/application.yml",
+         "ln -nfs #{shared_path}/config/scanserver.yml #{release_path}/config/scanserver.yml",
+         "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml",
+         "ln -nfs #{shared_path}/config/unicorn.rb #{release_path}/config/unicorn.rb"
+        ].join(" && ")
+    %w{labels}.each do |share|
+      run "ln -s #{shared_path}/#{share} #{release_path}/#{share}"
+    end
+  end
 end
 
 namespace :nginx do
   desc 'Reload Nginx'
-  task :reload do
+  task :reload, :roles => [:app, :web] do
     sudo '/etc/init.d/nginx reload'
   end
 end
 
+namespace :deploy do
+  task :restart do
+    unicorn.restart
+    nginx.reload
+  end
+end
+
+# not used anymore
 namespace :thin do
   desc 'Restart Thin'
   task :restart do
@@ -50,24 +78,9 @@ namespace :thin do
   end
 end
 
-after "deploy:finalize_update" do
-  run ["ln -nfs #{shared_path}/config/application.yml #{release_path}/config/application.yml",
-       "ln -nfs #{shared_path}/config/scanserver.yml #{release_path}/config/scanserver.yml",
-       "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml",
-       "ln -nfs #{shared_path}/config/unicorn.rb #{release_path}/config/unicorn.rb"
-  ].join(" && ")
-end
-
-task :after_update_code do
-  %w{labels}.each do |share|
-    run "ln -s #{shared_path}/#{share} #{release_path}/#{share}"
-  end
-end
-
-after 'deploy'           , 'deploy:migrations'
-after 'deploy:migrations', 'deploy:assets'
-after 'deploy:assets',     'after_update_code'
-after 'after_update_code', 'nginx:reload'
-after 'nginx:reload'     , 'thin:restart'
+after  'deploy:symlink', 'deploy:create_symlinks'
+after  'deploy:create_symlinks' , 'deploy:migrations'
+before 'deploy:migrations', 'deploy:stop_daemons'
+after  'deploy:migrations', 'deploy:start_daemons'
 
 require './config/boot'

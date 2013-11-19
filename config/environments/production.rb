@@ -34,7 +34,7 @@ Contact::Application.configure do
   config.log_level = :warn  # important to maintain PCI compliance
 
   # period to wait before resending task that is waiting for result to scanserver again
-  config.scan_task_resend_interval = 5.seconds
+  config.scan_task_resend_interval = 7.seconds
   # how much time to wait before considering scan as failed
   config.scan_task_fail_interval = 30.seconds
 

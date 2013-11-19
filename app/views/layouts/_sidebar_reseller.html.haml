@@ -1,0 +1,22 @@
+-# We do not want ordinary users to be able to manage their subscription.
+%li.closed
+  %a.dropdown-toggle{ href: '#'}
+    %i.icon-edit
+    %span.menu-text Billing 
+  %ul.submenu
+    %li
+      = link_to subscriptions_path do 
+        %i.icon-double-angle-right
+        Subscriptions
+    %li
+      %a{href:'#'} 
+        %i.icon-double-angle-right
+        Invoice 
+  -#%li
+    %a{href:'#'}
+      %i.icon-gift
+      Packages
+  %li
+    %a{href:'/reports'}
+      %i.icon-signal
+      Scan Reports

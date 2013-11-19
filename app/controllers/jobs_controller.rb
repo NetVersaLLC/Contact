@@ -62,7 +62,7 @@ class JobsController < ApplicationController
       Job.where(:business_id => params[:business_id]).delete_all
     end
 
-    @job = Job.inject(params[:business_id], payload.payload, payload.data_generator, payload.ready, runtime)
+    @job = Job.inject(params[:business_id], payload.name, payload.data_generator, payload.ready, runtime)
     @job.name = params[:name]
     @job.save
 
@@ -121,6 +121,11 @@ class JobsController < ApplicationController
   end
 
   def booboo
+    render json: true
+  end
+
+  def destroy
+    Job.where(:business_id => params[:business_id]).delete_all
     render json: true
   end
 

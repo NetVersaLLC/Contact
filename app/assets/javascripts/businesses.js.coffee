@@ -6,7 +6,7 @@
 #= require form/business_details
 #= require form/payment_methods
 #= require form/business_hours
-#= require form/categories
+# = require form/categories
 #= require form/uploader
 # = require form/company_description
 
@@ -34,13 +34,22 @@ has_client_checked_in = () ->
         window.setTimeout has_client_checked_in, 10000
 ###
 
+save_draft = () ->
+  $.post("/businesses/#{window.business_id}/save_draft", $('.edit_business').serialize())
+
 $ ->
 
   return if $("form").is(".new_business, .edit_business") isnt true
 
   $('[data-toggle="popover"]').popover({trigger: "hover"})
   
-  window.business_id = '#{@business.id}'
+  $('#location-wizard').ace_wizard()
+    .on 'finished', -> 
+      $(".edit_business, .new_business").submit()
+    .on 'change', (e, info) -> 
+      save_draft()
+      return $(".edit_business, .new_business").valid()  # validations.js.coffee
+
 
   colorbox_params = 
     reposition:true

@@ -1,7 +1,6 @@
 Contact::Application.routes.draw do
+
   resources :customers
-
-
   resources :labels
   resources :coupons
 
@@ -10,15 +9,15 @@ Contact::Application.routes.draw do
   put    '/payloads/move/:id/:parent_id(.:format)', :controller => :payloads, :action => :move
   delete '/payloads/:id(.:format)', :controller => :payloads, :action => :destroy
   post   '/payloads(.:format)', :controller => :payloads, :action => :create
-  put    '/payloads/:id(.:format)', :controller => :payloads, :action => :update
-  get    '/payloads/:id(.:format)', :controller => :payloads, :action => :show
+  put    '/payloads(.:format)', :controller => :payloads, :action => :save
+  put    '/sync_to_git', :controller => :payloads, :action => :sync_to_git
+  put    '/sync_from_git', :controller => :payloads, :action => :sync_from_git
 
   get    '/admin', :controller => :payloads, :action => :index
 
-  get    '/packages/:id(.:format)', :controller => :packages, :action => :index
-  delete '/packages/:id(.:format)', :controller => :packages, :action => :destroy
-  post   '/packages/:id(.:format)', :controller => :packages, :action => :create
+  resources :packages
   post   '/packages/:id/reorder(.:format)', :controller => :packages, :action => :reorder
+
   resources :google_categories
 
   devise_for :users,
@@ -32,6 +31,7 @@ Contact::Application.routes.draw do
   resources :subscriptions
   resources :payload_nodes, only: [:index, :create]
 
+  put '/businesses(.:format)/:id/save_draft', :action => "save_draft", controller: :businesses
   resources :businesses
   get    '/businesses/client_checked_in/:id',
     :controller => :businesses,
@@ -63,6 +63,8 @@ Contact::Application.routes.draw do
   delete  '/codes/:business_id/:site_name(.:format)', :action=>"destroy",   :controller=>"codes"
 
   get     '/report(.:format)', :controller => :businesses, :action => :report
+
+  get     '/client_manager(.:format)', :action=>"index", :controller=>"client_manager"
 
   resources :results
   resources :tasks

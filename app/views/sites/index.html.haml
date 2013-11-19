@@ -22,7 +22,7 @@
           %tr
             %th Site
             %th Owner 
-            %th Alexa US Traffice Rank 
+            %th Alexa US Traffic Rank 
             %th Page Rank
             %th Scan Status
             %th Actions
@@ -30,10 +30,9 @@
           -@sites.each do |site| 
             %tr
               %td
-                = image_tag site.logo.url(:thumb)
                 = link_to site.name, site_path(site)
               %td= truncate(site.owner)
-              %td= site.alexa_us_traffic_rank 
+              %td= number_with_delimiter(site.alexa_us_traffic_rank )
               %td= site.page_rank 
               %td
                 - if can? :edit, site 

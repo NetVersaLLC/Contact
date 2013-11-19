@@ -29,6 +29,9 @@
         -elsif alert
           .alert.alert-danger
             = flash[:alert]
+      -if notice
+        .alert.alert-success
+          = flash[:notice]
       = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
         %fieldset 
           %label.block.clearfix

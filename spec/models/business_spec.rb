@@ -37,8 +37,8 @@ describe Business do
 		it { should validate_presence_of(:services_offered) }
 
 		it { should validate_presence_of(:category1) }
-		it { should validate_presence_of(:category2) }
-		it { should validate_presence_of(:category3) }
+		#it { should validate_presence_of(:category2) }
+		#it { should validate_presence_of(:category3) }
 
 		it { should validate_presence_of(:business_description) }
 		#it { should ensure_length_of(:business_description).is_within(50..200) }

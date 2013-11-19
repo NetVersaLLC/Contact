@@ -84,31 +84,34 @@ module Business::MiscMethods
     def list_payloads
       sub = self.subscription
       sites = []
+      site_names = {} # HACK: Need to fix this bad.
       PackagePayload.by_package(sub.package_id).each do |obj|
-        next if obj.site == 'Utils' or obj.site == 'Test'
-        sites.push obj.site
+        next if obj == nil
+        site = obj.site
+	unless site_names.has_key? site.name
+	  sites.push site
+          site_names[site.name] = true
+        end
       end
-      sites = sites.uniq
       final = {}
-      sites.each do |site|
-        profile = Site.where(:site => site).first
+      sites.each do |profile|
         if profile == nil
-          final[site] = {
+          final[profile.name] = {
             :id => nil,
-            :name => site,
+            :name => profile.name,
             :enabled => false,
             :technical_notes => nil,
             :missing => true,
             :payloads => nil
           }
         else
-          final[site] = {
+          final[profile.name] = {
             :id => profile.id,
-            :name => site,
+            :name => profile.name,
             :enabled => profile.enabled,
             :technical_notes => profile.technical_notes,
             :missing => false,
-            :payloads => Payload.list(site)
+            :payloads => Payload.list(profile.name)
           }
         end
       end

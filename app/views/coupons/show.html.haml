@@ -3,32 +3,41 @@
     .table-header
       = @coupon.name
     .table-responsive
-      %table#sample-table-2.table.table-striped.table-bordered.table-hover
-        %thead
+      %table.table.table-striped.show-table
+        %tbody 
           %tr
-            %th.center
-            %th Coupon Code
-            %th Redeemed
-            %th Max
-            %th
-              %i.icon-time.bigger-110.hidden-480
-              Created
-            %th
-              %i.icon-time.bigger-110.hidden-480
-              Updated
-        %tbody
+            %td Name 
+            %td= @coupon.name
           %tr
-            %td.center
-              %label
-                %input.ace{type: "checkbox"}/
-                %span.lbl
-            %td
-              = @coupon.code
-            %td
-              = @coupon.redeemed_count
-            %td
-              = @coupon.allowed_upto
-            %td
-              = @coupon.created_at
-            %td 
-              = @coupon.updated_at
+            %td Coupon Code 
+            %td= @coupon.code
+          %tr
+            %td Redemmed 
+            %td= @coupon.redeemed_count
+          %tr
+            %td Max Allowed
+            %td=@coupon.allowed_upto
+          %tr
+            %td Use Discount 
+            %td=@coupon.use_discount.humanize
+          %tr
+            %td Percent Sign Up 
+            %td= @coupon.percentage_off_signup 
+          %tr
+            %td Percent Off Monthly 
+            %td= @coupon.percentage_off_monthly
+          %tr
+            %td Dollars Off Sign-up 
+            %td= @coupon.dollars_off_signup 
+          %tr 
+            %td Dollars Off Monthly 
+            %td= @coupon.dollars_off_monthly
+          %tr
+            %td Created at 
+            %td= @coupon.created_at 
+          %tr
+            %td Updated at
+            %td= @coupon.updated_at
+= link_to 'Edit Coupon', edit_coupon_path(@coupon), class: "btn btn-info"
+= link_to 'All Coupons', coupons_path, class: "btn btn-success"
+

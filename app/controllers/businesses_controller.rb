@@ -9,7 +9,7 @@ class BusinessesController < InheritedResources::Base
 
   def index 
     @q = Business.search(params[:q])
-    @businesses = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 5)
+    @businesses = @q.result.includes(:user).accessible_by(current_ability).paginate(page: params[:page], per_page: 5)
   end 
 
   def show 
@@ -73,6 +73,32 @@ class BusinessesController < InheritedResources::Base
       format.json { head :no_content }
     end
   end
+  def update
+    @business = Business.find(params[:id]) 
+    authorize! :edit, @business 
+ 
+    @business.update_attributes( params[:business] ) 
+    @business.temporary_draft_storage = nil
+    update! 
+  end 
+
+  def edit 
+    @business = Business.find(params[:id]) 
+    authorize! :edit, @business 
+    @business.update_attributes( @business.temporary_draft_storage ) if @business.temporary_draft_storage.present?
+    edit!
+  end 
+
+  def save_draft
+    business = Business.find(params[:id]) 
+    authorize! :edit, business 
+
+    business.update_attribute( :temporary_draft_storage, params[:business] )
+
+    respond_to do |format| 
+      format.json { head :no_content}  
+    end 
+  end 
 
 
   def report
