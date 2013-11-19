@@ -77,6 +77,7 @@ Contact::Application.routes.draw do
   resources :dashboard, :only => [:index]
   resources :questions
 
+  post    '/booboos(.:format)', :controller => :jobs, :action => :booboo
   resources :jobs,  except: [:show]
   get     '/jobs/list(.:format)', :controller => :jobs,   :action => :list
 

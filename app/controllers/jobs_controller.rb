@@ -120,4 +120,8 @@ class JobsController < ApplicationController
     render json: true
   end
 
+  def booboo
+    render json: true
+  end
+
 end
