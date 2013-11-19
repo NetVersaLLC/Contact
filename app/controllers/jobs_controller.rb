@@ -120,6 +120,10 @@ class JobsController < ApplicationController
     render json: true
   end
 
+  def booboo
+    render json: true
+  end
+
   def destroy
     Job.where(:business_id => params[:business_id]).delete_all
     render json: true

@@ -119,31 +119,31 @@ module Business::MiscMethods
     end
 
     def create_jobs
-      sub = self.subscription
-      PackagePayload.by_package(sub.package_id).each do |obj|
-        site_name = obj.site
-        payload_name = obj.payload
+      #sub = self.subscription
+      #PackagePayload.by_package(sub.package_id).each do |obj|
+      #  site_name = obj.site
+      #  payload_name = obj.name
+#
+#        thereport = Report.where(:business_id => self.id).first
+#        if not thereport == nil
+#          thescan = Scan.where(:report_id => thereport.id).first
+#          if not thescan == nil
+#            if thescan.status == :claimed
+#              next
+#            end
+#          end
+#        end
 
-        thereport = Report.where(:business_id => self.id).first
-        if not thereport == nil
-          thescan = Scan.where(:report_id => thereport.id).first
-          if not thescan == nil
-            if thescan.status == :claimed
-              next
-            end
-          end
-        end
+#        account = ClientData.get_sub_object( site_name, self )
 
-        account = ClientData.get_sub_object( site_name, self )
+#        next if account.respond_to?(:do_not_sync) && account.do_not_sync
+#        payload_name = "UpdateListing" if account && account.has_existing_credentials? && Payload.exists?(site_name, 'UpdateListing')
 
-        next if account.respond_to?(:do_not_sync) && account.do_not_sync
-        payload_name = "UpdateListing" if account && account.has_existing_credentials? && Payload.exists?(site_name, 'UpdateListing')
-
-        payload  = Payload.by_site_and_payload( site_name, payload_name )
-        job      = Job.inject(self.id, payload.payload, payload.data_generator, payload.ready)
-        job.name = "#{site_name}/#{payload_name}"
-        job.save
-      end
+#        payload  = Payload.by_site_and_payload( site_name, payload_name )
+#        job      = Job.inject(self.id, payload.payload, payload.data_generator, payload.ready)
+#        job.name = "#{site_name}/#{payload_name}"
+#        job.save
+#      end
     end
 
     def accounts_synced
