@@ -25,18 +25,19 @@ end
 
 
 group :test do
-  gem 'cucumber'
-  gem 'cucumber-rails', :require => false
+  #gem 'cucumber'
+  #gem 'cucumber-rails', :require => false
   gem 'page-object'
   gem 'database_cleaner'
   gem 'capybara'
   gem 'capybara-screenshot'
-  gem 'rspec-rails'
+  #gem 'rspec-rails'
   gem 'shoulda'
   gem 'zeus'
 end
 
 group :test, :development do
+  gem 'minitest-rails'
   gem 'awesome_print'
   gem 'factory_girl_rails'
 end
