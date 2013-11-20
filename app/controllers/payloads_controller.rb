@@ -1,7 +1,7 @@
 class PayloadsController < InheritedResources::Base
   respond_to :html, :json
   before_filter      :authenticate_admin!
-  # skip_before_filter :verify_authenticity_token
+  skip_before_filter :verify_authenticity_token
   skip_load_and_authorize_resource
   def index
     @payload = Payload.by_name(params[:name])
@@ -29,15 +29,22 @@ class PayloadsController < InheritedResources::Base
   end
 
   def destroy
-    @payload = Payload.find(params[:id])
+    @payload = Payload.by_name(params[:payload])
     @payload.destroy
     render :json => {:status => :success}
   end
 
   def create
     @payload = Payload.new(payload_params)
-    @payload.save!
-    render :json => {:status => :success, :id => @payload.id, :name => @payload.name}
+    site = Site.find_by_name(params[:site])
+    if site.nil?
+      render :json => {:status => :error, :messsage => "Could not find site: #{params[:site]}" }
+    else
+      @payload.name = params[:name]
+      @payload.site_id = site.id
+      @payload.save!
+      render :json => {:status => :success, :id => @payload.id, :name => @payload.name}
+    end
   end
 
   def save
