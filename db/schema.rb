@@ -1034,15 +1034,6 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
 
   add_index "insider_pages", ["business_id"], :name => "index_insider_pages_on_business_id"
 
-  create_table "insiderpages", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "email"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
   create_table "jaydes", :force => true do |t|
     t.integer  "business_id"
     t.text     "secrets"
@@ -1836,10 +1827,6 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
     t.boolean  "enabled_for_scan",      :default => false
     t.boolean  "enabled",               :default => true
     t.text     "technical_notes"
-    t.string   "logo_file_name"
-    t.string   "logo_content_type"
-    t.integer  "logo_file_size"
-    t.datetime "logo_updated_at"
     t.string   "login_url"
     t.string   "model"
   end
@@ -1902,7 +1889,7 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
     t.integer  "monthly_fee"
     t.string   "status"
     t.integer  "transaction_event_id"
-    t.datetime "label_last_billed_at", :default => '2013-07-09 21:48:55'
+    t.datetime "label_last_billed_at", :default => '2013-07-13 21:46:39'
   end
 
   add_index "subscriptions", ["package_id"], :name => "index_subscriptions_on_package_id"

@@ -88,6 +88,7 @@ module Business::MiscMethods
       PackagePayload.by_package(sub.package_id).each do |obj|
         next if obj == nil
         site = obj.site
+        next if site == nil
 	unless site_names.has_key? site.name
 	  sites.push site
           site_names[site.name] = true
