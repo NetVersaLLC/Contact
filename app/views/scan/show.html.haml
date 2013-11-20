@@ -54,7 +54,7 @@
 =render "scans"
 .row
   .col-xs-4
-    %form.form-search{:action => "/scan/send", :method => :post}
+    %form.form-search{:action => "/scanner/send", :method => :post}
       .input-group
         %input{:name => 'ident', :value => @report.ident, :type => :hidden}
         %input.form-control.search-query(type="text" placeholder="name@somewhere.com" type="email" name="email")
