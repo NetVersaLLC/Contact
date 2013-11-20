@@ -40,8 +40,8 @@ class ClientData < ActiveRecord::Base
 
     r = Report.where(business_id: self.business_id).last
     if r.present?
-      @scan = Scan.where(report_id: r.id).where(site: self.class.name).last
-      @scan.copmleted_at = r.updated_at if @scan.present? && @scan.completed_at.nil?
+      @scan = Scan.where(report_id: r.id).where(site_name: self.class.name).last
+      #@scan.completed_at = r.updated_at if @scan.present? && @scan.completed_at.nil?
     end
 
     if (not defined? @scan) || @scan.nil?

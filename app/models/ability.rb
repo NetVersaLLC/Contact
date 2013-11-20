@@ -57,7 +57,7 @@ class Ability
       can :manage, Notification, :business => { :user_id => user.id }
       can :manage, Download
       can :manage, Task, :business => { :user_id => user.id }
-      can :manage, Report, :business => { :user_id => user.id } 
+      can :manage, Report, :business_id => user.businesses.pluck(:id)
       can [:read, :update], User, :id => user.id
     end
   end

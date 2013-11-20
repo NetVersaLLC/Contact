@@ -34,10 +34,10 @@ class Business < ActiveRecord::Base
   # Triggers -> moved to BusinessObserver
 
   # search on activeadmin -> meta_search
-  scope :redeemed_coupon_eq, lambda { |cid| joins(:transaction_event).
-      where(:transaction_events => {:coupon_id => cid})
-  }
-  search_methods :redeemed_coupon_eq
+  #scope :redeemed_coupon_eq, lambda { |cid| joins(:transaction_event).
+  #    where(:transaction_events => {:coupon_id => cid})
+  #}
+  #search_methods :redeemed_coupon_eq
 
   # This loads the citation list in Business::CitationList and
   # then creates various data representations from it. This also

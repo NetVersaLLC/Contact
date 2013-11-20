@@ -44,9 +44,9 @@ class ApplicationController < ActionController::Base
   #   end
   # end
 
-  # def current_ability
+  #def current_ability
   #   @current_ability ||= Ability.new(current_admin_user)
-  # end 
+  #end 
   protected 
     def add_breadcrumb name, url = ''
       breadcrumbs << [name, url]
