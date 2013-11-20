@@ -1,7 +1,8 @@
 class SitesController < InheritedResources::Base  #ApplicationController
-  before_filter :authenticate_user!
+
   load_and_authorize_resource 
   respond_to :html, :json, :js
+
   # actions :all, except: [ :delete ] 
   add_breadcrumb 'Site Profiles', :sites_url
 

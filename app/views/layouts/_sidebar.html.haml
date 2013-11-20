@@ -56,9 +56,10 @@
             %i.icon-double-angle-right
             Health 
         %li
-          =link_to sites_url do 
-            %i.icon-double-angle-right
-            Statistics
+          -if can? :read, Site
+            =link_to sites_url do 
+              %i.icon-double-angle-right
+              Statistics
         -#%li
           %a{href:'#'}
             %i.icon-double-angle-right
