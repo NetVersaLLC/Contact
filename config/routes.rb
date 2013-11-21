@@ -7,7 +7,7 @@ Contact::Application.routes.draw do
   get    '/payloads(.:format)', :controller => :payloads, :action => :index
   get    '/payloads/tree/:site_id/:mode_id(.:format)', :controller => :payloads, :action => :tree
   put    '/payloads/move/:id/:parent_id(.:format)', :controller => :payloads, :action => :move
-  delete '/payloads/:id(.:format)', :controller => :payloads, :action => :destroy
+  delete '/payloads(.:format)', :controller => :payloads, :action => :destroy
   post   '/payloads(.:format)', :controller => :payloads, :action => :create
   put    '/payloads(.:format)', :controller => :payloads, :action => :save
   put    '/sync_to_git', :controller => :payloads, :action => :sync_to_git

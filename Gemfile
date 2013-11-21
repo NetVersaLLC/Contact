@@ -25,8 +25,8 @@ end
 
 
 group :test do
-  gem 'cucumber'
-  gem 'cucumber-rails', :require => false
+  #gem 'cucumber'
+  #gem 'cucumber-rails', :require => false
   gem 'page-object'
   gem 'database_cleaner'
   gem 'capybara'
@@ -37,8 +37,10 @@ group :test do
 end
 
 group :test, :development do
+  gem 'minitest-rails'
   gem 'awesome_print'
   gem 'factory_girl_rails'
+  gem 'mocha', require: false
 end
 
 gem "aws-sdk", "~> 1.11.3"
@@ -50,7 +52,7 @@ gem 'devise'
 gem 'haml'
 gem 'haml-rails'
 gem 'zip'
-gem 'activeadmin'
+#gem 'activeadmin'
 #gem 'meta_search'   # replaced with ransack 
 gem 'ransack'
 gem 'acts_as_list'
@@ -75,7 +77,6 @@ gem 'axlsx'
 gem 'daemons'
 gem 'daemons-rails'
 gem 'prawn'
-gem 'unicorn'
 gem 'rate-limiting'
 gem 'dalli'
 gem 'delayed_job_active_record'
@@ -87,7 +88,7 @@ gem 'inherited_resources'
 gem "jbuilder"
 gem "strong_parameters", "~> 0.2.1"
 gem "redcarpet"
-gem "meta_search"
+#gem "meta_search"
 #gem "activeadmin"
 gem 'has_scope'
 gem "acitree-rails", :git => 'git@github.com:jjeffus/acitree-rails.git'

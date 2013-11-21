@@ -1,10 +1,10 @@
 class ClientData < ActiveRecord::Base
   self.table_name = "client_data"
-  #self.abstract_class = true
+  #self.abstract_class = true   # this breaks single table inheritance
   belongs_to      :business
   attr_accessible :force_update, :do_not_sync
-  #serialize       :secrets, CerebusClient.new
-  #after_find      :deserialize_attributes
+  serialize       :secrets, CerebusClient.new
+  after_find      :deserialize_attributes
   before_save     :serialize_attributes
 
   # override this and return false in subclasses that dont have categories 
@@ -40,8 +40,8 @@ class ClientData < ActiveRecord::Base
 
     r = Report.where(business_id: self.business_id).last
     if r.present?
-      @scan = Scan.where(report_id: r.id).where(site: self.class.name).last
-      @scan.copmleted_at = r.updated_at if @scan.present? && @scan.completed_at.nil?
+      @scan = Scan.where(report_id: r.id).where(site_name: self.class.name).last
+      #@scan.completed_at = r.updated_at if @scan.present? && @scan.completed_at.nil?
     end
 
     if (not defined? @scan) || @scan.nil?

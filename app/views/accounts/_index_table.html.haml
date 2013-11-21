@@ -7,7 +7,7 @@
       %th.hidden-480
         %i.icon-time
         Last Update  
-      %th.hidden-480 Include in Broadcaset
+      -#%th.hidden-480 Include in Broadcaset
       %th.hidden-480 Status
       %th Modify
   %tbody
@@ -18,13 +18,13 @@
         %td= account.class.name
         %td= render partial: "sync_button", locals: { :account => account }
         %td= account.last_update
-        %td
+        -#%td
           %label.pull-right.inline
             %small.text-muted Broadcast: 
             %input.ace.ace-switch(type="checkbox" checked="checked")
             %span.lbl
         %td
-          %span.label=  account.latest_scan.status 
+          %span.label=  account.latest_scan.status || "Running"
           -if account.latest_scan.completed_at.present?
             %br
             %small.text-muted= l(account.latest_scan.completed_at, format: :long)

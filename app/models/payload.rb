@@ -6,7 +6,12 @@ class Payload < ActiveRecord::Base
   acts_as_tree :order => "position"
 
   def save_to_sites
-    site_dir = Rails.root.join("sites", self.site.name)
+    if Site.where(:id => self.site_id).count == 0
+      p self
+      return
+    end
+    STDERR.puts "save_to_sites: Site: #{site}"
+    site_dir = Rails.root.join("sites", site.name)
     unless Dir.exists?  site_dir
      Dir.mkdir site_dir
     end
@@ -169,7 +174,7 @@ class Payload < ActiveRecord::Base
 
   def self.list(site)
     site = Site.by_name(site)
-    self.where(:site_id => site.id).pluck(:name).sort
+    self.where(:site_id => site.id).order(:name).pluck(:name).sort
   end
 
   def self.children(name)
