@@ -65,6 +65,7 @@ class ScanController < ApplicationController
     @report = Report.where(:ident => params[:ident]).first
     @report.email = params[:email]
     @report.save!
+    ReportMailer.report_email(@report).deliver if @report.email.present?
     res = {:status => 'updated'}
     render :json => res
   end
