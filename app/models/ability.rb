@@ -19,28 +19,28 @@ class Ability
       can :manage, User, :label_id => user.label_id
       can :manage, [Subscription,TransactionEvent,Payment], :label_id => user.label_id
 
-      #Business.citation_list.each do |site|
-      #  can :manage, site[0].constantize, :business => { :label_id => user.label_id }
-      #end
-      #Business.citation_list.each do |site|
-      #  site[2].each do |row|
-      #    if row[0] == 'select'
-      #      can :read, row[1].classify.constantize, :business => { :user_id => user.id }
-      #    end
-      #  end
-      #end
+      Business.citation_list.each do |site|
+        can :manage, site[0].constantize, :business => { :label_id => user.label_id }
+      end
+      Business.citation_list.each do |site|
+        site[2].each do |row|
+          if row[0] == 'select'
+            can :read, row[1].classify.constantize, :business => { :user_id => user.id }
+          end
+        end
+      end
     else
       can :manage, Business, :user_id => user.id
-      #Business.citation_list.each do |site|
-      #  can :manage, site[0].constantize, :business => { :user_id => user.id }
-      #end
-      #Business.citation_list.each do |site|
-      #  site[2].each do |row|
-      #    if row[0] == 'select'
-      #      can :read, row[1].classify.constantize, :business => { :user_id => user.id }
-      #    end
-      #  end
-      #end
+      Business.citation_list.each do |site|
+        can :manage, site[0].constantize, :business => { :user_id => user.id }
+      end
+      Business.citation_list.each do |site|
+        site[2].each do |row|
+          if row[0] == 'select'
+            can :read, row[1].classify.constantize, :business => { :user_id => user.id }
+          end
+        end
+      end
       can :manage, ClientData, :business => { :user_id => user.id }
       can :manage, [Subscription,TransactionEvent,Payment], :business => { :user_id => user.id }
       can :create, Booboo, :user_id => user.id

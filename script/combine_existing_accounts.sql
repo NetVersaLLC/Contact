@@ -4,7 +4,7 @@
 #    bizzspot, brownbook, byzlysts, citydata, citysearch*, craigslist (no data table) 
 #    crunchbase*, cylex, jayde, judys_book, mydestinations, onlinenetworks, spotbusiness (spotbusiness_Category), 
 #    superpages
-use contact; 
+use contact_development;
 truncate table client_data; 
 insert into client_data(business_id, email, secrets, status, force_update, listing_url, created_at, updated_at, category_id, do_not_sync, type) select business_id, email, secrets, status, force_update, listing_url, created_at, updated_at, angies_list_category_id, do_not_sync, "AngiesList" from angies_lists;
 insert into client_data(business_id, force_update, secrets, username, created_at, updated_at, do_not_sync, type) select business_id, force_update, secrets, username, created_at, updated_at, do_not_sync, "Aol" from aols;

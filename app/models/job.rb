@@ -118,7 +118,7 @@ END
       self.status         = TO_CODE[:error]
       self.status_message = msg
       self.backtrace      = backtrace
-      self.screenshot_id  = screenshot.id
+      self.screenshot_id  = screenshot.id if screenshot.present?
       self.save
     end
     self.is_now(FailedJob)
