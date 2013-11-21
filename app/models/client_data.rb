@@ -1,10 +1,10 @@
 class ClientData < ActiveRecord::Base
   self.table_name = "client_data"
-  #self.abstract_class = true
+  #self.abstract_class = true   # this breaks single table inheritance
   belongs_to      :business
   attr_accessible :force_update, :do_not_sync
-  #serialize       :secrets, CerebusClient.new
-  #after_find      :deserialize_attributes
+  serialize       :secrets, CerebusClient.new
+  after_find      :deserialize_attributes
   before_save     :serialize_attributes
 
   # override this and return false in subclasses that dont have categories 
