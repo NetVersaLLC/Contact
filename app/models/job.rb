@@ -79,19 +79,8 @@ class Job < JobBase
           nil
         end
       else
-        open_browser =<<END
-@browser = Watir::Browser.new
-at_exit do
-  if @browser
-    @browser.close
-  end
-end
-
-END
         @job.with_lock do
-          unless @job.model == 'Test' or @job.model == 'Utils'
-            @job.payload = open_browser + @job.payload
-          end
+          @job.payload        = @job.payload
           @job.status         = TO_CODE[:running]
           @job.status_message = 'Starting job'
           @job.waited_at      = Time.now
