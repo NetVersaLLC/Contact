@@ -31,7 +31,7 @@ group :test do
   gem 'database_cleaner'
   gem 'capybara'
   gem 'capybara-screenshot'
-  #gem 'rspec-rails'
+  gem 'rspec-rails'
   gem 'shoulda'
   gem 'zeus'
 end

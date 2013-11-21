@@ -23,7 +23,9 @@ FactoryGirl.define do
     brands 'brands' 
     tag_line 'We Rock!' 
     job_titles 'ceo, manager' 
-    corporate_name 'corporate name' 
+    corporate_name 'corporate name'
+    contact_prefix 'Mr'
+    category_description 'ecommerce'
 
     subscription
     user
@@ -42,7 +44,8 @@ FactoryGirl.define do
   factory :user do 
     email "user@contact.dev"
     password 'password' 
-    password_confirmation 'password' 
+    password_confirmation 'password'
+    authentication_token '82ht987h987h'
     access_level User.owner
     label 
   end 
