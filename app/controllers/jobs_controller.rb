@@ -64,7 +64,6 @@ class JobsController < ApplicationController
 
     @job = Job.inject(params[:business_id], payload.client_script, payload.data_generator, payload.ready, runtime)
     @job.name = params[:name]
-    @job.save
 
     respond_to do |format|
       if @job.save
