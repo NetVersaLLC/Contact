@@ -1,8 +1,13 @@
+
+get_job_id(element) -> 
+  $(e).closest("td").attr("data-job-id") 
+
 registerHooks = ()->
-  $('.delete_job').click (e)->
-    window.job_id = $(e.target).parent().attr('data-job-id')
-    console.log window.job_id
-    $('#delete_job').dialog( "open" )
+  $('.delete_job').click (e) ->
+
+
+        
+
   $('.view_payload').click (e)->
     window.job_id = $(e.target).parent().attr('data-job-id')
     console.log window.job_id
@@ -322,5 +327,6 @@ window.initialize_client_manager = ()->
       template = booboos_template if target_id == "#errors"
 
       $(target_id).html( template(data) ) 
+      registerHooks()
 
 

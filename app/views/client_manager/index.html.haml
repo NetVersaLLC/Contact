@@ -1,35 +1,36 @@
-#client_manager
-  .row
-    .col-xs-6
-      %h5= @business.business_name
-    .col-xs-6
+#client_manager.row
+  .col-xs-12
+    .row
+      .col-xs-6
+        %h5= @business.business_name
+      .col-xs-6
 
-      %dl.dl-horizontal
-        %dt Checked in
-        %dd #{@business.client_checkin}
-        %dt Created
-        %dd #{@business.created_at}
-        %dt Updated
-        %dd #{@business.updated_at}
-  .row
-    .col-xs-12
-      %ul.nav.nav-tabs
-        %li
-          %a{href: "#pending", data: { path: client_manager_jobs_path(format: :json, business_id: @business.id, name: 'job'), toggle: "tab"}} Pending
-        %li
-          %a{href: "#failed", data: { path: client_manager_jobs_path(format: :json, business_id: @business.id, name: 'failed_job'), toggle: "tab"}} Failed
-        %li
-          %a{href: "#succeeded", data: { path: client_manager_jobs_path(format: :json, business_id: @business.id, name: 'completed_job'), toggle: "tab"}} Succeeded
-        %li
-          %a{href: "#errors", data: { path: client_manager_booboos_path(format: :json, business_id: @business.id ), toggle: "tab"}} Errors
-        %li
-          %a{href: "#latest", data: { path: client_manager_jobs_path(format: :json, business_id: @business.id, name: 'latest'), toggle: "tab"}} Latest
-      .tab-content
-        #pending.tab-pane.active
-        #failed.tab-pane
-        #succeeded.tab-pane
-        #errors.tab-pane
-        #latest.tab-pane
+        %dl.dl-horizontal
+          %dt Checked in
+          %dd #{@business.client_checkin}
+          %dt Created
+          %dd #{@business.created_at}
+          %dt Updated
+          %dd #{@business.updated_at}
+    .row
+      .col-md-12
+        %ul.nav.nav-tabs
+          %li
+            %a{href: "#pending", data: { path: client_manager_jobs_path(format: :json, business_id: @business.id, name: 'job'), toggle: "tab"}} Pending
+          %li
+            %a{href: "#failed", data: { path: client_manager_jobs_path(format: :json, business_id: @business.id, name: 'failed_job'), toggle: "tab"}} Failed
+          %li
+            %a{href: "#succeeded", data: { path: client_manager_jobs_path(format: :json, business_id: @business.id, name: 'completed_job'), toggle: "tab"}} Succeeded
+          %li
+            %a{href: "#errors", data: { path: client_manager_booboos_path(format: :json, business_id: @business.id ), toggle: "tab"}} Errors
+          %li
+            %a{href: "#latest", data: { path: client_manager_jobs_path(format: :json, business_id: @business.id, name: 'latest'), toggle: "tab"}} Latest
+        .tab-content
+          #pending.tab-pane.active
+          #failed.tab-pane
+          #succeeded.tab-pane
+          #errors.tab-pane
+          #latest.tab-pane
 
 %script{:src => "https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.min.js"}
 %script{id: "jobs-template", type: "text/x-handlebars-template"} 
@@ -44,11 +45,11 @@
     %tbody
       {{#each jobs}}
       %tr
-        %td{ "data-job-id": "{{id}}"} 
+        %td{ "data-job-id" => "{{id}}"} 
           {{#if is_missing}}
           %span.missing Missing 
           {{else}}
-          %span.btn.btn-xs.btn-danger.delete_job{ :title => "Delete Job" } 
+          %button.btn.btn-xs.btn-danger.delete_job{ :title => "Delete Job" } 
             %i.icon-trash
           %span.btn.btn-xs.btn-info.view_payload{ :title => "View Payload" }
             %i.icon-file-text
