@@ -316,11 +316,11 @@ window.initialize_client_manager = ()->
   $('a[data-toggle="tab"]').on 'shown.bs.tab', (e)-> 
     target = $(e.target)
     $.getJSON target.attr('data-path'), (data)-> 
-
       target_id = target.attr('href')
 
       template = jobs_template    if target_id in ["#pending", "#failed", "#succeeded", "#latest"]
       template = booboos_template if target_id == "#errors"
 
       $(target_id).html( template(data) ) 
+
 

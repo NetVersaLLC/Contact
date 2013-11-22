@@ -1,0 +1,12 @@
+#client_manager
+{
+  .jobs 
+  {
+    .status-message { 
+      width: 25em; 
+      white-space:nowrap; 
+      overflow: hidden; 
+      text-overflow: ellipsis;
+    }
+  }
+}
