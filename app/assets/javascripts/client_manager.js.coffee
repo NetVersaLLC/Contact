@@ -89,44 +89,6 @@ registerHooks = ()->
         $('#view_notification').html(data)
         $('#view_notification').dialog( "open" )
 
-showPending = (panel)->
-  window.current_tab = "jobs"
-  $.get "/admin/jobs/pending_jobs?business_id=#{window.business_id}", (data)->
-    data = "<div id='dash'><input type='checkbox' id='pause_button' /><label for='pause_button'>Toggle Payload Pause</label><span id='paused_at'>Paused at: "+window.business_paused_at+"</span><input type='button' id='load_missed_payloads' value='Add Missed Payloads' /><input type='button' id='clear_payloads' value='Clear Payloads' /></div>" + data
-    $(panel).html(data)
-    registerHooks()
-showFailed = (panel)->
-  window.current_tab = "failed_jobs"
-  $.get "/admin/jobs/failed_jobs?business_id=#{window.business_id}", (data)->
-    $(panel).html(data)
-    registerHooks()
-showCompleted = (panel)->
-  window.current_tab = "completed_jobs"
-  $.get "/admin/jobs/completed_jobs?business_id=#{window.business_id}", (data)->
-    $(panel).html(data)
-    registerHooks()
-showErrors = (panel)->
-  window.current_tab = "booboos"
-  $.get "/admin/booboos/list?business_id=#{window.business_id}", (data)->
-    $(panel).html( data )
-    registerHooks()
-showClient = (panel)->
-  window.current_tab = "ciients"
-  console.log "Client", panel
-  $.getJSON "/admin/businesses/#{window.business_id}/client_info.js", (data) ->
-    html = '<table><tbody>'
-    $.each data, (i,e)->
-      html += '<tr>'
-      html += '<td>'+i+'</td>'
-      html += '<td>'+e+'</td>'
-      html += '</tr>'
-    html += '</tbody></table>'
-    $(panel).html( html )
-showLatest = (panel)->
-  window.current_tab = "completed_jobs"
-  $.get "/admin/jobs/latest_jobs?business_id=#{window.business_id}", (data)->
-    $(panel).html(data)
-    registerHooks()
 showNotifications = (panel)->
   window.current_tab = "notifications"
   $.get "/notifications.json?business_id=#{window.business_id}", (data)->
@@ -348,6 +310,17 @@ window.startPayloads = () ->
         $( this ).dialog( "close" )
 
 window.initialize_client_manager = ()->
+  jobs_template    = Handlebars.compile($("#jobs-template").html()) 
+  booboos_template = Handlebars.compile($("#booboos-template").html())
+
   $('a[data-toggle="tab"]').on 'shown.bs.tab', (e)-> 
-    console.log e.target 
+    target = $(e.target)
+    $.getJSON target.attr('data-path'), (data)-> 
+
+      target_id = target.attr('href')
+
+      template = jobs_template    if target_id in ["#pending", "#failed", "#succeeded", "#latest"]
+      template = booboos_template if target_id == "#errors"
+
+      $(target_id).html( template(data) ) 
 
