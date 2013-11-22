@@ -156,6 +156,9 @@ module Business::MiscMethods
 
     def birthday
       date = self.contact_birthday
+      if date.is_a? String
+        date = Date.new(date)
+      end #TEMPORARY FIX, find where contact_birthday is set and fix later
       unless date
         date = Date.today - 30.year - (rand()*365).day
         self.contact_birthday = date
