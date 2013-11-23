@@ -35,7 +35,7 @@ sub build($$) {
   my $self = shift;
   my $rows = shift;
   my $actives = shift;
-  my (%payloballsads, %children, %parents, %tree);
+  my (%payloads, %children, %parents, %tree);
 
   # Build indexes for the data
   # First create a mapping of id -> HASH

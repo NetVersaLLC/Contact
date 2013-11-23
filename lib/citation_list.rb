@@ -21,6 +21,14 @@
     ],
       'Business.com'
   ],
+  ['Bizhyw', 'bizhyws',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'bizhyw_category']
+    ],
+      'Bizhyw.com'
+  ],
   ['Citisquare', 'citisquares',
     [
       ['text', 'email'],

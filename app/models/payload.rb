@@ -227,7 +227,6 @@ class Payload < ActiveRecord::Base
       missing.push node.name
       STDERR.puts "Adding: #{node.name}..."
       return
-    end
     STDERR.puts "Checked..."
     node.children.each do |child|
       STDERR.puts "Recurse: #{child.name}"
