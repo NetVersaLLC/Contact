@@ -24,7 +24,8 @@
   ['Bizhyw', 'bizhyws',
     [
       ['text', 'email'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['select', 'bizhyw_category']
     ],
       'Bizhyw.com'
   ],
