@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131118180303) do
+ActiveRecord::Schema.define(:version => 20131123203945) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -157,6 +157,11 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
   end
 
   add_index "bings", ["business_id"], :name => "index_bings_on_business_id"
+
+  create_table "bizhyw_categories", :force => true do |t|
+    t.string  "name"
+    t.integer "parent_id"
+  end
 
   create_table "bizzspots", :force => true do |t|
     t.integer  "business_id"
@@ -908,6 +913,7 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
     t.integer  "yellowwiz_category_id"
     t.integer  "citydata_category_id"
     t.integer  "meetlocalbiz_category_id"
+    t.integer  "bizhyw_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"

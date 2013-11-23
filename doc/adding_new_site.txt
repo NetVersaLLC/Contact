@@ -1,0 +1,44 @@
+# Adding a New Site
+
+1. If the site requires categories?
+  a. Create a model for the categories. Assuming model name Model.
+     rails generate model ModelCategory name:string parent_id:integer
+  b. Modify the generated migration file in db/migrate/*create_model_categories.rb
+     You need to add a column to the google_categories table to hold this
+     association. So for the example:
+     add_column :google_categories, :model_category_id, :integer
+  c. Edit app/models/model_category.rb to match other category models.
+     Most importantly it must inherit from SiteCategory.
+  d. Write a scraper in /categories of the Contact repo.
+     The convention is for the scraper to be called pull_cats.rb
+     and for it to write a hash of arrays or hash of hashes to a
+     json file called categories.json in the same directory.
+  e. Write a rake import script to load the database place it in
+     lib/tasks/categories/model/categories.rake
+     look at other example sites to see how it should be loaded. This
+     will open and load the json created in the previous step. See
+     the docs for acts_as_tree to see how they're implemented.
+     https://github.com/rails/acts_as_tree
+  f. Run this import script to load the models.
+2. Adding the site and it attributes.
+  a. Add a model for the site itself. It's best to copy an existing one,
+     like for example:
+     cp app/models/bing.rb app/models/model.rb
+     It should inherit from ClientData and should have all the attributes
+     you will need. If an attribute is sensitive like a password then use
+     virtual_attribute_accessor to add it. Other attributes need to exist
+     on the client_data table like email or username.
+  b. Edit lib/citation_list.rb to include the model and site name. The
+     first element is the Model name, the second is the table, the third
+     is an array of elements and their types. The forth is the human
+     readable name. If the site has categories then the category must
+     be listed as a 'select' in this file.
+3. Preparing the database.
+  a. Create the site by running the payloads:add_site rake task.
+  b. Add the site to all packages by running:
+     s = Site.find_by_name("Model")
+     Package.all.each do |package| PackagePayload.create do |p| p.site_id = s.id; p.package_id = package.id; end end
+4. Create the first payload using Grinder and Opentwebst.
+5. Select the category for the business by using the categories page.
+   http://dev.netversa.com:3000/categories?business_id=<Busines ID>
+6. Run the payload for the first time.
