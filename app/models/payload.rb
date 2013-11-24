@@ -227,6 +227,7 @@ class Payload < ActiveRecord::Base
       missing.push node.name
       STDERR.puts "Adding: #{node.name}..."
       return
+    end
     STDERR.puts "Checked..."
     node.children.each do |child|
       STDERR.puts "Recurse: #{child.name}"
@@ -252,4 +253,5 @@ class Payload < ActiveRecord::Base
   def default_values
     self.position ||= self.maximum(:position) + 10
   end
+
 end
