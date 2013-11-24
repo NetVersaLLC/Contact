@@ -5,7 +5,8 @@
      rails generate model ModelCategory name:string parent_id:integer
   b. Modify the generated migration file in db/migrate/*create_model_categories.rb
      You need to add a column to the google_categories table to hold this
-     association. So for the example:
+     association. You would do this in the Rails migration file for the
+     given site in db/migrate/*_create_model_categories.rb. For example:
      add_column :google_categories, :model_category_id, :integer
   c. Edit app/models/model_category.rb to match other category models.
      Most importantly it must inherit from SiteCategory.
