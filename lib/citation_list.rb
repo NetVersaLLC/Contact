@@ -383,6 +383,11 @@
     ],
       'Cylex'
   ],
+  ['Spoke', 'spoke',
+    [
+    ],
+      'Spoke'
+  ],
   ['Snoopitnow', 'snoopitnows',
     [
       ['select', 'snoopitnow_category']      
@@ -488,6 +493,11 @@
     ],
       'Zipperpage'
   ],
+  ['Onlinenetwork247', 'onlinenetwork247',
+    [
+    ],
+      'Onlinenetwork247'
+  ],
   ['Thinklocal', 'thinklocals',
     [
       ['text', 'email'],
@@ -513,7 +523,14 @@
     ],
       'Facebook'
   ],
-    ['Mywebyellow', 'mywebyellows',
+  ['Companytube','companytubes',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Companytube'
+  ], 
+  ['Mywebyellow', 'mywebyellows',
     [
       ['text', 'username'],
       ['text', 'password'],

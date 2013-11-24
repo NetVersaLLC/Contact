@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131123203945) do
+ActiveRecord::Schema.define(:version => 20131124124238) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -914,6 +914,7 @@ ActiveRecord::Schema.define(:version => 20131123203945) do
     t.integer  "citydata_category_id"
     t.integer  "meetlocalbiz_category_id"
     t.integer  "bizhyw_category_id"
+    t.integer  "model_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -1543,6 +1544,13 @@ ActiveRecord::Schema.define(:version => 20131123203945) do
   end
 
   add_index "notifications", ["business_id"], :name => "index_notifications_on_business_id"
+
+  create_table "nsphere_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "onlinenetworks", :force => true do |t|
     t.integer  "business_id"

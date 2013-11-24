@@ -1,5 +1,5 @@
 class Localndex < ClientData
-	attr_accessible :username
+	attr_accessible :username, :email
 	virtual_attr_accessor :password
 	#validates :password,
   #          :presence => true
