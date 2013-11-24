@@ -1,0 +1,2 @@
+class Spoke < ClientData
+end
