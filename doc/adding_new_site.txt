@@ -30,7 +30,7 @@
      on the client_data table like email or username.
   b. Edit lib/citation_list.rb to include the model and site name. The
      first element is the Model name, the second is the table, the third
-     is an array of elements and their types. The forth is the human
+     is an array of elements and their types. The fourth is the human
      readable name. If the site has categories then the category must
      be listed as a 'select' in this file.
 3. Preparing the database.
