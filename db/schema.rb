@@ -920,10 +920,10 @@ ActiveRecord::Schema.define(:version => 20131125095036) do
     t.integer  "yellowwiz_category_id"
     t.integer  "citydata_category_id"
     t.integer  "meetlocalbiz_category_id"
-    t.integer  "localsolution_category_id"
-    t.integer  "model_category_id"
     t.integer  "bizhyw_category_id"
+    t.integer  "localsolution_category_id"
     t.integer  "nsphere_category_id"
+    t.integer  "ycphonebook_category_id"
     t.integer  "bigwigbiz_category_id"
     t.integer  "nationalwebdir_category_id"
   end
