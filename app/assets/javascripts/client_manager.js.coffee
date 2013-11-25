@@ -1,13 +1,24 @@
 
-get_job_id(element) -> 
-  $(e).closest("td").attr("data-job-id") 
+get_job_data = (e) -> 
+  console.log e
+  job = $(e).closest("tr")
+  id:         job.attr("data-job-id") 
+  class_name: job.attr("data-class-name") 
 
 registerHooks = ()->
   $('.delete_job').click (e) ->
-
-
-        
-
+    event.preventDefault()
+    bootbox.confirm "Are you sure?", (result) -> 
+      if result 
+        job_post = get_job_data( e.currentTarget )
+        job_post._method = "delete"
+        console.log job_post
+        $.post "jobs/" + job_post.id, job_post, (d) -> 
+          $(e.currentTarget).closest("tr").remove() 
+          $.gritter.add 
+            title: "Job deleted" 
+            class_name: "gritter-success"
+###
   $('.view_payload').click (e)->
     window.job_id = $(e.target).parent().attr('data-job-id')
     console.log window.job_id
@@ -313,7 +324,7 @@ window.startPayloads = () ->
       'Cancel': ()->
         console.log "close"
         $( this ).dialog( "close" )
-
+        ###
 window.initialize_client_manager = ()->
   jobs_template    = Handlebars.compile($("#jobs-template").html()) 
   booboos_template = Handlebars.compile($("#booboos-template").html())
