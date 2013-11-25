@@ -57,14 +57,15 @@ Contact::Application.routes.draw do
     resources :images
     resources :notifications
   end 
-
   get     '/codes/:business_id/:site_name(.:format)', :action=>"site_code", :controller=>"codes"
   post    '/codes/:business_id/:site_name(.:format)', :action=>"create",    :controller=>"codes"
   delete  '/codes/:business_id/:site_name(.:format)', :action=>"destroy",   :controller=>"codes"
 
   get     '/report(.:format)', :controller => :businesses, :action => :report
 
-  get     '/client_manager(.:format)', :action=>"index", :controller=>"client_manager"
+  get     '/client_manager(.:format)', :action=>"index",     :controller=>"client_manager"
+  get     '/client_manager/jobs(.:format)', as: :client_manager_jobs
+  get     '/client_manager/booboos(.:format)', as: :client_manager_booboos
 
   resources :results
   resources :tasks
@@ -82,6 +83,7 @@ Contact::Application.routes.draw do
   post    '/booboos(.:format)', :controller => :jobs, :action => :booboo
   resources :jobs,  except: [:show]
   get     '/jobs/list(.:format)', :controller => :jobs,   :action => :list
+  put     '/jobs/:id/rerun', :controller => :jobs,   :action => :rerun
 
   post    '/captcha/:type',      :controller => :captcha,         :action => :recaptcha
   get     '/downloads/:business_id', :controller => :downloads,       :action => :download

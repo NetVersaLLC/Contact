@@ -19,4 +19,8 @@ class JobBase < ActiveRecord::Base
     self.delete
     obj
   end
+
+  def has_screenshot? 
+    false 
+  end 
 end

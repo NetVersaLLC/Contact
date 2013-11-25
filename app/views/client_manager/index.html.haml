@@ -1,26 +1,98 @@
 #client_manager.row
   .col-xs-12
-    %ul.nav.nav-tabs
-      %li
-        %a{href: "#pending", data: { toggle: "tab"}} Pending
-      %li
-        %a{href: "#failed", data: { toggle: "tab"}} Failed
-      %li
-        %a{href: "#succeeded", data: { toggle: "tab"}} Succeeded
-      %li
-        %a{href: "#errors", data: { toggle: "tab"}} Errors
-      %li
-        %a{href: "#client_info", data: { toggle: "tab"}} Client Info
-      %li
-        %a{href: "#payload", data: { toggle: "tab"}} Payload
-    .tab-content
-      #pending.tab-pane.active
-        =render "index_table"
-      #failed.tab-pane
-      #succeeded.tab-pane
-      #errors.tab-pane
-      #client_info.tab-pane
-      #payload.tab-pane
+    .row
+      .col-xs-6
+        =select_tag "business", options_from_collection_for_select(@businesses, "id","business_name", @business.id), class: "chosen"
+        %br
+        %button#refresh.btn.btn-primary{type: "button"}
+          Refresh
+          %i.icon-refresh
+      .col-xs-6
+        %dl.dl-horizontal
+          %dt
+          %dd= @business.business_name
+          %dt Checked in
+          %dd #{@business.client_checkin}
+          %dt Created
+          %dd #{@business.created_at}
+          %dt Updated
+          %dd #{@business.updated_at}
+    .row
+      .col-md-12
+        #preview
+        %ul.nav.nav-tabs
+          %li
+            %a{href: "#latest", data: { path: client_manager_jobs_path(format: :json, business_id: @business.id, name: 'latest'), toggle: "tab"}} Latest
+          %li
+            %a{href: "#pending", data: { path: client_manager_jobs_path(format: :json, business_id: @business.id, name: 'job'), toggle: "tab"}} Pending
+          %li
+            %a{href: "#failed", data: { path: client_manager_jobs_path(format: :json, business_id: @business.id, name: 'failed_job'), toggle: "tab"}} Failed
+          %li
+            %a{href: "#succeeded", data: { path: client_manager_jobs_path(format: :json, business_id: @business.id, name: 'completed_job'), toggle: "tab"}} Succeeded
+          %li
+            %a{href: "#errors", data: { path: client_manager_booboos_path(format: :json, business_id: @business.id ), toggle: "tab"}} Errors
+        .tab-content
+          #pending.tab-pane.active
+          #failed.tab-pane
+          #succeeded.tab-pane
+          #errors.tab-pane
+          #latest.tab-pane
+
+%script{:src => "https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.min.js"}
+%script{id: "jobs-template", type: "text/x-handlebars-template"} 
+  %table.table.table-striped.jobs
+    %thead
+      %tr
+        %th Status 
+        %th Name 
+        %th Message
+        %th Created at 
+        %th 
+    %tbody
+      {{#each jobs}}
+      %tr{ "data-job-id" => "{{id}}",  "data-class-name" => "{{class_name}}" }
+        %td
+          {{#if is_missing}}
+          %span.missing Missing 
+          {{else}}
+          %button.btn.btn-xs.btn-danger.delete_job{ :title => "Delete Job" } 
+            %i.icon-trash
+          {{#if has_errors}}
+          %span.btn.btn-xs.btn-inverse.rerun{title: "Rerun Job"} 
+            %i.icon-refresh
+          {{/if}}
+          %span.btn.btn-xs.btn-info.view_meta{ :title => "View Meta" }
+            %i.icon-file-text
+          .hide.meta
+            %h4 Payload
+            %p {{payload}} 
+            %hr.hr-12.hr-double
+            %h4 Data 
+            %p {{data}}
+            %hr.hr-12.hr-double
+            %h4 Status Message 
+            %p {{status-message}}
+            %hr.hr-12.hr-double
+            %h4 Backtrace 
+            %p {{backtrace}}
+            %hr.hr-12.hr-double
+            %img{ src: "{{screenshot_url}}", alt: "No screen shot"} 
+          {{/if}}
+        %td {{name}}
+        %td
+          .status-message{ title: "{{status_message}}"} {{status_message}}
+        %td {{created_at}}
+        %td
+          {{/each}}
+
+%script{id: "booboos-template", type: "text/x-handlebars-template"} 
+  %table.table.table-striped
+    %tbody
+      {{#each booboos}}
+      %tr.view_booboo
+        %td {{message}}
+      {{/each}}
+
 :javascript 
   $( function(){ 
     initialize_client_manager(); 

@@ -1,27 +1,52 @@
+
+get_job_data = (e) -> 
+  job = $(e).closest("tr")
+  id:             job.attr("data-job-id") 
+  class_name:     job.attr("data-class-name") 
+  payload:        job.attr("data-payload")
+  status_message: job.attr("data-status-message")
+
 registerHooks = ()->
-  $('.delete_job').click (e)->
-    window.job_id = $(e.target).parent().attr('data-job-id')
-    console.log window.job_id
-    $('#delete_job').dialog( "open" )
-  $('.view_payload').click (e)->
-    window.job_id = $(e.target).parent().attr('data-job-id')
-    console.log window.job_id
-    $('#view_payload').html('<iframe src="/admin/jobs/'+window.job_id+'/view_payload?table='+window.current_tab+'" style="width: 700px; height: 300px" scrolling="yes" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0">')
-    $('#view_payload').dialog( "open" )
+  $('.rerun').click (e) -> 
+    e.preventDefault()
+    bootbox.confirm "Are you sure you want to restart the job?", (result) ->
+      if result 
+        job_post = get_job_data( e.currentTarget ) 
+        job_post._method = "put"
+        $.post "jobs/" + job_post.id + "/rerun",  job_post, (d) -> 
+          $.gritter.add 
+            title: "Job restarted" 
+            class_name: "gritter-success"
+
+  $('.delete_job').click (e) ->
+    e.preventDefault()
+    bootbox.confirm "Are you sure?", (result) -> 
+      if result 
+        job_post = get_job_data( e.currentTarget )
+        job_post._method = "delete"
+        console.log job_post
+        $.post "jobs/" + job_post.id, job_post, (d) -> 
+          $(e.currentTarget).closest("tr").remove() 
+          $.gritter.add 
+            title: "Job deleted" 
+            class_name: "gritter-success"
+
   $('.view_meta').click (e)->
-    window.job_id = $(e.target).parent().attr('data-job-id')
-    console.log window.job_id
-    $.get '/admin/jobs/'+window.job_id+'/view_meta.js', { table: window.current_tab }, (data)->
-      $('#view_meta').dialog({autoOpen: false}) 
-      $('#view_meta').html(data)
-      $('#view_meta').dialog( "open" )
-  $('.view_backtrace').click (e)->
-    window.job_id = $(e.target).parent().attr('data-job-id')
-    console.log window.job_id
-    $('#view_backtrace').html('<iframe src="/admin/jobs/'+window.job_id+'/view_backtrace" style="width: 700px; height: 300px" scrolling="yes" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0">')
-    $('#view_backtrace').dialog( "open")
-  $('.view_screenshot').click (e)->
-    window.location.href = $(e.target).attr('data-screenshot-url')
+    e.preventDefault() 
+    $(e.currentTarget).next().removeClass('hide').dialog
+      modal: true 
+      title:  "Job Metadata"
+      width: 600
+      buttons: [
+        {
+          text: "OK" 
+          class: "btn btn-primary btn-xs"
+          click: () -> 
+            $(this).dialog("close")
+        }
+      ]
+
+###
   $('.view_booboo').click (e)->
     window.booboo_id = e.target.getAttribute('data-booboo-id')
     console.log window.booboo_id
@@ -43,10 +68,6 @@ registerHooks = ()->
       console.log em
       $.post '/admin/jobs/'+window.business_id+'/reorder.js', { table: window.current_tab, order: JSON.stringify(em) }, (data)->
         console.log data
-  $('.rerun').click (e)->
-    window.job_id = $(e.target).parent().attr('data-job-id')
-    console.log window.job_id
-    $('#rerun_payload').dialog( "open" )
   $('.delete_notification').click (e)->
     window.notification_id = $(e.target).parent().attr('data-notification-id')
     if confirm("Are you sure you want to delete this notification?") == true
@@ -89,44 +110,6 @@ registerHooks = ()->
         $('#view_notification').html(data)
         $('#view_notification').dialog( "open" )
 
-showPending = (panel)->
-  window.current_tab = "jobs"
-  $.get "/admin/jobs/pending_jobs?business_id=#{window.business_id}", (data)->
-    data = "<div id='dash'><input type='checkbox' id='pause_button' /><label for='pause_button'>Toggle Payload Pause</label><span id='paused_at'>Paused at: "+window.business_paused_at+"</span><input type='button' id='load_missed_payloads' value='Add Missed Payloads' /><input type='button' id='clear_payloads' value='Clear Payloads' /></div>" + data
-    $(panel).html(data)
-    registerHooks()
-showFailed = (panel)->
-  window.current_tab = "failed_jobs"
-  $.get "/admin/jobs/failed_jobs?business_id=#{window.business_id}", (data)->
-    $(panel).html(data)
-    registerHooks()
-showCompleted = (panel)->
-  window.current_tab = "completed_jobs"
-  $.get "/admin/jobs/completed_jobs?business_id=#{window.business_id}", (data)->
-    $(panel).html(data)
-    registerHooks()
-showErrors = (panel)->
-  window.current_tab = "booboos"
-  $.get "/admin/booboos/list?business_id=#{window.business_id}", (data)->
-    $(panel).html( data )
-    registerHooks()
-showClient = (panel)->
-  window.current_tab = "ciients"
-  console.log "Client", panel
-  $.getJSON "/admin/businesses/#{window.business_id}/client_info.js", (data) ->
-    html = '<table><tbody>'
-    $.each data, (i,e)->
-      html += '<tr>'
-      html += '<td>'+i+'</td>'
-      html += '<td>'+e+'</td>'
-      html += '</tr>'
-    html += '</tbody></table>'
-    $(panel).html( html )
-showLatest = (panel)->
-  window.current_tab = "completed_jobs"
-  $.get "/admin/jobs/latest_jobs?business_id=#{window.business_id}", (data)->
-    $(panel).html(data)
-    registerHooks()
 showNotifications = (panel)->
   window.current_tab = "notifications"
   $.get "/notifications.json?business_id=#{window.business_id}", (data)->
@@ -178,98 +161,6 @@ window.startPayloads = () ->
     showLatest,
     showNotifications
   ]
-  $('#client_tabs').tabs
-    select: (event,ui)->
-      func = actions[ ui.index ]
-      window.reloadView = () ->
-        func( ui.panel )
-      func( ui.panel )
-  # Setup the reload button
-  window.reloadView = () ->
-    showPending( $('#client_tabs-1' ) )
-  $('#reloadButton').click ->
-    window.reloadView()
-  window.reloadView()
-  # Respond to panel clicks
-  $('#delete_job').dialog
-    autoOpen: false,
-    show: "blind",
-    hide: "explode"
-    buttons:
-      "Ok": ->
-        $.ajax
-          url: '/admin/jobs/'+window.job_id+'/delete_job.js',
-          type: 'DELETE',
-          success: ( response ) ->
-            $('#delete_job').dialog( "close" )
-            window.reloadView()
-      "Cancel": ()->
-        $( this ).dialog( "close" )
-  $('#view_payload').dialog
-    autoOpen: false,
-    show: "blind",
-    hide: "explode"
-    width: 750
-    buttons:
-      Ok: ()->
-        $( this ).dialog( "close" )
-      Cancel: ()->
-        $( this ).dialog( "close" )
-
-  $('#view_backtrace').dialog
-    autoOpen: false,
-    show: "blind",
-    hide: "explode"
-    width: 750
-    buttons:
-      Ok: ()->
-        $( this ).dialog( "close" )
-      Cancel: ()->
-        $( this ).dialog( "close" )
-
-  $('#rerun_payload').dialog
-    autoOpen: false,
-    show: "blind",
-    hide: "explode"
-    width: 750
-    buttons:
-      Ok: ()->
-        $.ajax
-          url: '/admin/jobs/'+window.job_id+'/rerun_job.js',
-          type: 'PUT',
-          success: ( response ) ->
-            $('#rerun_payload').dialog( "close" )
-            window.reloadView()
-      Cancel: ()->
-        $( this ).dialog( "close" )
-
-  $('#view_meta').dialog
-    autoOpen: false,
-    show: "blind",
-    hide: "explode"
-    width: 500
-    buttons:
-      Ok: ()->
-        obj = {}
-        obj['table']          = window.current_tab
-        obj['name']           = $('#job_name').val()
-        obj['data_generator'] = $('#job_data_generator').val()
-        obj['status']         = $('#job_status').val()
-        obj['status_message'] = $('#job_status_message').val()
-        obj['position']       = $('#job_position').val()
-        if $('#job_wait').is(':checked')
-          obj['wait']         = true
-        else
-          obj['wait']         = false
-        $.ajax
-          url: '/admin/jobs/'+window.job_id+'/update_job.js?'+$.param(obj),
-          type: 'PUT',
-          success: ( response ) ->
-            window.reloadView()
-        $( this ).dialog( "close" )
-      Cancel: ()->
-        $( this ).dialog( "close" )
-
   $('#view_notification').dialog
     autoOpen: false,
     show: "blind",
@@ -346,8 +237,52 @@ window.startPayloads = () ->
       'Cancel': ()->
         console.log "close"
         $( this ).dialog( "close" )
-
+        ###
 window.initialize_client_manager = ()->
-  $('a[data-toggle="tab"]').on 'shown.bs.tab', (e)-> 
-    console.log e.target 
+  jobs_template    = Handlebars.compile($("#jobs-template").html()) 
+  booboos_template = Handlebars.compile($("#booboos-template").html())
+  window.spinner = new Spinner(opts)
 
+  $('a[data-toggle="tab"]').on 'show.bs.tab', (e)-> 
+    window.spinner.spin document.getElementById( 'preview' )
+
+  $('a[data-toggle="tab"]').on 'shown.bs.tab', (e)-> 
+    target = $(e.target)
+    $.getJSON target.attr('data-path'), (data)-> 
+      target_id = target.attr('href')
+
+      template = jobs_template    if target_id in ["#pending", "#failed", "#succeeded", "#latest"]
+      template = booboos_template if target_id == "#errors"
+
+      $(target_id).html( template(data) ) 
+      registerHooks()
+      window.spinner.stop document.getElementById( 'preview' )
+
+  $('.chosen').chosen().change () -> 
+    id = $(this).val()
+    window.location.href = "/client_manager?business_id=#{id}"
+
+  $('a[data-toggle="tab"]').first().click()
+
+  $('#refresh').click (e) -> 
+    window.spinner.spin document.getElementById( 'preview' )
+    $('li.active > a').trigger('shown.bs.tab')
+
+
+opts = 
+  lines: 13 # The number of lines to draw
+  length: 20#// The length of each line
+  width: 10#// The line thickness
+  radius: 30#// The radius of the inner circle
+  corners: 1#// Corner roundness (0..1)
+  rotate: 0#// The rotation offset
+  direction: 1#// 1: clockwise#-1: counterclockwise
+  color: '#000'#// #rgb or #rrggbb or array of colors
+  speed: 1#// Rounds per second
+  trail: 60#// Afterglow percentage
+  shadow: false#// Whether to render a shadow
+  hwaccel: false#// Whether to use hardware acceleration
+  className: 'spinner'#// The CSS class to assign to the spinner
+  zIndex: 2e9#// The z-index (defaults to 2000000000)
+  top: 'auto'#// Top position relative to parent in px
+  left: 'auto' #// Left position relative to parent in px
