@@ -8,20 +8,21 @@
      association. You would do this in the Rails migration file for the
      given site in db/migrate/*_create_model_categories.rb. For example:
      add_column :google_categories, :model_category_id, :integer
-  c. Edit app/models/model_category.rb to match other category models.
+  c. rake db:migrate
+  d. Edit app/models/model_category.rb to match other category models.
      Most importantly it must inherit from SiteCategory.
-  d. Write a scraper in /categories of the Contact repo.
+  e. Write a scraper in /categories of the Contact repo.
      The convention is for the scraper to be called pull_cats.rb
      and for it to write a hash of arrays or hash of hashes to a
      json file called categories.json in the same directory.
-  e. Write a rake import script to load the database place it in
+  f. Write a rake import script to load the database place it in
      lib/tasks/categories/model/categories.rake
      look at other example sites to see how it should be loaded. This
      will open and load the json created in the previous step. See
      the docs for acts_as_tree to see how they're implemented.
      https://github.com/rails/acts_as_tree
-  f. Run this import script to load the models.
-  g. Modify the export_categories.rake file in /lib/tasks and change
+  g. Run this import script to load the models.
+  h. Modify the export_categories.rake file in /lib/tasks and change
      "next unless klass == SiteCategory" to your new site. Then rake
      export:categories to have them appear in the admin panel.
 2. Adding the site and it attributes.
