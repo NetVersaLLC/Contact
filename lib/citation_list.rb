@@ -62,7 +62,8 @@
   ['Twitter', 'twitters',
     [
       ['text', 'username'],
-      ['text', 'password']
+      ['text', 'password'],
+      ['text', 'twitter_page']
     ],
       'Twitter'
   ],
@@ -560,6 +561,22 @@
       ['select', 'meetlocalbiz_category']
     ],
       'Meetlocalbiz'
+  ],
+  ['Localsolution', 'localsolutions',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'localsolution_category']
+    ],
+      'Localsolution'
+  ],
+  ['Ycphonebook', 'ycphonebooks',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'ycphonebook_category']
+    ],
+      'Ycphonebook'
   ]
 ]
 

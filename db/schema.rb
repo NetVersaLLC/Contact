@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131118180303) do
+ActiveRecord::Schema.define(:version => 20131124220022) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -908,6 +908,8 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
     t.integer  "yellowwiz_category_id"
     t.integer  "citydata_category_id"
     t.integer  "meetlocalbiz_category_id"
+    t.integer  "localsolution_category_id"
+    t.integer  "model_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -1315,6 +1317,13 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
 
   add_index "localpages_categories", ["name"], :name => "index_localpages_categories_on_name"
   add_index "localpages_categories", ["parent_id"], :name => "index_localpages_categories_on_parent_id"
+
+  create_table "localsolution_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "locations", :force => true do |t|
     t.string   "zip",                                        :null => false
@@ -2183,6 +2192,13 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
   add_index "yahoos", ["business_id"], :name => "index_yahoos_on_business_id"
   add_index "yahoos", ["email"], :name => "index_yahoos_on_email"
   add_index "yahoos", ["yahoo_category_id"], :name => "index_yahoos_on_yahoo_category_id"
+
+  create_table "ycphonebook_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "yellow_bots", :force => true do |t|
     t.string   "username"
