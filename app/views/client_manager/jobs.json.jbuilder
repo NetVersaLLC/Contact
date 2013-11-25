@@ -12,4 +12,6 @@ json.jobs @jobs do |job|
   json.thumb_url      job.has_screenshot? ? job.screenshot.data.url(:thumb) :  ""
   json.class_name     job.class.name
   json.payload        job.payload
+  json.backtrace      job.backtrace
+  json.data           job.data_generator
 end 

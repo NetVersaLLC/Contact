@@ -1,9 +1,10 @@
 
 get_job_data = (e) -> 
   job = $(e).closest("tr")
-  id:         job.attr("data-job-id") 
-  class_name: job.attr("data-class-name") 
-  payload:    job.attr("data-payload")
+  id:             job.attr("data-job-id") 
+  class_name:     job.attr("data-class-name") 
+  payload:        job.attr("data-payload")
+  status_message: job.attr("data-status-message")
 
 registerHooks = ()->
   $('.delete_job').click (e) ->
@@ -18,24 +19,23 @@ registerHooks = ()->
           $.gritter.add 
             title: "Job deleted" 
             class_name: "gritter-success"
-  $('.view_payload').click (e)->
-    bootbox.alert get_job_data( e.currentTarget ).payload
+
+  $('.view_meta').click (e)->
+    e.preventDefault() 
+    $(e.currentTarget).next().removeClass('hide').dialog
+      modal: true 
+      title:  "Job Metadata"
+      width: 600
+      buttons: [
+        {
+          text: "OK" 
+          class: "btn btn-primary btn-xs"
+          click: () -> 
+            $(this).dialog("close")
+        }
+      ]
 
 ###
-  $('.view_meta').click (e)->
-    window.job_id = $(e.target).parent().attr('data-job-id')
-    console.log window.job_id
-    $.get '/admin/jobs/'+window.job_id+'/view_meta.js', { table: window.current_tab }, (data)->
-      $('#view_meta').dialog({autoOpen: false}) 
-      $('#view_meta').html(data)
-      $('#view_meta').dialog( "open" )
-  $('.view_backtrace').click (e)->
-    window.job_id = $(e.target).parent().attr('data-job-id')
-    console.log window.job_id
-    $('#view_backtrace').html('<iframe src="/admin/jobs/'+window.job_id+'/view_backtrace" style="width: 700px; height: 300px" scrolling="yes" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0">')
-    $('#view_backtrace').dialog( "open")
-  $('.view_screenshot').click (e)->
-    window.location.href = $(e.target).attr('data-screenshot-url')
   $('.view_booboo').click (e)->
     window.booboo_id = e.target.getAttribute('data-booboo-id')
     console.log window.booboo_id

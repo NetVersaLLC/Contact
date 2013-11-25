@@ -44,27 +44,33 @@
         %th 
     %tbody
       {{#each jobs}}
-      %tr{ "data-job-id" => "{{id}}",  "data-class-name" => "{{class_name}}", "data-payload" => "{{payload}}"}
+      %tr{ "data-job-id" => "{{id}}",  "data-class-name" => "{{class_name}}" }
         %td
           {{#if is_missing}}
           %span.missing Missing 
           {{else}}
           %button.btn.btn-xs.btn-danger.delete_job{ :title => "Delete Job" } 
             %i.icon-trash
-          %span.btn.btn-xs.btn-info.view_payload{ :title => "View Payload" }
-            %i.icon-file-text
-          {{#if has_errors}}
-          %span.btn.btn-xs.btn-warning.view_backtrace{ :title => "View Backtrace" } 
-            %i.icon-fire
-          {{/if}}
-          {{#if has_screenshot}} 
-          %span.btn.btn-xs.view_screenshot{ :title => "View Screenshot", 'data-screenshot-url' => "{{screenshot_url}}", 'data-screenshot-thumb' => "{{thumb_url}}" }
-            %i.icon-picture
-          {{/if}} 
           {{#if can_rerun}}
           %span.btn.btn-xs.btn-inverse.rerun{title: "Rerun Job"} 
             %i.icon-refresh
           {{/if}}
+          %span.btn.btn-xs.btn-info.view_meta{ :title => "View Meta" }
+            %i.icon-file-text
+          .hide.meta
+            %h4 Payload
+            %p {{payload}} 
+            %hr.hr-12.hr-double
+            %h4 Data 
+            %p {{data}}
+            %hr.hr-12.hr-double
+            %h4 Status Message 
+            %p {{status-message}}
+            %hr.hr-12.hr-double
+            %h4 Backtrace 
+            %p {{backtrace}}
+            %hr.hr-12.hr-double
+            %img{ src: "{{screenshot_url}}", alt: "No screen shot"} 
           {{/if}}
         %td {{name}}
         %td
