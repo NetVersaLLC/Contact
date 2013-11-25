@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131124220022) do
+ActiveRecord::Schema.define(:version => 20131125095036) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -131,6 +131,13 @@ ActiveRecord::Schema.define(:version => 20131124220022) do
   end
 
   add_index "aols", ["username"], :name => "index_aols_on_username"
+
+  create_table "bigwigbiz_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "bing_categories", :force => true do |t|
     t.integer  "parent_id"
@@ -914,8 +921,11 @@ ActiveRecord::Schema.define(:version => 20131124220022) do
     t.integer  "citydata_category_id"
     t.integer  "meetlocalbiz_category_id"
     t.integer  "localsolution_category_id"
-    t.integer  "bizhyw_category_id"
     t.integer  "model_category_id"
+    t.integer  "bizhyw_category_id"
+    t.integer  "nsphere_category_id"
+    t.integer  "bigwigbiz_category_id"
+    t.integer  "nationalwebdir_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -1540,6 +1550,13 @@ ActiveRecord::Schema.define(:version => 20131124220022) do
     t.datetime "updated_at",                      :null => false
     t.boolean  "do_not_sync",  :default => false
     t.string   "username"
+  end
+
+  create_table "nationalwebdir_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "notifications", :force => true do |t|

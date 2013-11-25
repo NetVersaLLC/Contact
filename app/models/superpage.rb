@@ -10,9 +10,10 @@ class Superpage < ClientData
     CheckMail.get_link(business) do |mail|
       if mail.subject =~ /Action Required: Confirm Your SuperMedia Account/
       	if mail.body =~ /(Temporary Password: \S+)/
+          @link[ 'link' ] = "www.google.com"
           @link[ 'temp_pass' ] = $1
         end
-        if mail.body =~ /(http:\/\/cl.exct.net\/?qs=\S+)/
+        if mail.body =~ /(http:\/\/cl.exct.net\S+)/
           @link[ 'link' ] = $1
         end
       end

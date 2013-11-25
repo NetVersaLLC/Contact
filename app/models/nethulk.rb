@@ -1,0 +1,2 @@
+class Nethulk < ClientData
+end

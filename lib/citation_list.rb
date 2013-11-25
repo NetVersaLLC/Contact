@@ -602,6 +602,39 @@
       ['select', 'ycphonebook_category']
     ],
       'Ycphonebook'
+  ],
+  ['N16mall', 'n16malls',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+    ],
+      'N16mall'
+  ],
+  ['Postgazette', 'postgazettes',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Postgazette'
+  ],
+  ['Bigwigbiz', 'bigwigbizs',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'bigwigbiz_category']
+    ],
+      'Bigwigbiz'
+  ],
+  ['Nationalwebdir', 'nationalwebdirs',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'nationalwebdir_category']
+    ],
+      'Nationalwebdir'
+  ],
+  ['Nethulk', 'nethulks',
+    [],
+      'Nethulk'
   ]
 ]
-
