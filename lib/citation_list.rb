@@ -21,6 +21,14 @@
     ],
       'Business.com'
   ],
+  ['Bizhyw', 'bizhyws',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'bizhyw_category']
+    ],
+      'Bizhyw.com'
+  ],
   ['Citisquare', 'citisquares',
     [
       ['text', 'email'],
@@ -376,6 +384,11 @@
     ],
       'Cylex'
   ],
+  ['Spoke', 'spoke',
+    [
+    ],
+      'Spoke'
+  ],
   ['Snoopitnow', 'snoopitnows',
     [
       ['select', 'snoopitnow_category']      
@@ -481,6 +494,11 @@
     ],
       'Zipperpage'
   ],
+  ['Onlinenetwork247', 'onlinenetwork247',
+    [
+    ],
+      'Onlinenetwork247'
+  ],
   ['Thinklocal', 'thinklocals',
     [
       ['text', 'email'],
@@ -506,7 +524,14 @@
     ],
       'Facebook'
   ],
-    ['Mywebyellow', 'mywebyellows',
+  ['Companytube','companytubes',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Companytube'
+  ], 
+  ['Mywebyellow', 'mywebyellows',
     [
       ['text', 'username'],
       ['text', 'password'],

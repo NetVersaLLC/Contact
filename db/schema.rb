@@ -158,6 +158,11 @@ ActiveRecord::Schema.define(:version => 20131124220022) do
 
   add_index "bings", ["business_id"], :name => "index_bings_on_business_id"
 
+  create_table "bizhyw_categories", :force => true do |t|
+    t.string  "name"
+    t.integer "parent_id"
+  end
+
   create_table "bizzspots", :force => true do |t|
     t.integer  "business_id"
     t.string   "email"
@@ -909,6 +914,7 @@ ActiveRecord::Schema.define(:version => 20131124220022) do
     t.integer  "citydata_category_id"
     t.integer  "meetlocalbiz_category_id"
     t.integer  "localsolution_category_id"
+    t.integer  "bizhyw_category_id"
     t.integer  "model_category_id"
   end
 
@@ -1546,6 +1552,13 @@ ActiveRecord::Schema.define(:version => 20131124220022) do
   end
 
   add_index "notifications", ["business_id"], :name => "index_notifications_on_business_id"
+
+  create_table "nsphere_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "onlinenetworks", :force => true do |t|
     t.integer  "business_id"

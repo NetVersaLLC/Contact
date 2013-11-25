@@ -104,4 +104,7 @@ class Business < ActiveRecord::Base
   attr_accessible :citydata_attributes
   accepts_nested_attributes_for :citydata, :allow_destroy => true
 
+  has_many :bizhyws, :dependent => :destroy, :class_name => "Bizhyw"
+  attr_accessible :bizhyws_attributes
+  accepts_nested_attributes_for :bizhyws, :allow_destroy => true
 end

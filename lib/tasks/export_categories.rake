@@ -5,7 +5,7 @@ namespace :export do
         if row[0] == 'select'
           klass = row[1].classify.constantize
           #next if klass == GoogleCategory
-          next unless klass == YcphonebookCategory
+          next unless klass == BizhywCategory
           STDERR.puts "Walking: #{klass}"
           obj = klass.root.walk
           path = Rails.root.join("public", "categories", "#{klass}.js")

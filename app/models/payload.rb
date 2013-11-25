@@ -253,4 +253,5 @@ class Payload < ActiveRecord::Base
   def default_values
     self.position ||= self.maximum(:position) + 10
   end
+
 end

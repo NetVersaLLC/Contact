@@ -7,6 +7,7 @@ class CategoriesController < ApplicationController
     @categories  = []
     Business.citation_list.each do |data|
       model, table, rows = *data
+      STDERR.puts "Working on: #{model}"
       rows.each do |cols|
         type, name = *cols
         if type == 'select'
