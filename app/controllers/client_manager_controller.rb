@@ -4,7 +4,7 @@ class ClientManagerController < ApplicationController
   respond_to :html, :json
 
   def index 
-    @business = Business.find(params[:business_id])
+    @business = Business.where(id: params[:business_id]).first || Business.first
     @businesses = Business.order("business_name asc").all
   end 
 

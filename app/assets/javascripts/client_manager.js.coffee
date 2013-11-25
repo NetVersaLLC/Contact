@@ -241,6 +241,10 @@ window.startPayloads = () ->
 window.initialize_client_manager = ()->
   jobs_template    = Handlebars.compile($("#jobs-template").html()) 
   booboos_template = Handlebars.compile($("#booboos-template").html())
+  window.spinner = new Spinner(opts)
+
+  $('a[data-toggle="tab"]').on 'show.bs.tab', (e)-> 
+    window.spinner.spin document.getElementById( 'preview' )
 
   $('a[data-toggle="tab"]').on 'shown.bs.tab', (e)-> 
     target = $(e.target)
@@ -252,10 +256,7 @@ window.initialize_client_manager = ()->
 
       $(target_id).html( template(data) ) 
       registerHooks()
-      $.gritter.add
-        text: 'Updated' 
-        time: 1000
-        class_name: "gritter-success"
+      window.spinner.stop document.getElementById( 'preview' )
 
   $('.chosen').chosen().change () -> 
     id = $(this).val()
@@ -264,6 +265,24 @@ window.initialize_client_manager = ()->
   $('a[data-toggle="tab"]').first().click()
 
   $('#refresh').click (e) -> 
+    window.spinner.spin document.getElementById( 'preview' )
     $('li.active > a').trigger('shown.bs.tab')
 
 
+opts = 
+  lines: 13 # The number of lines to draw
+  length: 20#// The length of each line
+  width: 10#// The line thickness
+  radius: 30#// The radius of the inner circle
+  corners: 1#// Corner roundness (0..1)
+  rotate: 0#// The rotation offset
+  direction: 1#// 1: clockwise#-1: counterclockwise
+  color: '#000'#// #rgb or #rrggbb or array of colors
+  speed: 1#// Rounds per second
+  trail: 60#// Afterglow percentage
+  shadow: false#// Whether to render a shadow
+  hwaccel: false#// Whether to use hardware acceleration
+  className: 'spinner'#// The CSS class to assign to the spinner
+  zIndex: 2e9#// The z-index (defaults to 2000000000)
+  top: 'auto'#// Top position relative to parent in px
+  left: 'auto' #// Left position relative to parent in px

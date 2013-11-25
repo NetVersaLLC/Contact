@@ -19,6 +19,7 @@
           %dd #{@business.updated_at}
     .row
       .col-md-12
+        #preview
         %ul.nav.nav-tabs
           %li
             %a{href: "#latest", data: { path: client_manager_jobs_path(format: :json, business_id: @business.id, name: 'latest'), toggle: "tab"}} Latest
