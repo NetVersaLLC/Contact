@@ -1,9 +1,9 @@
 
 get_job_data = (e) -> 
-  console.log e
   job = $(e).closest("tr")
   id:         job.attr("data-job-id") 
   class_name: job.attr("data-class-name") 
+  payload:    job.attr("data-payload")
 
 registerHooks = ()->
   $('.delete_job').click (e) ->
@@ -18,12 +18,10 @@ registerHooks = ()->
           $.gritter.add 
             title: "Job deleted" 
             class_name: "gritter-success"
-###
   $('.view_payload').click (e)->
-    window.job_id = $(e.target).parent().attr('data-job-id')
-    console.log window.job_id
-    $('#view_payload').html('<iframe src="/admin/jobs/'+window.job_id+'/view_payload?table='+window.current_tab+'" style="width: 700px; height: 300px" scrolling="yes" marginwidth="0" marginheight="0" frameborder="0" vspace="0" hspace="0">')
-    $('#view_payload').dialog( "open" )
+    bootbox.alert get_job_data( e.currentTarget ).payload
+
+###
   $('.view_meta').click (e)->
     window.job_id = $(e.target).parent().attr('data-job-id')
     console.log window.job_id

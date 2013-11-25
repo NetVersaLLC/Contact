@@ -44,7 +44,7 @@
         %th 
     %tbody
       {{#each jobs}}
-      %tr{ "data-job-id" => "{{id}}",  "data-class-name" => "{{class_name}}" }
+      %tr{ "data-job-id" => "{{id}}",  "data-class-name" => "{{class_name}}", "data-payload" => "{{payload}}"}
         %td
           {{#if is_missing}}
           %span.missing Missing 
