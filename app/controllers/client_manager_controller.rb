@@ -1,9 +1,11 @@
 class ClientManagerController < ApplicationController
+  before_filter :require_admin
 
   respond_to :html, :json
 
   def index 
     @business = Business.find(params[:business_id])
+    @businesses = Business.order("business_name asc").all
   end 
 
   def jobs
@@ -30,6 +32,14 @@ class ClientManagerController < ApplicationController
 
   def booboos 
     @booboos = Booboo.where( business_id: params[:business_id] )
+  end 
+
+  private 
+
+  def require_admin 
+    unless current_user.admin? 
+      redirect_to "/", error: "Not authorized" 
+    end 
   end 
 
 end 

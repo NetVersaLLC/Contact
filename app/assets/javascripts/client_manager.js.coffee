@@ -68,10 +68,6 @@ registerHooks = ()->
       console.log em
       $.post '/admin/jobs/'+window.business_id+'/reorder.js', { table: window.current_tab, order: JSON.stringify(em) }, (data)->
         console.log data
-  $('.rerun').click (e)->
-    window.job_id = $(e.target).parent().attr('data-job-id')
-    console.log window.job_id
-    $('#rerun_payload').dialog( "open" )
   $('.delete_notification').click (e)->
     window.notification_id = $(e.target).parent().attr('data-notification-id')
     if confirm("Are you sure you want to delete this notification?") == true
@@ -165,98 +161,6 @@ window.startPayloads = () ->
     showLatest,
     showNotifications
   ]
-  $('#client_tabs').tabs
-    select: (event,ui)->
-      func = actions[ ui.index ]
-      window.reloadView = () ->
-        func( ui.panel )
-      func( ui.panel )
-  # Setup the reload button
-  window.reloadView = () ->
-    showPending( $('#client_tabs-1' ) )
-  $('#reloadButton').click ->
-    window.reloadView()
-  window.reloadView()
-  # Respond to panel clicks
-  $('#delete_job').dialog
-    autoOpen: false,
-    show: "blind",
-    hide: "explode"
-    buttons:
-      "Ok": ->
-        $.ajax
-          url: '/admin/jobs/'+window.job_id+'/delete_job.js',
-          type: 'DELETE',
-          success: ( response ) ->
-            $('#delete_job').dialog( "close" )
-            window.reloadView()
-      "Cancel": ()->
-        $( this ).dialog( "close" )
-  $('#view_payload').dialog
-    autoOpen: false,
-    show: "blind",
-    hide: "explode"
-    width: 750
-    buttons:
-      Ok: ()->
-        $( this ).dialog( "close" )
-      Cancel: ()->
-        $( this ).dialog( "close" )
-
-  $('#view_backtrace').dialog
-    autoOpen: false,
-    show: "blind",
-    hide: "explode"
-    width: 750
-    buttons:
-      Ok: ()->
-        $( this ).dialog( "close" )
-      Cancel: ()->
-        $( this ).dialog( "close" )
-
-  $('#rerun_payload').dialog
-    autoOpen: false,
-    show: "blind",
-    hide: "explode"
-    width: 750
-    buttons:
-      Ok: ()->
-        $.ajax
-          url: '/admin/jobs/'+window.job_id+'/rerun_job.js',
-          type: 'PUT',
-          success: ( response ) ->
-            $('#rerun_payload').dialog( "close" )
-            window.reloadView()
-      Cancel: ()->
-        $( this ).dialog( "close" )
-
-  $('#view_meta').dialog
-    autoOpen: false,
-    show: "blind",
-    hide: "explode"
-    width: 500
-    buttons:
-      Ok: ()->
-        obj = {}
-        obj['table']          = window.current_tab
-        obj['name']           = $('#job_name').val()
-        obj['data_generator'] = $('#job_data_generator').val()
-        obj['status']         = $('#job_status').val()
-        obj['status_message'] = $('#job_status_message').val()
-        obj['position']       = $('#job_position').val()
-        if $('#job_wait').is(':checked')
-          obj['wait']         = true
-        else
-          obj['wait']         = false
-        $.ajax
-          url: '/admin/jobs/'+window.job_id+'/update_job.js?'+$.param(obj),
-          type: 'PUT',
-          success: ( response ) ->
-            window.reloadView()
-        $( this ).dialog( "close" )
-      Cancel: ()->
-        $( this ).dialog( "close" )
-
   $('#view_notification').dialog
     autoOpen: false,
     show: "blind",
@@ -348,5 +252,18 @@ window.initialize_client_manager = ()->
 
       $(target_id).html( template(data) ) 
       registerHooks()
+      $.gritter.add
+        text: 'Updated' 
+        time: 1000
+        class_name: "gritter-success"
+
+  $('.chosen').chosen().change () -> 
+    id = $(this).val()
+    window.location.href = "/client_manager?business_id=#{id}"
+
+  $('a[data-toggle="tab"]').first().click()
+
+  $('#refresh').click (e) -> 
+    $('li.active > a').trigger('shown.bs.tab')
 
 
