@@ -22,9 +22,9 @@
      the docs for acts_as_tree to see how they're implemented.
      https://github.com/rails/acts_as_tree
   g. Run this import script to load the models.
-  h. Modify the export_categories.rake file in /lib/tasks and change
-     "next unless klass == SiteCategory" to your new site. Then rake
-     export:categories to have them appear in the admin panel.
+  h. AFTER following steps a nd b in step 2, Modify the export_categories.rake file 
+     in /lib/tasks and change "next unless klass == SiteCategory" to your 
+     new site. Then rake export:categories to have them appear in the admin panel.
 2. Adding the site and it attributes.
   a. Add a model for the site itself. It's best to copy an existing one,
      like for example:
