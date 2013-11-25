@@ -7,8 +7,19 @@ get_job_data = (e) ->
   status_message: job.attr("data-status-message")
 
 registerHooks = ()->
+  $('.rerun').click (e) -> 
+    e.preventDefault()
+    bootbox.confirm "Are you sure you want to restart the job?", (result) ->
+      if result 
+        job_post = get_job_data( e.currentTarget ) 
+        job_post._method = "put"
+        $.post "jobs/" + job_post.id + "/rerun",  job_post, (d) -> 
+          $.gritter.add 
+            title: "Job restarted" 
+            class_name: "gritter-success"
+
   $('.delete_job').click (e) ->
-    event.preventDefault()
+    e.preventDefault()
     bootbox.confirm "Are you sure?", (result) -> 
       if result 
         job_post = get_job_data( e.currentTarget )

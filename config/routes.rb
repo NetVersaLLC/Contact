@@ -67,7 +67,6 @@ Contact::Application.routes.draw do
   get     '/client_manager/jobs(.:format)', as: :client_manager_jobs
   get     '/client_manager/booboos(.:format)', as: :client_manager_booboos
 
-
   resources :results
   resources :tasks
   resources :places
@@ -84,6 +83,7 @@ Contact::Application.routes.draw do
   post    '/booboos(.:format)', :controller => :jobs, :action => :booboo
   resources :jobs,  except: [:show]
   get     '/jobs/list(.:format)', :controller => :jobs,   :action => :list
+  put     '/jobs/:id/rerun', :controller => :jobs,   :action => :rerun
 
   post    '/captcha/:type',      :controller => :captcha,         :action => :recaptcha
   get     '/downloads/:business_id', :controller => :downloads,       :action => :download

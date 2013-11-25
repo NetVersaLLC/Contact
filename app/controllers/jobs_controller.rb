@@ -124,6 +124,20 @@ class JobsController < ApplicationController
     render json: true
   end
 
+  def rerun 
+    failed = FailedJob.find(params[:id])
+    authorize! :update, failed 
+
+    job = failed.is_now(Job)
+    job.status = 0
+    job.status_message = 'Recreated'
+    if job.save
+      render json: true
+    else 
+      render json: false, status: :bad_request
+    end 
+  end 
+
   def destroy
     if %w(Job FailedJob CompletedJob).include? params[:class_name] 
       job = params[:class_name].constantize.find(params[:id])

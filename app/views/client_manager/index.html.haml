@@ -51,7 +51,7 @@
           {{else}}
           %button.btn.btn-xs.btn-danger.delete_job{ :title => "Delete Job" } 
             %i.icon-trash
-          {{#if can_rerun}}
+          {{#if has_errors}}
           %span.btn.btn-xs.btn-inverse.rerun{title: "Rerun Job"} 
             %i.icon-refresh
           {{/if}}

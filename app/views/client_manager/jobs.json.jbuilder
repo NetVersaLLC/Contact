@@ -4,7 +4,6 @@ json.jobs @jobs do |job|
   json.name           job.name 
   json.status_message job.status_message 
   json.created_at     job.created_at
-  json.can_rerun      job.persisted? && job.class.name != "Job"
   json.is_missing     job.new_record?
   json.has_errors     job.class.name == "FailedJob" 
   json.has_screenshot job.has_screenshot?
