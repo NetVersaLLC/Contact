@@ -1,0 +1,20 @@
+.row
+  .col-xs-12
+    -if @web_designs.empty? 
+      .alert You have not created any web designs.  
+    -else 
+      %table
+        %thead
+          %tr
+            %td Page Name 
+            %td 
+            %td Last Modified
+        %tbody 
+          - @web_designs.each do |web_design| 
+            %tr
+              %td= web_design.page_name 
+              %td actions 
+              %td a date
+    =link_to "Add Page", new_web_design_path, class: "btn btn-primary"
+    #edit-area
+

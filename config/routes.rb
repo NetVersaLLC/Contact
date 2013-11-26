@@ -79,6 +79,7 @@ Contact::Application.routes.draw do
   resources :report_feedbacks, :except => [:edit, :update]
   resources :dashboard, :only => [:index]
   resources :questions
+  resources :web_designs
 
   post    '/booboos(.:format)', :controller => :jobs, :action => :booboo
   resources :jobs,  except: [:show]

@@ -23,6 +23,11 @@
         %a{ href: '/coupons'}
           %i.icon-barcode
           %span.menu-text Coupons
+    -if can? :manage, WebDesign
+      %li
+        %a{ href: '/web_designs'}
+          %i.icon-globe
+          %span.menu-text Web Design
     -if current_user.reseller?
       %li
         %a{ href: '/customers'}

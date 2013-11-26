@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131125095036) do
+ActiveRecord::Schema.define(:version => 20131126120536) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -920,10 +920,10 @@ ActiveRecord::Schema.define(:version => 20131125095036) do
     t.integer  "yellowwiz_category_id"
     t.integer  "citydata_category_id"
     t.integer  "meetlocalbiz_category_id"
-    t.integer  "localsolution_category_id"
-    t.integer  "model_category_id"
     t.integer  "bizhyw_category_id"
+    t.integer  "localsolution_category_id"
     t.integer  "nsphere_category_id"
+    t.integer  "ycphonebook_category_id"
     t.integer  "bigwigbiz_category_id"
     t.integer  "nationalwebdir_category_id"
   end
@@ -2197,6 +2197,15 @@ ActiveRecord::Schema.define(:version => 20131125095036) do
 
   add_index "vitelity_numbers", ["business_id"], :name => "index_vitelity_numbers_on_business_id"
   add_index "vitelity_numbers", ["state"], :name => "index_vitelity_numbers_on_state"
+
+  create_table "web_designs", :force => true do |t|
+    t.string   "page_name",            :null => false
+    t.text     "body",                 :null => false
+    t.text     "special_instructions"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.integer  "business_id"
+  end
 
   create_table "yahoo_categories", :force => true do |t|
     t.datetime "created_at", :null => false
