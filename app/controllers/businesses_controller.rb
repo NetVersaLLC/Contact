@@ -74,20 +74,23 @@ class BusinessesController < InheritedResources::Base
     end
   end
   def update
-    @business = Business.find(params[:id]) 
-    authorize! :edit, @business 
+    business = Business.find(params[:id]) 
+    authorize! :edit, business 
  
-    @business.update_attributes( params[:business] ) 
-    @business.temporary_draft_storage = nil
-    update! 
+    business.temporary_draft_storage = nil
+    business.update_attributes( params[:business] ) 
+    respond_to do |format| 
+      format.html {redirect_to business_path(business)}
+      format.json {render json: business}
+    end 
   end 
 
-  def edit 
-    @business = Business.find(params[:id]) 
-    authorize! :edit, @business 
-    @business.update_attributes( @business.temporary_draft_storage ) if @business.temporary_draft_storage.present?
-    edit!
-  end 
+  #def edit 
+  #  @business = Business.find(params[:id]) 
+  #  authorize! :edit, @business 
+  #  @business.update_attributes( @business.temporary_draft_storage ) if @business.temporary_draft_storage.present?
+  #  edit!
+  #end 
 
   def save_draft
     business = Business.find(params[:id]) 
