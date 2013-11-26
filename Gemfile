@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 
 gem 'rails', '3.2.15'
 gem 'mysql2'
@@ -9,6 +9,7 @@ group :development do
   gem 'rb-fsevent'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'railroady'
 end
 
 group :assets do
@@ -41,6 +42,9 @@ group :test, :development do
   gem 'awesome_print'
   gem 'factory_girl_rails'
   gem 'mocha', require: false
+  gem 'pry-rails'
+  gem 'pry-nav'
+  gem 'pry-stack_explorer'
 end
 
 gem "aws-sdk", "~> 1.11.3"
@@ -93,3 +97,4 @@ gem "redcarpet"
 gem 'has_scope'
 gem "acitree-rails", :git => 'git@github.com:jjeffus/acitree-rails.git'
 gem "sugarcrm"
+

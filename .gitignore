@@ -112,3 +112,6 @@ captchas/uploads
 # Ignore Splatr.exe
 /labels/Splatr/Setup.exe
 
+vendor/bundle
+sites/
+

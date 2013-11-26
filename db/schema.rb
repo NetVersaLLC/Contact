@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131118180303) do
+ActiveRecord::Schema.define(:version => 20131125002703) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -29,24 +29,22 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
   add_index "accounts", ["business_id"], :name => "index_accounts_on_business_id"
   add_index "accounts", ["email"], :name => "index_accounts_on_email"
 
-  create_table "active_admin_comments", :force => true do |t|
-    t.string   "resource_id",   :null => false
-    t.string   "resource_type", :null => false
-    t.integer  "author_id"
-    t.string   "author_type"
+  create_table "admin_notes", :force => true do |t|
+    t.string   "resource_id",     :null => false
+    t.string   "resource_type",   :null => false
+    t.integer  "admin_user_id"
+    t.string   "admin_user_type"
     t.text     "body"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-    t.string   "namespace"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
-  add_index "active_admin_comments", ["author_type", "author_id"], :name => "index_active_admin_comments_on_author_type_and_author_id"
-  add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
-  add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
+  add_index "admin_notes", ["admin_user_type", "admin_user_id"], :name => "index_admin_notes_on_admin_user_type_and_admin_user_id"
+  add_index "admin_notes", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
   create_table "admin_users", :force => true do |t|
-    t.string   "email",                  :default => "",    :null => false
-    t.string   "encrypted_password",     :default => "",    :null => false
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -56,7 +54,6 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.integer  "label_id"
-    t.boolean  "admin",                  :default => false
   end
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
@@ -158,17 +155,6 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
 
   add_index "bings", ["business_id"], :name => "index_bings_on_business_id"
 
-  create_table "bizzspots", :force => true do |t|
-    t.integer  "business_id"
-    t.string   "email"
-    t.string   "username"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.boolean  "do_not_sync",  :default => false
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-  end
-
   create_table "booboos", :force => true do |t|
     t.integer  "user_id"
     t.integer  "business_id"
@@ -203,6 +189,14 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
     t.text     "business_params"
     t.string   "tab"
     t.integer  "subscription_id"
+  end
+
+  create_table "business_site_states", :force => true do |t|
+    t.integer  "site_id"
+    t.integer  "business_id"
+    t.string   "state"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "businesscoms", :force => true do |t|
@@ -499,16 +493,6 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
   end
 
   add_index "cornerstonesworlds", ["business_id"], :name => "index_cornerstonesworlds_on_business_id"
-
-  create_table "cornerstoneworld_categories", :force => true do |t|
-    t.integer  "parent_id"
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "cornerstoneworld_categories", ["name"], :name => "index_cornerstoneworld_categories_on_name"
-  add_index "cornerstoneworld_categories", ["parent_id"], :name => "index_cornerstoneworld_categories_on_parent_id"
 
   create_table "coupons", :force => true do |t|
     t.string   "name"
@@ -874,7 +858,6 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
     t.integer  "digabusiness_category_id"
     t.integer  "supermedia_category_id"
     t.integer  "expertfocus_category_id"
-    t.integer  "cornerstoneworld_category_id"
     t.integer  "angies_list_category_id"
     t.integer  "localizedbiz_category_id"
     t.integer  "kudzu_category_id"
@@ -907,7 +890,6 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
     t.integer  "yellowtalk_category_id"
     t.integer  "yellowwiz_category_id"
     t.integer  "citydata_category_id"
-    t.integer  "meetlocalbiz_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -1042,7 +1024,26 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
     t.datetime "updated_at",   :null => false
   end
 
+  create_table "job_payloads", :force => true do |t|
+    t.integer  "site_event_payload_id"
+    t.integer  "job_id"
+    t.datetime "failed_at"
+    t.datetime "last_run"
+    t.datetime "retries"
+    t.string   "messages"
+    t.datetime "created_at",             :null => false
+    t.datetime "updated_at",             :null => false
+  end
+
   create_table "jobs", :force => true do |t|
+    t.integer  "site_transition_id"
+    t.integer  "business_id"
+    t.string   "status"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "jobs_old", :force => true do |t|
     t.integer  "business_id"
     t.string   "name"
     t.string   "model"
@@ -1062,9 +1063,9 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
     t.integer  "payload_id"
   end
 
-  add_index "jobs", ["business_id"], :name => "index_jobs_on_business_id"
-  add_index "jobs", ["payload_id"], :name => "index_jobs_on_payload_id"
-  add_index "jobs", ["status"], :name => "index_jobs_on_status"
+  add_index "jobs_old", ["business_id"], :name => "index_jobs_on_business_id"
+  add_index "jobs_old", ["payload_id"], :name => "index_jobs_on_payload_id"
+  add_index "jobs_old", ["status"], :name => "index_jobs_on_status"
 
   create_table "judys_books", :force => true do |t|
     t.integer  "business_id"
@@ -1420,28 +1421,6 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
 
   add_index "matchpoints", ["business_id"], :name => "index_matchpoints_on_business_id"
 
-  create_table "meetlocalbiz_categories", :force => true do |t|
-    t.integer  "parent_id"
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "meetlocalbiz_categories", ["name"], :name => "index_meetlocalbiz_categories_on_name"
-  add_index "meetlocalbiz_categories", ["parent_id"], :name => "index_meetlocalbiz_categories_on_parent_id"
-
-  create_table "meetlocalbizs", :force => true do |t|
-    t.integer  "business_id"
-    t.text     "username"
-    t.text     "email"
-    t.text     "secrets"
-    t.datetime "force_update"
-    t.datetime "created_at",               :null => false
-    t.datetime "updated_at",               :null => false
-    t.integer  "meetlocalbiz_category_id"
-    t.boolean  "do_not_sync"
-  end
-
   create_table "merchantcircle_categories", :force => true do |t|
     t.integer  "parent_id"
     t.string   "name"
@@ -1523,8 +1502,8 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
     t.datetime "force_update"
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
-    t.boolean  "do_not_sync",  :default => false
     t.string   "username"
+    t.boolean  "do_not_sync",  :default => false
   end
 
   create_table "notifications", :force => true do |t|
@@ -1588,6 +1567,13 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
     t.boolean  "do_not_sync",       :default => false
   end
 
+  create_table "payload_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "position"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "payloads", :force => true do |t|
     t.string   "name"
     t.boolean  "active",                   :default => false
@@ -1629,6 +1615,17 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
   add_index "payments", ["business_id"], :name => "index_payments_on_business_id"
   add_index "payments", ["label_id"], :name => "index_payments_on_label_id"
   add_index "payments", ["transaction_id"], :name => "index_payments_on_transaction_id"
+
+  create_table "pings", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "business_id"
+    t.string   "message"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "pings", ["business_id"], :name => "index_pings_on_business_id"
+  add_index "pings", ["user_id"], :name => "index_pings_on_user_id"
 
   create_table "primeplace_categories", :force => true do |t|
     t.integer  "parent_id"
@@ -1813,6 +1810,24 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
 
   add_index "showmelocals", ["business_id"], :name => "index_showmelocals_on_business_id"
 
+  create_table "site_event_payloads", :force => true do |t|
+    t.integer  "site_transition_id"
+    t.integer  "payload_id"
+    t.integer  "order"
+    t.boolean  "required",       :default => true
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
+
+  create_table "site_transitions", :force => true do |t|
+    t.integer  "site_id"
+    t.string   "on"
+    t.string   "from"
+    t.string   "to"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "sites", :force => true do |t|
     t.string   "name"
     t.string   "owner"
@@ -1889,7 +1904,7 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
     t.integer  "monthly_fee"
     t.string   "status"
     t.integer  "transaction_event_id"
-    t.datetime "label_last_billed_at", :default => '2013-07-13 21:46:39'
+    t.datetime "label_last_billed_at", :default => '2013-09-25 18:13:08'
   end
 
   add_index "subscriptions", ["package_id"], :name => "index_subscriptions_on_package_id"
@@ -2043,9 +2058,9 @@ ActiveRecord::Schema.define(:version => 20131118180303) do
     t.text     "secrets"
     t.datetime "force_update"
     t.text     "username"
+    t.integer  "usbdn_category_id"
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
-    t.integer  "usbdn_category_id"
     t.boolean  "do_not_sync",       :default => false
   end
 

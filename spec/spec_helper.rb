@@ -44,6 +44,10 @@ RSpec.configure do |config|
 
   config.before(:all) do
     DatabaseCleaner.clean
+    FactoryGirl.create(:label, :domain => 'test.host', :label_domain => 'test.host')
+    FactoryGirl.create(:location, :zip => 43652, :city => 'Toledo', :county => 'Lucas', :state => 'OH',
+                       :country => 'US', :latitude => 41.6509670000, :longitude => -83.5364850000,
+                       :metaphone => 'TLT')
   end
 
 
@@ -55,6 +59,5 @@ def create_site_profiles
   FactoryGirl.create(:site, :name => "Google")
   FactoryGirl.create(:site, :name => "Yelp")
   FactoryGirl.create(:site, :name => "Yahoo")
-  FactoryGirl.create(:site, :name => "Bing")
   FactoryGirl.create(:site, :name => "Bing")
 end
