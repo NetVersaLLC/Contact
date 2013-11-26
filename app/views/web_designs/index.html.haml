@@ -1,7 +1,10 @@
 .row
   .col-xs-12
+    #business
+      -if @businesses.
+        
     -if @web_designs.empty? 
-      .alert You have not created any web designs.  
+      .alert.alert-info You have not created any web designs.  
     -else 
       %table
         %thead

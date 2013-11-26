@@ -25,7 +25,7 @@
           %span.menu-text Coupons
     -if can? :manage, WebDesign
       %li
-        %a{ href: '/web_designs'}
+        =link_to web_designs_path do
           %i.icon-globe
           %span.menu-text Web Design
     -if current_user.reseller?
