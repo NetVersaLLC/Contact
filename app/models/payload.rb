@@ -41,7 +41,16 @@ class Payload < ActiveRecord::Base
       next unless File.directory? site_dir
       site = Site.find_by_name(site_name)
       if site == nil
-        STDERR.puts "Site with name '#{site_name}' does not exist in the database, removing it!"
+        STDERR.puts "WARNING: Site with name '#{site_name}' does not exist in the database!"
+        STDERR.puts "Should I remove it from the git repo?"
+        STDERR.print "[y/N]: "
+	answer = STDIN.gets.strip
+        if answer == 'y'
+	  site.destroy
+          STDERR.puts "Removed..."
+        else
+          STDERR.puts "Skipping..."
+        end
         FileUtils.rm_rf sites_dir.join(site_name)
         next
       end
@@ -71,7 +80,15 @@ class Payload < ActiveRecord::Base
       # Is the site in the db but removed by someone in git?
       unless File.directory? sites_dir.join(site.name)
         STDERR.puts "Warning: Someone removed: #{site.name}!"
-        site.destroy
+        STDERR.puts "Should I remove it from the database?"
+        STDERR.print "[y/N]: "
+        answer = STDIN.gets.strip
+        if answer == 'y'
+	  site.destroy
+          STDERR.puts "Removed..."
+        else
+          STDERR.puts "Skipping..."
+        end
       end
     end
     count = 0
