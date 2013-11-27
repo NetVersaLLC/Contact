@@ -254,4 +254,15 @@ class Payload < ActiveRecord::Base
     self.position ||= self.maximum(:position) + 10
   end
 
+   def self.add_to_jobs(business, name)
+     payload = Payload.start(name)
+     if payload == nil
+       return nil
+     end
+     @job = Job.inject(business.id, payload.client_script, payload.data_generator, payload.ready)
+     @job.name = name
+     @job.save!
+     @job
+   end
+
 end
