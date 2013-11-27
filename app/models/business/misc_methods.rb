@@ -161,8 +161,7 @@ module Business::MiscMethods
         self.contact_birthday = date
         self.save
       end
-      # date = Date.strptime(self.contact_birthday,"%m/%d/%Y")
-      date
+      Date.strptime(b.contact_birthday, '%Y-%m-%d')
     end
 
     def report_xlsx
