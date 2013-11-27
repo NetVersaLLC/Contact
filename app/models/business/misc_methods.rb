@@ -155,13 +155,13 @@ module Business::MiscMethods
     end
 
     def birthday
-      date = Date.strptime(self.contact_birthday,"%m/%d/%Y")
-      unless date
+      date = self.contact_birthday
+      if date == nil
         date = Date.today - 30.year - (rand()*365).day
         self.contact_birthday = date
         self.save
       end
-      date
+      Date.strptime(self.contact_birthday, '%Y-%m-%d')
     end
 
     def report_xlsx

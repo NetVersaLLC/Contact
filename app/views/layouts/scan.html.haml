@@ -3,7 +3,7 @@
   =render 'layouts/head'
   %body.scan-body
     .container.scan-container
-      - if @report.label
+      - if @report && @report.label
         .row
           .col-xs-12
             = image_tag @report.label.logo.url, class:"scan-logo"
