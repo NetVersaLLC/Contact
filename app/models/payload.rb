@@ -46,12 +46,11 @@ class Payload < ActiveRecord::Base
         STDERR.print "[y/N]: "
 	answer = STDIN.gets.strip
         if answer == 'y'
-	  site.destroy
+          FileUtils.rm_rf sites_dir.join(site_name)
           STDERR.puts "Removed..."
         else
           STDERR.puts "Skipping..."
         end
-        FileUtils.rm_rf sites_dir.join(site_name)
         next
       end
       # And payloads
@@ -61,8 +60,16 @@ class Payload < ActiveRecord::Base
 	next unless File.directory? payload_dir.join(payload_name)
         payload = Payload.find_by_name_and_site_id(payload_name, site.id)
 	if payload == nil
-	  STDERR.puts "Payload with name '#{payload_name}' does not exist in the database, removing it!"
-          FileUtils.rm_rf payload_dir
+	  STDERR.puts "WARNING: Payload with name '#{payload_name}' does not exist in the database!"
+	  STDERR.puts "Should I remove it from the git repo?"
+	  STDERR.print "[y/N]: "
+	  answer = STDIN.gets.strip
+	  if answer == 'y'
+	    FileUtils.rm_rf payload_dir
+            STDERR.puts "Removed..."
+          else
+            STDERR.puts "Skipping..."
+          end
 	  next
 	end
         File.open(payload_dir.join("client_script.rb"), "wb").write payload.client_script
