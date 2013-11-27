@@ -1,23 +1,53 @@
-.row
+#web-designs.row
   .col-xs-12
     #business
-      -if @businesses.
-        
-    -if @web_designs.empty? 
+      -if @businesses.length > 1
+        =select_tag "business", options_from_collection_for_select(@businesses, "id","business_name", @business.id), class: "chosen"
+      -else 
+        %h5= @business.business_name
+    -if @business.web_designs.empty? 
       .alert.alert-info You have not created any web designs.  
     -else 
-      %table
+      %br
+      %table.table
         %thead
           %tr
             %td Page Name 
             %td 
             %td Last Modified
         %tbody 
-          - @web_designs.each do |web_design| 
+          - @business.web_designs.each do |web_design| 
             %tr
               %td= web_design.page_name 
               %td actions 
-              %td a date
-    =link_to "Add Page", new_web_design_path, class: "btn btn-primary"
-    #edit-area
+              %td= distance_of_time_in_words_to_now( web_design.updated_at) + " ago"
+    =form_for WebDesign.new(page_name: "A New Page", business_id: @business.id) do |f|
+      =f.hidden_field :page_name
+      =f.hidden_field :business_id
+      %button.btn.btn-primary{type: "submit"}  Add Page
+    %hr
+    =form_for @web_design do |f| 
+      %script window.web_design_id = #{@web_design.id}; 
+      .row 
+        .col-xs-6
+          %h3 Content
+          %div
+            =f.label :page_name
+            =f.text_field :page_name, class: "form-control"
+          %hr
+          %div
+            =f.label :body
+            =f.text_area :body, class: "form-control"
+        .col-xs-6
+          %h3 Image Gallery
+          %p Images to use with this page. 
+          #web_uploader
+            
+          %ul#gallery.ace-thumbnails
+            = f.fields_for :web_images do |web_image|
+              = render partial: "gallery_item", locals: { image: web_image } 
+      .form-actions.center 
+        %button.btn.btn-info{ type: "submit" }
+          %i.icon-ok.bigger-110 
+          Save
 

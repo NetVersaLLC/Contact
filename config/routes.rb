@@ -56,7 +56,6 @@ Contact::Application.routes.draw do
     resources :downloads, :only => [:new]
     resources :images
     resources :notifications
-    resources :web_designs
   end 
   get     '/codes/:business_id/:site_name(.:format)', :action=>"site_code", :controller=>"codes"
   post    '/codes/:business_id/:site_name(.:format)', :action=>"create",    :controller=>"codes"
@@ -80,7 +79,8 @@ Contact::Application.routes.draw do
   resources :report_feedbacks, :except => [:edit, :update]
   resources :dashboard, :only => [:index]
   resources :questions
-  resources :web_designs, only: [:index]
+  resources :web_designs
+  post    'web_designs/:id/images', :controller => 'web_designs', action: 'add_image'
 
   post    '/booboos(.:format)', :controller => :jobs, :action => :booboo
   resources :jobs,  except: [:show]

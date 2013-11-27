@@ -1,41 +1,15 @@
+$ ->
+  return if $("#web-designs").length == 0
 
-bind_gallery_item = (item) -> 
-  $(item).draggable
-    revert: "invalid" 
-    containment: "document" 
-    helper: "clone" 
-    cursor: "move" 
+  # a neat dropdown
+  $(".chosen").chosen()
 
-  $(".delete-image", item).click (e) ->
-    if confirm( 'Are you sure?') 
-      $(this).closest("li").find(".destroy-image").val(true) 
-      $(this).closest("li").hide()
+  $("#new_web_design").on "submit", (e) -> 
     e.preventDefault()
+    $.post $(this).attr("action") + '.json', $(this).serialize(), (data) -> 
+      console.log data
 
-$(document).ready ->
-  $("#gallery li").each (index, li) ->
-    bind_gallery_item( li )
-
-  $("#gallery").droppable 
-    accept: "#logo > li" 
-    activeClass: "ui-state-highlight", 
-    drop: (event, ui) -> 
-      console.log ui 
-
-  $("#logo").droppable 
-    accept: "#gallery li" 
-    activeClass: "custom-state-active", 
-    drop: (event, ui) -> 
-
-      #$( ".no-logo").hide()
-      # move existing logo back to the gallery 
-      $("#logo li").appendTo("#gallery") 
-      $(ui.draggable).appendTo("#logo .ace-thumbnails")
-      
-      $("#logo .is-logo").val(true)
-      $("#gallery .is-logo").val(false)
-
-  $('#uploader').fineUploader(
+  $('#web_uploader').fineUploader(
     validation:
       allowedExtensions: ['jpg','gif','jpeg','png','bmp']
       itemLimit: 9
@@ -51,7 +25,7 @@ $(document).ready ->
       success: 'alert alert-success'
       fail: 'alert alert-error'
     request:
-      endpoint: "/businesses/#{window.business_id}/images.json"
+      endpoint: "/web_designs/#{window.web_design_id}/images.json"
 
       #params: params
   ).on 'complete', (event, id, name, response)->
@@ -60,6 +34,4 @@ $(document).ready ->
     html = html.replace(/<%=src%>/g, response.url) 
 
     elements = $(html).appendTo("#gallery")
-    bind_gallery_item(elements[0])
-
-
+    #bind_gallery_item(elements[0])
