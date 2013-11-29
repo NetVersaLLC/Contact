@@ -12,14 +12,14 @@ class WebDesignsController < ApplicationController
     else 
       @business = Business.accessible_by( current_ability ).first
     end
- 
+    @web_designs = @business.web_designs 
     @web_design = WebDesign.last
   end 
 
   def create 
     business = Business.find( params[:web_design][:business_id]  )
     authorize! :update, business
-    create!
+    @web_design = WebDesign.create( params[:web_design] )
   end 
 
   def show 

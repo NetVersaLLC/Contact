@@ -1,35 +1,26 @@
 delete_web_image = (e) -> 
   $("#web_design_web_images_attributes_#{$(e).attr('data-image')}__destroy").val("true") 
-  $.post "web_designs/#{window.web_design_id}.json", $(e).closest("form").serialize(), () -> 
-    show_web_images()
+  $.post "web_designs/#{window.web_designs.id}.json", $(e).closest("form").serialize(), (data) -> 
+    edit_web_design( data )
     $.gritter.add
       class_name: 'gritter-success' 
       text: 'Image deleted successfully'
 
-show_web_images = () -> 
-  $.get "web_designs/#{window.web_design_id}.json", (data) -> 
-    $("#web_gallery").html( window.web_designs.gallery_template( data ) )
-    $(".delete-image").click (e) -> 
-      e.preventDefault()
-      bootbox.confirm "Are you sure?", (result) ->
-        if result 
-          delete_web_image(e.currentTarget) 
+get_and_edit_web_design = (id) -> 
+  $.get "web_designs/#{id}.json", (data) -> 
+    edit_web_design( data )
 
-$ ->
-  return if $("#web-designs").length == 0
+edit_web_design = (data) -> 
+  window.web_designs.id = data.id
+  $("#edit").html( window.web_designs.edit_template( data ) )
+  $(".auth").val( $('meta[name=csrf-token]').attr('content')  )
 
-  window.web_designs = 
-    gallery_template: Handlebars.compile($("#gallery-template").html())
-
-  show_web_images()
-
-  # a neat dropdown
-  $(".chosen").chosen()
-
-  $("#new_web_design").on "submit", (e) -> 
+  $(".delete-image").click (e) -> 
     e.preventDefault()
-    $.post $(this).attr("action") + '.json', $(this).serialize(), (data) -> 
-      console.log data
+    bootbox.confirm "Are you sure?", (result) ->
+      if result 
+        delete_web_image(e.currentTarget) 
+
   $('#web_uploader').fineUploader(
     validation:
       allowedExtensions: ['jpg','gif','jpeg','png','bmp']
@@ -46,7 +37,7 @@ $ ->
       success: 'alert alert-success'
       fail: 'alert alert-error'
     request:
-      endpoint: "/web_designs/#{window.web_design_id}/images.json"
+      endpoint: "/web_designs/#{window.web_designs.id}/images.json"
       params: 
         authenticity_token: () -> 
           $("input[name='authenticity_token']").val() 
@@ -54,4 +45,32 @@ $ ->
       #params: params
   ).on 'complete', (event, id, name, response)->
     show_web_images()
+
+show_index = () ->
+  $.get "web_designs.json", (data) -> 
+    $("#index").html( window.web_designs.index_template(data) )
+
+    $(".edit-web-design").click (e) -> 
+      get_and_edit_web_design( $(this).attr('data-id') )
+
+    $(".delete-web-design").click (e) -> 
+      delete_web_image( this )
+
+$ ->
+  return if $("#web-designs").length == 0
+
+  window.web_designs = 
+    edit_template:  Handlebars.compile($("#edit-template").html())
+    index_template: Handlebars.compile($("#index-template").html())
+
+  show_index()
+
+  # a neat dropdown
+  $(".chosen").chosen()
+
+  $("#new_web_design").on "submit", (e) -> 
+    e.preventDefault()
+    $.post $(this).attr("action") + '.json', $(this).serialize(), (data) -> 
+      console.log data
+
     
