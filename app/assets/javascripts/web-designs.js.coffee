@@ -3,18 +3,26 @@ delete_web_image = (e) ->
   $.post "web_designs/#{window.web_designs.id}.json", $(e).closest("form").serialize(), (data) -> 
     edit_web_design( data )
     $.gritter.add
-      class_name: 'gritter-success' 
+      class_name: 'gritter-success'
       text: 'Image deleted successfully'
 
 get_and_edit_web_design = (id) -> 
   $.get "web_designs/#{id}.json", (data) -> 
     edit_web_design( data )
-
+    
 edit_web_design = (data) -> 
   window.web_designs.id = data.id
   $("#edit").html( window.web_designs.edit_template( data ) )
   $(".auth").val( $('meta[name=csrf-token]').attr('content')  )
-
+  
+  $("#edit_web_design").on 'submit', (e) -> 
+    e.preventDefault() 
+    $.post $(this).attr('action'), $(this).serialize(), (data) -> 
+      $.gritter.add 
+        class_name: 'gritter-success'
+        text: 'Changes saved successfully.'
+      show_index()
+      
   $(".delete-image").click (e) -> 
     e.preventDefault()
     bootbox.confirm "Are you sure?", (result) ->
@@ -44,13 +52,15 @@ edit_web_design = (data) ->
 
       #params: params
   ).on 'complete', (event, id, name, response)->
-    show_web_images()
+    get_and_edit_web_design( window.web_designs.id )
 
 show_index = () ->
   $.get "web_designs.json", (data) -> 
     $("#index").html( window.web_designs.index_template(data) )
 
     $(".edit-web-design").click (e) -> 
+      $('tr.active').removeClass('active') 
+      $(this).closest("tr").addClass('active')
       get_and_edit_web_design( $(this).attr('data-id') )
 
     $(".delete-web-design").click (e) -> 
@@ -73,4 +83,3 @@ $ ->
     $.post $(this).attr("action") + '.json', $(this).serialize(), (data) -> 
       console.log data
 
-    

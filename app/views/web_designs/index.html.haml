@@ -26,7 +26,7 @@
         %td Last Modified
     %tbody 
       {{#each web_designs}}
-      %tr
+      %tr{ data: { id: "{{this.id}}"}}
         %td {{this.page_name}}
         %td 
           %button.btn.btn-xs.btn-info.edit-web-design{type: "button", data: { id: "{{this.id}}"}}
