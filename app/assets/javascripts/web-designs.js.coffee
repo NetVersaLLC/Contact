@@ -1,7 +1,27 @@
+delete_web_image = (e) -> 
+  $("#web_design_web_images_attributes_#{$(e).attr('data-image')}__destroy").val("true") 
+  $.post "web_designs/#{window.web_design_id}.json", $(e).closest("form").serialize(), () -> 
+    show_web_images()
+    $.gritter.add
+      class_name: 'gritter-success' 
+      text: 'Image deleted successfully'
+
+show_web_images = () -> 
+  $.get "web_designs/#{window.web_design_id}.json", (data) -> 
+    $("#web_gallery").html( window.web_designs.gallery_template( data ) )
+    $(".delete-image").click (e) -> 
+      e.preventDefault()
+      bootbox.confirm "Are you sure?", (result) ->
+        if result 
+          delete_web_image(e.currentTarget) 
+
 $ ->
   return if $("#web-designs").length == 0
 
-  gallery_template = Handlebars.compile($("#gallery-template").html()) 
+  window.web_designs = 
+    gallery_template: Handlebars.compile($("#gallery-template").html())
+
+  show_web_images()
 
   # a neat dropdown
   $(".chosen").chosen()
@@ -10,7 +30,6 @@ $ ->
     e.preventDefault()
     $.post $(this).attr("action") + '.json', $(this).serialize(), (data) -> 
       console.log data
-
   $('#web_uploader').fineUploader(
     validation:
       allowedExtensions: ['jpg','gif','jpeg','png','bmp']
@@ -28,12 +47,11 @@ $ ->
       fail: 'alert alert-error'
     request:
       endpoint: "/web_designs/#{window.web_design_id}/images.json"
+      params: 
+        authenticity_token: () -> 
+          $("input[name='authenticity_token']").val() 
 
       #params: params
   ).on 'complete', (event, id, name, response)->
-    $.get "web_designs/#{window.web_design_id}.json", (data) -> 
-      console.log data
-      $("#web_gallery").html( gallery_template( data ) )
-
-    #bind_gallery_item(elements[0])
+    show_web_images()
     

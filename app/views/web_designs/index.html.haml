@@ -26,10 +26,10 @@
       =f.hidden_field :business_id
       %button.btn.btn-primary{type: "submit"}  Add Page
     %hr
-    =form_for @web_design do |f| 
-      %script window.web_design_id = #{@web_design.id}; 
-      .row 
-        .col-xs-6
+    %script window.web_design_id = #{@web_design.id}; 
+    .row 
+      .col-xs-6
+        =form_for @web_design do |f| 
           %h3 Content
           %div
             =f.label :page_name
@@ -38,18 +38,16 @@
           %div
             =f.label :body
             =f.text_area :body, class: "form-control"
-        .col-xs-6
+          .form-actions.center 
+            %button.btn.btn-info{ type: "submit" }
+              %i.icon-ok.bigger-110 
+                Save
+      .col-xs-6
+        =form_for @web_design do |f| 
           %h3 Image Gallery
           %p Images to use with this page. 
           #web_uploader
           #web_gallery  
-            %ul.ace-thumbnails
-              = f.fields_for :web_images do |web_image|
-                = render partial: "gallery_item", locals: { image: web_image } 
-      .form-actions.center 
-        %button.btn.btn-info{ type: "submit" }
-          %i.icon-ok.bigger-110 
-            Save
 
 %script{id: "gallery-template", type: "text/x-handlebars-template"} 
   %ul.ace-thumbnails
@@ -59,6 +57,6 @@
       %input.destroy-image{ id: "web_design_web_images_attributes_{{@index}}__destroy", name: "web_design[web_images_attributes][{{@index}}][_destroy]", type: "hidden", value: "false"}
       %input.destroy-image{ id: "web_design_web_images_attributes_{{@index}}_id", name: "web_design[web_images_attributes][{{@index}}][id]", type: "hidden", value: "{{this.id}}"}
       .tools.tools-bottom
-        %button.btn.btn-danger.btn-xs.delete-image
+        %button.btn.btn-danger.btn-xs.delete-image{ data: { image: "{{@index}}" }, type: "button"}
           %i.icon-trash
     {{/each}}

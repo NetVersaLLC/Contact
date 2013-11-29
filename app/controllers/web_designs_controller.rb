@@ -1,6 +1,4 @@
 class WebDesignsController < ApplicationController
-  skip_before_filter :verify_authenticity_token
-
   respond_to :html, :json
 
   add_breadcrumb  'Web Page Designs', :web_designs_url
@@ -28,6 +26,14 @@ class WebDesignsController < ApplicationController
     @web_design = WebDesign.find( params[:id] ) 
     authorize! :read, @web_design 
   end 
+
+  def update 
+    @web_design = WebDesign.find( params[:id] ) 
+    authorize! :update, @web_design 
+    @web_design.update_attributes( params[:web_design] )
+    render :show
+  end 
+   
 
   def add_image
     @web_design = WebDesign.find( params[:id] )
