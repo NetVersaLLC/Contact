@@ -81,5 +81,6 @@ $ ->
   $("#new_web_design").on "submit", (e) -> 
     e.preventDefault()
     $.post $(this).attr("action") + '.json', $(this).serialize(), (data) -> 
-      console.log data
+      edit_web_design(data)
+      show_index()
 
