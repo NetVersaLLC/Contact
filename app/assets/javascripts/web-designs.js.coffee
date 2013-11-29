@@ -1,6 +1,8 @@
 $ ->
   return if $("#web-designs").length == 0
 
+  gallery_template = Handlebars.compile($("#gallery-template").html()) 
+
   # a neat dropdown
   $(".chosen").chosen()
 
@@ -29,9 +31,9 @@ $ ->
 
       #params: params
   ).on 'complete', (event, id, name, response)->
-    html = $("#new-image").html() 
-    html = html.replace(/<%=id%>/g, response.id) 
-    html = html.replace(/<%=src%>/g, response.url) 
+    $.get "web_designs/#{window.web_design_id}.json", (data) -> 
+      console.log data
+      $("#web_gallery").html( gallery_template( data ) )
 
-    elements = $(html).appendTo("#gallery")
     #bind_gallery_item(elements[0])
+    
