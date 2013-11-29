@@ -7,7 +7,6 @@ require 'awesome_print'
 
 require File.dirname(__FILE__) + "/factories1"
 
-
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
@@ -37,6 +36,21 @@ RSpec.configure do |config|
 
   # Clean up the database
   require 'database_cleaner'
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
+  config.before(:suite) { FactoryGirl.reload }
+
   #config.before(:suite) do
   #  DatabaseCleaner[:active_record].clean_with(:truncation)
   #  DatabaseCleaner[:active_record].strategy = :truncation
@@ -44,10 +58,6 @@ RSpec.configure do |config|
 
   config.before(:all) do
     DatabaseCleaner.clean
-    FactoryGirl.create(:label, :domain => 'test.host', :label_domain => 'test.host')
-    FactoryGirl.create(:location, :zip => 43652, :city => 'Toledo', :county => 'Lucas', :state => 'OH',
-                       :country => 'US', :latitude => 41.6509670000, :longitude => -83.5364850000,
-                       :metaphone => 'TLT')
   end
 
 

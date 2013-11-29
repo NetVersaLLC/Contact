@@ -24,27 +24,29 @@ group :production do
   gem 'unicorn'
 end
 
-
 group :test do
-  #gem 'cucumber'
-  #gem 'cucumber-rails', :require => false
-  gem 'page-object'
+  gem 'minitest-rails'
+  gem 'awesome_print'
+  gem 'factory_girl_rails'
+  gem 'mocha', require: false
   gem 'database_cleaner'
   gem 'capybara'
   gem 'capybara-screenshot'
   gem 'rspec-rails'
   gem 'shoulda'
-  gem 'zeus'
 end
 
-group :test, :development do
-  gem 'minitest-rails'
-  gem 'awesome_print'
-  gem 'factory_girl_rails'
-  gem 'mocha', require: false
+group :development, :test do
   gem 'pry-rails'
-  gem 'pry-nav'
   gem 'pry-stack_explorer'
+  gem 'pry-remote'
+  gem 'pry-nav'
+  gem 'spring-commands-rspec'
+  gem 'spring'
+  #gem 'zeus'
+  #gem 'cucumber'
+  #gem 'cucumber-rails', :require => false
+  gem 'page-object'
 end
 
 gem "aws-sdk", "~> 1.11.3"
@@ -52,7 +54,7 @@ gem 'nokogiri'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-cookie-rails'
-gem 'devise'
+gem 'devise', '2.2.4'
 gem 'haml'
 gem 'haml-rails'
 gem 'zip'

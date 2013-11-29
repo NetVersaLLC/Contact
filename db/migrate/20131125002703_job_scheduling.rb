@@ -1,6 +1,5 @@
 class JobScheduling < ActiveRecord::Migration
   def up
-
     create_table :site_transitions do |t|
       t.references :site
       t.string :on
@@ -21,8 +20,11 @@ class JobScheduling < ActiveRecord::Migration
     create_table :site_event_payloads do |t|
       t.references :site_transition
       t.references :payload
-      t.integer :order
+      t.integer :step_no
       t.boolean :required, :default => true
+      t.boolean :result
+      t.belongs_to :next_if_false
+      t.belongs_to :next_if_true
 
       t.timestamps
     end
@@ -42,7 +44,9 @@ class JobScheduling < ActiveRecord::Migration
       t.references :job
       t.datetime :failed_at
       t.datetime :last_run
-      t.datetime :retries
+      t.datetime :finished_at
+      t.integer :retries
+      t.string :result
       t.string :messages
 
       t.timestamps

@@ -1029,18 +1029,20 @@ ActiveRecord::Schema.define(:version => 20131125002703) do
     t.integer  "job_id"
     t.datetime "failed_at"
     t.datetime "last_run"
-    t.datetime "retries"
+    t.datetime "finished_at"
+    t.integer  "retries"
+    t.string   "result"
     t.string   "messages"
-    t.datetime "created_at",             :null => false
-    t.datetime "updated_at",             :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
   create_table "jobs", :force => true do |t|
     t.integer  "site_transition_id"
     t.integer  "business_id"
     t.string   "status"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
   end
 
   create_table "jobs_old", :force => true do |t|
@@ -1813,10 +1815,13 @@ ActiveRecord::Schema.define(:version => 20131125002703) do
   create_table "site_event_payloads", :force => true do |t|
     t.integer  "site_transition_id"
     t.integer  "payload_id"
-    t.integer  "order"
-    t.boolean  "required",       :default => true
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
+    t.integer  "step_no"
+    t.boolean  "required",           :default => true
+    t.boolean  "result"
+    t.integer  "next_if_false_id"
+    t.integer  "next_if_true_id"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
   end
 
   create_table "site_transitions", :force => true do |t|
@@ -1904,7 +1909,7 @@ ActiveRecord::Schema.define(:version => 20131125002703) do
     t.integer  "monthly_fee"
     t.string   "status"
     t.integer  "transaction_event_id"
-    t.datetime "label_last_billed_at", :default => '2013-09-25 18:13:08'
+    t.datetime "label_last_billed_at", :default => '2013-09-28 14:27:45'
   end
 
   add_index "subscriptions", ["package_id"], :name => "index_subscriptions_on_package_id"

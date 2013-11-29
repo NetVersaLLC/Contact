@@ -82,6 +82,7 @@ Contact::Application.routes.draw do
   post    '/booboos(.:format)', :controller => :jobs, :action => :booboo
   resources :jobs,  except: [:show]
   get     '/jobs/list(.:format)', :controller => :jobs,   :action => :list
+  post     '/jobs/next_job_payload(.:format)', :controller => :jobs,   :action => :next_job_payload
 
   post    '/captcha/:type',      :controller => :captcha,         :action => :recaptcha
   get     '/downloads/:business_id', :controller => :downloads,       :action => :download
