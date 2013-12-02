@@ -114,8 +114,9 @@ class BusinessesController < InheritedResources::Base
 
     name = @business.business_name.downcase.gsub(/[^A-Za-z0-9]/, '_')
     d = DateTime.now
-   	format = params[:format] || params['format'] || :xlsx
-    case format.to_sym
+    format = [:pdf, :xlsx].select{|w| w.to_s == (params[:format] || "xlsx").downcase }.first || :not_supported
+   	#format = params[:format] || params['format'] || :xlsx
+    case format
     when :xlsx
 			@file = @business.report_xlsx
 			@name = d.strftime("#{name}_%m/%d/%Y.xlsx")
