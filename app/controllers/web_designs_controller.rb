@@ -1,4 +1,6 @@
 class WebDesignsController < ApplicationController
+  before_filter :authenticate_user!
+
   respond_to :html, :json
 
   add_breadcrumb  'Web Page Designs', :web_designs_url
@@ -33,6 +35,14 @@ class WebDesignsController < ApplicationController
     @web_design.update_attributes( params[:web_design] )
     render :show
   end 
+
+  def destroy
+    web_design = WebDesign.find( params[:id] ) 
+    authorize! :delete, web_design 
+    web_design.delete
+    render json: true
+  end 
+
    
 
   def add_image

@@ -54,17 +54,30 @@ edit_web_design = (data) ->
   ).on 'complete', (event, id, name, response)->
     get_and_edit_web_design( window.web_designs.id )
 
-show_index = () ->
+
+get_and_show_index = () -> 
   $.get "web_designs.json", (data) -> 
-    $("#index").html( window.web_designs.index_template(data) )
+    show_index(data)
 
-    $(".edit-web-design").click (e) -> 
-      $('tr.active').removeClass('active') 
-      $(this).closest("tr").addClass('active')
-      get_and_edit_web_design( $(this).attr('data-id') )
+show_index = (data) ->
+  $("#index").html( window.web_designs.index_template(data) )
+  $(".auth").val( $('meta[name=csrf-token]').attr('content')  )
 
-    $(".delete-web-design").click (e) -> 
-      delete_web_image( this )
+  $(".edit-web-design").click (e) -> 
+    $('tr.active').removeClass('active') 
+    $(this).closest("tr").addClass('active')
+    get_and_edit_web_design( $(this).attr('data-id') )
+
+  $(".delete-web-design").on 'submit', (e) -> 
+    e.preventDefault()
+    target = this
+    bootbox.confirm 'Are you sure?', (result) -> 
+      if result 
+        $.post $(target).attr('action'), $(target).serialize(), (data) -> 
+          $.gritter.add 
+            class_name: 'gritter-success'
+            text: 'Item deleted'
+          get_and_show_index()
 
 $ ->
   return if $("#web-designs").length == 0
@@ -73,7 +86,7 @@ $ ->
     edit_template:  Handlebars.compile($("#edit-template").html())
     index_template: Handlebars.compile($("#index-template").html())
 
-  show_index()
+  get_and_show_index()
 
   # a neat dropdown
   $(".chosen").chosen()

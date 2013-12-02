@@ -31,8 +31,11 @@
         %td 
           %button.btn.btn-xs.btn-info.edit-web-design{type: "button", data: { id: "{{this.id}}"}}
             %i.icon-edit.bigger-120
-          %button.btn.btn-xs.btn-danger.delete-web-design{type: "button", data: { id: "{{this.id}}" } }
-            %i.icon-trash.bigger-120
+          %form.delete-web-design{"accept-charset" => "UTF-8",action:"/web_designs/{{id}}.json", method:"post", style:"display: inline;"}
+            %input{name:"_method",type:"hidden",value:"delete"}
+            %input.auth{name:"authenticity_token",type:"hidden",value:""}
+            %button.btn.btn-xs.btn-danger.delete-web-design{type: "submit", data: { id: "{{this.id}}" } }
+              %i.icon-trash.bigger-120
         %td {{this.updated_at_distance_of_time_in_words_to_now}}
       {{else}}
       .alert.alert-info You have not created any web designs.  
@@ -40,7 +43,7 @@
 
 %script{id: "edit-template", type: "text/x-handlebars-template"}
   .col-xs-6
-    %form#edit_web_design.edit_web_design{"accept-charset" => "UTF-8",action:"/web_designs/{{id}}", method:"post"}
+    %form#edit_web_design.edit_web_design{"accept-charset" => "UTF-8",action:"/web_designs/{{id}}.json", method:"post"}
       %input{name:"_method",type:"hidden",value:"put"}
       %input.auth{name:"authenticity_token",type:"hidden",value:""}
 
@@ -58,7 +61,7 @@
           %i.icon-ok.bigger-110 
           Save
   .col-xs-6
-    %form#edit_web_images.edit_web_design{"accept-charset" => "UTF-8",action:"/web_designs/{{id}}", method:"post"}
+    %form#edit_web_images.edit_web_design{"accept-charset" => "UTF-8",action:"/web_designs/{{id}}.json", method:"post"}
       %input{name:"_method",type:"hidden",value:"put"}
       %input.auth{name:"authenticity_token",type:"hidden",value:""}
 
