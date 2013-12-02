@@ -78,6 +78,7 @@ show_index = (data) ->
             class_name: 'gritter-success'
             text: 'Item deleted'
           get_and_show_index()
+          $("#edit").html('')
 
 $ ->
   return if $("#web-designs").length == 0
