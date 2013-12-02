@@ -18,6 +18,19 @@
     %tr
       %td Role 
       %td= @user.role_is
+    %tr
+      %td Business
+      %td
+        - if @user.businesses.any?
+          = link_to @user.businesses.first.business_name, business_path( @user.businesses.first) 
+        - else 
+          Not assigned
+    %tr
+      %td Subscription
+      %td
+        - if @user.businesses.any? && @user.businesses.first.subscription.present? 
+          - sub = @user.businesses.first.subscription
+          =link_to number_to_currency(sub.monthly_fee/100) + " per month", subscription_path(sub)
 
 = link_to 'Edit Profile', edit_user_path(@user), class: "btn btn-info"
 

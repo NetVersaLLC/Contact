@@ -19,3 +19,9 @@
   %tr
     %td Billing Type
     %td Monthly
+  %tr
+    %td Owner
+    %td= link_to @subscription.business.user.email, user_path(@subscription.business.user)
+  %tr
+    %td Business
+    %td= link_to @subscription.business.business_name, business_path( @subscription.business)
