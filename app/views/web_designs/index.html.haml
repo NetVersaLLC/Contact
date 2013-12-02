@@ -1,0 +1,81 @@
+#web-designs.row
+  .col-xs-12
+    #business
+      -if @businesses.length > 1
+        =select_tag "business", options_from_collection_for_select(@businesses, "id","business_name", @business.id), class: "chosen"
+      -else 
+        %h5= @business.business_name
+    #index 
+    =form_for WebDesign.new(page_name: "A New Page", business_id: @business.id) do |f|
+      =f.hidden_field :page_name
+      =f.hidden_field :business_id
+      %button.btn.btn-primary{type: "submit"}  Add Page
+    %hr
+    %script window.web_design_id = #{@web_design.id}; 
+    #edit.row 
+      .col-xs-6
+      .col-xs-6
+
+%script{id: "index-template", type: "text/x-handlebars-template"} 
+  %br
+  %table.table
+    %thead
+      %tr
+        %td Page Name 
+        %td Actions
+        %td Last Modified
+    %tbody 
+      {{#each web_designs}}
+      %tr{ data: { id: "{{this.id}}"}}
+        %td {{this.page_name}}
+        %td 
+          %button.btn.btn-xs.btn-info.edit-web-design{type: "button", data: { id: "{{this.id}}"}}
+            %i.icon-edit.bigger-120
+          %form.delete-web-design{"accept-charset" => "UTF-8",action:"/web_designs/{{id}}.json", method:"post", style:"display: inline;"}
+            %input{name:"_method",type:"hidden",value:"delete"}
+            %input.auth{name:"authenticity_token",type:"hidden",value:""}
+            %button.btn.btn-xs.btn-danger.delete-web-design{type: "submit", data: { id: "{{this.id}}" } }
+              %i.icon-trash.bigger-120
+        %td {{this.updated_at_distance_of_time_in_words_to_now}}
+      {{else}}
+      .alert.alert-info You have not created any web designs.  
+      {{/each}}
+
+%script{id: "edit-template", type: "text/x-handlebars-template"}
+  .col-xs-6
+    %form#edit_web_design.edit_web_design{"accept-charset" => "UTF-8",action:"/web_designs/{{id}}.json", method:"post"}
+      %input{name:"_method",type:"hidden",value:"put"}
+      %input.auth{name:"authenticity_token",type:"hidden",value:""}
+
+      %h3 Content
+      %div
+        %label{for:"web_design_page_name"}
+        %input#web_design_page_name.form-control{name: "web_design[page_name]", size: "30", type: "text", value: "{{page_name}}" }
+      %hr
+      %div
+        %label{for:"web_design_body"}
+        %textarea#web_design_body.form-control{name: "web_design[body]", cols: "40", rows: "20"}
+          {{body}}
+      %hr
+      .form-actions.center 
+        %button.btn.btn-info{ type: "submit" }
+          %i.icon-ok.bigger-110 
+          Save
+  .col-xs-6
+    %form#edit_web_images.edit_web_design{"accept-charset" => "UTF-8",action:"/web_designs/{{id}}.json", method:"post"}
+      %input{name:"_method",type:"hidden",value:"put"}
+      %input.auth{name:"authenticity_token",type:"hidden",value:""}
+
+      %h3 Image Gallery
+      %p Images to use with this page. 
+      #web_uploader
+      %ul.ace-thumbnails
+        {{#each web_images}}
+        %li
+          %img{ src: "{{this.src}}" }
+          %input.destroy-image{ id: "web_design_web_images_attributes_{{@index}}__destroy", name: "web_design[web_images_attributes][{{@index}}][_destroy]", type: "hidden", value: "false"}
+          %input.destroy-image{ id: "web_design_web_images_attributes_{{@index}}_id", name: "web_design[web_images_attributes][{{@index}}][id]", type: "hidden", value: "{{this.id}}"}
+          .tools.tools-bottom
+            %button.btn.btn-danger.btn-xs.delete-image{ data: { image: "{{@index}}" }, type: "button"}
+              %i.icon-trash
+        {{/each}}

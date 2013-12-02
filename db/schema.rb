@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131125095036) do
+ActiveRecord::Schema.define(:version => 20131127170201) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -2170,6 +2170,25 @@ ActiveRecord::Schema.define(:version => 20131125095036) do
 
   add_index "vitelity_numbers", ["business_id"], :name => "index_vitelity_numbers_on_business_id"
   add_index "vitelity_numbers", ["state"], :name => "index_vitelity_numbers_on_state"
+
+  create_table "web_designs", :force => true do |t|
+    t.string   "page_name",            :null => false
+    t.text     "body",                 :null => false
+    t.text     "special_instructions"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+    t.integer  "business_id"
+  end
+
+  create_table "web_images", :force => true do |t|
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.integer  "web_design_id"
+    t.string   "data_file_name"
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.datetime "data_updated_at"
+  end
 
   create_table "yahoo_categories", :force => true do |t|
     t.datetime "created_at", :null => false

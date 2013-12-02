@@ -36,7 +36,6 @@ $(document).ready ->
       $("#gallery .is-logo").val(false)
 
   $('#uploader').fineUploader(
-    debug: true
     validation:
       allowedExtensions: ['jpg','gif','jpeg','png','bmp']
       itemLimit: 9
