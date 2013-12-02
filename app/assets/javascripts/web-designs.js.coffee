@@ -21,7 +21,7 @@ edit_web_design = (data) ->
       $.gritter.add 
         class_name: 'gritter-success'
         text: 'Changes saved successfully.'
-      show_index()
+      get_and_show_index()
       
   $(".delete-image").click (e) -> 
     e.preventDefault()
@@ -95,5 +95,5 @@ $ ->
     e.preventDefault()
     $.post $(this).attr("action") + '.json', $(this).serialize(), (data) -> 
       edit_web_design(data)
-      show_index()
+      get_and_show_index()
 

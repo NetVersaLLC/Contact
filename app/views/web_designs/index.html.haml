@@ -54,7 +54,8 @@
       %hr
       %div
         %label{for:"web_design_body"}
-        %textarea#web_design_body.form-control{name: "web_design[body]", cols: "40", rows: "20", value: "{{body}}" }
+        %textarea#web_design_body.form-control{name: "web_design[body]", cols: "40", rows: "20"}
+          {{body}}
       %hr
       .form-actions.center 
         %button.btn.btn-info{ type: "submit" }
