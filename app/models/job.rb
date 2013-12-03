@@ -1,3 +1,7 @@
+# Containing a collection of event payloads which feeded by site transition
+#  For example when a request fires an event namely signup for a specific site,
+#  A Job will be created with the first event payload which will come from site transition object.
+#  Later on, Job will get updated by adding next event payloads and by completing the last step it will be marked as finished.
 class Job < ActiveRecord::Base
 
   belongs_to :site_transition
