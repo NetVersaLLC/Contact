@@ -5,17 +5,17 @@
         %i.icon-dashboard
         %span.menu-text Dashboard 
     %li 
-      = link_to businesses_url do 
+      = link_to businesses_path do 
         %i.icon-text-width 
         %span.menu-text Locations 
 
     - if can? :manage, User #current_user.reseller?
       %li 
-        = link_to users_url do
+        = link_to users_path do
           %i.icon-desktop
           %span.menu-text Users 
     %li
-      = link_to accounts_url do  
+      = link_to accounts_path do  
         %i.icon-list 
         %span.menu-text Accounts
     -if can? :manage, Coupon
