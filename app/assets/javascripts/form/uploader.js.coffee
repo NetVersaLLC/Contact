@@ -54,12 +54,16 @@ $(document).ready ->
       endpoint: "/businesses/#{window.business_id}/images.json"
 
       #params: params
-  ).on 'complete', (event, id, name, response)->
-    html = $("#new-image").html() 
-    html = html.replace(/<%=id%>/g, response.id) 
-    html = html.replace(/<%=src%>/g, response.url) 
+  ).on( 'complete', (event, id, name, response)->
+    if response.success
+      html = $("#new-image").html() 
+      html = html.replace(/<%=id%>/g, response.id) 
+      html = html.replace(/<%=src%>/g, response.url) 
 
-    elements = $(html).appendTo("#gallery")
-    bind_gallery_item(elements[0])
-
+      elements = $(html).appendTo("#gallery")
+      bind_gallery_item(elements[0])
+  ).on( 'error', (event, id, name, reason) -> 
+    console.log "error"
+    console.log reason
+  )
 
