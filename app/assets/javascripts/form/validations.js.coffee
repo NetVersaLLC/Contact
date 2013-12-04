@@ -47,6 +47,8 @@ $ ->
       required: true
     #"business[category1]":  
     #  required: true
+    "business[geographic_areas]":
+      required: true
   
   $('.edit_business, .new_business').validate 
     errorElement: 'div'
