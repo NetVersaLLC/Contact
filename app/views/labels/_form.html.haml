@@ -1,0 +1,86 @@
+.row
+  .col-xs-12
+    - if @label.errors.any? 
+      .alert.alert-danger 
+        %ul 
+          - @label.errors.full_messages.each do |m| 
+            %li=m
+
+    = form_for @label, html: { class: "form-horizontal", multipart: true} do |f|
+      .form-group
+        = f.label :parent, :class => "col-sm-3 control-label no-padding-right"
+        .col-sm-9
+          = f.select :parent_id, 
+            options_from_collection_for_select(Label.all,'id','name', @label.parent_id.to_s),
+            {include_blank: true,  :class => "col-xs-10 col-sm-5" }
+
+      .form-group
+        = f.label :name, :class => "col-sm-3 control-label no-padding-right"
+        .col-sm-9
+          = f.text_field :name, :class => "col-xs-10 col-sm-5", :placeholder => "Name"
+      .space-4
+      .form-group
+        = f.label :domain, :class => "col-sm-3 control-label no-padding-right"
+        .col-sm-9
+          = f.text_field :domain, :class => "col-xs-10 col-sm-5", :placeholder => "sync.somewhere.com"
+
+      .form-group
+        = f.label :label_domain, :class => "col-sm-3 control-label no-padding-right"
+        .col-sm-9
+          = f.text_field :label_domain, :class => "col-xs-10 col-sm-5", :placeholder => "somewhere.com"
+
+      .form-group
+        = f.label :mail_from, :class => "col-sm-3 control-label no-padding-right"
+        .col-sm-9
+          = f.email_field :mail_from, :class => "col-xs-10 col-sm-5", :placeholder => "support@somewhere.com"
+      .form-group 
+        = f.label :address, :class => "col-sm-3 control-label no-padding-right"
+        .col-sm-9
+          = f.text_area :address, :class => "col-xs-10 col-sm-5", :placeholder => "support@somewhere.com"
+
+      .form-group
+        = f.label :available_balance, :class => "col-sm-3 control-label no-padding-right"
+        .col-sm-9
+          = f.text_field :available_balance, :class => "col-xs-10 col-sm-5", :placeholder => "10.23"
+
+      .form-group
+        = f.label :package_signup_rate, :class => "col-sm-3 control-label no-padding-right"
+        .col-sm-9
+          = f.text_field :package_signup_rate, :class => "col-xs-10 col-sm-5", :placeholder => "10.23"
+      .form-group
+        = f.label :package_subscription_rate, :class => "col-sm-3 control-label no-padding-right"
+        .col-sm-9
+          = f.text_field :package_subscription_rate, :class => "col-xs-10 col-sm-5", :placeholder => "10.23"
+
+      .form-group
+        = f.label :credit_limit, :class => "col-sm-3 control-label no-padding-right"
+        .col-sm-9
+          = f.text_field :credit_limit, :class => "col-xs-10 col-sm-5", :placeholder => "10.23"
+
+
+      .form-group
+        = f.label :favicon, :class => "col-sm-3 control-label no-padding-right"
+        .col-sm-9 
+          -if @label.favicon.present?
+            %div
+              = image_tag @label.favicon.url
+            %br
+          = f.file_field :favicon
+
+      .form-group
+        = f.label :logo, :class => "col-sm-3 control-label no-padding-right"
+        .col-sm-9 
+          -if @label.logo.present?
+            %div
+              = image_tag @label.logo.url
+            %br
+          = f.file_field :logo
+      .clearfix.form-actions
+        .col-md-offset-3.col-md-9
+          %button.btn.btn-info(type="submit") 
+            %i.icon-ok.bigger-110
+            Save
+          %button.btn(type="reset")
+            %i.icon-undo.bigger-110
+            Reset
+

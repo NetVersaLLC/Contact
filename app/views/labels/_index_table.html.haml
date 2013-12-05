@@ -1,10 +1,20 @@
 %table.table.table-striped.table-bordered.table-hover.dataTable
   %thead
     %tr
-      %th Label Name
-      %th Modify
+      %th Name
+      %th Domain
+      %th 
   %tbody
     - @labels.each do |label|
       %tr
         %td= label.name
-        %td Modify
+        %td= label.domain
+        %td
+          .visible-md.visible-lg.hidden-sm.hidden-xs.btn-group
+            =link_to(label_url(label), class: 'btn btn-xs btn-success') do 
+              %i.icon-ok.bigger-120
+            = link_to edit_label_path(label), class: 'btn btn-xs btn-info', title: 'Edit Label' do 
+              %i.icon-edit
+          -# link_to label, method: :delete, class: 'btn btn-xs btn-danger', confirm: 'Are you sure?', title: 'Delete label' do 
+            %i.icon-trash
+
