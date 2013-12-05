@@ -1,4 +1,6 @@
 class ClientData < ActiveRecord::Base
+  include ActionView::Helpers::DateHelper
+
   self.table_name = "client_data"
   #self.abstract_class = true   # this breaks single table inheritance
   belongs_to      :business
@@ -52,11 +54,12 @@ class ClientData < ActiveRecord::Base
   end
 
   def last_update
-    j = CompletedJob.where(business_id: self.business_id).last
-    if j.present? && j.updated_at
+    j = CompletedJob.where("business_id=#{self.business_id} AND name LIKE '#{self.class.name}/%'").last
+    p j
+    if j.present?
       distance_of_time_in_words_to_now( j.updated_at )
     else
-      "Sync is pending"
+      "Not synced"
     end 
   end
 
