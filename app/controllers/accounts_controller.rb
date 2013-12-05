@@ -11,7 +11,7 @@ class AccountsController < InheritedResources::Base
   add_breadcrumb 'Edit Account', nil, only: [:edit, :update]
 
   def index 
-     @q = ClientData.includes(:business).search(params[:q])
+     @q = ClientData.where(:business_id => current_user.businesses.first.id).search(params[:q])
      @accounts = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10)
   end
 
