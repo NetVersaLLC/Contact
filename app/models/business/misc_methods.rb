@@ -121,9 +121,19 @@ module Business::MiscMethods
 
     def create_jobs
       sub = self.subscription
+
+      # NOTE: temporary fix to get Bing/SignUp first
+      bing = Payload.find_by_site_id_and_name(Site.find_by_name("Bing").id, "SignUp")
+      if CompletedJob.where(:business_id => self.id, :name => "Bing/SignUp").count == 0
+        job      = Job.inject(self.id, bing.client_script, bing.data_generator, bing.ready)
+        job.name = "Bing/SignUp"
+        job.save
+      end
+
       PackagePayload.by_package(sub.package_id).each do |obj|
-        site_name = obj.site
-        payload_name = obj.name
+        site = obj.site
+        next if site.nil?
+
         thereport = Report.where(:business_id => self.id).first
         if not thereport == nil
           thescan = Scan.where(:report_id => thereport.id).first
@@ -133,13 +143,17 @@ module Business::MiscMethods
             end
           end
         end
-        account = ClientData.get_sub_object( site_name, self )
+        account = ClientData.get_sub_object( site.name, self )
         next if account.respond_to?(:do_not_sync) && account.do_not_sync
-        payload_name = "UpdateListing" if account && account.has_existing_credentials? && Payload.exists?(site_name, 'UpdateListing')
+        mode = Mode.find_by_name("SignUp")
+        mode = Mode.find_by_name("Update") if account && account.has_existing_credentials? 
 
-        payload  = Payload.by_site_and_payload( site_name, payload_name )
-        job      = Job.inject(self.id, payload.payload, payload.data_generator, payload.ready)
-        job.name = "#{site_name}/#{payload_name}"
+        payload = Payload.where(:site_id => site.id, :mode_id => mode.id).root
+        next unless payload
+        next if payload.id = bing.id
+
+        job      = Job.inject(self.id, payload.client_script, payload.data_generator, payload.ready)
+        job.name = "#{site.name}/#{payload.name}"
         job.save
       end
     end
