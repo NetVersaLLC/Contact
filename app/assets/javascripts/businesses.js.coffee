@@ -41,6 +41,9 @@ $ ->
 
   return if $("form").is(".new_business, .edit_business") isnt true
 
+  if window.business_valid 
+    $("wizard-steps li").addClass('completed')
+
   $('[data-toggle="popover"]').popover({trigger: "hover"})
   
   $('#location-wizard').ace_wizard()
