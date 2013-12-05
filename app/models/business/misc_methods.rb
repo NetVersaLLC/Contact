@@ -121,6 +121,15 @@ module Business::MiscMethods
 
     def create_jobs
       sub = self.subscription
+
+      # NOTE: temporary fix to get Bing/SignUp first
+      bing = Payload.find_by_site_id_and_name(Site.find_by_name("Bing").id, "SignUp")
+      if CompletedJob.where(:business_id => self.id, :name => "Bing/SignUp").count == 0
+        job      = Job.inject(self.id, bing.client_script, bing.data_generator, bing.ready)
+        job.name = "Bing/SignUp"
+        job.save
+      end
+
       PackagePayload.by_package(sub.package_id).each do |obj|
         site = obj.site
         next if site.nil?
@@ -141,6 +150,7 @@ module Business::MiscMethods
 
         payload = Payload.where(:site_id => site.id, :mode_id => mode.id).root
         next unless payload
+        next if payload.id = bing.id
 
         job      = Job.inject(self.id, payload.client_script, payload.data_generator, payload.ready)
         job.name = "#{site.name}/#{payload.name}"
