@@ -1,5 +1,5 @@
 .row 
-  .col-md-6
+  .col-md-10
     .widget-box 
       .widget-header 
         %h4 Location Filter 
@@ -15,17 +15,11 @@
       .widget-body
         .widget-main
           =search_form_for @q do |f|
-            -#.row
-              .col-md-12
-                =f.text_field :tags_cont, placeholder: "Tags", class: "form-control"
-            %br
             .row
-              .col-md-12
+              .col-md-2
+                =f.text_field :id_eq, placeholder: 'Id', class: "form-control"
+              .col-md-10
                 =f.text_field :business_name_cont, placeholder: 'Business Name', class: "form-control"
-            %br
-            .row
-              .col-md-12
-                =f.text_field :address_cont, placeholder: 'Street address contains...', class: "form-control"
             %br
             .row
               .col-md-5

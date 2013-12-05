@@ -1,10 +1,14 @@
 .row
   .col-xs-12 
-    - if current_user.admin?
-      %h6 Business
+    - if defined? @businesses
       = select_tag :business_id, 
-        options_from_collection_for_select(Business.order('business_name asc').all, "id", "business_name"), 
-        include_blank: true 
+        options_for_select(@businesses.each.map{|b|["#{b.business_name} ( #{b.id} )", b.id]}, params[:business_id]),
+        include_blank: true, 
+        class: "chosen-select", 
+        'data-placeholder' => 'select a business'
+      %br
+      .space-6
+
 
     - if @rows.blank? 
       .alert.alert-block.alert-success
@@ -43,6 +47,7 @@
             %a(href="#") One-Time Broadcast
 :javascript 
   $( function() {  
+  $(".chosen-select").chosen();
   $("#business_id").on( 'change', function() {  
     console.log( this );
     window.location.href = "/accounts?business_id=" + $(this).val()

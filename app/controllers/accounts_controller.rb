@@ -12,9 +12,12 @@ class AccountsController < ApplicationController  #InheritedResources::Base
 
   def index 
     if current_user.admin?
+      @businesses = Business.order('business_name asc')
       business_id = params[:business_id]
     elsif current_user.reseller?
-      business_id = nil
+      STDERR.puts "######## #{current_user.access_level} #{current_user.reseller?}"
+      @businesses = Business.where(label_id: current_label.id).order('business_name asc')
+      business_id = params[:business_id]
     else 
       business_id = current_user.businesses.first.id
     end 
@@ -22,6 +25,7 @@ class AccountsController < ApplicationController  #InheritedResources::Base
     if business_id.nil?
       @rows = []
     else 
+      authorize! :manage, Business.find( business_id )
       @rows = ActiveRecord::Base.connection.select_all("select client_data.id, client_data.email, client_data.username, client_data.status, client_data.listings_url, client_data.listing_url, client_data.type, client_data.created_at, client_data.updated_at, client_data.category_id, client_data.business_id, client_data.category2_id, client_data.do_not_sync, businesses.business_name from client_data inner join businesses on client_data.business_id = businesses.id where client_data.business_id = #{business_id} order by type asc ")
     end 
   end
