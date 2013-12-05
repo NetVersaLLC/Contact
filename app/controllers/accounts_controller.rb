@@ -1,19 +1,43 @@
-class AccountsController < InheritedResources::Base
-  defaults :resource_class => ClientData, :collection_name => 'accounts', :instance_name => 'account'
+class AccountsController < ApplicationController  #InheritedResources::Base
+  #defaults :resource_class => ClientData, :collection_name => 'accounts', :instance_name => 'account'
 
-  load_and_authorize_resource :only => [:index, :show, :categorize]
-  skip_before_filter :verify_authenticity_token
+  #load_and_authorize_resource :only => [:index, :show, :categorize]
+  #skip_before_filter :verify_authenticity_token
 
   respond_to :html, :json
-  actions :all
+  #actions :all
 
   add_breadcrumb 'Accounts', :accounts_url
   add_breadcrumb 'Edit Account', nil, only: [:edit, :update]
 
   def index 
-     @q = ClientData.where(:business_id => current_user.businesses.first.id).search(params[:q])
-     @accounts = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10)
+    if current_user.admin?
+      business_id = params[:business_id]
+    elsif current_user.reseller?
+      business_id = nil
+    else 
+      business_id = current_user.businesses.first.id
+    end 
+
+    if business_id.nil?
+      @rows = []
+    else 
+      @rows = ActiveRecord::Base.connection.select_all("select client_data.id, client_data.email, client_data.username, client_data.status, client_data.listings_url, client_data.listing_url, client_data.type, client_data.created_at, client_data.updated_at, client_data.category_id, client_data.business_id, client_data.category2_id, client_data.do_not_sync, businesses.business_name from client_data inner join businesses on client_data.business_id = businesses.id where client_data.business_id = #{business_id} order by type asc ")
+    end 
   end
+
+  def update
+    @account = ClientData.find(params[:id]) 
+    authorize! :update, @account
+    @account.update_attributes( params[:client_data] )
+    render 
+  end 
+
+  def show 
+    @account = ClientData.find(params[:id]) 
+    authorize! :read, @account
+    render 
+  end 
 
 	def create
 		business = Business.find( params[:business_id] )

@@ -1,10 +1,16 @@
 .row
   .col-xs-12 
-    - if @accounts.blank? 
+    - if current_user.admin?
+      %h6 Business
+      = select_tag :business_id, 
+        options_from_collection_for_select(Business.order('business_name asc').all, "id", "business_name"), 
+        include_blank: true 
+
+    - if @rows.blank? 
       .alert.alert-block.alert-success
         Your accounts are currently being created.  Please check again later.  
     - else 
-      .widget-box 
+      -#.widget-box 
         .widget-header 
           %h4 Search 
         .widget-body
@@ -18,8 +24,8 @@
                     %i.icon-search.icon-on-right.bigger-110
       .dataTables_wrapper
         =render 'index_table'
-        =render 'will_paginate'
-      .btn-group
+        - #render 'will_paginate'
+      -#.btn-group
         %button.btn.btn-info.btn-sm.dropdown-toggle(data-toggle="dropdown") 
           Bulk edit
           %span.icon-caret-down.icon-on-right
@@ -35,4 +41,12 @@
           %li.divider 
           %li
             %a(href="#") One-Time Broadcast
+:javascript 
+  $( function() {  
+  $("#business_id").on( 'change', function() {  
+    console.log( this );
+    window.location.href = "/accounts?business_id=" + $(this).val()
+  } )
+  }); 
+
 
