@@ -2,7 +2,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
 
   def new 
     @user = User.new
-    @user.callcenter = params[:callcenter] == "1"
+    @user.callcenter = params[:callcenter] == "1" 
 
     checkout_setup
     
@@ -15,17 +15,19 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     @user = User.new( params[:user] )
 
     @package = Package.where(id: params[:package_id]).first
+    creating_reseller = params[:package_id].blank?
 
     @user.label_id = current_label.id
-    if @user.callcenter
+    if @user.callcenter || creating_reseller
       @user.password = @user.password_confirmation = @user.temp_password = SecureRandom.random_number(1000000)
     end 
 
     if @user.save
 
-      if @package.nil?
+      if creating_reseller
         sign_up("user", @user)
-        redirect_to "/resellers"
+        User.send_welcome(@user).deliver
+        redirect_to "/" #"/resellers"
       else 
         label_processsor = LabelProcessor.new( current_label ) 
 

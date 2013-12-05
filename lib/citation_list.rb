@@ -636,5 +636,40 @@
   ['Nethulk', 'nethulks',
     [],
       'Nethulk'
+  ],
+  ['Beachbook', 'beachbooks',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Beachbook'
+  ],
+  ['Georgialocalsearch', 'georgialocalsearches',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Georgialocalsearch'
+  ],
+  ['Infopagina', 'infopaginas',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Infopagina'
+  ],
+  ['Mysunshinemedia', 'mysunshinemedias',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Mysuneshinemedia'
+  ],
+  ['Thephonebook', 'thephonebooks',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Thephonebook'
   ]
 ]

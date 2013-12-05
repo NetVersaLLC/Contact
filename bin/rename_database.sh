@@ -16,7 +16,7 @@ function moveDatabase() {
   for table in `mysql -u $user $pass -B -N -e "SHOW TABLES;" $old_database`;
   do
     echo "Moving $old_database.$table -> $new_database.$table"
-    mysql -u $user -e "RENAME TABLE \`$old_database\`.\`$table\` to \`$new_database\`.\`$table\`";
+    mysql -u $user $pass -e "RENAME TABLE \`$old_database\`.\`$table\` to \`$new_database\`.\`$table\`";
   done
   echo "Dropping $old_database..."
   mysql -u $user $pass -e "DROP DATABASE \`$old_database\`;";

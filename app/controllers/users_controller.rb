@@ -30,7 +30,7 @@ class UsersController < InheritedResources::Base
     end 
     if saved 
       flash[:notice] = "User updated successfully." 
-      redirect_to users_url
+      redirect_to user_path @user
     else 
       flash[:alert] = "An error occurred trying to save your changes. #{@user.errors.full_messages}"
       render :edit
