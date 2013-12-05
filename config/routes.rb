@@ -5,6 +5,7 @@ Contact::Application.routes.draw do
   resources :coupons
 
   get    '/payloads(.:format)', :controller => :payloads, :action => :index
+  get    '/payloads_interface(.:format)', :controller => :payloads, :action => :interface
   get    '/payloads/tree/:site_id/:mode_id(.:format)', :controller => :payloads, :action => :tree
   put    '/payloads/move/:id/:parent_id(.:format)', :controller => :payloads, :action => :move
   delete '/payloads(.:format)', :controller => :payloads, :action => :destroy
