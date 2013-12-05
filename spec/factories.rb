@@ -42,10 +42,10 @@ FactoryGirl.define do
   end
 
   factory :user do 
-    email "user@contact.dev"
+    sequence(:email,0) {|n| "user#{n}@contact.dev"}
     password 'password' 
     password_confirmation 'password'
-    authentication_token '82ht987h987h'
+    authentication_token {SecureRandom.hex}
     access_level User.owner
     label 
   end 
@@ -113,9 +113,61 @@ FactoryGirl.define do
 
   factory :site do
     owner 'Private'
+    name 'Private'
     founded { SecureRandom.random_number(2013) }
     alexa_us_traffic_rank { SecureRandom.random_number(100) }
     page_rank { SecureRandom.random_number(10) }
     enabled_for_scan '1'
   end
+
+  factory :business_site_mode do
+    business
+    site
+    mode 1
+  end
+
+  factory :payload do
+    sequence(:name, 0) { |n| "Step#{n}" }
+    active false
+    data_generator "data = {} \n data[ 'mail' ]= business.user.email"
+    client_script "nothing"
+    site
+    factory :payload_chain do
+      after(:create) { |root|
+        payloads= create_list(:payload, 2, site: root.site)
+        payloads[0].parent_id= root.id
+        payloads[1].parent_id= payloads[0].id
+        payloads.each{|e| e.save};
+      }
+    end
+  end
+
+  factory :job do
+    name "Private/Step0"
+    business
+    runtime {Time.now}
+    status_message "message from heaven"
+    payload "nothing"
+    data_generator "data = {} \n data[ 'mail' ]= business.user.email"
+    status {Job::TO_CODE[:new]}
+    factory :running_job do
+      status {Job::TO_CODE[:running]}
+    end
+    factory :waited_job do
+      status {Job::TO_CODE[:running]}
+      waited_at {Time.now}
+    end
+    factory :long_waited_job do
+      status {Job::TO_CODE[:running]}
+      waited_at {Date.yesterday}
+    end
+  end
+
+  factory :completed_job do
+    name "Private/Step0"
+    business
+    status_message "message from heaven"
+    status {Job::TO_CODE[:finished]}
+  end
+
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131127170201) do
+ActiveRecord::Schema.define(:version => 20131204131853) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -29,20 +29,18 @@ ActiveRecord::Schema.define(:version => 20131127170201) do
   add_index "accounts", ["business_id"], :name => "index_accounts_on_business_id"
   add_index "accounts", ["email"], :name => "index_accounts_on_email"
 
-  create_table "active_admin_comments", :force => true do |t|
-    t.string   "resource_id",   :null => false
-    t.string   "resource_type", :null => false
-    t.integer  "author_id"
-    t.string   "author_type"
+  create_table "admin_notes", :force => true do |t|
+    t.string   "resource_id",     :null => false
+    t.string   "resource_type",   :null => false
+    t.integer  "admin_user_id"
+    t.string   "admin_user_type"
     t.text     "body"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-    t.string   "namespace"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
-  add_index "active_admin_comments", ["author_type", "author_id"], :name => "index_active_admin_comments_on_author_type_and_author_id"
-  add_index "active_admin_comments", ["namespace"], :name => "index_active_admin_comments_on_namespace"
-  add_index "active_admin_comments", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
+  add_index "admin_notes", ["admin_user_type", "admin_user_id"], :name => "index_admin_notes_on_admin_user_type_and_admin_user_id"
+  add_index "admin_notes", ["resource_type", "resource_id"], :name => "index_admin_notes_on_resource_type_and_resource_id"
 
   create_table "admin_users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -205,6 +203,14 @@ ActiveRecord::Schema.define(:version => 20131127170201) do
     t.integer  "subscription_id"
   end
 
+  create_table "business_site_modes", :force => true do |t|
+    t.integer  "site_id"
+    t.integer  "business_id"
+    t.integer  "mode"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "businesscoms", :force => true do |t|
     t.datetime "force_update"
     t.text     "secrets"
@@ -332,7 +338,6 @@ ActiveRecord::Schema.define(:version => 20131127170201) do
     t.boolean  "setup_msg_sent",            :default => false
     t.datetime "paused_at"
     t.string   "tags"
-    t.integer  "mode_id"
     t.text     "temporary_draft_storage"
     t.string   "category_description"
   end
@@ -340,7 +345,6 @@ ActiveRecord::Schema.define(:version => 20131127170201) do
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
   add_index "businesses", ["category2"], :name => "index_businesses_on_category2"
   add_index "businesses", ["category3"], :name => "index_businesses_on_category3"
-  add_index "businesses", ["mode_id"], :name => "index_businesses_on_mode_id"
   add_index "businesses", ["user_id"], :name => "index_businesses_on_user_id"
 
   create_table "byzlyst_categories", :force => true do |t|
@@ -896,7 +900,6 @@ ActiveRecord::Schema.define(:version => 20131127170201) do
     t.integer  "yellowtalk_category_id"
     t.integer  "yellowwiz_category_id"
     t.integer  "citydata_category_id"
-    t.integer  "meetlocalbiz_category_id"
     t.integer  "bizhyw_category_id"
     t.integer  "localsolution_category_id"
     t.integer  "nsphere_category_id"
@@ -1055,9 +1058,12 @@ ActiveRecord::Schema.define(:version => 20131127170201) do
     t.text     "backtrace"
     t.text     "signature"
     t.integer  "payload_id"
+    t.integer  "retries"
+    t.integer  "parent_id"
   end
 
   add_index "jobs", ["business_id"], :name => "index_jobs_on_business_id"
+  add_index "jobs", ["parent_id"], :name => "index_jobs_on_parent_id"
   add_index "jobs", ["payload_id"], :name => "index_jobs_on_payload_id"
   add_index "jobs", ["status"], :name => "index_jobs_on_status"
 
@@ -1445,13 +1451,6 @@ ActiveRecord::Schema.define(:version => 20131127170201) do
 
   add_index "merchantcircles", ["business_id"], :name => "index_merchantcircles_on_business_id"
 
-  create_table "modes", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
   create_table "mojopages", :force => true do |t|
     t.datetime "force_update"
     t.text     "secrets"
@@ -1602,12 +1601,10 @@ ActiveRecord::Schema.define(:version => 20131127170201) do
     t.text     "client_script"
     t.text     "ready"
     t.integer  "site_id"
-    t.integer  "mode_id",                  :default => 1
     t.text     "client_script_signature"
     t.text     "data_generator_signature"
   end
 
-  add_index "payloads", ["mode_id"], :name => "index_payloads_on_mode_id"
   add_index "payloads", ["name"], :name => "index_payload_nodes_on_name"
   add_index "payloads", ["parent_id"], :name => "index_payload_nodes_on_parent_id"
   add_index "payloads", ["site_id"], :name => "index_payloads_on_site_id"
@@ -1901,7 +1898,7 @@ ActiveRecord::Schema.define(:version => 20131127170201) do
     t.integer  "monthly_fee"
     t.string   "status"
     t.integer  "transaction_event_id"
-    t.datetime "label_last_billed_at", :default => '2013-07-19 02:31:46'
+    t.datetime "label_last_billed_at", :default => '2013-10-05 18:43:01'
   end
 
   add_index "subscriptions", ["package_id"], :name => "index_subscriptions_on_package_id"

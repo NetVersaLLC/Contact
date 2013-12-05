@@ -43,7 +43,6 @@ class JobsController < ApplicationController
 
   def create
     @business = Business.find(params[:business_id])
-
     payload = Payload.start(params[:name])
     if payload == nil
       respond_to do |format|
@@ -51,19 +50,19 @@ class JobsController < ApplicationController
       end
       return
     end
-
-    if params[:delay]
-      runtime = Time.now + params[:delay].to_i*60
-    else
-      runtime = Time.now - 5.hours
-    end
-
-    if params[:clear] and params[:clear] == 'before'
-      Job.where(:business_id => params[:business_id]).delete_all
-    end
+    runtime= params[:delay] ? (Time.current + params[:delay].to_i*60) :
+                              (Time.current - 5.hours)
+     # NOTE: refactor this!
+    Job.where(:business_id => params[:business_id]).delete_all if params[:clear] and params[:clear] == 'before'
 
     @job = Job.inject(params[:business_id], payload.client_script, payload.data_generator, payload.ready, runtime)
     @job.name = params[:name]
+    if payload.parent
+      site_name= params[:name].split('/')[0]
+      parent_job= CompletedJob.where("business_id= ? and name= ? ",
+                         @business.id, "#{site_name}/#{payload.parent.name}").order('updated_at desc, id desc').first
+      @job.parent_id= parent_job.id unless parent_job.nil?
+    end
 
     respond_to do |format|
       if @job.save
