@@ -1,7 +1,7 @@
 .row 
   .col-md-6
     .dataTables_info
-      = # page_entries_info @labels, model: "Label"
+      = page_entries_info @labels
   .col-md-6
     .dataTables_paginate.paging_bootstrap
-      = will_paginate @labels #, previous_label: "<", next_label: ">", inner_window: 1, outer_window: 1
+      = will_paginate @labels, previous_label: "<", next_label: ">", inner_window: 1, outer_window: 1

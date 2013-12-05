@@ -9,7 +9,7 @@ class UsersController < InheritedResources::Base
 
   def index 
     @q = User.search(params[:q])
-    @users = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10)
+    @users = @q.result.includes(:businesses).accessible_by(current_ability).paginate(page: params[:page], per_page: 10)
   end   
 
 

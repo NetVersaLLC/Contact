@@ -1,0 +1,46 @@
+.page-header
+  %h1 Label
+.row
+  .col-xs-9
+    %table.table.table-striped.show-table
+      %tbody 
+        %tr 
+          %td Name 
+          %td= @label.name 
+        %tr
+          %td Domain 
+          %td= @label.domain 
+        %tr
+          %td Label Domain 
+          %td= @label.label_domain
+        %tr
+          %td Mail From 
+          %td= @label.mail_from 
+        %tr
+          %td Address
+          %td= @label.address
+        %tr
+          %td Available Balance 
+          %td= number_to_currency(@label.available_balance || 0)
+        %tr
+          %td Package Signup Rate 
+          %td= number_to_currency(@label.package_signup_rate || 0)
+        %tr
+          %td Package Subscription Rate 
+          %td= number_to_currency( @label.package_subscription_rate || 0)
+        %tr
+          %td Credit Limit
+          %td= number_to_currency( @label.credit_limit || 0)
+        %tr
+          %td Favicon 
+          %td
+            -if @label.favicon
+              =image_tag @label.favicon.url(:thumb) 
+        %tr
+          %td Logo
+          %td
+            -if @label.logo
+              =image_tag @label.logo.url(:thumb) 
+    - if can? :edit, @label
+      = link_to 'Edit Label', edit_label_path(@label), class: "btn btn-info"
+
