@@ -10,7 +10,7 @@ class Dashboard
     
   def sync_available? 
     sync = task.present? && task.started_at < 24.hours.ago
-    business_valid? && sync
+    business_valid? && !sync
   end 
 
   def business_valid?
