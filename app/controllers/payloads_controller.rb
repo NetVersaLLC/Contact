@@ -8,6 +8,9 @@ class PayloadsController < InheritedResources::Base
     render :json => @payload
   end
 
+  def interface
+  end
+
   def show
   end
 
