@@ -2,6 +2,22 @@
 
 .widget-box 
   .widget-header 
+    %h4 View Business
+  .widget-body
+    .widget-main
+      .input-group
+        %input#bid.form-control{:placeholder => "Business ID"}
+        %span.input-group-btn
+          %button.btn.btn-purple.btn-sm#bidView
+            View
+
+:javascript
+  $('#bidView').click(function(){
+    window.location.href="/businesses/"+$('#bid').val();
+  });
+
+.widget-box 
+  .widget-header 
     %h4 Search 
   .widget-body
     .widget-main
@@ -18,6 +34,7 @@
     %thead
       %tr
         %th Name
+        %th Business ID
         %th Client Checked In
         %th Client Downloaded
         %th Categorized?
@@ -32,6 +49,7 @@
         %tr
           %td
             = link_to customer.business_name, edit_business_path(customer)
+          %td= customer.id.to_s
           %td= (customer.client_checkin.nil? ? 'No' : 'Yes')
           %td= customer.is_client_downloaded? ? 'Yes':'No'
           %td= customer.categorized? ? 'Yes' : 'No'
