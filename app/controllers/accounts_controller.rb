@@ -15,7 +15,6 @@ class AccountsController < ApplicationController  #InheritedResources::Base
       @businesses = Business.order('business_name asc')
       business_id = params[:business_id]
     elsif current_user.reseller?
-      STDERR.puts "######## #{current_user.access_level} #{current_user.reseller?}"
       @businesses = Business.where(label_id: current_label.id).order('business_name asc')
       business_id = params[:business_id]
     else 
