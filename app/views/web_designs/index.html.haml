@@ -11,10 +11,11 @@
       =f.hidden_field :business_id
       %button.btn.btn-primary{type: "submit"}  Add Page
     %hr
-    %script window.web_design_id = #{@web_design.id}; 
-    #edit.row 
-      .col-xs-6
-      .col-xs-6
+    - if @web_design
+      %script window.web_design_id = #{@web_design.id}; 
+      #edit.row 
+        .col-xs-6
+        .col-xs-6
 
 %script{id: "index-template", type: "text/x-handlebars-template"} 
   %br
