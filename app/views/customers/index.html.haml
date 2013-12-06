@@ -1,33 +1,18 @@
 %h1 Listing customers
-
-.widget-box 
-  .widget-header 
-    %h4 View Business
-  .widget-body
-    .widget-main
-      .input-group
-        %input#bid.form-control{:placeholder => "Business ID"}
-        %span.input-group-btn
-          %button.btn.btn-purple.btn-sm#bidView
-            View
-
-:javascript
-  $('#bidView').click(function(){
-    window.location.href="/businesses/"+$('#bid').val();
-  });
-
 .widget-box 
   .widget-header 
     %h4 Search 
   .widget-body
     .widget-main
-      =search_form_for @q, url: customers_path, lass:"form-search" do |f|
+      -#=search_form_for @q, url: customers_path, class:"form-search" do |f|
         .input-group
-          =f.text_field :business_name_cont,  placeholder: "Business Name", class: "form-control"
+          =f.text_field :business_name_cont,  placeholder: "Business Name", class: "form-control search-query"
           %span.input-group-btn
             %button.btn.btn-purple.btn-sm
               Search
               %i.icon-search.icon-on-right.bigger-110
+      .space-6
+      %select#business_id.chosen-select
 
 .dataTables_wrapper
   %table.table.table-striped.table-bordered.table-hover.dataTable
@@ -70,4 +55,28 @@
     .col-xs-7
       .dataTables_paginate.paging_bootstrap
         = will_paginate @customers, previous_label: "<", next_label: ">", inner_window: 1, outer_window: 1
+
+:javascript 
+  window.business_id = #{params[:q] ? params[:q][:id_eq]:'""'};
+
+  $( function() {  
+    options_template = Handlebars.compile($("#options-template").html()); 
+
+    $.getJSON("/businesses.json", function(data) {  
+      $("#business_id").html( options_template(data));
+      $("#business_id").val( window.business_id ); 
+
+      $(".chosen-select").chosen();
+
+      $("#business_id").on( 'change', function() {  
+        window.location.href = "/customers?q[id_eq]=" + $(this).val()
+      } );
+      }); 
+  });
+
+%script{id: "options-template", type: "text/x-handlebars-template"} 
+  {{#each businesses}}
+  %option{ value: "{{id}}" } {{business_name}} ( {{id}} )
+  {{/each}}
+
 

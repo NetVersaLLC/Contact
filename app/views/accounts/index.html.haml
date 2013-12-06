@@ -1,11 +1,7 @@
 .row
   .col-xs-12 
-    - if defined? @businesses
-      = select_tag :business_id, 
-        options_for_select(@businesses.each.map{|b|["#{b.business_name} ( #{b.id} )", b.id]}, params[:business_id]),
-        include_blank: true, 
-        class: "chosen-select", 
-        'data-placeholder' => 'select a business'
+    - if current_user.reseller? #defined? @businesses
+      %select#business_id.chosen-select
       %br
       .space-6
 
@@ -46,12 +42,25 @@
           %li
             %a(href="#") One-Time Broadcast
 :javascript 
-  $( function() {  
-  $(".chosen-select").chosen();
-  $("#business_id").on( 'change', function() {  
-    console.log( this );
-    window.location.href = "/accounts?business_id=" + $(this).val()
-  } )
-  }); 
+  window.business_id = #{params[:business_id]}
 
+  $( function() {  
+    options_template = Handlebars.compile($("#options-template").html()); 
+
+    $.getJSON("/businesses.json", function(data) {  
+      $("#business_id").html( options_template(data));
+      $("#business_id").val( window.business_id ); 
+
+      $(".chosen-select").chosen();
+
+      $("#business_id").on( 'change', function() {  
+        window.location.href = "/accounts?business_id=" + $(this).val()
+      } );
+      }); 
+  });
+
+%script{id: "options-template", type: "text/x-handlebars-template"} 
+  {{#each businesses}}
+  %option{ value: "{{id}}" } {{business_name}} ( {{id}} )
+  {{/each}}
 

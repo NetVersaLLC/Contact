@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131127170201) do
+ActiveRecord::Schema.define(:version => 20131206213127) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -1922,7 +1922,6 @@ ActiveRecord::Schema.define(:version => 20131127170201) do
     t.integer  "intial_fee"
     t.string   "subscription_code"
     t.integer  "label_id"
-    t.integer  "business_id"
     t.text     "response"
     t.string   "message"
     t.integer  "monthly_fee"

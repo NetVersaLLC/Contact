@@ -9,7 +9,7 @@
           %h4 Search 
         .widget-body
           .widget-main
-            =search_form_for @q, class:"form-inline" do |f|
+            -#=search_form_for @q, class:"form-inline" do |f|
               .input-group
                 =f.text_field :business_business_name_cont,  placeholder: "Business Name"
                 =f.text_field :package_name_cont,  placeholder: "Package Name"
@@ -17,6 +17,34 @@
                   %button.btn.btn-purple.btn-sm
                     Search
                     %i.icon-search.icon-on-right.bigger-110
+              .space-6
+            %select#business_id.chosen-select
       .dataTables_wrapper
         =render 'index_table'
         =render 'will_paginate'
+
+:javascript 
+  window.business_id = #{params[:q] ? params[:q][:business_id_eq]:'""'};
+
+  $( function() {  
+    options_template = Handlebars.compile($("#options-template").html()); 
+
+    $.getJSON("/businesses.json", function(data) {  
+      $("#business_id").html( options_template(data));
+      $("#business_id").val( window.business_id ); 
+
+      $(".chosen-select").chosen();
+
+      $("#business_id").on( 'change', function() {  
+        window.location.href = "/subscriptions?q%5Bbusiness_id_eq%5D=" + $(this).val()
+      } );
+      }); 
+  });
+
+%script{id: "options-template", type: "text/x-handlebars-template"} 
+  {{#each businesses}}
+  %option{ value: "{{id}}" } {{business_name}} ( {{id}} )
+  {{/each}}
+
+
+
