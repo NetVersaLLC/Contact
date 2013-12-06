@@ -32,8 +32,10 @@ Contact::Application.routes.draw do
   resources :subscriptions
   resources :payload_nodes, only: [:index, :create]
 
+  get '/businesses/search'
   put '/businesses(.:format)/:id/save_draft', :action => "save_draft", controller: :businesses
   resources :businesses
+
   get    '/businesses/client_checked_in/:id',
     :controller => :businesses,
     :action => :client_checked_in,

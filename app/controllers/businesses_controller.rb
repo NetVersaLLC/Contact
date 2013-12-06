@@ -8,6 +8,10 @@ class BusinessesController < InheritedResources::Base
   add_breadcrumb  'Edit Location', '', only: [:edit, :update]
 
   def index 
+    @businesses = Business.accessible_by(current_ability).order("business_name asc")
+  end 
+
+  def search
     @q = Business.search(params[:q])
     @businesses = @q.result.includes(:user).accessible_by(current_ability).paginate(page: params[:page], per_page: 5)
   end 
