@@ -12,8 +12,7 @@
             =search_form_for @q, class:"form-inline" do |f|
               .input-group
                 =f.text_field :email_cont,  placeholder: "Email"
-                =f.text_field :first_name_start,  placeholder: "First Name"
-                =f.text_field :last_name_start,   placeholder: "Last Name"
+                =f.text_field :businesses_id_eq,    placeholder: "Business Id"
                 %span.input-group-btn
                   %button.btn.btn-purple.btn-sm
                     Search
