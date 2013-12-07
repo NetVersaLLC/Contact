@@ -163,6 +163,7 @@ class LabelProcessor
       business.subscription = subscription 
       business.user = user 
       business.label = @label
+      business.referrer_code = user.referrer_code
       business.save :validate => false 
     else 
       business.update_column( :subscription_id, subscription.id) 
