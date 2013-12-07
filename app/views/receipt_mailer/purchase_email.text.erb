@@ -1,0 +1,6 @@
+
+Thank you for your purchase. Here is your receipt from <%= @business.label.name %>
+  
+     Sign-Up Fee <%= number_to_currency(@business.transaction_event.price) %>
+     Monthly Fee <%= number_to_currency(@business.transaction_event.monthly_fee) %>
+

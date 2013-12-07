@@ -181,6 +181,8 @@ class LabelProcessor
     subscription.transaction_event = transaction_event 
     subscription.save
 
+    ReceiptMailer.purchase_email( business ).deliver
+
     transaction_event
   end 
 
