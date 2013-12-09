@@ -1,6 +1,16 @@
 
 Thank you for your purchase. Here is your receipt from <%= @business.label.name %>
-  
+
+<% if @business.transaction_event.price == 0 && @business.transaction_event.monthly_fee == 0 %>
+  Congratulations.  You qualified for Free Checkout!
+<% end %>
+
+<% if @business.transaction_event.price > 0 || @business.transaction_event.monthly_fee > 0 %>
+     Name            <%= @credit_card[:name] %>
+     Type            <%= @brand %>
+     Last 4 on card  <%= @credit_card[:number].last(4) %>
+<% end %> 
+
      Sign-Up Fee <%= number_to_currency(@business.transaction_event.price) %>
      Monthly Fee <%= number_to_currency(@business.transaction_event.monthly_fee) %>
 

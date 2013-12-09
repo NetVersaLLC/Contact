@@ -142,7 +142,7 @@ en:
         content:   "Add your fax number so that customers can send your business a fax. Example: 201-555-5555"
         title:     "Fax Number"
       zip: 
-        content:   "Example: 95014. Don't know your zip code find it <a href='https://tools.usps.com/go/ZipLookupAction!input.action' target='_blank'>here</a>" 
+        content:   "Example: 95014. Don't know your zip code find it at https://tools.usps.com/go/ZipLookupAction" 
         title:     "Zip Code" 
       business_description: 
         content:   "Providing a short description helps customers find out more about your business than just the name.  Minimum 50 to a maximum of 200 characters is required."
