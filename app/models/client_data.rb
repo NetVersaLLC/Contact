@@ -78,11 +78,15 @@ class ClientData < ActiveRecord::Base
 
   def self.last_update( business_id, class_name)
     j = CompletedJob.where("business_id= ? AND name LIKE ?", business_id, class_name + '/%').last
-    p j
     if j.present?
       j.updated_at
     else
-      "Not synced"
+      c = ClientData.where(:type => class_name, :business_id => business_id).first
+      unless c.nil?
+        c.updated_at
+      else
+        "Not Synced"
+      end
     end 
   end
 
