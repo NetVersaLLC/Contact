@@ -9,22 +9,24 @@
           %h4 Search 
         .widget-body
           .widget-main
-            -#=search_form_for @q, class:"form-inline" do |f|
-              .input-group
-                =f.text_field :business_business_name_cont,  placeholder: "Business Name"
-                =f.text_field :package_name_cont,  placeholder: "Package Name"
-                %span.input-group-btn
-                  %button.btn.btn-purple.btn-sm
-                    Search
-                    %i.icon-search.icon-on-right.bigger-110
-              .space-6
-            %select#business_id.chosen-select
+            =search_form_for @q, class:"form-search" do |f|
+              .row
+                .col-xs-6
+                  %select#business_id.chosen-select{ data: { placeholder: "Select Business Id..."} }
+                .col-xs-5
+                  .input-group
+                    =f.text_field :business_referrer_code_start,  placeholder: "Referrer Code", class: "form-control search-query"
+                    %span.input-group-btn
+                      %button.btn.btn-purple.btn-sm
+                        Search
+                        %i.icon-search.icon-on-right.bigger-110
+
       .dataTables_wrapper
         =render 'index_table'
         =render 'will_paginate'
 
 :javascript 
-  window.business_id = #{params[:q] ? params[:q][:business_id_eq]:'""'};
+  window.business_id = #{params[:q] && params[:q][:business_id_eq] ? params[:q][:business_id_eq]:'""'};
 
   $( function() {  
     options_template = Handlebars.compile($("#options-template").html()); 

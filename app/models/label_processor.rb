@@ -163,6 +163,7 @@ class LabelProcessor
       business.subscription = subscription 
       business.user = user 
       business.label = @label
+      business.referrer_code = user.referrer_code
       business.save :validate => false 
     else 
       business.update_column( :subscription_id, subscription.id) 
@@ -180,6 +181,8 @@ class LabelProcessor
 
     subscription.transaction_event = transaction_event 
     subscription.save
+
+    ReceiptMailer.purchase_email( business, credit_card ).deliver
 
     transaction_event
   end 

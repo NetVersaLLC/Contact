@@ -14,7 +14,7 @@
             %i.icon-remove
       .widget-body
         .widget-main
-          =search_form_for @q do |f|
+          =search_form_for @q, url: businesses_search_path do |f|
             .row
               .col-md-2
                 =f.text_field :id_eq, placeholder: 'Id', class: "form-control"
@@ -25,9 +25,8 @@
               .col-md-5
                 =f.text_field :city_start, placeholder: "City", class: "form-control"
               .col-md-4
-                =f.select :state_eq, options_for_select(USA::states), {include_blank:true}, {class: "form-control"}
+                =f.text_field :referrer_code_start, placeholder: "Referrer Code", class: "form-control"
               .col-md-3
-                =f.text_field :zip_eq, placeholder: "Zip", class: "form-control"
             .form-actions 
               %button.btn.btn-primary Filter 
               %button.btn.btn-warning{type: "reset"} Clear 

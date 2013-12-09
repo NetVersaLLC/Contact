@@ -20,6 +20,10 @@ class CreditCardProcessor
     end
   end 
 
+  def creditcard 
+    @creditcard
+  end 
+
   def is_credit_card_valid? 
     @creditcard.valid?
   end 

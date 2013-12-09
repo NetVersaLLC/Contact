@@ -1,0 +1,35 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+  %body 
+    %div
+      =image_tag @business.label.logo.url
+    %p Thank you for your purchase. Here is your receipt from #{@business.label.name} 
+    -if @business.transaction_event.price == 0 && @business.transaction_event.monthly_fee == 0
+      %p Congratulations.  You qualified for Free Checkout!
+    %table
+      %tbody 
+        -if @business.transaction_event.price > 0 || @business.transaction_event.monthly_fee > 0
+          %tr
+            %td Name 
+            %td= @credit_card[:name]
+          %tr
+            %td Type
+            %td= @brand
+          %tr
+            %td Last 4 on card
+            %td= @credit_card[:number].last(4)
+          %tr
+            %td
+            %td
+        %tr
+          %td Sign-Up Fee
+          %td
+            %strong= number_to_currency(@business.transaction_event.price)
+        %tr
+          %td Monthly Fee 
+          %td
+            %strong= number_to_currency(@business.transaction_event.monthly_fee)
+
+

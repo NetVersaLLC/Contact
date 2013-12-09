@@ -1,7 +1,7 @@
 getCreditCardType = (accountNumber)->
   result = "unknown"
   if /^5[1-5]/.test(accountNumber)
-    result = "mastercard"
+    result = "master"
   else if /^4/.test(accountNumber)
     result = "visa"
   else if /^6/.test(accountNumber)
@@ -21,7 +21,8 @@ addMessage = (title, desc)->
 examineCard = ()->
   name = $('#card_number').val()
   current_type = getCreditCardType(name)
-  types = ['visa', 'mastercard', 'american_express', 'discover']
+  $("#creditcard_type").val(current_type)
+  types = ['visa', 'master', 'american_express', 'discover']
   $.each types, (i,type)->
     em = $('#'+type)
     if (current_type == type)
