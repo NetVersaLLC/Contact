@@ -14,9 +14,11 @@ class AddModeToPayloads < ActiveRecord::Migration
 
     remove_column :businesses, :mode_id
     remove_column :payloads, :mode_id
-
+    
+    add_column :payloads, :from_mode
+    add_column :payloads, :to_mode
+    
     drop_table :modes
-
   end
 
   def down
