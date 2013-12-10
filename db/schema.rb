@@ -1929,7 +1929,13 @@ ActiveRecord::Schema.define(:version => 20131127170201) do
     t.integer  "monthly_fee"
     t.string   "status"
     t.integer  "transaction_event_id"
+<<<<<<< HEAD
     t.datetime "label_last_billed_at", :default => '2013-07-13 21:46:39'
+||||||| merged common ancestors
+    t.datetime "label_last_billed_at", :default => '2013-10-05 18:43:01'
+=======
+    t.datetime "label_last_billed_at", :default => '2013-10-10 08:25:20'
+>>>>>>> Correct the Job.success method to update the mode and write a spec for it
   end
 
   add_index "subscriptions", ["package_id"], :name => "index_subscriptions_on_package_id"

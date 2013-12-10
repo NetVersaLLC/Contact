@@ -15,9 +15,12 @@ class AddModeToPayloads < ActiveRecord::Migration
     remove_column :businesses, :mode_id
     remove_column :payloads, :mode_id
     
-    add_column :payloads, :from_mode
-    add_column :payloads, :to_mode
+    add_column :payloads, :from_mode, :integer
+    add_column :payloads, :to_mode, :integer
     
+    add_column :completed_jobs, :parent_id, :integer
+    add_column :failed_jobs, :parent_id, :integer
+    change_column_default(:payloads, :parent_id, nil)  
     drop_table :modes
   end
 
