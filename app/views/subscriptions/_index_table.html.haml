@@ -11,7 +11,7 @@
   %tbody
     - @subscriptions.each do |subscription|
       %tr
-        %td= subscription.business.nil? ? "" : subscription.business.business_name
+        %td= subscription.business.nil? ? "" : link_to(subscription.business.business_name, subscription.business)
         %td= subscription.package.name
         %td{class: [subscription.active && 'green', !subscription.active && 'red']}
           = subscription.active ? "Active" : "Inactive"

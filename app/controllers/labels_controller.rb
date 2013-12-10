@@ -14,6 +14,8 @@ class LabelsController < InheritedResources::Base
 
   protected
     def build_resource_params
+      return [] if request.get?
+
       if current_user.admin?
         [params.require(:label).permit(:name, :legal_name, :domain, :label_domain, :address, :support_email, :support_phone, :custom_css, :login, :password, :logo, :footer, :is_pdf ,:is_show_password, :favicon, :mail_from, :theme, :credit_limit, :package_signup_rate, :package_subscription_rate, :report_email_body, :parent, :available_balance)]
       end 
