@@ -475,6 +475,7 @@ ActiveRecord::Schema.define(:version => 20131204131853) do
     t.integer  "screenshot_id"
     t.text     "signature"
     t.integer  "payload_id"
+    t.integer  "parent_id"
   end
 
   add_index "completed_jobs", ["business_id"], :name => "index_completed_jobs_on_business_id"
@@ -766,6 +767,7 @@ ActiveRecord::Schema.define(:version => 20131204131853) do
     t.integer  "screenshot_id"
     t.text     "signature"
     t.integer  "payload_id"
+    t.integer  "parent_id"
   end
 
   add_index "failed_jobs", ["business_id"], :name => "index_failed_jobs_on_business_id"
@@ -1593,7 +1595,7 @@ ActiveRecord::Schema.define(:version => 20131204131853) do
     t.boolean  "active",                   :default => false
     t.datetime "broken_at"
     t.text     "notes"
-    t.integer  "parent_id",                :default => 1
+    t.integer  "parent_id"
     t.integer  "position",                 :default => 0
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
@@ -1603,6 +1605,8 @@ ActiveRecord::Schema.define(:version => 20131204131853) do
     t.integer  "site_id"
     t.text     "client_script_signature"
     t.text     "data_generator_signature"
+    t.integer  "from_mode"
+    t.integer  "to_mode"
   end
 
   add_index "payloads", ["name"], :name => "index_payload_nodes_on_name"
@@ -1898,7 +1902,7 @@ ActiveRecord::Schema.define(:version => 20131204131853) do
     t.integer  "monthly_fee"
     t.string   "status"
     t.integer  "transaction_event_id"
-    t.datetime "label_last_billed_at", :default => '2013-10-05 18:43:01'
+    t.datetime "label_last_billed_at", :default => '2013-10-10 08:25:20'
   end
 
   add_index "subscriptions", ["package_id"], :name => "index_subscriptions_on_package_id"

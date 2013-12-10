@@ -136,14 +136,18 @@ FactoryGirl.define do
       after(:create) { |root|
         payloads= create_list(:payload, 2, site: root.site)
         payloads[0].parent_id= root.id
+        payloads[0].name= "Step1"
         payloads[1].parent_id= payloads[0].id
+        payloads[1].name= "Step2"        
+        payloads[1].from_mode= 1
+        payloads[1].to_mode= 2
         payloads.each{|e| e.save};
       }
     end
   end
 
   factory :job do
-    name "Private/Step0"
+    sequence(:name, 0) { |n| "Private/Step#{n}" }
     business
     runtime {Time.now}
     status_message "message from heaven"
@@ -164,7 +168,7 @@ FactoryGirl.define do
   end
 
   factory :completed_job do
-    name "Private/Step0"
+    sequence(:name, 0) { |n| "Private/Step#{n}" }
     business
     status_message "message from heaven"
     status {Job::TO_CODE[:finished]}

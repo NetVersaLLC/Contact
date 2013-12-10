@@ -6,7 +6,7 @@ describe JobsController do
     @business= FactoryGirl.create(:business)
     @user = @business.user
     @site= FactoryGirl.create(:site)
-    current_mode= FactoryGirl.create(:business_site_mode, site: @site, business: @business)
+    @current_mode= FactoryGirl.create(:business_site_mode, site: @site, business: @business)
     @payload= FactoryGirl.create(:payload_chain, site: @site)
   end
 
@@ -39,6 +39,18 @@ describe JobsController do
       change(FailedJob, :count).by(1).should be_true
       response.code.should == '204'
     end
+    
+    it 'should update the mode of website when reaching a leaf in the tree' do
+      cjob1= FactoryGirl.create(:completed_job, name: "#{@site.name}/#{@payload.name}", business: @business)
+      cjob2= FactoryGirl.create(:completed_job, name: "#{@site.name}/#{@payload.children.first.name}", 
+                business: @business, parent_id: cjob1.id)
+      new_job= FactoryGirl.create(:job, name: "#{@site.name}/#{@payload.children.first.children.first.name}", 
+                business: @business, parent_id: cjob2.id)
+      params= {:business_id => @business.id, :id=> new_job.id, :status=> "success", :auth_token => @user.authentication_token}      
+      post(:update, params)
+      BusinessSiteMode.first.mode.should == 2
+    end    
+    
   end
 
   describe "get #index" do
@@ -54,10 +66,12 @@ describe JobsController do
 
     it 'should set the previous job as the parent of current job if their payloads has that relationship' do
       # Create a list of completed jobs and ensure that the latest completed job would be considered as parent
-      @completed_jobs= FactoryGirl.create_list(:completed_job,2, name: "#{@site.name}/#{@payload.name}", business: @business)
+      @completed_jobs= FactoryGirl.create_list(:completed_job, 2, name: "#{@site.name}/#{@payload.name}", business: @business)
       params= {:business_id => @business.id, :name=> "#{@site.name}/#{@payload.children.first.name}", :auth_token => @user.authentication_token}
       post(:create, params)
       JSON.parse(response.body)["parent_id"].should == @completed_jobs[1].id
-    end
+    end  
+      
   end
+
 end
