@@ -70,6 +70,8 @@ Contact::Application.routes.draw do
   get     '/client_manager/jobs(.:format)', as: :client_manager_jobs
   get     '/client_manager/booboos(.:format)', as: :client_manager_booboos
 
+  get     '/users/token'
+
   resources :results
   resources :tasks
   resources :places
