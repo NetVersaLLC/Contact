@@ -33,10 +33,14 @@
         = f.label :mail_from, :class => "col-sm-3 control-label no-padding-right"
         .col-sm-9
           = f.email_field :mail_from, :class => "col-xs-10 col-sm-5", :placeholder => "support@somewhere.com"
+      .form-group
+        = f.label :support_email, :class => "col-sm-3 control-label no-padding-right"
+        .col-sm-9
+          = f.email_field :support_email, :class => "col-xs-10 col-sm-5", :placeholder => "support@somewhere.com"
       .form-group 
         = f.label :address, :class => "col-sm-3 control-label no-padding-right"
         .col-sm-9
-          = f.text_area :address, :class => "col-xs-10 col-sm-5", :placeholder => "support@somewhere.com"
+          = f.text_area :address, :class => "col-xs-10 col-sm-5", :placeholder => "123 Main Street"
 
       .form-group
         = f.label :available_balance, :class => "col-sm-3 control-label no-padding-right"
