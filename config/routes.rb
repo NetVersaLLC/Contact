@@ -48,7 +48,7 @@ Contact::Application.routes.draw do
   get    '/impersonate', to: 'impersonate#index'
   get    '/impersonate/:id', to: 'impersonate#new', as: :new_impersonation
   delete '/impersonate/revert', to: 'impersonate#revert', as: :revert_impersonation
-  get    '/credentials(.:format)', :controller => :impersonate, :action => :credentials
+  get    '/credentials(.:format)', :controller => :jobs, :action => :credentials
 
   resources :notifications
 
