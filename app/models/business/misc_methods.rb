@@ -36,9 +36,8 @@ module Business::MiscMethods
     end
 
     def add_job(name)
-      site, payload = *name.split("/")
-      p = Payload.by_site_and_payload( site, payload )
-      job = Job.inject(self.id, p.payload, p.data_generator, p.ready)
+      p = Payload.by_name(name)
+      job = Job.inject(self.id, p.client_script, p.data_generator, p.ready)
       job.name = name
       job.save
     end

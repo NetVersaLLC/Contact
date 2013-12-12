@@ -243,13 +243,23 @@ class Payload < ActiveRecord::Base
 
   def self.recurse_tree(business, node, missing)
     id = business.nil? ? 'nil' : business.id.to_s
+    mode = Mode.find_by_name("SignUp")
+    if node.mode_id != mode.id
+      STDERR.puts "Skipping #{node.inspect} since not mode #{mode.id}"
+      return
+    end
     STDERR.puts "#{id}: #{node.name}: #{missing}"
     STDERR.puts "Node: #{node.inspect}"
     STDERR.puts "Node Child: #{node.children.inspect}"
+    site = Site.where(:id => node.site_id).first
+    if site == nil
+      STDERR.puts "Skipping: #{node.inspect}"
+      return
+    end
     STDERR.puts "Checking..."
     unless CompletedJob.where(:business_id => business.id, :name => node.name).count > 0 or Job.where(:business_id => business.id, :name => node.name).count > 0
-      missing.push node.name
-      STDERR.puts "Adding: #{node.name}..."
+      missing.push "#{site.name}/#{node.name}"
+      STDERR.puts "Adding: #{site.name}/#{node.name}..."
       return
     end
     STDERR.puts "Checked..."
@@ -262,7 +272,10 @@ class Payload < ActiveRecord::Base
   def self.find_missed_payloads(business)
     return nil if business.nil?
     missing = []
-    self.recurse_tree(business, self.root, missing)
+    mode = Mode.find_by_name("SignUp")
+    Payload.where(:parent_id => nil, :mode_id => mode.id).each do |root|
+      self.recurse_tree(business, root, missing)
+    end
     STDERR.puts "missing: #{missing.inspect}"
     return missing
   end
