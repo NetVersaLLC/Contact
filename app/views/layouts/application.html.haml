@@ -9,6 +9,8 @@
     .main-container
       .main-container-inner
         -if current_user
+          %a#menu-toggler.menu-toggler{ href: "#"}
+            %span.menu-text
           = render 'layouts/sidebar'
         .main-content
           .breadcrumbs#breadcrumbs
