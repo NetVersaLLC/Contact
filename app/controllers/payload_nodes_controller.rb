@@ -1,14 +1,8 @@
 class PayloadNodesController < ApplicationController
-  before_filter      :authenticate_user!
+  authorize_resource
 
   def index
-    if current_user.reseller?
-      @payloads = Payload.order('position asc')
-      render json: @payloads
-    else
-      error = {:error => :access_denied}
-      render json: error, :status => 403
-    end
+    @payloads = Payload.order('position asc')
   end
 
   def create
