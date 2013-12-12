@@ -1,6 +1,9 @@
 class PayloadsController < InheritedResources::Base
   respond_to :html, :json
-  before_filter      :authenticate_user!
+
+  prepend_before_filter :authenticate_user_from_token!
+  #before_filter      :authenticate_user!
+  #
   skip_before_filter :verify_authenticity_token
 
   def index

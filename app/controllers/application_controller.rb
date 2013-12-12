@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  before_filter :authenticate_user!
+
   protect_from_forgery
   helper_method :impersonating_user, :breadcrumbs
 
@@ -48,6 +50,15 @@ class ApplicationController < ActionController::Base
   #   @current_ability ||= Ability.new(current_admin_user)
   #end 
   protected 
+    def authenticate_user_from_token!
+      user_token = params[:auth_token].presence
+      user       = user_token && User.find_by_authentication_token(user_token)
+
+      if user 
+        sign_in user, store: false  # dont store session so that the token is needed on every request
+      end 
+    end 
+
     def add_breadcrumb name, url = ''
       breadcrumbs << [name, url]
     end 

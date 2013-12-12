@@ -1,6 +1,22 @@
 class JobsController < ApplicationController
-  before_filter      :authenticate_user!
+  prepend_before_filter :authenticate_user_from_token!
+
   skip_before_filter :verify_authenticity_token
+
+  #until we find a better home for it.  Used by grinder 
+  def credentials
+    @info = {}
+    begin
+      @business = Business.find(params[:business_id])
+      @user = @business.user
+      @info = {:status => :success, :auth_token => @user.authentication_token, :name => @business.business_name, :subscription_active => @business.subscription.active, :paused => !@business.paused_at.nil?, :categorized => @business.categorized, :payloads => @business.list_payloads}
+    rescue Exception => e
+      @info = {:status => :error, :message => e.message, :backtrace => e.backtrace.join("\n")}
+    end
+    respond_to do |format|
+      format.json { render json: @info }
+    end
+  end
 
   def index
     @business = Business.find(params[:business_id])

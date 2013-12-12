@@ -1,4 +1,6 @@
 class ScanController < ApplicationController
+  skip_before_filter :authenticate_user!
+
   def start
     @name = params[:name].strip
     @zip = params[:zip].strip

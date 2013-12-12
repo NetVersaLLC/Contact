@@ -1,4 +1,5 @@
 class MyDevise::RegistrationsController < Devise::RegistrationsController
+  skip_before_filter :authenticate_user!
 
   def new 
     @user = User.new
