@@ -1,4 +1,6 @@
 class AccountsController < ApplicationController  #InheritedResources::Base
+  prepend_before_filter :authenticate_user_from_token!
+
   #defaults :resource_class => ClientData, :collection_name => 'accounts', :instance_name => 'account'
 
   #load_and_authorize_resource :only => [:index, :show, :categorize]

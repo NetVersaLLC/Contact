@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable,
-         :validatable, :token_authenticatable
+         :validatable #, :token_authenticatable
 
   before_save :ensure_authentication_token
 
@@ -165,7 +165,15 @@ class User < ActiveRecord::Base
     end
   end
 
+  
+  def ensure_authentication_token
+    if authentication_token.blank? 
+      self.authentication_token = generate_authenticaton_token 
+    end 
+  end 
+
   private
+
 
   def delete_all_associated_records
     self.download.destroy unless self.download.blank?
@@ -174,5 +182,13 @@ class User < ActiveRecord::Base
       business.destroy
     end unless businesses_records.blank?
   end
+
+  def generate_authentication_token
+    loop do 
+      token = Devise.friendly_token 
+      break token unless User.where(authentication_token: token).first
+    end 
+  end 
+
 
 end
