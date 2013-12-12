@@ -1,6 +1,7 @@
 require 'tempfile'
 
 class CaptchaController < ApplicationController
+  prepend_before_filter :authenticate_user_from_token!
   skip_before_filter :authenticate_user!
   skip_before_filter :verify_authenticity_token
 
