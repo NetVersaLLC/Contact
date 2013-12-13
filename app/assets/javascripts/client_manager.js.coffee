@@ -64,7 +64,9 @@ window.loadPayloadNodes = () ->
         ol = $("ol[data-payload-id=#{parent_id}]")
       ol.append( payloadListItem( e.id, e.name ) )
 
-    $(".dd").nestable()
+    $(".dd").nestable( 
+      group: 1 
+    )
 
     $('#add_payload_node').click (e) -> 
       now = new Date() 
@@ -75,16 +77,15 @@ window.loadPayloadNodes = () ->
       payload = {} 
       payload.tree = [] 
       payload.trash = []
-      $('#payload_list_ul li').each (i,e)-> 
+      $('#payloads li').each (i,e)-> 
         payload_id = $(e).attr( 'data-payload-id')
         payload_name = $(e).attr( 'data-payload-name' )
         payload_parent_id =  $(e).parent().attr( 'data-payload-id')
-        #payload.tree.push( {id: payload_id, parent_id: payload_parent_id, name: payload_name})
-        payload.tree.push( {id: payload_id, parent_id: payload_parent_id})
+        payload.tree.push( {id: payload_id, parent_id: payload_parent_id })
       $('#payload_list_trash li').each (i,e)-> 
         payload_id = $(e).attr( 'data-payload-id')
         payload.trash.push( {id: $(e).attr('data-payload-id') } )
-      console.log payload
+        #console.log payload
       request = $.ajax 
         type: "POST" 
         url:  '/payload_nodes.json'
@@ -93,7 +94,8 @@ window.loadPayloadNodes = () ->
         alert('Payload updated.') 
         window.loadPayloadsNodes()
       request.fail () -> alert('Payload update failed.')
-
+      
+      
 window.initialize_client_manager = ()->
   jobs_template    = Handlebars.compile($("#jobs-template").html()) 
   booboos_template = Handlebars.compile($("#booboos-template").html())

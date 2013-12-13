@@ -51,8 +51,8 @@
 
               %h6 Trash-Em
               %p Drag nodes here to remove them.  
-              %ul#payload_list_trash.connect-thru.trashem{ "data-payload-id" => "trash"}
-
+              #trash.dd
+                .dd-empty
 
 %script{id: "jobs-template", type: "text/x-handlebars-template"} 
   %table.table.table-striped.jobs
