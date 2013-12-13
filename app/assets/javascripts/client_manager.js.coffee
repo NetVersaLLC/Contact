@@ -68,6 +68,11 @@ window.loadPayloadNodes = () ->
       group: 1 
     )
 
+    $("#expand-nodes").click (e) -> 
+      $('.dd').nestable('expandAll')
+    $("#collapse-nodes").click (e) -> 
+      $('.dd').nestable('collapseAll')
+
     $('#add_payload_node').click (e) -> 
       now = new Date() 
       new_id = "new_#{now.getTime()}"

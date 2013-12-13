@@ -42,10 +42,15 @@
           #errors.tab-pane
           -if current_user.admin?
             #payloads.tab-pane
-              %form.form-inline
+              -#%form.form-inline
                 %input#new_node_name{ name: "new-node-name", placeholder: "Node name"}
                 %button#add_payload_node.btn.btn-info.btn-sm{ type: "button"} Add Node 
                 %button#save_payload_nodes.btn.btn-sm{ type: "button"} Save
+              %div
+                %a#expand-nodes{href: "#"} Expand all
+                | 
+                %a#collapse-nodes{href: "#"} Collapse all
+
               .dd
                 %ol#payloads.dd-list{ "data-payload-id" => "root"}
 
