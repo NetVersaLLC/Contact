@@ -48,23 +48,16 @@ registerHooks = ()->
 
 window.loadPayloadNodes = () ->
   $.getJSON '/payload_nodes.json', (data)->
-    html =  '<ul id="payload_list_ul" data-payload-id="root" class="connect_thru"></ul>'
-    html += '<h6>Trash-em</h6>'
-    html += '<p>Drag and drop below to remove a node.</p>'
-    html += '<ul id="payload_list_trash" data-payload-id="trash" class="connect_thru trashem"></ul>' 
-    html += '<input id="new_node_name"/>'
-    html += '<button id="add_payload_node">New Node</button>'
-    html += '<button id="save_payload_nodes">Save</button>'
-    $('#payload_nodes_container').html(html)
+    window.spinner.stop document.getElementById( 'preview' )
 
-    $.each data, (i,e)->
-      console.log e 
-      html =  "<li data-payload-id='#{e.id}' data-payload-name='#{e.name}' >"
+    $.each data.payloads, (i,e)->
+      html =  "<li class='payload_row' data-payload-id='#{e.id}' data-payload-name='#{e.name}' >"
       html += e.name
       html += "<ul data-payload-id='#{e.id}'></ul>" # this allows an item to be nested
       html += '</li>'
       parent_id = if e.parent_id? then e.parent_id else 'root'
       $("ul[data-payload-id=#{parent_id}]").append(html)
+    $('#payloads ul, #payload_list_trash').sortable({connectWith: '#payloads ul, .connect-thru'})
 
     $('#payload_nodes_container ul, #payload_trash').sortable({connectWith: '#payload_nodes_container ul, .connect_thru'})
     $('#add_payload_node').click (e) -> 
@@ -72,7 +65,7 @@ window.loadPayloadNodes = () ->
       now = new Date() 
       new_id = "new_#{now.getTime()}"
       $('#payload_list_ul').append("<li data-payload-id='#{new_id}' data-payload-name='#{node_name}'>#{node_name}<ul data-payload-id='#{new_id}'> </ul></li>")
-      $('#payload_nodes_container ul, #payload_trash').sortable({connectWith: '#payload_nodes_container ul, .connect_thru'})
+      $('#payloads ul, #payload_list_trash').sortable({connectWith: '#payloads ul, .connect-thru'})
 
     $('#save_payload_nodes').click (e) -> 
       payload = {} 
@@ -107,15 +100,18 @@ window.initialize_client_manager = ()->
 
   $('a[data-toggle="tab"]').on 'shown.bs.tab', (e)-> 
     target = $(e.target)
-    $.getJSON target.attr('data-path'), (data)-> 
-      target_id = target.attr('href')
+    target_id = target.attr('href')
+    if target_id == "#payloads" 
+      window.loadPayloadNodes()
+    else 
+      $.getJSON target.attr('data-path'), (data)-> 
 
-      template = jobs_template    if target_id in ["#pending", "#failed", "#succeeded", "#latest"]
-      template = booboos_template if target_id == "#errors"
+        template = jobs_template    if target_id in ["#pending", "#failed", "#succeeded", "#latest"]
+        template = booboos_template if target_id == "#errors"
 
-      $(target_id).html( template(data) ) 
-      registerHooks()
-      window.spinner.stop document.getElementById( 'preview' )
+        $(target_id).html( template(data) ) 
+        registerHooks()
+        window.spinner.stop document.getElementById( 'preview' )
 
   $('.chosen').chosen().change () -> 
     id = $(this).val()

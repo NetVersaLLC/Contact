@@ -1,11 +1,13 @@
 class PayloadNodesController < ApplicationController
-  authorize_resource
 
   def index
-    @payloads = Payload.order('position asc')
+    authorize! :manage, Payload
+    @payloads = Payload.includes(:site).order('position asc')
   end
 
   def create
+   authorize! :manage, Payload
+
    new_node_ids = {} 
    tree = params[:tree] 
    tree.each_with_index do |leaf, i| 
