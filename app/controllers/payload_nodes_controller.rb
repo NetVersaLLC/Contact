@@ -2,7 +2,7 @@ class PayloadNodesController < ApplicationController
 
   def index
     authorize! :manage, Payload
-    @payloads = Payload.includes(:site).order('position asc')
+    @payloads = Payload.includes(:site).order('parent_id asc, position asc')
   end
 
   def create
@@ -21,7 +21,7 @@ class PayloadNodesController < ApplicationController
        new_node_ids[n[:id]] = node.id 
      else 
        node = Payload.find( n[:id] ) 
-       node = node.update_attributes( name: n[:name], parent_id: parent_id, position: i)
+       node = node.update_attributes( parent_id: parent_id, position: i)
      end 
    end
    trash = params[:trash]

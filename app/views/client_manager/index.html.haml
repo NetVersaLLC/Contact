@@ -46,7 +46,9 @@
                 %input#new_node_name{ name: "new-node-name", placeholder: "Node name"}
                 %button#add_payload_node.btn.btn-info.btn-sm{ type: "button"} Add Node 
                 %button#save_payload_nodes.btn.btn-sm{ type: "button"} Save
-              %ul#payload_list_ul.connect-thru{ "data-payload-id" => "root"}
+              .dd
+                %ol#payloads.dd-list{ "data-payload-id" => "root"}
+
               %h6 Trash-Em
               %p Drag nodes here to remove them.  
               %ul#payload_list_trash.connect-thru.trashem{ "data-payload-id" => "trash"}

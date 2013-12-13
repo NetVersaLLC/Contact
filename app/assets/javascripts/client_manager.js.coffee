@@ -46,26 +46,30 @@ registerHooks = ()->
         }
       ]
 
+payloadListItem = (id, name) -> 
+  html =  "<li class='dd-item' data-payload-id='#{id}' data-payload-name='#{name}' >"
+  html += "<div class='dd-handle'> #{name} </div>"
+  html += '</li>'
+
 window.loadPayloadNodes = () ->
   $.getJSON '/payload_nodes.json', (data)->
     window.spinner.stop document.getElementById( 'preview' )
 
     $.each data.payloads, (i,e)->
-      html =  "<li class='payload_row' data-payload-id='#{e.id}' data-payload-name='#{e.name}' >"
-      html += e.name
-      html += "<ul data-payload-id='#{e.id}'></ul>" # this allows an item to be nested
-      html += '</li>'
       parent_id = if e.parent_id? then e.parent_id else 'root'
-      $("ul[data-payload-id=#{parent_id}]").append(html)
-    $('#payloads ul, #payload_list_trash').sortable({connectWith: '#payloads ul, .connect-thru'})
 
-    $('#payload_nodes_container ul, #payload_trash').sortable({connectWith: '#payload_nodes_container ul, .connect_thru'})
+      ol = $("ol[data-payload-id=#{parent_id}]")
+      if ol.length == 0
+        $("li[data-payload-id=#{parent_id}]").append("<ol class='dd-list' data-payload-id='#{parent_id}'></ol>")
+        ol = $("ol[data-payload-id=#{parent_id}]")
+      ol.append( payloadListItem( e.id, e.name ) )
+
+    $(".dd").nestable()
+
     $('#add_payload_node').click (e) -> 
-      node_name = $('#new_node_name').val()
       now = new Date() 
       new_id = "new_#{now.getTime()}"
-      $('#payload_list_ul').append("<li data-payload-id='#{new_id}' data-payload-name='#{node_name}'>#{node_name}<ul data-payload-id='#{new_id}'> </ul></li>")
-      $('#payloads ul, #payload_list_trash').sortable({connectWith: '#payloads ul, .connect-thru'})
+      $("#payloads").append( payloadListItem( new_id, $('#new_node_name').val() ) )
 
     $('#save_payload_nodes').click (e) -> 
       payload = {} 
@@ -75,7 +79,8 @@ window.loadPayloadNodes = () ->
         payload_id = $(e).attr( 'data-payload-id')
         payload_name = $(e).attr( 'data-payload-name' )
         payload_parent_id =  $(e).parent().attr( 'data-payload-id')
-        payload.tree.push( {id: payload_id, parent_id: payload_parent_id, name: payload_name})
+        #payload.tree.push( {id: payload_id, parent_id: payload_parent_id, name: payload_name})
+        payload.tree.push( {id: payload_id, parent_id: payload_parent_id})
       $('#payload_list_trash li').each (i,e)-> 
         payload_id = $(e).attr( 'data-payload-id')
         payload.trash.push( {id: $(e).attr('data-payload-id') } )
@@ -88,7 +93,6 @@ window.loadPayloadNodes = () ->
         alert('Payload updated.') 
         window.loadPayloadsNodes()
       request.fail () -> alert('Payload update failed.')
-
 
 window.initialize_client_manager = ()->
   jobs_template    = Handlebars.compile($("#jobs-template").html()) 
