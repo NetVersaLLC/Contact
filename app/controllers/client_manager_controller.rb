@@ -26,7 +26,7 @@ class ClientManagerController < ApplicationController
           @jobs.push job
       end 
     else 
-      @jobs = class_name.to_s.classify.constantize.where(business_id:  params[:business_id]).order("name asc, position asc")
+      @jobs = class_name.to_s.classify.constantize.where(business_id:  params[:business_id]).order("position asc")
     end 
   end 
 
