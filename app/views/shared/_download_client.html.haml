@@ -1,7 +1,7 @@
 %section{:id => 'section-download-client'}
   %h3 Download Client Software
   %p 
-    - if request.headers['HTTP_USER_AGENT'].downcase =~ /msie/
+    - if request.user_agent.downcase =~ /msie/
       %a#download_clientIE{href: "https://secureinstall.us/production/#{current_label.name}/#{current_label.name}.application" }
         Click here to install the client.
       The client should immediately start installing. If not
