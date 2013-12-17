@@ -25,8 +25,8 @@
               %td Last Sync Completed
               %td=time_ago_in_words(@dashboard.task.completed_at) + " ago"
           %tr
-            %td Client Downloaded
-            %td= @dashboard.is_client_downloaded ? "Yes" : "No"
+            %td Client Version
+            %td= @dashboard.business.client_version || "0.0.0"
 
     - unless current_user.reseller?
       .col-xs-4
