@@ -9,4 +9,25 @@
       text-overflow: ellipsis;
     }
   }
+
+
+  #payloads ul { 
+    min-height: 10px; 
+    list-style-type: none;
+    border-left: 1px #AAA solid;
+    margin: 5px;
+  }
+  .payload_row  {
+    cursor: move;
+    padding-left: 0.5em;
+    width: 20em;
+    margin: 5px;
+    background-color: #F9F9F9;
+  }
+
+  #payload_list_trash { 
+    background-color: #FFD8D8;
+    min-height: 10px; 
+    list-style-type: none;
+  }
 }

@@ -81,12 +81,7 @@ class ClientData < ActiveRecord::Base
     if j.present?
       j.updated_at
     else
-      c = ClientData.where(:type => class_name, :business_id => business_id).first
-      unless c.nil?
-        c.updated_at
-      else
-        "Not Synced"
-      end
+      nil
     end 
   end
 

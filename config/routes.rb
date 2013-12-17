@@ -48,7 +48,7 @@ Contact::Application.routes.draw do
   get    '/impersonate', to: 'impersonate#index'
   get    '/impersonate/:id', to: 'impersonate#new', as: :new_impersonation
   delete '/impersonate/revert', to: 'impersonate#revert', as: :revert_impersonation
-  get    '/credentials(.:format)', :controller => :impersonate, :action => :credentials
+  get    '/credentials(.:format)', :controller => :jobs, :action => :credentials
 
   resources :notifications
 
@@ -69,6 +69,8 @@ Contact::Application.routes.draw do
   get     '/client_manager(.:format)', :action=>"index",     :controller=>"client_manager"
   get     '/client_manager/jobs(.:format)', as: :client_manager_jobs
   get     '/client_manager/booboos(.:format)', as: :client_manager_booboos
+
+  get     '/users/token'
 
   resources :results
   resources :tasks

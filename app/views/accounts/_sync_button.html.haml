@@ -10,7 +10,7 @@
       %li.divider 
       %li
         %a{href:"#"} Show Sync History
-  .btn-group.sync_enabled{ style: (row["do_not_sync"]==1) && "display: none;" }
+  .btn-group.sync_enabled{ style: (row["do_not_sync"] != 0) && "display: none;" }
     %button.btn.btn-success(type="button") Enabled
     %button.btn.btn-success.dropdown-toggle(data-toggle="dropdown")
       %span.icon-caret-down.icon-only

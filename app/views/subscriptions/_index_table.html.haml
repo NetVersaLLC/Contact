@@ -2,7 +2,7 @@
   %thead
     %tr
       %th Business Name
-      %th Package Name
+      %th Billing Name
       %th Status 
       %th Member Since
       %th Sign-Up Fee
@@ -11,8 +11,8 @@
   %tbody
     - @subscriptions.each do |subscription|
       %tr
-        %td= subscription.business.nil? ? "" : subscription.business.business_name
-        %td= subscription.package.name
+        %td= subscription.business.nil? ? "" : link_to(subscription.business.business_name, subscription.business)
+        %td= subscription.billing_name
         %td{class: [subscription.active && 'green', !subscription.active && 'red']}
           = subscription.active ? "Active" : "Inactive"
         %td= l(subscription.created_at.to_date, format: :long)

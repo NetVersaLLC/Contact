@@ -1,8 +1,10 @@
 class AccountsController < ApplicationController  #InheritedResources::Base
+  prepend_before_filter :authenticate_user_from_token!
+
   #defaults :resource_class => ClientData, :collection_name => 'accounts', :instance_name => 'account'
 
   #load_and_authorize_resource :only => [:index, :show, :categorize]
-  #skip_before_filter :verify_authenticity_token
+  skip_before_filter :verify_authenticity_token
 
   respond_to :html, :json
   #actions :all
@@ -43,12 +45,13 @@ class AccountsController < ApplicationController  #InheritedResources::Base
   end 
 
 	def create
+    STDERR.puts "XXXXXXXX HERE IS THE MODEL: "
 		business = Business.find( params[:business_id] )
 		if current_user.nil? or business.user_id != current_user.id
 			redirect_to '/', :status => 403
       return
     end
-    #STDERR.puts "HERE IS THE MODEL: "+params['model'].to_s
+    STDERR.puts "HERE IS THE MODEL: "+params['model'].to_s
     model = Business.get_sub_model(params['model'])
     obj = model.where(:business_id => business.id).first
     unless obj
