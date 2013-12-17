@@ -88,6 +88,7 @@ Contact::Application.routes.draw do
   post    'web_designs/:id/images', :controller => 'web_designs', action: 'add_image'
 
   post    '/booboos(.:format)', :controller => :jobs, :action => :booboo
+  delete  '/jobs/delete_all'
   resources :jobs,  except: [:show]
   get     '/jobs/list(.:format)', :controller => :jobs,   :action => :list
   put     '/jobs/:id/rerun', :controller => :jobs,   :action => :rerun
