@@ -29,7 +29,7 @@ class JobsController < ApplicationController
       end
       return
     end
-    @business.checkin()
+    @business.update_attributes(client_checkin: Time.now, client_version: params[:version] || "0.0.0")
 
     @job = {:status => 'default'}
     if @business.categorized == false
