@@ -25,3 +25,7 @@
   %tr
     %td Business
     %td= link_to @subscription.business.business_name, business_path( @subscription.business)
+  %tr
+    %td Billed To Name
+    %td= @subscription.billing_name
+    

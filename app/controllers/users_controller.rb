@@ -47,7 +47,7 @@ class UsersController < InheritedResources::Base
     end 
 
     if user.valid_password?( params[:password] )
-      render :json => { success: true, auth_token: user.authentication_token } 
+      render :json => { success: true, auth_token: user.authentication_token, business_id: user.businesses.first.id } 
     else 
       render :json => { success: false, message: 'error with your email or password', status: 401 } 
     end 

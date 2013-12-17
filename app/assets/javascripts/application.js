@@ -7,6 +7,7 @@
 //= require jquery.flot.pie.min
 //= require jquery.gritter.min
 //= require jquery.inputmask.bundle.min
+//= require jquery.nestable.min
 //= require jquery.payment
 //= require jquery.validate.min
 //= require acitree-rails
