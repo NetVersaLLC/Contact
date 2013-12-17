@@ -30,7 +30,7 @@
 
     - unless current_user.reseller?
       .col-xs-4
-        %a.btn.btn-grey.btn-block{href: Download.client_download_url( request.headers['HTTP_USER_AGENT'], current_label)}
+        %a.btn.btn-grey.btn-block{href: download_client_url }
           %i.icon-download-alt.bigger-230
           Get Sync Client
           
