@@ -1,8 +1,15 @@
 %section{:id => 'section-download-client'}
   %h3 Download Client Software
   %p 
-    The client software should start downloading within seconds.  If it doesn't, 
-    %a#download_client{href: Download.client_download_url( request.user_agent ], current_label) } restart the download. 
+    - if request.headers['HTTP_USER_AGENT'].downcase =~ /msie/
+      %a#download_clientIE{href: "https://secureinstall.us/production/#{current_label.name}/#{current_label.name}.application" }
+        Click here to install the client.
+      The client should immediately start installing. If not
+      %a#download_client{href: "https://secureinstall.us/production/#{current_label.name}/setup.exe" }
+        Click here to download the traditional setup installer.
+    - else
+      The client software should start downloading within seconds.  If it doesn't, 
+      %a#download_client{href: "https://secureinstall.us/production/#{current_label.name}/setup.exe" } restart the download. 
   %p For best results, this software should be installed on a system at the business location.
   - if request.headers['HTTP_USER_AGENT'].downcase =~ /macintosh/ 
     .alert The client is not compatible with Apple computers.  But, if you were to install it on windows, this is how you would do it. 
