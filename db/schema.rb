@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131213212301) do
+ActiveRecord::Schema.define(:version => 20131217150916) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -355,6 +355,7 @@ ActiveRecord::Schema.define(:version => 20131213212301) do
     t.text     "temporary_draft_storage"
     t.string   "category_description"
     t.string   "referrer_code"
+    t.string   "client_version",            :default => "0.0.0"
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"

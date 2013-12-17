@@ -75,11 +75,6 @@ module Business::MiscMethods
       end
     end
 
-    def checkin
-      self.client_checkin = Time.now
-      save
-    end
-
     def list_payloads
       sub = self.subscription
       sites = []
