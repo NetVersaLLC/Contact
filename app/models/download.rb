@@ -6,9 +6,9 @@ class Download #< ActiveRecord::Base
   def self.client_download_url( user_agent, label )
     env = Rails.env
     if user_agent.downcase =~ /msie/
-      "https://secureinstall.us/#{env}/#{label.name.downcase}/#{label.name}.application"
+      "https://secureinstall.us/#{env}/#{label.name}/#{label.name}.application"
     else 
-      "https://secureinstall.us/#{env}/#{label.name.downcase}/setup.exe"
+      "https://secureinstall.us/#{env}/#{label.name}/setup.exe"
     end 
   end 
 
