@@ -2,7 +2,7 @@
   %h3 Download Client Software
   %p 
     The client software should start downloading within seconds.  If it doesn't, 
-    %a#download_client{:href => "/downloads/#{@business.id}"} restart the download. 
+    %a#download_client{href: Download.client_download_url( request.headers['HTTP_USER_AGENT'], current_label) } restart the download. 
   %p For best results, this software should be installed on a system at the business location.
   - if request.headers['HTTP_USER_AGENT'].downcase =~ /macintosh/ 
     .alert The client is not compatible with Apple computers.  But, if you were to install it on windows, this is how you would do it. 
