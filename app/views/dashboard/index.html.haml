@@ -31,11 +31,11 @@
     - unless current_user.reseller?
       .col-xs-4
         - if request.headers['HTTP_USER_AGENT'].downcase =~ /msie/
-          %a.btn.btn-grey.btn-block{href: "https://secureinstall.us/production/#{current_label.name.downcase}/CitationClient.application"}
+          %a.btn.btn-grey.btn-block{href: "https://secureinstall.us/production/#{current_label.name}/CitationClient.application"}
             %i.icon-download-alt.bigger-230
             Get Sync Client
         -else 
-          %a.btn.btn-grey.btn-block{href: "https://secureinstall.us/production/#{current_label.name.downcase}/setup.exe"}
+          %a.btn.btn-grey.btn-block{href: "https://secureinstall.us/production/#{current_label.name}/setup.exe"}
             %i.icon-download-alt.bigger-230
             Get Sync Client
           
