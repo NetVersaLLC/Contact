@@ -5,10 +5,7 @@ class Job < JobBase
   after_create :assign_position
 
   attr_accessible :payload, :data_generator, :status, :runtime
-  attr_accessible :business_id, :name, :status_message, :backtrace, :waited_at, :position, :data,
-                  :retries
-
-  acts_as_tree :order => "position"
+  attr_accessible :business_id, :name, :status_message, :backtrace, :waited_at, :position, :data
 
   validates :status,
     :presence => true,
@@ -40,6 +37,10 @@ class Job < JobBase
     self.save
   end
 
+  def wait
+    self.status == TO_CODE[:running]
+  end
+
   def get_job_data(business, params)
     unless self['data_generator'].nil?
       logger.info "Executing: #{self['data_generator']}"
@@ -61,34 +62,28 @@ class Job < JobBase
   end
 
   def self.pending(business)
-    # Notes by Jani:
-    #  These conditions and if and else blocks looks confusing to me
+    #@job = Job.where('business_id = ? AND status IN (0,1) AND runtime < NOW()', business.id).order(:position).first
     @job = Job.where('business_id = ? AND status IN (0,1) AND runtime < UTC_TIMESTAMP()', business.id).order(:position).first
     if @job != nil
-      if @job.status == TO_CODE[:running]
-        # If the job has been waited during the past hour then it will do nothing
-        if @job.waited_at > Time.current - 1.hour
+      if @job.wait == true
+        if @job.waited_at > Time.now - 1.hour
           nil
-        # If the job has started running in the past hour
         else
-          #   Why don't enqueue the job to run again?
-          #   Is it due to the fact that the client might lost the context e.g. closed the program or lost the connection?
-
           # Reap a stalled/failed job
-          #@job.with_lock do
-          #  @job.status         = TO_CODE[:error]
-          #  @job.status_message = 'Job never returned results.'
-          #  @job.save
-          #end
-          #@job.is_now(FailedJob)
-          @job.failure("still waiting")
+          @job.with_lock do
+            @job.status         = TO_CODE[:error]
+            @job.status_message = 'Job never returned results.'
+            @job.save
+          end
+          @job.is_now(FailedJob)
           nil
         end
       else
         @job.with_lock do
+          @job.payload        = @job.payload
           @job.status         = TO_CODE[:running]
           @job.status_message = 'Starting job'
-          @job.waited_at      = Time.current
+          @job.waited_at      = Time.now
           @job.save
         end
         @job
@@ -104,30 +99,18 @@ class Job < JobBase
       self.status_message = msg
       self.save
     end
-    
-    # If the payload is leaf and it defines required columns (:to, :from), then update the mode and complete the job
-    ref_payload= Payload.by_name(self.name)
-    if not ref_payload.nil? and ref_payload.children.empty?
-      current_mode= BusinessSiteMode.find_by_business_id_and_site_id(self.business_id, ref_payload.site.id)
-      if current_mode.mode == ref_payload.from_mode
-        current_mode.mode = ref_payload.to_mode
-        current_mode.save
-      end
-    end
     self.is_now(CompletedJob)
   end
 
   def failure(msg='Job failed', backtrace=nil, screenshot=nil)
     self.with_lock do
-      self.status         = TO_CODE[:new]
+      self.status         = TO_CODE[:error]
       self.status_message = msg
-      self.backtrace      = (backtrace || '') + "\nUpdated at #{Time.now}\n" + (self.backtrace || '')
+      self.backtrace      = backtrace
       self.screenshot_id  = screenshot.id if screenshot.present?
-      self.retries = (retries || 0)+1
-      self.runtime= Time.current+2.minutes
       self.save
     end
-    retries >= 2  ? self.is_now(FailedJob) : self
+    self.is_now(FailedJob)
   end
 
   def self.inject(business_id,payload,data_generator,ready = nil,runtime = Time.now, signature='')
@@ -157,18 +140,4 @@ class Job < JobBase
   def label_id
     self.business.label_id
   end
-end
-
-class BusinessSiteMode < ActiveRecord::Base
-  belongs_to :business
-  belongs_to :site
-  attr_accessible :mode, :business_id, :site_id
-
-  TO_CODE = {
-      :initial => 1,
-      :signup  => 2,
-      :idle    => 4,
-      :update  => 8
-  }
-  TO_SYM = TO_CODE.invert
 end
