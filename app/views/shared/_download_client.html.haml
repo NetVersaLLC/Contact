@@ -1,25 +1,32 @@
 %section{:id => 'section-download-client'}
   %h3 Download Client Software
   %p 
-    The client software should start downloading within seconds.  If it doesn't, 
-    %a#download_client{:href => "/downloads/#{@business.id}"} restart the download. 
+    - if browser.ie?
+      %a#download_clientIE{href: download_client_url }
+        Click here to install the client.
+      The client should immediately start installing. If not
+      %a#download_client{href: download_client_url}
+        Click here to download the traditional setup installer.
+    - else
+      The client software should start downloading within seconds.  If it doesn't, 
+      %a#download_client{href: download_client_url } restart the download. 
   %p For best results, this software should be installed on a system at the business location.
-  - if request.headers['HTTP_USER_AGENT'].downcase =~ /macintosh/ 
+  - if browser.mac?
     .alert The client is not compatible with Apple computers.  But, if you were to install it on windows, this is how you would do it. 
   .row
     .col-sm-4
       .thumbnail
-        - if request.headers['HTTP_USER_AGENT'].downcase =~ /chrome/ 
+        - if browser.chrome?
           = image_tag 'chrome_step1.png' 
           .caption
             %h5 1. Click Setup.exe 
             %p Once the download Finishes, Click 'setup.exe' 
-        - elsif request.headers['HTTP_USER_AGENT'].downcase =~ /firefox/
+        - elsif browser.firefox?
           = image_tag 'firefox_step1.png' 
           .caption
             %h5 1. Save the Setup.exe 
             %p Once the download Finishes, Click the Save File button.  
-        - elsif request.headers['HTTP_USER_AGENT'].downcase =~ /msie/
+        - elsif browser.ie?
           = image_tag 'ie_step1.png' 
           .caption
             %h5 1. Run the Setup.exe
@@ -28,7 +35,7 @@
           %p Your browser was not recognized.  When the down load completes, simply click 'Setup.exe' to install the client. 
     .col-sm-4
       .thumbnail
-        - if request.headers['HTTP_USER_AGENT'].downcase =~ /msie/
+        - if browser.ie?
           = image_tag 'ie_step2.png' 
           .caption
             %h5 1. Click on Open

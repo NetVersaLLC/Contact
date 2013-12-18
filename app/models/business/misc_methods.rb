@@ -36,9 +36,8 @@ module Business::MiscMethods
     end
 
     def add_job(name)
-      site, payload = *name.split("/")
-      p = Payload.by_site_and_payload( site, payload )
-      job = Job.inject(self.id, p.payload, p.data_generator, p.ready)
+      p = Payload.by_name(name)
+      job = Job.inject(self.id, p.client_script, p.data_generator, p.ready)
       job.name = name
       job.save
     end
@@ -74,11 +73,6 @@ module Business::MiscMethods
         self.send "#{day}_open=", '08:30AM' if self.send("#{day}_open") == nil
         self.send "#{day}_close=", '05:30PM'  if self.send("#{day}_close") == nil
       end
-    end
-
-    def checkin
-      self.client_checkin = Time.now
-      save
     end
 
     def list_payloads
@@ -172,7 +166,7 @@ module Business::MiscMethods
         self.contact_birthday = date
         self.save
       end
-      Date.strptime(self.contact_birthday, '%m/%d/%Y')
+      Date.strptime.to_s(self.contact_birthday, '%Y-%m-%d')
     end
 
     def report_xlsx

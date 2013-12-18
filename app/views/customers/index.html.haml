@@ -21,7 +21,7 @@
         %th Name
         %th Business ID
         %th Client Checked In
-        %th Client Downloaded
+        %th Client Version
         %th Categorized?
         %th Subscription
         %th
@@ -36,7 +36,7 @@
             = link_to customer.business_name, edit_business_path(customer)
           %td= customer.id.to_s
           %td= (customer.client_checkin.nil? ? 'No' : 'Yes')
-          %td= customer.is_client_downloaded? ? 'Yes':'No'
+          %td= customer.client_version
           %td= customer.categorized? ? 'Yes' : 'No'
           %td= customer.subscription.present? && customer.subscription.active ? "Active":"Inactive"
           %td= link_to 'Show', customer

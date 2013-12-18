@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131213212301) do
+ActiveRecord::Schema.define(:version => 20131217150916) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -355,6 +355,7 @@ ActiveRecord::Schema.define(:version => 20131213212301) do
     t.text     "temporary_draft_storage"
     t.string   "category_description"
     t.string   "referrer_code"
+    t.string   "client_version",            :default => "0.0.0"
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
@@ -490,6 +491,7 @@ ActiveRecord::Schema.define(:version => 20131213212301) do
     t.integer  "screenshot_id"
     t.text     "signature"
     t.integer  "payload_id"
+    t.integer  "parent_id"
   end
 
   add_index "completed_jobs", ["business_id"], :name => "index_completed_jobs_on_business_id"
@@ -791,6 +793,7 @@ ActiveRecord::Schema.define(:version => 20131213212301) do
     t.integer  "screenshot_id"
     t.text     "signature"
     t.integer  "payload_id"
+    t.integer  "parent_id"
   end
 
   add_index "failed_jobs", ["business_id"], :name => "index_failed_jobs_on_business_id"
@@ -928,8 +931,8 @@ ActiveRecord::Schema.define(:version => 20131213212301) do
     t.integer  "citydata_category_id"
     t.integer  "meetlocalbiz_category_id"
     t.integer  "bizhyw_category_id"
+    t.integer  "model_category_id"
     t.integer  "localsolution_category_id"
-    t.integer  "nsphere_category_id"
     t.integer  "ycphonebook_category_id"
     t.integer  "bigwigbiz_category_id"
     t.integer  "nationalwebdir_category_id"
@@ -1500,13 +1503,6 @@ ActiveRecord::Schema.define(:version => 20131213212301) do
 
   add_index "merchantcircles", ["business_id"], :name => "index_merchantcircles_on_business_id"
 
-  create_table "modes", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
   create_table "mojopages", :force => true do |t|
     t.datetime "force_update"
     t.text     "secrets"
@@ -1642,7 +1638,7 @@ ActiveRecord::Schema.define(:version => 20131213212301) do
     t.boolean  "active",                   :default => false
     t.datetime "broken_at"
     t.text     "notes"
-    t.integer  "parent_id",                :default => 1
+    t.integer  "parent_id"
     t.integer  "position",                 :default => 0
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false

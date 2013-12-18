@@ -36,7 +36,7 @@ class Dashboard
     if @user.reseller?
       return messages
     end
-    messages << :client_not_downloaded if not business.is_client_downloaded
+    #messages << :client_not_downloaded if not business.is_client_downloaded
 
     if business_valid? 
       if business.client_checkin.nil?

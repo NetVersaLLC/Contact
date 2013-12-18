@@ -1,7 +1,18 @@
-require 'zip/zip'
+#require 'zip/zip'
 
-class Download < ActiveRecord::Base
-  belongs_to :user 
+class Download #< ActiveRecord::Base
+  #belongs_to :user 
+
+  def self.client_download_url( request, label )
+    env = Rails.env
+    browser = Browser.new( user_agent: request.user_agent)
+
+    if browser.ie?
+      "https://secureinstall.us/#{env}/#{label.name}/#{label.name}.application"
+    else 
+      "https://secureinstall.us/#{env}/#{label.name}/setup.exe"
+    end 
+  end 
 
   def self.tmp_file
     c='abcdefghijklmnopqrstuvwxyz'
