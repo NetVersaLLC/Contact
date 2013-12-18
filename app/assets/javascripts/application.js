@@ -1,6 +1,6 @@
 //= require dummy
 //= require jquery_ujs
-//= require easypaginate
+// resquire aeasypaginate
 //= require jquery.cookie
 //= require jquery.colorbox-min
 //= require jquery.flot.min

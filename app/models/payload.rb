@@ -5,7 +5,7 @@ class Payload < ActiveRecord::Base
   #belongs_to :mode
   acts_as_tree :order => "position"
   # If this approach would be fine then we can define a class which inhertis form payload and add these columns to that class
-  attr_accessible :from_mode, :to_mode
+  attr_accessible :from_mode, :to_mode, :client_script, :data_generator
 
   def save_to_sites
     if Site.where(:id => self.site_id).count == 0

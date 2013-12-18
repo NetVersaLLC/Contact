@@ -11,7 +11,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131127170201) do
+ActiveRecord::Schema.define(:version => 20131217150916) do
+
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
     t.string   "email"
@@ -794,7 +795,7 @@ ActiveRecord::Schema.define(:version => 20131127170201) do
     t.integer  "payload_id"
     t.integer  "parent_id"
   end
-  
+
   add_index "failed_jobs", ["business_id"], :name => "index_failed_jobs_on_business_id"
   add_index "failed_jobs", ["payload_id"], :name => "index_failed_jobs_on_payload_id"
   add_index "failed_jobs", ["screenshot_id"], :name => "index_failed_jobs_on_screenshot_id"
@@ -930,8 +931,8 @@ ActiveRecord::Schema.define(:version => 20131127170201) do
     t.integer  "citydata_category_id"
     t.integer  "meetlocalbiz_category_id"
     t.integer  "bizhyw_category_id"
+    t.integer  "model_category_id"
     t.integer  "localsolution_category_id"
-    t.integer  "nsphere_category_id"
     t.integer  "ycphonebook_category_id"
     t.integer  "bigwigbiz_category_id"
     t.integer  "nationalwebdir_category_id"
@@ -1644,7 +1645,6 @@ ActiveRecord::Schema.define(:version => 20131127170201) do
     t.text     "data_generator"
     t.text     "client_script"
     t.text     "ready"
-    t.integer  "site_id"
     t.integer  "site_id"
     t.text     "client_script_signature"
     t.text     "data_generator_signature"
