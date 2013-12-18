@@ -217,6 +217,14 @@ ActiveRecord::Schema.define(:version => 20131217150916) do
     t.integer  "subscription_id"
   end
 
+  create_table "business_site_modes", :force => true do |t|
+    t.integer  "site_id"
+    t.integer  "business_id"
+    t.integer  "mode"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "businesscoms", :force => true do |t|
     t.datetime "force_update"
     t.text     "secrets"
@@ -344,7 +352,6 @@ ActiveRecord::Schema.define(:version => 20131217150916) do
     t.boolean  "setup_msg_sent",            :default => false
     t.datetime "paused_at"
     t.string   "tags"
-    t.integer  "mode_id"
     t.text     "temporary_draft_storage"
     t.string   "category_description"
     t.string   "referrer_code"
@@ -354,7 +361,6 @@ ActiveRecord::Schema.define(:version => 20131217150916) do
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
   add_index "businesses", ["category2"], :name => "index_businesses_on_category2"
   add_index "businesses", ["category3"], :name => "index_businesses_on_category3"
-  add_index "businesses", ["mode_id"], :name => "index_businesses_on_mode_id"
   add_index "businesses", ["user_id"], :name => "index_businesses_on_user_id"
 
   create_table "byzlyst_categories", :force => true do |t|
@@ -485,6 +491,7 @@ ActiveRecord::Schema.define(:version => 20131217150916) do
     t.integer  "screenshot_id"
     t.text     "signature"
     t.integer  "payload_id"
+    t.integer  "parent_id"
   end
 
   add_index "completed_jobs", ["business_id"], :name => "index_completed_jobs_on_business_id"
@@ -786,6 +793,7 @@ ActiveRecord::Schema.define(:version => 20131217150916) do
     t.integer  "screenshot_id"
     t.text     "signature"
     t.integer  "payload_id"
+    t.integer  "parent_id"
   end
 
   add_index "failed_jobs", ["business_id"], :name => "index_failed_jobs_on_business_id"
@@ -923,8 +931,8 @@ ActiveRecord::Schema.define(:version => 20131217150916) do
     t.integer  "citydata_category_id"
     t.integer  "meetlocalbiz_category_id"
     t.integer  "bizhyw_category_id"
+    t.integer  "model_category_id"
     t.integer  "localsolution_category_id"
-    t.integer  "nsphere_category_id"
     t.integer  "ycphonebook_category_id"
     t.integer  "bigwigbiz_category_id"
     t.integer  "nationalwebdir_category_id"
@@ -1080,9 +1088,12 @@ ActiveRecord::Schema.define(:version => 20131217150916) do
     t.text     "backtrace"
     t.text     "signature"
     t.integer  "payload_id"
+    t.integer  "retries"
+    t.integer  "parent_id"
   end
 
   add_index "jobs", ["business_id"], :name => "index_jobs_on_business_id"
+  add_index "jobs", ["parent_id"], :name => "index_jobs_on_parent_id"
   add_index "jobs", ["payload_id"], :name => "index_jobs_on_payload_id"
   add_index "jobs", ["status"], :name => "index_jobs_on_status"
 
@@ -1492,13 +1503,6 @@ ActiveRecord::Schema.define(:version => 20131217150916) do
 
   add_index "merchantcircles", ["business_id"], :name => "index_merchantcircles_on_business_id"
 
-  create_table "modes", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
   create_table "mojopages", :force => true do |t|
     t.datetime "force_update"
     t.text     "secrets"
@@ -1634,7 +1638,7 @@ ActiveRecord::Schema.define(:version => 20131217150916) do
     t.boolean  "active",                   :default => false
     t.datetime "broken_at"
     t.text     "notes"
-    t.integer  "parent_id",                :default => 1
+    t.integer  "parent_id"
     t.integer  "position",                 :default => 0
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
@@ -1642,12 +1646,12 @@ ActiveRecord::Schema.define(:version => 20131217150916) do
     t.text     "client_script"
     t.text     "ready"
     t.integer  "site_id"
-    t.integer  "mode_id",                  :default => 1
     t.text     "client_script_signature"
     t.text     "data_generator_signature"
+    t.integer  "from_mode"
+    t.integer  "to_mode"
   end
 
-  add_index "payloads", ["mode_id"], :name => "index_payloads_on_mode_id"
   add_index "payloads", ["name"], :name => "index_payload_nodes_on_name"
   add_index "payloads", ["parent_id"], :name => "index_payload_nodes_on_parent_id"
   add_index "payloads", ["site_id"], :name => "index_payloads_on_site_id"
