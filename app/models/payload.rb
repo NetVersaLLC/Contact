@@ -2,8 +2,10 @@ class Payload < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
 
   belongs_to :site
-  belongs_to :mode
+  #belongs_to :mode
   acts_as_tree :order => "position"
+  # If this approach would be fine then we can define a class which inhertis form payload and add these columns to that class
+  attr_accessible :from_mode, :to_mode
 
   def save_to_sites
     if Site.where(:id => self.site_id).count == 0
