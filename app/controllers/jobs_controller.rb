@@ -153,6 +153,17 @@ class JobsController < ApplicationController
     end 
   end 
 
+  def destroy_all 
+    authorize! :delete,  Job
+
+    if params[:business_id].blank?
+      render json: false, status: :bad_request
+    else 
+      Job.where(:business_id => params[:business_id]).delete_all
+      render json: true
+    end 
+  end 
+
   def destroy
     if %w(Job FailedJob CompletedJob).include? params[:class_name] 
       job = params[:class_name].constantize.find(params[:id])

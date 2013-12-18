@@ -1,11 +1,11 @@
 class ClientManagerController < ApplicationController
-  before_filter :require_admin
+  before_filter :require_reseller
 
   respond_to :html, :json
 
   def index 
-    @business = Business.where(id: params[:business_id]).first || Business.first
-    @businesses = Business.order("business_name asc").all
+    @business = Business.accessible_by(current_ability).where(id: params[:business_id]).first || Business.first
+    @businesses = Business.accessible_by(current_ability).order("business_name asc").all
   end 
 
   def jobs
@@ -36,8 +36,8 @@ class ClientManagerController < ApplicationController
 
   private 
 
-  def require_admin 
-    unless current_user.admin? 
+  def require_reseller
+    unless current_user.reseller? 
       redirect_to "/", error: "Not authorized" 
     end 
   end 

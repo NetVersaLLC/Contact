@@ -11,15 +11,14 @@
   %tr
     %td Sync Enabled
     %td= @account.do_not_sync ? "No":"Yes"
-  -if @account.class.accessible_attributes.include? :listing_url
-    %tr
-      %td Listing URL
-      %td
-        -if @account.listing_url.blank?
-          None Found
-        -else 
-          %a{ href: "#{@account.listing_url}" , target: "_blank" }= @account.type
-  -if @account.class.accessible_attributes.include? :listings_url
+  %tr
+    %td Listing URL
+    %td
+      -if @account.listing_url.blank?
+        None Found
+      -else 
+        %a{ href: "#{@account.listing_url}" , target: "_blank" }= @account.type
+  -#if @account.class.accessible_attributes.include? :listings_url
     %tr
       %td Listing URL
       %td
@@ -27,7 +26,7 @@
           None Found. 
         -else 
           %a{ href: "#{@account.listings_url}", target: "_blank" }= @account.type
-  -if @account.class.accessible_attributes.include? :places_url
+  -#if @account.class.accessible_attributes.include? :places_url
     %tr
       %td Places URL
       %td
