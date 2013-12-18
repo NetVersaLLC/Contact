@@ -122,6 +122,7 @@ module Business::MiscMethods
         job      = Job.inject(self.id, bing.client_script, bing.data_generator, bing.ready)
         job.name = "Bing/SignUp"
         job.save
+        return # dont queue anything else until we have a bing sign up. 
       end
 
       PackagePayload.by_package(sub.package_id).each do |obj|
