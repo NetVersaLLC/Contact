@@ -152,7 +152,7 @@ class JobsController < ApplicationController
     end 
   end 
 
-  def destroy_all 
+  def delete_all 
     authorize! :delete,  Job
 
     if params[:business_id].blank?
