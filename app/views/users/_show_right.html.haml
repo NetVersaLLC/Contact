@@ -31,6 +31,12 @@
         - if @user.businesses.any? && @user.businesses.first.subscription.present? 
           - sub = @user.businesses.first.subscription
           =link_to number_to_currency(sub.monthly_fee/100) + " per month", subscription_path(sub)
+    %tr
+      %td Operating System
+      %td= @user.operating_system
+    %tr
+      %td Web Browser 
+      %td= @user.browser 
 
 = link_to 'Edit Profile', edit_user_path(@user), class: "btn btn-info"
 

@@ -359,6 +359,7 @@ GEM
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
+    useragent (0.10.0)
     uuidtools (2.1.4)
     warden (1.2.1)
       rack (>= 1.0)
@@ -443,6 +444,7 @@ DEPENDENCIES
   therubyracer
   uglifier (>= 1.0.3)
   unicorn
+  useragent
   will_paginate (~> 3.0.5)
   zeus
   zip

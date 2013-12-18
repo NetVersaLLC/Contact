@@ -94,3 +94,4 @@ gem 'has_scope'
 gem "acitree-rails", :git => 'git@github.com:jjeffus/acitree-rails.git'
 gem "sugarcrm"
 gem "browser"
+gem "useragent"
