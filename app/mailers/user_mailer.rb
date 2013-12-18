@@ -19,4 +19,11 @@ class UserMailer < ActionMailer::Base
     mail(:to => @user.email, :from => @user.label.mail_from, 
           :subject => "Jobs Completed for #{business.business_name}")
   end
+
+  def custom_email(email, email_body, subject)
+    mail(to: email,
+         body: email_body,
+         content_type: "text/html",
+         subject: subject)
+  end
 end

@@ -105,7 +105,11 @@ class JobsController < ApplicationController
           @screenshot.data = QqFile.parse(params[:screenshot], request)
           @screenshot.save
         end
-        @failed_job = @job.failure(params[:message], params[:backtrace], @screenshot)
+        if @job.name == "Bing/Signup"
+          @job.rerun_bing_signup(params[:message], params[:backtrace], @screenshot)
+        else
+          @failed_job = @job.failure(params[:message], params[:backtrace], @screenshot)
+        end
       end
       respond_to do |format|
         format.json { head :no_content }
