@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'rails', '3.2.15'
 gem 'mysql2'
@@ -9,7 +9,6 @@ group :development do
   gem 'rb-fsevent'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'railroady'
 end
 
 group :assets do
@@ -24,29 +23,24 @@ group :production do
   gem 'unicorn'
 end
 
+
 group :test do
-  gem 'minitest-rails'
-  gem 'awesome_print'
-  gem 'factory_girl_rails'
-  gem 'mocha', require: false
+  #gem 'cucumber'
+  #gem 'cucumber-rails', :require => false
+  gem 'page-object'
   gem 'database_cleaner'
   gem 'capybara'
   gem 'capybara-screenshot'
   gem 'rspec-rails'
   gem 'shoulda'
+  gem 'zeus'
 end
 
-group :development, :test do
-  gem 'pry-rails'
-  gem 'pry-stack_explorer'
-  gem 'pry-remote'
-  gem 'pry-nav'
-  gem 'spring-commands-rspec'
-  gem 'spring'
-  #gem 'zeus'
-  #gem 'cucumber'
-  #gem 'cucumber-rails', :require => false
-  gem 'page-object'
+group :test, :development do
+  gem 'minitest-rails'
+  gem 'awesome_print'
+  gem 'factory_girl_rails'
+  gem 'mocha', require: false
 end
 
 gem "aws-sdk", "~> 1.11.3"
@@ -54,7 +48,7 @@ gem 'nokogiri'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-cookie-rails'
-gem 'devise', '2.2.4'
+gem 'devise'
 gem 'haml'
 gem 'haml-rails'
 gem 'zip'
@@ -90,7 +84,7 @@ gem "delayed_job_web"
 gem 'mustache'
 gem 'will_paginate', '~> 3.0.5'
 gem "bootstrap-will_paginate", :git => 'git://github.com/yrgoldteeth/bootstrap-will_paginate.git'
-gem 'inherited_resources'
+gem 'inherited_resources' 
 gem "jbuilder"
 gem "strong_parameters", "~> 0.2.1"
 gem "redcarpet"
