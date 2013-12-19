@@ -1,6 +1,6 @@
 class PurgePayloadNodes < ActiveRecord::Migration
   def up
-    PayloadNode.delete_all
+    #PayloadNode.delete_all
   end
 
   def down

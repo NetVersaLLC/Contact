@@ -76,7 +76,7 @@ class Job < JobBase
             @job.save
           end
           if @job.name == "Bing/Signup"
-            @job.rerun_bing_signup
+            return @job.rerun_bing_signup
           else
             @job.is_now(FailedJob)
           end
@@ -152,13 +152,15 @@ class Job < JobBase
         count >= 2
       business.paused_at= Time.now
       business.save
-      UserMailer.custom_email("admin@netversa.com", "The Bing/Signup for the business{id, name}:{#{business.id}, #{business.name}} has failed").deliver
+      email_body= "The Bing/Signup for the business{id, name}:{#{business.id}, #{business.name}} has failed"
+      UserMailer.custom_email("admin@netversa.com", email_body, email_body).deliver
       message ? self.failure(message, backtrace, screenshot) : self.is_now(FailedJob)
     else
       message ? self.failure(message, backtrace, screenshot, false) : self.is_now(FailedJob, false)
       self.status = TO_CODE[:new]
       self.status_message = 'Recreated'
       self.save
+      self
     end
   end
 end

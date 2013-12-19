@@ -1,7 +1,7 @@
 class JobBase < ActiveRecord::Base
   self.abstract_class = true
 
-  def is_now(klass, delete_old: true)
+  def is_now(klass, delete_old=true)
     obj = klass.create do |o|
       o.name           = self.name
       o.business_id    = self.business_id
