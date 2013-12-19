@@ -118,4 +118,42 @@ FactoryGirl.define do
     page_rank { SecureRandom.random_number(10) }
     enabled_for_scan '1'
   end
+
+  factory :payload do
+    sequence(:name, 0) { |n| "Step#{n}" }
+    active false
+    data_generator "data = {} \n data[ 'mail' ]= business.user.email"
+    client_script "nothing"
+    site
+  end
+
+  factory :job do
+    sequence(:name, 0) { |n| "Private/Step#{n}" }
+    business
+    runtime {Time.now}
+    status_message "message from heaven"
+    payload "nothing"
+    data_generator "data = {} \n data[ 'mail' ]= business.user.email"
+    status {Job::TO_CODE[:new]}
+    factory :running_job do
+      status {Job::TO_CODE[:running]}
+    end
+    factory :waited_job do
+      status {Job::TO_CODE[:running]}
+      waited_at {Time.now}
+    end
+    factory :long_waited_job do
+      status {Job::TO_CODE[:running]}
+      waited_at {Date.yesterday}
+    end
+  end
+
+  factory :failed_job do
+    sequence(:name, 0) { |n| "Private/Step#{n}" }
+    business
+    status_message "message from heaven"
+    payload "nothing"
+    data_generator "data = {} \n data[ 'mail' ]= business.user.email"
+    status {Job::TO_CODE[:error]}
+  end
 end

@@ -41,6 +41,10 @@ group :test, :development do
   gem 'awesome_print'
   gem 'factory_girl_rails'
   gem 'mocha', require: false
+  gem 'pry-rails'
+  gem 'pry-stack_explorer'
+  gem 'pry-remote'
+  gem 'pry-nav'
 end
 
 gem "aws-sdk", "~> 1.11.3"
