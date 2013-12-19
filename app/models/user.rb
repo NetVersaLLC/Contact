@@ -175,9 +175,12 @@ class User < ActiveRecord::Base
   def operating_system 
     UserAgent.parse(self.last_user_agent).os
   end 
+
   def browser
-    ua = UserAgent.parse(self.last_user_agent)
-    "#{ua.browser} #{ua.version}"
+    if self.last_user_agent.present?
+      ua = UserAgent.parse(self.last_user_agent)
+      "#{ua.browser} #{ua.version}"
+    end 
   end 
 
   private
