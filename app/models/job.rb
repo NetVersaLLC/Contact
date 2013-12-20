@@ -120,7 +120,7 @@ class Job < JobBase
   def failure(msg='Job failed', backtrace=nil, screenshot=nil )
     if FailedJob.
         where(:business_id => business.id, :name => self.name).
-        where("created_at > ?", Time.now - 4.hours).
+        where("updated_at > ?", Time.now - 4.hours).
         count >= 2
 
       business.update_attribute(:paused_at,  Time.now)

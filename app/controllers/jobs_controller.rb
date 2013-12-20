@@ -98,6 +98,9 @@ class JobsController < ApplicationController
     else
       if params[:status] == 'success'
         @job.success(params[:message])
+
+        # now that we have a bing account, we can create the other listings
+        Task.request_sync( @job.business ) if @job.name == "Bing/Signup"
       else
         @screenshot = nil
         if params[:screenshot]
