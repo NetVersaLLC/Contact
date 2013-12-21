@@ -122,6 +122,8 @@ module Business::MiscMethods
         job      = Job.inject(self.id, bing.client_script, bing.data_generator, bing.ready)
         job.name = "Bing/SignUp"
         job.save
+
+        return # dont queue anything else until we have a bing sign up. 
       end
 
       PackagePayload.by_package(sub.package_id).each do |obj|
@@ -144,7 +146,7 @@ module Business::MiscMethods
 
         payload = Payload.where(:site_id => site.id, :mode_id => mode.id).root
         next unless payload
-        next if payload.id = bing.id
+        next if payload.id == bing.id
 
         job      = Job.inject(self.id, payload.client_script, payload.data_generator, payload.ready)
         job.name = "#{site.name}/#{payload.name}"
@@ -166,7 +168,7 @@ module Business::MiscMethods
         self.contact_birthday = date
         self.save
       end
-      Date.strptime(self.contact_birthday, '%m/%d/%Y')
+      Date.strptime.to_s(self.contact_birthday, '%Y-%m-%d')
     end
 
     def report_xlsx

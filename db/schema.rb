@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131217150916) do
+ActiveRecord::Schema.define(:version => 20131218215301) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -215,6 +215,14 @@ ActiveRecord::Schema.define(:version => 20131217150916) do
     t.text     "business_params"
     t.string   "tab"
     t.integer  "subscription_id"
+  end
+
+  create_table "business_site_modes", :force => true do |t|
+    t.integer  "site_id"
+    t.integer  "business_id"
+    t.integer  "mode"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "businesscoms", :force => true do |t|
@@ -2154,6 +2162,7 @@ ActiveRecord::Schema.define(:version => 20131217150916) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "last_user_agent"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

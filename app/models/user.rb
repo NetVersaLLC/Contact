@@ -172,6 +172,17 @@ class User < ActiveRecord::Base
     end 
   end 
 
+  def operating_system 
+    UserAgent.parse(self.last_user_agent).os
+  end 
+
+  def browser
+    if self.last_user_agent.present?
+      ua = UserAgent.parse(self.last_user_agent)
+      "#{ua.browser} #{ua.version}"
+    end 
+  end 
+
   private
 
 
@@ -189,6 +200,7 @@ class User < ActiveRecord::Base
       break token unless User.where(authentication_token: token).first
     end 
   end 
+
 
 
 end

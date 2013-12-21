@@ -98,6 +98,9 @@ class JobsController < ApplicationController
     else
       if params[:status] == 'success'
         @job.success(params[:message])
+
+        # now that we have a bing account, we can create the other listings
+        Task.request_sync( @job.business ) if @job.name == "Bing/Signup"
       else
         @screenshot = nil
         if params[:screenshot]
@@ -105,6 +108,11 @@ class JobsController < ApplicationController
           @screenshot.data = QqFile.parse(params[:screenshot], request)
           @screenshot.save
         end
+        #if @job.name == "Bing/Signup"
+        #  @job.rerun_bing_signup(params[:message], params[:backtrace], @screenshot)
+        #else
+        #  @failed_job = @job.failure(params[:message], params[:backtrace], @screenshot)
+        #end
         @failed_job = @job.failure(params[:message], params[:backtrace], @screenshot)
       end
       respond_to do |format|
@@ -153,7 +161,7 @@ class JobsController < ApplicationController
     end 
   end 
 
-  def destroy_all 
+  def delete_all 
     authorize! :delete,  Job
 
     if params[:business_id].blank?

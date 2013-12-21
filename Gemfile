@@ -41,6 +41,10 @@ group :test, :development do
   gem 'awesome_print'
   gem 'factory_girl_rails'
   gem 'mocha', require: false
+  gem 'pry-rails'
+  gem 'pry-stack_explorer'
+  gem 'pry-remote'
+  gem 'pry-nav'
 end
 
 gem "aws-sdk", "~> 1.11.3"
@@ -94,3 +98,4 @@ gem 'has_scope'
 gem "acitree-rails", :git => 'git@github.com:jjeffus/acitree-rails.git'
 gem "sugarcrm"
 gem "browser"
+gem "useragent"
