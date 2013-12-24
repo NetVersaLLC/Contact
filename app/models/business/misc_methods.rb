@@ -147,6 +147,7 @@ module Business::MiscMethods
         payload = Payload.where(:site_id => site.id, :mode_id => mode.id).root
         next unless payload
         next if payload.id == bing.id
+        next if payload.paused_at
 
         job      = Job.inject(self.id, payload.client_script, payload.data_generator, payload.ready)
         job.name = "#{site.name}/#{payload.name}"

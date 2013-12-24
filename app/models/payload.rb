@@ -5,6 +5,8 @@ class Payload < ActiveRecord::Base
   belongs_to :mode
   acts_as_tree :order => "position"
 
+  attr_accessible :paused_at
+
   def save_to_sites
     if Site.where(:id => self.site_id).count == 0
       p self
@@ -291,7 +293,7 @@ class Payload < ActiveRecord::Base
     self.position ||= self.maximum(:position) + 10
   end
 
-   def self.add_to_jobs(business, name)
+  def self.add_to_jobs(business, name)
      payload = Payload.start(name)
      if payload == nil
        return nil
