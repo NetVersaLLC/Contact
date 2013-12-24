@@ -122,6 +122,7 @@ module Business::MiscMethods
         job      = Job.inject(self.id, bing.client_script, bing.data_generator, bing.ready)
         job.name = "Bing/SignUp"
         job.save
+
         return # dont queue anything else until we have a bing sign up. 
       end
 
@@ -167,7 +168,7 @@ module Business::MiscMethods
         self.contact_birthday = date
         self.save
       end
-      Date.strptime.to_s(self.contact_birthday, '%Y-%m-%d')
+      Date.strptime(self.contact_birthday, '%Y-%m-%d')
     end
 
     def report_xlsx
