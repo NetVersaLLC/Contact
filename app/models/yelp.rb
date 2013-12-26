@@ -18,4 +18,22 @@ class Yelp  < ClientData
     @link
  end  
 
+ def self.get_hours(business)
+    hours = {}
+    days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
+    days.each do |day|
+        if business.send("#{day}_enabled".to_sym) == true
+            hours[ "#{day}" ] =
+                [
+                    business.send("#{day}_open".to_sym).split("").insert(5," ").join.downcase,
+                    business.send("#{day}_close".to_sym).split("").insert(5," ").join.downcase
+                ]
+          
+        else
+          hours[ "#{day}" ] = nil
+        end
+    end
+        return hours
+  end  
+
 end
