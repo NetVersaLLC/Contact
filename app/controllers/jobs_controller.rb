@@ -66,6 +66,11 @@ class JobsController < ApplicationController
         format.json { render json: {:error => 'Not Found'}, status: :not_found}
       end
       return
+    elsif payload.paused_at
+      respond_to do |format|
+        format.json { render json: {:error => 'Payload Paused'}, status: :locked}
+      end
+      return
     end
 
     if params[:delay]
@@ -92,7 +97,6 @@ class JobsController < ApplicationController
 
   def update
     @job = Job.find(params[:id])
-
     unless @job.business.user_id == current_user.id
       redirect_to '/', :status => 403
     else
@@ -108,11 +112,6 @@ class JobsController < ApplicationController
           @screenshot.data = QqFile.parse(params[:screenshot], request)
           @screenshot.save
         end
-        #if @job.name == "Bing/Signup"
-        #  @job.rerun_bing_signup(params[:message], params[:backtrace], @screenshot)
-        #else
-        #  @failed_job = @job.failure(params[:message], params[:backtrace], @screenshot)
-        #end
         @failed_job = @job.failure(params[:message], params[:backtrace], @screenshot)
       end
       respond_to do |format|

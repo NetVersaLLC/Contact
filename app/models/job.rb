@@ -75,11 +75,6 @@ class Job < JobBase
             @job.status_message = 'Job never returned results.'
             @job.save
           end
-          #if @job.name == "Bing/Signup"
-          #  return @job.rerun_bing_signup
-          #else
-          #  @job.is_now(FailedJob)
-          #end
           @job.is_now(FailedJob)
           nil
         end
@@ -107,25 +102,28 @@ class Job < JobBase
     self.is_now(CompletedJob)
   end
 
-  #def failure(msg='Job failed', backtrace=nil, screenshot=nil, delete_old=true)
-  #  self.with_lock do
-  #    self.status         = TO_CODE[:error]
-  #    self.status_message = msg
-  #    self.backtrace      = backtrace
-  #    self.screenshot_id  = screenshot.id if screenshot.present?
-  #    self.save
-  #  end
-  #  self.is_now(FailedJob, delete_old)
-  #end
   def failure(msg='Job failed', backtrace=nil, screenshot=nil )
     if FailedJob.
         where(:business_id => business.id, :name => self.name).
         where("updated_at > ?", Time.now - 4.hours).
-        count >= 2
+        count >= (Contact::CONFIG[Rails.env]["job_retries"] || 2)
 
-      business.update_attribute(:paused_at,  Time.now)
-      email_body= "The #{self.name} for the business{id, name}:{#{business.id}, #{business.name}} has failed. Business syncs have been paused."
-      UserMailer.custom_email("admin@netversa.com", email_body, email_body).deliver
+      if self.name == "Bing/Signup"
+        business.update_attribute(:paused_at,  Time.now)
+        email_body= "The #{self.name} for the business{id, name}:{#{business.id}, #{business.name}} has failed. Business syncs have been paused."
+        UserMailer.custom_email("admin@netversa.com", email_body, email_body).deliver
+      else
+        payload= Payload.by_name(self.name)
+        now= Time.now
+        payload.update_attributes(paused_at: now)
+        # Note: Pause the whole tree
+        #p_payload = payload.parent
+        #while p_payload do
+        #  p_payload.paused_at= now
+        #  p_payload.update_attributes(paused_at: now)
+        #  p_payload= p_payload.parent
+        #end
+      end
       self.is_now(FailedJob)
     else 
       self.update_attributes(status: TO_CODE[:new], status_message: "Recreated") 
@@ -161,23 +159,4 @@ class Job < JobBase
     self.business.label_id
   end
 
-  def rerun_bing_signup(message=nil, backtrace=nil, screenshot=nil)
-    if FailedJob.
-        where(:business_id => business.id, :name => "Bing/SignUp").
-        where("created_at > ?", Time.now - 4.hours).
-        count >= 2
-      business.paused_at= Time.now
-      business.save
-      email_body= "The Bing/Signup for the business{id, name}:{#{business.id}, #{business.name}} has failed"
-      UserMailer.custom_email("admin@netversa.com", email_body, email_body).deliver
-
-      message ? self.failure(message, backtrace, screenshot) : self.is_now(FailedJob)
-    else
-      message ? self.failure(message, backtrace, screenshot, false) : self.is_now(FailedJob, false)
-      self.status = TO_CODE[:new]
-      self.status_message = 'Recreated'
-      self.save
-      self
-    end
-  end
 end

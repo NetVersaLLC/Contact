@@ -32,6 +32,8 @@ group :test do
   gem 'capybara'
   gem 'capybara-screenshot'
   gem 'rspec-rails'
+  gem 'spring'
+  gem 'spring-commands-rspec'
   gem 'shoulda'
   gem 'zeus'
 end
