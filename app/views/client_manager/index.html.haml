@@ -2,11 +2,22 @@
   .col-xs-12
     .row
       .col-xs-6
-        =select_tag "business", options_from_collection_for_select(@businesses, "id","business_name", @business.id), class: "chosen"
-        %br
-        %button#refresh.btn.btn-primary{type: "button"}
-          Refresh
-          %i.icon-refresh
+        .row 
+          .col-xs-12
+            =select_tag "business", options_from_collection_for_select(@businesses, "id","business_name", @business.id), class: "chosen"
+            %br
+            %button#refresh.btn.btn-primary.btn-sm{type: "button"}
+              Refresh
+              %i.icon-refresh
+        -#.space-6
+          .row 
+            .col-xs-12
+              -if current_user.admin?
+                =select_tag "job", options_for_select(@business.subscription.package.available_jobs), class: "chosen"
+                %br
+                %button#refresh.btn.btn-info.btn-sm{type: "button"}
+                  Add to Pending
+          .space-6
       .col-xs-6
         %dl.dl-horizontal
           %dt

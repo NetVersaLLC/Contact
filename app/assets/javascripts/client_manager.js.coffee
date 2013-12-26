@@ -99,8 +99,7 @@ window.loadPayloadNodes = () ->
         alert('Payload updated.') 
         window.loadPayloadsNodes()
       request.fail () -> alert('Payload update failed.')
-      
-      
+
 window.initialize_client_manager = ()->
   jobs_template    = Handlebars.compile($("#jobs-template").html()) 
   booboos_template = Handlebars.compile($("#booboos-template").html())

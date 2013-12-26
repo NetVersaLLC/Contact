@@ -22,6 +22,12 @@ class Package < ActiveRecord::Base
     subtotal - self.price 
   end 
 
+  def available_jobs
+    h = {}
+    package_payloads.each{ |p| p.site.payloads.each{ |pl| h[p.site.name + '/' + pl.name] = pl.id }}
+    h
+  end 
+
   def self.list
     ret = []
     Package.all.each do |package|
