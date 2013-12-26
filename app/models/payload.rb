@@ -3,9 +3,10 @@ class Payload < ActiveRecord::Base
 
   belongs_to :site
   belongs_to :mode
+  belongs_to :to_mode, class_name: "Mode", foreign_key: "to_mode_id"
   acts_as_tree :order => "position"
 
-  attr_accessible :paused_at
+  attr_accessible :paused_at, :to_mode_id
 
   def save_to_sites
     if Site.where(:id => self.site_id).count == 0

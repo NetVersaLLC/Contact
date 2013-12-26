@@ -27,6 +27,8 @@ class Job < JobBase
   }
   TO_SYM = TO_CODE.invert
 
+
+
   def assign_position
     pos = Job.where(:business_id => self.business_id).minimum(:position)
     if pos == nil
@@ -98,6 +100,15 @@ class Job < JobBase
       self.status         = TO_CODE[:finished]
       self.status_message = msg
       self.save
+    end
+    # If the payload is leaf and it defines required columns (:to, :from), then update the mode and complete the job
+    ref_payload= Payload.by_name(self.name)
+    if ref_payload and ref_payload.children.empty?
+     current_mode= BusinessSiteMode.find_by_business_id_and_site_id(self.business_id, ref_payload.site.id)
+     if current_mode.mode_id == ref_payload.mode_id
+        current_mode.mode_id = ref_payload.to_mode_id
+        current_mode.save
+      end
     end
     self.is_now(CompletedJob)
   end
