@@ -41,6 +41,9 @@ class User < ActiveRecord::Base
   def display_name # used by activeadmin drop down 
     self.email
   end
+  def full_name 
+    "#{first_name} #{last_name}" 
+  end 
 
   TYPES = {
       :admin => 46118,
