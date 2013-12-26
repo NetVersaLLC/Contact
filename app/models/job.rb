@@ -114,8 +114,10 @@ class Job < JobBase
         UserMailer.custom_email("admin@netversa.com", email_body, email_body).deliver
       else
         payload= Payload.by_name(self.name)
-        now= Time.now
-        payload.update_attributes(paused_at: now)
+        #now= Time.now
+        #payload.update_attributes(paused_at: now) # using strong parameters
+        payload.paused_at = Time.now
+        payload.save
         # Note: Pause the whole tree
         #p_payload = payload.parent
         #while p_payload do

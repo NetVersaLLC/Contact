@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131218215301) do
+ActiveRecord::Schema.define(:version => 20131224223059) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -1642,7 +1642,7 @@ ActiveRecord::Schema.define(:version => 20131218215301) do
     t.boolean  "active",                   :default => false
     t.datetime "broken_at"
     t.text     "notes"
-    t.integer  "parent_id",                :default => 1
+    t.integer  "parent_id"
     t.integer  "position",                 :default => 0
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
@@ -1653,6 +1653,7 @@ ActiveRecord::Schema.define(:version => 20131218215301) do
     t.integer  "mode_id",                  :default => 1
     t.text     "client_script_signature"
     t.text     "data_generator_signature"
+    t.datetime "paused_at"
   end
 
   add_index "payloads", ["mode_id"], :name => "index_payloads_on_mode_id"

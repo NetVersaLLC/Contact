@@ -5,7 +5,7 @@ class Payload < ActiveRecord::Base
   belongs_to :mode
   acts_as_tree :order => "position"
 
-  attr_accessible :paused_at
+  #attr_accessible :paused_at
 
   def save_to_sites
     if Site.where(:id => self.site_id).count == 0
