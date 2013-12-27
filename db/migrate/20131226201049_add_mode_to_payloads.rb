@@ -20,6 +20,10 @@ class AddModeToPayloads < ActiveRecord::Migration
 
   def down
     remove_column :payloads, :to_mode_id
-
+    remove_index :jobs, :parent_id
+    remove_column :jobs, :parent_id
+    remove_column :completed_jobs, :parent_id
+    remove_column :failed_jobs, :parent_id
+    drop_table :business_site_modes
   end
 end

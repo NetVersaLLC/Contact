@@ -105,7 +105,7 @@ class Job < JobBase
     ref_payload= Payload.by_name(self.name)
     if ref_payload and ref_payload.children.empty?
      current_mode= BusinessSiteMode.find_by_business_id_and_site_id(self.business_id, ref_payload.site.id)
-     if current_mode.mode_id == ref_payload.mode_id
+     if current_mode and current_mode.mode_id == ref_payload.mode_id
         current_mode.mode_id = ref_payload.to_mode_id
         current_mode.save
       end
