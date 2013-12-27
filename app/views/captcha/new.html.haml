@@ -1,0 +1,5 @@
+%form(action="/captcha/recaptcha" method="post" enctype="multipart/form-data") 
+  = hidden_field_tag :auth_token
+  = hidden_field_tag :business_id
+  = file_field_tag :image
+  = submit_tag

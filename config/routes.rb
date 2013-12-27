@@ -93,6 +93,7 @@ Contact::Application.routes.draw do
   get     '/jobs/list(.:format)', :controller => :jobs,   :action => :list
   put     '/jobs/:id/rerun', :controller => :jobs,   :action => :rerun
 
+  get     '/captcha/new' 
   post    '/captcha/:type',      :controller => :captcha,         :action => :recaptcha
   get     '/downloads/:business_id', :controller => :downloads,       :action => :download
   get     '/emails/check/:site',     :controller => :emails,          :action => :check

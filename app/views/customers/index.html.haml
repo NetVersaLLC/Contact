@@ -12,38 +12,47 @@
               Search
               %i.icon-search.icon-on-right.bigger-110
       .space-6
-      %select#business_id.chosen-select
+      %select#business_id.chosen-select{ "data-placeholder" => "Customer Search..."}
 
 .dataTables_wrapper
   %table.table.table-striped.table-bordered.table-hover.dataTable
     %thead
       %tr
-        %th Name
-        %th Business ID
-        %th Client Checked In
-        %th Client Version
-        %th Categorized?
-        %th Subscription
-        %th
-        %th
-        %th
-        %th
         %th 
+          Name
+        %th Business ID
+        %th Owner
+        %th 
+          Client
+          %br
+          %small (Check-in/Version)
+        %th Categorized?
+        %th 
+          Subscription
+          %br
+          %small (Click to view)
+
+        %th Actions
     %tbody 
       - @customers.each do |customer|
         %tr
           %td
             = link_to customer.business_name, edit_business_path(customer)
-          %td= customer.id.to_s
-          %td= (customer.client_checkin.nil? ? 'No' : 'Yes')
-          %td= customer.client_version
-          %td= customer.categorized? ? 'Yes' : 'No'
-          %td= customer.subscription.present? && customer.subscription.active ? "Active":"Inactive"
-          %td= link_to 'Show', customer
-          %td= link_to 'Edit', edit_business_path(customer)
-          %td= link_to 'Categorize', "/categories?business_id=#{customer.id}"
-          %td= link_to 'CM', "/client_manager?business_id=#{customer.id}"
+          %td= customer.id
           %td
+            =link_to "#{customer.user.first_name} #{customer.user.last_name}".presence || "(no name)", customer.user
+          %td= (customer.client_checkin.nil? ? 'No' : 'Yes') + ' / ' + customer.client_version
+          %td= customer.categorized? ? 'Yes' : 'No'
+          %td
+            -if customer.subscription.present? 
+              =link_to (customer.subscription.active ? "Active":"Inactive"), customer.subscription
+          %td
+            = link_to 'Show', customer
+            | 
+            = link_to 'Categorize', "/categories?business_id=#{customer.id}"
+            |
+            = link_to 'CM', "/client_manager?business_id=#{customer.id}"
+            |
             -if customer.user.present? 
               =link_to 'Impersonate', new_impersonation_path(customer.user)
             - else 

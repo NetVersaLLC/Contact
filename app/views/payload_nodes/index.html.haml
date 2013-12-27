@@ -1,0 +1,57 @@
+.row
+  .col-md-12
+    %ul.nav.nav-tabs
+      %li
+        %a{href: "#nodes", data: {toggle: "tab"}} Jobs
+      %li
+        %a{href: "#packages", data: { toggle: "tab"}} Packages
+    .tab-content
+      #nodes.tab-pane.active
+      #packages.tab-pane
+
+%script{id: "jobs-template", type: "text/x-handlebars-template"} 
+  %table.table.table-striped.jobs
+    %thead
+      %tr
+        %th Status 
+        %th Name 
+        %th Message
+        %th Created at 
+        %th 
+    %tbody
+      {{#each jobs}}
+      %tr{ "data-job-id" => "{{id}}",  "data-class-name" => "{{class_name}}" }
+        %td
+          {{#if is_missing}}
+          %span.missing Missing 
+          {{else}}
+          %button.btn.btn-xs.btn-danger.delete_job{ :title => "Delete Job" } 
+            %i.icon-trash
+          {{#if has_errors}}
+          %span.btn.btn-xs.btn-inverse.rerun{title: "Rerun Job"} 
+            %i.icon-refresh
+          {{/if}}
+          %span.btn.btn-xs.btn-info.view_meta{ :title => "View Meta" }
+            %i.icon-file-text
+          .hide.meta
+            %h4 Payload
+            %p {{payload}} 
+            %hr.hr-12.hr-double
+            %h4 Data 
+            %p {{data}}
+            %hr.hr-12.hr-double
+            %h4 Status Message 
+            %p {{status-message}}
+            %hr.hr-12.hr-double
+            %h4 Backtrace 
+            %p {{backtrace}}
+            %hr.hr-12.hr-double
+            %img{ src: "{{screenshot_url}}", alt: "No screen shot"} 
+          {{/if}}
+        %td {{name}}
+        %td
+          .status-message{ title: "{{status_message}}"} {{status_message}}
+        %td {{created_at}}
+        %td
+          {{/each}}
+

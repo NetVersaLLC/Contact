@@ -7,6 +7,10 @@
     .col-xs-4
       -@dashboard.alerts.each do |alert|
         = render partial: alert.to_s 
+      -@dashboard.business.notifications.each do |notification| 
+        .alert.alert-warning 
+          %strong=notification.title
+          =link_to "Click to start!", notification.url, class: "btn btn-sm btn-warning"
 
     .col-xs-4
       %table.table.table-striped.table-bordered

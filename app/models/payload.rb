@@ -6,6 +6,7 @@ class Payload < ActiveRecord::Base
   belongs_to :to_mode, class_name: "Mode", foreign_key: "to_mode_id"
   acts_as_tree :order => "position"
 
+
   attr_accessible :paused_at, :to_mode_id
 
   def save_to_sites

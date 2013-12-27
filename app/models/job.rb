@@ -125,15 +125,7 @@ class Job < JobBase
         UserMailer.custom_email("admin@netversa.com", email_body, email_body).deliver
       else
         payload= Payload.by_name(self.name)
-        now= Time.now
-        payload.update_attributes(paused_at: now)
-        # Note: Pause the whole tree
-        #p_payload = payload.parent
-        #while p_payload do
-        #  p_payload.paused_at= now
-        #  p_payload.update_attributes(paused_at: now)
-        #  p_payload= p_payload.parent
-        #end
+        payload.update_attributes(paused_at: Time.now)
       end
       self.is_now(FailedJob)
     else 
