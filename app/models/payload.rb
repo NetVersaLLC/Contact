@@ -7,7 +7,8 @@ class Payload < ActiveRecord::Base
   acts_as_tree :order => "position"
 
 
-  attr_accessible :paused_at, :to_mode_id
+  # using strong parameters in preparation for a future migration to Rails 4
+  #attr_accessible :paused_at, :to_mode_id
 
   def save_to_sites
     if Site.where(:id => self.site_id).count == 0
