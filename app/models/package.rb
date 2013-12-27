@@ -23,9 +23,7 @@ class Package < ActiveRecord::Base
   end 
 
   def available_jobs
-    h = {}
-    package_payloads.each{ |p| p.site.payloads.each{ |pl| h[p.site.name + '/' + pl.name] = pl.id }}
-    h
+    package_payloads.map{ |p| p.site.payloads.map{ |pl| p.site.name + '/' + pl.name}}.flatten
   end 
 
   def self.list

@@ -16,7 +16,7 @@ class ClientManagerController < ApplicationController
       business = Business.find(params[:business_id]) 
 
       PackagePayload.joins(site: [:payloads]).order("sites.name asc").
-        where( package_id: 1).
+        where( package_id: business.subscription.package_id).
         select(["sites.name as sname","payloads.name as pname"]).each do |payload|
           fullname = "#{payload.sname}/#{payload.pname}" 
 

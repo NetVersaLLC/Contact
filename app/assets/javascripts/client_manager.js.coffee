@@ -133,6 +133,14 @@ window.initialize_client_manager = ()->
     window.spinner.spin document.getElementById( 'preview' )
     $('li.active > a').trigger('shown.bs.tab')
 
+  $('#add-job').click (e) -> 
+    data =
+      business_id: window.business_id
+      name: $("#job option:selected").val()
+    console.log data
+    console.log e
+    $.post "jobs", data, (data) -> 
+      $.gritter.add({text:'Job added'})
 
 opts = 
   lines: 13 # The number of lines to draw
