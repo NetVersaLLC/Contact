@@ -102,22 +102,28 @@ class Job < JobBase
       self.save
     end
     # If the payload is leaf and it defines required columns (:to, :from), then update the mode and complete the job
-    ref_payload= Payload.by_name(self.name)
-    if ref_payload and ref_payload.children.empty?
-     current_mode= BusinessSiteMode.find_by_business_id_and_site_id(self.business_id, ref_payload.site.id)
-     if current_mode and current_mode.mode_id == ref_payload.mode_id
-        current_mode.mode_id = ref_payload.to_mode_id
-        current_mode.save
+    payload= Payload.by_name(self.name)
+    if payload and payload.children.empty?
+      mode= BusinessSiteMode.find_or_initialize_by_business_id_and_site_id(self.business_id, payload.site.id)
+      if mode.new_record?
+        mode.mode_id= payload.to_mode_id
+        mode.save
+      elsif mode.mode_id == payload.mode_id
+        mode.mode_id = payload.to_mode_id
+        mode.save
+      else
+        logger.error "#{self.name} payload mode:#{payload.mode_id} does not match the current mode: #{mode.mode_id}"
       end
     end
     self.is_now(CompletedJob)
   end
 
   def failure(msg='Job failed', backtrace=nil, screenshot=nil )
+    job_retries= (Contact::CONFIG ? Contact::CONFIG[Rails.env]["job_retries"] : 2)
     if FailedJob.
         where(:business_id => business.id, :name => self.name).
         where("updated_at > ?", Time.now - 4.hours).
-        count >= (Contact::CONFIG[Rails.env]["job_retries"] || 2)
+        count >= job_retries
 
       if self.name == "Bing/Signup"
         business.update_attribute(:paused_at,  Time.now)
@@ -128,7 +134,7 @@ class Job < JobBase
         payload.update_attributes(paused_at: Time.now)
       end
       self.is_now(FailedJob)
-    else 
+   else
       self.update_attributes(status: TO_CODE[:new], status_message: "Recreated") 
       add_failed_job( { "status_message" => msg, "backtrace" => backtrace, "screenshot" => screenshot } )
     end 

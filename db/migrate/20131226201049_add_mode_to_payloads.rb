@@ -8,6 +8,8 @@ class AddModeToPayloads < ActiveRecord::Migration
       t.timestamps
     end
 
+    add_index :business_site_modes, [:site_id, :business_id], :unique => true
+
     add_column :payloads, :to_mode_id, :integer
 
     add_column :jobs, :parent_id, :integer
