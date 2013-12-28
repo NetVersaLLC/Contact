@@ -123,7 +123,7 @@ window.initialize_client_manager = ()->
         registerHooks()
         window.spinner.stop document.getElementById( 'preview' )
 
-  $('.chosen').chosen().change () -> 
+  $('#business').chosen().change () -> 
     id = $(this).val()
     window.location.href = "/client_manager?business_id=#{id}"
 
@@ -137,10 +137,12 @@ window.initialize_client_manager = ()->
     data =
       business_id: window.business_id
       name: $("#job option:selected").val()
-    console.log data
-    console.log e
     $.post "jobs", data, (data) -> 
-      $.gritter.add({text:'Job added'})
+      $('#pending-link').trigger('shown.bs.tab')
+      $.gritter.add
+        text:  'Job added'
+        title: 'Status' 
+        class_name: 'gritter-success'
 
 opts = 
   lines: 13 # The number of lines to draw

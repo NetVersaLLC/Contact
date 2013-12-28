@@ -4,16 +4,18 @@
       .col-xs-6
         .row 
           .col-xs-12
-            =select_tag "business", options_from_collection_for_select(@businesses, "id","business_name", @business.id), class: "chosen"
-            %button#refresh.btn.btn-primary.btn-sm{type: "button"}
-              Reload
+            %fieldset
+              %legend Select a business
+              =select_tag "business", options_from_collection_for_select(@businesses, "id","business_name", @business.id), class: "chosen"
         .space-6
         .row 
           .col-xs-12
             -if current_user.admin?
-              =select_tag "job", options_for_select(@business.subscription.package.available_jobs), class: "chosen"
-              %button#add-job.btn.btn-info.btn-sm{type: "button"}
-                Add to Pending
+              %fieldset 
+                %legend Add a job for #{@business.business_name}
+                =select_tag "job", options_for_select(@business.subscription.package.available_jobs), class: "chosen"
+                %button#add-job.btn.btn-info.btn-sm{type: "button"}
+                  Add to Pending
         .space-6
       .col-xs-6
         %dl.dl-horizontal
@@ -30,7 +32,7 @@
         #preview
         %ul.nav.nav-tabs
           %li
-            %a{href: "#pending", data: { path: client_manager_jobs_path(format: :json, business_id: @business.id, name: 'job'), toggle: "tab"}} Pending
+            %a{id: "pending-link", href: "#pending", data: { path: client_manager_jobs_path(format: :json, business_id: @business.id, name: 'job'), toggle: "tab"}} Pending
           %li
             %a{href: "#latest", data: { path: client_manager_jobs_path(format: :json, business_id: @business.id, name: 'latest'), toggle: "tab"}} Completeness
           %li
