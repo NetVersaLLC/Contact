@@ -1,4 +1,4 @@
-class Job < JobBase
+cTask.request_sync( @job.business ) lass Job < JobBase
   belongs_to :business
   belongs_to :screenshot
 
@@ -76,7 +76,7 @@ class Job < JobBase
       @job = Job.find(@job.id) # this is necessary to get an activerecord object instead of a read only object
 
       if @job.wait == true
-        if @job.waited_at < Time.now - 1.hour
+        if @job.waited_at < Time.now - 15.minutes
           # Reap a stalled/failed job
           @job.status         = TO_CODE[:error]
           @job.status_message = 'Job never returned results.'
