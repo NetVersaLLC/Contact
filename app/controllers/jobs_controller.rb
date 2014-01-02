@@ -50,6 +50,7 @@ class JobsController < ApplicationController
         @job = {:status => 'wait'} # jobs are being inserted in the background.  
       else
         @job['payload_data'] = @job.get_job_data(@business, params)
+        @job.start
       end
     end
     respond_to do |format|

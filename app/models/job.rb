@@ -68,32 +68,29 @@ class Job < JobBase
     @job = Job.where('business_id = ? AND status IN (0,1) AND runtime < UTC_TIMESTAMP()', business.id).order(:position).first
     if @job != nil
       if @job.wait == true
-        if @job.waited_at > Time.now - 1.hour
-          nil
-        else
+        if @job.waited_at < Time.now - 1.hour
           # Reap a stalled/failed job
-          @job.with_lock do
-            @job.status         = TO_CODE[:error]
-            @job.status_message = 'Job never returned results.'
-            @job.save
-          end
-          @job.is_now(FailedJob)
-          nil
-        end
-      else
-        @job.with_lock do
-          @job.payload        = @job.payload
-          @job.status         = TO_CODE[:running]
-          @job.status_message = 'Starting job'
-          @job.waited_at      = Time.now
+          @job.status         = TO_CODE[:error]
+          @job.status_message = 'Job never returned results.'
           @job.save
+
+          @job.is_now(FailedJob)
         end
+        nil
+      else
         @job
       end
     else
       nil
     end
   end
+
+  def start
+    self.status         = TO_CODE[:running]
+    self.status_message = 'Starting job'
+    self.waited_at      = Time.now
+    self.save!
+  end 
 
   def success(msg='Job completed successfully')
     self.with_lock do
