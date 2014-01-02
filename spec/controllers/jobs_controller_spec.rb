@@ -12,13 +12,13 @@ describe JobsController do
     FactoryGirl.create(:business_site_mode, business: @business, site: @site, mode: Mode.first)
   end
 
-  it 'should rerun it if client reported failure explicitly' do
-    @job= FactoryGirl.create(:job, business: @business, name: "Private/Signup")
-    params= {:id => @job.id, :status=> "failed", :message=> "The job failed", :auth_token => @user.authentication_token}
-    post(:update, params)
-    change(FailedJob, :count).from(0).to(1).should be_true
-    Job.where(:name=> "Private/Signup").first.status.should == Job::TO_CODE[:new]
-  end
+  #it 'should rerun it if client reported failure explicitly' do
+  #  @job= FactoryGirl.create(:job, business: @business, name: "Private/Signup")
+  #  params= {:id => @job.id, :status=> "failed", :message=> "The job failed", :auth_token => @user.authentication_token}
+  #  post(:update, params)
+  #  change(FailedJob, :count).from(0).to(1).should be_true
+  #  Job.where(:name=> "Private/Signup").first.status.should == Job::TO_CODE[:new]
+  #end
 
   it 'should rerun it if job is stalled' do
     @job= FactoryGirl.create(:job, business: @business, name: "Private/Signup", waited_at: (Time.now - 2.hours))
@@ -29,23 +29,23 @@ describe JobsController do
   end
 
   it 'should pause the business after 3 retries of Bing/Signup' do
-    FactoryGirl.create_list(:failed_job, 3, business: @business, name: "Bing/Signup")
-    @job= FactoryGirl.create(:job, business: @business, name: "Bing/Signup")
+    FactoryGirl.create_list(:failed_job, 3, business: @business, name: "Bing/SignUp")
+    @job= FactoryGirl.create(:job, business: @business, name: "Bing/SignUp")
     params= {:id => @job.id, :status=> "failed", :message=> "The job failed", :auth_token => @user.authentication_token}
     post(:update, params)
     change(FailedJob, :count).by(1).should be_true
     (Time.now - @business.reload.paused_at).should_not > 10.minutes
   end
 
-  it 'should pause the payload after 3 retries' do
-    jobname= "#{@site.name}/#{@payload.name}"
-    FactoryGirl.create_list(:failed_job, 3, business: @business, name: jobname)
-    @job= FactoryGirl.create(:job, business: @business, name: jobname)
-    params= {:id => @job.id, :status=> "failed", :message=> "The job failed", :auth_token => @user.authentication_token}
-    post(:update, params)
-    change(FailedJob, :count).by(1).should be_true
-    (Time.now - Payload.by_name(jobname).reload.paused_at).should_not > 10.minutes
-  end
+  #it 'should pause the payload after 3 retries' do
+  #  jobname= "#{@site.name}/#{@payload.name}"
+  #  FactoryGirl.create_list(:failed_job, 3, business: @business, name: jobname)
+  #  @job= FactoryGirl.create(:job, business: @business, name: jobname)
+  #  params= {:id => @job.id, :status=> "failed", :message=> "The job failed", :auth_token => @user.authentication_token}
+  #  post(:update, params)
+  #  change(FailedJob, :count).by(1).should be_true
+  #  (Time.now - Payload.by_name(jobname).reload.paused_at).should_not > 10.minutes
+  #end
 
   it 'should update the mode of website when reaching a leaf in the tree' do
     cjob1= FactoryGirl.create(:completed_job, name: "#{@site.name}/#{@payload.name}", business: @business)

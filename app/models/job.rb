@@ -125,23 +125,22 @@ class Job < JobBase
 
   def failure(msg='Job failed', backtrace=nil, screenshot=nil )
     job_retries= (Contact::CONFIG ? Contact::CONFIG[Rails.env]["job_retries"] : 2)
-    if FailedJob.
-        where(:business_id => business.id, :name => self.name).
-        where("updated_at > ?", Time.now - 4.hours).
-        count >= job_retries
+    if self.name == "Bing/SignUp"
+      if FailedJob.
+          where(:business_id => business.id, :name => self.name).
+          where("updated_at > ?", Time.now - 4.hours).
+          count >= job_retries
 
-      if self.name == "Bing/Signup"
         business.update_attribute(:paused_at,  Time.now)
         email_body= "The #{self.name} for the business{id, name}:{#{business.id}, #{business.name}} has failed. Business syncs have been paused."
         UserMailer.custom_email("admin@netversa.com", email_body, email_body).deliver
-      else
-        payload= Payload.by_name(self.name)
-        payload.update_attributes(paused_at: Time.now)
-      end
+        self.is_now(FailedJob)
+      else 
+        self.update_attributes(status: TO_CODE[:new], status_message: "Recreated") 
+        add_failed_job( { "status_message" => msg, "backtrace" => backtrace, "screenshot" => screenshot } )
+      end 
+    else
       self.is_now(FailedJob)
-   else
-      self.update_attributes(status: TO_CODE[:new], status_message: "Recreated") 
-      add_failed_job( { "status_message" => msg, "backtrace" => backtrace, "screenshot" => screenshot } )
     end 
   end
 
