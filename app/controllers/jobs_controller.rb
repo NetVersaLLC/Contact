@@ -67,11 +67,6 @@ class JobsController < ApplicationController
         format.json { render json: {:error => 'Not Found'}, status: :not_found}
       end
       return
-    elsif payload.paused_at
-      respond_to do |format|
-        format.json { render json: {:error => 'Payload Paused'}, status: :locked}
-      end
-      return
     end
 
     if params[:delay]
@@ -86,6 +81,7 @@ class JobsController < ApplicationController
 
     @job = Job.inject(params[:business_id], payload.client_script, payload.data_generator, payload.ready, runtime)
     @job.name = params[:name]
+    @job.payload_id = payload.id
 
     if payload.parent
       site_name= params[:name].split('/')[0]
