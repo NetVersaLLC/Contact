@@ -1,4 +1,4 @@
-cTask.request_sync( @job.business ) lass Job < JobBase
+class Job < JobBase
   belongs_to :business
   belongs_to :screenshot
 
