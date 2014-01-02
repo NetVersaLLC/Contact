@@ -938,6 +938,7 @@ ActiveRecord::Schema.define(:version => 20131226201049) do
     t.integer  "ycphonebook_category_id"
     t.integer  "bigwigbiz_category_id"
     t.integer  "nationalwebdir_category_id"
+    t.integer  "listwns_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -1214,6 +1215,13 @@ ActiveRecord::Schema.define(:version => 20131226201049) do
   end
 
   add_index "listwns", ["business_id"], :name => "index_listwns_on_business_id"
+
+  create_table "listwns_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "localcensus", :force => true do |t|
     t.integer  "business_id"

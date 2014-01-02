@@ -163,13 +163,12 @@ module Business::MiscMethods
     end
 
     def birthday
-      date = self.contact_birthday
-      if date == nil
+      if self.contact_birthday.blank? 
         date = Date.today - 30.year - (rand()*365).day
-        self.contact_birthday = date
+        self.contact_birthday = date.strftime( '%m/%d/%Y') # this really needs to be migrated to a date datatype
         self.save
       end
-      Date.strptime(self.contact_birthday, '%m/%d/%Y')
+      self.contact_birthday
     end
 
     def report_xlsx
