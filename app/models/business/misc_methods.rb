@@ -168,7 +168,7 @@ module Business::MiscMethods
         self.contact_birthday = date.strftime( '%Y-%m-%d') # this really needs to be migrated to a date datatype
         self.save
       end
-      self.contact_birthday
+      Date.iso8601(self.contact_birthday)
     end
 
     def report_xlsx
