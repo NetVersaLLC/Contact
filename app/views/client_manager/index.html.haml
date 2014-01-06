@@ -27,6 +27,15 @@
           %dd #{@business.created_at}
           %dt Updated
           %dd #{@business.updated_at}
+          %dt Job Queue
+          %dd 
+            -if @business.paused?
+              %i.icon-circle.red
+              Stopped
+              %p.smaller= @business.paused_because
+            -else 
+              %i.icon-circle.green
+              Running
     .row
       .col-md-12
         #preview

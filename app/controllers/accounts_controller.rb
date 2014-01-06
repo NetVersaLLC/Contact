@@ -34,7 +34,7 @@ class AccountsController < ApplicationController  #InheritedResources::Base
   def update
     @account = ClientData.find(params[:id]) 
     authorize! :update, @account
-    @account.update_attributes( params[:client_data] )
+    @account.update_attributes( params[:account] )
     render 
   end 
 
