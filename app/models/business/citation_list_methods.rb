@@ -29,7 +29,7 @@ module Business::CitationListMethods
     def package_payload_sites
       return @package_payloads if @package_payloads 
 
-      package_sites = subscription.package.package_payloads.pluck(:site)
+      package_sites = subscription.package.package_payloads.includes(:site).map{ |pp| pp.site.name } 
       citation_sites = Business.citation_list.map{|s| s[0]}
       @package_payloads = package_sites & citation_sites
     end 

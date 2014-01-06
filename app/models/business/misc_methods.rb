@@ -32,13 +32,18 @@ module Business::MiscMethods
     end
 
     def paused?
-      self.paused_at.present? || !self.categorized
+      self.paused_at.present? 
     end
 
-    def paused_because
+    def stopped?
+      self.paused_at.present? || !self.categorized || !valid?
+    end 
+
+    def stopped_because
       a = []
-      a << "paused at #{self.paused_at}" if paused_at.present?
+      a << "paused at #{self.paused_at}" if paused?
       a << "has not been categorized" if !categorized
+      a << "does not validate" if !valid?
 
       if a.empty?
         nil
@@ -96,7 +101,7 @@ module Business::MiscMethods
         next if obj == nil
         site = obj.site
         next if site == nil
-	unless site_names.has_key? site.name
+	unless site_names.has_key? site.ineame
 	  sites.push site
           site_names[site.name] = true
         end

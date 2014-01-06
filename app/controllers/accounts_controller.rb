@@ -26,8 +26,11 @@ class AccountsController < ApplicationController  #InheritedResources::Base
     if business_id.nil?
       @rows = []
     else 
-      authorize! :manage, Business.find( business_id )
-      @rows = ActiveRecord::Base.connection.select_all("select client_data.id, client_data.email, client_data.username, client_data.status, client_data.listings_url, client_data.listing_url, client_data.type, client_data.created_at, client_data.updated_at, client_data.category_id, client_data.business_id, client_data.category2_id, client_data.do_not_sync from client_data where client_data.business_id = #{business_id} order by type asc ")
+      business = Business.find( business_id )
+      authorize! :manage, business
+      sites = business.package_payload_sites.join("','") 
+
+      @rows = ActiveRecord::Base.connection.select_all("select client_data.id, client_data.email, client_data.username, client_data.status, client_data.listings_url, client_data.listing_url, client_data.type, client_data.created_at, client_data.updated_at, client_data.category_id, client_data.business_id, client_data.category2_id, client_data.do_not_sync from client_data where client_data.business_id = #{business_id} and type in ('#{sites}') order by type asc ")
     end 
   end
 
@@ -45,13 +48,11 @@ class AccountsController < ApplicationController  #InheritedResources::Base
   end 
 
 	def create
-    STDERR.puts "XXXXXXXX HERE IS THE MODEL: "
 		business = Business.find( params[:business_id] )
 		if current_user.nil? or business.user_id != current_user.id
 			redirect_to '/', :status => 403
       return
     end
-    STDERR.puts "HERE IS THE MODEL: "+params['model'].to_s
     model = Business.get_sub_model(params['model'])
     obj = model.where(:business_id => business.id).first
     unless obj

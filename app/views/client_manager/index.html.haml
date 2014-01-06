@@ -29,10 +29,10 @@
           %dd #{@business.updated_at}
           %dt Job Queue
           %dd 
-            -if @business.paused?
+            -if @business.stopped?
               %i.icon-circle.red
               Stopped
-              %p.smaller= @business.paused_because
+              %p.smaller= @business.stopped_because
             -else 
               %i.icon-circle.green
               Running

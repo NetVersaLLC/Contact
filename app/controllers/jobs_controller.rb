@@ -32,9 +32,11 @@ class JobsController < ApplicationController
     @business.update_attributes(client_checkin: Time.now, client_version: params[:version] || "0.0.0")
 
     @job = {:status => 'default'}
+
+    # Please consider misc_methods.rb stopped? and stopped_because methods before adding anything new here.  
     if @business.categorized == false
       @job = {:status => 'no_categories'}
-    elsif @business.paused? == true
+    elsif @business.stopped? #paused? 
       @job = {:status => 'paused'}
     elsif (@business.subscription != nil and @business.subscription.active?) == false
       @job = {:status => 'inactive'}
