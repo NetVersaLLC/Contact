@@ -101,7 +101,7 @@ module Business::MiscMethods
         next if obj == nil
         site = obj.site
         next if site == nil
-	unless site_names.has_key? site.ineame
+	unless site_names.has_key? site.name
 	  sites.push site
           site_names[site.name] = true
         end
