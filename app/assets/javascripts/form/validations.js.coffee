@@ -18,6 +18,9 @@ $ ->
     "business[local_phone]":  
       required: true, 
       phoneUS: true
+    "business[mobile_phone]":  
+      required: true, 
+      phoneUS: true
     "business[zip]":  
       required: true,
       digits: true,
