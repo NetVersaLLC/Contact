@@ -17,7 +17,7 @@ class CodesController < ApplicationController
       render 'new_mail_verify'
     elsif params[:site_name] == 'yahoo' 
       render 'new_yahoo'
-    elsif params[:site_name] == 'google' && params[:next_job] == 'SignUp' 
+    elsif params[:site_name] == 'google' && params[:next_job] == 'notify' 
       render 'new_google_notify'
     else
       render 
