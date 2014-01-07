@@ -15,6 +15,8 @@ class CodesController < ApplicationController
       render 'new_screen_to_phone' 
     elsif params[:mail] 
       render 'new_mail_verify'
+    elsif params[:site_name] == 'yahoo' 
+      render 'new_yahoo'
     else
       render 
     end 
