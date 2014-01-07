@@ -60,6 +60,7 @@ Contact::Application.routes.draw do
     resources :images
     resources :notifications
   end 
+  post    '/codes/account(.:format)', :action=>"account",    :controller=>"codes"
   get     '/codes/:business_id/:site_name(.:format)', :action=>"site_code", :controller=>"codes"
   post    '/codes/:business_id/:site_name(.:format)', :action=>"create",    :controller=>"codes"
   delete  '/codes/:business_id/:site_name(.:format)', :action=>"destroy",   :controller=>"codes"
