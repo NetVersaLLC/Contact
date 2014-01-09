@@ -125,6 +125,10 @@ class Job < JobBase
 
   def failure(msg='Job failed', backtrace=nil, screenshot=nil )
     job_retries= (Contact::CONFIG ? Contact::CONFIG[Rails.env]["job_retries"] : 2)
+
+    self.status_message = msg 
+    self.backtrace = backtrace 
+
     if self.name == "Bing/SignUp"
       if FailedJob.
           where(:business_id => business.id, :name => self.name).
@@ -144,15 +148,16 @@ class Job < JobBase
     end 
   end
 
-  def self.inject(business_id,payload,data_generator,ready = nil,runtime = Time.now, signature='')
+  def self.inject(business_id,payload,runtime = Time.now, signature='')
     Job.create do |j|
       j.status         = TO_CODE[:new]
       j.status_message = 'Created'
       j.business_id    = business_id
-      j.payload        = payload
+      j.payload_id     = payload.id
+      j.payload        = payload.client_script
+      j.data_generator = payload.data_generator
+      j.ready          = payload.ready
       j.signature      = signature
-      j.data_generator = data_generator
-      j.ready          = ready
       j.runtime        = runtime
     end
   end

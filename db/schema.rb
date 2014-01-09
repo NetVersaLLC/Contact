@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140109201841) do
+ActiveRecord::Schema.define(:version => 20140109224614) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -796,9 +796,11 @@ ActiveRecord::Schema.define(:version => 20140109201841) do
     t.text     "signature"
     t.integer  "payload_id"
     t.integer  "parent_id"
+    t.string   "grouping_hash"
   end
 
   add_index "failed_jobs", ["business_id"], :name => "index_failed_jobs_on_business_id"
+  add_index "failed_jobs", ["grouping_hash"], :name => "index_failed_jobs_on_grouping_hash"
   add_index "failed_jobs", ["payload_id"], :name => "index_failed_jobs_on_payload_id"
   add_index "failed_jobs", ["screenshot_id"], :name => "index_failed_jobs_on_screenshot_id"
   add_index "failed_jobs", ["status"], :name => "index_failed_jobs_on_status"

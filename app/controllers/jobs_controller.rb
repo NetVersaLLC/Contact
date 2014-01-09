@@ -81,7 +81,8 @@ class JobsController < ApplicationController
       Job.where(:business_id => params[:business_id]).delete_all
     end
 
-    @job = Job.inject(params[:business_id], payload.client_script, payload.data_generator, payload.ready, runtime)
+    #@job = Job.inject(params[:business_id], payload.client_script, payload.data_generator, payload.ready, runtime)
+    @job = Job.inject(params[:business_id], payload, runtime)
     @job.name = params[:name]
     @job.payload_id = payload.id
 

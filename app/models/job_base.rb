@@ -16,19 +16,28 @@ class JobBase < ActiveRecord::Base
       o.screenshot_id  = self.screenshot_id
       o.status_message = self.status_message
       o.payload_id     = self.payload_id
+
+      o.grouping_hash = get_grouping_hash if o.attribute_names.include?('grouping_hash') 
     end
     self.delete if delete_old
     obj
   end
 
   def add_failed_job( new_values )
-    failed_attributes =  FailedJob.attr]ibute_names
+    failed_attributes =  FailedJob.attribute_names
     failed = self.attributes.merge( new_values ).select{|k,v| failed_attributes.include?( k )}
 
-    FailedJob.create( failed )
+    fj = FailedJob.new( failed )
+    fj.grouping_hash = fj.get_grouping_hash()
+    fj.save
+    fj
   end 
     
   def has_screenshot? 
     false 
+  end 
+
+  def get_grouping_hash
+    Digest::MD5.hexdigest( status_message + backtrace )
   end 
 end

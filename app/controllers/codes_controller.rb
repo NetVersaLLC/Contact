@@ -35,9 +35,8 @@ class CodesController < ApplicationController
     payload = Payload.start("Google/CreateListing")
 
     job = Job.new
-    job = Job.inject(params[:business_id], payload.client_script, payload.data_generator, payload.ready, Time.now - 5.hours)
+    job = Job.inject(params[:business_id], payload, Time.now - 5.hours)
     job.name = "Google/CreateListing" 
-    job.payload_id = payload.id
     job.save
 
     Notification.where("url like '%google%' and business_id = ?", params[:business_id]).first.delete
@@ -58,7 +57,7 @@ class CodesController < ApplicationController
       @code = Code.new( site_name: params[:site_name], code: params[:code]) 
     end
     @code.business = Business.find(params[:business_id]) 
-     if params[:next_job]
+    if params[:next_job]
       @code.next_job = params[:next_job]
     end
     @code.save
