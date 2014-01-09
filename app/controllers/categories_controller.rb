@@ -57,8 +57,11 @@ class CategoriesController < ApplicationController
         inst.save!
       end
     end
-    business.categorized = true
+
+    business.categorized = params[:submit].present?
+    business.category1   = params["business-category"]
     business.save :validate => false
+
     if business.errors.count > 0
       flash[:notice] = "Business profile is not complete!"
     else
