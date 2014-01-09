@@ -73,10 +73,10 @@ class CategoriesController < ApplicationController
   def delete
   end
 
-  def copy_google
+  def google
     google_category = GoogleCategory.where(:name => params[:name]).last
-    if google.nil? 
-      render :nothing, status: :not_found
+    if google_category.nil? 
+      render :nothing => true, status: :not_found
     else 
       render json: google_category
     end 

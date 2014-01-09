@@ -13,7 +13,7 @@ findTier = (arr, id)->
 
 setSelection = (model, tier)->
   $('#title_'+model).html( tier[0] )
-  $('#category_'+model).val( tier[1] )
+  $('#'+model).val( tier[1] )
 
 window.subCategory = (select)->
   val   = $(select).val()

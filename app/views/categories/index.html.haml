@@ -35,7 +35,7 @@
           %h2= klass.to_s
           %h3.category_selected{:id => "title_#{klass}"}
           = raw loadButton
-          %input{:type => 'hidden', :name => "category[#{klass}]", :id => "category_#{klass}", :value => category_id}
+          %input{:type => 'hidden', :name => "category[#{klass}]", :id => "#{klass}".downcase, :value => category_id}
           %div{:class => 'selector', :id => "selector_#{klass}"}
       %input.btn.btn-info{:type => :submit, :value => 'Submit Categories'}
 
@@ -47,6 +47,23 @@
           add(data); 
           } ); 
         }
+      }); 
+
+      $("#set-business-category").click( function(){ 
+        var data = { name: $("#business-category").val() }
+
+        $.getJSON( "/categories/google", data, function(resp){
+          for( key in resp) { 
+            if( key.match(/category_id$/) ) {
+              var value = resp[key]; 
+              if(value) {
+                var input_element_id = key.replace(/_id$/,'').replace(/_/g,''); 
+                $("#" + input_element_id).val( value ); 
+                }
+              }
+            }
+          $("#categoryForm").submit();
+          }); 
       }); 
     }); 
 
