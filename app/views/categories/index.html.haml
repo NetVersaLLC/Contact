@@ -6,6 +6,7 @@
     %dd= @business.category_description
     %dt Categorized
     %dd= @business.categorized ? "Yes":"No"
+  %hr
   %h5 Google Category
   .input-group
     %input#business-category.form-control{name: "business-category", value: @business.category1}
@@ -13,6 +14,8 @@
       %button#set-business-category.btn.btn-default.btn-sm
         Set
   .space-6
+  %p.alert.alert-warning Note: When you set categories using the Google Category, it will overwrite the current settings.
+  %hr
   %button.btn.btn-warning.btn-sm#show_allcategories
     Reset All Categories
 
