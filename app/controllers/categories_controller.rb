@@ -42,25 +42,38 @@ class CategoriesController < ApplicationController
   def create
     business = Business.find(params[:business_id])
     cats = params[:category]
-    cats.each_key do |category_model|
-      logger.info "Checking: #{category_model}"
-      if category_model != nil and cats[category_model].to_i > 0 and category_model =~ /((.*?)Category)/
-        if $2 == "FacebookProfile"
-          model = "Facebook".constantize
-        else
-          model    = $2.constantize
-        end
-        category = $1.constantize
+    #cats.each_key do |category_model|
+    #  if category_model != nil and cats[category_model].to_i > 0 and category_model =~ /((.*?)Category)/
+    #    if $2 == "FacebookProfile"
+    #      model = "Facebook".constantize
+    #    else
+    #      model    = $2.constantize
+    #    end
+    #    category = $1.constantize
 
-        inst = business.get_site(model)
-        inst.category_id = cats[category_model]
-        inst.save!
-      end
-    end
+    #    inst = business.get_site(model)
+    #    inst.category_id = cats[category_model]
+    #    inst.save!
+    #  end
+    #end
 
     business.categorized = params[:submit].present?
     business.category1   = params["business-category"]
     business.save :validate => false
+
+    # if submit button clicked and the google business category has been set...
+    if params[:submit].present? && params["business-category"].present? 
+      g = GoogleCategory.where(name: params["business-category"]).first 
+      if g.present? 
+        a = {}
+        params[:category].each do |k,v| 
+          a[k.to_s.underscore + '_id'] = v
+        end 
+        logger.debug a
+        g.update_attributes( a )
+        g.save
+      end 
+    end 
 
     if business.errors.count > 0
       flash[:notice] = "Business profile is not complete!"

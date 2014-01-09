@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131226201049) do
+ActiveRecord::Schema.define(:version => 20140109201841) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -939,6 +939,7 @@ ActiveRecord::Schema.define(:version => 20131226201049) do
     t.integer  "bigwigbiz_category_id"
     t.integer  "nationalwebdir_category_id"
     t.integer  "listwns_category_id"
+    t.integer  "snoopitnow_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
