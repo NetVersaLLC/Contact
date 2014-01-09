@@ -1,5 +1,5 @@
 class Yelp  < ClientData
-  attr_accessible :email
+  attr_accessible :email, :listing_url
   virtual_attr_accessor :password
   belongs_to :yelp_category
 

@@ -1,0 +1,21 @@
+.row
+  .col-xs-12
+    #code-step-1
+      .alert
+        %h3 Google Credentials 
+        %p 
+          Please provide your business Google credentials. 
+      %form{action: "/codes/account", class: "form-horizontal", method: :post}
+        =hidden_field_tag :business_id, @code.business_id 
+        =hidden_field_tag :name, "#{@code.site_name.capitalize}/#{@code.next_job}"
+        =label_tag :email, 'Email'
+        %br
+        =text_field_tag :email
+        %br
+        .space-6
+        =label_tag :password
+        %br
+        =password_field_tag :password
+        %br
+        .space-6
+        %button.btn{type: 'submit'} Submit Credentials

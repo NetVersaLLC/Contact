@@ -32,8 +32,26 @@ module Business::MiscMethods
     end
 
     def paused?
-      self.paused_at.nil? ? false : true
+      self.paused_at.present? 
     end
+
+    def stopped?
+      self.paused_at.present? || !self.categorized || !valid?
+    end 
+
+    def stopped_because
+      a = []
+      a << "paused at #{self.paused_at}" if paused?
+      a << "has not been categorized" if !categorized
+      a << "does not validate" if !valid?
+
+      if a.empty?
+        nil
+      else 
+        "Business " + a.to_sentence
+      end 
+    end 
+
 
     def add_job(name)
       p = Payload.by_name(name)
