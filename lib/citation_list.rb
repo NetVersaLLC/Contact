@@ -625,6 +625,14 @@
     ],
       'Bigwigbiz'
   ],
+  ['Nsphere', 'nspheres',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'nsphere_category']
+    ],
+      'Nsphere'
+  ],
   ['Nationalwebdir', 'nationalwebdirs',
     [
       ['text', 'email'],
