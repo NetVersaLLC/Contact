@@ -1,14 +1,20 @@
-%h1
-  = @business.business_name
-%h3 Categorized: #{@categorized}
-%h1
-  Category: 
-  %span#category_main
-    = @category
-%button.btn.btn-warning#show_allcategories
-  Reset All Categories
-%br
-%br
+.col-xs-6
+  %dl.dl-horizontal
+    %dt Name
+    %dd= @business.business_name
+    %dt Category Description
+    %dd= @business.category_description
+    %dt Categorized
+    %dd= @business.categorized ? "Yes":"No"
+  %h5 Google Category
+  .input-group
+    %input#business-category.form-control{name: "business-category", value: @business.category1}
+    %span.input-group-btn
+      %button#set-business-category.btn.btn-default.btn-sm
+        Set
+  .space-6
+  %button.btn.btn-warning.btn-sm#show_allcategories
+    Reset All Categories
 
 :css
   #category_main {
@@ -17,18 +23,30 @@
   .category_selected {
     color: #00A;
   }
+.row
+  .col-xs-12
+    %script{:src => "/assets/active_admin_categories.js"}
+    %form#categoryForm{:action => '/categories', :method => 'post'}
+      %input#business_id{:type => :hidden, :name => 'business_id', :value => @business.id}/
+      - @categories.each do |row|
+        - klass, js, loadButton, category_id = *row
+        %script{:src => "/categories/#{klass}.js"}
+        %div{:class => 'category_show'}
+          %h2= klass.to_s
+          %h3.category_selected{:id => "title_#{klass}"}
+          = raw loadButton
+          %input{:type => 'hidden', :name => "category[#{klass}]", :id => "category_#{klass}", :value => category_id}
+          %div{:class => 'selector', :id => "selector_#{klass}"}
+      %input.btn.btn-info{:type => :submit, :value => 'Submit Categories'}
 
-%script{:src => "/assets/active_admin_categories.js"}
-%form#categoryForm{:action => '/categories', :method => 'post'}
-  %input#business_id{:type => :hidden, :name => 'business_id', :value => @business.id}/
-  - @categories.each do |row|
-    - klass, js, loadButton, category_id = *row
-    %script{:src => "/categories/#{klass}.js"}
-    %div{:class => 'category_show'}
-      %h2= klass.to_s
-      %h3.category_selected{:id => "title_#{klass}"}
-      = raw loadButton
-      %input{:type => 'hidden', :name => "category[#{klass}]", :id => "category_#{klass}", :value => category_id}
-      %div{:class => 'selector', :id => "selector_#{klass}"}
-  %input.btn.btn-info{:type => :submit, :value => 'Submit Categories'}
+:javascript
+  $( function() {  
+    $('#business-category').autocomplete({
+      source: function(req, add){
+        $.getJSON( "/google_categories/"+req.term, function(data){
+          add(data); 
+          } ); 
+        }
+      }); 
+    }); 
 

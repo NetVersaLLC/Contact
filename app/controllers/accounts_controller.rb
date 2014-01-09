@@ -68,7 +68,11 @@ class AccountsController < ApplicationController  #InheritedResources::Base
   def categorize
     @business = Business.find(params[:business_id])
 
+    sites = Business.citation_list.map{ |d| d[0] } 
+
     ClientData.descendants.each do |descendant| 
+      next unless sites.include?( descendant.name ) 
+
       account = @business.client_data.where(:type => descendant.name).first
       if account.nil?
         new_account = descendant.new 

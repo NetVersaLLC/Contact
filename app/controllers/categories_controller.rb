@@ -1,9 +1,8 @@
 class CategoriesController < ApplicationController
   before_filter      :authenticate_admin!
+
   def index
     @business    = Business.find(params[:business_id])
-    @categorized =  @business.categorized ? "Yes" : "No"
-    @category    = @business.category1
     @categories  = []
     Business.citation_list.each do |data|
       model, table, rows = *data
@@ -18,7 +17,7 @@ class CategoriesController < ApplicationController
 	  res = ActiveRecord::Base.connection.execute "SELECT category_id FROM client_data WHERE business_id=#{@business.id} AND category_id IS NOT NULL AND type='#{data[0]}'"
           category_name = ''
           category_id   = ''
-	  res.each do |row|
+   res.each do |row|
 	    category_id      = row.shift
 	    category         = klass.where(:id => category_id).first
 	    next if category == nil
@@ -39,6 +38,7 @@ class CategoriesController < ApplicationController
     category   = klass.find(params[:id])
     render json: {:label => category.make_category, :model => params[:model]}
   end
+
   def create
     business = Business.find(params[:business_id])
     cats = params[:category]
@@ -66,10 +66,21 @@ class CategoriesController < ApplicationController
     end
     redirect_to request.referer
   end
+
   def update
   end
+
   def delete
   end
+
+  def copy_google
+    google_category = GoogleCategory.where(:name => params[:name]).last
+    if google.nil? 
+      render :nothing, status: :not_found
+    else 
+      render json: google_category
+    end 
+  end 
 
   def selectoptions
     klass = "#{params[:site]}Category".constantize
@@ -79,6 +90,5 @@ class CategoriesController < ApplicationController
       format.html {render "selectoptions", layout: false }
     end 
   end 
-
 
 end

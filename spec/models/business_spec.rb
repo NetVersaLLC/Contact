@@ -36,7 +36,8 @@ describe Business do
 		it { should validate_presence_of(:tag_line) }
 		it { should validate_presence_of(:services_offered) }
 
-		it { should validate_presence_of(:category1) }
+		it { should validate_presence_of(:category_description) }
+		#it { should validate_presence_of(:category1) }
 		#it { should validate_presence_of(:category2) }
 		#it { should validate_presence_of(:category3) }
 
@@ -48,16 +49,16 @@ describe Business do
 		it { should validate_presence_of(:contact_gender) }
 		it { should validate_presence_of(:contact_first_name) }
 		it { should validate_presence_of(:contact_last_name) }
-		it { should validate_presence_of(:contact_birthday) }
+		#it { should validate_presence_of(:contact_birthday) }
 
 		it { should validate_presence_of(:zip) }
 		it { should validate_presence_of(:local_phone) }
-		it { should validate_presence_of(:toll_free_phone) }
+		#it { should validate_presence_of(:toll_free_phone) }
 		it { should validate_presence_of(:mobile_phone) }
-		it { should validate_presence_of(:fax_number) }
+		#it { should validate_presence_of(:fax_number) }
 
 		it { should validate_presence_of(:geographic_areas) }
-		it { should validate_presence_of(:year_founded) }
+		#it { should validate_presence_of(:year_founded) }
 	end
 
 	describe "Attributes Without Validation" do
@@ -142,10 +143,8 @@ end
     let(:business) { FactoryGirl.build(:business) }
     
 		it { should respond_to(:birthday) }
-		it { should respond_to(:checkin) }
-		it { should respond_to(:complete_failed_job_hash) }		
 		it { should respond_to(:create_jobs) }
-		it { should respond_to(:create_site_accounts) }
+		#it { should respond_to(:create_site_accounts) }
 		it { should respond_to(:get_keywords) }
 		it { should respond_to(:get_brands) }
 		it { should respond_to(:label_id) }
@@ -160,6 +159,6 @@ end
 		it { should respond_to(:sites) }		
 		it { should respond_to(:state_name) }	
 		it { should respond_to(:strip_blanks) }
-		it { should respond_to(:time_cannot_be_same) }
+		it { should respond_to(:time_cannot_same) }
 	end
 end
