@@ -4,7 +4,7 @@ class Job < JobBase
 
   after_create :assign_position
 
-  attr_accessible :payload, :data_generator, :status, :runtime
+  attr_accessible :payload, :data_generator, :status, :runtime, :payload_id
   attr_accessible :business_id, :name, :status_message, :backtrace, :waited_at, :position, :data
 
   validates :status,

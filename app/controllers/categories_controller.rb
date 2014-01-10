@@ -42,20 +42,20 @@ class CategoriesController < ApplicationController
   def create
     business = Business.find(params[:business_id])
     cats = params[:category]
-    #cats.each_key do |category_model|
-    #  if category_model != nil and cats[category_model].to_i > 0 and category_model =~ /((.*?)Category)/
-    #    if $2 == "FacebookProfile"
-    #      model = "Facebook".constantize
-    #    else
-    #      model    = $2.constantize
-    #    end
-    #    category = $1.constantize
+    cats.each_key do |category_model|
+      if category_model != nil and cats[category_model].to_i > 0 and category_model =~ /((.*?)Category)/
+        if $2 == "FacebookProfile"
+          model = "Facebook".constantize
+        else
+          model    = $2.constantize
+        end
+        category = $1.constantize
 
-    #    inst = business.get_site(model)
-    #    inst.category_id = cats[category_model]
-    #    inst.save!
-    #  end
-    #end
+        inst = business.get_site(model)
+        inst.category_id = cats[category_model]
+        inst.save!
+      end
+    end
 
     business.categorized = params[:submit].present?
     business.category1   = params["business-category"]
