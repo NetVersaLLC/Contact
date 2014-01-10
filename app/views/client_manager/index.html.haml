@@ -10,7 +10,7 @@
         .space-6
         .row 
           .col-xs-12
-            -if current_user.admin?
+            -if current_user.reseller?
               %fieldset 
                 %legend Add a job for #{@business.business_name}
                 =select_tag "job", options_for_select(@business.subscription.package.available_jobs), class: "chosen"

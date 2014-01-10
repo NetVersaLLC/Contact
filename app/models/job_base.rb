@@ -15,6 +15,7 @@ class JobBase < ActiveRecord::Base
       o.updated_at     = self.updated_at
       o.screenshot_id  = self.screenshot_id
       o.status_message = self.status_message
+      o.payload_id     = self.payload_id
     end
     self.delete if delete_old
     obj

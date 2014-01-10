@@ -99,6 +99,7 @@ Contact::Application.routes.draw do
   get     '/downloads/:business_id', :controller => :downloads,       :action => :download
   get     '/emails/check/:site',     :controller => :emails,          :action => :check
 
+  get     '/categories/google', :controller => :categories, :action => :google 
   get     '/categories(.:format)', :controller => :categories, :action => :index
   get     '/categories/:id(.:format)', :controller => :categories, :action => :show
   get     '/categories/:site/selectoptions(.:format)', :controller => :categories, :action => :selectoptions

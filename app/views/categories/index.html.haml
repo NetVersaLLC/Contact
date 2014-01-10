@@ -1,15 +1,47 @@
-%h1
-  = @business.business_name
-%h3 Categorized: #{@categorized}
-%h1
-  Category: 
-  %span#category_main
-    = @category
-%button.btn.btn-warning#show_allcategories
-  Reset All Categories
-%br
-%br
+.row
+  .col-xs-12
+    %form#categoryForm{:action => '/categories', :method => 'post'}
+      .row
+        .col-xs-6
+          %dl.dl-horizontal
+            %dt Name
+            %dd= @business.business_name
+            %dt Category Description
+            %dd= @business.category_description
+            %dt Categorized
+            %dd= @business.categorized ? "Yes":"No"
+          %hr
+          %h4 Google Category
+          .input-group
+            %input#business-category.form-control{name: "business-category", value: @business.category1}
+            %span.input-group-btn
+              %button#set-business-category.btn.btn-default.btn-sm
+                Set
+        .col-xs-6
+          %p.alert.alert-warning Note: When you set categories using the Google Category, it will only update accounts that have not been set yet. 
+          -if !@business.categorized
+            %p.alert.alert-danger WARNING: You have to click 'Submit Categories', even after using the Google Category, for the business to be marked as 'Categorized'. 
+      .row
+        .col-xs-12
+          %hr
+          %input#business_id{:type => :hidden, :name => 'business_id', :value => @business.id}/
+          - @categories.each do |row|
+            - klass, js, loadButton, category_id = *row
+            %script{:src => "/categories/#{klass}.js"}
+            %div{:class => 'category_show'}
+              %h2= klass.to_s
+              %h3.category_selected{:id => "title_#{klass}"}
+              = raw loadButton
+              %input{:type => 'hidden', :name => "category[#{klass}]", :id => "#{klass}".downcase, :value => category_id}
+              %div{:class => 'selector', :id => "selector_#{klass}"}
+          %hr
+          -#%input.btn.btn-info{:type => :submit, :value => 'Submit Categories'}
+          %button.btn.btn-info{type: :submit, name: 'submit', value: 'Submit Categories'}
+            Submit Categories
+          %button.btn.btn-warning.btn-sm#show_allcategories
+            Reset All Categories
 
+%script{:src => "/assets/active_admin_categories.js"}
 :css
   #category_main {
     color: #A00;
@@ -17,18 +49,32 @@
   .category_selected {
     color: #00A;
   }
+:javascript
+  $( function() {  
+    $('#business-category').autocomplete({
+      source: function(req, add){
+        $.getJSON( "/google_categories/"+req.term, function(data){
+          add(data); 
+          } ); 
+        }
+      }); 
 
-%script{:src => "/assets/active_admin_categories.js"}
-%form#categoryForm{:action => '/categories', :method => 'post'}
-  %input#business_id{:type => :hidden, :name => 'business_id', :value => @business.id}/
-  - @categories.each do |row|
-    - klass, js, loadButton, category_id = *row
-    %script{:src => "/categories/#{klass}.js"}
-    %div{:class => 'category_show'}
-      %h2= klass.to_s
-      %h3.category_selected{:id => "title_#{klass}"}
-      = raw loadButton
-      %input{:type => 'hidden', :name => "category[#{klass}]", :id => "category_#{klass}", :value => category_id}
-      %div{:class => 'selector', :id => "selector_#{klass}"}
-  %input.btn.btn-info{:type => :submit, :value => 'Submit Categories'}
+      $("#set-business-category").click( function(){ 
+        var data = { name: $("#business-category").val() }
+
+        $.getJSON( "/categories/google", data, function(resp){
+          for( key in resp) { 
+            if( key.match(/category_id$/) ) {
+              var new_value = resp[key]; 
+              var input_element_sel = '#' + key.replace(/_id$/,'').replace(/_/g,''); 
+
+              if(new_value && !$(input_element_sel).val() ) {
+                $(input_element_sel).val( new_value ); 
+              }
+            }
+          }
+          $("#categoryForm").submit();
+        }); 
+      }); 
+    }); 
 

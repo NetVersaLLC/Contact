@@ -1,9 +1,8 @@
 class CategoriesController < ApplicationController
   before_filter      :authenticate_admin!
+
   def index
     @business    = Business.find(params[:business_id])
-    @categorized =  @business.categorized ? "Yes" : "No"
-    @category    = @business.category1
     @categories  = []
     Business.citation_list.each do |data|
       model, table, rows = *data
@@ -18,7 +17,7 @@ class CategoriesController < ApplicationController
 	  res = ActiveRecord::Base.connection.execute "SELECT category_id FROM client_data WHERE business_id=#{@business.id} AND category_id IS NOT NULL AND type='#{data[0]}'"
           category_name = ''
           category_id   = ''
-	  res.each do |row|
+   res.each do |row|
 	    category_id      = row.shift
 	    category         = klass.where(:id => category_id).first
 	    next if category == nil
@@ -39,11 +38,11 @@ class CategoriesController < ApplicationController
     category   = klass.find(params[:id])
     render json: {:label => category.make_category, :model => params[:model]}
   end
+
   def create
     business = Business.find(params[:business_id])
     cats = params[:category]
     cats.each_key do |category_model|
-      logger.info "Checking: #{category_model}"
       if category_model != nil and cats[category_model].to_i > 0 and category_model =~ /((.*?)Category)/
         if $2 == "FacebookProfile"
           model = "Facebook".constantize
@@ -57,8 +56,25 @@ class CategoriesController < ApplicationController
         inst.save!
       end
     end
-    business.categorized = true
+
+    business.categorized = params[:submit].present?
+    business.category1   = params["business-category"]
     business.save :validate => false
+
+    # if submit button clicked and the google business category has been set...
+    if params[:submit].present? && params["business-category"].present? 
+      g = GoogleCategory.where(name: params["business-category"]).first 
+      if g.present? 
+        a = {}
+        params[:category].each do |k,v| 
+          a[k.to_s.underscore + '_id'] = v
+        end 
+        logger.debug a
+        g.update_attributes( a )
+        g.save
+      end 
+    end 
+
     if business.errors.count > 0
       flash[:notice] = "Business profile is not complete!"
     else
@@ -66,10 +82,21 @@ class CategoriesController < ApplicationController
     end
     redirect_to request.referer
   end
+
   def update
   end
+
   def delete
   end
+
+  def google
+    google_category = GoogleCategory.where(:name => params[:name]).last
+    if google_category.nil? 
+      render :nothing => true, status: :not_found
+    else 
+      render json: google_category
+    end 
+  end 
 
   def selectoptions
     klass = "#{params[:site]}Category".constantize
@@ -79,6 +106,5 @@ class CategoriesController < ApplicationController
       format.html {render "selectoptions", layout: false }
     end 
   end 
-
 
 end
