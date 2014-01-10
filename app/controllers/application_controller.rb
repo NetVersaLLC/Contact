@@ -32,6 +32,12 @@ class ApplicationController < ActionController::Base
     check_admin_role
   end
 
+  def authenticate_reseller!
+    return if current_user.reseller?
+    flash[:notice] = "You need to be an admin to access this part of the application"
+    redirect_to root_path
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :error => exception.message
     # sign_out current_user 

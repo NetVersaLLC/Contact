@@ -87,7 +87,7 @@ describe FailedJob do
     job = Job.new(payload: "payload", status_message: "started", status: "started", business_id: 0, name: "job name", payload_id: payload_yahooA.id)
     job.add_failed_job({'status_message' => "stupid thing broke", 'backtrace' => "backtrace: ./lib/contact"} )
 
-    rows = FailedJob.site_errors_report
+    rows = FailedJob.errors_report
     rows.length.should eq(2) 
     rows[0]['name'].should eq('bing') 
     rows[0]['payloads_with_errors'].should eq(2) 

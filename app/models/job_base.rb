@@ -39,6 +39,6 @@ class JobBase < ActiveRecord::Base
 
   def get_grouping_hash
     bt = (backtrace||"").gsub(/:0x.*>/,"")
-    Digest::MD5.hexdigest( "#{status_message}#{bt}")
+    Digest::MD5.hexdigest( "#{payload_id}#{status_message}#{bt}")
   end 
 end
