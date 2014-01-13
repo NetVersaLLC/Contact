@@ -92,6 +92,7 @@ Contact::Application.routes.draw do
   delete  '/jobs/delete_all'
   resources :jobs,  except: [:show]
   resources :failed_jobs, only: [:index]
+  put      '/failed_jobs/resolve', controller: 'failed_jobs', action: 'resolve', as: 'resolve_failed_jobs'
 
   get     '/jobs/list(.:format)', :controller => :jobs,   :action => :list
   put     '/jobs/:id/rerun', :controller => :jobs,   :action => :rerun

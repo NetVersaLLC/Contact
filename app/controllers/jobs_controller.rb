@@ -83,15 +83,14 @@ class JobsController < ApplicationController
 
     #@job = Job.inject(params[:business_id], payload.client_script, payload.data_generator, payload.ready, runtime)
     @job = Job.inject(params[:business_id], payload, runtime)
-    @job.name = params[:name]
-    @job.payload_id = payload.id
 
-    if payload.parent
-      site_name= params[:name].split('/')[0]
-      parent_job= CompletedJob.where("business_id= ? and name= ? ",
-                                      @business.id, "#{site_name}/#{payload.parent.name}").order('id desc').first
-      @job.parent_id= parent_job.id if parent_job
-    end
+    # moved to the model
+    #if payload.parent
+    #  site_name= params[:name].split('/')[0]
+    #  parent_job= CompletedJob.where("business_id= ? and name= ? ",
+    #                                  @business.id, "#{site_name}/#{payload.parent.name}").order('id desc').first
+    #  @job.parent_id= parent_job.id if parent_job
+    #end
     respond_to do |format|
       if @job.save
         format.json { render json: @job }

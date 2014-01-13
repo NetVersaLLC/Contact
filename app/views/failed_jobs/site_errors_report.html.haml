@@ -1,0 +1,21 @@
+.row
+  .col-xs-12
+    %h3.headerheader.lighter= params[:site].capitalize
+    %table.table.table-striped.table-bordered.table-hover
+      %thead 
+        %tr
+          %th Payload
+          %th What & Where
+          %th Latest
+          %th Count 
+          %th Resolve
+      %tbody 
+        - @rows.each do |row|
+          %tr 
+            %td= row["name"]
+            %td= row["status_message"]
+            %td= row["last_updated_at"]
+            %td= row["businesses_count"]
+            %td.center
+              %i.icon-thumbs-up-alt.icon-large
+

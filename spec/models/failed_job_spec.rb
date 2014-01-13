@@ -95,5 +95,28 @@ describe FailedJob do
     rows[1]['payloads_with_errors'].should eq(1)
   end 
 
+  it 'should resolve failed jobs' do 
+    business_id = 100
+    site    = Site.create(:name => 'Yahoo')
+
+    payload = Payload.new
+    payload.site = site 
+    payload.name = 'SignUp' 
+    payload.client_script = 'client_script' 
+    payload.data_generator = 'data_generator' 
+    payload.save
+
+    job    = Job.inject( business_id, payload )
+    failed = job.failure("stupid thing broke", "this is a backtrace", nil )
+
+    jobs_resolved = FailedJob.resolve_by_grouping_hash(failed.grouping_hash)
+
+    jobs_resolved.should eq(1) 
+    failed.reload.resolved.should eq(true)
+
+    # a new job should be added to the queue
+    Job.all.count.should eq(1) 
+  end 
+
 end
 
