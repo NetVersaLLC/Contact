@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140109224614) do
+ActiveRecord::Schema.define(:version => 20140113232218) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -790,13 +790,14 @@ ActiveRecord::Schema.define(:version => 20140109224614) do
     t.text     "backtrace"
     t.datetime "waited_at"
     t.integer  "position"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.integer  "screenshot_id"
     t.text     "signature"
     t.integer  "payload_id"
     t.integer  "parent_id"
     t.string   "grouping_hash"
+    t.boolean  "resolved",       :default => false
   end
 
   add_index "failed_jobs", ["business_id"], :name => "index_failed_jobs_on_business_id"

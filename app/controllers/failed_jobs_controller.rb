@@ -9,4 +9,8 @@ class FailedJobsController < InheritedResources::Base
       @rows = FailedJob.errors_report
     end 
   end 
+
+  def resolve 
+
+  end 
 end 

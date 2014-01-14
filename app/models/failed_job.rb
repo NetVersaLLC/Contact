@@ -9,10 +9,10 @@ class FailedJob < JobBase
   def self.resolve_by_grouping_hash( group_hash ) 
     failed_jobs = FailedJob.where(grouping_hash: group_hash)
     failed_jobs.each do |failed_job| 
-      payload ||= Payload.find( failed_job.payload_id )
+      payload ||= Payload.find( failed_job.payload_id ) # cache it.  
 
-      Job.inject( failed_job.business_id, payload )
-      failed_job.update_attribute( resolved: true )
+      Job.inject( failed_job.business_id, payload )     # requeue 
+      failed_job.update_attribute( :resolved,  true )   # mark failure as fixed/resolved
     end 
 
     failed_jobs.length
