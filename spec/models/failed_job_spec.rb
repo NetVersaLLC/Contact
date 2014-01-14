@@ -5,7 +5,10 @@ describe FailedJob do
 	it { should belong_to :screenshot}
 
   it 'status messages are applied to the failed object' do 
-    job = Job.new(payload: "payload", status_message: "started", status: "started", business_id: 0, name: "job name")
+    business = create(:business)
+
+    job = Job.new(payload: "payload", status_message: "started", status: "started", name: "job name")
+    job.business = business 
     failed = job.failure("stupid thing broke", "this is a backtrace", nil ) 
 
     failed.status_message.should eq( "stupid thing broke")
@@ -13,7 +16,10 @@ describe FailedJob do
   end 
 
   it 'job to failed_job creates a grouping hash' do 
-    job = Job.new(payload: "payload", status_message: "started", status: "started", business_id: 0, name: "job name")
+    business = create(:business)
+
+    job = Job.new(payload: "payload", status_message: "started", status: "started", name: "job name")
+    job.business = business 
     failed = job.failure("stupid thing broke", "this is a backtrace", nil ) 
 
     failed.grouping_hash.should eq( Digest::MD5.hexdigest("stupid thing broke" + "this is a backtrace") )
@@ -96,8 +102,8 @@ describe FailedJob do
   end 
 
   it 'should resolve failed jobs' do 
-    business_id = 100
-    site    = Site.create(:name => 'Yahoo')
+    business = create(:business)
+    site     = create(:site, name: 'Yahoo')
 
     payload = Payload.new
     payload.site = site 
@@ -106,7 +112,7 @@ describe FailedJob do
     payload.data_generator = 'data_generator' 
     payload.save
 
-    job    = Job.inject( business_id, payload )
+    job    = Job.inject( business, payload )
     failed = job.failure("stupid thing broke", "this is a backtrace", nil )
 
     jobs_resolved = FailedJob.resolve_by_grouping_hash(failed.grouping_hash)
@@ -122,8 +128,8 @@ describe FailedJob do
   end 
 
   it 'should create a site errors report' do 
-    business_id = 100
-    site    = Site.create(:name => 'Yahoo')
+    business = create(:business)
+    site     = create(:site, name: 'Yahoo')
 
     payload = Payload.new
     payload.site = site 
@@ -132,7 +138,7 @@ describe FailedJob do
     payload.data_generator = 'data_generator' 
     payload.save
 
-    job    = Job.inject( business_id, payload )
+    job    = Job.inject( business, payload )
     failed = job.failure("stupid thing broke", "this is a backtrace", nil )
 
     rows = FailedJob.site_errors_report( site.name )

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140113232218) do
+ActiveRecord::Schema.define(:version => 20140114192435) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -494,6 +494,7 @@ ActiveRecord::Schema.define(:version => 20140113232218) do
     t.text     "signature"
     t.integer  "payload_id"
     t.integer  "parent_id"
+    t.integer  "label_id"
   end
 
   add_index "completed_jobs", ["business_id"], :name => "index_completed_jobs_on_business_id"
@@ -798,6 +799,7 @@ ActiveRecord::Schema.define(:version => 20140113232218) do
     t.integer  "parent_id"
     t.string   "grouping_hash"
     t.boolean  "resolved",       :default => false
+    t.integer  "label_id"
   end
 
   add_index "failed_jobs", ["business_id"], :name => "index_failed_jobs_on_business_id"
@@ -1096,6 +1098,7 @@ ActiveRecord::Schema.define(:version => 20140113232218) do
     t.text     "signature"
     t.integer  "payload_id"
     t.integer  "parent_id"
+    t.integer  "label_id"
   end
 
   add_index "jobs", ["business_id"], :name => "index_jobs_on_business_id"

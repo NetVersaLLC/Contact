@@ -55,7 +55,7 @@ module Business::MiscMethods
 
     def add_job(name)
       p = Payload.by_name(name)
-      job = Job.inject(self.id, p )
+      job = Job.inject(self, p )
       job.name = name
       job.save
     end
@@ -137,7 +137,7 @@ module Business::MiscMethods
       # NOTE: temporary fix to get Bing/SignUp first
       bing = Payload.find_by_site_id_and_name(Site.find_by_name("Bing").id, "SignUp")
       if CompletedJob.where(:business_id => self.id, :name => "Bing/SignUp").count == 0
-        job      = Job.inject(self.id, bing )
+        job      = Job.inject(self, bing )
         job.name = "Bing/SignUp"
         job.save
 
@@ -167,7 +167,7 @@ module Business::MiscMethods
         next if payload.id == bing.id
         next if payload.paused_at
 
-        job      = Job.inject(self.id, payload )
+        job      = Job.inject(self, payload )
         job.name = "#{site.name}/#{payload.name}"
         job.save
       end

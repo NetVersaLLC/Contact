@@ -82,7 +82,7 @@ class JobsController < ApplicationController
     end
 
     #@job = Job.inject(params[:business_id], payload.client_script, payload.data_generator, payload.ready, runtime)
-    @job = Job.inject(params[:business_id], payload, runtime)
+    @job = Job.inject(@business, payload, runtime)
 
     # moved to the model
     #if payload.parent

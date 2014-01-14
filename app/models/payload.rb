@@ -301,7 +301,7 @@ class Payload < ActiveRecord::Base
      if payload == nil
        return nil
      end
-     @job = Job.inject(business.id, payload )
+     @job = Job.inject(business, payload )
      @job.name = name
      @job.save!
      @job

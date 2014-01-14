@@ -16,6 +16,7 @@ class JobBase < ActiveRecord::Base
       o.screenshot_id  = self.screenshot_id
       o.status_message = self.status_message
       o.payload_id     = self.payload_id
+      o.label_id       = self.label_id
 
       o.grouping_hash = get_grouping_hash if o.attribute_names.include?('grouping_hash') 
     end

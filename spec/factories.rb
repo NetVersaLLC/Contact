@@ -26,7 +26,7 @@ FactoryGirl.define do
     corporate_name 'corporate name'
     contact_prefix 'Mr'
     category_description 'ecommerce'
-
+    label
     subscription
     user
     #crunchbase_attributes 'crunchbase'

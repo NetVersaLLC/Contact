@@ -33,9 +33,10 @@ class CodesController < ApplicationController
     google.save
 
     payload = Payload.start("Google/CreateListing")
+    business = Business.find(params[:business_id])
 
     job = Job.new
-    job = Job.inject(params[:business_id], payload, Time.now - 5.hours)
+    job = Job.inject(business, payload, Time.now - 5.hours)
     job.name = "Google/CreateListing" 
     job.save
 

@@ -145,13 +145,14 @@ class Job < JobBase
     end 
   end
 
-  def self.inject(business_id,payload,runtime = Time.now, signature='')
+  def self.inject(business,  payload,runtime = Time.now, signature='')
     site_name = payload.site.name 
 
     job = Job.create do |j|
       j.status         = TO_CODE[:new]
       j.status_message = 'Created'
-      j.business_id    = business_id
+      j.business_id    = business.id
+      j.label_id       = business.label_id
       j.payload_id     = payload.id
       j.payload        = payload.client_script
       j.data_generator = payload.data_generator
@@ -163,7 +164,7 @@ class Job < JobBase
 
     if payload.parent
       parent_job= CompletedJob.where("business_id= ? and name= ? ",
-                                      business_id, "#{site_name}/#{payload.parent.name}").order('id desc').first
+                                      business.id, "#{site_name}/#{payload.parent.name}").order('id desc').first
       job.parent_id= parent_job.id if parent_job
     end
 
