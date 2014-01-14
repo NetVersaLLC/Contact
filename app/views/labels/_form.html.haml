@@ -38,10 +38,13 @@
         .col-sm-9
           = f.email_field :support_email, :class => "col-xs-10 col-sm-5", :placeholder => "support@somewhere.com"
       .form-group 
+        = f.label :report_email_body, :class => "col-sm-3 control-label no-padding-right"
+        .col-sm-9
+          = f.text_area :report_email_body, :class => "col-xs-10 col-sm-5", :placeholder => ""
+      .form-group 
         = f.label :address, :class => "col-sm-3 control-label no-padding-right"
         .col-sm-9
           = f.text_area :address, :class => "col-xs-10 col-sm-5", :placeholder => "123 Main Street"
-
       .form-group
         = f.label :available_balance, :class => "col-sm-3 control-label no-padding-right"
         .col-sm-9
