@@ -114,8 +114,33 @@ describe FailedJob do
     jobs_resolved.should eq(1) 
     failed.reload.resolved.should eq(true)
 
+    # resolved errors should not be part of the report
+    FailedJob.errors_report.length.should eq(0)
+
     # a new job should be added to the queue
     Job.all.count.should eq(1) 
+  end 
+
+  it 'should create a site errors report' do 
+    business_id = 100
+    site    = Site.create(:name => 'Yahoo')
+
+    payload = Payload.new
+    payload.site = site 
+    payload.name = 'SignUp' 
+    payload.client_script = 'client_script' 
+    payload.data_generator = 'data_generator' 
+    payload.save
+
+    job    = Job.inject( business_id, payload )
+    failed = job.failure("stupid thing broke", "this is a backtrace", nil )
+
+    rows = FailedJob.site_errors_report( site.name )
+
+    rows.length.should eq(1) 
+
+    row = rows.first
+    row['grouping_hash'].should_not == nil
   end 
 
 end
