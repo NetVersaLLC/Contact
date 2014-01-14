@@ -141,6 +141,7 @@ describe FailedJob do
 
     row = rows.first
     row['grouping_hash'].should_not == nil
+    row['id'].should_not == nil
   end 
 
 end

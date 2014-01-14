@@ -91,7 +91,7 @@ Contact::Application.routes.draw do
   post    '/booboos(.:format)', :controller => :jobs, :action => :booboo
   delete  '/jobs/delete_all'
   resources :jobs,  except: [:show]
-  resources :failed_jobs, only: [:index]
+  resources :failed_jobs, only: [:index, :show]
   put      '/failed_jobs/resolve', controller: 'failed_jobs', action: 'resolve', as: 'resolve_failed_jobs'
 
   get     '/jobs/list(.:format)', :controller => :jobs,   :action => :list

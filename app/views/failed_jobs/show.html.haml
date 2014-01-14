@@ -1,0 +1,15 @@
+.row
+  .col-xs-12
+    %ul.nav.nav-tabs
+      %li
+        %a{id: "backtrace-link", href: "#backtrace", data: {toggle: "tab"}} Backtrace
+      %li
+        %a{id: "screenshot-link", href: "#screenshot", data: {toggle: "tab"}} Screenshot
+    .tab-content
+      #backtrace.tab-pane.active
+        %p=@failed_job.backtrace
+      #screenshot.tab-pane
+        -if @failed_job.has_screenshot?
+          =image_tag @failed_job.screenshot.data.url
+        -else 
+          %p A screen shot was not submitted.
