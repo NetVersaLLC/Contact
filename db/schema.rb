@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140114192435) do
+ActiveRecord::Schema.define(:version => 20140115201757) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -1194,6 +1194,10 @@ ActiveRecord::Schema.define(:version => 20140114192435) do
     t.string   "crm_url"
     t.string   "crm_username"
     t.string   "crm_password"
+    t.string   "sales_phone"
+    t.string   "sales_email"
+    t.string   "website_url"
+    t.string   "website_name"
   end
 
   add_index "labels", ["domain"], :name => "index_labels_on_domain"

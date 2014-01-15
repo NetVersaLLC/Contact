@@ -82,6 +82,33 @@
               = image_tag @label.logo.url
             %br
           = f.file_field :logo
+      %fieldset
+        %legend Sales Info 
+        %p Who can the customer contact to purchase the product?
+        .form-group
+          = f.label :sales_phone, :class => "col-sm-3 control-label no-padding-right"
+          .col-sm-9
+            = f.text_field :sales_phone, :class => "col-xs-10 col-sm-5", :placeholder => "800-555-1212"
+        .form-group
+          = f.label :sales_email, :class => "col-sm-3 control-label no-padding-right"
+          .col-sm-9
+            = f.text_field :sales_email, :class => "col-xs-10 col-sm-5", :placeholder => "sales@yoursite.com"
+        .form-group
+          = f.label :website_url, :class => "col-sm-3 control-label no-padding-right"
+          .col-sm-9
+            = f.text_field :website_url, :class => "col-xs-10 col-sm-5", :placeholder => "http://www.yoursite.com"
+            .pull-left.col-sm-5
+              This is what would a user type in a browser to visit your website.
+        .form-group
+          = f.label :website_name, :class => "col-sm-3 control-label no-padding-right"
+          .col-sm-9
+            = f.text_field :website_name, :class => "col-xs-10 col-sm-5", :placeholder => "Your Site"
+            .pull-left.col-sm-5
+              We place a link on the scan report pointing to your website, but instead of displaying a bunch of gobledy-gook, you can specify
+              a name for the link. For example, the name 
+              %a{href: "http://www.google.com"}Google 
+              points to http://www.google.com
+        
       .clearfix.form-actions
         .col-md-offset-3.col-md-9
           %button.btn.btn-info(type="submit") 
