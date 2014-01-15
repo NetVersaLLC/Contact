@@ -20,7 +20,7 @@ class FailedJob < JobBase
 
   def self.errors_report(current_label=nil)
     label_filter = current_label && " and failed_jobs.label_id = #{current_label.id} " || ""
-    FailedJob.connection.select_all("select sites.name, count(distinct failed_jobs.payload_id) as payloads_with_errors from failed_jobs inner join payloads on failed_jobs.payload_id = payloads.id inner join sites on sites.id = payloads.site_id where resolved = false #{label_filter} group by sites.name order by sites.name")
+    FailedJob.connection.select_all("select sites.name, count(distinct failed_jobs.business_id) as customers_with_errors from failed_jobs inner join payloads on failed_jobs.payload_id = payloads.id inner join sites on sites.id = payloads.site_id where resolved = false #{label_filter} group by sites.name order by customers_with_errors desc")
   end
   def self.site_errors_report(site_name, current_label=nil)
     label_filter = current_label && " and failed_jobs.label_id = #{current_label.id} " || ""

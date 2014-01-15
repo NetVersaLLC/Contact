@@ -12,6 +12,8 @@
         %a{id: "payload-link", href: "#payload", data: {toggle: "tab"}} Payload
       %li
         %a{id: "data-link", href: "#data", data: {toggle: "tab"}} Data
+      %li
+        %a{id: "customers-link", href: "#customers", data: {toggle: "tab"}} Affected Customers
 
     .tab-content
       #status.tab-pane.active
@@ -27,4 +29,10 @@
         =CodeRay.scan(@failed_job.payload, :ruby).div.html_safe
       #data.tab-pane
         =CodeRay.scan(@failed_job.data_generator, :ruby).div.html_safe
+      #customers.tab-pane
+        %table.table
+          %tbody
+            - @failed_jobs_with_same_error.map{|f| f.business}.uniq.each do |business|
+              %tr
+                %td= business.business_name
 

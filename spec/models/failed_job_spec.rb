@@ -73,7 +73,9 @@ describe FailedJob do
   end 
 
 
-  it 'should report distinct payloads with an error grouped by site' do 
+  it 'should report payloads grouped by site with a count for affected customers' do 
+    business = create(:business)
+
     bing = Site.create(name: 'bing')
     yahoo = Site.create(name: 'yahoo')
     payload_bingA  = Payload.create(name: 'bing/signup', site: bing )
@@ -83,22 +85,25 @@ describe FailedJob do
 
     # two different payloads failed for bing
     job = Job.new(payload: "payload", status_message: "started", status: "started", business_id: 0, name: "job name", payload_id: payload_bingA.id)
+    job.business = business
     job.add_failed_job({'status_message' => "stupid thing broke", 'backtrace' => "backtrace: ./lib/contact"} )
     job.add_failed_job({'status_message' => "stupid thing broke", 'backtrace' => "backtrace: ./lib/contact"} )
     
     job = Job.new(payload: "payload", status_message: "started", status: "started", business_id: 0, name: "job name", payload_id: payload_bingB.id)
+    job.business = business
     job.add_failed_job({'status_message' => "stupid thing broke", 'backtrace' => "backtrace: ./lib/contact"} )
    
     # onen payload failed
     job = Job.new(payload: "payload", status_message: "started", status: "started", business_id: 0, name: "job name", payload_id: payload_yahooA.id)
+    job.business = business
     job.add_failed_job({'status_message' => "stupid thing broke", 'backtrace' => "backtrace: ./lib/contact"} )
 
     rows = FailedJob.errors_report
     rows.length.should eq(2) 
     rows[0]['name'].should eq('bing') 
-    rows[0]['payloads_with_errors'].should eq(2) 
+    rows[0]['customers_with_errors'].should eq(1) 
     rows[1]['name'].should eq('yahoo') 
-    rows[1]['payloads_with_errors'].should eq(1)
+    rows[1]['customers_with_errors'].should eq(1)
   end 
 
   it 'should resolve failed jobs' do 

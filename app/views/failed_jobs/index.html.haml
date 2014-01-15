@@ -1,13 +1,13 @@
 .row
   .col-xs-12
-    %h3.headerheader.lighter Errors by Sites
+    %h3.headerheader.lighter Errors by Site
     %table.table.table-striped.table-bordered.table-hover
       %thead 
         %tr
           %th Name 
-          %th Payloads with Errors
+          %th Affected Customers
       %tbody 
         - @rows.each do |row|
           %tr 
             %td= link_to row["name"], failed_jobs_url( site: row["name"])
-            %td= row["payloads_with_errors"]
+            %td= row["customers_with_errors"]

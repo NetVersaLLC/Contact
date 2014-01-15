@@ -1,4 +1,4 @@
-class FailedJobsController < InheritedResources::Base
+class FailedJobsController < ApplicationController
   before_filter :authenticate_reseller!
 
   def index 
@@ -9,6 +9,11 @@ class FailedJobsController < InheritedResources::Base
     else 
       @rows = FailedJob.errors_report(label_filter)
     end 
+  end 
+
+  def show 
+    @failed_job = FailedJob.find(params[:id])
+    @failed_jobs_with_same_error = FailedJob.includes(:business).where(grouping_hash: @failed_job.grouping_hash)
   end 
 
   def resolve 
