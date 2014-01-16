@@ -43,7 +43,8 @@ class Ability
         end
       end
       can :manage, ClientData, :business => { :user_id => user.id }
-      can :manage, [Subscription,TransactionEvent,Payment], :business => { :user_id => user.id }
+      can :read,   Subscription, :business => { :user_id => user.id }
+      can :manage, [TransactionEvent,Payment], :business => { :user_id => user.id }
       can :create, Booboo, :user_id => user.id
       can :manage, Job, :business => { :user_id => user.id }
       can :manage, CompletedJob, :business => { :user_id => user.id }
