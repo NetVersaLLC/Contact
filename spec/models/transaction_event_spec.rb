@@ -24,12 +24,6 @@ describe TransactionEvent do
 		end
 	end
 
-	describe '#package_id' do
-		it 'is required' do
-			transaction_event.package_id = nil
-			transaction_event.should_not be_valid
-		end
-	end
 end
 
 

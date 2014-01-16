@@ -5,7 +5,7 @@ describe FailedJob do
 	it { should belong_to :screenshot}
 
   it 'status messages are applied to the failed object' do 
-    business = create(:business)
+    business = FactoryGirl.create(:business)
 
     job = Job.new(payload: "payload", status_message: "started", status: "started", name: "job name")
     job.business = business 
@@ -16,7 +16,7 @@ describe FailedJob do
   end 
 
   it 'job to failed_job creates a grouping hash' do 
-    business = create(:business)
+    business = FactoryGirl.create(:business)
 
     job = Job.new(payload: "payload", status_message: "started", status: "started", name: "job name")
     job.business = business 

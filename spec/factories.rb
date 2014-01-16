@@ -186,5 +186,31 @@ FactoryGirl.define do
     site
     mode
   end
+  factory :bing_category1, class: BingCategory do
+    parent_id nil
+    name "root"
+    name_path nil
+  end
+
+  factory :bing_category2, class: BingCategory do
+    name "Home & Family"
+    name_path "[Application]\\Structure\\Content\\Categories\\Business\\Master\\11734"
+    association :parent, factory: :bing_category1
+  end
+
+  factory :bing_category3, class: BingCategory do
+    name "Kitchens"
+    name_path "[Application]\\Structure\\Content\\Categories\\Business\\Master\\11734\\11858"
+    association :parent, factory: :bing_category2
+  end
+
+  factory :bing, class: Bing do
+    email "smith@test.dev"
+    password "qcSAnkdMCw"
+    secret_answer "hohoho"
+    association :bing_category, factory: :bing_category3
+    association :business, factory: :business
+  end
+
 
 end

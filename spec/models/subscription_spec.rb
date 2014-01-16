@@ -1,10 +1,9 @@
 require 'spec_helper'
 
 describe Subscription do
-	it { should have_many :businesses }
 	it { should have_many :transaction_events }
-	
-	it { should belong_to :business }
+	it { should have_one :business }
+
 	it { should belong_to :label }
 	it { should belong_to :package }
 	it { should belong_to :transaction_event }
@@ -32,7 +31,7 @@ describe Subscription do
 	describe '#monthly_fee' do
 		it 'is required' do
 			subscription.monthly_fee = nil
-			subscription.should have(1).error_on(:monthly_fee)
+			subscription.should have(2).error_on(:monthly_fee)
 		end
 
     it 'has only numeric values' do
