@@ -38,9 +38,18 @@ class AccountsController < ApplicationController  #InheritedResources::Base
     @account = ClientData.find(params[:id]) 
     authorize! :update, @account
     @account.update_attributes( params[:account] )
-    render 
+
+    respond_to do |format| 
+      format.html { redirect_to account_path(@account) }
+      format.json { render }
+    end 
   end 
 
+  def edit 
+    @account = ClientData.find(params[:id]) 
+    authorize! :update, @account
+    render 
+  end 
   def show 
     @account = ClientData.find(params[:id]) 
     authorize! :read, @account
