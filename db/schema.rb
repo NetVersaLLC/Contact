@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140109201841) do
+ActiveRecord::Schema.define(:version => 20140115201757) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -494,6 +494,7 @@ ActiveRecord::Schema.define(:version => 20140109201841) do
     t.text     "signature"
     t.integer  "payload_id"
     t.integer  "parent_id"
+    t.integer  "label_id"
   end
 
   add_index "completed_jobs", ["business_id"], :name => "index_completed_jobs_on_business_id"
@@ -790,15 +791,19 @@ ActiveRecord::Schema.define(:version => 20140109201841) do
     t.text     "backtrace"
     t.datetime "waited_at"
     t.integer  "position"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.integer  "screenshot_id"
     t.text     "signature"
     t.integer  "payload_id"
     t.integer  "parent_id"
+    t.string   "grouping_hash"
+    t.boolean  "resolved",       :default => false
+    t.integer  "label_id"
   end
 
   add_index "failed_jobs", ["business_id"], :name => "index_failed_jobs_on_business_id"
+  add_index "failed_jobs", ["grouping_hash"], :name => "index_failed_jobs_on_grouping_hash"
   add_index "failed_jobs", ["payload_id"], :name => "index_failed_jobs_on_payload_id"
   add_index "failed_jobs", ["screenshot_id"], :name => "index_failed_jobs_on_screenshot_id"
   add_index "failed_jobs", ["status"], :name => "index_failed_jobs_on_status"
@@ -1093,6 +1098,7 @@ ActiveRecord::Schema.define(:version => 20140109201841) do
     t.text     "signature"
     t.integer  "payload_id"
     t.integer  "parent_id"
+    t.integer  "label_id"
   end
 
   add_index "jobs", ["business_id"], :name => "index_jobs_on_business_id"
@@ -1188,6 +1194,10 @@ ActiveRecord::Schema.define(:version => 20140109201841) do
     t.string   "crm_url"
     t.string   "crm_username"
     t.string   "crm_password"
+    t.string   "sales_phone"
+    t.string   "sales_email"
+    t.string   "website_url"
+    t.string   "website_name"
   end
 
   add_index "labels", ["domain"], :name => "index_labels_on_domain"

@@ -6,7 +6,7 @@
           .col-xs-12
             %fieldset
               %legend Select a business
-              =select_tag "business", options_from_collection_for_select(@businesses, "id","business_name", @business.id), class: "chosen"
+              =select_tag "business", @businesses.map{ |b| "<option value='#{b.id}' #{'selected' if b.id == @business.id}>#{b.business_name} ( #{b.id} )</option>"}.join.html_safe, class: "chosen"
         .space-6
         .row 
           .col-xs-12

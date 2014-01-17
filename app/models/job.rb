@@ -4,7 +4,7 @@ class Job < JobBase
 
   after_create :assign_position
 
-  attr_accessible :payload, :data_generator, :status, :runtime
+  attr_accessible :payload, :data_generator, :status, :runtime, :payload_id
   attr_accessible :business_id, :name, :status_message, :backtrace, :waited_at, :position, :data
 
   validates :status,
@@ -64,13 +64,14 @@ class Job < JobBase
   end
 
   def self.pending(business)
+
     #@job = Job.where('business_id = ? AND status IN (0,1) AND runtime < NOW()', business.id).order(:position).first
     #
     # Find the next job in the queue while skipping those payloads that have been paused.  
     # 2014-01-01 Job.payload_id was not being set, so this ridiculous join had to be used instead.  In a few days when all the jobs that are 
     #            missing the ID have been ran, the join can be shortened to use the payload_id instead 
     @job = Job.joins("inner join sites on sites.name = left( jobs.name, locate('/', jobs.name)-1) inner join payloads on payloads.site_id = sites.id and payloads.name = right( jobs.name, length(jobs.name) - locate('/', jobs.name) ) ")
-      .where('business_id = ? AND status IN (0,1) AND runtime < UTC_TIMESTAMP() and payloads.paused_at is null', business.id).order(:position).first
+      .where(['business_id = ? AND status IN (0,1) AND runtime < UTC_TIMESTAMP() and payloads.paused_at is null', business.id]).order(:position).first
 
     if @job != nil
       @job = Job.find(@job.id) # this is necessary to get an activerecord object instead of a read only object
@@ -78,11 +79,7 @@ class Job < JobBase
       if @job.wait == true
         if @job.waited_at < Time.now - 15.minutes
           # Reap a stalled/failed job
-          @job.status         = TO_CODE[:error]
-          @job.status_message = 'Job never returned results.'
-          @job.save
-
-          @job.is_now(FailedJob)
+          @job.failure('Job never returned results.')
         end
         nil
       else
@@ -125,9 +122,13 @@ class Job < JobBase
 
   def failure(msg='Job failed', backtrace=nil, screenshot=nil )
     job_retries= (Contact::CONFIG ? Contact::CONFIG[Rails.env]["job_retries"] : 2)
+
+    self.status_message = msg 
+    self.backtrace = backtrace 
+
     if self.name == "Bing/SignUp"
       if FailedJob.
-          where(:business_id => business.id, :name => self.name).
+          where(:business_id => business_id, :name => self.name).
           where("updated_at > ?", Time.now - 4.hours).
           count >= job_retries
 
@@ -144,17 +145,30 @@ class Job < JobBase
     end 
   end
 
-  def self.inject(business_id,payload,data_generator,ready = nil,runtime = Time.now, signature='')
-    Job.create do |j|
+  def self.inject(business,  payload,runtime = Time.now, signature='')
+    site_name = payload.site.name 
+
+    job = Job.create do |j|
       j.status         = TO_CODE[:new]
       j.status_message = 'Created'
-      j.business_id    = business_id
-      j.payload        = payload
+      j.business_id    = business.id
+      j.label_id       = business.label_id
+      j.payload_id     = payload.id
+      j.payload        = payload.client_script
+      j.data_generator = payload.data_generator
+      j.ready          = payload.ready
       j.signature      = signature
-      j.data_generator = data_generator
-      j.ready          = ready
       j.runtime        = runtime
+      j.name           = "#{site_name}/#{payload.name}"
     end
+
+    if payload.parent
+      parent_job= CompletedJob.where("business_id= ? and name= ? ",
+                                      business.id, "#{site_name}/#{payload.parent.name}").order('id desc').first
+      job.parent_id= parent_job.id if parent_job
+    end
+
+    job
   end
 
   def self.get(table, id)

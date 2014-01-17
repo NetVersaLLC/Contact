@@ -1,8 +1,21 @@
 -# We do not want ordinary users to be able to manage their subscription.
 %li
-  %a{href:'/client_manager'}
+  = link_to labels_path do
     %i.icon-double-angle-right
-    Client Manager
+    Labels
+%li.closed
+  %a.dropdown-toggle{href:'#'}
+    %i.icon-double-angle-right
+    %span.menu-text  Client Manager
+  %ul.submenu
+    %li
+      %a{href:'/client_manager'}
+        %i.icon-double-angle-right
+        Jobs and Payloads
+    %li
+      %a{href:'/failed_jobs'}
+        %i.icon-double-angle-right
+        Failed Jobs
 %li.closed
   %a.dropdown-toggle{ href: '#'}
     %i.icon-edit

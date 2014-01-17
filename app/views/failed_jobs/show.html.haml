@@ -1,0 +1,38 @@
+.row
+  .col-xs-12
+    %h4=@failed_job.name
+    %ul.nav.nav-tabs
+      %li
+        %a{id: "status-link", href: "#status", data: {toggle: "tab"}} Status Message
+      %li
+        %a{id: "backtrace-link", href: "#backtrace", data: {toggle: "tab"}} Backtrace
+      %li
+        %a{id: "screenshot-link", href: "#screenshot", data: {toggle: "tab"}} Screenshot
+      %li
+        %a{id: "payload-link", href: "#payload", data: {toggle: "tab"}} Payload
+      %li
+        %a{id: "data-link", href: "#data", data: {toggle: "tab"}} Data
+      %li
+        %a{id: "customers-link", href: "#customers", data: {toggle: "tab"}} Affected Customers
+
+    .tab-content
+      #status.tab-pane.active
+        =CodeRay.scan(@failed_job.status_message, :ruby).div.html_safe
+      #backtrace.tab-pane
+        =CodeRay.scan(@failed_job.backtrace, :ruby).div.html_safe
+      #screenshot.tab-pane
+        -if @failed_job.has_screenshot?
+          =image_tag @failed_job.screenshot.data.url
+        -else 
+          %p A screen shot was not submitted.
+      #payload.tab-pane
+        =CodeRay.scan(@failed_job.payload, :ruby).div.html_safe
+      #data.tab-pane
+        =CodeRay.scan(@failed_job.data_generator, :ruby).div.html_safe
+      #customers.tab-pane
+        %table.table
+          %tbody
+            - @failed_jobs_with_same_error.map{|f| f.business}.uniq.each do |business|
+              %tr
+                %td= business.business_name
+

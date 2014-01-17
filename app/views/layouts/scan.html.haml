@@ -6,7 +6,19 @@
       - if @report && @report.label
         .row
           .col-xs-12
-            = image_tag @report.label.logo.url, class:"scan-logo"
+            %a{href: @report.label.website_url}
+              = image_tag @report.label.logo.url, class:"scan-logo"
+            %h4
+              - if @report.label.sales_phone.present?
+                Call 
+                = @report.label.sales_phone 
+              - if @report.label.website_url.present?
+                | Visit 
+                %a{href: @report.label.website_url}=@report.label.website_name
+              - if @report.label.sales_email.present?
+                | Email 
+                %a{email: @report.label.sales_email}=@report.label.sales_email
+      %hr
       = yield 
 
     :javascript 
