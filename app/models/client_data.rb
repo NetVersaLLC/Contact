@@ -14,9 +14,6 @@ class ClientData < ActiveRecord::Base
     true
   end 
 
-  def self.descendants
-    ObjectSpace.each_object(Class).select{|klass| klass < self}
-  end
 
   def self.get_sub_object( name, business )
     begin

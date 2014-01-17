@@ -26,7 +26,7 @@ class UsersController < InheritedResources::Base
       params[:user].delete(:password_confirmation)
     end 
 
-    if current_user.admin? 
+    if current_user.is_a? Administrator
       saved = @user.update_attributes( params[:user], as: :admin) 
     else 
       saved = @user.update_attributes( params[:user] )

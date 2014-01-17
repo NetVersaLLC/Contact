@@ -9,9 +9,9 @@ class PagesController < ApplicationController
   def make_redirect
     current_label
     if user_signed_in?
-      if current_user.admin?
+      if current_user.is_a? Administrator
         redirect_to '/admin'
-      elsif current_user.reseller?
+      elsif current_user.is_a? Reseller
         redirect_to '/resellers'
       else
         redirect_to '/businesses'

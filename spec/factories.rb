@@ -46,7 +46,7 @@ FactoryGirl.define do
     password 'password' 
     password_confirmation 'password'
     authentication_token '82ht987h987h'
-    access_level User.owner
+    #access_level User.owner
     label 
   end 
 

@@ -1,6 +1,6 @@
--if current_user.admin?
+-if current_user.is_a? Administrator
   =render "index_admin"
-- elsif current_user.reseller? 
+- elsif current_user.is_a? Reseller
   =render "index_reseller"
 -else 
   .row 
@@ -32,7 +32,7 @@
             %td Client Version
             %td= @dashboard.business.client_version || "0.0.0"
 
-    - unless current_user.reseller?
+    - unless current_user.is_a? Reseller
       .col-xs-4
         %a.btn.btn-grey.btn-block{href: download_client_url }
           %i.icon-download-alt.bigger-230

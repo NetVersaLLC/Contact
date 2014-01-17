@@ -1,0 +1,3 @@
+class SalesPerson < User 
+
+end 

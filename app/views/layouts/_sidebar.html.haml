@@ -9,7 +9,7 @@
         %i.icon-text-width 
         %span.menu-text Locations 
 
-    - if can? :manage, User #current_user.reseller?
+    - if can? :create, User #current_user.reseller?
       %li 
         = link_to users_path do
           %i.icon-desktop
@@ -28,7 +28,7 @@
         =link_to web_designs_path do
           %i.icon-globe
           %span.menu-text Web Design
-    -if current_user.reseller?
+    -if can? :create, Business #current_user.reseller?
       %li
         %a{ href: '/customers'}
           %i.icon-group

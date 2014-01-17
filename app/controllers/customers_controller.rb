@@ -7,8 +7,7 @@ class CustomersController < InheritedResources::Base
   def index
     # this is handled by the ability class.  Rasing an exception here prevents admins from 
     # looking at the system.  
-    #raise "Not allowed" if current_user.label_id != current_label.id
-    raise "Not allowed" unless current_user.reseller?
+    raise "Not allowed" unless can? :create, Business  #current_user.reseller?
     @q = Business.includes(:subscription).order("business_name asc").search(params[:q])
     @customers = @q.result.accessible_by(current_ability).paginate(page: params[:page], per_page: 10)
   end
