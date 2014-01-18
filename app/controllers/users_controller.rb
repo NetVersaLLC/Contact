@@ -1,4 +1,4 @@
-class UsersController < InheritedResources::Base
+class UsersController < ApplicationController
   skip_before_filter :authenticate_user!, only: [:token]
   skip_load_and_authorize_resource only: :token
 
@@ -6,16 +6,39 @@ class UsersController < InheritedResources::Base
 
   respond_to :html, :json
 
-  actions :all
   add_breadcrumb 'Users', :users_url
   add_breadcrumb  'New User', '', only: [:new, :create]
   add_breadcrumb  'Edit User', '', only: [:edit, :update]
   add_breadcrumb  'User', '', only: [:show]
 
+  
   def index 
     @q = User.search(params[:q])
     @users = @q.result.includes(:businesses).accessible_by(current_ability).paginate(page: params[:page], per_page: 10)
   end   
+
+  def new 
+    @user = new_user_from_role params[:r]
+    authorize! :create, @user
+  end 
+
+  def create 
+    user = new_user_from_role params[:role]
+    authorize! :create, user
+
+    password = Random.new.rand(100000..999999) 
+    user.update_attributes( params[:user].merge({ password: password, password_confirmation: password}))
+    user.save!
+    user.invite!(current_user)
+
+    flash[:notice] = user.full_name + " should receive an inivitation email shortly containing a link to sign-in and enter a password. "
+    redirect_to new_user_url
+  end 
+
+  def edit 
+    @user = User.find(params[:id]) 
+    authorize! :update, @user
+  end 
 
   def update 
     @user = User.find(params[:id])
@@ -51,6 +74,12 @@ class UsersController < InheritedResources::Base
     else 
       render :json => { success: false, message: 'error with your email or password', status: 401 } 
     end 
+  end 
+
+private 
+  def new_user_from_role role_name
+    role = User::ROLES.select{ |r| r == role_name }.first || User::ROLES.first
+    role.gsub(/ /, "").constantize.new 
   end 
 
 end 

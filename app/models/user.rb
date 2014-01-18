@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   def full_name 
     "#{first_name} #{last_name}" 
   end 
-
+  ROLES =  ["Sales Person", "Manager", "Reseller", "Administrator"]
   TYPES = {
       :admin => 46118,
       :reseller => 535311,
@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
       :owner => 116390000
   }
 
-  devise :database_authenticatable, :registerable,
+  devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable,
          :validatable #, :token_authenticatable
 
