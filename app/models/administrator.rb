@@ -1,9 +1,5 @@
 class Administrator < User 
 
-  def admin?
-    true;
-  end
-
   def labels
     Label.all
   end

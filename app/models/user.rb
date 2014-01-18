@@ -22,9 +22,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  has_many :businesses #, dependent: :destroy
+  has_many   :businesses #, dependent: :destroy
   belongs_to :label
-
 
   def self.send_welcome(user)
     UserMailer.welcome_email(user).deliver

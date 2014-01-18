@@ -14,7 +14,7 @@
             %thead
               %tr
                 %th Action
-                - if current_user.reseller?
+                - if can? :manage, Business
                   %th Business
                 %th Status
                 %th Created at
@@ -24,7 +24,7 @@
                 %tr
                   %td
                     %a{href: "#{notification.url}"}= notification.title
-                  -if current_user.reseller? 
+                  -if can? :read, notification.business
                     %td= truncate(notification.business.business_name)
                   %td New
                   %td= l(notification.created_at, format: :long)

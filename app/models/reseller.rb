@@ -1,4 +1,8 @@
 class Reseller < User 
+
+  belongs_to :label
+  has_many   :managers
+
   def labels
     Label.where(:id => self.label_id)
   end
