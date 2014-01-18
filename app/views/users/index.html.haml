@@ -53,4 +53,4 @@
             .dataTables_paginate.paging_bootstrap
               = will_paginate @businesses, previous_label: "<", next_label: ">", inner_window: 1, outer_window: 1
 
-    =link_to "Add User", new_user_path, class: "btn btn-primary"
+    =link_to "Add User", new_user_path(a: 1), class: "btn btn-primary"
