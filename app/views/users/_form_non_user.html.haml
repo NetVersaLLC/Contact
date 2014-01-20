@@ -19,7 +19,15 @@
       %span.input-icon.input-icon-right
         =f.telephone_field :mobile_phone, class: "input-medium input-mask-phone"
         %i.icon-phone.icon-flip-horizontal
+  .form-group 
+    =f.label :password, class: "col-sm-3 control-label no-padding-right"
+    .col-sm-9
+      =f.password_field :password, class: "input-small"
   .space4
+  .form-group 
+    =f.label :password_confirmation, class: "col-sm-3 control-label no-padding-right"
+    .col-sm-9
+      =f.password_field :password_confirmation, class: "input-small"
   .form-group 
     -if @user.is_a? Reseller 
       =f.label :label, class: "col-sm-3 control-label no-padding-right"

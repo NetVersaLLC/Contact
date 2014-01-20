@@ -26,12 +26,10 @@ class UsersController < ApplicationController
     user = new_user_from_role params[:role]
     authorize! :create, user
 
-    password = Random.new.rand(100000..999999) 
     user.update_attributes( params[:user].merge({ password: password, password_confirmation: password}))
     user.save!
-    user.invite!(current_user)
 
-    flash[:notice] = user.full_name + " should receive an inivitation email shortly containing a link to sign-in and enter a password. "
+    flash[:notice] = user.full_name + " created." 
     redirect_to new_user_url
   end 
 

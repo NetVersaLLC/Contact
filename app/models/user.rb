@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
       :owner => 116390000
   }
 
-  devise :invitable, :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable,
          :validatable #, :token_authenticatable
 
