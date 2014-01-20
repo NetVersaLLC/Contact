@@ -6,10 +6,14 @@
         %i.icon-time
         Last Update  
       %th Sync
+      %th
   %tbody
     - @rows.each do |row|
       %tr
         %td= link_to row['type'], account_path(row["id"])
         %td= ClientData.last_update( row['business_id'], row['type'] ) || row['updated_at']
         %td= render partial: "sync_button", locals: { :row => row }
+        %td
+          = link_to edit_account_path(row["id"]), class: "btn btn-xs btn-info" do
+            %i.icon-edit.bigger-120
 
