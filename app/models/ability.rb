@@ -3,6 +3,7 @@ class Ability
 
   def initialize(user)
     user ||= User.new
+
     if user.is_a? Administrator
       can :manage, :all
     elsif user.is_a? Reseller
@@ -31,6 +32,8 @@ class Ability
           end
         end
       end
+    elsif user.is_a? SalesPerson
+      can [:create, :update, :read], Business, :sales_person_id => user.id
     else
       can [:update, :read], Business, :user_id => user.id
       Business.citation_list.each do |site|

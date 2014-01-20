@@ -36,11 +36,11 @@
     -if @user.is_a? Manager 
       =f.label :branch_manager, class: "col-sm-3 control-label no-padding-right"
       .col-sm-9
-        =f.select :reseller_id, Reseller.accessible_by(current_ability).collect{|r| [r.full_name, r.id]}
+        =f.select :reseller_id, Reseller.accessible_by(current_ability).collect{|r| ["#{r.email} - #{r.full_name}", r.id]}
     -if @user.is_a? SalesPerson
       =f.label :manager, class: "col-sm-3 control-label no-padding-right"
       .col-sm-9
-        =f.select :manager_id, Manager.accessible_by(current_ability).collect{|r| [r.full_name, r.id]}
+        =f.select :manager_id, Manager.accessible_by(current_ability).collect{|r| ["#{r.email} - #{r.full_name}", r.id]}
   -if can?(:create, User) && @user.new_record?
     .form-group 
       =f.label :role, "Role", class: "col-sm-3 control-label no-padding-right"

@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     user = new_user_from_role params[:role]
     authorize! :create, user
 
-    user.update_attributes( params[:user].merge({ password: password, password_confirmation: password}))
+    user.update_attributes( params[:user] )
     user.save!
 
     flash[:notice] = user.full_name + " created." 

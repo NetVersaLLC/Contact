@@ -28,7 +28,7 @@
         =link_to web_designs_path do
           %i.icon-globe
           %span.menu-text Web Design
-    -if can? :create, Business #current_user.reseller?
+    -if can? :manage, SiteCategory #current_user.reseller?
       %li
         %a{ href: '/customers'}
           %i.icon-group
