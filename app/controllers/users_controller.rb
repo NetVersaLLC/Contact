@@ -20,7 +20,8 @@ class UsersController < ApplicationController
   def new 
     @user = new_user_from_role params[:r]
     @user.label_id = current_label.id
-    authorize! :create, @user
+
+    authorize! :create, User
   end 
 
   def create 

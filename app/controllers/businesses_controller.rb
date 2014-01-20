@@ -16,7 +16,7 @@ class BusinessesController < InheritedResources::Base
   end 
 
   def show 
-    @business.find(params[:id])
+    @business = Business.find(params[:id])
     authorize! :read, @business
     add_breadcrumb @business.business_name, nil
   end 

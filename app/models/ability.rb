@@ -7,8 +7,10 @@ class Ability
     if user.is_a? Administrator
       can :manage, :all
     elsif user.is_a? Reseller
+      can :create, [Manager, SalesPerson]
       can :read,   Report, :label_id => user.label_id
       can :manage, Business, :user => { :label_id => user.label_id }
+      can :create, ClientData
       can :manage, Coupon, :label_id => user.label_id
       can :read,   CreditEvent, :label_id => user.label_id 
       can :manage, Label, :id => user.label_id
@@ -33,7 +35,9 @@ class Ability
         end
       end
     elsif user.is_a? Manager
-      can :read, User, :manager_id => user.id
+      can :create, SalesPerson
+      can :read, Manager, :id => user.id
+      can [:create, :update, :read], User, :manager_id => user.id
       can :read, Business, :sales_person => { :manager_id => user.id }
     elsif user.is_a? SalesPerson
       can [:create, :update, :read], Business, :sales_person_id => user.id
