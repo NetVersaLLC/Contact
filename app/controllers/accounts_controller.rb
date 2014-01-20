@@ -13,7 +13,7 @@ class AccountsController < ApplicationController  #InheritedResources::Base
   add_breadcrumb 'Edit Account', nil, only: [:edit, :update]
 
   def index 
-    @business_id = params[:business_id] || Business.accessible_by(current_ability).first.id
+    @business_id = params[:business_id] || Business.accessible_by(current_ability).first.try(:id)
 
     if @business_id.nil?
       @rows = []

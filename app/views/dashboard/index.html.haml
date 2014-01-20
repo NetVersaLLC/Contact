@@ -2,6 +2,8 @@
   =render "index_admin"
 - elsif current_user.is_a? Reseller
   =render "index_reseller"
+- elsif current_user.is_a? Manager
+  =render "index_manager"
 - elsif current_user.is_a? SalesPerson
   =render "index_sales_person"
 -else 

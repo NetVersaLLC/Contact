@@ -32,6 +32,9 @@ class Ability
           end
         end
       end
+    elsif user.is_a? Manager
+      can :read, User, :manager_id => user.id
+      can :read, Business, :sales_person => { :manager_id => user.id }
     elsif user.is_a? SalesPerson
       can [:create, :update, :read], Business, :sales_person_id => user.id
     else
