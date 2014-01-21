@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140115201757) do
+ActiveRecord::Schema.define(:version => 20140118150724) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -357,6 +357,8 @@ ActiveRecord::Schema.define(:version => 20140115201757) do
     t.string   "category_description"
     t.string   "referrer_code"
     t.string   "client_version",            :default => "0.0.0"
+    t.integer  "salesperson_id"
+    t.integer  "sales_person_id"
   end
 
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
@@ -2157,7 +2159,7 @@ ActiveRecord::Schema.define(:version => 20140115201757) do
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "",        :null => false
-    t.string   "encrypted_password",     :default => "",        :null => false
+    t.string   "encrypted_password",     :default => ""
     t.integer  "access_level",           :default => 116390000, :null => false
     t.integer  "parent_id"
     t.string   "reset_password_token"
@@ -2188,6 +2190,9 @@ ActiveRecord::Schema.define(:version => 20140115201757) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string   "last_user_agent"
+    t.string   "type"
+    t.integer  "manager_id"
+    t.integer  "reseller_id"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

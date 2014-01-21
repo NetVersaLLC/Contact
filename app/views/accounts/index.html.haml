@@ -1,10 +1,8 @@
 .row
   .col-xs-12 
-    - if current_user.reseller? #defined? @businesses
-      %select#business_id.chosen-select
-      %br
-      .space-6
-
+    %select#business_id.chosen-select
+    %br
+    .space-6
 
     - if @rows.blank? 
       .alert.alert-block.alert-success
@@ -42,7 +40,7 @@
           %li
             %a(href="#") One-Time Broadcast
 :javascript 
-  window.business_id = #{params[:business_id]}
+  window.business_id = #{@business_id}
 
   $( function() {  
     options_template = Handlebars.compile($("#options-template").html()); 

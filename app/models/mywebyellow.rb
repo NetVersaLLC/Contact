@@ -1,5 +1,5 @@
 class Mywebyellow < ClientData
-  attr_accessible :business_id, :email, :force_update, :secrets
+  attr_accessible :business_id, :email, :force_update, :secrets, :status
   virtual_attr_accessor :password
   
   def has_categories? 

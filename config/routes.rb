@@ -72,6 +72,7 @@ Contact::Application.routes.draw do
   get     '/client_manager/booboos(.:format)', as: :client_manager_booboos
 
   get     '/users/token'
+  post     '/admin', controller: "users", action: :create
 
   resources :results
   resources :tasks
@@ -145,6 +146,11 @@ Contact::Application.routes.draw do
   post    '/scanapi/:action', :controller => :scan_api
 
   match "/watch" => DelayedJobWeb, :anchor => false
+
+  devise_for :sales_people, :controllers => { :invitations => 'users/invitations' }
+  devise_for :resellers, :controllers => { :invitations => 'users/invitations' }
+  devise_for :administrators, :controllers => { :invitations => 'users/invitations' }
+
 
   root to: "dashboard#index"
   #root :to => redirect("/pages/make_redirect")

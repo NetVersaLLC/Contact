@@ -10,7 +10,7 @@
         .space-6
         .row 
           .col-xs-12
-            -if current_user.reseller?
+            -if can? :create, Job
               %fieldset 
                 %legend Add a job for #{@business.business_name}
                 =select_tag "job", options_for_select(@business.subscription.package.available_jobs), class: "chosen"
@@ -50,7 +50,7 @@
             %a{href: "#succeeded", data: { path: client_manager_jobs_path(format: :json, business_id: @business.id, name: 'completed_job'), toggle: "tab"}} Succeeded
           %li
             %a{href: "#errors", data: { path: client_manager_booboos_path(format: :json, business_id: @business.id ), toggle: "tab"}} Errors
-          -if current_user.admin?
+          -if can? :create, Payload
             %li
               %a{href: "#payloads", data: { path: payload_nodes_path(format: :json ), toggle: "tab"}} Payloads
         .tab-content
@@ -59,7 +59,7 @@
           #failed.tab-pane
           #succeeded.tab-pane
           #errors.tab-pane
-          -if current_user.admin?
+          -if can? :create, Payload
             #payloads.tab-pane
               -#%form.form-inline
                 %input#new_node_name{ name: "new-node-name", placeholder: "Node name"}

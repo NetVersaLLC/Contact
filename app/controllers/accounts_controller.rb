@@ -13,24 +13,20 @@ class AccountsController < ApplicationController  #InheritedResources::Base
   add_breadcrumb 'Edit Account', nil, only: [:edit, :update]
 
   def index 
-    if current_user.admin?
-      #@businesses = Business.order('business_name asc')
-      business_id = params[:business_id]
-    elsif current_user.reseller?
-      #@businesses = Business.where(label_id: current_label.id).order('business_name asc')
-      business_id = params[:business_id]
-    else 
-      business_id = current_user.businesses.first.id
-    end 
+    @business_id = params[:business_id] || Business.accessible_by(current_ability).first.try(:id)
 
-    if business_id.nil?
+    if @business_id.nil?
       @rows = []
     else 
-      business = Business.find( business_id )
+      business = Business.find( @business_id )
       authorize! :manage, business
       sites = business.package_payload_sites.join("','") 
 
-      @rows = ActiveRecord::Base.connection.select_all("select client_data.id, client_data.email, client_data.username, client_data.status, client_data.listings_url, client_data.listing_url, client_data.type, client_data.created_at, client_data.updated_at, client_data.category_id, client_data.business_id, client_data.category2_id, client_data.do_not_sync from client_data where client_data.business_id = #{business_id} and type in ('#{sites}') order by type asc ")
+      @rows = ActiveRecord::Base.connection.select_all("select client_data.id, client_data.email, client_data.username, 
+        client_data.status, client_data.listings_url, client_data.listing_url, client_data.type, client_data.created_at, 
+        client_data.updated_at, client_data.category_id, client_data.business_id, client_data.category2_id, 
+        client_data.do_not_sync 
+        from client_data where client_data.business_id = #{@business_id} and type in ('#{sites}') order by type asc ")
     end 
   end
 

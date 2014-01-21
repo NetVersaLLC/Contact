@@ -51,7 +51,8 @@
   $( function(){ 
     $('#package').change( function(){ 
       var id = $(this).val();
-      window.location.href = "/users/sign_up?package_id=" + id; 
+      var new_search = window.location.search.replace(/package_id=\d{1,2}/, 'package_id=' + id); 
+      window.location.href = "/users/sign_up" + new_search;
       }); 
     }); 
   

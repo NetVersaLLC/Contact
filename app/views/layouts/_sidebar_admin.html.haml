@@ -1,4 +1,4 @@
--if can? :manage, :all #current_user.admin?
+-if can? :manage, :all 
   %li.closed 
     %a.dropdown-toggle{href:'#'}
       %i.icon-bolt
@@ -8,8 +8,6 @@
         %a{href:'/report_feedbacks'}
           %i.icon-double-angle-right
           Reports Feedback
-       
-
     %li 
       %a.dropdown-toggle{ href: '#'}
         %i.icon-list-alt

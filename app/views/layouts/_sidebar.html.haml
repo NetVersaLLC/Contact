@@ -3,21 +3,23 @@
     %li 
       %a{ href: "/dashboard"}
         %i.icon-dashboard
-        %span.menu-text Dashboard 
-    %li 
-      = link_to businesses_search_path do 
-        %i.icon-text-width 
-        %span.menu-text Locations 
+          %span.menu-text Dashboard 
+    -if can? :manage, Business
+      %li 
+        = link_to businesses_search_path do 
+          %i.icon-text-width 
+          %span.menu-text Locations 
 
-    - if can? :manage, User #current_user.reseller?
+    - if can? :create, User 
       %li 
         = link_to users_path do
           %i.icon-desktop
           %span.menu-text Users 
-    %li
-      = link_to accounts_path do  
-        %i.icon-list 
-        %span.menu-text Accounts
+    -if can? :create, ClientData
+      %li
+        = link_to accounts_path do  
+          %i.icon-list 
+          %span.menu-text Accounts
     -if can? :manage, Coupon
       %li
         %a{ href: '/coupons'}
@@ -28,11 +30,12 @@
         =link_to web_designs_path do
           %i.icon-globe
           %span.menu-text Web Design
-    -if current_user.reseller?
+    -if can? :read, Business
       %li
         %a{ href: '/customers'}
           %i.icon-group
           %span.menu-text Customers
+    -if can? :read, Business
       = render "layouts/sidebar_reseller"
     = render "layouts/sidebar_admin"
   .sidebar-collapse#sidebar-collapse

@@ -76,7 +76,7 @@ describe FailedJob do
   it 'should report payloads grouped by site with a count for affected customers' do 
     business = create(:business)
 
-    bing = Site.create(name: 'bing')
+    bing  = Site.create(name: 'bing')
     yahoo = Site.create(name: 'yahoo')
     payload_bingA  = Payload.create(name: 'bing/signup', site: bing )
     payload_bingB  = Payload.create(name: 'bing/dontcare', site: bing )
@@ -98,7 +98,8 @@ describe FailedJob do
     job.business = business
     job.add_failed_job({'status_message' => "stupid thing broke", 'backtrace' => "backtrace: ./lib/contact"} )
 
-    rows = FailedJob.errors_report
+    current_ability = Ability.new( business.user ) 
+    rows = FailedJob.errors_report current_ability
     rows.length.should eq(2) 
     rows[0]['name'].should eq('bing') 
     rows[0]['customers_with_errors'].should eq(1) 
@@ -126,7 +127,8 @@ describe FailedJob do
     failed.reload.resolved.should eq(true)
 
     # resolved errors should not be part of the report
-    FailedJob.errors_report.length.should eq(0)
+    current_ability = Ability.new( business.user ) 
+    FailedJob.errors_report(current_ability).length.should eq(0)
 
     # a new job should be added to the queue
     Job.all.count.should eq(1) 
@@ -146,7 +148,8 @@ describe FailedJob do
     job    = Job.inject( business, payload )
     failed = job.failure("stupid thing broke", "this is a backtrace", nil )
 
-    rows = FailedJob.site_errors_report( site.name )
+    current_ability = Ability.new( business.user ) 
+    rows = FailedJob.site_errors_report( current_ability, site.name )
 
     rows.length.should eq(1) 
 

@@ -15,6 +15,7 @@ class Business < ActiveRecord::Base
   belongs_to :subscription
   belongs_to :label
   belongs_to :mode
+  belongs_to :sales_person
  
   has_one :transaction_event # transaction that occurred at sign up  #belongs
 

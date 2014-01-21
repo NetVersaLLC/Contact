@@ -18,7 +18,7 @@ Contact::Application.configure do
   config.action_mailer.perform_deliveries = false 
 
   # Setting defautt action url
-  config.action_mailer.default_url_options = {  :protocol => 'https',:host => 'towncenter.com' }
+  config.action_mailer.default_url_options = {  :protocol => 'http',:host => 'localhost:3000' }
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log

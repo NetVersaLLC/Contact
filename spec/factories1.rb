@@ -17,7 +17,7 @@ FactoryGirl.define do
     sequence(:email) { |n| "foo#{n}@example.com" }
     password "foobar"
     password_confirmation { |u| u.password }
-    access_level User.owner 
+    #access_level User.owner 
     association :label, factory: :label1
   end
 

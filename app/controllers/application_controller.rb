@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
   end 
 
   def check_admin_role
-    return if current_user.reseller?
+    return unless current_user.is_a? Administrator
     flash[:notice] = "You need to be an admin to access this part of the application"
     redirect_to root_path
   end
@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_reseller!
-    return if current_user.reseller?
+    return unless current_user.is_a? Administrator
     flash[:notice] = "You need to be an admin to access this part of the application"
     redirect_to root_path
   end
@@ -44,17 +44,6 @@ class ApplicationController < ActionController::Base
     #redirect_to new_user_session_url, :alert => exception.message
   end
 
-  # def after_sign_in_path_for resource
-  #   if resource.admin? || resource.reseller?
-  #     admin_root_url
-  #   else
-  #     root_url
-  #   end
-  # end
-
-  #def current_ability
-  #   @current_ability ||= Ability.new(current_admin_user)
-  #end 
   protected 
     def authenticate_user_from_token!
       user_token = params[:auth_token].presence
