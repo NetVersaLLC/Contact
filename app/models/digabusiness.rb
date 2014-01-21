@@ -1,5 +1,5 @@
 class Digabusiness < ClientData
-  attr_accessible :digabusiness_category_id, :email, :username
+  attr_accessible :digabusiness_category_id, :email, :username, :status
   virtual_attr_accessor :password
 
   belongs_to            :digabusiness_category
