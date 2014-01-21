@@ -1,4 +1,4 @@
-=form_for @user, as: :user,url: "/users" + (@user.new_record? ? "" : "/#{@user.id}"),  html: {class: "form-horizontal"} do |f|
+=form_for @user, as: :user,url: "/adminusers" + (@user.new_record? ? "" : "/#{@user.id}"),  html: {class: "form-horizontal"} do |f|
   -if can?(:create, User) && @user.new_record?
     .form-group 
       =f.label :role, "Role", class: "col-sm-3 control-label no-padding-right"

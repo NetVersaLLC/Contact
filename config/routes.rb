@@ -73,6 +73,9 @@ Contact::Application.routes.draw do
 
   get     '/users/token'
 
+  put       '/adminusers/:id', :controller => :users, :action => :update
+  post      '/adminusers',     :controller => :users, :action => :create
+
   resources :results
   resources :tasks
   resources :places
