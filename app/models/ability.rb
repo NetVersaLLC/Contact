@@ -40,7 +40,8 @@ class Ability
       can [:create, :update, :read], User, :manager_id => user.id
       can :read, Business, :sales_person => { :manager_id => user.id }
     elsif user.is_a? SalesPerson
-      can [:create, :update, :read], Business, :sales_person_id => user.id
+      can :manage, Business, :sales_person_id => user.id
+      can [:create, :read, :update], User, :businesses => { :sales_person_id => user.id } 
     else
       can [:update, :read], Business, :user_id => user.id
       Business.citation_list.each do |site|

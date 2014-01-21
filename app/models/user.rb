@@ -34,7 +34,8 @@ class User < ActiveRecord::Base
   end
   def full_name 
     "#{first_name} #{last_name}" 
-  end 
+  end
+
   ROLES =  ["Sales Person", "Manager", "Reseller", "Administrator"]
   TYPES = {
       :admin => 46118,

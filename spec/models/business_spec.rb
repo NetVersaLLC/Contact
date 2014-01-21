@@ -6,7 +6,7 @@ describe Business do
 		it { should belong_to(:label) }
 		it { should belong_to(:subscription) }
 		it { should belong_to(:user) }
-    if { should belong_to(:sales_person) }
+    it { should belong_to(:sales_person) }
 
 		it { should have_one(:transaction_event) }
 
