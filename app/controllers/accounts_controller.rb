@@ -19,7 +19,7 @@ class AccountsController < ApplicationController  #InheritedResources::Base
       @rows = []
     else 
       business = Business.find( @business_id )
-      authorize! :manage, business
+      authorize! :update, business
       sites = business.package_payload_sites.join("','") 
 
       @rows = ActiveRecord::Base.connection.select_all("select client_data.id, client_data.email, client_data.username, 
