@@ -3,7 +3,7 @@
     .form-group 
       =f.label :role, "Role", class: "col-sm-3 control-label no-padding-right"
       .col-sm-9
-        = select_tag "role", options_for_select(User::ROLES, selected: @user.class.name.titleize)
+        = select_tag "role", options_for_select(User::ROLES.select{ |r| can?(:create, r.gsub(/ /,"").constantize)}, selected: @user.class.name.titleize)
   .form-group 
     =f.label :first_name, "Name", class: "col-sm-3 control-label no-padding-right"
     .col-sm-9
