@@ -16,8 +16,9 @@ class FailedJobsController < ApplicationController
   end 
 
   def resolve 
-    number_of_errors_resolved = FailedJob.resolve_by_grouping_hash( params[:grouping_hash] )
-    flash[:notice] = "#{number_of_errors_resolved} jobs were submitted for the resolved errors."
+    reque = params[:inject].present? 
+    number_of_errors_resolved = FailedJob.resolve_by_grouping_hash( params[:grouping_hash], reque)
+    flash[:notice] = "#{number_of_errors_resolved} errors were updated."
     redirect_to failed_jobs_path
   end 
   private 

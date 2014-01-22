@@ -6,13 +6,14 @@ class FailedJob < JobBase
     screenshot.present? && screenshot.data.present?
   end 
 
-  def self.resolve_by_grouping_hash( group_hash ) 
+  def self.resolve_by_grouping_hash( group_hash, inject_new = true  ) 
     failed_jobs = FailedJob.where(grouping_hash: group_hash)
     failed_jobs.each do |failed_job| 
       payload ||= Payload.find( failed_job.payload_id ) # cache it.  
 
-      Job.inject( failed_job.business, payload )     # requeue 
-      failed_job.update_attribute( :resolved,  true )   # mark failure as fixed/resolved
+      Job.inject( failed_job.business, payload ) if inject_new
+
+      failed_job.delete
     end 
 
     failed_jobs.length
@@ -23,7 +24,7 @@ class FailedJob < JobBase
       from failed_jobs 
         inner join payloads on failed_jobs.payload_id = payloads.id 
         inner join sites on sites.id = payloads.site_id
-      where resolved = false #{auth_filter(current_ability)} 
+      where #{auth_filter(current_ability)} 
       group by sites.name 
       order by customers_with_errors desc) 
 
@@ -36,7 +37,7 @@ class FailedJob < JobBase
 
     FailedJob.connection.select_all("select max(failed_jobs.id) as id, max(name) as name, max(status_message) as status_message, 
       max(updated_at) as last_updated_at, count(distinct business_id) businesses_count, grouping_hash 
-      from failed_jobs where payload_id in (#{payloads_search}) #{filter} 
+      from failed_jobs where payload_id in (#{payloads_search}) and #{filter} 
       group by grouping_hash") 
   end 
 
@@ -44,10 +45,10 @@ class FailedJob < JobBase
     def self.auth_filter(current_ability) 
       if current_ability.can?(:create, Label) 
         ids = Label.accessible_by(current_ability).pluck(:id).join(',')
-        " and failed_jobs.label_id in (#{ids}) " 
+        " failed_jobs.label_id in (#{ids}) " 
       else 
         ids = Business.accessible_by(current_ability).pluck(:id).join(',')
-        " and failed_jobs.business_id in (#{ids}) " 
+        " failed_jobs.business_id in (#{ids}) " 
       end 
     end 
 end
