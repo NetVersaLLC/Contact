@@ -1,5 +1,5 @@
 class FailedJobsController < ApplicationController
-  before_filter :authenticate_reseller!
+  before_filter :authenticate_failed_jobs
 
   def index 
     if params[:site] 
@@ -20,5 +20,13 @@ class FailedJobsController < ApplicationController
     flash[:notice] = "#{number_of_errors_resolved} jobs were submitted for the resolved errors."
     redirect_to failed_jobs_path
   end 
+  private 
+    def authenticate_failed_jobs
+      return if can? :read, FailedJob
+
+      flash[:notice] = "You need to be an admin to access this part of the application"
+      redirect_to root_path
+    end 
+
 
 end 
