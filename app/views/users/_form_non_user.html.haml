@@ -1,9 +1,9 @@
-=form_for @user, as: :user, url: '/admin',  html: {class: "form-horizontal"} do |f|
+=form_for @user, as: :user,url: "/adminusers" + (@user.new_record? ? "" : "/#{@user.id}"),  html: {class: "form-horizontal"} do |f|
   -if can?(:create, User) && @user.new_record?
     .form-group 
       =f.label :role, "Role", class: "col-sm-3 control-label no-padding-right"
       .col-sm-9
-        = select_tag "role", options_for_select(User::ROLES, selected: @user.class.name.titleize)
+        = select_tag "role", options_for_select(User::ROLES.select{ |r| can?(:create, r.gsub(/ /,"").constantize)}, selected: @user.class.name.titleize)
   .form-group 
     =f.label :first_name, "Name", class: "col-sm-3 control-label no-padding-right"
     .col-sm-9

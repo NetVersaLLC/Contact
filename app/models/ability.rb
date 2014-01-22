@@ -23,6 +23,8 @@ class Ability
       can :manage, User, :label_id => user.label_id
       can :manage, [Subscription,TransactionEvent,Payment], :label_id => user.label_id
       can :read,   [CompletedJob, FailedJob], :label_id => user.label_id
+      cannot :manage, [Administrator, Reseller]
+      can :read, Reseller, :label_id => user.label_id
 
       Business.citation_list.each do |site|
         can :manage, site[0].constantize, :business => { :label_id => user.label_id }
@@ -40,7 +42,8 @@ class Ability
       can [:create, :update, :read], User, :manager_id => user.id
       can :read, Business, :sales_person => { :manager_id => user.id }
     elsif user.is_a? SalesPerson
-      can [:create, :update, :read], Business, :sales_person_id => user.id
+      can :manage, Business, :sales_person_id => user.id
+      can [:create, :read, :update], User, :businesses => { :sales_person_id => user.id } 
     else
       can [:update, :read], Business, :user_id => user.id
       Business.citation_list.each do |site|

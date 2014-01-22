@@ -17,8 +17,7 @@ describe FailedJobsController do
   end 
 
   it 'should allow reseller access' do 
-    user = User.create(email: 'user@test.dev', password: 'password', password_confirmation: 'password')
-    user.access_level = User.reseller
+    user = create(:user, type: "Reseller")
     user.save
 
     sign_in user 

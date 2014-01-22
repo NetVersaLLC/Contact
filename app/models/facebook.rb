@@ -1,5 +1,5 @@
 class Facebook < ClientData
-  attr_accessible :email, :cookies
+  attr_accessible :email, :cookies, :status
   virtual_attr_accessor :password
   belongs_to :facebook_category
   belongs_to :facebook_profile_category

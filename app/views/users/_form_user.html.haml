@@ -1,11 +1,11 @@
-=form_for @user, as: :user, url: '/users',  html: {class: "form-horizontal"} do |f|
+=form_for @user, as: :user, url: '/adminusers' + (@user.new_record? ? "" : "/#{@user.id}"),  html: {class: "form-horizontal"} do |f|
   .tabbable 
     %ul.nav.nav-tabs.padding-16
       %li.active
         %a(href="#edit-basic" data-toggle="tab") 
           %i.green.icon-edit.bigger-125
           Basic Info
-      %li
+      -#%li
         %a(href="#edit-settings" data-toggle="tab") 
           %i.purple.icon-cog.bigger-125
           Settings
@@ -16,7 +16,7 @@
     .tab-content.profile-edit-tab-content
       #edit-basic.tab-pane.active
         =render partial: "form_basic_info", locals: { f: f }
-      #edit-settings.tab-pane
+      -#edit-settings.tab-pane
         =render partial: "form_settings", locals: { f: f }
       #edit-password.tab-pane
         =render partial: "form_password", locals: { f: f }

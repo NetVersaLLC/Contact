@@ -2,8 +2,6 @@ class UsersController < ApplicationController
   skip_before_filter :authenticate_user!, only: [:token]
   skip_load_and_authorize_resource only: :token
 
-  load_and_authorize_resource 
-
   respond_to :html, :json
 
   add_breadcrumb 'Users', :users_url
@@ -37,6 +35,11 @@ class UsersController < ApplicationController
     redirect_to new_user_url
   end 
 
+  def show 
+    @user = User.find(params[:id]) 
+    authorize! :read, @user
+  end 
+
   def edit 
     @user = User.find(params[:id]) 
     authorize! :update, @user
@@ -51,11 +54,14 @@ class UsersController < ApplicationController
       params[:user].delete(:password_confirmation)
     end 
 
-    if current_user.is_a? Administrator
+    if current_user.is_a?(Administrator) || current_user.is_a?(Reseller)
       saved = @user.update_attributes( params[:user], as: :admin) 
     else 
       saved = @user.update_attributes( params[:user] )
     end 
+
+    sign_in(@user, bypass: true) if @user.id == current_user.id  # devise signs out the user when changing the password. 
+
     if saved 
       flash[:notice] = "User updated successfully." 
       redirect_to user_path @user

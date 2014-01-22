@@ -72,7 +72,9 @@ Contact::Application.routes.draw do
   get     '/client_manager/booboos(.:format)', as: :client_manager_booboos
 
   get     '/users/token'
-  post     '/admin', controller: "users", action: :create
+
+  put       '/adminusers/:id', :controller => :users, :action => :update
+  post      '/adminusers',     :controller => :users, :action => :create
 
   resources :results
   resources :tasks

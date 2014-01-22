@@ -1,5 +1,5 @@
 class Ibegin < ClientData
-attr_accessible :email, :ibegin_category_id
+attr_accessible :email, :ibegin_category_id, :status
   virtual_attr_accessor :password
   belongs_to            :ibegin_category
   validates :email,

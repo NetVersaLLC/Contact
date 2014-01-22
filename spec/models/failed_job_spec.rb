@@ -121,17 +121,18 @@ describe FailedJob do
     job    = Job.inject( business, payload )
     failed = job.failure("stupid thing broke", "this is a backtrace", nil )
 
-    jobs_resolved = FailedJob.resolve_by_grouping_hash(failed.grouping_hash)
+    FailedJob.resolve_by_grouping_hash(failed.grouping_hash)
+    FailedJob.all.count.should eq(0) 
 
-    jobs_resolved.should eq(1) 
-    failed.reload.resolved.should eq(true)
-
-    # resolved errors should not be part of the report
-    current_ability = Ability.new( business.user ) 
-    FailedJob.errors_report(current_ability).length.should eq(0)
-
-    # a new job should be added to the queue
     Job.all.count.should eq(1) 
+
+    job    = Job.inject( business, payload )
+    failed = job.failure("stupid thing broke", "this is a backtrace", nil )
+
+    FailedJob.resolve_by_grouping_hash(failed.grouping_hash, false )
+    FailedJob.all.count.should eq(0) 
+
+    Job.all.count.should eq(0) 
   end 
 
   it 'should create a site errors report' do 

@@ -11,7 +11,7 @@
             Affected 
             %br
             Customers
-          %th Resolve
+          %th Action
       %tbody 
         - @rows.each do |row|
           %tr 
@@ -22,6 +22,8 @@
             %td.center
               = form_tag(resolve_failed_jobs_path, method: :put) do 
                 = hidden_field_tag :grouping_hash, row["grouping_hash"]
-                = button_tag class: 'btn btn-primary btn-sm' do
-                  %i.icon-thumbs-up-alt.icon-large
+                = button_tag class: 'btn btn-primary btn-sm', name: "inject", value: true do
+                  Resolve
+                = button_tag class: 'btn btn-info btn-sm', name: "inject", value: "" do 
+                  Remove
 
