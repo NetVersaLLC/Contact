@@ -1,5 +1,5 @@
 class CategoriesController < ApplicationController
-  before_filter      :authenticate_admin!
+  before_filter      :authenticate_for_categories
 
   def index
     @business    = Business.find(params[:business_id])
@@ -105,6 +105,13 @@ class CategoriesController < ApplicationController
     respond_to do |format| 
       format.html {render "selectoptions", layout: false }
     end 
+  end 
+
+  private 
+  def authenticate_for_categories
+    return if can? :create, SiteCategory
+    flash[:notice] = "You need to be an admin to access this part of the application"
+    redirect_to root_path
   end 
 
 end

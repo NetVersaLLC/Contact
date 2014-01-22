@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_reseller!
-    return if current_user.is_a? Administrator
+    return if current_user.is_a? Reseller
     flash[:notice] = "You need to be an admin to access this part of the application"
     redirect_to root_path
   end

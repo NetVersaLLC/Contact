@@ -23,6 +23,7 @@ class Ability
       can :manage, User, :label_id => user.label_id
       can :manage, [Subscription,TransactionEvent,Payment], :label_id => user.label_id
       can :read,   [CompletedJob, FailedJob], :label_id => user.label_id
+      cannot :manage, [Administrator, Reseller]
 
       Business.citation_list.each do |site|
         can :manage, site[0].constantize, :business => { :label_id => user.label_id }
