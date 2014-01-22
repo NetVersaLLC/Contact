@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   attr_accessible :mobile_phone, :mobile_appears, :prefix, :callcenter, :date_of_birth,               as: [:default, :admin]
   attr_accessible :email, :password, :password_confirmation, :remember_me, :authentication_token,     as: [:default, :admin]
   attr_accessible :tos, :referrer_code, :gender, :reseller_id, :manager_id,                           as: [:default, :admin]
-  attr_accessible :access_level,                                                                      :as => :admin
+  attr_accessible :access_level, :label_id,                                                           :as => :admin
 
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>", :tiny => "36x36" }, :default_url => "/assets/user_blue.png" # "/images/:style/missing_user.png"
 

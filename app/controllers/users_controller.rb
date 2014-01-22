@@ -54,12 +54,14 @@ class UsersController < ApplicationController
       params[:user].delete(:password_confirmation)
     end 
 
-    if current_user.is_a? Administrator
+    if current_user.is_a?(Administrator) || current_user.is_a?(Reseller)
       saved = @user.update_attributes( params[:user], as: :admin) 
     else 
       saved = @user.update_attributes( params[:user] )
-      sign_in(@user, bypass: true) if @user.id == current_user.id  # devise signs out the user when changing the password. 
     end 
+
+    sign_in(@user, bypass: true) if @user.id == current_user.id  # devise signs out the user when changing the password. 
+
     if saved 
       flash[:notice] = "User updated successfully." 
       redirect_to user_path @user
