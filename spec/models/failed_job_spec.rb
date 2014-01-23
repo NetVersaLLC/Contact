@@ -131,8 +131,7 @@ describe FailedJob do
 
     FailedJob.resolve_by_grouping_hash(failed.grouping_hash, false )
     FailedJob.all.count.should eq(0) 
-
-    Job.all.count.should eq(0) 
+    Job.all.count.should eq(1) # nothing new should have been added 
   end 
 
   it 'should create a site errors report' do 
