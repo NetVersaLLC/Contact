@@ -54,6 +54,21 @@ FactoryGirl.define do
     password 'password' 
     password_confirmation 'password'
   end 
+  factory :manager do 
+    email "manager@contact.dev"
+    password 'password' 
+    password_confirmation 'password'
+  end 
+  factory :reseller do 
+    email "reseller@contact.dev"
+    password 'password' 
+    password_confirmation 'password'
+  end 
+  factory :administrator do 
+    email "admin@contact.dev"
+    password 'password' 
+    password_confirmation 'password'
+  end 
 
   factory :location do 
     zip '92614'
