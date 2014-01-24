@@ -1,5 +1,5 @@
 class Localcom < ClientData
-  attr_accessible :username
+  attr_accessible :username, :status
   virtual_attr_accessor :password
   
   def has_categories? 
