@@ -44,6 +44,7 @@ class Ability
       can :manage, User, :businesses => {:sales_person => { :manager_id => user.id}}
       can :manage, Subscription, :business => {:sales_person => { :manager_id => user.id}}
       can :create, ClientData
+      #can :read,   Report, :label_id => user.label_id
     elsif user.is_a? SalesPerson
       can :manage, Business, :sales_person_id => user.id
       can [:create, :read, :update], User, :businesses => { :sales_person_id => user.id } 

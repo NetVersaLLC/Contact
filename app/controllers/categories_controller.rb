@@ -109,7 +109,7 @@ class CategoriesController < ApplicationController
 
   private 
   def authenticate_for_categories
-    return if can? :create, SiteCategory
+    return if can? :create, ClientData
     flash[:notice] = "You need to be an admin to access this part of the application"
     redirect_to root_path
   end 
