@@ -21,14 +21,14 @@ describe ClientData do
   end
   
   it "class method create_or_update create bing with attibute arguments" do
-    args = {"email"=>"abc@abc.com", "password"=>"1234", "secret_answer"=>"abcd"}
+    args = {"email"=>"abc@abc.com", "password"=>"1234", "secret_answer"=>"abcd", "something" => "hello"}
 
     business = FactoryGirl.create(:business)
     business.bings.should eq []
     Bing.create_or_update(business, args)
     same_business = Business.find(business.id)
     same_business.bings[0].email.should eq "abc@abc.com"
-    the_secrets = {"password"=>"1234", "secret_answer"=>"abcd"}
+    the_secrets = {"password"=>"1234", "secret_answer"=>"abcd", "something" => "hello"}
     same_business.bings[0].secrets.should eq the_secrets
   end
 

@@ -46,7 +46,11 @@ class Job < JobBase
   def get_job_data(business, params)
     unless self['data_generator'].nil?
       logger.info "Executing: #{self['data_generator']}"
-      eval self['data_generator']
+      begin
+        eval self['data_generator']
+      rescue Exception => e
+        raise "#{self.name}: #{e.message}: #{self.business_id}"
+      end
     else
       {}
     end
