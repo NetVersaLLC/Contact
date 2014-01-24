@@ -10,7 +10,7 @@
           %i.icon-text-width 
           %span.menu-text Locations 
 
-    - if can? :update, User 
+    - if can? :create, User 
       %li 
         = link_to users_path do
           %i.icon-desktop
@@ -25,6 +25,11 @@
         %a{ href: '/coupons'}
           %i.icon-barcode
           %span.menu-text Coupons
+    -if can? :manage, CostCenter
+      %li
+        %a{ href: '/cost_centers'}
+          %i.icon-group
+          %span.menu-text Call Centers
     -if can? :manage, WebDesign
       %li
         =link_to web_designs_path do
