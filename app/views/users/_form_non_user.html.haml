@@ -34,18 +34,19 @@
     .col-sm-9
       =f.password_field :password_confirmation, class: "input-small"
   .form-group 
-    -if @user.is_a? Reseller 
+    -if @user.is_a?(Reseller) 
       =f.label :label, class: "col-sm-3 control-label no-padding-right"
       .col-sm-9
         =f.select :label_id, Label.accessible_by(current_ability).collect{|r| [r.name, r.id]}
-    -if @user.is_a? Manager 
-      =f.label :branch_manager, class: "col-sm-3 control-label no-padding-right"
-      .col-sm-9
-        =f.select :reseller_id, Reseller.accessible_by(current_ability).collect{|r| ["#{r.email} - #{r.full_name}", r.id]}
     -if @user.is_a? SalesPerson
       =f.label :manager, class: "col-sm-3 control-label no-padding-right"
       .col-sm-9
         =f.select :manager_id, Manager.accessible_by(current_ability).collect{|r| ["#{r.email} - #{r.full_name}", r.id]}
+    -if @user.is_a?(CustomerServiceAgent)|| @user.is_a?(Manager)
+      =f.label :cost_center, class: "col-sm-3 control-label no-padding-right"
+      .col-sm-9
+        =f.select :cost_center_id, CostCenter.accessible_by(current_ability).collect{|r| ["#{r.label.name} - #{r.name}", r.id]}
+
   .space4
   .clearfix.form-actions
     .col-md-offset-3.col-md-9
