@@ -89,6 +89,8 @@ Contact::Application.routes.draw do
   resources :dashboard, :only => [:index]
   resources :questions
   resources :web_designs
+  resources :cost_centers
+
   post    'web_designs/:id/images', :controller => 'web_designs', action: 'add_image'
 
   post    '/booboos(.:format)', :controller => :jobs, :action => :booboo

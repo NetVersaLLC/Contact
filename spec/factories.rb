@@ -69,6 +69,11 @@ FactoryGirl.define do
     password 'password' 
     password_confirmation 'password'
   end 
+  factory :customer_service_agent do 
+    email "csa@contact.dev"
+    password 'password' 
+    password_confirmation 'password'
+  end 
 
   factory :location do 
     zip '92614'

@@ -1,3 +1,21 @@
 %h3 Sales Dashboard for #{current_user.full_name}
 
 %a{href: "/users/sign_up?package_id=5&callcenter=1"} Sign up screen
+
+.row 
+  .col-xs-6
+    %h3 Recent Sales
+    %table.table 
+      %thead 
+        %tr
+          %th Business 
+          %th Sold on
+          %th Inital Fee / Monthly Fee
+      %tbody 
+        - current_user.businesses.order("id desc").limit(50).each do |b| 
+          %tr
+            %td=b.business_name 
+            %td=b.created_at.to_date
+            %td #{b.subscription.intial_fee} / #{b.subscription.monthly_fee}
+  .col-xs-6 
+    =render partial: "leaderboard", locals: { cost_center: current_user.manager.cost_center }

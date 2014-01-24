@@ -36,7 +36,8 @@
     %a{href:'#'}
       %i.icon-gift
       Packages
-  %li
-    %a{href:'/reports'}
-      %i.icon-signal
-      Scan Reports
+  -if can? :read, Report
+    %li
+      %a{href:'/reports'}
+        %i.icon-signal
+        Scan Reports

@@ -31,9 +31,6 @@ group :test do
   #gem 'cucumber-rails', :require => false
   gem 'page-object'
   gem 'database_cleaner'
-  gem 'capybara'
-  gem 'capybara-screenshot'
-  gem 'rspec-rails'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'shoulda'
@@ -41,6 +38,9 @@ group :test do
 end
 
 group :test, :development do
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'capybara-screenshot'
   gem 'minitest-rails'
   gem 'awesome_print'
   gem 'factory_girl_rails'

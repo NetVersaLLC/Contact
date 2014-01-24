@@ -33,6 +33,8 @@ class Business < ActiveRecord::Base
   accepts_nested_attributes_for :images, allow_destroy: true
   accepts_nested_attributes_for :client_data, allow_destroy: true
 
+  scope :not_categorized, -> { where(categorized: false) } 
+
   # Triggers -> moved to BusinessObserver
 
   # search on activeadmin -> meta_search

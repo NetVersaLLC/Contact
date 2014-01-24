@@ -10,7 +10,7 @@
           %i.icon-text-width 
           %span.menu-text Locations 
 
-    - if can? :create, User 
+    - if can? :update, User 
       %li 
         = link_to users_path do
           %i.icon-desktop

@@ -1,2 +1,4 @@
-%h1 Manager
-
+.row 
+  .col-xs-6
+    =render partial: "leaderboard", locals: { cost_center: current_user.cost_center }
+  .col-xs-6
