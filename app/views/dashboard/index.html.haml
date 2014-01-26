@@ -6,6 +6,8 @@
   =render "index_manager"
 - elsif current_user.is_a? SalesPerson
   =render "index_sales_person"
+- elsif current_user.is_a? CustomerServiceAgent
+  =render "index_customer_service_agent"
 -else 
   .row 
     .col-xs-4

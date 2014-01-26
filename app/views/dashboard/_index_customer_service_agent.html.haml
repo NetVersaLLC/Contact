@@ -1,0 +1,21 @@
+%h3 Customer Service Agent for #{current_user.full_name}
+
+.row
+  .col-xs-6
+    %h3 Recently sold 
+    %table.table
+      %tbody
+        - Business.accessible_by(current_ability).order("id desc").limit(50).each do |b| 
+          %tr
+            %td= b.business_name
+            %td= b.created_at.to_date
+  .col-xs-6
+    %h3 Needs to be categoriezed
+    %table.table
+      %tbody
+        - Business.not_categorized.accessible_by(current_ability).order("id asc").each do |b| 
+          %tr
+            %td= b.business_name
+            %td= b.created_at
+
+

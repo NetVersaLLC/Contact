@@ -12,6 +12,7 @@ class Ability
       can :manage, Business, :user => { :label_id => user.label_id }
       can :create, ClientData
       can :manage, Coupon, :label_id => user.label_id
+      can :manage, CostCenter, :label_id => user.label_id
       can :read,   CreditEvent, :label_id => user.label_id 
       can :manage, Label, :id => user.label_id
       can :manage, Label, :parent_id => user.label_id
@@ -40,10 +41,19 @@ class Ability
       can :create, SalesPerson
       can :read, Manager, :id => user.id
       can [:create, :update, :read], User, :manager_id => user.id
-      can :read, Business, :sales_person => { :manager_id => user.id }
+      can :manage, Business, :sales_person => { :manager_id => user.id }
+      can :manage, User, :businesses => {:sales_person => { :manager_id => user.id}}
+      can :manage, Subscription, :business => {:sales_person => { :manager_id => user.id}}
+      can :create, ClientData
+      #can :read,   Report, :label_id => user.label_id
     elsif user.is_a? SalesPerson
       can :manage, Business, :sales_person_id => user.id
       can [:create, :read, :update], User, :businesses => { :sales_person_id => user.id } 
+    elsif user.is_a? CustomerServiceAgent
+      can :manage, Business, :label_id => user.label_id
+      can :create, ClientData
+      can :manage, Subscription, :label_id => user.label_id
+      can [:update, :read], User, :label_id => user.label_id
     else
       can [:update, :read], Business, :user_id => user.id
       Business.citation_list.each do |site|

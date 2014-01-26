@@ -12,6 +12,8 @@ class Label < ActiveRecord::Base
   has_many :credit_events 
   has_many :transaction_events
   has_many :subscriptions
+  has_many :businesses
+  has_many :cost_centers
 
   THEMES = %w{ ace amelia cerulean cosmo cyborg journal readable simplex slate spacelab spruce superhero united }
   

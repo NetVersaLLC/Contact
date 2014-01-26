@@ -18,7 +18,8 @@
             %td= link_to row["name"], failed_job_path(id: row['id'] )
             %td= row["status_message"]
             %td= row["last_updated_at"]
-            %td= row["businesses_count"]
+            %td
+              = link_to row["businesses_count"], failed_job_path(id: row['id'] )+'#customers', :class => 'btn btn-info', :target => '_blank'
             %td.center
               = form_tag(resolve_failed_jobs_path, method: :put) do 
                 = hidden_field_tag :grouping_hash, row["grouping_hash"]

@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   attr_accessible :avatar, :username, :password_confirmation, :first_name, :middle_name, :last_name,  as: [:default, :admin]
   attr_accessible :mobile_phone, :mobile_appears, :prefix, :callcenter, :date_of_birth,               as: [:default, :admin]
   attr_accessible :email, :password, :password_confirmation, :remember_me, :authentication_token,     as: [:default, :admin]
-  attr_accessible :tos, :referrer_code, :gender, :reseller_id, :manager_id,                           as: [:default, :admin]
+  attr_accessible :tos, :referrer_code, :gender, :reseller_id, :manager_id, :cost_center_id,          as: [:default, :admin]
   attr_accessible :access_level, :label_id,                                                           :as => :admin
 
   has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>", :tiny => "36x36" }, :default_url => "/assets/user_blue.png" # "/images/:style/missing_user.png"
@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}" 
   end
 
-  ROLES =  ["Sales Person", "Manager", "Reseller", "Administrator"]
+  ROLES =  ["Customer Service Agent","Sales Person", "Manager", "Reseller", "Administrator"]
   TYPES = {
       :admin => 46118,
       :reseller => 535311,

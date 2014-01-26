@@ -34,5 +34,14 @@
           %tbody
             - @failed_jobs_with_same_error.map{|f| f.business}.uniq.each do |business|
               %tr
-                %td= business.business_name
+                %td
+                  = link_to business.business_name, "/businesses/#{business.id}", :class => 'btn btn-info', :target => '_blank'
+                  = link_to 'CM', "/client_manager?business_id=#{business.id}", :target => '_blank'
+                  = link_to 'Categories', "/categories?business_id=#{business.id}", :target => '_blank'
 
+:javascript
+  $(document).ready(function(){
+    var hash = window.location.hash;
+    $('.tab-pane').removeClass('active');
+    $(hash).addClass('active');
+  });
