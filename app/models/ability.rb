@@ -55,7 +55,7 @@ class Ability
       can :manage, Business, :label_id => user.label_id
       can :create, ClientData
       can :manage, Subscription, :label_id => user.label_id
-      can [:update, :read], User, :label_id => user.label_id
+      can :manage, User, :label_id => user.label_id
     else
       can [:update, :read], Business, :user_id => user.id
       Business.citation_list.each do |site|
