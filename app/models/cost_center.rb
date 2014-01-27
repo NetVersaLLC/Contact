@@ -14,7 +14,7 @@ class CostCenter < ActiveRecord::Base
       "select users.first_name, users.last_name, sum(businesses.id) as sold_count 
       from businesses 
       inner join users on users.id = businesses.sales_person_id
-      where businesses.created_at > '#{Time.now.beginning_of_week.to_date}' and sales_person_id in (#{sales_people_ids}) 
+      where businesses.created_at > '#{Time.now.beginning_of_month.to_date}' and sales_person_id in (#{sales_people_ids}) 
       group by sales_person_id")
   end 
 end 
