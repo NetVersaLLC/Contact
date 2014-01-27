@@ -16,6 +16,6 @@
           %tr
             %td=b.business_name 
             %td=b.created_at.to_date
-            %td #{b.subscription.intial_fee} / #{b.subscription.monthly_fee}
+            %td #{number_to_currency(b.subscription.intial_fee/100)} / #{number_to_currency(b.subscription.monthly_fee/100)}
   .col-xs-6 
     =render partial: "leaderboard", locals: { cost_center: current_user.manager.cost_center }
