@@ -18,11 +18,11 @@ describe "dashboard/index.html.haml" do
 
     # side bar
     expect(page).to have_content("Locations")
-    expect(page).to have_content("Users")
     expect(page).to have_content("Accounts")
     expect(page).to have_content("Customers")
     expect(page).to have_content("Billing")
     
+    expect(page).not_to have_content("Users")
     expect(page).not_to have_content("Client Manager")
   end 
 end 

@@ -38,7 +38,7 @@ class Ability
         end
       end
     elsif user.is_a? Manager
-      can :create, SalesPerson
+      can :create, [SalesPerson, CustomerServiceAgent]
       can :read, Manager, :id => user.id
       can [:create, :update, :read], User, :manager_id => user.id
       can :manage, Business, :sales_person => { :manager_id => user.id }
@@ -66,7 +66,7 @@ class Ability
           end
         end
       end
-      can :manage,          ClientData, :business => { :user_id => user.id }
+      #can :manage,          ClientData, :business => { :user_id => user.id }
       can :read,            Subscription, :business => { :user_id => user.id }
       can :manage,          [TransactionEvent,Payment], :business => { :user_id => user.id }
       can :create,          Booboo, :user_id => user.id
