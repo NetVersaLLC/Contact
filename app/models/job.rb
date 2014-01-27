@@ -49,6 +49,7 @@ class Job < JobBase
       begin
         eval self['data_generator']
       rescue Exception => e
+        self.is_now(FailedJob)
         raise "#{self.name}: #{e.message}: #{self.business_id}"
       end
     else
