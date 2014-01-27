@@ -68,7 +68,7 @@ class Ability
           end
         end
       end
-      #can :manage,          ClientData, :business => { :user_id => user.id }
+      can :manage,          ClientData, :business => { :user_id => user.id }  # need accounts link on the side bar
       can :read,            Subscription, :business => { :user_id => user.id }
       can :manage,          [TransactionEvent,Payment], :business => { :user_id => user.id }
       can :create,          Booboo, :user_id => user.id
