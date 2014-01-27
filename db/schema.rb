@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140123215842) do
+ActiveRecord::Schema.define(:version => 20140127184057) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -387,6 +387,11 @@ ActiveRecord::Schema.define(:version => 20140123215842) do
 
   add_index "byzlysts", ["parent_id"], :name => "index_byzlysts_on_parent_id"
 
+  create_table "call_centers", :force => true do |t|
+    t.string  "name"
+    t.integer "label_id"
+  end
+
   create_table "citisquare_categories", :force => true do |t|
     t.integer  "parent_id"
     t.string   "name"
@@ -535,11 +540,6 @@ ActiveRecord::Schema.define(:version => 20140123215842) do
 
   add_index "cornerstoneworld_categories", ["name"], :name => "index_cornerstoneworld_categories_on_name"
   add_index "cornerstoneworld_categories", ["parent_id"], :name => "index_cornerstoneworld_categories_on_parent_id"
-
-  create_table "cost_centers", :force => true do |t|
-    t.string  "name"
-    t.integer "label_id"
-  end
 
   create_table "coupons", :force => true do |t|
     t.string   "name"
@@ -2204,7 +2204,7 @@ ActiveRecord::Schema.define(:version => 20140123215842) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
-    t.integer  "cost_center_id"
+    t.integer  "call_center_id"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

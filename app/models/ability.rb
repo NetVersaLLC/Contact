@@ -12,7 +12,7 @@ class Ability
       can :manage, Business, :user => { :label_id => user.label_id }
       can :create, ClientData
       can :manage, Coupon, :label_id => user.label_id
-      can :manage, CostCenter, :label_id => user.label_id
+      can :manage, CallCenter, :label_id => user.label_id
       can :read,   CreditEvent, :label_id => user.label_id 
       can :manage, Label, :id => user.label_id
       can :manage, Label, :parent_id => user.label_id

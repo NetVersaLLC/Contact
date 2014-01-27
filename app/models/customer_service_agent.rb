@@ -1,5 +1,5 @@
 class CustomerServiceAgent < User 
-  belongs_to :cost_center
+  belongs_to :call_center
 end 
 
 

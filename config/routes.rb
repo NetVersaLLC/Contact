@@ -89,7 +89,7 @@ Contact::Application.routes.draw do
   resources :dashboard, :only => [:index]
   resources :questions
   resources :web_designs
-  resources :cost_centers
+  resources :call_centers
 
   post    'web_designs/:id/images', :controller => 'web_designs', action: 'add_image'
 

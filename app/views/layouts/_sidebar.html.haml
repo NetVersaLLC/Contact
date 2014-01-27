@@ -25,9 +25,9 @@
         %a{ href: '/coupons'}
           %i.icon-barcode
           %span.menu-text Coupons
-    -if can? :manage, CostCenter
+    -if can? :manage, CallCenter
       %li
-        %a{ href: '/cost_centers'}
+        %a{ href: '/call_centers'}
           %i.icon-group
           %span.menu-text Call Centers
     -if can? :manage, WebDesign
