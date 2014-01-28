@@ -10,6 +10,21 @@ describe "dashboard/index.html.haml" do
     click_button "Login"
   end 
 
+  it "displays valid content for a business owner" do 
+    business = create(:business)
+
+    sign_in_user business.user
+
+    visit root_path
+
+    expect(page).to have_content("Locations")
+    expect(page).to have_content("Accounts")
+
+    expect(page).not_to have_content("Customers")
+    expect(page).not_to have_content("Billing")
+    expect(page).not_to have_content("Users")
+    expect(page).not_to have_content("Client Manager")
+  end 
   it "displays valid content for a customer service agent" do 
     agent = create(:customer_service_agent) 
     sign_in_user agent
@@ -21,8 +36,8 @@ describe "dashboard/index.html.haml" do
     expect(page).to have_content("Accounts")
     expect(page).to have_content("Customers")
     expect(page).to have_content("Billing")
-    
-    expect(page).not_to have_content("Users")
+    expect(page).to have_content("Users")
+
     expect(page).not_to have_content("Client Manager")
   end 
 end 

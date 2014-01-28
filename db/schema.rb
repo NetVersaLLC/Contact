@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140127184057) do
+ActiveRecord::Schema.define(:version => 20140128154028) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -359,8 +359,10 @@ ActiveRecord::Schema.define(:version => 20140127184057) do
     t.string   "client_version",            :default => "0.0.0"
     t.integer  "salesperson_id"
     t.integer  "sales_person_id"
+    t.integer  "call_center_id"
   end
 
+  add_index "businesses", ["call_center_id"], :name => "index_businesses_on_call_center_id"
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
   add_index "businesses", ["category2"], :name => "index_businesses_on_category2"
   add_index "businesses", ["category3"], :name => "index_businesses_on_category3"
