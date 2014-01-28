@@ -40,6 +40,11 @@
         %a{ href: '/customers'}
           %i.icon-group
           %span.menu-text Customers
+    -if can? :manage, Notification
+      %li
+        = link_to notifications_path do 
+          %i.icon-calendar
+          %span.menu-text Notifications
     -if can? :read, Business
       = render "layouts/sidebar_reseller"
     = render "layouts/sidebar_admin"

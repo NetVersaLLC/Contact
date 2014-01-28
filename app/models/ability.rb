@@ -16,6 +16,7 @@ class Ability
       can :read,   CreditEvent, :label_id => user.label_id 
       can :manage, Label, :id => user.label_id
       can :manage, Label, :parent_id => user.label_id
+      can :manage, Notification, :business => { :label_id => user.label_id } 
       can :manage, Package, :label_id => user.label_id
       can :manage, SiteCategory
       can :read,   Question
@@ -54,6 +55,7 @@ class Ability
     elsif user.is_a? CustomerServiceAgent
       can :manage, Business,   :call_center_id => user.call_center_id
       can :manage, ClientData, :business => {:call_center_id => user.call_center_id}
+      can :manage, Notification, :business => { :cost_center_id => user.cost_center_id } 
       can :manage, Subscription, :label_id => user.label_id
       can :manage, User, :label_id => user.label_id
     else
