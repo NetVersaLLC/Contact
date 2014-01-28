@@ -24,7 +24,7 @@ class Ability
       can :manage, Payment, :label_id => user.label_id
       can :manage, User, :label_id => user.label_id
       can :manage, [Subscription,TransactionEvent,Payment], :label_id => user.label_id
-      can :read,   [CompletedJob, FailedJob], :label_id => user.label_id
+      can :manage,  [Job, CompletedJob, FailedJob], :label_id => user.label_id
       cannot :manage, [Administrator, Reseller]
       can :read, Reseller, :label_id => user.label_id
 
@@ -55,7 +55,7 @@ class Ability
     elsif user.is_a? CustomerServiceAgent
       can :manage, Business,   :call_center_id => user.call_center_id
       can :manage, ClientData, :business => {:call_center_id => user.call_center_id}
-      can :manage, Notification, :business => { :cost_center_id => user.cost_center_id } 
+      can :manage, Notification, :business => { :call_center_id => user.call_center_id } 
       can :manage, Subscription, :label_id => user.label_id
       can :manage, User, :label_id => user.label_id
     else

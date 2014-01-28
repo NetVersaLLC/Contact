@@ -40,4 +40,18 @@ describe "dashboard/index.html.haml" do
 
     expect(page).not_to have_content("Client Manager")
   end 
+  it "displays valid content for a reseller" do 
+    reseller = create(:reseller) 
+    sign_in_user reseller
+
+    visit root_path
+
+    # side bar
+    expect(page).to have_content("Locations")
+    expect(page).to have_content("Accounts")
+    expect(page).to have_content("Customers")
+    expect(page).to have_content("Billing")
+    expect(page).to have_content("Users")
+    expect(page).to have_content("Client Manager")
+  end 
 end 
