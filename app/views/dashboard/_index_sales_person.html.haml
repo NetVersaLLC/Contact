@@ -32,6 +32,6 @@
           %tr
             %td=b.business_name 
             %td=b.created_at.to_date
-            %td #{number_to_currency(b.subscription.intial_fee/100)} / #{number_to_currency(b.subscription.monthly_fee/100)}
+            %td #{number_to_currency((b.subscription.intial_fee||0)/100)} / #{number_to_currency((b.subscription.monthly_fee||0)/100)}
   .col-xs-6 
     =render partial: "leaderboard", locals: { call_center: current_user.manager.call_center }
