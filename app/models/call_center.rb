@@ -16,6 +16,6 @@ class CallCenter < ActiveRecord::Base
       inner join users on users.id = businesses.sales_person_id
       where businesses.created_at > '#{Time.now.beginning_of_month.to_date}' and sales_person_id in (#{sales_people_ids}) 
       group by sales_person_id 
-      order by sold_count")
+      order by sold_count desc")
   end 
 end 
