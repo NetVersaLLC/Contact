@@ -41,7 +41,9 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
           set_flash_message :notice, :signed_up if is_navigational_format?
 
           if user_signed_in?
-            transaction.business.update_attribute(:sales_person_id, current_user.id) 
+            call_center_id = (current_user.manager.present? ? current_user.manager.call_center_id : nil)
+            transaction.business.update_attribute(:sales_person_id,  current_user.id)
+            transaction.business.update_attribute(:call_center_id, call_center_id)
           else
             sign_up("user", @user) 
           end 
