@@ -66,4 +66,56 @@ describe JobsController do
     JSON.parse(response.body)["parent_id"].should == @completed_jobs[1].id
   end
 
+  it 'should respond with NO_CATEGORUES if the business is not categorized' do 
+    b = create(:business, categorized: false)
+    get :index, {:business_id => b.id, :auth_token => b.user.authentication_token}
+
+    expect(response.body).to eq('{"status":"no_categories"}')
+  end 
+
+  it 'should respond with PAUSED if the business is invalid' do 
+    b = create(:business)
+    b.mobile_phone = nil
+    b.save validate: false 
+
+    get :index, {:business_id => b.id, :auth_token => b.user.authentication_token}
+
+    expect(response.body).to eq('{"status":"paused"}')
+  end 
+
+  it 'should respond with WAIT when there is nothing to do' do 
+    b = create(:business, categorized: true)
+    get :index, {:business_id => b.id, :auth_token => b.user.authentication_token}
+
+    expect(response.body).to eq('{"status":"wait"}')
+  end 
+
+  it 'should only insert Bing/SignUp on the first sync' do
+    b = create(:business, categorized: true)
+    Task.request_sync( b )
+
+    get :index, {:business_id => b.id, :auth_token => b.user.authentication_token}
+
+    expect(response.body).to eq('{"status":"wait"}')
+    expect(Job.all.count).to eq(1) 
+    expect(Job.first.name).to eq("Bing/SignUp") 
+  end 
+
+  it 'should switch from CREATE mode to UPDATE mode after a listing was created' do 
+    # RestClient.post("#{@host}/jobs.json?auth_token=#{@key}&business_id=#{@bid}", :message => msg, :name => name, :delay => time_delay, :version => @version)
+    # RestClient.put("#{@host}/jobs/#{@job['id']}.json?auth_token=#{@key}&business_id=#{@bid}", :status => 'success', :message => msg, :version => @version)
+
+    b = create(:business, categorized: true)
+
+    post :create, {:business_id => b.id, :auth_token => b.user.authentication_token, :name => 'Bing/CreateListing'}
+
+    get  :index, {:business_id => b.id, :auth_token => b.user.authentication_token}
+    job = JSON.parse( response.body ) 
+
+    put  :update, :id => job.id, :business_id => b.id, :auth_token => b.user.authentication_token, status: 'success', message: 'message' 
+
+    expect(BusinessSiteMode.where(:business_id => b.id).first.mode_id).to eq(3)
+  end 
+
+
 end
