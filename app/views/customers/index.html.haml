@@ -50,6 +50,8 @@
             - if can? :read, customer
               = link_to 'Show', customer
               | 
+              = link_to 'Add Note', new_business_note_path(customer)
+              |
             - if can? :create, ClientData
               = link_to 'Categorize', "/categories?business_id=#{customer.id}"
               |

@@ -27,6 +27,7 @@ class Ability
       can :manage,  [Job, CompletedJob, FailedJob], :label_id => user.label_id
       cannot :manage, [Administrator, Reseller]
       can :read, Reseller, :label_id => user.label_id
+      can :manage, Note, :business => { :label_id => user.label_id }
 
       Business.citation_list.each do |site|
         can :manage, site[0].constantize, :business => { :label_id => user.label_id }
@@ -44,6 +45,7 @@ class Ability
       can :read, Manager, :id => user.id
       can [:create, :update, :read], User, :manager_id => user.id
       can :manage, Business, :sales_person => { :manager_id => user.id }
+      can :manage, Note, :business => { :call_center_id => user.call_center_id}
       can :manage, User, :call_center_id => user.call_center_id #:businesses => {:sales_person => { :manager_id => user.id}}
       can :manage, Subscription, :business => {:sales_person => { :manager_id => user.id}}
       can :manage, ClientData, :business => {:call_center_id => user.call_center_id}
@@ -51,13 +53,15 @@ class Ability
       #can :read,   Report, :label_id => user.label_id
     elsif user.is_a? SalesPerson
       can :manage, Business, :sales_person_id => user.id
+      can :manage, Note, :business => { :sales_person_id => user.id }
       can [:create, :read, :update], User, :businesses => { :sales_person_id => user.id } 
     elsif user.is_a? CustomerServiceAgent
-      can :manage, Business,   :call_center_id => user.call_center_id
-      can :manage, ClientData, :business => {:call_center_id => user.call_center_id}
+      can :manage, Business,     :call_center_id => user.call_center_id
+      can :manage, Note,         :business => { :call_center_id => user.call_center_id}
+      can :manage, ClientData,   :business => {:call_center_id => user.call_center_id}
       can :manage, Notification, :business => { :call_center_id => user.call_center_id } 
       can :manage, Subscription, :label_id => user.label_id
-      can :manage, User, :label_id => user.label_id
+      can :manage, User,         :label_id => user.label_id
     else
       can [:update, :read], Business, :user_id => user.id
       Business.citation_list.each do |site|

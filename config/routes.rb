@@ -59,6 +59,7 @@ Contact::Application.routes.draw do
     resources :downloads, :only => [:new]
     resources :images
     resources :notifications
+    resources :notes
   end 
   post    '/codes/account(.:format)', :action=>"account",    :controller=>"codes"
   get     '/codes/:business_id/:site_name(.:format)', :action=>"site_code", :controller=>"codes"
