@@ -101,10 +101,9 @@ describe JobsController do
     expect(Job.first.name).to eq("Bing/SignUp") 
   end 
 
-  it 'should switch from CREATE mode to UPDATE mode after a listing was created' do 
-    # RestClient.post("#{@host}/jobs.json?auth_token=#{@key}&business_id=#{@bid}", :message => msg, :name => name, :delay => time_delay, :version => @version)
-    # RestClient.put("#{@host}/jobs/#{@job['id']}.json?auth_token=#{@key}&business_id=#{@bid}", :status => 'success', :message => msg, :version => @version)
+  it 'should switch modes when a job succeeds' do
 
+    p = create(:payload, site: @bing, name: "CreateListing", to_mode_id: 3)
     b = create(:business, categorized: true)
 
     post :create, {:business_id => b.id, :auth_token => b.user.authentication_token, :name => 'Bing/CreateListing'}
@@ -112,7 +111,7 @@ describe JobsController do
     get  :index, {:business_id => b.id, :auth_token => b.user.authentication_token}
     job = JSON.parse( response.body ) 
 
-    put  :update, :id => job.id, :business_id => b.id, :auth_token => b.user.authentication_token, status: 'success', message: 'message' 
+    put  :update, :id => job["id"], :business_id => b.id, :auth_token => b.user.authentication_token, status: 'success', message: 'message' 
 
     expect(BusinessSiteMode.where(:business_id => b.id).first.mode_id).to eq(3)
   end 
