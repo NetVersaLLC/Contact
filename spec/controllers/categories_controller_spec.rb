@@ -21,14 +21,14 @@ describe CategoriesController do
       response.status.should == 200
     end
 
-    it 'should not allow a manager' do 
+    it 'should allow a manager' do 
       business = FactoryGirl.create(:business)
       manager = create(:manager) 
       sign_in :user, manager 
 
       get :index, {business_id: business.id}
 
-      response.status.should == 302 
+      response.status.should == 200 
     end 
 
     it 'should not allow a sales person' do 

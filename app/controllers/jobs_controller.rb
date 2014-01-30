@@ -179,7 +179,7 @@ class JobsController < ApplicationController
   def destroy
     if %w(Job FailedJob CompletedJob).include? params[:class_name] 
       job = params[:class_name].constantize.find(params[:id])
-      authorize! :delete,  job 
+      authorize! :destroy,  job 
       job.delete 
     else 
       Job.where(:business_id => params[:business_id]).delete_all

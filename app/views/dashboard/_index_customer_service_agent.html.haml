@@ -7,10 +7,10 @@
       %tbody
         - Business.accessible_by(current_ability).order("id desc").limit(50).each do |b| 
           %tr
-            %td= b.business_name
+            %td= link_to b.business_name.presence || b.id, b
             %td= b.created_at.to_date
   .col-xs-6
-    %h3 Needs to be categoriezed
+    %h3 Needs to be categorized
     %table.table
       %tbody
         - Business.not_categorized.accessible_by(current_ability).order("id asc").each do |b| 

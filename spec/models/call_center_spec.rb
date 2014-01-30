@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CostCenter do
+describe CallCenter do
 	describe "Associations" do
     it { should belong_to(:label) }
 

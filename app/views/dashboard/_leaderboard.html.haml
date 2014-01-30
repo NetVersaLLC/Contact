@@ -1,11 +1,11 @@
--if cost_center.nil?  
+-if call_center.nil?  
   %h3 Leaderboard
-  %p Cost Center has not been not assigned.
+  %p call Center has not been not assigned.
 -else 
-  %h3 Leaderboard for #{cost_center.name}
+  %h3 Leaderboard for #{call_center.name}
   %table.table.table-striped
     %tbody 
-      - cost_center.leaderboard.each do |r| 
+      - call_center.leaderboard.each do |r| 
         %tr
           %td #{r["first_name"]} #{r["last_name"]}
           %td= r["sold_count"].to_i

@@ -33,8 +33,8 @@
           =link_to number_to_currency(sub.monthly_fee/100) + " per month", subscription_path(sub)
     - if @user.is_a?(Manager) || @user.is_a?(CustomerServiceAgent) 
       %tr 
-        %td Cost Center
-        %td= @user.cost_center.present? && @user.cost_center.name
+        %td call Center
+        %td= @user.call_center.present? && @user.call_center.name
     - if @user.is_a?(SalesPerson)
       %tr 
         %td Referrer Code
