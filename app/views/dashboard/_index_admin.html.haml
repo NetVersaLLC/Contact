@@ -1,1 +1,9 @@
 %h1 Admin
+
+%h3 Resolved Jobs Leaders
+%table.table.table-striped
+  %tbody 
+    - Reward.leaderboard.each do |r| 
+      %tr
+        %td= r.administrator.full_name.presence || r.administrator.email
+        %td= r.total_points.to_i

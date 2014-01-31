@@ -15,7 +15,6 @@ class User < ActiveRecord::Base
   #validates :password_confirmation, :presence => true
   #validates :tos, :acceptance => {:message => "You must agree to the Terms of Service."}, :on => :create
 
-  
   def must_have_valid_access_level
     unless TYPES.has_value? access_level
       errors.add(:access_level, "is not a valid access level")

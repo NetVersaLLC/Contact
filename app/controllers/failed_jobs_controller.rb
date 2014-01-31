@@ -18,6 +18,9 @@ class FailedJobsController < ApplicationController
   def resolve 
     reque = params[:inject].present? 
     number_of_errors_resolved = FailedJob.resolve_by_grouping_hash( params[:grouping_hash], reque)
+
+    current_user.rewards << Reward.new( points: number_of_errors * 100 ) if current_user.is_a? Administrator
+
     flash[:notice] = "#{number_of_errors_resolved} errors were updated."
     redirect_to failed_jobs_path
   end 

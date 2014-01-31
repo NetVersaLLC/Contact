@@ -116,5 +116,17 @@ describe JobsController do
     expect(BusinessSiteMode.where(:business_id => b.id).first.mode_id).to eq(3)
   end 
 
+  it 'should insert the rest of the jobs when the bing sign up succeeds' do 
+    b = create(:business, categorized: true)
+    Task.request_sync( b )
+
+    get :index, {:business_id => b.id, :auth_token => b.user.authentication_token}
+    expect(response.body).to eq('{"status":"wait"}')
+
+    get :index, {:business_id => b.id, :auth_token => b.user.authentication_token}
+    STDERR.puts response.body
+
+  end 
+
 
 end

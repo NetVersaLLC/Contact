@@ -1,6 +1,7 @@
 class Job < JobBase
   belongs_to :business
   belongs_to :screenshot
+  belongs_to :payload_record, class_name: Payload, foreign_key: :payload_id
 
   after_create :assign_position
 
@@ -77,7 +78,10 @@ class Job < JobBase
     #            missing the ID have been ran, the join can be shortened to use the payload_id instead 
     @job = Job.joins("inner join sites on sites.name = left( jobs.name, locate('/', jobs.name)-1) inner join payloads on payloads.site_id = sites.id and payloads.name = right( jobs.name, length(jobs.name) - locate('/', jobs.name) ) ")
       .where(['business_id = ? AND status IN (0,1) AND runtime < UTC_TIMESTAMP() and payloads.paused_at is null', business.id]).order(:position).first
-
+    # Find the next job in the queue while skipping those payloads that have been paused.  
+    #@job = Job.joins(:payload_record)
+    #  .where(['business_id = ? AND status IN (0,1) AND runtime < UTC_TIMESTAMP() and payloads.paused_at is null', business.id]).order(:position).first
+    
     if @job != nil
       @job = Job.find(@job.id) # this is necessary to get an activerecord object instead of a read only object
 
@@ -142,7 +146,7 @@ class Job < JobBase
         UserMailer.custom_email("admin@netversa.com", email_body, email_body).deliver
         self.is_now(FailedJob)
       else 
-        self.update_attributes(status: TO_CODE[:new], status_message: "Recreated") 
+        self.
         add_failed_job( { "status_message" => msg, "backtrace" => backtrace, "screenshot" => screenshot } )
       end 
     else

@@ -1,5 +1,7 @@
 class Administrator < User 
 
+  has_many :rewards
+
   def labels
     Label.all
   end
