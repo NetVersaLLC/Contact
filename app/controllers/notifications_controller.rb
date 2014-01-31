@@ -4,7 +4,6 @@ class NotificationsController < InheritedResources::Base
 
   respond_to :html, :json
   actions :all
-  belongs_to :business
 
   protected
     def collection
