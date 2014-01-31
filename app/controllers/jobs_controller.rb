@@ -60,6 +60,8 @@ class JobsController < ApplicationController
     end
   end
 
+  # from the citation client 
+  # RestClient.post("#{@host}/jobs.json?auth_token=#{@key}&business_id=#{@bid}", :message => msg, :name => name, :delay => time_delay, :version => @version)
   def create
     @business = Business.find(params[:business_id])
 
