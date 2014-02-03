@@ -74,14 +74,7 @@ class Job < JobBase
     #@job = Job.where('business_id = ? AND status IN (0,1) AND runtime < NOW()', business.id).order(:position).first
     #
     # Find the next job in the queue while skipping those payloads that have been paused.  
-    # 2014-01-01 Job.payload_id was not being set, so this ridiculous join had to be used instead.  In a few days when all the jobs that are 
-    #            missing the ID have been ran, the join can be shortened to use the payload_id instead 
-    @job = Job.joins("inner join sites on sites.name = left( jobs.name, locate('/', jobs.name)-1) inner join payloads on payloads.site_id = sites.id and payloads.name = right( jobs.name, length(jobs.name) - locate('/', jobs.name) ) ")
-      .where(['business_id = ? AND status IN (0,1) AND runtime < UTC_TIMESTAMP() and payloads.paused_at is null', business.id]).order(:position).first
-    # Find the next job in the queue while skipping those payloads that have been paused.  
-    #@job = Job.joins(:payload_record)
-    #  .where(['business_id = ? AND status IN (0,1) AND runtime < UTC_TIMESTAMP() and payloads.paused_at is null', business.id]).order(:position).first
-    
+    @job = Job.joins(:payload_record).where(['business_id = ? AND status IN (0,1) AND runtime <= ? and payloads.paused_at is null', business.id, Time.now]).order(:position).first
     if @job != nil
       @job = Job.find(@job.id) # this is necessary to get an activerecord object instead of a read only object
 

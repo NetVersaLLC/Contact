@@ -128,5 +128,37 @@ describe JobsController do
 
   end 
 
+  # this simulates the citation client making calls against the jobs controller 
+  # to get work to do, and update what happened.  
+  it 'should insert the rest of the jobs when the bing sign up succeeds' do 
+    b = create(:business, categorized: true)
+
+    create(:payload, site: @bing, name: "SignUp", to_mode_id: 1)
+    create(:payload, site: @site, name: "DoSomething", to_mode_id: 1, mode_id: 2)
+    create(:package_payload, package_id: b.subscription.package_id, site_id: @site.id)
+    
+    Task.request_sync( b )
+
+    get :index, {:business_id => b.id, :auth_token => b.user.authentication_token}
+    expect(response.body).to eq('{"status":"wait"}')
+
+    get :index, {:business_id => b.id, :auth_token => b.user.authentication_token}
+    job = JSON.parse(response.body)
+    expect(job["name"]).to eq("Bing/SignUp") 
+
+    put :update, {id: job["id"], status: 'success', message: 'all is good'}
+    expect(CompletedJob.first.name).to eq("Bing/SignUp")
+
+    get :index, {:business_id => b.id, :auth_token => b.user.authentication_token}
+    expect(response.body).to eq('{"status":"wait"}')
+
+    get :index, {:business_id => b.id, :auth_token => b.user.authentication_token}
+    job = JSON.parse(response.body)
+    expect(job["name"]).to eq("Private/DoSomething") 
+
+    put :update, {id: job["id"], status: 'success', message: 'all is good'}
+    expect(CompletedJob.last.name).to eq("Private/DoSomething")
+
+  end 
 
 end
