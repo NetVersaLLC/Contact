@@ -17,6 +17,10 @@ class Dashboard
     business.present? && business.valid?
   end 
 
+  def client_checked_in_recently? 
+    client_checkin.present? && client_checkin > 24.hours.ago
+  end 
+
   def client_checkin
     unless @user.is_a? User 
       return Time.now
