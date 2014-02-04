@@ -21,6 +21,7 @@
           = row['status'].nil? ? '' : row['status']
         %td= render partial: "sync_button", locals: { :row => row }
         %td
-          = link_to edit_account_path(row["id"]), class: "btn btn-xs btn-info" do
-            %i.icon-edit.bigger-120
+          -if row['type'].downcase == 'bing' && current_user.instance_of?(Administrator) || row['type'].downcase != 'bing'
+            = link_to edit_account_path(row["id"]), class: "btn btn-xs btn-info" do
+              %i.icon-edit.bigger-120
 
