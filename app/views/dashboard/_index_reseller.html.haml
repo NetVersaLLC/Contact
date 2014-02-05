@@ -2,21 +2,12 @@
 
 .row
   .col-xs-6
+    =render "clients_not_checking_in"
     - if @scan_reports.empty? 
       .alert.alert-success 
         No scan reports have been requested. 
     - else 
-      %table.table.table-bordered.table-striped
-        %legend Scans Requested
-        %thead 
-          %tr
-            %td Request Date
-            %td Scans Requested
-        %tbody
-          - @scan_reports.each do |report| 
-            %tr
-              %td= report["date"]
-              %td= report["count"]
+      =render "scans_requested"
   .col-xs-6
     %table.table.table-bordered
       %legend Statistics

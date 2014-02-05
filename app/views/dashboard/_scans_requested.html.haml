@@ -1,0 +1,18 @@
+.widget-box
+  .widget-header.widget-header-small.header-color-dark
+    %h6 Scans Requested
+  .widget-body
+    .widget-main.padding-4
+      .slim-scroll
+        .content
+          %table.table.table-bordered.table-striped
+            %thead 
+              %tr
+                %td Request Date
+                %td Scans Requested
+            %tbody
+              - @scan_reports.each do |report| 
+                %tr
+                  %td= report["date"]
+                  %td= report["count"]
+

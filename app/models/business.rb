@@ -35,6 +35,7 @@ class Business < ActiveRecord::Base
   accepts_nested_attributes_for :client_data, allow_destroy: true
 
   scope :not_categorized, -> { where(categorized: false) } 
+  scope :has_not_checked_in_recently, -> { includes(:subscription).where("client_checkin < ? and subscriptions.active=true", 5.minutes.ago).order("client_checkin asc") }
 
   # Triggers -> moved to BusinessObserver
 

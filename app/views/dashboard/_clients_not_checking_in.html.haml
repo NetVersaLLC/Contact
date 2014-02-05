@@ -1,0 +1,12 @@
+.widget-box
+  .widget-header.widget-header-small.header-color-dark
+    %h6 Clients Not Checking In
+  .widget-body
+    .widget-main.padding-4
+      .slim-scroll
+        .content
+          %table.table
+            - Business.has_not_checked_in_recently.accessible_by(current_ability).each do |b| 
+              %tr
+                %td= link_to truncate(b.business_name, lentgh: 25), b
+                %td= distance_of_time_in_words_to_now( b.client_checkin ) + " ago"

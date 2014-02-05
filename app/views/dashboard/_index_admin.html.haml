@@ -1,9 +1,12 @@
 %h1 Admin
-
-%h3 Resolved Jobs Leaders
-%table.table.table-striped
-  %tbody 
-    - Reward.leaderboard.each do |r| 
-      %tr
-        %td= r.administrator.full_name.presence || r.administrator.email
-        %td= r.total_points.to_i
+.row 
+  .col-xs-6
+    =render "clients_not_checking_in"
+  .col-xs-6
+    %h3 Resolved Jobs Leaders
+    %table.table.table-striped
+      %tbody 
+        - Reward.leaderboard.each do |r| 
+          %tr
+            %td= r.administrator.full_name.presence || r.administrator.email
+            %td= r.total_points.to_i
