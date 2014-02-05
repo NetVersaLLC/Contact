@@ -9,8 +9,6 @@ group :development do
   gem 'rb-fsevent'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'guard'
-  gem 'guard-rspec'
 end
 
 group :assets do
@@ -29,18 +27,24 @@ end
 group :test do
   #gem 'cucumber'
   #gem 'cucumber-rails', :require => false
+  gem "turnip"
+  gem 'guard'
+  gem 'selenium-webdriver'
+
   gem 'page-object'
   gem 'database_cleaner'
+  gem 'capybara'
+  gem 'capybara-screenshot'
+  gem 'rspec-rails'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'shoulda'
   gem 'zeus'
 end
 
+
+
 group :test, :development do
-  gem 'rspec-rails'
-  gem 'capybara'
-  gem 'capybara-screenshot'
   gem 'minitest-rails'
   gem 'awesome_print'
   gem 'factory_girl_rails'

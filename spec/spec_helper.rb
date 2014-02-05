@@ -4,22 +4,36 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'awesome_print'
-require 'capybara/rails'
+require 'turnip/capybara'
+require 'rack/test'
+require 'factory_girl'
 
 require File.dirname(__FILE__) + "/factories1"
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+Dir[Rails.root.join("spec/acceptance/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
+  config.include Devise::TestHelpers, :type => :controller
   config.include FactoryGirl::Syntax::Methods
+  config.filter_run focus: true
+  config.filter_run_excluding slow: true
+  config.filter_run_excluding :broken => true
+  config.run_all_when_everything_filtered = true
+
+
+  Capybara.register_driver :selenium do |app|
+    Capybara::Selenium::Driver.new(app, :browser => :chrome)
+  end
+
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  # config.use_transactional_fixtures = false
-  config.use_transactional_fixtures = true
+   config.use_transactional_fixtures = false
+  #config.use_transactional_fixtures = true
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
@@ -38,7 +52,8 @@ RSpec.configure do |config|
   # Clean up the database
   require 'database_cleaner'
   config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
+    #DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.strategy = :truncation
     DatabaseCleaner.clean_with(:truncation)
   end
 
@@ -61,6 +76,10 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
+
+    # config.before(:all) do
+    #   request.host! 'localhost'
+    # end
 
 end
 

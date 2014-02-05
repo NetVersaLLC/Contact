@@ -15,7 +15,8 @@ public/system/
 /config/sugarcrm.yml
 
 # Ignore all logfiles and tempfiles.
-/log
+/log/*.log
+/log/*.pid
 /tmp
 *.swp
 .sass-cache

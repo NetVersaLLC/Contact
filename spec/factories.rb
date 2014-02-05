@@ -41,46 +41,13 @@ FactoryGirl.define do
     credits 10
   end
 
-  factory :call_center do 
-    name "cc" 
-  end 
-
-  sequence :email do |n| 
-    "user#{n}@test.dev" 
-  end 
-
   factory :user do 
-    email 
+    email "user@contact.dev"
     password 'password' 
     password_confirmation 'password'
-    sequence(:authentication_token) { |n| "82ht987h987h#{n}" }
+    authentication_token '82ht987h987h'
+    access_level User.owner
     label 
-  end 
-
-  factory :sales_person do 
-    email 
-    password 'password' 
-    password_confirmation 'password'
-  end 
-  factory :manager do 
-    email 
-    password 'password' 
-    password_confirmation 'password'
-  end 
-  factory :reseller do 
-    email 
-    password 'password' 
-    password_confirmation 'password'
-  end 
-  factory :administrator do 
-    email 
-    password 'password' 
-    password_confirmation 'password'
-  end 
-  factory :customer_service_agent do 
-    email 
-    password 'password' 
-    password_confirmation 'password'
   end 
 
   factory :location do 
@@ -91,16 +58,16 @@ FactoryGirl.define do
     longitude '-117.908452'
   end 
 
-  factory :package do 
-    price 299 
-    monthly_fee 19 
-    label 
-  end 
+  # factory :package do 
+  #   price 299 
+  #   monthly_fee 19 
+  #   label 
+  # end 
 
-  factory :coupon do 
-    percentage_off 100
-    label 
-  end 
+  # factory :coupon do 
+  #   percentage_off 100
+  #   label 
+  # end 
 
   factory :payment do
     label_id 1
@@ -112,11 +79,6 @@ FactoryGirl.define do
     package_id 1
     monthly_fee 20
   end
-
-  factory :package_payload do 
-    site
-
-  end 
 
   factory :transaction_event do
     label_id 2
@@ -224,31 +186,5 @@ FactoryGirl.define do
     site
     mode
   end
-  factory :bing_category1, class: BingCategory do
-    parent_id nil
-    name "root"
-    name_path nil
-  end
-
-  factory :bing_category2, class: BingCategory do
-    name "Home & Family"
-    name_path "[Application]\\Structure\\Content\\Categories\\Business\\Master\\11734"
-    association :parent, factory: :bing_category1
-  end
-
-  factory :bing_category3, class: BingCategory do
-    name "Kitchens"
-    name_path "[Application]\\Structure\\Content\\Categories\\Business\\Master\\11734\\11858"
-    association :parent, factory: :bing_category2
-  end
-
-  factory :bing, class: Bing do
-    email "smith@test.dev"
-    password "qcSAnkdMCw"
-    secret_answer "hohoho"
-    association :bing_category, factory: :bing_category3
-    association :business, factory: :business
-  end
-
 
 end
