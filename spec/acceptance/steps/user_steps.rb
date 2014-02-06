@@ -22,8 +22,8 @@ step "I sign up with/as :email" do |email|
    visit '/users/sign_up?package_id=1'
    fill_in 'coupon', :with => @coupon.name
    fill_in "Email", :with => email 
-   fill_in "user_password", :with => '12345678'
-   fill_in "user_password_confirmation", :with => '12345678'
+   fill_in "user_password", :with => '123456789'
+   fill_in "user_password_confirmation", :with => '123456789'
    fill_in "creditcard[name]", :with => 'testuser'
    fill_in "card_number", :with => "4007000000027"
    select('06', :from => 'card_month')
