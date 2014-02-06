@@ -6,10 +6,6 @@
 %p Initial Fee 
 %dl.dl-horizontal.sign-up
   %dt
-    %label Package
-  %dd
-    = select_tag 'package', options_from_collection_for_select(Package.where(label_id: current_label.id), 'id','name', params[:package_id])
-  %dt
     %label Sub-Total: $
   %dd
     %input{type:"text", readonly:"readonly", name:'subtotal', value:@package.subtotal}
@@ -47,12 +43,3 @@
 %p Referrer ID
 %input{type: "text", placeholder: "Optional Referrer ID", name: "user[referrer_code]"}
 
-:javascript
-  $( function(){ 
-    $('#package').change( function(){ 
-      var id = $(this).val();
-      var new_search = window.location.search.replace(/package_id=\d{1,2}/, 'package_id=' + id); 
-      window.location.href = "/users/sign_up" + new_search;
-      }); 
-    }); 
-  

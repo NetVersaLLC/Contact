@@ -579,6 +579,14 @@
     ],
       'Bizzspot'
   ],
+  ['Meetlocalbiz', 'meetlocalbizs',
+    [
+      ['text', 'username'],
+      ['text', 'password'],
+      ['select', 'meetlocalbiz_category']
+    ],
+      'Meetlocalbiz'
+  ],
   ['Localsolution', 'localsolutions',
     [
       ['text', 'email'],
@@ -608,6 +616,14 @@
       ['text', 'password']
     ],
       'Postgazette'
+  ],
+  ['Bigwigbiz', 'bigwigbizs',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'bigwigbiz_category']
+    ],
+      'Bigwigbiz'
   ],
   ['Nationalwebdir', 'nationalwebdirs',
     [

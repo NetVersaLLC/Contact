@@ -1,4 +1,5 @@
 class BusinessesController < InheritedResources::Base
+  load_and_authorize_resource 
   respond_to :html #,:xml, :json
   actions :all
 
@@ -16,9 +17,7 @@ class BusinessesController < InheritedResources::Base
   end 
 
   def show 
-    @business = Business.find(params[:id])
-    authorize! :read, @business
-    add_breadcrumb @business.business_name, nil
+      show! { add_breadcrumb @business.business_name, nil}
   end 
 
 

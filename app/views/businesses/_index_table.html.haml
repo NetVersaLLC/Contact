@@ -24,9 +24,12 @@
               %i.icon-edit.bigger-120
             %a.btn.btn-xs.btn-danger{:href => business_path(business), :method => :delete, :confirm => "Are you sure?"}
               %i.icon-trash.bigger-120
-            - if can? :update, SiteCategory
+            - if current_user.reseller?
               %a.btn.btn-xs.btn-info{:href => "/categories?business_id=#{business.id}", :title => "Edit Categories"}
                 %i.icon-align-right.bigger-120
+            - if current_user.reseller?
+              -#%a.btn.btn-xs.btn-info{:href => "/client_manager?business_id=#{business.id}", :title => "View Payloads"}
+                %i.icon-code.bigger-120
   .row 
     .col-md-6
       .dataTables_info

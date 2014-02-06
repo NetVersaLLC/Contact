@@ -1,5 +1,5 @@
 class Google < ClientData
-  attr_accessible       :email,:cookies, :places_url, :status
+  attr_accessible       :email,:cookies, :places_url
   virtual_attr_accessor :password, :secret_answer
 
   belongs_to            :google_category, foreign_key: "category_id"

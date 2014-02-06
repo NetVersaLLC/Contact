@@ -1,8 +1,6 @@
 class Notification < ActiveRecord::Base
   attr_accessible :body, :business_id, :title, :url
   belongs_to :business
-  
-  before_save :prevent_duplicates
 
   scope :activate_subscription, where(:title => 'Activate Subscription') 
 
@@ -12,11 +10,4 @@ class Notification < ActiveRecord::Base
       business.notifications << n 
     end 
   end 
-
-  private 
-
-    def prevent_duplicates 
-      Notification.where( url: self.url, business_id: self.business_id).delete_all
-    end 
-
 end

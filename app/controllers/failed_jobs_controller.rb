@@ -1,12 +1,13 @@
 class FailedJobsController < ApplicationController
-  before_filter :authenticate_failed_jobs
+  before_filter :authenticate_reseller!
 
   def index 
+    label_filter = current_user.admin? ? nil : current_label 
     if params[:site] 
-      @rows = FailedJob.site_errors_report(current_ability, params[:site])
+      @rows = FailedJob.site_errors_report(params[:site], label_filter)
       render 'site_errors_report'
     else 
-      @rows = FailedJob.errors_report(current_ability)
+      @rows = FailedJob.errors_report(label_filter)
     end 
   end 
 
@@ -16,21 +17,9 @@ class FailedJobsController < ApplicationController
   end 
 
   def resolve 
-    reque = params[:inject].present? 
-    number_of_errors_resolved = FailedJob.resolve_by_grouping_hash( params[:grouping_hash], reque)
-
-    current_user.rewards << Reward.new( points: number_of_errors_resolved * 100 ) if current_user.is_a? Administrator
-
-    flash[:notice] = "#{number_of_errors_resolved} errors were updated."
-    redirect_to :back
+    number_of_errors_resolved = FailedJob.resolve_by_grouping_hash( params[:grouping_hash] )
+    flash[:notice] = "#{number_of_errors_resolved} jobs were submitted for the resolved errors."
+    redirect_to failed_jobs_path
   end 
-  private 
-    def authenticate_failed_jobs
-      return if can? :read, FailedJob
-
-      flash[:notice] = "You need to be an admin to access this part of the application"
-      redirect_to root_path
-    end 
-
 
 end 

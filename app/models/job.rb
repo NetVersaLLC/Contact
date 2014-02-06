@@ -1,7 +1,6 @@
 class Job < JobBase
   belongs_to :business
   belongs_to :screenshot
-  belongs_to :payload_record, class_name: Payload, foreign_key: :payload_id
 
   after_create :assign_position
 
@@ -47,12 +46,7 @@ class Job < JobBase
   def get_job_data(business, params)
     unless self['data_generator'].nil?
       logger.info "Executing: #{self['data_generator']}"
-      begin
-        eval self['data_generator']
-      rescue Exception => e
-        self.is_now(FailedJob)
-        raise "#{self.name}: #{e.message}: #{self.business_id}"
-      end
+      eval self['data_generator']
     else
       {}
     end
@@ -74,7 +68,11 @@ class Job < JobBase
     #@job = Job.where('business_id = ? AND status IN (0,1) AND runtime < NOW()', business.id).order(:position).first
     #
     # Find the next job in the queue while skipping those payloads that have been paused.  
-    @job = Job.joins(:payload_record).where(['business_id = ? AND status IN (0,1) AND runtime <= ? and payloads.paused_at is null', business.id, Time.now]).order(:position).first
+    # 2014-01-01 Job.payload_id was not being set, so this ridiculous join had to be used instead.  In a few days when all the jobs that are 
+    #            missing the ID have been ran, the join can be shortened to use the payload_id instead 
+    @job = Job.joins("inner join sites on sites.name = left( jobs.name, locate('/', jobs.name)-1) inner join payloads on payloads.site_id = sites.id and payloads.name = right( jobs.name, length(jobs.name) - locate('/', jobs.name) ) ")
+      .where(['business_id = ? AND status IN (0,1) AND runtime < UTC_TIMESTAMP() and payloads.paused_at is null', business.id]).order(:position).first
+
     if @job != nil
       @job = Job.find(@job.id) # this is necessary to get an activerecord object instead of a read only object
 
@@ -139,7 +137,7 @@ class Job < JobBase
         UserMailer.custom_email("admin@netversa.com", email_body, email_body).deliver
         self.is_now(FailedJob)
       else 
-        self.
+        self.update_attributes(status: TO_CODE[:new], status_message: "Recreated") 
         add_failed_job( { "status_message" => msg, "backtrace" => backtrace, "screenshot" => screenshot } )
       end 
     else

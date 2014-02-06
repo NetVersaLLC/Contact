@@ -27,12 +27,12 @@ describe Scan do
       scan.task_status.should eq Scan::TASK_STATUS_TAKEN
     end
 
-#    it 'should mark task as failed immediately when got error from scanserver' do
-#      scan = FactoryGirl.create(:scan, :site_name => 'nosuchsite')
-#      scan.send_to_scan_server!
-#      scan.reload
-#      scan.task_status.should == Scan::TASK_STATUS_FAILED
-#    end
+    it 'should mark task as failed immediately when got error from scanserver' do
+      scan = FactoryGirl.create(:scan, :site_name => 'nosuchsite')
+      scan.send_to_scan_server!
+      scan.reload
+      scan.task_status.should == Scan::TASK_STATUS_FAILED
+    end
 
     it 'should not mark task as failed when scanserver is down (connection refused)' do
       scan = FactoryGirl.create(:scan)

@@ -59,7 +59,6 @@ Contact::Application.routes.draw do
     resources :downloads, :only => [:new]
     resources :images
     resources :notifications
-    resources :notes
   end 
   post    '/codes/account(.:format)', :action=>"account",    :controller=>"codes"
   get     '/codes/:business_id/:site_name(.:format)', :action=>"site_code", :controller=>"codes"
@@ -74,9 +73,6 @@ Contact::Application.routes.draw do
 
   get     '/users/token'
 
-  put       '/adminusers/:id', :controller => :users, :action => :update
-  post      '/adminusers',     :controller => :users, :action => :create
-
   resources :results
   resources :tasks
   resources :places
@@ -90,8 +86,6 @@ Contact::Application.routes.draw do
   resources :dashboard, :only => [:index]
   resources :questions
   resources :web_designs
-  resources :call_centers
-
   post    'web_designs/:id/images', :controller => 'web_designs', action: 'add_image'
 
   post    '/booboos(.:format)', :controller => :jobs, :action => :booboo
@@ -151,11 +145,6 @@ Contact::Application.routes.draw do
   post    '/scanapi/:action', :controller => :scan_api
 
   match "/watch" => DelayedJobWeb, :anchor => false
-
-  devise_for :sales_people, :controllers => { :invitations => 'users/invitations' }
-  devise_for :resellers, :controllers => { :invitations => 'users/invitations' }
-  devise_for :administrators, :controllers => { :invitations => 'users/invitations' }
-
 
   root to: "dashboard#index"
   #root :to => redirect("/pages/make_redirect")

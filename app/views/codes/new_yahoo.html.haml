@@ -6,7 +6,7 @@
         %p 
           In order to fully validate your listing with #{@code.site_name.capitalize} you may need to perform a phone verification with them.  This process is simple and usually only takes a few minutes.  After you click 
           %strong "Start Sign-In" 
-          you will receive a call within 5-10 minuets to #{@code.business.mobile_phone}.  An operator will give you a numeric code, enter this into the form and click 
+          you will receive a call within 5-10 minuets to #{@code.business.local_phone}.  An operator will give you a numeric code, enter this into the form and click 
           %strong "Verify".
 
       .alert
@@ -25,7 +25,7 @@
         %p You may receive a call within 5-10 minues. If you receive the call, enter the code provided into the box below.  If the call does not come or you are not able to answer then this page will automatically be returned to the dashboard and you can retry phone verification again.
 
       .alert
-        %h3 A call may be placed to #{@code.business.mobile_phone}
+        %h3 A call may be placed to #{@code.business.local_phone}
         %p Wait for the call, please enter the code in the box below. 
 
       = form_for [:business, @code], :html => { class: 'form-inline'} do |f|

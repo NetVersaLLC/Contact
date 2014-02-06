@@ -4,7 +4,7 @@ class ClientData < ActiveRecord::Base
   self.table_name = "client_data"
   #self.abstract_class = true   # this breaks single table inheritance
   belongs_to      :business
-  attr_accessible :force_update, :do_not_sync, :listing_url, :status
+  attr_accessible :force_update, :do_not_sync, :listing_url
   serialize       :secrets, CerebusClient.new
   after_find      :deserialize_attributes
   before_save     :serialize_attributes
@@ -14,6 +14,9 @@ class ClientData < ActiveRecord::Base
     true
   end 
 
+  def self.descendants
+    ObjectSpace.each_object(Class).select{|klass| klass < self}
+  end
 
   def self.get_sub_object( name, business )
     begin

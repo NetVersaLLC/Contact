@@ -1,23 +1,16 @@
--if current_user.is_a? Administrator
+-if current_user.admin?
   =render "index_admin"
-- elsif current_user.is_a? Reseller
+- elsif current_user.reseller? 
   =render "index_reseller"
-- elsif current_user.is_a? Manager
-  =render "index_manager"
-- elsif current_user.is_a? SalesPerson
-  =render "index_sales_person"
-- elsif current_user.is_a? CustomerServiceAgent
-  =render "index_customer_service_agent"
 -else 
   .row 
     .col-xs-4
       -@dashboard.alerts.each do |alert|
         = render partial: alert.to_s 
-      -if @dashboard.client_checked_in_recently?
-        -@dashboard.business.notifications.each do |notification| 
-          .alert.alert-warning 
-            %strong=notification.title
-            =link_to "Click to start!", notification.url, class: "btn btn-sm btn-warning"
+      -@dashboard.business.notifications.each do |notification| 
+        .alert.alert-warning 
+          %strong=notification.title
+          =link_to "Click to start!", notification.url, class: "btn btn-sm btn-warning"
 
     .col-xs-4
       %table.table.table-striped.table-bordered
@@ -39,7 +32,7 @@
             %td Client Version
             %td= @dashboard.business.client_version || "0.0.0"
 
-    - unless current_user.is_a? Reseller
+    - unless current_user.reseller?
       .col-xs-4
         %a.btn.btn-grey.btn-block{href: download_client_url }
           %i.icon-download-alt.bigger-230
@@ -54,10 +47,4 @@
         %a.btn.btn-primary.btn-block{ href: '/support' }
           %i.icon-question.bigger-230
           Support Ticket
-:javascript
-  $(function(){ 
-    $('.slim-scroll').each( function(){ 
-      $(this).slimScroll({ height: 250, railVisible: true}); 
-      }); 
-    }); 
 

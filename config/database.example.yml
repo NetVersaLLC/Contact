@@ -2,7 +2,7 @@ defaults: &defaults
   adapter: mysql2
   host: localhost
   username: root
-  password: 
+  password: root
 
 development:
   <<: *defaults
@@ -12,6 +12,6 @@ test:
   <<: *defaults
   database: contact_test
 
-production:
-  <<: *defaults
-  database: contact_production
+# production:
+#   <<: *defaults
+#   database: contact_production

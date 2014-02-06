@@ -64,9 +64,7 @@ class CodesController < ApplicationController
     @code.save
 
     #remove the notification/pending action
-    if params[:code][:site_name].present?
-      Notification.where("url like ? and business_id = ?","%#{params[:code][:site_name]}%", params[:business_id]).first.delete
-    end 
+    Notification.where("url like ? and business_id = ?","%#{params[:code][:site_name]}%", params[:business_id]).first.delete
     respond_to do |format| 
       format.html do
           flash[:notice] = 'Code saved!'

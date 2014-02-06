@@ -5,7 +5,7 @@ describe FailedJob do
 	it { should belong_to :screenshot}
 
   it 'status messages are applied to the failed object' do 
-    business = FactoryGirl.create(:business)
+    business = create(:business)
 
     job = Job.new(payload: "payload", status_message: "started", status: "started", name: "job name")
     job.business = business 
@@ -16,7 +16,7 @@ describe FailedJob do
   end 
 
   it 'job to failed_job creates a grouping hash' do 
-    business = FactoryGirl.create(:business)
+    business = create(:business)
 
     job = Job.new(payload: "payload", status_message: "started", status: "started", name: "job name")
     job.business = business 
@@ -76,7 +76,7 @@ describe FailedJob do
   it 'should report payloads grouped by site with a count for affected customers' do 
     business = create(:business)
 
-    bing  = Site.create(name: 'bing')
+    bing = Site.create(name: 'bing')
     yahoo = Site.create(name: 'yahoo')
     payload_bingA  = Payload.create(name: 'bing/signup', site: bing )
     payload_bingB  = Payload.create(name: 'bing/dontcare', site: bing )
@@ -98,8 +98,7 @@ describe FailedJob do
     job.business = business
     job.add_failed_job({'status_message' => "stupid thing broke", 'backtrace' => "backtrace: ./lib/contact"} )
 
-    current_ability = Ability.new( business.user ) 
-    rows = FailedJob.errors_report current_ability
+    rows = FailedJob.errors_report
     rows.length.should eq(2) 
     rows[0]['name'].should eq('bing') 
     rows[0]['customers_with_errors'].should eq(1) 
@@ -121,17 +120,16 @@ describe FailedJob do
     job    = Job.inject( business, payload )
     failed = job.failure("stupid thing broke", "this is a backtrace", nil )
 
-    FailedJob.resolve_by_grouping_hash(failed.grouping_hash)
-    FailedJob.all.count.should eq(0) 
+    jobs_resolved = FailedJob.resolve_by_grouping_hash(failed.grouping_hash)
 
+    jobs_resolved.should eq(1) 
+    failed.reload.resolved.should eq(true)
+
+    # resolved errors should not be part of the report
+    FailedJob.errors_report.length.should eq(0)
+
+    # a new job should be added to the queue
     Job.all.count.should eq(1) 
-
-    job    = Job.inject( business, payload )
-    failed = job.failure("stupid thing broke", "this is a backtrace", nil )
-
-    FailedJob.resolve_by_grouping_hash(failed.grouping_hash, false )
-    FailedJob.all.count.should eq(0) 
-    Job.all.count.should eq(1) # nothing new should have been added 
   end 
 
   it 'should create a site errors report' do 
@@ -148,8 +146,7 @@ describe FailedJob do
     job    = Job.inject( business, payload )
     failed = job.failure("stupid thing broke", "this is a backtrace", nil )
 
-    current_ability = Ability.new( business.user ) 
-    rows = FailedJob.site_errors_report( current_ability, site.name )
+    rows = FailedJob.site_errors_report( site.name )
 
     rows.length.should eq(1) 
 

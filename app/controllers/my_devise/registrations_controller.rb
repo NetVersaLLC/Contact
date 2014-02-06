@@ -8,7 +8,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     checkout_setup
     
     respond_to do |format|
-      format.html { render :new, layout: user_signed_in? ? "layouts/application" :"layouts/devise/sessions" }
+      format.html { render :new, layout: "layouts/devise/sessions" }
     end 
   end 
 
@@ -22,11 +22,11 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     if @user.callcenter || creating_reseller
       @user.password = @user.password_confirmation = @user.temp_password = SecureRandom.random_number(1000000)
     end 
-
+    #binding.pry
     if @user.save
 
       if creating_reseller
-        sign_up("user", @user) unless user_signed_in? # sales person doing a sale
+        sign_up("user", @user)
         User.send_welcome(@user).deliver
         redirect_to "/" #"/resellers"
       else 
@@ -39,15 +39,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
 
         if transaction.is_success?
           set_flash_message :notice, :signed_up if is_navigational_format?
-
-          if user_signed_in?
-            call_center_id = (current_user.manager.present? ? current_user.manager.call_center_id : nil)
-            transaction.business.update_attribute(:sales_person_id,  current_user.id)
-            transaction.business.update_attribute(:call_center_id, call_center_id)
-          else
-            sign_up("user", @user) 
-          end 
-
+          sign_up("user", @user)
           User.send_welcome(@user).deliver
           redirect_to edit_business_path(transaction.business)
         else
@@ -74,7 +66,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
   #   new_business_path
   # end
   # private
-  def checkout_setup
+   def checkout_setup
     if params[:package_id] != nil and params[:package_id].to_i > 0
       @package    = Package.find(params[:package_id])
       @package.original_price = @package.price
@@ -95,7 +87,7 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     #@amount_total = @package.monthly_fee
     return true
   end
-
+  
   def process_coupon 
     checkout_setup
 
@@ -105,9 +97,6 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
   def after_update_path_for(resource)
     businesses_url
   end
-  protected 
-  def require_no_authentication
-  end 
 
 end
 

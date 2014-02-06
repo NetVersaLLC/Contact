@@ -1,7 +1,7 @@
 %head
   %meta{:charset => "utf-8"}/
-  %title
-    = current_label.name
+  %title 
+    = current_label.name 
   %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
   %meta{:content => "", :name => "description"}/
   %meta{:content => "", :name => "author"}/
@@ -37,7 +37,6 @@
   %script(src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.0.0/bootbox.min.js")
   %script(src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/1.3.2/spin.min.js")
   %script(src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.min.js")
-  %script(src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.1/jquery.slimscroll.min.js")
 
   = javascript_include_tag "application"
 
@@ -52,4 +51,4 @@
   = csrf_meta_tags
   %style{:type => "text/css"}
     = current_label.custom_css
-  %link{:rel => "icon", :type => "image/ico", :href => current_label.favicon_url}/
+  %link{:rel => "icon", :type => "image/ico", :href => current_label.favicon_url }/

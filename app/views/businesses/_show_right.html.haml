@@ -60,17 +60,6 @@
       %td
         - if @business.subscription.present? 
           =link_to number_to_currency((@business.subscription.monthly_fee||0)/100) + " per month", subscription_path(@business.subscription)
-%hr
-%dl 
-  -@business.notes.accessible_by(current_ability).order("id desc").each do |n| 
-    %dt 
-      = link_to business_note_path(@business, n), class: 'pull-right', method: :delete  do 
-        %i.icon-trash
-      #{n.user.full_name} - #{distance_of_time_in_words_to_now( n.created_at )} ago
-    %dd= n.body
-- if can? :create, Note
-  =link_to "Add Note", new_business_note_path(@business), class: "btn btn-sm"
-  %hr
 .space-20
 .google-map
   != "<iframe width='100%' height='400' frameborder='0' scrolling='no' marginheight='0' marginwidth='0' src='https://maps.google.co.in/maps?f=q&source=s_q&hl=en&geocode=&q=#{@business.address}+#{@business.city}+#{@business.state}+#{@business.zip}&z=13&output=embed'></iframe>"

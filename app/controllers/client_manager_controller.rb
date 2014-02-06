@@ -1,5 +1,5 @@
 class ClientManagerController < ApplicationController
-  before_filter :require_auth
+  before_filter :require_reseller
 
   respond_to :html, :json
 
@@ -36,8 +36,10 @@ class ClientManagerController < ApplicationController
 
   private 
 
-  def require_auth
-    redirect_to "/", error: "Not authorized" if cannot? :read, FailedJob
+  def require_reseller
+    unless current_user.reseller? 
+      redirect_to "/", error: "Not authorized" 
+    end 
   end 
 
 end 

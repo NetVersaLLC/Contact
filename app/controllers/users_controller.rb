@@ -1,49 +1,21 @@
-class UsersController < ApplicationController
+class UsersController < InheritedResources::Base
   skip_before_filter :authenticate_user!, only: [:token]
   skip_load_and_authorize_resource only: :token
 
+  load_and_authorize_resource 
+
   respond_to :html, :json
 
+  actions :all
   add_breadcrumb 'Users', :users_url
   add_breadcrumb  'New User', '', only: [:new, :create]
   add_breadcrumb  'Edit User', '', only: [:edit, :update]
   add_breadcrumb  'User', '', only: [:show]
 
-  
   def index 
     @q = User.search(params[:q])
     @users = @q.result.includes(:businesses).accessible_by(current_ability).paginate(page: params[:page], per_page: 10)
   end   
-
-  def new 
-    @user = new_user_from_role params[:r]
-    @user.label_id = current_label.id
-
-    authorize! :create, User
-  end 
-
-  def create 
-    user = new_user_from_role params[:role]
-    user.label_id = current_label.id 
-
-    authorize! :create, user
-
-    user.update_attributes( params[:user] )
-    user.save!
-
-    flash[:notice] = user.full_name + " created." 
-    redirect_to new_user_url
-  end 
-
-  def show 
-    @user = User.find(params[:id]) 
-    authorize! :read, @user
-  end 
-
-  def edit 
-    @user = User.find(params[:id]) 
-    authorize! :update, @user
-  end 
 
   def update 
     @user = User.find(params[:id])
@@ -54,14 +26,11 @@ class UsersController < ApplicationController
       params[:user].delete(:password_confirmation)
     end 
 
-    if current_user.is_a?(Administrator) || current_user.is_a?(Reseller)
+    if current_user.admin? 
       saved = @user.update_attributes( params[:user], as: :admin) 
     else 
       saved = @user.update_attributes( params[:user] )
     end 
-
-    sign_in(@user, bypass: true) if @user.id == current_user.id  # devise signs out the user when changing the password. 
-
     if saved 
       flash[:notice] = "User updated successfully." 
       redirect_to user_path @user
@@ -82,12 +51,6 @@ class UsersController < ApplicationController
     else 
       render :json => { success: false, message: 'error with your email or password', status: 401 } 
     end 
-  end 
-
-private 
-  def new_user_from_role role_name
-    role = User::ROLES.select{ |r| r == role_name }.first || User::ROLES.first
-    role.gsub(/ /, "").constantize.new 
   end 
 
 end 

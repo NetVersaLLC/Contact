@@ -1,43 +1,39 @@
 -# We do not want ordinary users to be able to manage their subscription.
--if can? :manage, Label
-  %li
-    = link_to labels_path do
-      %i.icon-double-angle-right
-      Labels
--if can? :manage, Job
-  %li.closed
-    %a.dropdown-toggle{href:'#'}
-      %i.icon-double-angle-right
-      %span.menu-text  Client Manager
-    %ul.submenu
-      %li
-        %a{href:'/client_manager'}
-          %i.icon-double-angle-right
-          Jobs and Payloads
-      %li
-        %a{href:'/failed_jobs'}
-          %i.icon-double-angle-right
-          Failed Jobs
--if can? :manage, Subscription
-  %li.closed
-    %a.dropdown-toggle{ href: '#'}
-      %i.icon-edit
-      %span.menu-text Billing 
-    %ul.submenu
-      %li
-        = link_to subscriptions_path do 
-          %i.icon-double-angle-right
-          Subscriptions
-      %li
-        %a{href:'#'} 
-          %i.icon-double-angle-right
-          Invoice 
+%li
+  = link_to labels_path do
+    %i.icon-double-angle-right
+    Labels
+%li.closed
+  %a.dropdown-toggle{href:'#'}
+    %i.icon-double-angle-right
+    %span.menu-text  Client Manager
+  %ul.submenu
+    %li
+      %a{href:'/client_manager'}
+        %i.icon-double-angle-right
+        Jobs and Payloads
+    %li
+      %a{href:'/failed_jobs'}
+        %i.icon-double-angle-right
+        Failed Jobs
+%li.closed
+  %a.dropdown-toggle{ href: '#'}
+    %i.icon-edit
+    %span.menu-text Billing 
+  %ul.submenu
+    %li
+      = link_to subscriptions_path do 
+        %i.icon-double-angle-right
+        Subscriptions
+    %li
+      %a{href:'#'} 
+        %i.icon-double-angle-right
+        Invoice 
   -#%li
     %a{href:'#'}
       %i.icon-gift
       Packages
-  -if can? :read, Report
-    %li
-      %a{href:'/reports'}
-        %i.icon-signal
-        Scan Reports
+  %li
+    %a{href:'/reports'}
+      %i.icon-signal
+      Scan Reports

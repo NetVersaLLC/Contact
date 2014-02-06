@@ -1,5 +1,5 @@
-=form_for ClientData.new, as: :account, url: account_path(row["id"]), remote: true,method: :put, html: { class: "enable_sync" , :"data-type" => "json"} do |f|
-  =hidden_field :account, :do_not_sync, value: row["do_not_sync"] == 0 ? 1 : 0
+=form_for ClientData.new, as: :client_data, url: account_path(row["id"]), remote: true,method: :put, html: { class: "enable_sync" , :"data-type" => "json"} do |f|
+  =hidden_field :client_data, :do_not_sync, value: row["do_not_sync"] == 0 ? 1 : 0
   .btn-group.sync_disabled{ style: (row["do_not_sync"]==0) && "display: none;" }
     %button.btn.btn-danger(type="button") Disabled
     %button.btn.btn-danger.dropdown-toggle(data-toggle="dropdown")
@@ -7,8 +7,8 @@
     %ul.dropdown-menu.dropdown-danger
       %li
         %a.account_sync{href: "#"} Enable Sync
-      -#%li.divider 
-        %li
+      %li.divider 
+      %li
         %a{href:"#"} Show Sync History
   .btn-group.sync_enabled{ style: (row["do_not_sync"] != 0) && "display: none;" }
     %button.btn.btn-success(type="button") Enabled
@@ -17,6 +17,6 @@
     %ul.dropdown-menu.dropdown-success
       %li
         %a.account_sync{href: "#"} Disable Sync
-      -#%li.divider 
-        %li
-          %a{href:"#"} Show Sync History
+      %li.divider 
+      %li
+        %a{href:"#"} Show Sync History

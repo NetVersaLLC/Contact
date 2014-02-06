@@ -1,5 +1,5 @@
 .row
-  .col-xs-12
+  .col-xs-9
     - if @notifications.blank? 
       .alert.alert-block.alert-success
         No action items were found. 
@@ -14,7 +14,7 @@
             %thead
               %tr
                 %th Action
-                - if can? :manage, Business
+                - if current_user.reseller?
                   %th Business
                 %th Status
                 %th Created at
@@ -24,7 +24,7 @@
                 %tr
                   %td
                     %a{href: "#{notification.url}"}= notification.title
-                  -if can? :read, notification.business
+                  -if current_user.reseller? 
                     %td= truncate(notification.business.business_name)
                   %td New
                   %td= l(notification.created_at, format: :long)

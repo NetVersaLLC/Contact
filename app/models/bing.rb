@@ -1,5 +1,5 @@
 class Bing < ClientData
-  attr_accessible :email, :bing_category_id, :listing_url, :status
+  attr_accessible :email, :bing_category_id, :listing_url
   virtual_attr_accessor :password, :secret_answer
   belongs_to :bing_category
   validates :email,
