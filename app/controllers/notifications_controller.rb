@@ -7,7 +7,7 @@ class NotificationsController < InheritedResources::Base
 
   protected
     def collection
-      @notifications = end_of_association_chain.includes(:business).paginate(page: params[:page])
+      @notifications = end_of_association_chain.accessible_by(current_ability).includes(:business).paginate(page: params[:page])
     end 
 
 #  def destroy

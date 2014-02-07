@@ -59,6 +59,7 @@ Contact::Application.routes.draw do
     resources :downloads, :only => [:new]
     resources :images
     resources :notifications
+    resources :notes
   end 
   post    '/codes/account(.:format)', :action=>"account",    :controller=>"codes"
   get     '/codes/:business_id/:site_name(.:format)', :action=>"site_code", :controller=>"codes"
@@ -89,7 +90,7 @@ Contact::Application.routes.draw do
   resources :dashboard, :only => [:index]
   resources :questions
   resources :web_designs
-  resources :cost_centers
+  resources :call_centers
 
   post    'web_designs/:id/images', :controller => 'web_designs', action: 'add_image'
 

@@ -28,12 +28,14 @@ class Business < ActiveRecord::Base
   has_many :tasks
   has_many :client_data, class_name: "ClientData"
   has_many :web_designs, dependent: :delete_all
+  has_many :notes
 
   attr_accessible :images_attributes
   accepts_nested_attributes_for :images, allow_destroy: true
   accepts_nested_attributes_for :client_data, allow_destroy: true
 
   scope :not_categorized, -> { where(categorized: false) } 
+  scope :has_not_checked_in_recently, -> { includes(:subscription).where("client_checkin < ? and subscriptions.active=true", 5.minutes.ago).order("client_checkin asc") }
 
   # Triggers -> moved to BusinessObserver
 

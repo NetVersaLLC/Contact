@@ -579,14 +579,6 @@
     ],
       'Bizzspot'
   ],
-  ['Meetlocalbiz', 'meetlocalbizs',
-    [
-      ['text', 'username'],
-      ['text', 'password'],
-      ['select', 'meetlocalbiz_category']
-    ],
-      'Meetlocalbiz'
-  ],
   ['Localsolution', 'localsolutions',
     [
       ['text', 'email'],

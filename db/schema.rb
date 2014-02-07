@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140123215842) do
+ActiveRecord::Schema.define(:version => 20140206152318) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -359,8 +359,10 @@ ActiveRecord::Schema.define(:version => 20140123215842) do
     t.string   "client_version",            :default => "0.0.0"
     t.integer  "salesperson_id"
     t.integer  "sales_person_id"
+    t.integer  "call_center_id"
   end
 
+  add_index "businesses", ["call_center_id"], :name => "index_businesses_on_call_center_id"
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
   add_index "businesses", ["category2"], :name => "index_businesses_on_category2"
   add_index "businesses", ["category3"], :name => "index_businesses_on_category3"
@@ -386,6 +388,11 @@ ActiveRecord::Schema.define(:version => 20140123215842) do
   end
 
   add_index "byzlysts", ["parent_id"], :name => "index_byzlysts_on_parent_id"
+
+  create_table "call_centers", :force => true do |t|
+    t.string  "name"
+    t.integer "label_id"
+  end
 
   create_table "citisquare_categories", :force => true do |t|
     t.integer  "parent_id"
@@ -535,11 +542,6 @@ ActiveRecord::Schema.define(:version => 20140123215842) do
 
   add_index "cornerstoneworld_categories", ["name"], :name => "index_cornerstoneworld_categories_on_name"
   add_index "cornerstoneworld_categories", ["parent_id"], :name => "index_cornerstoneworld_categories_on_parent_id"
-
-  create_table "cost_centers", :force => true do |t|
-    t.string  "name"
-    t.integer "label_id"
-  end
 
   create_table "coupons", :force => true do |t|
     t.string   "name"
@@ -1599,6 +1601,14 @@ ActiveRecord::Schema.define(:version => 20140123215842) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "notes", :force => true do |t|
+    t.string   "body"
+    t.integer  "user_id"
+    t.integer  "business_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "notifications", :force => true do |t|
     t.integer  "business_id"
     t.string   "title"
@@ -1769,6 +1779,13 @@ ActiveRecord::Schema.define(:version => 20140123215842) do
 
   add_index "reports", ["business_id"], :name => "index_reports_on_business_id"
   add_index "reports", ["ident"], :name => "index_reports_on_ident"
+
+  create_table "rewards", :force => true do |t|
+    t.integer  "points",           :default => 0
+    t.integer  "administrator_id"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
 
   create_table "rookies", :force => true do |t|
     t.integer  "position"
@@ -2204,7 +2221,7 @@ ActiveRecord::Schema.define(:version => 20140123215842) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
-    t.integer  "cost_center_id"
+    t.integer  "call_center_id"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

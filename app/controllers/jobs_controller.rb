@@ -60,6 +60,8 @@ class JobsController < ApplicationController
     end
   end
 
+  # from the citation client 
+  # RestClient.post("#{@host}/jobs.json?auth_token=#{@key}&business_id=#{@bid}", :message => msg, :name => name, :delay => time_delay, :version => @version)
   def create
     @business = Business.find(params[:business_id])
 
@@ -179,7 +181,7 @@ class JobsController < ApplicationController
   def destroy
     if %w(Job FailedJob CompletedJob).include? params[:class_name] 
       job = params[:class_name].constantize.find(params[:id])
-      authorize! :delete,  job 
+      authorize! :destroy,  job 
       job.delete 
     else 
       Job.where(:business_id => params[:business_id]).delete_all

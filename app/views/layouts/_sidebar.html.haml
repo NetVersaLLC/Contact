@@ -15,7 +15,7 @@
         = link_to users_path do
           %i.icon-desktop
           %span.menu-text Users 
-    -if can? :create, ClientData
+    -if can? :read, ClientData
       %li
         = link_to accounts_path do  
           %i.icon-list 
@@ -25,9 +25,9 @@
         %a{ href: '/coupons'}
           %i.icon-barcode
           %span.menu-text Coupons
-    -if can? :manage, CostCenter
+    -if can? :manage, CallCenter
       %li
-        %a{ href: '/cost_centers'}
+        %a{ href: '/call_centers'}
           %i.icon-group
           %span.menu-text Call Centers
     -if can? :manage, WebDesign
@@ -40,6 +40,11 @@
         %a{ href: '/customers'}
           %i.icon-group
           %span.menu-text Customers
+    -if can? :manage, Notification
+      %li
+        = link_to notifications_path do 
+          %i.icon-calendar
+          %span.menu-text Notifications
     -if can? :read, Business
       = render "layouts/sidebar_reseller"
     = render "layouts/sidebar_admin"

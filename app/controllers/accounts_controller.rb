@@ -44,7 +44,13 @@ class AccountsController < ApplicationController  #InheritedResources::Base
   def edit 
     @account = ClientData.find(params[:id]) 
     authorize! :update, @account
-    render 
+
+    # emergency hack 
+    if @account.is_a?(Bing) && @account.business.user_id == current_user.id 
+      redirect_to accounts_url 
+    else 
+      render 
+    end 
   end 
   def show 
     @account = ClientData.find(params[:id]) 

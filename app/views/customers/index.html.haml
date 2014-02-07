@@ -37,7 +37,7 @@
       - @customers.each do |customer|
         %tr
           %td
-            = link_to customer.business_name, edit_business_path(customer)
+            = link_to customer.business_name.presence || customer.id, edit_business_path(customer)
           %td= customer.id
           %td
             =link_to "#{customer.user.first_name} #{customer.user.last_name}".presence || "(no name)", customer.user
@@ -50,6 +50,8 @@
             - if can? :read, customer
               = link_to 'Show', customer
               | 
+              = link_to 'Add Note', new_business_note_path(customer)
+              |
             - if can? :create, ClientData
               = link_to 'Categorize', "/categories?business_id=#{customer.id}"
               |

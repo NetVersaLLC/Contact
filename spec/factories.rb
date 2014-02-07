@@ -41,36 +41,44 @@ FactoryGirl.define do
     credits 10
   end
 
+  factory :call_center do 
+    name "cc" 
+  end 
+
+  sequence :email do |n| 
+    "user#{n}@test.dev" 
+  end 
+
   factory :user do 
-    email "user@contact.dev"
+    email 
     password 'password' 
     password_confirmation 'password'
-    authentication_token '82ht987h987h'
+    sequence(:authentication_token) { |n| "82ht987h987h#{n}" }
     label 
   end 
 
   factory :sales_person do 
-    email "sales@contact.dev"
+    email 
     password 'password' 
     password_confirmation 'password'
   end 
   factory :manager do 
-    email "manager@contact.dev"
+    email 
     password 'password' 
     password_confirmation 'password'
   end 
   factory :reseller do 
-    email "reseller@contact.dev"
+    email 
     password 'password' 
     password_confirmation 'password'
   end 
   factory :administrator do 
-    email "admin@contact.dev"
+    email 
     password 'password' 
     password_confirmation 'password'
   end 
   factory :customer_service_agent do 
-    email "csa@contact.dev"
+    email 
     password 'password' 
     password_confirmation 'password'
   end 
@@ -104,6 +112,11 @@ FactoryGirl.define do
     package_id 1
     monthly_fee 20
   end
+
+  factory :package_payload do 
+    site
+
+  end 
 
   factory :transaction_event do
     label_id 2

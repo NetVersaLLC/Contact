@@ -13,10 +13,11 @@
     .col-xs-4
       -@dashboard.alerts.each do |alert|
         = render partial: alert.to_s 
-      -@dashboard.business.notifications.each do |notification| 
-        .alert.alert-warning 
-          %strong=notification.title
-          =link_to "Click to start!", notification.url, class: "btn btn-sm btn-warning"
+      -if @dashboard.client_checked_in_recently?
+        -@dashboard.business.notifications.each do |notification| 
+          .alert.alert-warning 
+            %strong=notification.title
+            =link_to "Click to start!", notification.url, class: "btn btn-sm btn-warning"
 
     .col-xs-4
       %table.table.table-striped.table-bordered
@@ -53,4 +54,10 @@
         %a.btn.btn-primary.btn-block{ href: '/support' }
           %i.icon-question.bigger-230
           Support Ticket
+:javascript
+  $(function(){ 
+    $('.slim-scroll').each( function(){ 
+      $(this).slimScroll({ height: 250, railVisible: true}); 
+      }); 
+    }); 
 

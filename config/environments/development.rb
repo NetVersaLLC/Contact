@@ -39,6 +39,7 @@ Contact::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
+  config.logger = Logger.new(Rails.root.join("log", Rails.env+".log"), 'daily')
   config.log_level = :debug
 
   # period to wait before resending task that is waiting for result to scanserver again

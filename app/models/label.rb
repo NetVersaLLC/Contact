@@ -13,10 +13,14 @@ class Label < ActiveRecord::Base
   has_many :transaction_events
   has_many :subscriptions
   has_many :businesses
-  has_many :cost_centers
+  has_many :call_centers
 
   THEMES = %w{ ace amelia cerulean cosmo cyborg journal readable simplex slate spacelab spruce superhero united }
-  
+
+  def default_package 
+    Package.where(:label_id => self.id).first
+  end 
+
   def css_is_set?
     theme != nil && !theme.empty?
   end

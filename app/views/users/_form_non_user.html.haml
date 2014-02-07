@@ -34,6 +34,10 @@
     .col-sm-9
       =f.password_field :password_confirmation, class: "input-small"
   .form-group 
+    =f.label :referrer_code, class: "col-sm-3 control-label no-padding-right"
+    .col-sm-9
+      =f.text_field :referrer_code, class: "input-small"
+  .form-group 
     -if @user.is_a?(Reseller) 
       =f.label :label, class: "col-sm-3 control-label no-padding-right"
       .col-sm-9
@@ -43,9 +47,9 @@
       .col-sm-9
         =f.select :manager_id, Manager.accessible_by(current_ability).collect{|r| ["#{r.email} - #{r.full_name}", r.id]}
     -if @user.is_a?(CustomerServiceAgent)|| @user.is_a?(Manager)
-      =f.label :cost_center, class: "col-sm-3 control-label no-padding-right"
+      =f.label :call_center, class: "col-sm-3 control-label no-padding-right"
       .col-sm-9
-        =f.select :cost_center_id, CostCenter.accessible_by(current_ability).collect{|r| ["#{r.label.name} - #{r.name}", r.id]}
+        =f.select :call_center_id, CallCenter.accessible_by(current_ability).collect{|r| ["#{r.label.name} - #{r.name}", r.id]}
 
   .space4
   .clearfix.form-actions
