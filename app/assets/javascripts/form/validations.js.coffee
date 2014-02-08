@@ -1,9 +1,15 @@
 
 $ ->
+  r = (value, element, regexp) -> 
+    re = new RegExp(regexp)
+    return this.optional(element) || re.test(value)
+
+  $.validator.addMethod  "regex", r, "You used invalid characters."
 
   validation_rules =  
     "business[contact_first_name]":  
-      required: true
+      required: true, 
+      regex: /^[-'A-Za-z. ]+\s*$/
     "business[contact_last_name]":  
       required: true
     "business[contact_prefix]":  
