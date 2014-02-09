@@ -1,0 +1,72 @@
+=form_for @user, as: :user,url: "/adminusers" + (@user.new_record? ? "" : "/#{@user.id}"),  html: {class: "form-horizontal"} do |f|
+  -if can?(:create, User) && @user.new_record?
+    .form-group 
+      =f.label :role, "Role", class: "col-sm-3 control-label no-padding-right"
+      .col-sm-9
+        = select_tag "role", options_for_select(User::ROLES.select{ |r| can?(:create, r.gsub(/ /,"").constantize)}, selected: @user.class.name.titleize)
+  .form-group 
+    =f.label :first_name, "Name", class: "col-sm-3 control-label no-padding-right"
+    .col-sm-9
+      =f.select :prefix, Business.prefix_list, {}
+      =f.text_field :first_name, class: "input-small", placeholder: "First Name"
+      =f.text_field :last_name, class: "input-small", placeholder: "Last Name"
+  .space4
+  .form-group 
+    =f.label :email, class: "col-sm-3 control-label no-padding-right"
+    .col-sm-9
+      %span.input-icon.input-icon-right
+        =f.email_field :email
+        %i.icon-envelope
+  .space4
+  .form-group 
+    =f.label :mobile_phone, "Mobile Phone", class: "col-sm-3 control-label no-padding-right"
+    .col-sm-9
+      %span.input-icon.input-icon-right
+        =f.telephone_field :mobile_phone, class: "input-medium input-mask-phone"
+        %i.icon-phone.icon-flip-horizontal
+  .form-group 
+    =f.label :password, class: "col-sm-3 control-label no-padding-right"
+    .col-sm-9
+      =f.password_field :password, class: "input-small"
+  .space4
+  .form-group 
+    =f.label :password_confirmation, class: "col-sm-3 control-label no-padding-right"
+    .col-sm-9
+      =f.password_field :password_confirmation, class: "input-small"
+  .form-group 
+    =f.label :referrer_code, class: "col-sm-3 control-label no-padding-right"
+    .col-sm-9
+      =f.text_field :referrer_code, class: "input-small"
+  .form-group 
+    -if @user.is_a?(Reseller) 
+      =f.label :label, class: "col-sm-3 control-label no-padding-right"
+      .col-sm-9
+        =f.select :label_id, Label.accessible_by(current_ability).collect{|r| [r.name, r.id]}
+    -if @user.is_a? SalesPerson
+      =f.label :manager, class: "col-sm-3 control-label no-padding-right"
+      .col-sm-9
+        =f.select :manager_id, Manager.accessible_by(current_ability).collect{|r| ["#{r.email} - #{r.full_name}", r.id]}
+    -if @user.is_a?(CustomerServiceAgent)|| @user.is_a?(Manager)
+      =f.label :call_center, class: "col-sm-3 control-label no-padding-right"
+      .col-sm-9
+        =f.select :call_center_id, CallCenter.accessible_by(current_ability).collect{|r| ["#{r.label.name} - #{r.name}", r.id]}
+
+  .space4
+  .clearfix.form-actions
+    .col-md-offset-3.col-md-9
+      %button.btn.btn-info(type="submit") 
+        %i.icon-ok.bigger-110
+        Save
+      %button.btn(type="reset")
+        %i.icon-undo.bigger-110
+        Reset
+:javascript
+  $( function(){ 
+    $('#role').change( function(){ 
+      var id = $(this).val();
+      window.location.href = window.location.pathname + '?r=' + id; 
+      }); 
+    }); 
+  
+
+

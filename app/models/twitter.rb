@@ -1,5 +1,5 @@
 class Twitter < ClientData
-  attr_accessible :username, :twitter_page
+  attr_accessible :username, :twitter_page, :listing_url
   virtual_attr_accessor :password
 
   def has_categories? 

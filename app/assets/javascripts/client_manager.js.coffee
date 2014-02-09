@@ -46,198 +46,60 @@ registerHooks = ()->
         }
       ]
 
-###
-  $('.view_booboo').click (e)->
-    window.booboo_id = e.target.getAttribute('data-booboo-id')
-    console.log window.booboo_id
-    $.get '/admin/booboos/'+window.booboo_id+'/view.js', null, (data)->
-      $('#view_booboo').html(data['message'])
-      $('#view_booboo').dialog( "open" )
-  $('.view_notification').click (e)->
-    window.notification_id = $(e.target).parent().attr('data-notification-id')
-    console.log window.notification_id
-    $.get '/notifications/'+window.notification_id+'/edit', (data)->
-      $('#view_notification').dialog({autoOpen: false}) 
-      $('#view_notification').html(data)
-      $('#view_notification').dialog( "open" )
-  $('.displayList').sortable
-    stop: (event, ui) ->
-      em = []
-      $('.displayList > li').each (i,e)->
-        em.push [i, $(e).attr('data-job-id')]
-      console.log em
-      $.post '/admin/jobs/'+window.business_id+'/reorder.js', { table: window.current_tab, order: JSON.stringify(em) }, (data)->
-        console.log data
-  $('.delete_notification').click (e)->
-    window.notification_id = $(e.target).parent().attr('data-notification-id')
-    if confirm("Are you sure you want to delete this notification?") == true
-      $.ajax
-        url: "/notifications/#{window.notification_id}"
-        type: 'DELETE',
-        success: (response)->
-          alert("Removed the notification!");
-          window.reloadView()
-  $('#pause_button').button()
-  $('#pause_button').click ->
-    $.ajax
-      url: "/admin/jobs/toggle_jobs?business_id=#{window.business_id}"
-      type: 'PUT',
-      success: (response)->
-        if response == true
-          $('#paused_at').html('Paused')
-        else
-          $('#paused_at').html('Not Paused')
-  $('#load_missed_payloads').button()
-  $('#load_missed_payloads').click ->
-    $.post "/admin/jobs/add_missing?business_id=#{window.business_id}", (data)->
-      alert("Added missing payloads!");
-      window.reloadView()
-  $('#clear_payloads').button()
-  $('#clear_payloads').click ->
-    $.ajax
-      url: "/admin/jobs/clear_jobs?business_id=#{window.business_id}"
-      type: 'DELETE',
-      success: (response)->
-        alert("Cleared payloads!");
-        window.reloadView()
-  $('#add_notification_button').button()
-  $('#add_notification_button').click (e)->
-    $.ajax
-      url: '/notifications/new',
-      type: 'GET',
-      success: (data)->
-        $('#view_notification').dialog({autoOpen: false}) 
-        $('#view_notification').html(data)
-        $('#view_notification').dialog( "open" )
+payloadListItem = (id, name) -> 
+  html =  "<li class='dd-item' data-payload-id='#{id}' data-payload-name='#{name}' >"
+  html += "<div class='dd-handle'> #{name} </div>"
+  html += '</li>'
 
-showNotifications = (panel)->
-  window.current_tab = "notifications"
-  $.get "/notifications.json?business_id=#{window.business_id}", (data)->
-    if data == null or data['notifications'].length == 0
-      data = 'No notifications'
-    else
-      data = data['html']
-    data = "<div id='dash'><input type='button' id='add_notification_button' value='New Notification' /></div>" + data
-    $(panel).html( data )
-    registerHooks()
+window.loadPayloadNodes = () ->
+  $.getJSON '/payload_nodes.json', (data)->
+    window.spinner.stop document.getElementById( 'preview' )
 
-window.loadPayloads = ()->
-  $.getJSON '/payloads/'+$('#payload_categories_select').val()+'.json', (data)->
-    html = '<ul id="payload_list_ul">'
-    $.each data, (i,e)->
-      html += '<li class="ui-state-default" data-payload-id="'+e+'">'+e+'</li>'
-    html += '</ul>'
-    $('#payload_list_container').html(html)
-    $('#payload_list_ul > li').click (e)->
-      window.payloadListAction(e)
+    $.each data.payloads, (i,e)->
+      parent_id = if e.parent_id? then e.parent_id else 'root'
 
-window.clientPayloadListAction = (e)->
-  console.log("clientPayloadListAction()")
-  match = window.location.href.match(/client_manager/)
-  if match != null and match.length > 0
-    window.assign_payload = $(e.target).attr('data-payload-id')
-    window.payload_post_url = "/jobs?name=#{$('#payload_categories_select').val()}/#{window.assign_payload}&business_id=#{window.business_id}"
-    $('#assign_payload').dialog("open")
-  else
-    window.packagePayloadListAction(e)
+      ol = $("ol[data-payload-id=#{parent_id}]")
+      if ol.length == 0
+        $("li[data-payload-id=#{parent_id}]").append("<ol class='dd-list' data-payload-id='#{parent_id}'></ol>")
+        ol = $("ol[data-payload-id=#{parent_id}]")
+      ol.append( payloadListItem( e.id, e.name ) )
 
-window.startPayloads = () ->
-  # Setup Payload Categories
-  window.payloadListAction = window.clientPayloadListAction
-  $.getJSON '/admin/jobs/payloads_categories_list.js', (data)->
-    html = '<select id="payload_categories_select" onchange="window.loadPayloads();">'
-    $.each data, (i,e)->
-      html += '<option value="'+e+'">'+e+'</option>'
-    html += '</select><div id="payload_list_container"></div><br />'
-    $('#payload_list').html(html)
-    window.loadPayloads()
-  # Setup Tabs
-  actions = [
-    showPending,
-    showFailed,
-    showCompleted,
-    showErrors,
-    showClient, 
-    showLatest,
-    showNotifications
-  ]
-  $('#view_notification').dialog
-    autoOpen: false,
-    show: "blind",
-    hide: "explode"
-    width: 500
-    buttons:
-      Ok: ()->
-        notification = $('#notification_form').serialize() + '&notification[business_id]='+window.business_id
-        id = $('#notification_id').val()
-        if id == ''
-          $.ajax
-            url: '/notifications',
-            type: 'POST',
-            data: notification,
-            success: ( response ) ->
-              window.reloadView()
-          $( this ).dialog( "close" )
-        else
-          $.ajax
-            url: '/notifications/'+id,
-            type: 'PUT',
-            data: notification,
-            success: ( response ) ->
-              window.reloadView()
-          $( this ).dialog( "close" )
-      Cancel: ()->
-        $( this ).dialog( "close" )
-  $('#assign_payload').dialog
-    autoOpen: false,
-    show: "blind",
-    hide: "explode"
-    modal: true
-    buttons:
-      'Ok': ()->
-        console.log "OK"
-        $.ajax
-          url: window.payload_post_url
-          type: 'POST',
-          success: ( response ) ->
-            console.log(response)
-            window.location.reload()
-            $('#assign_payload').dialog( "close" )
-            window.reloadView()
-      'Cancel': ()->
-        console.log "close"
-        $( this ).dialog( "close" )
+    $(".dd").nestable( 
+      group: 1 
+    )
 
-  $('#view_booboo').dialog
-    autoOpen: false,
-    show: "blind",
-    hide: "explode"
-    width: 750
-    buttons:
-      Ok: ()->
-        $( this ).dialog( "close" )
-      Cancel: ()->
-        $( this ).dialog( "close" )
+    $("#expand-nodes").click (e) -> 
+      $('.dd').nestable('expandAll')
+    $("#collapse-nodes").click (e) -> 
+      $('.dd').nestable('collapseAll')
 
-  $('#assign_payload').dialog
-    autoOpen: false,
-    show: "blind",
-    hide: "explode"
-    modal: true
-    buttons:
-      'Ok': ()->
-        console.log "OK"
-        $.ajax
-          url: window.payload_post_url
-          type: 'POST',
-          success: ( response ) ->
-            console.log(response)
-            $('#assign_payload').dialog( "close" )
-            window.reloadView()
-      'Cancel': ()->
-        console.log "close"
-        $( this ).dialog( "close" )
-        ###
+    $('#add_payload_node').click (e) -> 
+      now = new Date() 
+      new_id = "new_#{now.getTime()}"
+      $("#payloads").append( payloadListItem( new_id, $('#new_node_name').val() ) )
+
+    $('#save_payload_nodes').click (e) -> 
+      payload = {} 
+      payload.tree = [] 
+      payload.trash = []
+      $('#payloads li').each (i,e)-> 
+        payload_id = $(e).attr( 'data-payload-id')
+        payload_name = $(e).attr( 'data-payload-name' )
+        payload_parent_id =  $(e).parent().attr( 'data-payload-id')
+        payload.tree.push( {id: payload_id, parent_id: payload_parent_id })
+      $('#payload_list_trash li').each (i,e)-> 
+        payload_id = $(e).attr( 'data-payload-id')
+        payload.trash.push( {id: $(e).attr('data-payload-id') } )
+        #console.log payload
+      request = $.ajax 
+        type: "POST" 
+        url:  '/payload_nodes.json'
+        data: payload 
+      request.done (data) -> 
+        alert('Payload updated.') 
+        window.loadPayloadsNodes()
+      request.fail () -> alert('Payload update failed.')
+
 window.initialize_client_manager = ()->
   jobs_template    = Handlebars.compile($("#jobs-template").html()) 
   booboos_template = Handlebars.compile($("#booboos-template").html())
@@ -248,17 +110,20 @@ window.initialize_client_manager = ()->
 
   $('a[data-toggle="tab"]').on 'shown.bs.tab', (e)-> 
     target = $(e.target)
-    $.getJSON target.attr('data-path'), (data)-> 
-      target_id = target.attr('href')
+    target_id = target.attr('href')
+    if target_id == "#payloads" 
+      window.loadPayloadNodes()
+    else 
+      $.getJSON target.attr('data-path'), (data)-> 
 
-      template = jobs_template    if target_id in ["#pending", "#failed", "#succeeded", "#latest"]
-      template = booboos_template if target_id == "#errors"
+        template = jobs_template    if target_id in ["#pending", "#failed", "#succeeded", "#latest"]
+        template = booboos_template if target_id == "#errors"
 
-      $(target_id).html( template(data) ) 
-      registerHooks()
-      window.spinner.stop document.getElementById( 'preview' )
+        $(target_id).html( template(data) ) 
+        registerHooks()
+        window.spinner.stop document.getElementById( 'preview' )
 
-  $('.chosen').chosen().change () -> 
+  $('#business').chosen().change () -> 
     id = $(this).val()
     window.location.href = "/client_manager?business_id=#{id}"
 
@@ -268,6 +133,16 @@ window.initialize_client_manager = ()->
     window.spinner.spin document.getElementById( 'preview' )
     $('li.active > a').trigger('shown.bs.tab')
 
+  $('#add-job').click (e) -> 
+    data =
+      business_id: window.business_id
+      name: $("#job option:selected").val()
+    $.post "jobs", data, (data) -> 
+      $('#pending-link').trigger('shown.bs.tab')
+      $.gritter.add
+        text:  'Job added'
+        title: 'Status' 
+        class_name: 'gritter-success'
 
 opts = 
   lines: 13 # The number of lines to draw

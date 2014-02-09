@@ -48,7 +48,7 @@ Contact::Application.routes.draw do
   get    '/impersonate', to: 'impersonate#index'
   get    '/impersonate/:id', to: 'impersonate#new', as: :new_impersonation
   delete '/impersonate/revert', to: 'impersonate#revert', as: :revert_impersonation
-  get    '/credentials(.:format)', :controller => :impersonate, :action => :credentials
+  get    '/credentials(.:format)', :controller => :jobs, :action => :credentials
 
   resources :notifications
 
@@ -59,7 +59,9 @@ Contact::Application.routes.draw do
     resources :downloads, :only => [:new]
     resources :images
     resources :notifications
+    resources :notes
   end 
+  post    '/codes/account(.:format)', :action=>"account",    :controller=>"codes"
   get     '/codes/:business_id/:site_name(.:format)', :action=>"site_code", :controller=>"codes"
   post    '/codes/:business_id/:site_name(.:format)', :action=>"create",    :controller=>"codes"
   delete  '/codes/:business_id/:site_name(.:format)', :action=>"destroy",   :controller=>"codes"
@@ -69,6 +71,11 @@ Contact::Application.routes.draw do
   get     '/client_manager(.:format)', :action=>"index",     :controller=>"client_manager"
   get     '/client_manager/jobs(.:format)', as: :client_manager_jobs
   get     '/client_manager/booboos(.:format)', as: :client_manager_booboos
+
+  get     '/users/token'
+
+  put       '/adminusers/:id', :controller => :users, :action => :update
+  post      '/adminusers',     :controller => :users, :action => :create
 
   resources :results
   resources :tasks
@@ -83,17 +90,25 @@ Contact::Application.routes.draw do
   resources :dashboard, :only => [:index]
   resources :questions
   resources :web_designs
+  resources :call_centers
+
   post    'web_designs/:id/images', :controller => 'web_designs', action: 'add_image'
 
   post    '/booboos(.:format)', :controller => :jobs, :action => :booboo
+  delete  '/jobs/delete_all'
   resources :jobs,  except: [:show]
+  resources :failed_jobs, only: [:index, :show]
+  put      '/failed_jobs/resolve', controller: 'failed_jobs', action: 'resolve', as: 'resolve_failed_jobs'
+
   get     '/jobs/list(.:format)', :controller => :jobs,   :action => :list
   put     '/jobs/:id/rerun', :controller => :jobs,   :action => :rerun
 
+  get     '/captcha/new' 
   post    '/captcha/:type',      :controller => :captcha,         :action => :recaptcha
   get     '/downloads/:business_id', :controller => :downloads,       :action => :download
   get     '/emails/check/:site',     :controller => :emails,          :action => :check
 
+  get     '/categories/google', :controller => :categories, :action => :google 
   get     '/categories(.:format)', :controller => :categories, :action => :index
   get     '/categories/:id(.:format)', :controller => :categories, :action => :show
   get     '/categories/:site/selectoptions(.:format)', :controller => :categories, :action => :selectoptions
@@ -136,6 +151,11 @@ Contact::Application.routes.draw do
   post    '/scanapi/:action', :controller => :scan_api
 
   match "/watch" => DelayedJobWeb, :anchor => false
+
+  devise_for :sales_people, :controllers => { :invitations => 'users/invitations' }
+  devise_for :resellers, :controllers => { :invitations => 'users/invitations' }
+  devise_for :administrators, :controllers => { :invitations => 'users/invitations' }
+
 
   root to: "dashboard#index"
   #root :to => redirect("/pages/make_redirect")

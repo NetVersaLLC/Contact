@@ -1,0 +1,14 @@
+%h3 Recent Sales
+%table.table
+  %thead 
+    %tr
+      %th Business 
+      %th Sold on
+      %th Inital / Monthly
+  %tbody 
+    - Business.accessible_by(current_ability).order("id desc").limit(50).each do |b| 
+      %tr
+        %td= link_to b.business_name.presence || b.id, b
+        %td=b.created_at.to_date
+        %td #{number_to_currency((b.subscription.intial_fee||0)/100)} / #{number_to_currency((b.subscription.monthly_fee||0)/100)}
+

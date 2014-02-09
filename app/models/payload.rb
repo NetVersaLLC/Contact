@@ -3,7 +3,12 @@ class Payload < ActiveRecord::Base
 
   belongs_to :site
   belongs_to :mode
+  belongs_to :to_mode, class_name: "Mode", foreign_key: "to_mode_id"
   acts_as_tree :order => "position"
+
+
+  # using strong parameters in preparation for a future migration to Rails 4
+  #attr_accessible :paused_at, :to_mode_id
 
   def save_to_sites
     if Site.where(:id => self.site_id).count == 0
@@ -243,13 +248,23 @@ class Payload < ActiveRecord::Base
 
   def self.recurse_tree(business, node, missing)
     id = business.nil? ? 'nil' : business.id.to_s
+    mode = Mode.find_by_name("SignUp")
+    if node.mode_id != mode.id
+      STDERR.puts "Skipping #{node.inspect} since not mode #{mode.id}"
+      return
+    end
     STDERR.puts "#{id}: #{node.name}: #{missing}"
     STDERR.puts "Node: #{node.inspect}"
     STDERR.puts "Node Child: #{node.children.inspect}"
+    site = Site.where(:id => node.site_id).first
+    if site == nil
+      STDERR.puts "Skipping: #{node.inspect}"
+      return
+    end
     STDERR.puts "Checking..."
     unless CompletedJob.where(:business_id => business.id, :name => node.name).count > 0 or Job.where(:business_id => business.id, :name => node.name).count > 0
-      missing.push node.name
-      STDERR.puts "Adding: #{node.name}..."
+      missing.push "#{site.name}/#{node.name}"
+      STDERR.puts "Adding: #{site.name}/#{node.name}..."
       return
     end
     STDERR.puts "Checked..."
@@ -262,7 +277,10 @@ class Payload < ActiveRecord::Base
   def self.find_missed_payloads(business)
     return nil if business.nil?
     missing = []
-    self.recurse_tree(business, self.root, missing)
+    mode = Mode.find_by_name("SignUp")
+    Payload.where(:parent_id => nil, :mode_id => mode.id).each do |root|
+      self.recurse_tree(business, root, missing)
+    end
     STDERR.puts "missing: #{missing.inspect}"
     return missing
   end
@@ -278,12 +296,12 @@ class Payload < ActiveRecord::Base
     self.position ||= self.maximum(:position) + 10
   end
 
-   def self.add_to_jobs(business, name)
+  def self.add_to_jobs(business, name)
      payload = Payload.start(name)
      if payload == nil
        return nil
      end
-     @job = Job.inject(business.id, payload.client_script, payload.data_generator, payload.ready)
+     @job = Job.inject(business, payload )
      @job.name = name
      @job.save!
      @job

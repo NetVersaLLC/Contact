@@ -17,7 +17,7 @@ FactoryGirl.define do
     sequence(:email) { |n| "foo#{n}@example.com" }
     password "foobar"
     password_confirmation { |u| u.password }
-    access_level User.owner 
+    #access_level User.owner 
     association :label, factory: :label1
   end
 
@@ -102,32 +102,6 @@ FactoryGirl.define do
   factory :goole_category1, class: GoogleCategory do
     name "Furniture Rental Service"
     slug "furniture_rental_service" 
-  end
-
-  factory :bing_category1, class: BingCategory do
-    parent_id nil
-    name "root"
-    name_path nil
-  end
-
-  factory :bing_category2, class: BingCategory do
-    name "Home & Family"
-    name_path "[Application]\\Structure\\Content\\Categories\\Business\\Master\\11734"
-    association :parent, factory: :bing_category1
-  end
-
-  factory :bing_category3, class: BingCategory do
-    name "Kitchens"
-    name_path "[Application]\\Structure\\Content\\Categories\\Business\\Master\\11734\\11858"
-    association :parent, factory: :bing_category2
-  end
-
-  factory :bing1, class: Bing do
-    email "thekitchensupply_253@hotmail.com"
-    password "qcSAnkdMCw"
-    secret_answer "hohoho"
-    association :bing_category, factory: :bing_category3
-    association :business, factory: :business1
   end
 
   factory :job1, class: Job do

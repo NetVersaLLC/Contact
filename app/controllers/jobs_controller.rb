@@ -1,6 +1,22 @@
 class JobsController < ApplicationController
-  before_filter      :authenticate_user!
+  prepend_before_filter :authenticate_user_from_token!
+
   skip_before_filter :verify_authenticity_token
+
+  #until we find a better home for it.  Used by grinder 
+  def credentials
+    @info = {}
+    begin
+      @business = Business.find(params[:business_id])
+      @user = @business.user
+      @info = {:status => :success, :auth_token => @user.authentication_token, :name => @business.business_name, :subscription_active => @business.subscription.active, :paused => !@business.paused_at.nil?, :categorized => @business.categorized, :payloads => @business.list_payloads}
+    rescue Exception => e
+      @info = {:status => :error, :message => e.message, :backtrace => e.backtrace.join("\n")}
+    end
+    respond_to do |format|
+      format.json { render json: @info }
+    end
+  end
 
   def index
     @business = Business.find(params[:business_id])
@@ -13,12 +29,14 @@ class JobsController < ApplicationController
       end
       return
     end
-    @business.checkin()
+    @business.update_attributes(client_checkin: Time.now, client_version: params[:version] || "0.0.0")
 
     @job = {:status => 'default'}
+
+    # Please consider misc_methods.rb stopped? and stopped_because methods before adding anything new here.  
     if @business.categorized == false
       @job = {:status => 'no_categories'}
-    elsif @business.paused? == true
+    elsif @business.stopped? #paused? 
       @job = {:status => 'paused'}
     elsif (@business.subscription != nil and @business.subscription.active?) == false
       @job = {:status => 'inactive'}
@@ -34,6 +52,7 @@ class JobsController < ApplicationController
         @job = {:status => 'wait'} # jobs are being inserted in the background.  
       else
         @job['payload_data'] = @job.get_job_data(@business, params)
+        @job.start
       end
     end
     respond_to do |format|
@@ -41,6 +60,8 @@ class JobsController < ApplicationController
     end
   end
 
+  # from the citation client 
+  # RestClient.post("#{@host}/jobs.json?auth_token=#{@key}&business_id=#{@bid}", :message => msg, :name => name, :delay => time_delay, :version => @version)
   def create
     @business = Business.find(params[:business_id])
 
@@ -62,9 +83,16 @@ class JobsController < ApplicationController
       Job.where(:business_id => params[:business_id]).delete_all
     end
 
-    @job = Job.inject(params[:business_id], payload.client_script, payload.data_generator, payload.ready, runtime)
-    @job.name = params[:name]
+    #@job = Job.inject(params[:business_id], payload.client_script, payload.data_generator, payload.ready, runtime)
+    @job = Job.inject(@business, payload, runtime)
 
+    # moved to the model
+    #if payload.parent
+    #  site_name= params[:name].split('/')[0]
+    #  parent_job= CompletedJob.where("business_id= ? and name= ? ",
+    #                                  @business.id, "#{site_name}/#{payload.parent.name}").order('id desc').first
+    #  @job.parent_id= parent_job.id if parent_job
+    #end
     respond_to do |format|
       if @job.save
         format.json { render json: @job }
@@ -76,12 +104,14 @@ class JobsController < ApplicationController
 
   def update
     @job = Job.find(params[:id])
-
     unless @job.business.user_id == current_user.id
       redirect_to '/', :status => 403
     else
       if params[:status] == 'success'
         @job.success(params[:message])
+
+        # now that we have a bing account, we can create the other listings
+        Task.request_sync( @job.business ) if @job.name == "Bing/SignUp"
       else
         @screenshot = nil
         if params[:screenshot]
@@ -137,10 +167,21 @@ class JobsController < ApplicationController
     end 
   end 
 
+  def delete_all 
+    authorize! :delete,  Job
+
+    if params[:business_id].blank?
+      render json: false, status: :bad_request
+    else 
+      Job.where(:business_id => params[:business_id]).delete_all
+      render json: true
+    end 
+  end 
+
   def destroy
     if %w(Job FailedJob CompletedJob).include? params[:class_name] 
       job = params[:class_name].constantize.find(params[:id])
-      authorize! :delete,  job 
+      authorize! :destroy,  job 
       job.delete 
     else 
       Job.where(:business_id => params[:business_id]).delete_all

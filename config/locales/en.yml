@@ -73,6 +73,7 @@ en:
         corporate_name:      "DBA/Corporate Name"
         fax_number:          ""
         local_phone:         "Primary Local Phone"
+        mobile_phone:        "Mobile Phone" 
         professional_associations: "Professional Associations and Memberships"
         toll_free_phone:     "Toll-Free Phone" 
         year_founded:        "Year Founded" 

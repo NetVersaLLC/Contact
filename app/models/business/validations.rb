@@ -49,8 +49,7 @@ module Business::Validations
 
     validates :local_phone,
       :presence => true
-    # validates :mobile_phone,
-    #   :presence => true
+     validates :mobile_phone,  :presence => true
     
       validates :business_description, :presence => true, :length => {:minimum => 50, :maximum => 200}
     validates :geographic_areas,

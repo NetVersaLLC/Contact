@@ -4,16 +4,16 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'awesome_print'
+require 'capybara/rails'
 
 require File.dirname(__FILE__) + "/factories1"
-
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 RSpec.configure do |config|
-  config.include Devise::TestHelpers, :type => :controller
+  config.include FactoryGirl::Syntax::Methods
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -37,6 +37,21 @@ RSpec.configure do |config|
 
   # Clean up the database
   require 'database_cleaner'
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
+  config.before(:suite) { FactoryGirl.reload }
+
   #config.before(:suite) do
   #  DatabaseCleaner[:active_record].clean_with(:truncation)
   #  DatabaseCleaner[:active_record].strategy = :truncation
@@ -55,6 +70,5 @@ def create_site_profiles
   FactoryGirl.create(:site, :name => "Google")
   FactoryGirl.create(:site, :name => "Yelp")
   FactoryGirl.create(:site, :name => "Yahoo")
-  FactoryGirl.create(:site, :name => "Bing")
   FactoryGirl.create(:site, :name => "Bing")
 end

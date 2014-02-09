@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131207164016) do
+ActiveRecord::Schema.define(:version => 20140206152318) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -205,6 +205,14 @@ ActiveRecord::Schema.define(:version => 20131207164016) do
     t.integer  "subscription_id"
   end
 
+  create_table "business_site_modes", :force => true do |t|
+    t.integer  "site_id"
+    t.integer  "business_id"
+    t.integer  "mode_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "businesscoms", :force => true do |t|
     t.datetime "force_update"
     t.text     "secrets"
@@ -336,8 +344,13 @@ ActiveRecord::Schema.define(:version => 20131207164016) do
     t.text     "temporary_draft_storage"
     t.string   "category_description"
     t.string   "referrer_code"
+    t.string   "client_version",            :default => "0.0.0"
+    t.integer  "salesperson_id"
+    t.integer  "sales_person_id"
+    t.integer  "call_center_id"
   end
 
+  add_index "businesses", ["call_center_id"], :name => "index_businesses_on_call_center_id"
   add_index "businesses", ["category1"], :name => "index_businesses_on_category1"
   add_index "businesses", ["category2"], :name => "index_businesses_on_category2"
   add_index "businesses", ["category3"], :name => "index_businesses_on_category3"
@@ -363,6 +376,11 @@ ActiveRecord::Schema.define(:version => 20131207164016) do
   end
 
   add_index "byzlysts", ["parent_id"], :name => "index_byzlysts_on_parent_id"
+
+  create_table "call_centers", :force => true do |t|
+    t.string  "name"
+    t.integer "label_id"
+  end
 
   create_table "citisquare_categories", :force => true do |t|
     t.integer  "parent_id"
@@ -472,6 +490,8 @@ ActiveRecord::Schema.define(:version => 20131207164016) do
     t.integer  "screenshot_id"
     t.text     "signature"
     t.integer  "payload_id"
+    t.integer  "parent_id"
+    t.integer  "label_id"
   end
 
   add_index "completed_jobs", ["business_id"], :name => "index_completed_jobs_on_business_id"
@@ -758,14 +778,19 @@ ActiveRecord::Schema.define(:version => 20131207164016) do
     t.text     "backtrace"
     t.datetime "waited_at"
     t.integer  "position"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
     t.integer  "screenshot_id"
     t.text     "signature"
     t.integer  "payload_id"
+    t.integer  "parent_id"
+    t.string   "grouping_hash"
+    t.boolean  "resolved",       :default => false
+    t.integer  "label_id"
   end
 
   add_index "failed_jobs", ["business_id"], :name => "index_failed_jobs_on_business_id"
+  add_index "failed_jobs", ["grouping_hash"], :name => "index_failed_jobs_on_grouping_hash"
   add_index "failed_jobs", ["payload_id"], :name => "index_failed_jobs_on_payload_id"
   add_index "failed_jobs", ["screenshot_id"], :name => "index_failed_jobs_on_screenshot_id"
   add_index "failed_jobs", ["status"], :name => "index_failed_jobs_on_status"
@@ -903,6 +928,8 @@ ActiveRecord::Schema.define(:version => 20131207164016) do
     t.integer  "ycphonebook_category_id"
     t.integer  "bigwigbiz_category_id"
     t.integer  "nationalwebdir_category_id"
+    t.integer  "listwns_category_id"
+    t.integer  "snoopitnow_category_id"
   end
 
   add_index "google_categories", ["name"], :name => "index_google_categories_on_name"
@@ -1055,9 +1082,12 @@ ActiveRecord::Schema.define(:version => 20131207164016) do
     t.text     "backtrace"
     t.text     "signature"
     t.integer  "payload_id"
+    t.integer  "parent_id"
+    t.integer  "label_id"
   end
 
   add_index "jobs", ["business_id"], :name => "index_jobs_on_business_id"
+  add_index "jobs", ["parent_id"], :name => "index_jobs_on_parent_id"
   add_index "jobs", ["payload_id"], :name => "index_jobs_on_payload_id"
   add_index "jobs", ["status"], :name => "index_jobs_on_status"
 
@@ -1149,6 +1179,10 @@ ActiveRecord::Schema.define(:version => 20131207164016) do
     t.string   "crm_url"
     t.string   "crm_username"
     t.string   "crm_password"
+    t.string   "sales_phone"
+    t.string   "sales_email"
+    t.string   "website_url"
+    t.string   "website_name"
   end
 
   add_index "labels", ["domain"], :name => "index_labels_on_domain"
@@ -1177,6 +1211,13 @@ ActiveRecord::Schema.define(:version => 20131207164016) do
   end
 
   add_index "listwns", ["business_id"], :name => "index_listwns_on_business_id"
+
+  create_table "listwns_categories", :force => true do |t|
+    t.string   "name"
+    t.integer  "parent_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "localcensus", :force => true do |t|
     t.integer  "business_id"
@@ -1501,6 +1542,14 @@ ActiveRecord::Schema.define(:version => 20131207164016) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "notes", :force => true do |t|
+    t.string   "body"
+    t.integer  "user_id"
+    t.integer  "business_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "notifications", :force => true do |t|
     t.integer  "business_id"
     t.string   "title"
@@ -1581,7 +1630,7 @@ ActiveRecord::Schema.define(:version => 20131207164016) do
     t.boolean  "active",                   :default => false
     t.datetime "broken_at"
     t.text     "notes"
-    t.integer  "parent_id",                :default => 1
+    t.integer  "parent_id"
     t.integer  "position",                 :default => 0
     t.datetime "created_at",                                  :null => false
     t.datetime "updated_at",                                  :null => false
@@ -1592,6 +1641,8 @@ ActiveRecord::Schema.define(:version => 20131207164016) do
     t.integer  "mode_id",                  :default => 1
     t.text     "client_script_signature"
     t.text     "data_generator_signature"
+    t.datetime "paused_at"
+    t.integer  "to_mode_id"
   end
 
   add_index "payloads", ["mode_id"], :name => "index_payloads_on_mode_id"
@@ -1687,6 +1738,13 @@ ActiveRecord::Schema.define(:version => 20131207164016) do
 
   add_index "reports", ["business_id"], :name => "index_reports_on_business_id"
   add_index "reports", ["ident"], :name => "index_reports_on_ident"
+
+  create_table "rewards", :force => true do |t|
+    t.integer  "points",           :default => 0
+    t.integer  "administrator_id"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
 
   create_table "rookies", :force => true do |t|
     t.integer  "position"
@@ -2080,21 +2138,21 @@ ActiveRecord::Schema.define(:version => 20131207164016) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                  :default => "",        :null => false
-    t.string   "encrypted_password",     :default => "",        :null => false
-    t.integer  "access_level",           :default => 116390000, :null => false
+    t.string   "email",                                :default => "",        :null => false
+    t.string   "encrypted_password",                   :default => ""
+    t.integer  "access_level",                         :default => 116390000, :null => false
     t.integer  "parent_id"
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          :default => 0
+    t.integer  "sign_in_count",                        :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "authentication_token"
-    t.datetime "created_at",                                    :null => false
-    t.datetime "updated_at",                                    :null => false
+    t.datetime "created_at",                                                  :null => false
+    t.datetime "updated_at",                                                  :null => false
     t.integer  "label_id"
     t.boolean  "callcenter"
     t.string   "referrer_code"
@@ -2105,16 +2163,29 @@ ActiveRecord::Schema.define(:version => 20131207164016) do
     t.string   "last_name"
     t.date     "date_of_birth"
     t.string   "mobile_phone"
-    t.boolean  "mobile_appears",         :default => false
+    t.boolean  "mobile_appears",                       :default => false
     t.string   "username"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
+    t.string   "last_user_agent"
+    t.string   "type"
+    t.integer  "manager_id"
+    t.integer  "reseller_id"
+    t.string   "invitation_token",       :limit => 60
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer  "invitation_limit"
+    t.integer  "invited_by_id"
+    t.string   "invited_by_type"
+    t.integer  "call_center_id"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["invitation_token"], :name => "index_users_on_invitation_token", :unique => true
+  add_index "users", ["invited_by_id"], :name => "index_users_on_invited_by_id"
   add_index "users", ["label_id"], :name => "index_users_on_label_id"
   add_index "users", ["parent_id"], :name => "index_users_on_parent_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true

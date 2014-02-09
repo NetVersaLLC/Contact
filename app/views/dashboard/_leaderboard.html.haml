@@ -1,0 +1,11 @@
+-if call_center.nil?  
+  %h3 Leaderboard
+  %p call Center has not been not assigned.
+-else 
+  %h3 Leaderboard for #{call_center.name}
+  %table.table.table-striped
+    %tbody 
+      - call_center.leaderboard.each do |r| 
+        %tr
+          %td #{r["first_name"]} #{r["last_name"]}
+          %td= r["sold_count"].to_i

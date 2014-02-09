@@ -1,0 +1,8 @@
+development: &dev
+  job_retries: 2
+
+production:
+  <<: *dev
+
+test:
+  <<: *dev

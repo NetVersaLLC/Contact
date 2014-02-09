@@ -17,15 +17,19 @@ class Dashboard
     business.present? && business.valid?
   end 
 
+  def client_checked_in_recently? 
+    client_checkin.present? && client_checkin > 24.hours.ago
+  end 
+
   def client_checkin
-    if @user.reseller?
+    unless @user.is_a? User 
       return Time.now
     end
     business.client_checkin
   end 
 
   def is_client_downloaded
-    if @user.reseller?
+    unless @user.is_a? User
       return true
     end
     business.is_client_downloaded
@@ -33,10 +37,10 @@ class Dashboard
 
   def alerts
     messages = []
-    if @user.reseller?
+    unless @user.is_a? User # is_a business owner
       return messages
     end
-    messages << :client_not_downloaded if not business.is_client_downloaded
+    #messages << :client_not_downloaded if not business.is_client_downloaded
 
     if business_valid? 
       if business.client_checkin.nil?

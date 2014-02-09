@@ -1,28 +1,27 @@
 %table.table.table-striped.table-bordered.table-hover.dataTable
   %thead
     %tr
-      %th Listing Domain
-      %th Sync Enabled
+      %th Site
+      %th Listing URL
       %th.hidden-480
         %i.icon-time
-        Last Update  
-      -#%th.hidden-480 Status
+        Status
+      %th Sync
       %th
   %tbody
     - @rows.each do |row|
       %tr
-        %td= row['type'] 
+        %td= link_to row['type'], account_path(row["id"])
+        - if row['listing_url'].nil?
+          %td
+        - else
+          %td
+            = link_to 'View Listing', row['listing_url'], :class => 'btn btn-info'
+        %td{:title => distance_of_time_in_words_to_now(ClientData.last_update( row['business_id'], row['type'] ) || row['updated_at'])}
+          = row['status'].nil? ? '' : row['status']
         %td= render partial: "sync_button", locals: { :row => row }
-        %td= ClientData.last_update( row['business_id'], row['type'] ) || row['updated_at']
-        -#%td
-          - scan = ClientData.latest_scan( row["business_id"], row["type"] )
-          %span.label=  scan.status
-          -if scan.completed_at.present?
-            %br
-            %small.text-muted= l(scan.completed_at, format: :long)
         %td
-          = link_to account_path(row["id"]), class: "btn btn-xs btn-success" do 
-            %i.icon-ok.bigger-120
-          -# = link_to edit_account_path(row["id"]), class: "btn btn-xs btn-info" do 
-            %i.icon-edit.bigger-120
+          -if row['type'].downcase == 'bing' && current_user.instance_of?(Administrator) || row['type'].downcase != 'bing'
+            = link_to edit_account_path(row["id"]), class: "btn btn-xs btn-info" do
+              %i.icon-edit.bigger-120
 

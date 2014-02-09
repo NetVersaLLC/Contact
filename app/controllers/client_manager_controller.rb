@@ -1,11 +1,11 @@
 class ClientManagerController < ApplicationController
-  before_filter :require_admin
+  before_filter :require_auth
 
   respond_to :html, :json
 
   def index 
-    @business = Business.where(id: params[:business_id]).first || Business.first
-    @businesses = Business.order("business_name asc").all
+    @business = Business.accessible_by(current_ability).where(id: params[:business_id]).first || Business.first
+    @businesses = Business.accessible_by(current_ability).order("business_name asc").all
   end 
 
   def jobs
@@ -16,7 +16,7 @@ class ClientManagerController < ApplicationController
       business = Business.find(params[:business_id]) 
 
       PackagePayload.joins(site: [:payloads]).order("sites.name asc").
-        where( package_id: 1).
+        where( package_id: business.subscription.package_id).
         select(["sites.name as sname","payloads.name as pname"]).each do |payload|
           fullname = "#{payload.sname}/#{payload.pname}" 
 
@@ -26,7 +26,7 @@ class ClientManagerController < ApplicationController
           @jobs.push job
       end 
     else 
-      @jobs = class_name.to_s.classify.constantize.where(business_id:  params[:business_id]).order("name asc, position asc")
+      @jobs = class_name.to_s.classify.constantize.where(business_id:  params[:business_id]).order("position asc")
     end 
   end 
 
@@ -36,10 +36,8 @@ class ClientManagerController < ApplicationController
 
   private 
 
-  def require_admin 
-    unless current_user.admin? 
-      redirect_to "/", error: "Not authorized" 
-    end 
+  def require_auth
+    redirect_to "/", error: "Not authorized" if cannot? :read, FailedJob
   end 
 
 end 

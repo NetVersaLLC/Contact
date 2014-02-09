@@ -1,10 +1,11 @@
 class Job < JobBase
   belongs_to :business
   belongs_to :screenshot
+  belongs_to :payload_record, class_name: Payload, foreign_key: :payload_id
 
   after_create :assign_position
 
-  attr_accessible :payload, :data_generator, :status, :runtime
+  attr_accessible :payload, :data_generator, :status, :runtime, :payload_id
   attr_accessible :business_id, :name, :status_message, :backtrace, :waited_at, :position, :data
 
   validates :status,
@@ -27,6 +28,8 @@ class Job < JobBase
   }
   TO_SYM = TO_CODE.invert
 
+
+
   def assign_position
     pos = Job.where(:business_id => self.business_id).minimum(:position)
     if pos == nil
@@ -44,7 +47,12 @@ class Job < JobBase
   def get_job_data(business, params)
     unless self['data_generator'].nil?
       logger.info "Executing: #{self['data_generator']}"
-      eval self['data_generator']
+      begin
+        eval self['data_generator']
+      rescue Exception => e
+        self.is_now(FailedJob)
+        raise "#{self.name}: #{e.message}: #{self.business_id}"
+      end
     else
       {}
     end
@@ -62,30 +70,21 @@ class Job < JobBase
   end
 
   def self.pending(business)
+
     #@job = Job.where('business_id = ? AND status IN (0,1) AND runtime < NOW()', business.id).order(:position).first
-    @job = Job.where('business_id = ? AND status IN (0,1) AND runtime < UTC_TIMESTAMP()', business.id).order(:position).first
+    #
+    # Find the next job in the queue while skipping those payloads that have been paused.  
+    @job = Job.joins(:payload_record).where(['business_id = ? AND status IN (0,1) AND runtime <= ? and payloads.paused_at is null', business.id, Time.now]).order(:position).first
     if @job != nil
+      @job = Job.find(@job.id) # this is necessary to get an activerecord object instead of a read only object
+
       if @job.wait == true
-        if @job.waited_at > Time.now - 1.hour
-          nil
-        else
+        if @job.waited_at < Time.now - 15.minutes
           # Reap a stalled/failed job
-          @job.with_lock do
-            @job.status         = TO_CODE[:error]
-            @job.status_message = 'Job never returned results.'
-            @job.save
-          end
-          @job.is_now(FailedJob)
-          nil
+          @job.failure('Job never returned results.')
         end
+        nil
       else
-        @job.with_lock do
-          @job.payload        = @job.payload
-          @job.status         = TO_CODE[:running]
-          @job.status_message = 'Starting job'
-          @job.waited_at      = Time.now
-          @job.save
-        end
         @job
       end
     else
@@ -93,37 +92,85 @@ class Job < JobBase
     end
   end
 
+  def start
+    self.status         = TO_CODE[:running]
+    self.status_message = 'Starting job'
+    self.waited_at      = Time.now
+    self.save!
+  end 
+
   def success(msg='Job completed successfully')
     self.with_lock do
       self.status         = TO_CODE[:finished]
       self.status_message = msg
       self.save
     end
+    # If the payload is leaf and it defines required columns (:to, :from), then update the mode and complete the job
+    payload= Payload.by_name(self.name)
+    if payload and payload.children.empty?
+      mode= BusinessSiteMode.find_or_initialize_by_business_id_and_site_id(self.business_id, payload.site.id)
+      if mode.new_record?
+        mode.mode_id= payload.to_mode_id
+        mode.save
+      elsif mode.mode_id == payload.mode_id
+        mode.mode_id = payload.to_mode_id
+        mode.save
+      else
+        logger.error "#{self.name} payload mode:#{payload.mode_id} does not match the current mode: #{mode.mode_id}"
+      end
+    end
     self.is_now(CompletedJob)
   end
 
-  def failure(msg='Job failed', backtrace=nil, screenshot=nil)
-    self.with_lock do
-      self.status         = TO_CODE[:error]
-      self.status_message = msg
-      self.backtrace      = backtrace
-      self.screenshot_id  = screenshot.id if screenshot.present?
-      self.save
-    end
-    self.is_now(FailedJob)
+  def failure(msg='Job failed', backtrace=nil, screenshot=nil )
+    job_retries= (Contact::CONFIG ? Contact::CONFIG[Rails.env]["job_retries"] : 2)
+
+    self.status_message = msg 
+    self.backtrace = backtrace 
+
+    if self.name == "Bing/SignUp"
+      if FailedJob.
+          where(:business_id => business_id, :name => self.name).
+          where("updated_at > ?", Time.now - 4.hours).
+          count >= job_retries
+
+        business.update_attribute(:paused_at,  Time.now)
+        email_body= "The #{self.name} for the business{id, name}:{#{business.id}, #{business.name}} has failed. Business syncs have been paused."
+        UserMailer.custom_email("admin@netversa.com", email_body, email_body).deliver
+        self.is_now(FailedJob)
+      else 
+        self.
+        add_failed_job( { "status_message" => msg, "backtrace" => backtrace, "screenshot" => screenshot } )
+      end 
+    else
+      self.is_now(FailedJob)
+    end 
   end
 
-  def self.inject(business_id,payload,data_generator,ready = nil,runtime = Time.now, signature='')
-    Job.create do |j|
+  def self.inject(business,  payload,runtime = Time.now, signature='')
+    site_name = payload.site.name 
+
+    job = Job.create do |j|
       j.status         = TO_CODE[:new]
       j.status_message = 'Created'
-      j.business_id    = business_id
-      j.payload        = payload
+      j.business_id    = business.id
+      j.label_id       = business.label_id
+      j.payload_id     = payload.id
+      j.payload        = payload.client_script
+      j.data_generator = payload.data_generator
+      j.ready          = payload.ready
       j.signature      = signature
-      j.data_generator = data_generator
-      j.ready          = ready
       j.runtime        = runtime
+      j.name           = "#{site_name}/#{payload.name}"
     end
+
+    if payload.parent
+      parent_job= CompletedJob.where("business_id= ? and name= ? ",
+                                      business.id, "#{site_name}/#{payload.parent.name}").order('id desc').first
+      job.parent_id= parent_job.id if parent_job
+    end
+
+    job
   end
 
   def self.get(table, id)
@@ -140,4 +187,5 @@ class Job < JobBase
   def label_id
     self.business.label_id
   end
+
 end

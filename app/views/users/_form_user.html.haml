@@ -1,0 +1,66 @@
+=form_for @user, as: :user, url: '/adminusers' + (@user.new_record? ? "" : "/#{@user.id}"),  html: {class: "form-horizontal"} do |f|
+  .tabbable 
+    %ul.nav.nav-tabs.padding-16
+      %li.active
+        %a(href="#edit-basic" data-toggle="tab") 
+          %i.green.icon-edit.bigger-125
+          Basic Info
+      -#%li
+        %a(href="#edit-settings" data-toggle="tab") 
+          %i.purple.icon-cog.bigger-125
+          Settings
+      %li
+        %a(href="#edit-password" data-toggle="tab") 
+          %i.blue.icon-key.bigger-125
+          Password
+    .tab-content.profile-edit-tab-content
+      #edit-basic.tab-pane.active
+        =render partial: "form_basic_info", locals: { f: f }
+      -#edit-settings.tab-pane
+        =render partial: "form_settings", locals: { f: f }
+      #edit-password.tab-pane
+        =render partial: "form_password", locals: { f: f }
+  .clearfix.form-actions
+    .col-md-offset-3.col-md-9
+      %button.btn.btn-info(type="submit") 
+        %i.icon-ok.bigger-110
+        Save
+      %button.btn(type="reset")
+        %i.icon-undo.bigger-110
+        Reset
+
+:javascript
+  jQuery(function($) { 
+    register_user_hooks() 
+
+  /* http://eternicode.github.io/bootstrap-datepicker/ */
+    $('.date-picker').datepicker({autoclose: true, startView: 0, format: "yyyy-mm-dd", keyboardNavigation: false}); 
+    $('#edit-basic')
+      .find('input[type=file]').ace_file_input({
+        style:'well',
+        btn_choose:'Change avatar',
+        btn_change:null,
+        no_icon:'icon-picture',
+        thumbnail:'large',
+        droppable:true,
+        before_change: function(files, dropped) {
+          var file = files[0];
+          if(typeof file === "string") {//files is just a file name here (in browsers that don't support FileReader API)
+            if(! (/\.(jpe?g|png|gif)$/i).test(file) ) return false;
+          }
+          else {//file is a File object
+            var type = $.trim(file.type);
+            if( ( type.length > 0 && ! (/^image\/(jpe?g|png|gif)$/i).test(type) )
+                || ( type.length == 0 && ! (/\.(jpe?g|png|gif)$/i).test(file.name) )//for android default browser!
+              ) return false;
+    
+            if( file.size > 110000 ) {//~100Kb
+              return false;
+            }
+          }
+    
+          return true;
+        }
+      })
+    } );
+

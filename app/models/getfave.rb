@@ -1,5 +1,5 @@
 class Getfave < ClientData
-  attr_accessible :email
+  attr_accessible :email, :status
   virtual_attr_accessor :password
 
   def has_categories? 

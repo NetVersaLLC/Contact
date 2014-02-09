@@ -1,5 +1,5 @@
 class Listwns < ClientData
-	attr_accessible :username
+	attr_accessible :username, :status
 	virtual_attr_accessor :password
 #	validates :password,
 #            :presence => true

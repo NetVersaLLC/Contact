@@ -106,7 +106,7 @@ class CreditCardProcessor
     if !self.is_credit_card_valid? 
       return Subscription.create( :message => self.credit_card_errors, 
                                  :status => :failure, 
-                                 monthly_fee: monthly_fee)
+                                 monthly_fee: monthly_fee )
     end 
 
     names            = @creditcard.name.split(/\s+/)
@@ -136,6 +136,7 @@ class CreditCardProcessor
       subscription.status            = :success
       subscription.message           = "Purchase complete!"
       subscription.subscription_code = response.authorization
+      subscription.billing_name      = @creditcard.name
     else
       m = 
         case response.params['code']

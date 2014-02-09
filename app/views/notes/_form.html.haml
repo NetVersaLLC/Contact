@@ -1,0 +1,20 @@
+.row
+  .col-xs-6
+    %h3 Note for #{@business.business_name.presence || @business.id}
+    =form_for [@business, @note] do |f| 
+      = f.text_area :body
+      .clearfix.form-actions
+        .col-md-offset-3.col-md-9
+          %button.btn.btn-info(type="submit") 
+            %i.icon-ok.bigger-110
+            Save
+  .col-xs-6
+    %h3.muted History
+    %dl 
+      -@business.notes.accessible_by(current_ability).order("id desc").each do |n| 
+        %dt 
+          = link_to business_note_path(@business, n), class: 'pull-right', method: :delete  do 
+            %i.icon-trash
+          #{n.user.full_name} - #{distance_of_time_in_words_to_now( n.created_at )} ago
+        %dd= n.body
+

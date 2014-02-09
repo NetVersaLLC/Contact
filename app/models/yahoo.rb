@@ -1,5 +1,5 @@
 class Yahoo < ClientData
-  attr_accessible       :email, :yahoo_category_id
+  attr_accessible       :email, :yahoo_category_id, :listing_url, :status
   virtual_attr_accessor :password, :secret1, :secret2
   belongs_to            :yahoo_category
 

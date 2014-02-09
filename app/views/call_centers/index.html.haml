@@ -1,0 +1,19 @@
+.row
+  .col-xs-12
+    %h3.header.smaller.lighter.blue Call Centers
+    = button_to "New Call Center", new_call_center_path, :class => "btn btn-info", :method => :get
+    %table.table.table-striped.table-bordered.table-hover
+      %thead
+        %tr
+          %th Label
+          %th Name
+          %th Actions
+      %tbody
+        - @call_centers.each do |cc| 
+          %tr
+            %td= cc.label.name
+            %td= cc.name 
+            %td 
+              =link_to "Edit", edit_call_center_path(cc)
+              | 
+              =link_to "Delete", cc, method: :delete, confirm: "Are you sure?"

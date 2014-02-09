@@ -19,6 +19,6 @@ module Business::Attributes
     attr_accessible :fan_page_url, :keywords, :status_message, :trade_license, :trade_license_number 
     attr_accessible :trade_license_locale, :trade_license_authority, :trade_license_expiration 
     attr_accessible :trade_license_description, :brands, :tag_line, :job_titles, :is_client_downloaded
-    attr_accessible :temporary_draft_storage, :category_description
+    attr_accessible :temporary_draft_storage, :category_description, :client_checkin, :client_version, :call_center_id, :sales_person_id
   end
 end

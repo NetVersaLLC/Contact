@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  before_filter :authenticate_user!
+
   protect_from_forgery
   helper_method :impersonating_user, :breadcrumbs
 
@@ -21,7 +23,7 @@ class ApplicationController < ActionController::Base
   end 
 
   def check_admin_role
-    return if current_user.reseller?
+    return if current_user.is_a? Administrator
     flash[:notice] = "You need to be an admin to access this part of the application"
     redirect_to root_path
   end
@@ -30,24 +32,28 @@ class ApplicationController < ActionController::Base
     check_admin_role
   end
 
+  def authenticate_reseller!
+    return if current_user.is_a? Administrator
+    flash[:notice] = "You need to be an admin to access this part of the application"
+    redirect_to root_path
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, :error => exception.message
     # sign_out current_user 
     #redirect_to new_user_session_url, :alert => exception.message
   end
 
-  # def after_sign_in_path_for resource
-  #   if resource.admin? || resource.reseller?
-  #     admin_root_url
-  #   else
-  #     root_url
-  #   end
-  # end
-
-  #def current_ability
-  #   @current_ability ||= Ability.new(current_admin_user)
-  #end 
   protected 
+    def authenticate_user_from_token!
+      user_token = params[:auth_token].presence
+      user       = user_token && User.find_by_authentication_token(user_token)
+
+      if user 
+        sign_in user, store: false  # dont store session so that the token is needed on every request
+      end 
+    end 
+
     def add_breadcrumb name, url = ''
       breadcrumbs << [name, url]
     end 

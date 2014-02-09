@@ -1,4 +1,4 @@
 .form-group 
   =f.label :access_level, "Role", class: "col-sm-3 control-label no-padding-right"
   .col-sm-9
-    =f.select :access_level, User::TYPES.collect{|k,v| [ k.to_s.humanize, v ] }, {}, disabled: !current_user.admin?
+    =f.select :access_level, %w(Administrator Reseller Manager SalesPerson Owner), {}, disabled: !current_user.is_a?(Administrator)

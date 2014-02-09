@@ -9,6 +9,8 @@
     .main-container
       .main-container-inner
         -if current_user
+          %a#menu-toggler.menu-toggler{ href: "#"}
+            %span.menu-text
           = render 'layouts/sidebar'
         .main-content
           .breadcrumbs#breadcrumbs
@@ -30,8 +32,10 @@
 
     :javascript 
       try{ clicky.init(100634376); }catch(e){}
+      $(function(){$('input, textarea').placeholder();}); 
     %noscript
       %p
         %img(alt="Clicky" width="1" height="1" src="//in.getclicky.com/100634376ns.gif")
     - if current_label.footer != nil
       = current_label.footer
+

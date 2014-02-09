@@ -4,7 +4,8 @@
   });
 - if @subscription.active
   =render "view"
-  = link_to 'Cancel Subscription', subscription_path(@subscription), :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger'
+  -if can? :destroy, @subscription
+    = link_to 'Cancel Subscription', subscription_path(@subscription), :confirm => 'Are you sure?', :method => :delete, :class => 'btn btn-danger'
 
 - else
   = form_for @subscription do |f|

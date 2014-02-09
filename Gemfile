@@ -9,6 +9,8 @@ group :development do
   gem 'rb-fsevent'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'guard'
+  gem 'guard-rspec'
 end
 
 group :assets do
@@ -29,18 +31,24 @@ group :test do
   #gem 'cucumber-rails', :require => false
   gem 'page-object'
   gem 'database_cleaner'
-  gem 'capybara'
-  gem 'capybara-screenshot'
-  gem 'rspec-rails'
+  gem 'spring'
+  gem 'spring-commands-rspec'
   gem 'shoulda'
   gem 'zeus'
 end
 
 group :test, :development do
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'capybara-screenshot'
   gem 'minitest-rails'
   gem 'awesome_print'
   gem 'factory_girl_rails'
   gem 'mocha', require: false
+  gem 'pry-rails'
+  gem 'pry-stack_explorer'
+  gem 'pry-remote'
+  gem 'pry-nav'
 end
 
 gem "aws-sdk", "~> 1.11.3"
@@ -93,3 +101,5 @@ gem "redcarpet"
 gem 'has_scope'
 gem "acitree-rails", :git => 'https://github.com/jjeffus/acitree-rails.git' #'git@github.com:jjeffus/acitree-rails.git'
 gem "sugarcrm"
+gem "browser"
+gem "useragent"

@@ -1,5 +1,4 @@
 class BusinessesController < InheritedResources::Base
-  load_and_authorize_resource 
   respond_to :html #,:xml, :json
   actions :all
 
@@ -17,7 +16,9 @@ class BusinessesController < InheritedResources::Base
   end 
 
   def show 
-      show! { add_breadcrumb @business.business_name, nil}
+    @business = Business.find(params[:id])
+    authorize! :read, @business
+    add_breadcrumb @business.business_name, nil
   end 
 
 
@@ -80,7 +81,11 @@ class BusinessesController < InheritedResources::Base
   def update
     business = Business.find(params[:id]) 
     authorize! :edit, business 
- 
+
+    if business.user.full_name.blank? 
+      business.user.update_attributes( first_name: params[:business][:contact_first_name], last_name: params[:business][:contact_last_name])
+    end 
+
     business.temporary_draft_storage = nil
     business.update_attributes( params[:business] ) 
     respond_to do |format| 

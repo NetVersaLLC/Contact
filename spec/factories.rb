@@ -26,7 +26,7 @@ FactoryGirl.define do
     corporate_name 'corporate name'
     contact_prefix 'Mr'
     category_description 'ecommerce'
-
+    label
     subscription
     user
     #crunchbase_attributes 'crunchbase'
@@ -41,13 +41,46 @@ FactoryGirl.define do
     credits 10
   end
 
+  factory :call_center do 
+    name "cc" 
+  end 
+
+  sequence :email do |n| 
+    "user#{n}@test.dev" 
+  end 
+
   factory :user do 
-    email "user@contact.dev"
+    email 
     password 'password' 
     password_confirmation 'password'
-    authentication_token '82ht987h987h'
-    access_level User.owner
+    sequence(:authentication_token) { |n| "82ht987h987h#{n}" }
     label 
+  end 
+
+  factory :sales_person do 
+    email 
+    password 'password' 
+    password_confirmation 'password'
+  end 
+  factory :manager do 
+    email 
+    password 'password' 
+    password_confirmation 'password'
+  end 
+  factory :reseller do 
+    email 
+    password 'password' 
+    password_confirmation 'password'
+  end 
+  factory :administrator do 
+    email 
+    password 'password' 
+    password_confirmation 'password'
+  end 
+  factory :customer_service_agent do 
+    email 
+    password 'password' 
+    password_confirmation 'password'
   end 
 
   factory :location do 
@@ -79,6 +112,11 @@ FactoryGirl.define do
     package_id 1
     monthly_fee 20
   end
+
+  factory :package_payload do 
+    site
+
+  end 
 
   factory :transaction_event do
     label_id 2
@@ -118,4 +156,99 @@ FactoryGirl.define do
     page_rank { SecureRandom.random_number(10) }
     enabled_for_scan '1'
   end
+
+  factory :payload do
+    sequence(:name, 0) { |n| "Step#{n}" }
+    active false
+    data_generator "data = {} \n data[ 'mail' ]= business.user.email"
+    client_script "nothing"
+    site
+    factory :payload_chain do
+      after(:create) { |root|
+        modes= create_list(:mode, 4)
+        payloads= create_list(:payload, 2, site: root.site)
+        payloads[0].parent_id= root.id
+        payloads[0].name= "Step1"
+        payloads[1].parent_id= payloads[0].id
+        payloads[1].name= "Step2"
+        payloads[1].mode= modes[0]
+        payloads[1].to_mode= modes[1]
+        payloads.each{|e| e.save};
+      }
+    end
+  end
+
+  factory :job do
+    sequence(:name, 0) { |n| "Private/Step#{n}" }
+    business
+    runtime {Time.now}
+    status_message "message from heaven"
+    payload "nothing"
+    data_generator "data = {} \n data[ 'mail' ]= business.user.email"
+    status {Job::TO_CODE[:new]}
+    factory :running_job do
+      status {Job::TO_CODE[:running]}
+    end
+    factory :waited_job do
+      status {Job::TO_CODE[:running]}
+      waited_at {Time.now}
+    end
+    factory :long_waited_job do
+      status {Job::TO_CODE[:running]}
+      waited_at {Date.yesterday}
+    end
+  end
+
+  factory :failed_job do
+    sequence(:name, 0) { |n| "Private/Step#{n}" }
+    business
+    status_message "message from heaven"
+    payload "nothing"
+    data_generator "data = {} \n data[ 'mail' ]= business.user.email"
+    status {Job::TO_CODE[:error]}
+  end
+
+  factory :completed_job do
+    sequence(:name, 0) { |n| "Private/Step#{n}" }
+    business
+    status_message "message from heaven"
+    status {Job::TO_CODE[:finished]}
+  end
+
+  factory :mode do
+    sequence(:name, 0) { |n| ["Initial", "Signup", "Idle", "Update"][n] }
+  end
+
+  factory :business_site_mode do
+    business
+    site
+    mode
+  end
+  factory :bing_category1, class: BingCategory do
+    parent_id nil
+    name "root"
+    name_path nil
+  end
+
+  factory :bing_category2, class: BingCategory do
+    name "Home & Family"
+    name_path "[Application]\\Structure\\Content\\Categories\\Business\\Master\\11734"
+    association :parent, factory: :bing_category1
+  end
+
+  factory :bing_category3, class: BingCategory do
+    name "Kitchens"
+    name_path "[Application]\\Structure\\Content\\Categories\\Business\\Master\\11734\\11858"
+    association :parent, factory: :bing_category2
+  end
+
+  factory :bing, class: Bing do
+    email "smith@test.dev"
+    password "qcSAnkdMCw"
+    secret_answer "hohoho"
+    association :bing_category, factory: :bing_category3
+    association :business, factory: :business
+  end
+
+
 end

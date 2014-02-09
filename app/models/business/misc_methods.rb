@@ -32,13 +32,30 @@ module Business::MiscMethods
     end
 
     def paused?
-      self.paused_at.nil? ? false : true
+      self.paused_at.present? 
     end
 
+    def stopped?
+      self.paused_at.present? || !self.categorized || !valid?
+    end 
+
+    def stopped_because
+      a = []
+      a << "paused at #{self.paused_at}" if paused?
+      a << "has not been categorized" if !categorized
+      a << "does not validate" if !valid?
+
+      if a.empty?
+        nil
+      else 
+        "Business " + a.to_sentence
+      end 
+    end 
+
+
     def add_job(name)
-      site, payload = *name.split("/")
-      p = Payload.by_site_and_payload( site, payload )
-      job = Job.inject(self.id, p.payload, p.data_generator, p.ready)
+      p = Payload.by_name(name)
+      job = Job.inject(self, p )
       job.name = name
       job.save
     end
@@ -74,11 +91,6 @@ module Business::MiscMethods
         self.send "#{day}_open=", '08:30AM' if self.send("#{day}_open") == nil
         self.send "#{day}_close=", '05:30PM'  if self.send("#{day}_close") == nil
       end
-    end
-
-    def checkin
-      self.client_checkin = Time.now
-      save
     end
 
     def list_payloads
@@ -125,9 +137,11 @@ module Business::MiscMethods
       # NOTE: temporary fix to get Bing/SignUp first
       bing = Payload.find_by_site_id_and_name(Site.find_by_name("Bing").id, "SignUp")
       if CompletedJob.where(:business_id => self.id, :name => "Bing/SignUp").count == 0
-        job      = Job.inject(self.id, bing.client_script, bing.data_generator, bing.ready)
+        job      = Job.inject(self, bing )
         job.name = "Bing/SignUp"
         job.save
+
+        return # dont queue anything else until we have a bing sign up. 
       end
 
       PackagePayload.by_package(sub.package_id).each do |obj|
@@ -150,9 +164,10 @@ module Business::MiscMethods
 
         payload = Payload.where(:site_id => site.id, :mode_id => mode.id).root
         next unless payload
-        next if payload.id = bing.id
+        next if payload.id == bing.id
+        next if payload.paused_at
 
-        job      = Job.inject(self.id, payload.client_script, payload.data_generator, payload.ready)
+        job      = Job.inject(self, payload )
         job.name = "#{site.name}/#{payload.name}"
         job.save
       end
@@ -166,13 +181,12 @@ module Business::MiscMethods
     end
 
     def birthday
-      date = self.contact_birthday
-      if date == nil
+      if self.contact_birthday.blank? 
         date = Date.today - 30.year - (rand()*365).day
-        self.contact_birthday = date
+        self.contact_birthday = date.strftime( '%Y-%m-%d') # this really needs to be migrated to a date datatype
         self.save
       end
-      Date.strptime.to_s(self.contact_birthday, '%Y-%m-%d')
+      Date.iso8601(self.contact_birthday)
     end
 
     def report_xlsx

@@ -22,6 +22,10 @@ class Package < ActiveRecord::Base
     subtotal - self.price 
   end 
 
+  def available_jobs
+    package_payloads.map{ |p| p.site.payloads.map{ |pl| p.site.name + '/' + pl.name}}.flatten
+  end 
+
   def self.list
     ret = []
     Package.all.each do |package|

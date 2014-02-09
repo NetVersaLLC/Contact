@@ -3,36 +3,49 @@
     %li 
       %a{ href: "/dashboard"}
         %i.icon-dashboard
-        %span.menu-text Dashboard 
-    %li 
-      = link_to businesses_search_path do 
-        %i.icon-text-width 
-        %span.menu-text Locations 
+          %span.menu-text Dashboard 
+    -if can? :update, Business
+      %li 
+        = link_to businesses_search_path do 
+          %i.icon-text-width 
+          %span.menu-text Locations 
 
-    - if can? :manage, User #current_user.reseller?
+    - if can? :create, User 
       %li 
         = link_to users_path do
           %i.icon-desktop
           %span.menu-text Users 
-    %li
-      = link_to accounts_path do  
-        %i.icon-list 
-        %span.menu-text Accounts
+    -if can? :read, ClientData
+      %li
+        = link_to accounts_path do  
+          %i.icon-list 
+          %span.menu-text Accounts
     -if can? :manage, Coupon
       %li
         %a{ href: '/coupons'}
           %i.icon-barcode
           %span.menu-text Coupons
+    -if can? :manage, CallCenter
+      %li
+        %a{ href: '/call_centers'}
+          %i.icon-group
+          %span.menu-text Call Centers
     -if can? :manage, WebDesign
       %li
         =link_to web_designs_path do
           %i.icon-globe
           %span.menu-text Web Design
-    -if current_user.reseller?
+    -if can? :manage, Business
       %li
         %a{ href: '/customers'}
           %i.icon-group
           %span.menu-text Customers
+    -if can? :manage, Notification
+      %li
+        = link_to notifications_path do 
+          %i.icon-calendar
+          %span.menu-text Notifications
+    -if can? :read, Business
       = render "layouts/sidebar_reseller"
     = render "layouts/sidebar_admin"
   .sidebar-collapse#sidebar-collapse
