@@ -99,7 +99,7 @@ gem "redcarpet"
 #gem "meta_search"
 #gem "activeadmin"
 gem 'has_scope'
-gem "acitree-rails", :git => 'git@github.com:jjeffus/acitree-rails.git'
+gem "acitree-rails", :git => 'https://github.com/jjeffus/acitree-rails.git' #'git@github.com:jjeffus/acitree-rails.git'
 gem "sugarcrm"
 gem "browser"
 gem "useragent"
