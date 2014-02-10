@@ -1,7 +1,8 @@
 %head
   %meta{:charset => "utf-8"}/
   %title
-    = current_label.name
+    - if !current_label.nil?
+      = current_label.name
   %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
   %meta{:content => "", :name => "description"}/
   %meta{:content => "", :name => "author"}/
@@ -51,5 +52,7 @@
 
   = csrf_meta_tags
   %style{:type => "text/css"}
-    = current_label.custom_css
-  %link{:rel => "icon", :type => "image/ico", :href => current_label.favicon_url}/
+    - if !current_label.nil?
+      = current_label.custom_css
+  - if !current_label.nil?
+    %link{:rel => "icon", :type => "image/ico", :href => current_label.favicon_url}/

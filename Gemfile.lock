@@ -12,7 +12,7 @@ GIT
       will_paginate
 
 GIT
-  remote: git@github.com:jjeffus/acitree-rails.git
+  remote: https://github.com/jjeffus/acitree-rails.git
   revision: fdc53aee55e3468e9df36105003b2de431a4f8b6
   specs:
     acitree-rails (3.7.0)
