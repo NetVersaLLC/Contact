@@ -651,12 +651,28 @@
     ],
       'Georgialocalsearch'
   ],
+  ['Iformative', 'iformatives',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'iformative_category']
+    ],
+      'Iformative'
+  ],
   ['Infopagina', 'infopaginas',
     [
       ['text', 'email'],
       ['text', 'password']
     ],
       'Infopagina'
+  ],
+  ['Mysheriff', 'mysheriffs',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'mysheriff_category']
+    ],
+      'Mysheriff'
   ],
   ['Mysunshinemedia', 'mysunshinemedias',
     [
