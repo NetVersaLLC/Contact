@@ -37,6 +37,13 @@
     ],
       'CitySquares'
   ],
+  ['Fyple', 'fyples',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Fyple',
+  ],
   ['Getfave', 'getfave',
     [
       ['text', 'email'],
