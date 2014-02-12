@@ -22,7 +22,18 @@ class Magicyellow < ClientData
     	return @password,@email
 	end  
 
-
-
+  def self.payments(business) 
+    p = []
+    p << '11' if business.accepts_cash 
+    p << '6'  if business.accepts_checks
+    p << '2'  if business.accepts_mastercard
+    p << '1'  if business.accepts_visa
+    p << '4'  if business.accepts_discover
+    p << '8'  if business.accepts_diners
+    p << '3' if business.accepts_amex
+    p << '9'  if business.accepts_paypal
+    #p << '11' if business.accepts_bitcoin
+    p
+  end 
 
 end
