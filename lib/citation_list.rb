@@ -616,6 +616,22 @@
     ],
       'Postgazette'
   ],
+  ['Bigwigbiz', 'bigwigbizs',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'bigwigbiz_category']
+    ],
+      'Bigwigbiz'
+  ],
+  ['Nsphere', 'nspheres',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'nsphere_category']
+    ],
+      'Nsphere'
+  ],
   ['Nationalwebdir', 'nationalwebdirs',
     [
       ['text', 'email'],
@@ -642,12 +658,28 @@
     ],
       'Georgialocalsearch'
   ],
+  ['Iformative', 'iformatives',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'iformative_category']
+    ],
+      'Iformative'
+  ],
   ['Infopagina', 'infopaginas',
     [
       ['text', 'email'],
       ['text', 'password']
     ],
       'Infopagina'
+  ],
+  ['Mysheriff', 'mysheriffs',
+    [
+      ['text', 'email'],
+      ['text', 'password'],
+      ['select', 'mysheriff_category']
+    ],
+      'Mysheriff'
   ],
   ['Mysunshinemedia', 'mysunshinemedias',
     [

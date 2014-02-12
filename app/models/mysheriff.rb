@@ -1,4 +1,4 @@
-class Cylex < ClientData  
+class Mysheriff < ClientData  
   attr_accessible :business_id, :created_at, :email, :listing_url, :force_update, :secretsi, :status
   virtual_attr_accessor :password
 #  validates :password,

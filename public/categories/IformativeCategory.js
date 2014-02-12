@@ -1,0 +1,1 @@
+window.IformativeCategory=["root",1];
