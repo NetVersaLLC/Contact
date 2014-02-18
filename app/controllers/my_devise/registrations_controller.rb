@@ -22,6 +22,9 @@ class MyDevise::RegistrationsController < Devise::RegistrationsController
     if @user.callcenter || creating_reseller
       @user.password = @user.password_confirmation = @user.temp_password = SecureRandom.random_number(1000000)
     end 
+    if current_user.instance_of? SalesPerson 
+      @user.call_center_id = current_user.manager.call_center_id
+    end
 
     if @user.save
 

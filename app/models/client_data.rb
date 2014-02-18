@@ -5,6 +5,7 @@ class ClientData < ActiveRecord::Base
   #self.abstract_class = true   # this breaks single table inheritance
   belongs_to      :business
   attr_accessible :force_update, :do_not_sync, :listing_url, :status
+  attr_accessible :email, :username
   serialize       :secrets, CerebusClient.new
   after_find      :deserialize_attributes
   before_save     :serialize_attributes

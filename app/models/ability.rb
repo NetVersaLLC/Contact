@@ -44,7 +44,7 @@ class Ability
       can :manage, CustomerServiceAgent, :call_center_id => user.call_center_id
       can :read, Manager, :id => user.id
       can [:create, :update, :read], User, :manager_id => user.id
-      can :manage, Business, :sales_person => { :manager_id => user.id }
+      can :manage, Business, :call_center_id => user.call_center_id
       can :manage, Note, :business => { :call_center_id => user.call_center_id}
       can :manage, User, :call_center_id => user.call_center_id #:businesses => {:sales_person => { :manager_id => user.id}}
       can :manage, Subscription, :business => {:sales_person => { :manager_id => user.id}}
