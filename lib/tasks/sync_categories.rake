@@ -5,7 +5,7 @@ namespace :sync do
         if row[0] == 'select'
           klass = row[1].classify.constantize
           #next if klass == GoogleCategory
-          next unless klass == MeetlocalbizCategory
+          next unless klass == MysheriffCategory
 
           if klass == AngiesListCategory
             fixedName = "angies_list"
