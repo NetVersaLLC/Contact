@@ -70,6 +70,14 @@ class UsersController < ApplicationController
       render :edit
     end 
   end 
+  def destroy 
+    user = User.find(params[:id])
+    authorize! :destroy, user
+
+    user.delete
+    flash[:notice] = "User has been deleted."
+    redirect_to users_url
+  end
 
   def token
     user = User.find_by_email( params[:email] )
