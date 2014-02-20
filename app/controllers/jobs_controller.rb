@@ -118,6 +118,7 @@ class JobsController < ApplicationController
           @screenshot = Screenshot.new
           @screenshot.data = QqFile.parse(params[:screenshot], request)
           @screenshot.save
+          @job.update_attribute(:screenshot_id, @screenshot.id)
         end
         @failed_job = @job.failure(params[:message], params[:backtrace], @screenshot)
       end
