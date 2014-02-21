@@ -50,6 +50,9 @@ class Job < JobBase
       begin
         eval self['data_generator']
       rescue Exception => e
+        self.status_message = "data_generator.rb is invalid."
+        self.backtrace = e.message
+        self.save
         self.is_now(FailedJob)
         raise "#{self.name}: #{e.message}: #{self.business_id}"
       end
