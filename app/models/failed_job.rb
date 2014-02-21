@@ -9,9 +9,10 @@ class FailedJob < JobBase
   def self.resolve_by_grouping_hash( group_hash, inject_new = true  ) 
     failed_jobs = FailedJob.where(grouping_hash: group_hash)
     failed_jobs.each do |failed_job| 
-      payload ||= Payload.find( failed_job.payload_id ) # cache it.  
-
-      Job.inject( failed_job.business, payload ) if inject_new
+      unless CompletedJob.where(:name => failed_job.name, business_id: failed_job.business_id).last
+        payload ||= Payload.find( failed_job.payload_id ) # cache it.  
+        Job.inject( failed_job.business, payload ) if inject_new
+      end 
 
       failed_job.delete
     end 
