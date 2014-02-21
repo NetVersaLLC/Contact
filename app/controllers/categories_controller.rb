@@ -23,14 +23,14 @@ class CategoriesController < ApplicationController
             if klass == FacebookProfileCategory
               category_id = profile_category_id
             end
-
             category         = klass.where(:id => category_id).first
             next if category == nil
-            category_name    = category.name
+            #category_name    = category.name
             break
 	        end
-          load_button = '<input type="button" onclick="window.loadCategory(\''+klass.to_s+'\')" value="Select" />'
-          thisRow.push "<div class='category_selected'>#{category_name} #{load_button}</div>"
+          #load_button = '<input type="button" onclick="window.loadCategory(\''+klass.to_s+'\')" value="Select" />'
+          thisRow.push "" #"<div class='category_selected'>#{category_name} #{load_button}</div>"
+          thisRow.push category_id
           @categories.push thisRow
         end
       end
@@ -57,10 +57,12 @@ class CategoriesController < ApplicationController
         end
         category = $1.constantize
 
-        inst = business.get_site(model)
-        #inst.category_id = cats[category_model]
-        inst.send(attribute_name, cats[category_model])
-        inst.save!
+        affected_records = model.update_all({category_id: cats[category_model]}, business_id: business.id)
+        if affected_records == 0 
+          inst = business.get_site(model)
+          inst.category_id = cats[category_model]
+          inst.save!
+        end 
       end
     end
 

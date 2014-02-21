@@ -1,52 +1,33 @@
-findTier = (arr, id)->
-  if parseInt(arr[1]) == parseInt(id)
-    return arr
-  if arr.length > 2
-    found = null
-    $.each arr[2], (i,e)->
-      retVal = findTier(e, id)
-      if retVal != null
-        found = retVal
-    if found != null
-      return found
-  return null
 
 setSelection = (model, tier)->
   $('#title_'+model).html( tier[0] )
   $('#'+model.toLowerCase()).val( tier[1] )
 
-window.subCategory = (select)->
-  val   = $(select).val()
-  model = $(select).attr('data-model')
-  arr   = eval "window."+model
-  tier  = findTier(arr, val)
-  div   = $(select).next()
-  if tier.length < 3
-    setSelection(model, tier)
-    return
-  html = '<select class="aSelect" onchange="window.subCategory(this)" data-model="'+model+'">'
-  $.each tier[2], (i,e)->
-    html += '<option value="'+e[1]+'">'+e[0]+'</option>'
-  html += '</select><div class="nextCategory"></div>'
-  div.html(html)
+add_option = (category, element, depth) -> 
+  opt = document.createElement("Option")
+  opt.value = category[1]
+  opt.text = category[0]
+  element.appendChild(opt) 
 
-window.firstCategory = (select)->
-  model = $(select).attr('data-model')
-  arr   = eval "window."+model
-  setSelection(model, arr[2])
-  window.subCategory(select)
+  if category.length == 3 
+    opt.text = depth + category[0]
+    opt.disabled = true
+    add_options( category[2], element, depth + category[0].substr(0,5) + " > ")
+
+
+
+
+add_options = (categories, element, depth) -> 
+  options = (add_option(category, element, depth) for category in categories)
 
 window.loadCategory = (model)->
-  arr = eval "window."+model
+  categories = eval "window."+model
+  return unless categories.length == 3 
+
   $('#title_'+model).html('')
-  html = '<select class="topSelect" onchange="window.subCategory(this)" data-model="'+model+'">'
-  $.each arr, (j,e) ->
-    if j == 0
-      return
-    $.each e, (i, em)->
-      html += '<option value="'+em[1]+'">'+em[0]+'</option>'
-  html += '</select><div class="nextCategory"></div>'
-  $('#selector_'+model).html(html)
+  select = document.getElementById(model.toLowerCase())
+  add_options(categories[2], select, '')
+
 
 $(document).ready ()->
   $('#categoryForm').append('<input type="hidden" name="authenticity_token" value="'+$('meta[name="csrf-token"]').attr('content')+'" />')
