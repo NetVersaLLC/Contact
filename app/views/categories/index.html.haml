@@ -60,7 +60,9 @@
 
 :javascript
   $( function() {
+ 
     $('.chosen-select').each( function() { 
+        console.log( $(this).attr("data-model") );
         window.loadCategory($(this).attr("data-model")); 
         value = $(this).attr("data-value")
         if( value.length > 0 )
