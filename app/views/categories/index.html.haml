@@ -62,7 +62,6 @@
   $( function() {
  
     $('.chosen-select').each( function() { 
-        console.log( $(this).attr("data-model") );
         window.loadCategory($(this).attr("data-model")); 
         value = $(this).attr("data-value")
         if( value.length > 0 )
@@ -70,7 +69,7 @@
           $(this).find("option[value='" + value + "']").attr("selected",true);
         }
       }); 
-    $('.chosen-select').chosen();
+    $('.chosen-select').chosen({width: '60%'});
 
     $('#business-category').autocomplete({
       source: function(req, add){
