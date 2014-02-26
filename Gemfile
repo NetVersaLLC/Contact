@@ -53,7 +53,7 @@ end
 
 gem "aws-sdk", "~> 1.11.3"
 gem 'nokogiri'
-gem 'jquery-rails'
+#gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-cookie-rails'
 gem 'devise'

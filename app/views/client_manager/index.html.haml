@@ -36,6 +36,10 @@
             -else 
               %i.icon-circle.green
               Running
+          %dt
+          %dd
+            - if @business.paused_at  
+              %button#unpause.btn.btn-success(type="button") Unpause
     .row
       .col-md-12
         #preview
@@ -61,10 +65,6 @@
           #errors.tab-pane
           -if can? :create, Payload
             #payloads.tab-pane
-              -#%form.form-inline
-                %input#new_node_name{ name: "new-node-name", placeholder: "Node name"}
-                %button#add_payload_node.btn.btn-info.btn-sm{ type: "button"} Add Node 
-                %button#save_payload_nodes.btn.btn-sm{ type: "button"} Save
               %div
                 %a#expand-nodes{href: "#"} Expand all
                 | 

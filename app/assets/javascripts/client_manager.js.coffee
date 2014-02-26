@@ -7,6 +7,19 @@ get_job_data = (e) ->
   status_message: job.attr("data-status-message")
 
 registerHooks = ()->
+  $("#unpause").click (e) -> 
+    data = 
+      '_method': 'put'
+      business: 
+        paused_at: ''
+    url = "/businesses/#{window.business_id}.json"
+    $.post url, data, (result) -> 
+      window.location.reload(true)
+
+  $('.edit_business').on "ajax:success", (e, data, status, xhr) ->
+    $.gritter.add 
+      title: "Unpaused" 
+      class_name: "gritter-success"
   $('.rerun').click (e) -> 
     e.preventDefault()
     bootbox.confirm "Are you sure you want to restart the job?", (result) ->
