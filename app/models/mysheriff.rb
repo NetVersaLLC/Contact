@@ -6,6 +6,9 @@ class Mysheriff < ClientData
   def has_categories? 
     true
   end 
+  def self.make_password 
+    (SecureRandom.random_number * 10000000000000).to_i.to_s(36) 
+  end
 
   def self.payment_methods(business)
     prefix = 'ctl00$ContentPlaceHolder1$Payment$r$ctl__ID__$cb'
