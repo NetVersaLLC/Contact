@@ -13,7 +13,7 @@ class CodesController < ApplicationController
     
     if params[:screen_to_phone] 
       render 'new_screen_to_phone' 
-    elsif params[:mail] 
+    elsif params[:mail] || params[:next_job] == 'VerifyMail'
       render 'new_mail_verify'
     elsif params[:site_name] == 'yahoo' 
       render 'new_yahoo'
