@@ -28,11 +28,6 @@ class UsersController < ApplicationController
 
     authorize! :create, user
 
-<<<<<<< HEAD
-    # user.call_center_id = current_user.call_center_id
-=======
->>>>>>> bb8b82e25eca36bda96c1b29dc6987c688df66e0
-
     user.update_attributes( params[:user] )
     user.save!
 
