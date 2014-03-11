@@ -15,9 +15,9 @@
         %tr
           %td 
             %strong Active Subscriptions
-          %td= Business.accessible_by(current_user).includes(:subscription).where("subscriptions.active = true").count()
+          %td= Business.includes(:subscription).where(:call_center_id => current_user.call_center_id).where("subscriptions.active = true").count()
         %tr
           %td 
             %strong Monthly Fees
-          %td= number_to_currency(Business.accessible_by(current_user).includes(:subscription).where("subscriptions.active = true").sum(:monthly_fee)/100.0)
+          %td= number_to_currency(Business.includes(:subscription).where(:call_center_id => current_user.call_center_id).where("subscriptions.active = true").sum(:monthly_fee)/100.0)
 
