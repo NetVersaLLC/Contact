@@ -1,6 +1,23 @@
 .row 
   .col-xs-6
+    =render "clients_not_checking_in"
+    - if @scan_reports.empty? 
+      .alert.alert-success 
+        No scan reports have been requested. 
+    - else 
+      =render "scans_requested"
     =render partial: "recent_sales"
   .col-xs-6
     =render partial: "leaderboard", locals: { call_center: current_user.call_center }
+    %table.table.table-bordered
+      %legend Statistics
+      %tbody
+        %tr
+          %td 
+            %strong Active Subscriptions
+          %td= current_label.subscriptions.where(active: true).count()
+        %tr
+          %td 
+            %strong Monthly Fees
+          %td= number_to_currency(current_label.subscriptions.where(active: true).sum(:monthly_fee) / 100.0)
 

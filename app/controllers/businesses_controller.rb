@@ -91,6 +91,7 @@ class BusinessesController < InheritedResources::Base
     respond_to do |format| 
       format.html {redirect_to business_path(business)}
       format.json {render json: business}
+      format.js {render json: business}
     end 
   end 
 

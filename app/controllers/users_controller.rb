@@ -28,10 +28,17 @@ class UsersController < ApplicationController
 
     authorize! :create, user
 
+<<<<<<< HEAD
     # user.call_center_id = current_user.call_center_id
+=======
+>>>>>>> bb8b82e25eca36bda96c1b29dc6987c688df66e0
 
     user.update_attributes( params[:user] )
     user.save!
+
+    if user.kind_of?(SalesPerson)
+      user.update_attribute(:call_center_id, user.manager.call_center_id)
+    end 
 
     flash[:notice] = user.full_name + " created." 
     redirect_to new_user_url

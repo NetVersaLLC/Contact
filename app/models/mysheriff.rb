@@ -6,20 +6,21 @@ class Mysheriff < ClientData
   def has_categories? 
     true
   end 
+  def self.make_password 
+    (SecureRandom.random_number * 10000000000000).to_i.to_s(36) 
+  end
 
   def self.payment_methods(business)
-    prefix = 'ctl00$ContentPlaceHolder1$Payment$r$ctl__ID__$cb'
     methods = {
-      cash:       "14",
-      checks:     "03",
-      mastercard: "15",
-      visa:       "17",
-      discover:   "05",
-      diners:     "09",
-      amex:       "13",
-      paypal:     "16"
+      cash:       "cash",
+      checks:     "cheque",
+      mastercard: "mastercard",
+      visa:       "visa",
+      #discover:   "discover",
+      diners:     "diners_club",
+      amex:       "american_express",
+      paypal:     "paypal"
     }
-    methods = methods.merge(methods){|method,id|prefix.gsub("__ID__",id.to_s)}
     accepted = []
     methods.each_key do |type|
       if business.send("accepts_#{type}".to_sym) == true
@@ -33,18 +34,18 @@ class Mysheriff < ClientData
     hours = {}
     days = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday']
     days.each do |day|
-        if business.send("#{day}_enabled".to_sym) == true
-            hours[ "#{day}" ] =
-                [
-                    business.send("#{day}_open".to_sym).downcase.gsub("am"," am").gsub("pm"," pm"),
-                    business.send("#{day}_close".to_sym).downcase.gsub("am"," am").gsub("pm"," pm")
-                ]
+      day_nnn = day[0..2]
+      day_nnn = 'thur' if day == 'thursday' 
 
-        else
-          hours[ "#{day}" ] = nil
-        end
+      if business.send("#{day}_enabled".to_sym) == true
+          hours[ "#{day_nnn}_open" ] = business.send("#{day}_open".to_sym).downcase.gsub(/\A0/,"")
+          hours[ "#{day_nnn}_close" ] = business.send("#{day}_close".to_sym).downcase.gsub(/\A0/,"")
+      else
+        hours[ "#{day_nnn}_open" ] = "Closed"
+        hours[ "#{day_nnn}_close" ] = "Closed"
+      end
     end
-        return hours
+    return hours
   end  
 
 end

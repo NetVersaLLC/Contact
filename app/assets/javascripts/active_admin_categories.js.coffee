@@ -6,15 +6,13 @@ setSelection = (model, tier)->
 add_option = (category, element, depth) -> 
   opt = document.createElement("Option")
   opt.value = category[1]
-  opt.text = category[0]
+  opt.text = depth + category[0]
   element.appendChild(opt) 
 
   if category.length == 3 
     opt.text = depth + category[0]
     opt.disabled = true
-    add_options( category[2], element, depth + category[0].substr(0,5) + " > ")
-
-
+    add_options( category[2], element, depth + category[0].substr(0,5) + "... > ")
 
 
 add_options = (categories, element, depth) -> 

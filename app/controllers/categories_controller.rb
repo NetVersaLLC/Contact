@@ -21,7 +21,7 @@ class CategoriesController < ApplicationController
             category_id      = row.shift
             profile_category_id = row.shift
             if klass == FacebookProfileCategory
-              category_id = profile_category_id
+              category_id = profile_category_id || ""
             end
             category         = klass.where(:id => category_id).first
             next if category == nil
@@ -50,14 +50,14 @@ class CategoriesController < ApplicationController
       if category_model != nil and cats[category_model].to_i > 0 and category_model =~ /((.*?)Category)/
         if $2 == "FacebookProfile"
           model = "Facebook".constantize
-          attribute_name = "profile_category_id="
+          attribute_name = "profile_category_id"
         else
           model    = $2.constantize
-          attribute_name = "category_id="
+          attribute_name = "category_id"
         end
         category = $1.constantize
 
-        affected_records = model.update_all({category_id: cats[category_model]}, business_id: business.id)
+        affected_records = model.update_all({attribute_name => cats[category_model]}, business_id: business.id)
         if affected_records == 0 
           inst = business.get_site(model)
           inst.category_id = cats[category_model]

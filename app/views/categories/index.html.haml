@@ -60,6 +60,7 @@
 
 :javascript
   $( function() {
+ 
     $('.chosen-select').each( function() { 
         window.loadCategory($(this).attr("data-model")); 
         value = $(this).attr("data-value")
@@ -68,7 +69,7 @@
           $(this).find("option[value='" + value + "']").attr("selected",true);
         }
       }); 
-    $('.chosen-select').chosen();
+    $('.chosen-select').chosen({width: '60%'});
 
     $('#business-category').autocomplete({
       source: function(req, add){

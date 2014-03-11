@@ -51,6 +51,10 @@ class Ability
       can :manage, ClientData, :business => {:call_center_id => user.call_center_id}
       can :read, CallCenter, :id => user.call_center_id
       #can :read,   Report, :label_id => user.label_id
+      can :read,   Report, :label_id => user.label_id
+      can :manage, Coupon, :label_id => user.label_id
+      can :manage,  [Job, CompletedJob, FailedJob], :label_id => user.label_id
+      can :manage, Notification, :business => { :call_center_id => user.call_center_id } 
     elsif user.is_a? SalesPerson
       can :manage, Business, :sales_person_id => user.id
       can :manage, Note, :business => { :sales_person_id => user.id }

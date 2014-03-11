@@ -1,5 +1,5 @@
 //= require dummy
-//= require jquery_ujs
+//= require rails
 // resquire aeasypaginate
 //= require jquery.cookie
 //= require jquery.colorbox-min

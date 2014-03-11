@@ -12,10 +12,8 @@
     - @rows.each do |row|
       %tr
         %td= link_to row['type'], account_path(row["id"])
-        - if row['listing_url'].nil?
-          %td
-        - else
-          %td
+        %td
+          - if row['listing_url'].present?
             = link_to 'View Listing', row['listing_url'], :class => 'btn btn-info'
         %td{:title => distance_of_time_in_words_to_now(ClientData.last_update( row['business_id'], row['type'] ) || row['updated_at'])}
           = row['status'].nil? ? '' : row['status']
