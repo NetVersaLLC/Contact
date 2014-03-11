@@ -28,7 +28,6 @@ class UsersController < ApplicationController
 
     authorize! :create, user
 
-
     user.update_attributes( params[:user] )
     user.save!
 

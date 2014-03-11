@@ -39,10 +39,7 @@
           =image_tag @site.logo.url
           %div
             %small.text-muted
-              -if @site.logo_file_name.blank?
-                Default Imag:
-              -else 
-                =@site.logo_file_name
+              = @site.logo.url()
         .clearfix.form-actions
           .col-md-offset-3.col-md-9
             %button.btn.btn-info(type="submit") 
