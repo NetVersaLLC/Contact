@@ -28,8 +28,13 @@ class UsersController < ApplicationController
 
     authorize! :create, user
 
+
     user.update_attributes( params[:user] )
     user.save!
+
+    if user.kind_of?(SalesPerson)
+      user.update_attribute(:call_center_id, user.manager.call_center_id)
+    end 
 
     flash[:notice] = user.full_name + " created." 
     redirect_to new_user_url
