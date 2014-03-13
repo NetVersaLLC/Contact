@@ -78,7 +78,6 @@
     [
       ['text', 'username'],
       ['text', 'password'],
-      ['text', 'twitter_page']
     ],
       'Twitter'
   ],
@@ -130,7 +129,6 @@
       ['text', 'email'],
       ['text', 'password'],
       ['select', 'foursquare_category'],
-      ['text', 'foursquare_page']
     ],
       'Foursquare'
   ],
@@ -281,7 +279,6 @@
     [
       ['text', 'username'],
       ['text', 'password'],
-      ['text', 'secret1'],
       ['select', 'zippro_category']      
     ],
       'Zippro'
