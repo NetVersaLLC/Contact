@@ -13,4 +13,7 @@ json.jobs @jobs do |job|
   json.payload        job.payload
   json.backtrace      job.backtrace
   json.data           job.data_generator
+  if job.kind_of? Job 
+    json.runtime        job.runtime
+  end 
 end 
