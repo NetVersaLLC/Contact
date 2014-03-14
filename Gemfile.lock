@@ -293,6 +293,7 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    railroady (1.1.1)
     rails (3.2.15)
       actionmailer (= 3.2.15)
       actionpack (= 3.2.15)
@@ -477,6 +478,7 @@ DEPENDENCIES
   pry-rails
   pry-remote
   pry-stack_explorer
+  railroady
   rails (= 3.2.15)
   ransack
   rate-limiting

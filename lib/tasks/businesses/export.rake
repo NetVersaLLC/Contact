@@ -7,6 +7,8 @@ namespace :businesses do
     Rails.application.eager_load!
     b = Business.find args[:bid]
     values = []
+    count = Business.citation_list.length
+    STDERR.puts "Count: #{count}"
     Business.citation_list.each do |data|
       model = data[0].constantize
       obj = model.where(:business_id => b.id).first
@@ -22,9 +24,11 @@ namespace :businesses do
           hash[row[1]] = value
         end
       end
-      hash['login_url'] = site.login_url
+      hash['login_url'] = site.login_url if site.respond_to? :login_url
       values.push hash
     end
-    File.open("#{b.id}.json", "w").write values.to_json
+    file = "/tmp/#{b.id}.json"
+    File.open(file, "w").write values.to_json
+    puts file
   end
 end
