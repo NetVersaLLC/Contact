@@ -1,0 +1,34 @@
+<html>
+<head>
+</head>
+<body>
+<h3> <%= @business.name %>  - Payload Completion Status Report </h3>	
+
+<% if @data.empty? %>
+	<P> No package sites for <%=@business.name%> </p>
+<% else %>
+	<table border="1" style="width:300px">
+		<tr>
+  			<th>Site Name</th>
+  			<th>Total</th> 
+  			<th>Completed</th>
+			<th>Uncompleted</th>
+			<th>Completed Percent</th>
+		</tr>
+		
+		<% @data.each do |row| %>
+			<tr>
+  			<td> <%= row['site']%> </td>
+  			<td> <%= row['total']%> </td> 
+  			<td> <%= row['completed']%> </td>
+  			<td> <%= row['uncompleted']%> </td>
+			<td> <%= row['percent']%> </td>
+			</tr>
+		<% end %>
+		
+	</table>
+<% end %>
+
+</body>
+	
+</html>
