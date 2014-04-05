@@ -678,6 +678,15 @@
     ],
       'Mysheriff'
   ],
+
+  ['Expertfocus', 'expertfocus',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Expertfocus'
+  ],
+
   ['Mysunshinemedia', 'mysunshinemedias',
     [
       ['text', 'email'],
