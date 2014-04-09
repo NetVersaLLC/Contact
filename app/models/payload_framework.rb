@@ -1,8 +1,12 @@
 require "nokogiri"
 
 class PayloadFramework
+  attr_reader :data
   def initialize(data)
-    @data = data
+    @data = {}
+    data.each do |key, value|
+      @data[:"#{key}"] = value
+    end
     elements
     run
   end
@@ -87,9 +91,10 @@ class PayloadFramework
   end
 
   def context_member(name,value=nil)
+    puts name.class
     if elements[context][:members].nil?
       raise "Context #{context} has no members!"
-    elsif elements[context][:members][name].nil?
+    elsif elements[context][:members][name.to_sym].nil?
       raise "Context member #{name} is not defined on #{context}!"
     end
     @elements[context][:members][name.to_sym] = value unless value.nil?
@@ -102,6 +107,7 @@ class PayloadFramework
     wrapper = context_elements[:wrapper]
     selector = context_elements[element]
     if selector.nil?
+      puts context_elements, element
       member, selector = element.to_s.split(":").map{|s|s.to_sym}
       if context_elements[:members].keys.include? member
         template = context_elements[selector]
