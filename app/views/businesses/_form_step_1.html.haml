@@ -27,7 +27,8 @@
 
       =render partial: "form_group", locals: { f: f, field: :address2, args: {maxlength: '100', data: {:toggle => ''}}}
       =render partial: "form_group", locals: { f: f, field: :city}
-      =render partial: "form_group_select", locals: { f: f, items: Carmen::states('US'),  field: :state }
+      =render partial: "form_group_select", locals: { f: f, items: Carmen::states('US')+['--']+Carmen::states('CA'),  field: :state }
+      =render partial: "form_group_select", locals: { f: f, items: ['United States', 'Canada'],  field: :country}
       =render partial: "form_group", locals: { f: f, field: :zip}
 
 -#      %h3 Whos the boss 

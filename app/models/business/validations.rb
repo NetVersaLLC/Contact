@@ -21,8 +21,7 @@ module Business::Validations
     validates :corporate_name, :length => { :maximum => 50 },
       :presence => true
     validates :zip,
-      :presence => true,
-      :format => { :with => zip_regex, :message => 'Invalid format'}
+      :presence => true
     
     validates :keywords,
       :presence => true

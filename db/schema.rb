@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140306194714) do
+ActiveRecord::Schema.define(:version => 20140411070521) do
 
   create_table "accounts", :force => true do |t|
     t.integer  "business_id"
@@ -119,18 +119,6 @@ ActiveRecord::Schema.define(:version => 20140306194714) do
   end
 
   add_index "angies_lists", ["business_id"], :name => "index_angies_lists_on_business_id"
-
-  create_table "aols", :force => true do |t|
-    t.integer  "business_id"
-    t.datetime "force_update"
-    t.text     "secrets"
-    t.string   "username"
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
-    t.boolean  "do_not_sync",  :default => false
-  end
-
-  add_index "aols", ["username"], :name => "index_aols_on_username"
 
   create_table "bigwigbiz_categories", :force => true do |t|
     t.string   "name"
@@ -322,8 +310,8 @@ ActiveRecord::Schema.define(:version => 20140306194714) do
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
-    t.datetime "created_at",                                       :null => false
-    t.datetime "updated_at",                                       :null => false
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
     t.datetime "client_checkin"
     t.string   "category1"
     t.string   "category2"
@@ -360,6 +348,7 @@ ActiveRecord::Schema.define(:version => 20140306194714) do
     t.integer  "salesperson_id"
     t.integer  "sales_person_id"
     t.integer  "call_center_id"
+    t.string   "country",                   :default => "United States"
   end
 
   add_index "businesses", ["call_center_id"], :name => "index_businesses_on_call_center_id"
