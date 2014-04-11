@@ -28,9 +28,7 @@ $ ->
       required: true, 
       phoneUS: true
     "business[zip]":  
-      required: true,
-      digits: true,
-      rangelength: [5, 5]
+      required: true
     "business[alternate_phone]":  
       phoneUS: true
     "business[toll_free_phone]":  
