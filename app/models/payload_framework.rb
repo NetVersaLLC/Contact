@@ -2,8 +2,10 @@ require "nokogiri"
 
 class PayloadFramework
   attr_reader :data
-  def initialize(data)
+  def initialize(name,data,job)
     @data = {}
+    @name = name
+    @job = job
     data.each do |key, value|
       @data[:"#{key}"] = value
     end
@@ -22,12 +24,38 @@ class PayloadFramework
     end
   end
 
-  def enter(element)
-    browser.text_field(:xpath => xpath_for(element)).set data[element]
+  def wait_until
+    Watir::Wait.until {yield}
   end
 
-  def select(element)
-    browser.select(:xpath => xpath_for(element)).select data[element]
+  def save(*args)
+    credentials = {}
+    args.each do |arg|
+      if elements[context].include? arg
+        credentials[arg] = data[arg]
+      elsif arg.respond_to? :keys
+        credentials.merge! arg
+      else
+        raise TypeError, "expected context member or hash; got #{arg.class}"
+      end
+    end
+    @job.save_account(@name,credentials)
+  end
+
+  def chain(payload)
+    name = @name
+    @job.instance_eval do
+      payload = [name,payload].join("/")
+      self.start(payload) if @chained
+    end
+  end
+
+  def enter(element,content=data[element])
+    browser.text_field(:xpath => xpath_for(element)).set content
+  end
+
+  def select(element,content=data[element])
+    browser.select(:xpath => xpath_for(element)).select content
   end
 
   def click(element)
@@ -71,7 +99,6 @@ class PayloadFramework
   end
 
   def solve
-    captcha_reload = xpath_for(:captcha_reload)
     captcha_field = xpath_for(:captcha_field)
     until captcha_solved ||= false
       browser.text_field(:xpath => captcha_field).set _solve_captcha
@@ -81,17 +108,15 @@ class PayloadFramework
         attempts ||= 0
         attempts += 1
         raise "Captcha could not be solved" if attempts > 5
-        if captcha_reload
+        if elements[context].include? :captcha_reload
+          captcha_reload = xpath_for(:captcha_reload)
           browser.element(:xpath => captcha_reload).click
-        else 
-          browser.refresh
         end
       end
     end
   end
 
   def context_member(name,value=nil)
-    puts name.class
     if elements[context][:members].nil?
       raise "Context #{context} has no members!"
     elsif elements[context][:members][name.to_sym].nil?
@@ -107,7 +132,6 @@ class PayloadFramework
     wrapper = context_elements[:wrapper]
     selector = context_elements[element]
     if selector.nil?
-      puts context_elements, element
       member, selector = element.to_s.split(":").map{|s|s.to_sym}
       if context_elements[:members].keys.include? member
         template = context_elements[selector]
@@ -116,7 +140,7 @@ class PayloadFramework
         raise "Element not defined: #{element}"
       end
     end
-    if selector[0] == "/"
+    if selector[0].chr == "/"
       selector = selector [1..-1]
     else
       selector = wrapper.gsub(/!!!/,selector) unless wrapper.nil?

@@ -19,10 +19,19 @@ def self.payment_methods(business)
     accepted = []
     methods.each_key do |type|
       if business.send("accepts_#{type}".to_sym) == true
-        accepted.push methods[type]
+        accepted.push type #methods[type]
       end
     end
     accepted
+  end
+
+  def self.get_hours(business)
+    hours = {}
+    hours[:days_open] = []
+    time_regex = /(\d\d):(\d\d)(\w\w)/
+    days = {
+      
+    }
   end
 
 end

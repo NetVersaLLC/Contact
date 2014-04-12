@@ -120,6 +120,18 @@ ActiveRecord::Schema.define(:version => 20140411070521) do
 
   add_index "angies_lists", ["business_id"], :name => "index_angies_lists_on_business_id"
 
+  create_table "aols", :force => true do |t|
+    t.integer  "business_id"
+    t.datetime "force_update"
+    t.text     "secrets"
+    t.string   "username"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "do_not_sync",  :default => false
+  end
+
+  add_index "aols", ["username"], :name => "index_aols_on_username"
+
   create_table "bigwigbiz_categories", :force => true do |t|
     t.string   "name"
     t.integer  "parent_id"
