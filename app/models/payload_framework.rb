@@ -31,12 +31,12 @@ class PayloadFramework
   def save(*args)
     credentials = {}
     args.each do |arg|
-      if elements[context].include? arg
+      if data.include? arg
         credentials[arg] = data[arg]
       elsif arg.respond_to? :keys
         credentials.merge! arg
       else
-        raise TypeError, "expected context member or hash; got #{arg.class}"
+        raise TypeError, "expected data member or hash; got #{arg.class}"
       end
     end
     @job.save_account(@name,credentials)
