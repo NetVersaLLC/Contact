@@ -31,7 +31,7 @@ class PayloadFramework
   def save(*args)
     credentials = {}
     args.each do |arg|
-      if data.include? arg
+      if data.keys.include? arg
         credentials[arg] = data[arg]
       elsif arg.respond_to? :keys
         credentials.merge! arg
