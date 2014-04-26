@@ -1,15 +1,16 @@
 require "nokogiri"
 
 class PayloadFramework
-  attr_reader :data
+  attr_reader :data, :elements
   def initialize(name,data,job)
     @data = {}
+    @elements = {}
     @name = name
     @job = job
     data.each do |key, value|
       @data[:"#{key}"] = value
     end
-    elements
+    setup_elements
     run
   end
 
@@ -31,7 +32,7 @@ class PayloadFramework
   def save(*args)
     credentials = {}
     args.each do |arg|
-      if data.keys.include? arg
+      if data.include? arg
         credentials[arg] = data[arg]
       elsif arg.respond_to? :keys
         credentials.merge! arg
@@ -48,6 +49,14 @@ class PayloadFramework
       payload = [name,payload].join("/")
       self.start(payload) if @chained
     end
+  end
+
+  def exists?(element)
+    browser.element(:xpath => xpath_for(element)).exists?
+  end
+
+  def visible?(element)
+    browser.element(:xpath => xpath_for(element)).visible?
   end
 
   def enter(element,content=data[element])
@@ -161,3 +170,4 @@ class PayloadFramework
     File.read File.expand_path(__FILE__)
   end
 end
+
