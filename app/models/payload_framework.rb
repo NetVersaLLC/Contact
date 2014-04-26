@@ -4,7 +4,7 @@ class PayloadFramework
   attr_reader :data, :elements
   def initialize(name,data,job)
     @data = {}
-    @elements = {}
+    @elements = {:main => {}}
     @name = name
     @job = job
     data.each do |key, value|
@@ -164,6 +164,11 @@ class PayloadFramework
 
   def browser
     @browser ||= Watir::Browser.new :firefox
+    if elements[context].include? :browser_frame
+      return @browser.frame(:xpath, xpath_for(:browser_frame))
+    else
+      return @browser
+    end
   end
 
   def self._to_s
