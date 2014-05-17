@@ -142,7 +142,9 @@ class PayloadFramework
     selector = context_elements[element]
     if selector.nil?
       member, selector = element.to_s.split(":").map{|s|s.to_sym}
-      if context_elements[:members].keys.include? member
+      if context_elements.keys.include? :members \
+      and context_elements[:members].keys.include? member \
+      and context_elements.keys.include? selector
         template = context_elements[selector]
         selector = template.gsub(/!!!/,context_member(member))
       else

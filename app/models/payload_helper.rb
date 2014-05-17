@@ -1,8 +1,6 @@
 class PayloadHelper < ClientData
   def self.get_hours(business,options={})
-    if options.empty?
-      options[:strip_leading_zeros] = true
-    end
+    options[:strip_leading_zeros] ||= true
     hours = {}
     hours[:days_open] = []
     time_regex = /(\d\d):(\d\d)(\w\w)/
@@ -29,6 +27,9 @@ class PayloadHelper < ClientData
         start_time = [start_hour,start_min].join(":")
         end_time = [start_hour,start_min].join(":")
         start_merid.downcase!; end_merid.downcase!
+        if options[:upcase]
+          start_merid.upcase!; end_merid.upcase!
+        end
         hours[:"#{abbr}:start_hour"] = start_hour
         hours[:"#{abbr}:start_minute"] = start_min
         hours[:"#{abbr}:end_hour"] = end_hour
@@ -57,4 +58,17 @@ class PayloadHelper < ClientData
     end
     accepted
   end
+
+  def self.make_password
+    SecureRandom.urlsafe_base64(rand()*6 + 6)
+  end
+
+  def self.make_secret_answer1
+    Faker::Name.first_name
+  end
+
+  def self.make_secret_answer2
+    Faker::Address.city
+  end
+
 end
