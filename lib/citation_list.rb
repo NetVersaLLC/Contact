@@ -700,5 +700,12 @@
       ['text', 'password']
     ],
       'Thephonebook'
+  ],
+  ['Allthelocal', 'allthelocals',
+    [
+      ['text', 'email'],
+      ['text', 'password']
+    ],
+      'Allthelocal'
   ]
 ]
